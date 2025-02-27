@@ -9,7 +9,7 @@
 
 Вкладка *Детали шаблона* содержит панель для настройки атрибутов шаблона и панель для HTML-редактора, где вы можете спроектировать макет и содержимое шаблона.
 
-image::template-details.png[align="center", width="1177"]
+image::template-details.png[align="center", width="1176"]
 
 [[template-attributes]]
 === Настройка атрибутов шаблона

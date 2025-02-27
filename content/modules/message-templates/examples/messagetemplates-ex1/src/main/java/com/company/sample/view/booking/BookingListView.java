@@ -57,8 +57,7 @@ public class BookingListView extends StandardListView<Booking> {
                 .withParams(
                         Map.of(
                                 "booking", booking,
-                                "today", new Date(),
-                                "penalty", 5000
+                                "today", new Date()
                         )) // <8>
                 .generate();
 

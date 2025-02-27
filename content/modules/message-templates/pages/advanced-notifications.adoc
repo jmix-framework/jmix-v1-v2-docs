@@ -49,7 +49,6 @@ Thank you for booking your date and time for ${booking.title}.
 Your time starts at ${booking.startDate?datetime} and ends at ${booking.endDate?datetime}
 
 The booking took place ${today?date}.
-The penalty for false is ${penalty?string.currency}.
 
 Have a nice day,
 Developer team.
@@ -60,7 +59,7 @@ www.jmix.io
 
 Этот шаблон отформатирован с использованием xref:message-templates.adoc#placeholders[плейсхолдеров] и синтаксиса шаблонизатора Apache FreeMarker.
 
-image::template-notifications-details.png[align="center", width="775"]
+image::template-notifications-details.png[align="center", width="773"]
 
 [[adding-template-params]]
 == Добавление параметров шаблона
@@ -79,9 +78,9 @@ image::template-parameter.png[align="center", width="641"]
 
 Нажмите кнопку *OK*.
 
-Создайте параметр *Penalty*, убедившись, что он настроен как тип `Число`. Затем создайте параметр *Today* и установите для него тип `Дата`:
+Создайте параметр *Today* и установите для него тип `Дата`:
 
-image::template-notifications-params.png[align="center", width="692"]
+image::template-notifications-params.png[align="center", width="616"]
 
 После того как шаблон настроен, сохраните его.
 
@@ -102,7 +101,7 @@ image::notification-step-1.png[align="center", width="728"]
 image::notification-step-2.png[align="center", width="1025"]
 * После этого появится диалоговое окно с запросом на ввод значений для параметров, которые вы ранее определили для шаблона. Заполните необходимые поля соответствующими значениями. Нажмите *OK*.
 +
-image::notification-step-3.png[align="center", width="787"]
+image::notification-step-3.png[align="center", width="701"]
 * После нажатия кнопки *OK* в диалоговом окне создания оповещения, уведомление будет сохранено и отображено указанному пользователю.
 
 [[viewing-notification]]
