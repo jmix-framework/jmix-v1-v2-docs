@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="maps-ex2">
+        <insert tableName="REGION">
+            <column name="ID" value="3b075ad5-3c56-4cab-867d-6384f4372f51"/>
+            <column name="NAME" value="Kansas"/>
+            <column name="AREA" value="POLYGON ((-101.90605 40.001626, -95.306337 40.001626, -95.207752 39.908518, -94.884612 39.831841, -95.109167 39.541563, -94.983197 39.442978, -94.824366 39.20747, -94.610765 39.158177, -94.616242 37.000263, -100.087706 37.000263, -102.042974 36.994786, -102.053927 40.001626, -101.90605 40.001626))"/>        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -11,6 +11,12 @@
         <item view="Location.list" title="msg://com.company.mapssample.view.location/locationListView.title"/>
         <item view="ClusterView" title="msg://com.company.mapssample.view.cluster/clusterView.title"/>
         <item view="HeatmapView" title="msg://com.company.mapssample.view.heatmap/heatmapView.title"/>
+        <item view="DragModeView" title="msg://com.company.mapssample.view.layers/dragModeView.title"/>
+        <item view="ModifyModeView" title="msg://com.company.mapssample.view.layers/modifyModeView.title"/>
+        <item view="SelectModeView"
+              title="msg://com.company.mapssample.view.layers/selectModeView.title"/>
+        <item view="SelectStyleView" title="msg://com.company.mapssample.view.style/selectStyleView.title"/>
+        <item view="ModifyStyleView" title="msg://com.company.mapssample.view.style/modifyStyleView.title"/>
     </menu>
 
 </menu-config>
