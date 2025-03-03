@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
+      title="msg://modifyStyleView.title">
+    <layout>
+        <maps:geoMap id="map"
+                     width="100%"
+                     height="100%">
+            <maps:mapView centerX="77.2048761253423" centerY="27.7" zoom="8"/>
+            <maps:layers>
+                <maps:tile>
+                    <maps:osmSource/>
+                </maps:tile>
+                <maps:vector id="vectorLayer">
+                    <maps:vectorSource id="vectorSource" featureModifyEnabled="true"/>
+                </maps:vector>
+            </maps:layers>
+        </maps:geoMap>
+    </layout>
+</view>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:maps="http://jmix.io/schema/maps/ui"
+      title="msg://com.company.mapssample.view.layers/dragModeView.title">
+    <data>
+        <collection id="regionsDc" class="com.company.mapssample.entity.Region">
+            <loader id="regionsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Region e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <maps:geoMap id="map" height="100%" width="100%">
+            <maps:layers>
+                <maps:tile>
+                    <maps:osmSource/>
+                </maps:tile>
+                <!-- tag::drag-mode1[] -->
+                <maps:vector id="layer">
+                    <maps:dataVectorSource id="source"
+                                           featureDragEnabled="true"
+                                           dataContainer="regionsDc"
+                                           property="area"/>
+                </maps:vector>
+                <!-- end::drag-mode1[] -->
+                <!-- tag::feature-drag-mode[] -->
+                <maps:vector id="featureLayer">
+                    <maps:vectorSource id="featureSource"
+                                       featureDragEnabled="true"/>
+                </maps:vector>
+                <!-- end::feature-drag-mode[] -->
+            </maps:layers>
+        </maps:geoMap>
+    </layout>
+</view>
