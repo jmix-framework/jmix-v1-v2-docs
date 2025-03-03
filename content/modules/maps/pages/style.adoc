@@ -64,33 +64,33 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 image::style-polygon.png[align="center", width="476"]
 
 [[select-mode-styles]]
-== Select mode styles
+== Select Mode Styles
 
-Every feature type has default styles for xref:maps:layers-sources.adoc#select-mode[Select mode] in the vector source. These styles are applied when the user selects a feature on the map. To set custom select styles, each feature provides methods for adding styles.
+Every feature type in the vector source has default styles for the xref:editing-geometries.adoc#select-mode[select mode]. These styles are automatically applied when a user selects a feature on the map. To customize the selection styles, each feature provides methods for adding your own styles.
 
-For instance, here’s how to add custom select styles for a `PolygonFeature`:
+For instance, here’s how you can add custom selection styles to a `PolygonFeature`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/SelectStyleView.java[tags=select-style]
 ----
 
-image::styles-select.gif[align="center", width="476"]
+image::styles-select.gif[align="center",width="455"]
 
-NOTE: To apply select styles for all features in the source, set select styles to the vector layer.
+NOTE: To apply the same selection style to all features in the source, set the select styles on the vector layer.
 
 [[modify-mode-styles]]
-== Modify mode styles
+== Modify Mode Styles
 
-The xref:maps:layers-sources.adoc#modify-mode[modify mode] is provided by vector sources. When this mode is activated, it generates points for the geometry’s vertices to enable modifications, such as adding new vertices and changing vertex positions. This mode also determines the styles for the generated vertices of the corresponding  geometry that are displayed on the map.
+Vector sources provide the xref:editing-geometries.adoc#modify-mode[modify mode]. When activated, this mode generates points at the geometry's vertices, allowing for modifications such as adding new vertices and changing existing vertex positions. This mode also defines the styles for these generated vertices, which are displayed on the map to represent the geometry.
 
-For instance, here’s how to set custom styles for the polygon vertex points:
+For example, here's how to set custom styles for polygon vertex points:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/ModifyStyleView.java[tags=modify-style]
 ----
 
-image::styles-modify.gif[align="center", width="476"]
+image::styles-modify.gif[align="center",width="290"]
 
-NOTE: To apply modify styles to all features in the source, set the modify styles for the vector layer.
+NOTE: To apply the same modify styles to all features in the source, set the modify styles on the vector layer.

@@ -57,6 +57,7 @@ Here's an example demonstrating how to handle a map zoom change event.
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/EventsView.java[tags=notifications;MapZoomChangedEvent]
 ----
 
+[[source-events]]
 == Source Events
 
 [[SourceFeatureClickEvent]]
@@ -81,7 +82,8 @@ An event is fired when user makes double click on a feature.
 
 [[SourceFeatureSelectEvent]]
 === SourceFeatureSelectEvent
-An event is fired when features are selected or deselected. Note that only the newly selected or deselected features will be included in the event. For instance, if one feature is currently selected out of a total of two, and the last one is selected, only the newly selected feature will be included in the event.
+
+An event is triggered when features are selected or deselected. Keep in mind that the event only includes the features that were just selected or deselected. For example, if one feature is already selected out of a total of two, and the second feature is then selected, the event will only contain the newly selected feature.
 
 [source,java,indent=0]
 ----
@@ -161,7 +163,7 @@ An event is fired when user makes double click on a geo-object.
 [[GeoObjectSelectEvent]]
 === GeoObjectSelectEvent
 
-An event is fired when items are selected or deselected. Note that only the newly selected or deselected items will be included in the event. For instance, if one feature is currently selected out of a total of two, and the last one is selected, only the newly selected feature will be included in the event.
+A selection event is triggered when geo-objects are selected or deselected. Keep in mind that the event only includes the newly selected or deselected geo-objects. For example, if one geo-object is already selected out of a total of two, and you then select the second geo-object, the event will only contain information about the second geo-object you just selected.
 
 [source,java,indent=0]
 ----
