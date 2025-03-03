@@ -1,0 +1,68 @@
+= Editing Geo-object Geometries on a Map
+
+The Maps add-on enables users to visually edit geometries of geo-objects. Instead of editing geometry data as text in a field, users can now interact with geometries directly on a map. This intuitive interface allows users to move geometries, modify lines, and perform other edits visually, simplifying the geo-data management process.
+
+Both xref:maps:layers-sources.adoc#vector-source[VectorSource] and xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource] support three feature editing modes:
+
+* *Select Mode*: allows users to select features on the map.
+* *Drag Mode*: allows users to drag features to new locations on the map.
+* *Modify Mode*: allows users to modify the geometry of features, such as vertices and lines.
+
+[[select-mode]]
+== Select Mode
+
+To enable feature selection, set the `featureSelectEnabled` attribute of the xref:layers-sources.adoc#vector-source[vector source] to `true`.
+
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/select-mode-view.xml[tags=select-mode1]
+----
+
+When enabled, this mode allows users to select features on the map by clicking them. For multi-selection, users can use the `Shift` + click combination.
+
+image::layers-select-example.gif[width="780"]
+
+NOTE: When the select mode is used in conjunction with drag or modify modes, only the selected features can be dragged or modified.
+
+The select mode provides a select event for handling the selection and deselection of features. See the xref:maps:events.adoc#source-events[Source Events] section for more details.
+
+You can also style the selected features to highlight them visually. Refer to the xref:maps:style.adoc#select-mode-styles[Select Mode Styles] section for more information.
+
+[[drag-mode]]
+== Drag Mode
+
+To enable feature dragging, set the `featureDragEnabled` attribute of the xref:layers-sources.adoc#vector-source[vector source] to `true`. This will activate a control button image:layers-drag-icon.png[width="24"] on the map that enables dragging mode.
+
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/drag-mode-view.xml[tags=drag-mode1]
+----
+
+For example, here's how the drag mode looks when enabled:
+
+image::layers-drag-example.gif[width="445"]
+
+This mode provides events to handle the start and end of dragging; see the xref:maps:events.adoc#source-events[Source Events] section for more details.
+
+[[modify-mode]]
+== Modify Mode
+
+To enable feature modification, set the `featureModifyEnabled` attribute of the xref:layers-sources.adoc#vector-source[vector source] to `true`
+
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/modify-mode-view.xml[tags=modify-mode1]
+----
+
+This will activate control buttons on the map:
+
+* image:layers-modify-icon.png[width="24"] - activates modify mode. In this mode, a vertex is rendered that can be dragged to modify a feature or clicked to remove it.
+* image:layers-delete-icon.png[width="24"] - activates delete mode. When this mode is active, users can click on a feature, and a confirmation dialog will appear before deletion.
+
+For example, here's how the modify mode looks when enabled:
+
+image::layers-modify-example.gif[width="545"]
+
+This mode provides events to handle the start and end of modifications. Additionally, the xref:layers-sources.adoc#vector-source[vector source] has a delete event. For more information, see the xref:maps:events.adoc#source-events[Source Events] section.
+
+You can also style the generated vertex points. See the xref:maps:style.adoc#modify-mode-styles[Modify Mode Styles] section for more details.
