@@ -1,0 +1,25 @@
+= Tabbed App Mode Properties
+
+[[jmix.tabmod.max-tab-count]]
+== jmix.tabmod.max-tab-count
+
+Defines the maximum number of tabs that can be opened in the main application view. The value of `0` disables this limitation.
+
+Default value: `20`
+
+
+[[jmix.tabmod.show-breadcrumbs]]
+== jmix.tabmod.show-breadcrumbs
+
+Defines whether the breadcrumbs, which normally appear at the top of the main view's working area, are visible.
+
+Default value: `true`
+
+
+[[jmix.tabmod.multiple-open]]
+== jmix.tabmod.multiple-open
+
+Defines whatever a view should be opened multiple times from the main menu if the `@MultipleOpen` annotation is not present on the view.
+
+Default value: `false`
+

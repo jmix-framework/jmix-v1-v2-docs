@@ -67,6 +67,7 @@ include::rest:partial$nav.adoc[]
 include::rest-ds:partial$nav.adoc[]
 include::search:partial$nav.adoc[]
 include::superset:partial$nav.adoc[]
+include::tabbed-mode:partial$nav.adoc[]
 include::uiconstraints:partial$nav.adoc[]
 include::webdav:partial$nav.adoc[]
 --

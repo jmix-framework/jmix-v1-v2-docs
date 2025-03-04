@@ -1,0 +1,64 @@
+= Migration
+
+When the Tabbed Application Mode add-on is added, Vaadin's navigation functionality is disabled, so no navigation events are sent to views, such as `BeforeEnterEvent` or `AfterNavigationEvent`. Because of that, you may need to refactor some of your views that rely on these events.
+
+To simplify the process of refactoring, the base `View` class provides the `processBeforeEnterInternal()` method that accepts a `BeforeEnterEvent` as an argument.
+
+[[regular-views]]
+== Regular Views
+
+Consider an example where a view has a mandatory route parameter that is used to find required data for further operation:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/roleassignment/RoleAssignmentView.java[tags=roleAssignmentViewBegin;findUser;roleAssignmentViewEnd]
+----
+<1> View route includes mandatory parameter
+<2> Obtains route parameters and use them to find a user instance.
+<3> Gets particular route parameter and loads a user instance.
+
+To make this view work in a tab, override the `processBeforeEnterInternal()` method and call the `findUser` method inside it:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/roleassignment/RoleAssignmentView.java[tags=findUserRefactored]
+----
+
+[[detail-views]]
+== Detail Views
+
+A detail view has two methods to initialize the edited entity:
+
+* `setupEntityToEdit(String)` - invoked when a detail view is opened by navigation and the edited entity is loaded by its `id`, which is passed as a route parameter.
+
+* `setupEntityToEdit(Entity)` - invoked when a detail view is opened in a dialog window and the edited entity is passed directly.
+
+Consider an example where your detail view has custom code that initializes edited entity based on route parameter:
+
+[source,java,indent=0]
+----
+@Override
+protected void initExistingEntity(String serializedEntityCode) {
+    String code = urlParamSerializer.deserialize(String.class, serializedEntityCode);
+    ResourceRole roleByCode = roleRepository.findRoleByCode(code);
+
+    ResourceRoleModel resourceRoleModel = roleModelConverter.createResourceRoleModel(roleByCode);
+
+    childRolesDc.mute();
+    childRolesDc.setItems(loadChildRoleModels(resourceRoleModel));
+    childRolesDc.unmute();
+
+    ResourceRoleModel merged = dataContext.merge(resourceRoleModel);
+    roleModelDc.setItem(merged);
+}
+----
+
+In the example above, the actual edited entity instance is obtained by converting the data stored in the database, which is loaded using the `id` passed as a route parameter. Since this view isn't intended to be opened in a dialog window, it lacks similar code for the directly passes entity instance. To make this view work in a tab, override the `setupEntityToEdit()` method and provide an empty implementation:
+
+[source,java,indent=0]
+----
+@Override
+protected void setupEntityToEdit(ResourceRoleModel entityToEdit) {
+    // do nothing
+}
+----

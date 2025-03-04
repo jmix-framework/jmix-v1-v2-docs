@@ -1,0 +1,199 @@
+= Opening Views
+
+You can open views from the main view, by xref:flow-ui:actions/standard-actions.adoc[standard actions] when working with list and detail entity views or programmatically from another view.
+
+Below we describe how to open views programmatically in your application code.
+
+
+[[using-viewbuilders-bean]]
+== Using ViewBuilders Bean
+
+The `ViewBuilders` bean provides a fluent interface for opening views. Its terminal methods give access to the opened view instance. It allows you to pass input parameters directly to the view instance and add listeners for getting results back from the opened view after it is closed.
+
+To open a view, inject the `ViewBuilders` bean and invoke the `view()` method passing the current view and either the opened view class or id to it. Then invoke the `open()` terminal method:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openView]
+----
+
+[[opening-detail-views]]
+=== Opening Detail Views
+
+In most cases you can open detail views using standard actions such as xref:flow-ui:actions/list-actions.adoc#list_create[list_create]. Let’s look at the examples when you can use the `ViewBuilders` API directly to open a detail view from xref:flow-ui:actions.adoc[action] or xref:flow-ui:vc/components/button.adoc#ClickEvent[button] handler.
+
+To create a new entity instance in a detail view, invoke the `newEntity()` method. For example:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToCreate]
+----
+
+To edit an existing entity in a detail view, provide the instance to edit using the `editEntity()` method:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToEdit]
+----
+
+In the examples above, the detail view will create/update the entity, but the caller view will not receive the updated instance.
+
+Often you need to edit an entity displayed by some list data view component, e.g. xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]. Then you should use the following form of invocation, which is more concise and automatically updates the `dataGrid`:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToEdit]
+----
+
+In order to create a new entity instance and open the detail view for it, just call the `newEntity()` method on the builder:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToCreate]
+----
+
+Use the same concise form if you want to create or edit an entity set to a field:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openDetailViewFieldToEdit]
+----
+
+`ViewBuilders` provides a lot of methods for setting optional parameters for the opened view. For example, the following code creates a new entity, initializes it and edits in a particular detail view opened as a dialog:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewDialog]
+----
+
+[[opening-lookup-views]]
+=== Opening Lookup Views
+
+Let’s look at some examples of working with lookup views. As with detail views, you mostly open such views using standard actions such as xref:flow-ui:actions/entity-picker-actions.adoc#entity_lookup[entity_lookup]. The examples below shows the usage of `ViewBuilders` API and can be useful if you don’t use standard actions.
+
+To select entities from a list view, open the view using the `lookup()` method:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openLookupView]
+----
+
+If you need to set the looked up entity to a field, use the more concise form:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openLookupViewSelect]
+----
+
+Use the same concise form if you want to add the looked up entity to a list data component, e.g. `dataGrid`, for example:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openLookupViewDataGrid]
+----
+
+As with detail views, use the builder methods to set optional parameters of the opened view. For example, the following code looks up the `User` entity using a particular lookup view opened as a dialog:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openLookupViewDialog]
+----
+
+
+[[passing-parameters-to-views]]
+== Passing Parameters to Views
+
+If you need to pass parameters to the opened view, add view configurer handler using the `withViewConfigurer` method.
+
+Consider the following view:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/fancymessage/FancyMessageView.java[tags=fancyMessageViewFull]
+----
+
+In the `ViewConfigurer` handler, you can invoke public setters of the opened view:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openViewWithParameters]
+----
+
+
+[[executing-code-after-close]]
+== Executing Code after Close and Returning Values
+
+Each view sends xref:flow-ui:views/view-events.adoc#after-close-event[AfterCloseEvent] when it closes. When using `ViewBuilders`, the listener can be provided in the `withAfterCloseListener()` method:
+
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithCloseListener]
+----
+
+The event object provides information about how the view was closed. This information can be obtained in two ways:
+
+* By testing whether the view was closed with one of standard outcomes defined by the `StandardOutcome` enum.
+
+* By getting the `CloseAction` object. The former approach is simpler, while the latter is much more flexible.
+
+Let’s consider the first approach: close a view with a standard outcome and test it in the calling code. Here is the view that we invoke:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!closeAction]
+----
+<1> By clicking the *Save* button sets some result state and close the view with `StandardOutcome.SAVE` enum value.
+<2> By clicking the *Close* button closes the view with `StandardOutcome.SAVE`.
+
+In the `AfterCloseEvent` listener, you can check how the view was closed using the `closedWith()` method of the event, and read the result value if needed:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithResult]
+----
+
+[[using-custom-close-action]]
+=== Using Custom CloseAction
+
+Another way of returning values from views is using custom `CloseAction` implementations. Let’s rewrite the above example to use the following action class:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/action/MyCloseAction.java[tags=myCloseAction]
+----
+
+Then we can use this action when closing the view:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!resultField]
+----
+<1> By clicking the *Ok* button creates the custom close action and sets the result value in it.
+<2> By clicking the *Close* button closes with a default action provided by the framework.
+
+In the `AfterCloseEvent` listener, you can get the `CloseAction` from the event and read the result value:
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithCloseAction]
+----
+
+As you can see, when values are returned through a custom `CloseAction`, the caller doesn’t have to know the opened view class because it doesn’t invoke methods of the specific view controller. So the view can be created by its string id.
+
+[[view-inference-conventions]]
+== View Inference Conventions
+
+A lookup or detail view can be inferred from the entity class.
+
+When opening a list view for lookup using `viewBuilders.lookup(this, SomeEntity.class)`, the framework selects a view in the following order:
+
+. A view annotated with `@PrimaryLookupView(SomeEntity.class)`.
+. A view with `SomeEntity.lookup` id.
+. A view annotated with `@PrimaryListView(SomeEntity.class)`.
+. A view with `SomeEntity.list` id.
+
+When opening a detail view using `viewBuilders.detail(this, SomeEntity.class)`, the framework selects a view in the following order:
+
+. A view annotated with `@PrimaryDetailView(SomeEntity.class)`.
+. A view with `SomeEntity.detail` id.

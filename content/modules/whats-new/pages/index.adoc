@@ -1,7 +1,5 @@
 = Что нового
 
-NOTE: *РАЗДЕЛ ДОРАБАТЫВАЕТСЯ*
-
 В данном разделе приведена информация о новой функциональности и возможных несовместимых изменениях в фреймворке Jmix и Jmix Studio версии {page-component-display-version}. Примите их во внимание при обновлении с предыдущей версии фреймворка.
 
 [IMPORTANT]
@@ -96,48 +94,11 @@ Studio отображает новый значок в правом верхне
 [[tabbed-app-mode]]
 === Режим приложения с вкладками (Experimental)
 
-Новое дополнение *Tabbed App Mode* позволяет открывать экраны приложения в отдельных вкладках внутри главного экрана.
+Новое дополнение xref:tabbed-mode:index.adoc[] позволяет открывать экраны приложения в отдельных вкладках внутри главного экрана.
 
-Чтобы перевести приложение в режим с вкладками, выполните следующие действия:
-
-* Добавьте дополнение в ваш `build.gradle`:
-+
-[source,gradle]
-----
-implementation 'io.jmix.tabbedmode:jmix-tabbedmode-flowui-starter'
-----
-
-* Измените базовый класс вашего главного экрана на `StandardTabbedModeMainView`:
-+
-[source,java]
-----
-@Route("")
-@ViewController("MainView")
-@ViewDescriptor("main-view.xml")
-public class MainView extends StandardTabbedModeMainView {
-}
-----
-
-Дополнение прозрачно заменяет xref:flow-ui:views/opening-views.adoc#navigation[навигацию], открывая экраны во вкладках главного экрана. Кроме того, можно использовать специальный бин `ViewBuilders` для открытия экранов в текущей вкладке главного экрана, в новой вкладке или в диалоговом окне. Например:
-
-[source,java]
-----
-@Autowired
-private ViewBuilders viewBuilders;
-
-@Subscribe(id = "showUsersBtn", subject = "clickListener")
-public void onShowUsersBtnClick(final ClickEvent<JmixButton> event) {
-    viewBuilders.view(this, UserListView.class)
-            .withOpenMode(ViewOpenMode.NEW_TAB)
-            .open();
-}
-----
-
-В дальнейшем мы предоставим возможность XML-компоновки рабочей области главного экрана и новый шаблон проекта с предопределенной конфигурацией режима приложения с вкладками.
+Дополнение прозрачно заменяет xref:flow-ui:views/opening-views.adoc#navigation[навигацию], открывая экраны во вкладках главного экрана. Кроме того, можно использовать специальный бин `ViewBuilders` для открытия экранов в текущей вкладке главного экрана, в новой вкладке или в диалоговом окне.
 
 CAUTION: Дополнение Tabbed App Mode в настоящее время является экспериментальным и может значительно измениться в следующем релизе Jmix.
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/2154[#2154^]
 
 [[editing-objects-on-map]]
 === Редактирование объектов на карте
@@ -358,8 +319,7 @@ include::separate-tiers-guide:example$backend-app/src/main/java/com/company/back
 
 * Решенные проблемы в Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F26%20reason%3Acompleted[2.5.0^]
-// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
 
 * Решенные проблемы в Jmix Studio:
 

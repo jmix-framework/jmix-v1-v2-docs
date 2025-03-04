@@ -13,4 +13,6 @@ tasks.register('compileAll') {
     dependsOn gradle.includedBuild('superset-ex1').task(':testClasses')
     dependsOn gradle.includedBuild('superset-ex2').task(':testClasses')
     dependsOn gradle.includedBuild('authserver-ex1').task(':testClasses')
+    dependsOn gradle.includedBuild('uiconstraints-ex1').task(':testClasses')
+    dependsOn gradle.includedBuild('tabbedmode-ex1').task(':testClasses')
 }
