@@ -32,33 +32,34 @@ public class BookingListView extends StandardListView<Booking> {
     // tag::booking-list-view[]
     @ViewComponent
     private DataGrid<Booking> bookingsDataGrid;
+
     @Autowired
-    private MessageTemplateProperties messageTemplateProperties; // <1>
+    private MessageTemplatesGenerator messageTemplatesGenerator; // <1>
+
     @Autowired
-    private MessageTemplatesGenerator messageTemplatesGenerator; // <2>
+    private Emailer emailer; // <2>
+
     @Autowired
-    private Emailer emailer; // <3>
-    @Autowired
-    private Notifications notifications; // <4>
+    private Notifications notifications; // <3>
 
     @Subscribe("bookingsDataGrid.notifyEmail")
     public void onBookingsDataGridNotifyEmail(final ActionPerformedEvent event) {
         Booking booking = bookingsDataGrid.getSingleSelectedItem();
-        User creator = booking.getCreator(); // <5>
+        User creator = booking.getCreator(); // <4>
 
         String email = creator.getEmail();
         if (email == null) {
-            showNoEmailNotification(creator); // <6>
+            showNoEmailNotification(creator); // <5>
             return;
         }
 
         List<String> messages = messageTemplatesGenerator.generateMultiTemplate()
-                .withTemplateCodes("booking-email-subject", "booking-email-body") // <7>
+                .withTemplateCodes("booking-email-subject", "booking-email-body") // <6>
                 .withParams(
                         Map.of(
                                 "booking", booking,
                                 "today", new Date()
-                        )) // <8>
+                        )) // <7>
                 .generate();
 
         EmailInfo emailInfo = EmailInfoBuilder.create()
@@ -66,15 +67,15 @@ public class BookingListView extends StandardListView<Booking> {
                 .setSubject(messages.get(0))
                 .setBody(messages.get(1))
                 .setBodyContentType("text/html; charset=UTF-8")
-                .build(); // <9>
+                .build(); // <8>
 
         try {
-            emailer.sendEmail(emailInfo); // <10>
+            emailer.sendEmail(emailInfo); // <9>
         } catch (EmailException e) {
             showSendingErrorNotification(email);
         }
 
-        showSendingSuccessNotification(email); // <11>
+        showSendingSuccessNotification(email); // <10>
     }
 
     private void showSendingErrorNotification(String email) {

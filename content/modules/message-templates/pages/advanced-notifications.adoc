@@ -43,7 +43,7 @@ include::../examples/messagetemplates-ex1/src/main/resources/com/company/sample/
 +
 [source,text,indent=0]
 ----
-Hello ${booking.creator.firstName}!
+Hello ${booking.creator.firstName!"Guest"}!
 
 Thank you for booking your date and time for ${booking.title}.
 Your time starts at ${booking.startDate?datetime} and ends at ${booking.endDate?datetime}
@@ -107,7 +107,18 @@ image::notification-step-3.png[align="center", width="701"]
 [[viewing-notification]]
 == Просмотр уведомления
 
-Войдите в систему как пользователь `Mari`. Найдите индикатор уведомлений, расположенный в верхнем правом углу главного экрана, и нажмите на него. Появится диалоговое окно *In-app оповещения*, отображающее список непрочитанных или последних оповещений:
+Войдите в систему как пользователь `Mari`.
+
+[NOTE]
+====
+Обратите внимание: для просмотра уведомлений пользователь `Mari` должен иметь одну из следующих ролей:
+
+* *Notifications: In-app notifications reader*
+* *Notifications: combines sender and reader*
+* *Notifications: administrator*
+====
+
+Найдите индикатор уведомлений, расположенный в верхнем правом углу главного экрана, и нажмите на него. Появится диалоговое окно *In-app оповещения*, отображающее список непрочитанных или последних оповещений:
 
 image::in-app-notifications.png[align="center", width="1063"]
 

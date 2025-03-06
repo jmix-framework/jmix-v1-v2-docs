@@ -41,7 +41,7 @@ image::template-subject.png[align="center", width="888"]
 +
 [source,text,indent=0]
 ----
-Hello ${booking.creator.firstName}!
+Hello ${booking.creator.firstName!"Guest"}
 
 Thank you for booking your date and time for ${booking.title}.
 Your time starts at ${booking.startDate?datetime} and ends at ${booking.endDate?datetime}
@@ -65,7 +65,7 @@ www.jmix.io
 +
 Для получения более подробной информации, пожалуйста, обратитесь к https://freemarker.apache.org/[документации FreeMarker^].
 +
-image::template-body.png[align="center", width="1233"]
+image::template-body.png[align="center", width="1191"]
 
 Сохраните шаблон.
 
