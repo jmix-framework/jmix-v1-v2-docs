@@ -43,7 +43,7 @@ After clicking *Create*, the template designer will open. Configure the template
 +
 [source,text,indent=0]
 ----
-Hello ${booking.creator.firstName}!
+Hello ${booking.creator.firstName!"Guest"}!
 
 Thank you for booking your date and time for ${booking.title}.
 Your time starts at ${booking.startDate?datetime} and ends at ${booking.endDate?datetime}
@@ -107,7 +107,18 @@ image::notification-step-3.png[align="center", width="701"]
 [[viewing-notification]]
 == Viewing Notification
 
-Log in as the `Mari` user. Look for the notification indicator, located in the upper-right corner of the main view, and click it. The *In-app notifications* dialog window will appear, showing a list of unread or recent notifications:
+Log in as the `Mari` user.
+
+[NOTE]
+====
+Note that user `Mari` must have one of the following xref:notifications:configuration.adoc#roles[roles] to view notifications:
+
+* *Notifications: In-app notifications reader*
+* *Notifications: combines sender and reader*
+* *Notifications: administrator*
+====
+
+Look for the notification indicator, located in the upper-right corner of the main view, and click it. The *In-app notifications* dialog window will appear, showing a list of unread or recent notifications:
 
 image::in-app-notifications.png[align="center", width="1063"]
 

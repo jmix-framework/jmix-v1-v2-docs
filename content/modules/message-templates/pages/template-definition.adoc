@@ -41,7 +41,7 @@ Create the template by arranging elements from the palette to match the followin
 +
 [source,text,indent=0]
 ----
-Hello ${booking.creator.firstName}!
+Hello ${booking.creator.firstName!"Guest"}
 
 Thank you for booking your date and time for ${booking.title}.
 Your time starts at ${booking.startDate?datetime} and ends at ${booking.endDate?datetime}
@@ -65,7 +65,7 @@ For example, let's break down the `${booking.startDate?datetime}` expression in 
 +
 For more detailed information, please refer to the https://freemarker.apache.org/[FreeMarker^] documentation.
 +
-image::template-body.png[align="center", width="1233"]
+image::template-body.png[align="center", width="1191"]
 
 Save the template.
 

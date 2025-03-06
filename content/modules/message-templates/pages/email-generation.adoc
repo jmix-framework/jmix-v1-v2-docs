@@ -11,7 +11,7 @@ Next, configure the required email xref:email:configuration.adoc[sending paramet
 
 Let's add a *Notify by Email* button to the booking list view. This button will allow users to send an email notification to the creator of the booking selected in the data grid.
 
-Find `booking-list-view.xml` in the *Jmix* tool window and double-click it. The view designer appears. Select `action` within the *Jmix UI* hierarchy panel or in the XML descriptor. Next click the *Add* button in the component inspector panel. From the drop-down list, choose *Action*:
+Find `booking-list-view.xml` in the *Jmix* tool window and double-click it. The view designer appears. Select `actions` within the *Jmix UI* hierarchy panel or in the XML descriptor. Next click the *Add* button in the component inspector panel. From the drop-down list, choose *Action*:
 
 image::add-email-action.png[align="center", width="1082"]
 
@@ -40,17 +40,31 @@ Generate an `ActionPerformedEvent` handler method for the `notifyEmailButton` ac
 ----
 include::../examples/messagetemplates-ex1/src/main/java/com/company/sample/view/booking/BookingListView.java[tags=booking-list-view]
 ----
-<1> Provides configuration properties for the FreeMarker template engine.
-<2> A bean for generating messages from templates.
-<3> A bean for sending emails.
-<4> A bean for displaying notifications to the user.
-<5> Fetches the selected `booking` and its `creator` from the `bookingsDataGrid`.
-<6> Checks if the `creator` has an email address. If not, a notification is displayed, and the method exits.
-<7> Generates the message subject and body using FreeMarker templates (`booking-email-subject` and `booking-email-body`).
-<8> Passes dynamic parameters (`booking`, `today`) to the templates.
-<9> Constructs an `EmailInfo` object with the recipient’s email, subject, body, and content type.
-<10> Attempts to send the email using the `emailer` bean. If an error occurs, a failure notification is displayed.
-<11> Displays a success notification if the email is sent successfully.
+<1> A bean for generating messages from templates.
+<2> A bean for sending emails.
+<3> A bean for displaying notifications to the user.
+<4> Fetches the selected `booking` and its `creator` from the `bookingsDataGrid`.
+<5> Checks if the `creator` has an email address. If not, a notification is displayed, and the method exits.
+<6> Generates the message subject and body using FreeMarker templates (`booking-email-subject` and `booking-email-body`).
+<7> Passes dynamic parameters (`booking`, `today`) to the templates.
+<8> Constructs an `EmailInfo` object with the recipient’s email, subject, body, and content type.
+<9> Attempts to send the email using the `emailer` bean. If an error occurs, a failure notification is displayed.
+<10> Displays a success notification if the email is sent successfully.
+
+[[sending-viewing-email]]
+== Email Sending and Viewing
+
+Let's verify the functionality of the template-based email generation process. This test ensures that booking details are accurately populated into the message template and delivered to the intended recipient.
+
+. Launch the application and navigate to the *Application -> Bookings* view.
+. Create a new booking instance by clicking the *Create* button. When creating the booking, make sure to select an existing user with a valid email address from the creator selection dropdown. This email address will be used to receive the generated email. Fill in the other required fields with relevant test data.
+. In the bookings data grid, locate and select the booking you just created. Once selected, click the *Notify by Email* button. This action will trigger the email generation and sending process.
++
+image::notify-by-email.png[align="center", width="876"]
+. The application should display a notification indicating that the email has been successfully sent.
+. After observing the successful notification, open your email client and check the inbox of the user whose email address was used for the booking. Verify that the email was received and that the content of the email is accurately populated from the booking details and the pre-configured message template.
++
+image::resulting-email.png[align="center", width="1132"]
 
 [[summary]]
 == Summary
