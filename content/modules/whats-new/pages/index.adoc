@@ -348,6 +348,7 @@ See https://github.com/jmix-framework/jmix/issues/3888[#3888^] for more informat
 
 * Resolved issues in Jmix Framework:
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.4.5[2.4.5^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.4.4[2.4.4^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.4.3[2.4.3^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.4.2[2.4.2^]
