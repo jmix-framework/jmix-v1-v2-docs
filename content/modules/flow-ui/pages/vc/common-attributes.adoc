@@ -129,6 +129,14 @@ NOTE: Данный атрибут поддерживается только в S
 
 Добавляет компоненту имена классов CSS.
 
+Available class names are obtained from the following sources:
+
+* `com.vaadin.flow.theme.lumo.LumoUtility` class and its nested classes.
+* `io.jmix.flowui.themes.JmixLumoUtility` class.
+* Any custom class annotated with `@ThemeUtilityClasses`. You can provide shared class names in your own add-ons and in the application sources.
+
+Jmix Studio provides enhanced support for entering `classNames` in UI component properties via the xref:studio:view-designer.adoc#classNames-editor[ClassNames Wizard].
+
 [[clearButtonVisible]]
 == clearButtonVisible
 
