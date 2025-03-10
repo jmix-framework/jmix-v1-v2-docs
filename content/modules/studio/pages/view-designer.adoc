@@ -176,15 +176,15 @@ image::properties-message-value.png[align="center",width="950"]
 image::properties-theme-name-value.png[align="center",width="422"]
 
 [[classNames-editor]]
-* The xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] attribute supports autocompletion in the value input field. Additionally, clicking the image:icons/edit-new.svg[Edit] button opens the *ClassNames Wizard* dialog, which allows you to select css class names visually.
+* Атрибут xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] поддерживает автозавершение в поле ввода значения. Кроме того, при нажатии кнопки image:icons/edit-new.svg[Edit] открывается диалоговое окно *ClassNames Wizard*, которое позволяет визуально выбирать имена CSS-классов.
 +
 image::class-names-wizard.png[align="center",width="912"]
 +
-Available css class names are obtained from the following sources:
+Доступные имена CSS-классов берутся из следующих источников:
 
-** `com.vaadin.flow.theme.lumo.LumoUtility` class and its nested classes.
-** `io.jmix.flowui.themes.JmixLumoUtility` class.
-** Any custom class annotated with `@ThemeUtilityClasses`.
+** Класс `com.vaadin.flow.theme.lumo.LumoUtility` и его вложенные классы.
+** Класс `io.jmix.flowui.themes.JmixLumoUtility`.
+** Любые пользовательские классы, аннотированные `@ThemeUtilityClasses`.
 // +
 // Style names come by default arranged by the component or container name.
 //
