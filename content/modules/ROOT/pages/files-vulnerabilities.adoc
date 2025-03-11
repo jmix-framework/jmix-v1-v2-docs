@@ -1,0 +1,241 @@
+= Уязвимости функциональности работы с файлами
+:noindex:
+
+[[summary-of-vulnerabilities]]
+== Краткое описание уязвимостей
+
+*Уязвимости, затрагивающие и Jmix и CUBA Platform*
+
+. *XSS в эндпойнте /files универсального REST API*
++
+Параметр запроса может быть изменен для возврата файла с типом `Content-Type` равным `text/html` если `name` оканчивается на `.html`. Это может привести к выполнению вредоносного JavaScript в браузере при загрузке файла, подготовленного злоумышленником в хранилище файлов.
+
+. *DoS в локальном хранилище файлов*
++
+Реализация локального хранилища файлов не ограничивает размер загружаемых файлов. Злоумышленник может воспользоваться этим, загружая файлы чрезмерно большого размера, что может привести к исчерпанию свободного места на сервере и возвращению ошибки 500, вызывая отказ в обслуживании.
+
+Затронутые версии:
+
+* Jmix 1.0.0 - 1.6.1
+* Jmix 2.0.0 - 2.3.4
+* CUBA 6.2.0 - 7.2.22
+* CUBA REST API дополнение 7.1.1 - 7.2.6
+* CUBA JPA Web API дополнение 1.0.0 - 1.1.0
+
+*Уязвимость, затрагивающая только Jmix*
+
+[start=3]
+. *Path Traversal в локальном хранилище файлов*
++
+Параметр `fileRef` может быть использован для доступа к файлам за пределами корневого каталога локального хранилища файлов, при условии, что сервер приложений имеет соответствующие разрешения. Это можно сделать либо изменив `FileRef` напрямую в базе данных, либо предоставив вредоносное значение в параметре `fileRef` эндпойнта `/files` универсального REST API.
+
+Затронутые версии:
+
+* Jmix 1.0.0 - 1.6.1
+* Jmix 2.0.0 - 2.3.4
+
+Серьезность всех этих уязвимостей смягчается тем, что UI приложения и эндпойнт `/files` обычно доступны только аутентифицированным пользователям.
+
+[[fixed-versions]]
+== Исправленные версии
+
+Уязвимости были устранены в следующих версиях:
+
+- *Jmix 1.x:* Версии 1.6.2 и выше
+- *Jmix 2.x:* Версии 2.4.0 и выше
+- *CUBA:* Версии 7.2.23 и выше
+- *Дополнение CUBA REST API :* Версии 7.2.7 и выше
+
+[[workarounds]]
+== Обходные решения
+
+Для тех, кто не может сразу обновиться, мы предлагаем два обходных решения:
+
+. Исправление для уязвимости Path Traversal в Jmix.
+
+. Инструкции по отключению эндпойнта `/files` для устранения уязвимости XSS и предотвращения DoS-атак через REST API.
+
+[[fix-path-traversal-in-jmix-application]]
+=== Исправление уязвимости Path Traversal в приложении Jmix
+
+Создайте следующий бин в вашем проекте (измените пакет соответственно):
+
+[source,java]
+.FixedLocalFileStorage.java
+----
+package com.company.sample.fs;
+
+import io.jmix.core.FileRef;
+import io.jmix.core.FileStorageException;
+import io.jmix.localfs.LocalFileStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+@Primary
+@Component
+public class FixedLocalFileStorage extends LocalFileStorage {
+
+    private static final Logger log = LoggerFactory.getLogger(FixedLocalFileStorage.class);
+
+    @Override
+    public InputStream openStream(FileRef reference) {
+        Path relativePath = getRelativePath(reference.getPath());
+
+        Path[] roots = getStorageRoots();
+        if (roots.length == 0) {
+            log.error("No storage directories available");
+            throw new FileStorageException(FileStorageException.Type.FILE_NOT_FOUND, reference.toString());
+        }
+
+        InputStream inputStream = null;
+        for (Path root : roots) {
+            Path path = root.resolve(relativePath);
+            if (!path.toFile().exists()) {
+                log.error("File " + path + " not found");
+                continue;
+            }
+            try {
+                if (!path.toRealPath().startsWith(root.toRealPath())) {
+                    log.error("File '{}' is outside of root dir '{}': ", path, root);
+                    continue;
+                }
+                inputStream = Files.newInputStream(path);
+            } catch (IOException e) {
+                log.error("Error opening input stream for " + path, e);
+            }
+        }
+        if (inputStream != null) {
+            return inputStream;
+        } else {
+            throw new FileStorageException(FileStorageException.Type.FILE_NOT_FOUND, reference.toString());
+        }
+    }
+}
+----
+
+Добавьте следующее свойство приложения, чтобы удалить оригинальный бин `LocalFileStorage` из контекста Spring:
+
+[source,properties]
+.application.properties
+----
+jmix.core.exclude-beans=locfs_FileStorage
+----
+
+[[disable-files-endpoint-in-jmix-application]]
+=== Отключение эндпойнта `/files` в приложении Jmix
+
+Создайте следующий класс в вашем проекте (измените пакет соответственно):
+
+[source,java]
+.BlockingFilter.java
+----
+package com.company.sample.security;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+
+public class BlockingFilter extends OncePerRequestFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(BlockingFilter.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
+        String requestURI = request.getRequestURI();
+        log.debug("Block request to '{}'", requestURI);
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("This endpoint is disabled.");
+    }
+}
+----
+
+Определите `FilterRegistrationBean` в основном классе приложения или в любом другом классе конфигурации Spring:
+
+[source,java]
+.SampleApplication.java
+----
+@Bean
+public FilterRegistrationBean<BlockingFilter> restFilesBlockingFilter() {
+    FilterRegistrationBean<BlockingFilter> registrationBean = new FilterRegistrationBean<>();
+    registrationBean.setFilter(new BlockingFilter());
+    registrationBean.addUrlPatterns("/rest/files");
+    registrationBean.setOrder(1);
+    return registrationBean;
+}
+----
+
+[[disable-files-endpoint-in-cuba-application]]
+=== Отключение эндпойнта `/files` в приложении CUBA
+
+Создайте следующий класс в модуле `web` вашего проекта (измените пакет соответственно):
+
+[source,java]
+.BlockingFilter.java
+----
+package com.company.sample.web;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class BlockingFilter extends OncePerRequestFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(BlockingFilter.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
+        String requestURI = request.getRequestURI();
+        log.debug("Block request to '{}'", requestURI);
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("This endpoint is disabled.");
+    }
+}
+----
+
+Добавьте следующую конфигурацию фильтра в конец файла `WEB-INF/web.xml` вашего модуля `web` (используйте реальное имя пакета класса `BlockingFilter`):
+
+[source,xml]
+.web/WEB-INF/web.xml
+----
+<filter>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <filter-class>com.company.sample.web.BlockingFilter</filter-class>
+    <async-supported>true</async-supported>
+</filter>
+<filter-mapping>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <url-pattern>/rest/v2/files/*</url-pattern>
+</filter-mapping>
+----
+
+Если вы используете устаревший CUBA REST v1 (который был выделен в дополнение JPA Web API начиная с CUBA 7.1), вам следует отключить эндпойнты `/upload` и `/download`. Добавьте следующие маппинги фильтров в файл `web.xml` в дополнение к конфигурации фильтра, показанной выше:
+
+[source,xml]
+.web/WEB-INF/web.xml
+----
+<filter-mapping>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <url-pattern>/dispatch/api/upload</url-pattern>
+</filter-mapping>
+<filter-mapping>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <url-pattern>/dispatch/api/download</url-pattern>
+</filter-mapping>
+----
