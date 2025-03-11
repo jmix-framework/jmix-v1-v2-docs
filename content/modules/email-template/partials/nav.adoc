@@ -1,4 +1,0 @@
-* xref:email-template:index.adoc[]
-** xref:email-template:getting-started.adoc[]
-** xref:email-template:usage.adoc[]
-** xref:email-template:api.adoc[]

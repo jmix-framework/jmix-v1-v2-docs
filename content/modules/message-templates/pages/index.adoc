@@ -1,4 +1,5 @@
 = Message Templates
+:page-aliases: email-template:index.adoc
 
 The Message Templates add-on provides a flexible and efficient way to manage and utilize reusable message templates within your Jmix application. It allows developers to define templates with placeholders, which can be dynamically populated with data at runtime. This add-on simplifies the creation of personalized messages such as emails or in-app notifications.
 
