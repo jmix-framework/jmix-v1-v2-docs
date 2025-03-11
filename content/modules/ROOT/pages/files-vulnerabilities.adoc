@@ -1,0 +1,238 @@
+= Files Functionality Vulnerabilities
+:noindex:
+
+[[summary-of-vulnerabilities]]
+== Summary of Vulnerabilities
+
+*Vulnerabilities Affecting Both Jmix and CUBA Platform*
+
+. *XSS in the /files Endpoint of the Generic REST API*
++
+The fileRef parameter, which consists of a file path and name, can be manipulated to return a `Content-type` of `text/html` when the name parameter ends with `.html`. This could allow malicious JavaScript code to be executed in the browser. A malicious file needs to be uploaded beforehand.
+
+. *DoS in the Local File Storage*
++
+The local file storage implementation does not restrict the size of uploaded files. An attacker could exploit this by uploading excessively large files, potentially causing the server to run out of space and return a 500 error, resulting in a denial of service.
+
+Affected versions:
+
+* Jmix 1.0.0 - 1.6.1, 2.0.0 - 2.3.4
+* CUBA 6.2.0 - 7.2.22
+* CUBA REST API add-on 7.1.1 - 7.2.6
+* CUBA JPA Web API add-on 1.0.0 - 1.1.0
+
+*Vulnerability Affecting Only Jmix*
+
+[start=3]
+. *Path Traversal in Local File Storage*
++
+Attackers could manipulate the FileRef parameter to access files on the system where the Jmix application is deployed, provided the application server has the necessary permissions. This can be accomplished either by modifying the `FileRef` directly in the database or by supplying a harmful value in the `fileRef` parameter of the `/files` endpoint of the generic REST API.
+
+Affected versions:
+
+* Jmix 1.0.0 - 1.6.1, 2.0.0 - 2.3.4
+
+[[fixed-versions]]
+== Fixed Versions
+
+The vulnerabilities have been fixed in the following versions:
+
+- *Jmix 1.x:* Versions 1.6.2 and above
+- *Jmix 2.x:* Versions 2.4.0 and above
+- *CUBA:* Versions 7.2.23 and above
+- *CUBA REST API add-on:* Versions 7.2.7 and above
+
+[[workarounds]]
+== Workarounds
+
+For those unable to upgrade immediately, we provide two workarounds:
+
+. A fix for the Path Traversal vulnerability in Jmix.
+
+. Instructions to disable the /files REST endpoint to eliminate the XSS vulnerability and DoS attack vector.
+
+[[fix-path-traversal-in-jmix-application]]
+=== Fix Path Traversal in Jmix Application
+
+Create the following bean in your project (change the package accordingly):
+
+[source,java]
+.FixedLocalFileStorage.java
+----
+package com.company.sample.fs;
+
+import io.jmix.core.FileRef;
+import io.jmix.core.FileStorageException;
+import io.jmix.localfs.LocalFileStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+@Primary
+@Component
+public class FixedLocalFileStorage extends LocalFileStorage {
+
+    private static final Logger log = LoggerFactory.getLogger(FixedLocalFileStorage.class);
+
+    @Override
+    public InputStream openStream(FileRef reference) {
+        Path relativePath = getRelativePath(reference.getPath());
+
+        Path[] roots = getStorageRoots();
+        if (roots.length == 0) {
+            log.error("No storage directories available");
+            throw new FileStorageException(FileStorageException.Type.FILE_NOT_FOUND, reference.toString());
+        }
+
+        InputStream inputStream = null;
+        for (Path root : roots) {
+            Path path = root.resolve(relativePath);
+            if (!path.toFile().exists()) {
+                log.error("File " + path + " not found");
+                continue;
+            }
+            try {
+                if (!path.toRealPath().startsWith(root.toRealPath())) {
+                    log.error("File '{}' is outside of root dir '{}': ", path, root);
+                    continue;
+                }
+                inputStream = Files.newInputStream(path);
+            } catch (IOException e) {
+                log.error("Error opening input stream for " + path, e);
+            }
+        }
+        if (inputStream != null) {
+            return inputStream;
+        } else {
+            throw new FileStorageException(FileStorageException.Type.FILE_NOT_FOUND, reference.toString());
+        }
+    }
+}
+----
+
+Add the following application property to remove the original `LocalFileStorage` bean from Spring context:
+
+[source,properties]
+.application.properties
+----
+jmix.core.exclude-beans=locfs_FileStorage
+----
+
+[[disable-files-endpoint-in-jmix-application]]
+=== Disable Files Endpoint in Jmix Application
+
+Create the following class in your project (change the package accordingly):
+
+[source,java]
+.BlockingFilter.java
+----
+package com.company.sample.security;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+
+public class BlockingFilter extends OncePerRequestFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(BlockingFilter.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
+        String requestURI = request.getRequestURI();
+        log.debug("Block request to '{}'", requestURI);
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("This endpoint is disabled.");
+    }
+}
+----
+
+Define a `FilterRegistrationBean` in the main application class or in any other Spring configuration class:
+
+[source,java]
+.SampleApplication.java
+----
+@Bean
+public FilterRegistrationBean<BlockingFilter> restFilesBlockingFilter() {
+    FilterRegistrationBean<BlockingFilter> registrationBean = new FilterRegistrationBean<>();
+    registrationBean.setFilter(new BlockingFilter());
+    registrationBean.addUrlPatterns("/rest/files");
+    registrationBean.setOrder(1);
+    return registrationBean;
+}
+----
+
+[[disable-files-endpoint-in-cuba-application]]
+=== Disable Files Endpoint in CUBA Application
+
+Create the following class in the `web` module of your project (change the package accordingly):
+
+[source,java]
+.BlockingFilter.java
+----
+package com.company.sample.web;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class BlockingFilter extends OncePerRequestFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(BlockingFilter.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
+        String requestURI = request.getRequestURI();
+        log.debug("Block request to '{}'", requestURI);
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("This endpoint is disabled.");
+    }
+}
+----
+
+Add the following filter configuration to the end of the `WEB-INF/web.xml` file of your `web` module (use the real package name of the `BlockingFilter` class):
+
+[source,xml]
+.web/WEB-INF/web.xml
+----
+<filter>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <filter-class>com.company.sample.web.BlockingFilter</filter-class>
+    <async-supported>true</async-supported>
+</filter>
+<filter-mapping>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <url-pattern>/rest/v2/files/*</url-pattern>
+</filter-mapping>
+----
+
+If you are using the legacy CUBA REST v1 (which was extracted to JPA Web API add-on since CUBA 7.1), you should disable `/upload` and `/download` endpoints. Add the following filter mappings to the `web.xml` file in addition to the filter configuration shown above:
+
+[source,xml]
+.web/WEB-INF/web.xml
+----
+<filter-mapping>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <url-pattern>/dispatch/api/upload</url-pattern>
+</filter-mapping>
+<filter-mapping>
+    <filter-name>cuba_blocking_filter</filter-name>
+    <url-pattern>/dispatch/api/download</url-pattern>
+</filter-mapping>
+----
+
