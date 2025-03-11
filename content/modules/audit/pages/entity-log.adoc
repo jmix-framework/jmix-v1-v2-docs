@@ -55,7 +55,7 @@ include::example$/audit-ex1/src/main/resources/com/company/demo/liquibase/change
 
 To access the content of the entity log, navigate to the *View* tab within the *Audit → Entity Log* view. Configure the required filters to locate specific log entries.
 
-image::entity-log-view.png[align="center",width="1441"]
+image::entity-log-view.png[align="center",width="1417"]
 
 Additionally, you can access the log entries for a particular entity from any application view.
 
