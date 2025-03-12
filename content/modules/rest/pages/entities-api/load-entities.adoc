@@ -310,7 +310,7 @@ value:: 需要搜索的值，对于 `notEmpty` 和 `isNull` 操作符，不需�
 }
 ----
 
-这是此过滤条件的 JSON 展示：`\((stringField = stringValue) OR (intField > 100) AND (booleanField = true))`。
+这是此过滤条件的 JSON 展示：`\(((stringField = stringValue) OR (intField > 100)) AND (booleanField = true))`。
 
 当使用 HTTP `POST` 方法请求时，过滤条件作为请求体提供：
 
