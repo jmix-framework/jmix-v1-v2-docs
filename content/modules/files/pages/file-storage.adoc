@@ -78,6 +78,8 @@ Files are stored in a special directory structure which is maintained by the fil
 jmix.localfs.storage-dir = /opt/file-storage
 ----
 
+The `jmix.localfs.max-file-size` property limits the maximum size of uploaded files. Its default value is `100MB`.
+
 [[aws-fs]]
 == AWS File Storage
 
