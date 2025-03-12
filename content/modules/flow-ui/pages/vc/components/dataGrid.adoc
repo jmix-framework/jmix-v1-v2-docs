@@ -28,6 +28,7 @@ xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
 <<detailsVisibleOnClick,detailsVisibleOnClick>> -
 <<dropMode,dropMode>> -
 <<editorBuffered,editorBuffered>> -
+<<emptyStateText,emptyStateText>> -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
 xref:vc/common-attributes.adoc#height[height] -
@@ -67,7 +68,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<enterPressHandler,enterPressHandler>> -
 <<tooltipGenerator,tooltipGenerator>>
 |Elements
-|<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>>
+|<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>> - <<empty-state-component-element,emptyStateComponent>>
 |===
 
 [[basics]]
@@ -597,6 +598,30 @@ Such class must implement `AggregationStrategy` interface. For example:
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridUserStatusAggregation.java[tags=aggregatable-grid]
 ----
 
+[[empty-state]]
+== Empty State
+
+When a data grid has no data to display, the area between the header and footer is blank by default. Use the empty state feature to display a message or UI component informing the user that there are no items to show.
+
+* Use the `emptyStateText` attribute to define the text that appears when the data grid is empty.
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=empty-state]
+----
++
+NOTE: This attribute takes precedence over any empty state component configured using the `setEmptyStateComponent(Component)` method in the view controller or the `emptyStateComponent` element in the view XML-descriptor. Setting `emptyStateText` will remove any existing component.
+* Use the `emptyStateComponent` element to define the component that appears when the grid is empty.
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=empty-state-comp]
+----
++
+Once you've set `emptyStateComponent`, you can interact with the nested component as usual. This includes customizing its styling and creating event handlers.
++
+NOTE: Setting this element overrides any empty state text defined using the `setEmptyStateText(String)` method in the view controller or the `emptyStateText` attribute in the view XML-descriptor.
+
 == Attributes
 
 In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
@@ -630,6 +655,9 @@ In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that se
 |[[editorBuffered]]editorBuffered
 |If `true`, activates buffered mode for <<inline-editing, inline editing>>,  meaning that the user must confirm making changes by clicking a confirm button. This mode also allows users to cancel their changes. In unbuffered mode changes are applied without the need for confirmation.
 |`false`
+|[[emptyStateText]]emptyStateText
+|The text to display when the data grid is empty. Use null to remove the current empty state content. See <<empty-state, Empty State>>.
+|–
 |[[multiSort]]multiSort
 |If `true`, enables sorting by multiple columns.
 |`false`
@@ -853,6 +881,11 @@ The `contextMenu` element organizes items the right-click menu in a way that dif
 |[[dynamicContentHandler]]dynamicContentHandler
 |Handles dynamic updates to the menu when it opens, such as adding menu items or their content. See the <<context-menu, example>>.
 |===
+
+[[empty-state-component-element]]
+=== emptyStateComponent
+
+The `emptyStateComponent` element defines the component to display when the grid is empty. Use null to remove the current empty state content. See <<empty-state, Empty State>>.
 
 == See Also
 

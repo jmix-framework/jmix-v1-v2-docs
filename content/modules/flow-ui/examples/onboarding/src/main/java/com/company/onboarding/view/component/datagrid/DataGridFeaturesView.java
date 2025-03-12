@@ -3,6 +3,7 @@ package com.company.onboarding.view.component.datagrid;
 
 import com.company.onboarding.entity.User;
 import com.company.onboarding.view.main.MainView;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.grid.FooterRow;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -10,9 +11,11 @@ import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.model.InstanceContainer;
@@ -37,6 +40,8 @@ public class DataGridFeaturesView extends StandardView {
     private DataManager dataManager;
     @Autowired
     private UiComponents uiComponents;
+    @Autowired
+    private Notifications notifications;
 
     // end::injects[]
 
@@ -114,4 +119,8 @@ public class DataGridFeaturesView extends StandardView {
                 .withProperty("email", User::getEmail);
     }
     // end::lit-renderer[]
+    @Subscribe(id = "newCustomerBtn", subject = "clickListener")
+    public void onNewCustomerBtnClick(final ClickEvent<JmixButton> event) {
+        notifications.show("This is singleClickListener");
+    }
 }
