@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.4.0'
+    id 'io.jmix' version '2.5.0-RC1'
     id 'java'
 }
 
@@ -8,7 +8,7 @@ apply plugin: 'com.vaadin'
 
 jmix {
     // todo remove before merge
-    bomVersion = '2.4.0'
+    bomVersion = '2.5.0-RC1'
 }
 
 group = 'com.company'

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://viewOpeningSandboxView.title">
+    <data readOnly="true">
+        <collection id="usersDc" class="com.company.demo.entity.User">
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <layout>
+        <tabSheet id="tabSheet" width="100%" height="100%">
+            <tab id="openingViewsTab" label="Open Views">
+                <vbox padding="false" height="100%">
+                    <button id="openViewBtn" text="Open View"/>
+
+                    <hbox>
+                        <entityPicker id="userPicker" metaClass="User"/>
+                        <button id="pickUserBtn" text="Pick a user"/>
+                    </hbox>
+
+                    <button id="pickUserDialogBtn" text="Pick a user (Dialog)"/>
+
+                    <hbox>
+                        <button id="createBtn" text="Create"/>
+                        <button id="editBtn" text="Edit"/>
+                        <button id="addUserBtn" text="Add a user"/>
+                    </hbox>
+                    <dataGrid id="usersDataGrid"
+                              width="100%"
+                              columnReorderingAllowed="true"
+                              minHeight="20em"
+                              dataContainer="usersDc">
+                        <columns resizable="true">
+                            <column property="username"/>
+                            <column property="firstName"/>
+                            <column property="lastName"/>
+                        </columns>
+                    </dataGrid>
+                </vbox>
+            </tab>
+            <tab id="passParamsTab" label="Pass Params">
+                <hbox width="100%" height="100%">
+                    <button id="openViewWithParametersBtn" text="Open with Parameters"/>
+                </hbox>
+            </tab>
+            <tab id="getResultTab" label="Get Result">
+                <hbox width="100%" height="100%">
+                    <button id="closeListenerBtn" text="Close with Listener"/>
+                    <button id="closeResultBtn" text="Close with Result"/>
+                    <button id="closeCloseActionBtn" text="Close with CloseAction"/>
+                </hbox>
+            </tab>
+        </tabSheet>
+    </layout>
+</view>

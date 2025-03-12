@@ -73,8 +73,6 @@ include::example$rest-ds-client/src/main/resources/application.properties[tags=a
 
 下面的示例演示了服务端和客户端应用中的 `Region` 实体定义。
 
-The following example demonstrates the `Region` entity definition in the service and client applications.
-
 [source,java,indent=0]
 .服务端应用中的 Region 实体
 ----
@@ -108,9 +106,13 @@ include::example$rest-ds-client/src/main/java/com/company/clientapp/entity/Custo
 [[fetch-plans]]
 == Fetch Plans
 
-在客户端应用中加载外部实体时，可以指定 fetch plan 来加载实体的引用。通用 REST API xref:rest:entities-api/load-entities.adoc#fetch-plans[目前仅支持] 在 xref:data-access:fetching.adoc#creating-fetch-plans[fetch plans 存储库] 中定义的 fetch plan。因此，REST 数据存储在向服务端请求数据时，会同时提供 fetch plan 的名称。
+在客户端应用中加载外部实体时，可以指定 xref:data-access:fetching.adoc[fetch plan] 来加载实体的引用。
 
-因此，服务端和客户端应用都必须在 fetch plan 存储库中定义相同名称的 fetch plan。不支持视图 XML 中的内联 fetch plan 和 Java 中以编程方式构建的 fetch plan。
+如果服务端程序使用 Jmix 2.5 之前的版本构建，则通用 REST API 目前仅支持在 fetch plans 存储库中定义的 xref:rest:entities-api/load-entities.adoc#named-fetch-plans[命名 fetch plans]。因此，REST 数据存储在向服务端请求数据时，会同时提供 fetch plan 的名称。从而要求服务端和客户端应用程序必须在 fetch plan 存储库中定义所有的 fetch plan，并使用相同的名称。
+
+从 Jmix 2.5 开始，通用 REST 开始支持 xref:rest:entities-api/load-entities.adoc#inline-fetch-plans[内联 fetch plans]。如果该功能没有通过 xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] 应用程序属性关闭，则可以像操作数据库一样，在视图的 XML 或 Java 代码中定义 fetch plan。
+
+REST 数据存储依赖服务端 REST 的 xref:rest:capabilities-api.adoc[] 确定是否启用了内联 fetch plan。如果检查确定已启用，则 REST 数据存储会传递内联的 fetch plan，否则仅传输 fetch plan 的名称。
 
 [[loaded-state]]
 == 加载的数据
@@ -189,6 +191,26 @@ REST 数据存储会发送 xref:data-access:entity-events.adoc#saving-loading-ev
 REST 数据存储会使用由资源角色定义的 xref:security:resource-roles.adoc#entity-policy[实体操作策略] 和由行级角色定义的 xref:security:row-level-roles.adoc#predicate-policy[谓词策略]。
 
 可以使用授权服务扩展组件提供的客户端凭证授权或密码授权来完成 REST 数据存储中的身份验证。密码授权需要设置额外的应用程序属性 `<ds-name>.authenticator` 和 `jmix.restds.authentication-provider-store`，如 <<configuration>> 部分所述。
+
+[[file-storage]]
+== 文件存储
+
+服务端应用程序的实体可以包含指向其文件存储的 `FileRef` 属性。REST 数据存储提供了一个 `RestFileStorage`，实现了 `FileStorage` 接口，这是一个代理类，可以处理服务端应用程序文件存储中的文件。
+
+`RestFileStorage` 使用通用 REST xref:rest:files-api.adoc[] API 在客户端和服务端程序之间传输文件。
+
+使用 `RestFileStorage` 时，需要在客户端应用程序主类或 Spring 配置类中定义以下 bean：
+
+[source,java,indent=0]
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/RestDsClientApplication.java[tags=fileStorage]
+----
+
+这里的 `serviceapp` 是 `application.properties` 中定义的 REST 数据存储的名称，`fs` 是服务端应用程序中需要使用的文件存储名称。
+
+客户端应用程序中的 REST 文件存储的名称由这两个参数加短横拼接而成。所以对于上面的示例，这个名称是 `serviceapp-fs`。如果如果客户端应用程序中有多个文件存储（比如，本地的 `fs` 和 远端的 `serviceapp-fs`），那么请参阅 xref:files:file-storage.adoc#multiple-fs[使用多个文件存储]。
+
+使用 `RestFileStorage` 的示例程序请参考 xref:separate-tiers-guide:index.adoc[] 指南。
 
 [[invoking-services]]
 == 调用服务

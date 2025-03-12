@@ -1,0 +1,68 @@
+= 在地图中编辑地理对象几何形状
+
+地图扩展组件支持对地理对象的几何形状进行可视化编辑。与之前只能在输入字段中编辑文本不同，现在用户可以直接在地图上与几何图形交互。用户可以在这个界面中可视化地移动几何形状，修改形状并执行其他编辑，从而简化了地理数据管理过程。
+
+xref:maps:layers-sources.adoc#vector-source[VectorSource] 和 xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource] 都支持三种编辑模式：
+
+* *选择模式*：用户可以选择地图上的要素。
+* *拖拽模式*：用户可以拖拽地图要素至新的位置。
+* *编辑模式*：用户可以修改要素的几何图形，例如顶点和边。
+
+[[select-mode]]
+== 选择模式
+
+启用选择模式：设置 xref:layers-sources.adoc#vector-source[矢量源] 的 `featureSelectEnabled` 属性为 `true`。
+
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/select-mode-view.xml[tags=select-mode1]
+----
+
+该模式启用后，用户可以通过点击地图上的要素进行选择。需要多选时，可按下 `Shift` 并进行选择。
+
+image::layers-select-example.gif[width="780"]
+
+NOTE: 当选择模式与拖拽或编辑模式同时启用时，仅所选择的要素可以进行拖拽或编辑。
+
+选择模式提供了一个选择事件，可以用来处理要素的选择或反选。参阅 xref:maps:events.adoc#source-events[源事件]。
+
+还可以对所选的要素定制不同的样式进行突出显示。参阅 xref:maps:style.adoc#select-mode-styles[选择模式样式]。
+
+[[drag-mode]]
+== 拖拽模式
+
+启用拖拽模式：设置 xref:layers-sources.adoc#vector-source[矢量源] 的 `featureDragEnabled` 属性为 `true`。这样可以激活地图上的控制按钮 image:layers-drag-icon.png[width="24"]，可用于拖拽。
+
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/drag-mode-view.xml[tags=drag-mode1]
+----
+
+下面是启用拖拽模式的效果：
+
+image::layers-drag-example.gif[width="445"]
+
+该模式提供了处理开始拖拽和结束拖拽的事件，参阅 xref:maps:events.adoc#source-events[源事件]。
+
+[[modify-mode]]
+== 编辑模式
+
+启用编辑模式：设置 xref:layers-sources.adoc#vector-source[矢量源] 的 `featureModifyEnabled` 属性为 `true`。
+
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/modify-mode-view.xml[tags=modify-mode1]
+----
+
+该模式会激活地图上的控制按钮：
+
+* image:layers-modify-icon.png[width="24"] - 激活编辑模式。激活时，会显示一个可以拖拽的顶点，用于编辑地图要素，点击则移除该点。
+* image:layers-delete-icon.png[width="24"] - 激活删除模式。激活时，当用户点击要素会弹出一个提示窗，询问是否确认删除。
+
+下面是启用编辑模式的效果：
+
+image::layers-modify-example.gif[width="545"]
+
+该模式提供处理开始编辑和结束编辑的事件。此外 xref:layers-sources.adoc#vector-source[矢量源] 还提供一个删除事件。参阅 xref:maps:events.adoc#source-events[源事件]
+
+还可以对生成的拖拽点进行样式定制。参阅 xref:maps:style.adoc#modify-mode-styles[编辑模式样式]。

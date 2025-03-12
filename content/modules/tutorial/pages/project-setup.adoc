@@ -157,7 +157,7 @@ image::project-setup/explore-project-8.png[align="center",width="641"]
 [[start-app]]
 === 启动应用程序
 
-image::project-setup/run-app-1.png[align="center",width="724"]
+image::project-setup/run-app-1.png[align="center",width="593"]
 
 在主工具栏的下拉框中选择 `Onboarding Jmix Application`，然后点击右侧的 *Debug*（image:common/start-debugger.svg[]）按钮。
 
@@ -165,7 +165,7 @@ image::project-setup/run-app-1.png[align="center",width="724"]
 ====
 如果你使用的是 IntelliJ IDEA Ultimate 版本，可能会注意到在 *Run/Debug Configurations* 下拉列表中有一个名为 `OnboardingApplication` 的条目，且左侧带有 Spring Boot（image:common/spring-boot.svg[]）图标。这是由 IDE 中自带的 Spring Boot 插件自动添加的任务，不要用这个。
 
-如需运行 Jmix，始终都要使用带 Gradle（image:common/gradle.svg[]）图标的运行配置。
+如需运行 Jmix，始终都要使用带 Jmix（image:common/jmix.svg[]）图标的运行配置。
 ====
 
 Studio 会出现关于数据存储和未应用变更日志文件的警告：
@@ -190,7 +190,7 @@ image::project-setup/run-app-3.png[align="center",width="1223"]
 
 在检查完数据库之后，Studio 会构建并运行应用程序。可以在底部的 *Debug* 工具窗口看到运行应用程序的输出：
 
-image::project-setup/run-app-4.png[align="center",width="943"]
+image::project-setup/run-app-4.png[align="center",width="688"]
 
 当应用程序准备好时，可以在控制台看到这样的消息：`Application started at ++http://localhost:8080++`
 
@@ -214,13 +214,11 @@ image::project-setup/run-app-6.png[align="center"]
 
 可以在 IDE 的主工具栏点击 *Stop*（image:common/suspend.svg[]）按钮停止运行中的应用程序：
 
-image::project-setup/run-app-7.png[align="center",width="641"]
+image::project-setup/run-app-7.png[align="center",width="639"]
 
 然后会在 *Debug* 控制台看到如下输出：
 
-image::project-setup/run-app-8.png[align="center",width="851"]
-
-别担心，这并不是说应用程序运行出现了问题，而是 IDE 的正常行为。
+image::project-setup/run-app-8.png[align="center",width="740"]
 
 [[summary]]
 == 小结

@@ -74,6 +74,7 @@ TIP: 在 Windows 上需要删除 `\` 符号，并将命令写在一行内。
 
 `access_token` 属性中的 token 值就是可以用来在后续其他请求的 `Authorization` 请求头中使用的 access token了。Token 是有时效的，可以临时访问应用程序的资源。
 
+
 除了在 `application.properties` 文件中注册客户端外，还可以通过提供 `RegisteredClientRepository` bean 的方式注册。参阅 {spring-authorization-server-docs}/core-model-components.html#registered-client-repository[Spring Authorization Server 文档^] 。
 
 NOTE: 如果创建了 `RegisteredClientRepository`，则 `application.properties` 中的配置会失效。
@@ -221,6 +222,21 @@ include::example$/authserver-ex1/src/main/resources/application-password-grant.p
 [source,properties]
 ----
 include::example$/authserver-ex1/src/main/resources/application-password-grant.properties[tags=password-grant-all-props]
+----
+
+默认情况下，如果 xref:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] 设置为 `false`，则 token 经序列化后存储在数据库。使用密码授权时，token 包含 `User` 实体，因此，需要在应用程序中定义一个 `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` 类型的 bean，实现如下：
+
+[source,java,indent=0]
+----
+include::example$authserver-ex1/src/main/java/com/company/demo/AuthServerEx1Application.java[tags=tokenObjectMapperCustomizer]
+----
+这里的 `User` 是你的用户实体类。
+
+如果在使用 token 的过程中出现 `java.lang.IllegalArgumentException: The class ... is not in the allowlist` 异常，则表示你的用户实体包含了无法序列化的字段。那么，需要创建一个扩展 `DefaultOAuth2TokenUserMixin` 的类，并在 `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` bean 中使用，示例：
+
+[source,java,indent=0]
+----
+include::separate-tiers-guide:example$backend-app/src/main/java/com/company/backend/security/OAuth2TokenUserMixin.java[]
 ----
 
 获取 token 时，客户端需要发送一个 token 端点的请求。请求的 content 必须是 `application/x-www-form-urlencoded`。`grant_type` 参数必须是 `password`。`username` 和 `password` 参数分别使用 Jmix 用户的用户名和密码。请求头中的 `Authorization` 需要使用 `application.properties` 中注册的 client id 和 secret 基本认证。下面的示例中，client id 和 secret 分别是 `myapp` 和 `mysecret`。

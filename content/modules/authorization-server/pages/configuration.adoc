@@ -6,9 +6,13 @@
 [[jmix.authserver.use-default-configuration]]
 === jmix.authserver.use-default-configuration
 
-配置是否使用授权服务（authorization server）和资源服务（resource server）的默认自动配置。该配置的默认值为 `true`。如果需要完全重写默认配置，则可以设置该属性为 `false` 并定义自己的配置类。
+配置是否使用授权服务（authorization server）和资源服务（resource server）的默认自动配置。如果需要完全重写默认配置，则可以设置该属性为 `false` 并定义自己的配置类。
 
-[source,properties]
-----
-jmix.authserver.use-default-configuration = false
-----
+默认值：`true`
+
+[[jmix.authserver.use-in-memory-authorization-service]]
+=== jmix.authserver.use-in-memory-authorization-service
+
+如果设置为 `true`，使用内存存储 token 而非数据库。
+
+默认值为：`false`

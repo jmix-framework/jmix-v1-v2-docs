@@ -144,7 +144,6 @@ jobs:
 
 GitHub 支持通过 Web UI 和 CLI 创建发布版。对于 Web UI，首先必须为特定的提交创建一个标签。然后，可以创建相应的发布版。有关更多信息，请参阅 https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository[GitHub 文档]。
 
-
 如需通过 CLI 创建 GitHub 发布版，请使用此命令：`gh release create 0.1.0`。将 `0.1.0` 替换为你想要创建的版本。
 
 TIP: 我们建议遵循 https://semver.org/[语义版本控制]，根据在此版本中的改动类型来确定新增的版本号。这样用户可以更容易了解版本更新的潜在影响。
@@ -177,15 +176,32 @@ Issue 创建完成后，我们将对扩展组件进行常规检查，如果制�
 
 这种方法的主要好处是用户不必手动查找与他们的 Jmix 版本兼容的扩展组件版本。而是，由组件的发布者在 BOM 中统一声明哪个版本与特定的 Jmix 版本兼容。
 
-如需提交组件版本与 Jmix 版本的兼容性，可以创建相应 https://github.com/jmix-framework/jmix/branches/all?query=release_[release 分支^] 的 PR。
+如需关联至特定的 Jmix 版本，请在 https://github.com/jmix-framework/jmix/issues[^] 创建一个 issue，并提供兼容的扩展组件和 Jmix 版本信息。
+
+或者，也可以在相应的 https://github.com/jmix-framework/jmix/branches/all?query=release_[版本分支^] 提交 PR。
 
 1. Fork https://github.com/jmix-framework/jmix[jmix-framework/jmix^] 仓库。
-2. 切换至你想要添加版本的 release 分支（例如，`release_2_4`）。
-3. 在 `jmix-bom/bom.gradle` 中添加带有 Maven 坐标和正确版本的内容：
+
+2. 切换至你想要添加版本的 release 分支（例如，`{page-origin-branch}`）。
+
+3. 在 `jmix-bom/bom.gradle` 中的 `community add-ons` 备注后添加带有 Maven 坐标和正确版本的内容：
 +
-        api 'my.new.jmix.addon:my-add-on:1.0.0'
-        api 'my.new.jmix.addon:my-add-on-starter:1.0.0'
+[source,gradle]
+.bom.gradle
+----
+// community add-ons
+// ...
+api 'my.new.jmix.addon:my-add-on:1.0.0'
+api 'my.new.jmix.addon:my-add-on-starter:1.0.0'
+// end community add-ons
+----
 
-4. 创建目标分支的 PR：`jmix-framework/jmix` 仓库的 `release_2_4` 分支。
+4. 创建目标分支的 PR：`jmix-framework/jmix` 仓库的 `{page-origin-branch}` 分支。
 
-NOTE: 当发布新的主要或次要 Jmix 版本（例如，2.5）时，其 BOM 不包含任何第三方插件，因为没有经过与新版本的兼容性测试。需要为相应的 release 分支（例如，`release_2_5`）提交新的 PR，将扩展组件包含到新的 BOM 中。在组件添加到 BOM 之前，如果用户在其构建脚本中明确指定组件版本，仍然可以在新的 Jmix 版本中使用扩展组件。
+[NOTE]
+====
+当发布新的主要或次要 Jmix 版本（例如，5.5.0）时，其 BOM 不包含任何第三方插件，因为没有经过与新版本的兼容性测试。
+
+你需要为相应的 release 分支（例如，`release_5_5`）提交新的 PR，将扩展组件包含到新的 BOM 中。
+在组件添加到 BOM 之前，如果用户在其构建脚本中明确指定组件版本，仍然可以在新的 Jmix 版本中使用扩展组件。
+====

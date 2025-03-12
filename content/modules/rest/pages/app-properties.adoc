@@ -5,12 +5,14 @@ Jmix REST 应用程序属性支持配置通用 REST 不同方面的行为。
 [[entities-api-properties]]
 == 实体 API
 
+
 [[jmix.rest.default-max-fetch-size]]
 === jmix.rest.default-max-fetch-size
 
 定义 API 返回实体实例数量的默认最大值。
 
 默认值：`10000`
+
 
 [[jmix.rest.entity-max-fetch-size]]
 === jmix.rest.entity-max-fetch-size
@@ -25,6 +27,12 @@ jmix.rest.entity-max-fetch-size.sample_Product = 500
 jmix.rest.entity-max-fetch-size.sample_Customer = 1000
 ----
 
+[[jmix.rest.inline-fetch-plan-enabled]]
+=== jmix.rest.inline-fetch-plan-enabled
+
+如果设置为 `false`，则所有 REST 端点都会拒绝 xref:rest:entities-api/load-entities.adoc#inline-fetch-plans[内联 Fetch Plans]
+
+默认值：`true`
 
 [[jmix.rest.json-transformation-config]]
 === jmix.rest.json-transformation-config
@@ -42,6 +50,7 @@ jmix.rest.entity-max-fetch-size.sample_Customer = 1000
 
 定义 REST API 支持上传的文件大小的最大值（单位为字节）。
 
+文件通过 `Resources` 接口加载，因此文件可位于 classpath 或者配置文件夹中。
 
 默认值：`20971520`（20 MB）
 
@@ -55,7 +64,7 @@ jmix.rest.entity-max-fetch-size.sample_Customer = 1000
 [[jmix.rest.queries-config]]
 === jmix.rest.queries-config
 
-定义包含 JPQL 查询语句的文件，JQPL 查询语句用于 xref:rest:entities-api/load-entities.adoc#_load_entities_via_jpql[实体 API]。
+定义包含 JPQL 查询语句的文件，JPQL 查询语句用于 xref:rest:entities-api/load-entities.adoc#load-list-jpql[实体 API]。
 
 [source,properties]
 ----
@@ -71,7 +80,7 @@ jmix.rest.queries-config = rest/sample/rest-queries.xml
 [[jmix.rest.services-config]]
 === jmix.rest.services-config
 
-定义包含一组服务方法的文件，这些服务方法开放为 xref:rest:business-logic.adoc#_services_api[服务 API]。
+定义包含一组服务方法的文件，这些服务方法开放为 xref:rest:business-logic.adoc#services-api[服务 API]。
 
 [source,properties]
 ----
@@ -93,6 +102,86 @@ jmix.rest.services-config = rest/sample/rest-services.xml
 如果设置为 `false`，返回体仅包含创建/更新后实体的最简单内容。
 
 默认值：`true`
+
+[[paths]]
+== 路径
+
+[[jmix.rest.base-path]]
+=== jmix.rest.base-path
+
+通用 REST 端点的基本路径。
+
+默认值：`/rest`
+
+[[jmix.rest.entities-path]]
+=== jmix.rest.entities-path
+
+xref:entities-api.adoc[] 端点的路径。
+
+默认值：`/entities`
+
+[[jmix.rest.docs-path]]
+=== jmix.rest.docs-path
+
+xref:api-docs.adoc[] 端点的路径。
+
+默认值：`/docs`
+
+[[jmix.rest.metadata-path]]
+=== jmix.rest.metadata-path
+
+xref:metadata-api.adoc[] 端点的路径。
+
+默认值：`/metadata`
+
+[[jmix.rest.files-path]]
+=== jmix.rest.files-path
+
+xref:files-api.adoc[] 端点的路径。
+
+默认值：`/files`
+
+[[jmix.rest.messages-path]]
+=== jmix.rest.messages-path
+
+xref:messages-api.adoc[] 端点的路径。
+
+默认值：`/messages`
+
+[[jmix.rest.permissions-path]]
+=== jmix.rest.permissions-path
+
+xref:user-session-api.adoc#permissions[权限] 端点的路径。
+
+默认值：`/permissions`
+
+[[jmix.rest.queries-path]]
+=== jmix.rest.queries-path
+
+xref:entities-api/load-entities.adoc#load-list-jpql[使用 JPQL 加载实体] 端点的路径。
+
+默认值：`/queries`
+
+[[jmix.rest.services-path]]
+=== jmix.rest.services-path
+
+xref:business-logic.adoc#services-api[服务 API] 端点的路径。
+
+默认值：`/services`
+
+[[jmix.rest.user-info-path]]
+=== jmix.rest.user-info-path
+
+xref:user-session-api.adoc#user-info[用户信息] 端点的路径。
+
+默认值：`/userInfo`
+
+[[jmix.rest.capabilities]]
+=== jmix.rest.capabilities
+
+xref:capabilities-api.adoc[] 端点的路径。
+
+默认值：`/capabilities`
 
 [[security-properties]]
 == 安全

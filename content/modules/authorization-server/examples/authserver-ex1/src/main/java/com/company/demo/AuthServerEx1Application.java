@@ -1,6 +1,9 @@
 package com.company.demo;
 
+import com.company.demo.entity.User;
 import com.google.common.base.Strings;
+import io.jmix.authserver.service.mapper.DefaultOAuth2TokenUserMixin;
+import io.jmix.authserver.service.mapper.JdbcOAuth2AuthorizationServiceObjectMapperCustomizer;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +41,14 @@ public class AuthServerEx1Application {
     DataSource dataSource(final DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().build();
     }
+
+    // tag::tokenObjectMapperCustomizer[]
+    @Bean
+    JdbcOAuth2AuthorizationServiceObjectMapperCustomizer tokenObjectMapperCustomizer() {
+        return objectMapper ->
+                objectMapper.addMixIn(User.class, DefaultOAuth2TokenUserMixin.class);
+    }
+    // end::tokenObjectMapperCustomizer[]
 
     @EventListener
     public void printApplicationUrl(final ApplicationStartedEvent event) {

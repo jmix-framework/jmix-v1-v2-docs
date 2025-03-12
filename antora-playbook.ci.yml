@@ -10,47 +10,51 @@ content:
       start_path: content
     - url: https://github.com/jmix-framework/jmix-business-logic-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-application-events-sample
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-application-logging-sample
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-mongodb-integration-sample
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-integrated-apps-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-separate-tiers-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-openapi-integration-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-data-modeling-many-to-many-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-data-modeling-entity-inheritance-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-data-modeling-composition-sample.git
       branches:
-        - main
+        - release_2_5
+      start_path: doc
+    - url: https://github.com/jmix-framework/jmix-initial-entity-values-sample.git
+      branches:
+        - release_2_5
       start_path: doc
     - url: https://github.com/jmix-framework/jmix-social-login-sample.git
       branches:
-        - main
+        - release_2_5
       start_path: doc
 ui:
   bundle:

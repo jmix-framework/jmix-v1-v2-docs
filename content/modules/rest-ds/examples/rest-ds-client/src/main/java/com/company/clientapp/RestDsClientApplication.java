@@ -5,6 +5,8 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import io.jmix.core.FileStorage;
+import io.jmix.restds.filestorage.RestFileStorage;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -45,6 +47,13 @@ public class RestDsClientApplication implements AppShellConfigurator {
     DataSource dataSource(final DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().build();
     }
+
+    // tag::fileStorage[]
+    @Bean
+    FileStorage serviceappFileStorage() {
+        return new RestFileStorage("serviceapp", "fs");
+    }
+    // end::fileStorage[]
 
     @EventListener
     public void printApplicationUrl(final ApplicationStartedEvent event) {

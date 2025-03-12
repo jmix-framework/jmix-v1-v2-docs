@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="messagetemplates-ex1">
+        <createTable tableName="BOOKING">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BOOKING"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATOR_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROOM" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="CLOB"/>
+            <column name="START_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="messagetemplates-ex1">
+        <createIndex indexName="IDX_BOOKING_CREATOR" tableName="BOOKING">
+            <column name="CREATOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CREATOR_ID" baseTableName="BOOKING"
+                                 constraintName="FK_BOOKING_ON_CREATOR" referencedColumnNames="ID"
+                                 referencedTableName="USER_"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+= 消息模板 UI
+
+在安装了消息模板扩展组件后，会在系统的主菜单添加一个 *Message Templates* 菜单。
+
+image::add-on-menu.png[align="center", width="181"]
+
+在这个菜单内，用户可以打开三个不同的视图：
+
+* *Message templates*，用于管理独立的消息模板。
+* *Template groups*，可以对消息模板进行分类和组织。
+* *Template blocks*，是构建模板的可重用组件。
+
+用户需要有特定角色才能访问这些视图。有两个与消息模板相关的角色：
+
+* *Message Templates: full access*，提供完整的管理权限。
+* *Message Templates: minimal access*，提供查看和生成消息模板的最小权限。

@@ -10,6 +10,7 @@
 ** xref:rest:messages-api.adoc[]
 ** xref:rest:metadata-api.adoc[]
 ** xref:rest:user-session-api.adoc[]
+** xref:rest:capabilities-api.adoc[]
 ** xref:rest:business-logic.adoc[]
 ** xref:rest:cors.adoc[]
 ** xref:rest:api-docs.adoc[]

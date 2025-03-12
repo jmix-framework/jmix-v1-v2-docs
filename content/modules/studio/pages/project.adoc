@@ -50,7 +50,7 @@ include::login-account-note.adoc[]
 
 . 在 IDE 的欢迎窗口点击 *Open*。
 +
-image::new-project-welcome.png[align="center"]
+image::new-project-welcome.png[align="center",width="912"]
 +
 如果此时已经打开了其他项目，则可以通过主菜单 *File -> Open* 打开。
 +
@@ -76,7 +76,7 @@ include::login-account-note.adoc[]
 悠闲
 如果项目是第一次打开，那么请从主菜单打开 *File -> Project Structure*。
 
-image::new-project-structure.png[align="center",width="991"]
+image::new-project-structure.png[align="center",width="1007"]
 
 * 确保 *Project SDK* 字段的值与你的环境变量 `JAVA_HOME` 的值一致。如果你看到 `<No JDK>`，那么需要在列表中点击 *Add JDK* 并选择 JDK 的安装目录，例如，Windows 的 `C:\Program Files\BellSoft\LibericaJDK-17` 或者 macOS 的 `/Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home`。
 * 确保 *Project language level* 的值与对应的 JDK 版本一致。例如，如果 JDK 是 `17`，那么这个字段必须是 `17 - Sealed types, always-strict floating-point semantics`。
@@ -96,7 +96,7 @@ image::new-project-structure.png[align="center",width="991"]
 . 按照 <<opening-existing-project,前一节>> 的描述打开项目。
 . 在 xref:studio:tool-window.adoc[Jmix 工具窗口]，点击 *Settings* 按钮并选择 *Project Properties*。
 +
-image::upgrade-tool-window.png[align="center", width="269"]
+image::upgrade-tool-window.png[align="center", width="307"]
 +
 . 在 *Jmix Project Properties* 弹窗中，点击平台版本旁的 *Change​* 超链接。
 +
@@ -106,7 +106,7 @@ image::upgrade-properties.png[align="center", width="912"]
 +
 对于 beta 测试或者尝试 Jmix 的最新功能，你可能需要安装 Jmix 框架的不稳定版，这些版本以 SNAPSHOT、BETA 或 RC 做后缀。勾选 *Show unstable versions* 复选框便可在平台版本下拉框看到这些版本。
 +
-image::upgrade-unstable.png[align="center", width="620"]
+image::upgrade-unstable.png[align="center", width="624"]
 +
 [WARNING] 
 ====
@@ -115,40 +115,40 @@ image::upgrade-unstable.png[align="center", width="620"]
 +
 . 可以点击 *Release Notes* 链接切换至文档页面，在文档页面查看新版本增加的功能、改进和 API 的破坏性改动。
 +
-image::upgrade-release-notes.png[align="center", width="620"]
+image::upgrade-release-notes.png[align="center", width="632"]
 +
-. 如果是升级到一个新的功能版本，例如，从 1.0.X 升至 1.1.X，则会显示 *Migration Required* 部分内容。
+. 如果是升级到一个新的功能版本，例如，从 2.3.X 升至 2.4.X，则会显示 *Migration Required* 部分内容。
 +
-image::upgrade-migration-required.png[align="center", width="620"]
+image::upgrade-migration-required.png[align="center", width="632"]
 +
 点击 *More info*​ 链接，可以打开一个新的弹窗，展示 Studio 将要自动对项目做的修改内容。
 +
-image::upgrade-more-info.png[align="center", width="595"]
+image::upgrade-more-info.png[align="center", width="821"]
 +
 . 点击 *OK* 确认升级平台版本，然后在 *Project Properties* 窗口点击 *OK*。Studio 会展示迁移窗口。
 +
-image::upgrade-migrate.png[align="center", width="788"]
+image::upgrade-migrate.png[align="center", width="821"]
 +
 . 点击 *Migrate*。Studio 会开始自动迁移并运行 Gradle 的 `clean` 任务。
 . 如果是升级功能版本，可以在 *Release Notes* 中查看 *Breaking Changes* 部分，并对项目做相应的修改。
 . 通过执行 *Jmix Tool Window -> Gradle -> Assemble* 组装你的项目。
 +
-image::upgrade-assemble.png[align="center", width="321"]
+image::upgrade-assemble.png[align="center", width="322"]
 +
 如果编译出错，则需要根据错误信息进行修复。
 
 [[starting-application]]
 == 启动应用程序
 
-当 Studio 导入 Jmix 项目之后，它会创建 Run/Debug 配置。可以使用主工具栏的按钮运行和停止你的应用程序。
+当 Studio 导入 Jmix 项目之后，会创建 Jmix Run/Debug 配置。可以使用主工具栏的按钮运行和停止你的应用程序。
 
 如需运行应用程序并用调试器连接，只需要点击所选的 *Jmix Application* 配置旁边的调试按钮即可。
 
-image::run-button.png[align="center", width="975"]
+image::run-button.png[align="center", width="1239"]
 
 运行状态在 *Debug* 工具窗口的 *Console* 标签展示。
 
-image::run-link.png[align="center", width="1246"]
+image::run-link.png[align="center", width="1234"]
 
 可以点击控制台输出的链接访问应用程序。
 
@@ -157,23 +157,27 @@ image::run-link.png[align="center", width="1246"]
 [[run-debug-configuration-settings]]
 === Run/Debug 运行配置
 
+Jmix Run/Debug 配置会在打开 Jmix 项目时自动创建。这个配置简化了直接从 IDE 运行或调试 Jmix 应用程序的过程。另外，在 Jmix 工具窗口右键点击 Jmix 项目并选择 *Start Application* 时也会自动创建 Jmix Run/Debug 配置。
+
 从 IDE 编辑 “Jmix Application” 的 Run/Debug 配置可以调整应用程序运行的设置。
 
-在工具栏点击 *Jmix Application* 元素，然后在菜单中选择 *Edit Configurations* 打开配置窗口。
+如需访问配置对话框并修改 Run/Debug 配置，可以在工具栏点击 Jmix 应用程序元素，然后在菜单中选择 *Edit Configurations*。
 
-image::run-conf.png[align="center", width="472"]
+image::run-conf.png[align="center", width="579"]
 
-另外，也可以从主菜单打开：*Run → Edit Configurations*。
+另外，也可以从 IDE 的主菜单 *Run → Edit Configurations*，然后从列表中选择 Jmix application。
 
 *Run/Debug Configurations* 对话框：
 
-image::run-dialog.png[align="center", width="991"]
+image::run-dialog.png[align="center", width="977"]
 
 下列这些设置可能是需要修改的：
 
 * *Before launch* - 在启动应用程序之前需要执行的任务。Jmix 项目自动配置了下列启动前任务：
 ** *Clean Hot Deploy Conf Directory* - 清理以前运行遗留的热部署文件。
+** *Check Liquibase Changelog Includes* - 检查根 changelog 文件中的 includes 部分，是否与包含的扩展组件匹配。如果不匹配，则 Studio 会显示通知对话框，提示添加或删除 includes。
 ** *Check Jmix Database* - 检查数据模型和数据库结构的不同，并生成 xref:data-model:db-migration.adoc[数据库更改] 脚本。如果你不需要每次启动应用程序都检查并生成 Liquibase 脚本，可以删除这个任务（这个任务的功能可以通过 xref:data-stores.adoc#data-store-actions[数据存储] 的右键菜单手动执行）。
+** *Assemble* - 创建项目的可发布输出制件，会打包代码和资源文件。
 * *Environment variables* - Gradle 进程和应用程序需要使用的环境变量。
 * *VM options* - 传递给 Gradle 进程的 JVM 选项。
 +

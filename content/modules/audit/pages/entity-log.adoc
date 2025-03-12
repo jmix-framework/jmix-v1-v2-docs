@@ -55,7 +55,7 @@ include::example$/audit-ex1/src/main/resources/com/company/demo/liquibase/change
 
 打开 *Audit -> Entity Log* 视图的 *View* tab 即可查看实体日志的内容。可以在过滤器中设置必要的条件查找日志记录。
 
-image::entity-log-view.png[align="center",width="1441"]
+image::entity-log-view.png[align="center",width="1417"]
 
 另外，也可以从任何应用程序视图访问特定实体的日志。
 

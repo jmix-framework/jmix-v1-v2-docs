@@ -1,0 +1,76 @@
+= 3. 从模板生成电子邮件
+
+本小节我们使用前一节创建的主题和正文模板生成电子邮件。
+
+开始之前，请确保项目中安装了 xref:email:index.adoc[电子邮件] 扩展组件。如果未安装，请安装后再继续。
+
+下一步，请配置电子邮件的 xref:email:configuration.adoc[发送参数]，这样才能成功发送邮件。
+
+[[adding-button]]
+== 添加“邮件通知”按钮
+
+我们在预订的列表页面添加一个 *Notify by Email* 按钮。用户可以使用这个按钮给预订房间的用户发送电子邮件通知。
+
+在 *Jmix* 工具窗口中找到 `booking-list-view.xml` 并双击在视图设计器中打开。在 *Jmix UI* 层级面板或 XML 文件中选择数据网格的 `actions`。然后点击组件属性面板的 *Add* 按钮，在下拉框中选择 *Action*：
+
+image::add-email-action.png[align="center", width="1082"]
+
+在 *Add Action* 窗口中选择 `list_itemTracking` 操作。仅当该操作关联的 `dataGrid` 中选择特定行时，该操作才会激活。
+
+为该操作按如下配置：
+
+[source,xml,indent=0]
+----
+include::../examples/messagetemplates-ex1/src/main/resources/com/company/sample/view/booking/booking-list-view.xml[tags=notify-email]
+----
+
+然后，在 `buttonsPanel` hbox 中，添加一个按钮，并与新添加的操作关联。
+
+[source,xml,indent=0]
+----
+include::../examples/messagetemplates-ex1/src/main/resources/com/company/sample/view/booking/booking-list-view.xml[tags=buttons-panel;notify]
+----
+
+[[generate-email]]
+== 从模板生成电子邮件
+
+为 `notifyEmailButton` 操作生成一个 `ActionPerformedEvent` 的处理方法。并添加以下逻辑：
+
+[source,java,indent=0]
+----
+include::../examples/messagetemplates-ex1/src/main/java/com/company/sample/view/booking/BookingListView.java[tags=booking-list-view]
+----
+<1> 从消息模板生成消息的 bean。
+<2> 发送电子邮件的 bean。
+<3> 为用户显示通知的 bean。
+<4> 从 `bookingsDataGrid` 获取所选的 `booking` 及其 `creator`。
+<5> 检查 `creator` 是否有 email 地址，如果没有则显示一个错误消息。
+<6> 用 FreeMarker 的模板（`booking-email-subject` 和 `booking-email-body`）生成消息主题和正文。
+<7> 为模板传递动态参数（`booking`、`today`）。
+<8> 用收件人的 email、主题、正文和内容类型构建一个 `EmailInfo` 对象。
+<9> 使用 `emailer` bean 尝试发送邮件。如果出错，则显示一条失败的消息。
+<10> 显示发送成功的消息。
+
+[[sending-viewing-email]]
+== 邮件发送和查看
+
+现在我们验证一下基于模板的电子邮件生成过程。这个测试可以确保预订信息的详情准确地填充到模板内并发送给收件人。
+
+. 启动应用程序并打开 *Application -> Bookings* 视图。
+. 点击 *Create* 按钮创建一个新的预订实例。创建实例时，请在 creator 中选择一个带有真实邮件地址的用户。通知邮件将发送到这个地址中。填写其他信息并保存。
+. 在预订信息列表的表格中，找到刚才创建的预订信息。选择后点击 *Notify by Email* 按钮。这个操作将触发生成电子邮件并发送的流程。
++
+image::notify-by-email.png[align="center", width="876"]
+. 应用程序会显示一个邮件成功发送的通知。
+. 在看到通知后，打开邮件客户端并检查是否收到了系统发送的邮件。验证邮件能正常收到并且邮件的内容是按照我们的预定义模板和所选的预订信息正确生成的。
++
+image::resulting-email.png[align="center", width="1132"]
+
+[[summary]]
+== 小结
+
+本小节内，我们学习了如何通过消息模板在应用程序内自动发送电子邮件。
+
+我们练习了为视图添加 *Notify by Email* 按钮、配置操作触发邮件发送流程，以及编写代码使用所选实体的信息动态生成电子邮件。
+
+还学习了配置发送邮件参数的重要性，并确保安装了电子邮件扩展组件。

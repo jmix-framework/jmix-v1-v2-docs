@@ -1,0 +1,44 @@
+= 多标签应用程序模式
+
+这个扩展组件支持在主视图的不同标签页（tab）中打开视图，多个视图可以同时打开，用户通过标签页切换。此外，多个视图也可以在同一个标签页中打开，从而创建一个视图堆栈，显示为面包屑。
+
+image::tabbed-mode-overview.png[align="center",width="1214"]
+
+CAUTION: 多标签应用程序模式扩展组件目前还处于试验阶段，可能在下一个 Jmix 版本中可能会发生重大改动。
+
+[[installation]]
+== 安装
+
+自动安装，请选择专门的项目模板：
+
+image::project-template.png[align="center",width="912"]
+
+手动安装：
+
+. 在 `build.gradle` 添加以下依赖：
++
+[source,groovy,indent=0]
+----
+implementation 'io.jmix.tabbedmode:jmix-tabbedmode-flowui-starter'
+----
+
+. 修改 `MainView.java` 的基类，从 `StandardMainView` 改为 `StandardTabbedModeMainView`。
++
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=baseClass]
+----
+
+. 在 `main-view.xml` 中，修改 `mainView` 的 `xmlns` 属性使用来自扩展组件的 `XSD`：
++
+[source,xml,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/main-view.xml[tags=wainView]
+----
++
+然后将 `initialLayout` 放入一个 `workArea` 中：
++
+[source,xml,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/main-view.xml[tags=workArea]
+----

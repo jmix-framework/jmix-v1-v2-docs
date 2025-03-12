@@ -158,11 +158,11 @@ image::simple-crud/run-app-1.png[align="center"]
 
 Studio 会自动在数据库执行这个变更日志：
 
-image::simple-crud/run-app-2.png[align="center"]
+image::simple-crud/run-app-2.png[align="center",width="1075"]
 
 然后，Studio 会构建并运行应用程序：
 
-image::simple-crud/run-app-3.png[align="center"]
+image::simple-crud/run-app-3.png[align="center",width="1075"]
 
 应用程序准备好后，在浏览器打开 `++http://localhost:8080++` 并使用 `admin` / `admin` 凭证登录。
 

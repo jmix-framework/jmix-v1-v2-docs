@@ -1,0 +1,157 @@
+= 消息模板 API
+
+该扩展组件 API 的主要入口点是 `MessageTemplatesGenerator` Spring bean。这个bean 提供了可以从模板生成消息的方法，并可以注入到服务或视图中。示例：
+
+[source,java,indent=0]
+----
+@Autowired
+private MessageTemplatesGenerator messageTemplatesGenerator;
+----
+
+[[generate-messages-from-templates]]
+== 从模板生成消息
+
+通过 `generateMessage()` 方法可以从模板生成消息。该方法需要两个参数：
+
+. *模板编码*：需要使用的模板的唯一编码。
+. *参数的映射*：传递一个 `Map<String, Object>` 包含需要插入模板的动态数据。
+
+假设有一个模板的编码为 `booking-confirmation`，其中有占位符为 `{booking.title}` 和 `{booking.room}`。则可以按下面的方法生成消息：
+
+[source,java,indent=0]
+----
+Map<String, Object> params = new HashMap<>();
+params.put("booking.title", "Conference Room Booking");
+params.put("booking.room", "Room 101");
+
+String message = messageTemplatesGenerator.generateMessage("booking-confirmation", params);
+----
+
+[[template-generators]]
+== 使用模板生成器
+
+为了简化生成消息的过程，并且能重用模板或参数，扩展组件提供了 3 个特定的生成器。这些生成器可以组合多个模板和参数映射动态生成消息。下面是每个生成器的详细说明及用法。
+
+[[single-template-generator]]
+=== SingleTemplateGenerator
+
+`SingleTemplateGenerator` 基于单一模板和单一参数映射创建消息。可以用在需要使用特定模板和一组固定数据生成一条消息时。
+
+用法示例：
+
+[source,java,indent=0]
+----
+messageTemplatesGenerator.generateSingleTemplate()
+             .withTemplateCode("my-template") //<1>
+             .addParam("username", "admin") // <2>
+             .addParam("firstName", "John")
+             .addParam("lastName", "Doe")
+             .generate(); // <3>
+----
+<1> 指定模板编码
+<2> 添加参数
+<3> 生成消息
+
+关键功能：
+
+* *单一模板*：仅使用一个模板生成消息。
+* *单一参数映射*：为模板设置一组参数映射。
+* *输出*：返回模板填充数据后的单一消息。
+
+[[multi-template-generator]]
+=== MultiTemplateGenerator
+
+`MultiTemplateGenerator` 基于多个模板和单一参数映射创建消息。可以用在需要使用不同模板生成多个消息，但是却使用同一组数据时。
+
+用法示例：
+
+[source,java,indent=0]
+----
+List<String> messages = messageTemplatesGenerator.generateMultiTemplate()
+             .withTemplateCodes("my-first-template", "my-second-template") // <1>
+             .addParam("username", "admin") // <2>
+             .addParam("firstName", "John")
+             .addParam("lastName", "Doe")
+             .generate(); // <3>
+----
+<1> 指定多个模板编码
+<2> 添加参数
+<3> 生成多个消息
+
+关键功能：
+
+* *多模板*：使用多个模板生成消息。
+* *单一参数映射*：为所有模板设置一组参数映射。
+* *输出*：返回消息列表，每条消息使用不同的模板生成，但是使用的是同一组参数。
+
+[NOTE]
+====
+并不是所有模板都需要使用参数映射中提供的每一个参数。一个完全有效的场景是，参数映射包含其中一个模板的某些参数，另一个模板的某些参数以及它们之间共享的一些参数。
+
+每个模板只会提取并使用实际需要的参数。所提供的参数映射中的任何不需要的参数将被忽略。这样可以通过一次方法调用有效地从不同参数的多个模板生成消息。
+====
+
+[CAUTION]
+====
+如果模板包含参数映射中没有提供的参数，那么消息生成将会失败。但是这个行为可以通过预先对 FreeMarker 进行 xref:api.adoc#freemarker-config[配置] 修改为能处理丢失的参数而不抛出异常。
+====
+
+[[multi-param-template-generator]]
+=== MultiParamTemplateGenerator
+
+`MultiParamTemplateGenerator` 基于单一模板和多组参数映射创建多个消息。可以用在需要使用同一个模板生成多个消息，但是却使用不同数据时。
+
+用法示例：
+
+[source,java,indent=0]
+----
+List<String> messages = messageTemplatesGenerator.generateMultiParamTemplate()
+             .withTemplateCode("my-template") // <1>
+             .addParams(Map.of( // <2>
+                 "username", "admin",
+                 "firstName", "John",
+                 "lastName", "Doe"
+             ))
+             .addParams(Map.of( // <3>
+                 "username", "user",
+                 "firstName", "Mary",
+                 "lastName", "Smith"
+             ))
+             .generate(); // <4>
+----
+<1> 指定模板编码
+<2> 添加第一组参数
+<3> 添加第二组参数
+<4> 生成多个消息
+
+关键功能：
+
+* *单一模板*：仅使用一个模板生成消息。
+* *多组参数映射*：为同一模板设置多组参数映射。
+* *输出*：返回消息列表，每条消息使用相同的模板生成，但是参数不同。
+
+[[freemarker-config]]
+== 使用 Freemarker 配置
+
+消息模板扩展组件可对消息的生成过程进行自定义。为了进一步完善该过程，可以创建和使用自定义的 FreeMarker 配置。于是可以控制 FreeMarker 如何处理消息模板。下面是创建基本自定义配置的示例：
+
+[source,java,indent=0]
+----
+        Configuration configuration =
+                new Configuration(messageTemplateProperties.getFreemarkerVersion());
+        configuration.setDefaultEncoding("UTF-8");
+        configuration.setDateFormat("yyyy, MM/dd"); // <1>
+
+        List<String> messages = messageTemplatesGenerator.generateMultiTemplate()
+                .withTemplateCodes("booking-email-subject", "booking-email-body")
+                .withParams(
+                        Map.of(
+                                "booking", booking,
+                                "today", new Date(),
+                                "penalty", 5000
+                        ))
+                .withConfiguration(configuration) // <2>
+                .generate();
+----
+<1> 配置 FreeMarker 模板引擎的特定版本、编码以及日期格式。
+<2> 使用 `MessageTemplatesGenerator` 的流式接口应用我们创建的配置。

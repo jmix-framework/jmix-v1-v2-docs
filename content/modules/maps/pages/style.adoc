@@ -62,3 +62,35 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 ----
 
 image::style-polygon.png[align="center", width="476"]
+
+[[select-mode-styles]]
+== 选择模式样式
+
+矢量源中的每种要素类型在 xref:editing-geometries.adoc#select-mode[选择模式] 下都有默认的样式。这些样式在用户选择地图要素时自动应用。如需自定义选择模式的样式，每个要素提供了添加自定义样式的方法。
+
+例如，下面是为 `PolygonFeature` 添加自定义选择模式样式的方法：
+
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/SelectStyleView.java[tags=select-style]
+----
+
+image::styles-select.gif[align="center",width="455"]
+
+NOTE: 要将相同的选择样式应用于源中所有的要素，则需要在矢量层设置选择样式。
+
+[[modify-mode-styles]]
+== 编辑模式样式
+
+矢量源提供了 xref:editing-geometries.adoc#modify-mode[编辑模式]。当编辑模式激活时，会在几何图形生成可以拖拽的点，从而可以编辑几何图形，例如添加新的顶点或更改现有的顶点位置。模式中还定义了这些生成的顶点的样式。
+
+例如，下面是为多边形顶点设置自定义选择模式样式的方法：
+
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/ModifyStyleView.java[tags=modify-style]
+----
+
+image::styles-modify.gif[align="center",width="290"]
+
+NOTE: 要将相同的选择样式应用于源中所有的要素，则需要在矢量层设置选择样式。

@@ -1,0 +1,25 @@
+= 配置
+
+[[jmix.tabmod.max-tab-count]]
+== jmix.tabmod.max-tab-count
+
+配置应用程序主视图中可以打开标签的最大数量。`0` 值表示无限制。
+
+默认值：`20`
+
+
+[[jmix.tabmod.show-breadcrumbs]]
+== jmix.tabmod.show-breadcrumbs
+
+配置主视图工作区顶部的面包屑是否可见。
+
+默认值：`true`
+
+
+[[jmix.tabmod.multiple-open]]
+== jmix.tabmod.multiple-open
+
+配置当一个视图不带 `@MultipleOpen` 注解时，是否可以在主视图多次打开。
+
+默认值：`false`
+

@@ -9,6 +9,7 @@
 ** xref:maps:layers-sources.adoc[]
 ** xref:maps:high-density-data-visualization.adoc[]
 ** xref:maps:features-geometries.adoc[]
+** xref:maps:editing-geometries.adoc[]
 ** xref:maps:zoom-center.adoc[]
 ** xref:maps:events.adoc[]
 ** xref:maps:style.adoc[]

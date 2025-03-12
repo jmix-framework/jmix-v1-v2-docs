@@ -59,7 +59,7 @@ image::data-schema.png[align="center",width="776"]
 [[unsupported-database]]
 === 连接不支持的数据库
 
-您可以定义一个附件存储连接至一个 Jmix 原生不支持的数据库。
+您可以定义一个附加存储连接至一个 Jmix 原生不支持的数据库。
 
 该功能目前处于预览状态，并默认禁用。如需启用，按下 2 次 `Shift`，选择 *Jmix Features*，并勾选 *Generic Database Support for Additional Data Store*。
 

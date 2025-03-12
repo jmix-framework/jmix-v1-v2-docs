@@ -1,0 +1,69 @@
+= 1. 创建预订应用程序
+
+在本章中，我们将学习如何为应用程序创建和配置以下组件：
+
+* `Room` 枚举。定义一个枚举，表示系统中可用的房间。
+* `Booking` 实体。创建一个 `Booking` 实体管理用户的预订。
+* 用户预订的 CRUD 视图。这些 CRUD 视图用于和 `Booking` 实体交互。
+
+[[create-room-enum]]
+== 创建 Room 枚举
+
+首先，我们需要生成一个 `Room` 枚举，包含以下值：
+
+* `Senior`
+* `Junior`
+* `Middle`
+
+创建枚举的详细步骤可以参阅入门指南的 xref:tutorial:enumerations.adoc[使用枚举] 部分。
+
+image::room-enum.png[align="center", width="458"]
+
+[[create-booking-entity]]
+== 创建 Booking 实体
+
+然后，创建 `Booking` 实体。创建实体的详细步骤可以参阅入门指南的 xref:tutorial:simple-crud.adoc[简单 CRUD] 部分。
+
+`Booking` 实体有以下属性：
+
+* `title` - `String` 类型。该预订的一个简单描述。勾选 *Mandatory*。
+* `room` - `Room` 枚举类型。表示预订的房间。勾选 *Mandatory*。
+* `startDate` 和 `endDate` - `DateTime` 类型。预订的时段。勾选 *Mandatory*。
+* `creator` - `User` 实体类型，多对一关系。预订的用户。勾选 *Mandatory*。
+
+[[create-crud]]
+== 创建 CRUD 视图
+
+为 `Booking` 实体创建实体的列表视图和详情视图。可以参阅入门指南的 xref:tutorial:simple-crud.adoc[创建 CRUD 视图] 部分。在 *Entity list view fetch plan* 这一步中，需要为 fetch plan 添加 `creator` 属性。
+
+其他参数可直接使用视图创建向导中的默认配置。
+
+[[run-app]]
+== 运行应用程序
+
+创建实体和 CRUD 视图之后，可以运行应用程序以查看添加的新功能。
+
+运行应用程序的详细步骤请参阅入门指南的 xref:tutorial:project-setup.adoc#run-app[从 IDE 运行应用程序] 部分。
+
+点击主工具栏的 *Debug*（image:start-debugger.svg[]）按钮。
+
+Studio 会显示一个关于数据存储的警告以及未运行的 changelog 文件：
+
+image::changelog.png[align="center", width="750"]
+
+点击 *Execute and proceed*。
+
+然后，Studio 会检查项目数据模型和数据库结构之间的差异。只要创建了一个新实体，Studio 就会为数据库需要的更改自动生成 Liquibase changelog（创建 `BOOKING` 表）：
+
+image::booking-changelog.png[align="center", width="1036"]
+
+点击 *Save and run*。
+
+当应用程序启动完成后，在浏览器打开 `++http://localhost:8080++`，并使用 `admin` / `admin` 登录。
+
+从左侧的 *Application* 菜单选择 *Bookings* 项，可以看到 `Booking.list` 视图。
+
+[[summary]]
+== 小结
+
+在本节中，我们了解了如何在应用程序中实现房间预订的功能。完成了创建和配置 `Room` 枚举，定义具有关键属性的 `Booking` 实体，以及生成 CRUD 视图以使用户能够有效地管理房间预订。还学习了如何运行应用程序，应用数据库更改以及通过应用程序菜单访问新的预订功能。

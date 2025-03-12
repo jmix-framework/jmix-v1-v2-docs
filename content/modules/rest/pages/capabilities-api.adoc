@@ -1,0 +1,7 @@
+= 能力 API
+
+能力（Capabilities）API 提供通用 REST API 支持功能的信息。
+
+`GET /capabilities` 返回 `200 - OK` 以及一个 JSON 对象，包含以下属性：
+
+* `inlineFetchPlans`：如果为 `true`，则启用可使用任意 fetch plan 的功能。否则，客户端仅能传递命名的 fetch plan。

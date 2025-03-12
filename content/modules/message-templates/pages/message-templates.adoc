@@ -1,0 +1,102 @@
+= 消息模板
+
+在 *Message Templates* 应用程序视图中，用户可以创建新的消息模板，编辑或删除已有模板。
+
+当点击 *Create* 按钮时，显示 *Message Template* 视图，展示配置消息模板的详情界面。在该界面中，有 *Template Details* 和 *Parameters* 两个 tab。
+
+[[template-details]]
+== 模板详情
+
+*Template Details* 包含一个配置模板属性的面板以及一个 HTML 编辑器，这里可以设计模板的布局和内容。
+
+image::template-details.png[align="center", width="1176"]
+
+[[template-attributes]]
+=== 配置模板属性
+
+每个模板必须配置下列属性：
+
+* *Name*：模板的可读名称，必填字段。描述模板的用途。
+* *Code*：模板的唯一标识符，必填字段。这个标识符可以用来在代码中找到模板。
+* *Type*：模板类型，根据模板使用的场景不同，可以是 `Plain Text` 或 `HTML` 格式。
+* *Group*：可选字段，可以将模板分到特定组中，以便管理。模板组可以在 *Message groups* 视图中配置。
+
+[[designing-template]]
+=== 模板设计
+
+在 HTML 编辑器中，可以使用多种元素创建自定义的模板，比如文本、图片、按钮等。每个元素的属性可以通过编辑器内置的面板设置。
+
+在模板的文本中，还可以使用 <<placeholders,占位符>> 插入动态数据。
+
+关于编辑器的更高级自定义和详细说明，请参阅 https://grapesjs.com/docs/[GrapesJS 文档^]。
+
+[[placeholders]]
+==== 占位符
+
+占位符是消息模板中的动态变量，在运行时使用实际的数据替换。占位符使用 FreeMarker 的变量差值语法 `++${variableName}++` 表示。
+
+用于替换占位符的数据可以有多种来源，例如，模板中定义的 <<parameters,参数>>，以及从应用程序代码编程式传入的参数。
+
+除了插入简单的值之外，FreeMarker 还提供了一组丰富的内置函数用于对占位符的数据进行操作和格式化。包括日期格式化、数字格式化、字符串操作（大小写、子串）等。例如，`${date?string["MM/dd/yyyy"]}` 能将日期格式化为 `MM/dd/yyyy`。
+
+更多详细信息，请参阅 https://freemarker.apache.org/[FreeMarker^] 文档。
+
+[[template-editor-tools]]
+=== 模板编辑工具
+
+HTML 编辑器顶部按钮面板提供编辑模板所需的工具：
+
+* *Import HTML*：上传已有的 HTML 代码并集成到模板中。
+
+* *View Source Code*：显示用于编辑或分析的原始 HTML 代码。
+
+* *Preview HTML*：在新 tab 打开模板的预览，以便检查问题。
+
+[[parameters]]
+== 参数
+
+模板的参数可以在 *Parameters* tab 创建或配置。
+
+点击 *Create* 按钮显示 *Template parameter* 对话框。
+
+image::template-parameter.png[align="center", width="641"]
+
+CAUTION: 参数别名在单一模板文件中必须唯一。
+
+[[parameter-details]]
+=== 参数详情
+
+在 *Parameter details* tab，可以配置模板中参数的属性。每个参数有下列可配置的属性：
+
+* *Name*：参数名，显示在输入表单中。
+
+* *Alias*：模板中唯一的参数标识符。用于在代码中访问参数。
+
+* *Type*：参数的数据类型。支持的类型包括基本类型（`String`、`Number`、`Boolean`），时间类型（`Date`、`Time`、`Date and Time`），以及一些复杂的类型，例如，`Enumeration`、`Entity` 或 `List of Entities`。
+
+* *Hidden*：控制参数输入框是否对用户隐藏的标记。如果勾选，则参数不会在输入表单中显示。
+
+* *Required*：参数是否必填。如果勾选，用户必须填写该参数值。
+
+* *Default Value*：参数的默认值。用户不填写时使用该值，可以确保参数始终有有效值。
+
+==== 参数类型和附加字段
+
+根据所选的参数类型不同，需要配置不同的附加字段：
+
+* *实体或实体列表*：
+
+** *Entity*：指定参数的实体类型。当参数类型选择 `Entity` 或 `List of Entities` 时必填。
+
+* *枚举*：
+
+** *Enumeration*：指定参数使用的枚举类型。当参数类型选择 `Enumeration` 时必填。
+
+* *时间类型（Date, Time 或 Date and Time）*：
+
+** *Default date/time is current*：设置是否使用当前日期、时间或时间戳作为参数的默认值。如果勾选，在用户不提供参数值时将使用当前日期或时间。
+
+[[localization]]
+=== 本地化
+
+*Localization* tab 中可以定义参数不同地区语言的名称。

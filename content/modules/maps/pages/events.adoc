@@ -57,6 +57,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/EventsView.java[tags=notifications;MapZoomChangedEvent]
 ----
 
+[[source-events]]
 == 源事件
 
 [[SourceFeatureClickEvent]]
@@ -79,6 +80,66 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 
 用户双击地图要素时发送的事件。
 
+[[SourceFeatureSelectEvent]]
+=== SourceFeatureSelectEvent
+
+该事件在选择或取消选择地图要素时触发。事件中仅包括刚选择或取消选择的要素。例如，如果已经选择了两个要素之一，此时选择剩下一个要素时，触发的该事件内仅包含第二个要素。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;featureSelectEvent]
+----
+
+[[SourceFeatureDragStartEvent]]
+=== SourceFeatureDragStartEvent
+
+该事件在用户开始拖拽地图要素时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragStartEvent]
+----
+
+[[SourceFeatureDragEndEvent]]
+=== SourceFeatureDragEndEvent
+
+该事件在用户完成拖拽地图要素时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragEndEvent]
+----
+
+[[SourceFeatureModifyStartEvent]]
+=== SourceFeatureModifyStartEvent
+
+该事件在开始编辑地图要素时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyStartEvent]
+----
+
+[[SourceFeatureModifyEndEvent]]
+=== SourceFeatureModifyEndEvent
+
+该事件在完成编辑地图要素时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyEndEvent]
+----
+
+[[SourceFeatureDeleteEvent]]
+=== SourceFeatureDeleteEvent
+
+当从源中删除一个要素时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureDeleteEvent]
+----
+
 [[GeoObjectClickEvent]]
 === GeoObjectClickEvent
 
@@ -98,6 +159,56 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/location/Lo
 === GeoObjectDoubleClickEvent
 
 用户双击地理对象时发送的事件。
+
+[[GeoObjectSelectEvent]]
+=== GeoObjectSelectEvent
+
+该事件在选择或取消选择地理对象时触发。事件中仅包括刚选择或取消选择的对象。例如，如果已经选择了两个地理对象之一，此时选择剩下一个对象时，触发的该事件内仅包含第二个对象。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;selectEvent]
+----
+
+[[GeoObjectDragStartEvent]]
+=== GeoObjectDragStartEvent
+
+该事件在用户开始拖拽地理对象时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragStartEvent]
+----
+
+[[GeoObjectDragEndEvent]]
+=== GeoObjectDragEndEvent
+
+该事件在用户完成拖拽地理对象时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragEndEvent]
+----
+
+[[GeoObjectModifyStartEvent]]
+=== GeoObjectModifyStartEvent
+
+该事件在开始编辑地理对象时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyStartEvent]
+----
+
+[[GeoObjectModifyEndEvent]]
+=== GeoObjectModifyEndEvent
+
+该事件在完成编辑地理对象时触发。
+
+[source,java,indent=0]
+----
+include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyEndEvent]
+----
 
 == 要素事件
 

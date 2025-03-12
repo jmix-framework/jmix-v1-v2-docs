@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="sample">
+        <createTable tableName="SAMPLE_PRODUCT_PRODUCT_TAG_LINK">
+            <column name="PRODUCT_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLEPRODUCTPRODUCTTAGLIN"/>
+            </column>
+            <column name="PRODUCT_TAG_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLEPRODUCTPRODUCTTAGLIN"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="sample">
+        <createTable tableName="SAMPLE_CUSTOMER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLE_CUSTOMER"/>
+            </column>
+            <column name="TYPE_" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="sample">
+        <createTable tableName="SAMPLE_CUSTOMER_CATEGORY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLE_CUSTOMER_CATEGORY"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="sample">
+        <createTable tableName="SAMPLE_ORDER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLE_ORDER"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+            <column name="CUSTOMER_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_" type="DATE"/>
+            <column name="AMOUNT" type="DECIMAL(19, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="sample">
+        <createTable tableName="SAMPLE_ORDER_LINE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLE_ORDER_LINE"/>
+            </column>
+            <column name="PRODUCT_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="DOUBLE"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+            <column name="ORDER_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="sample">
+        <createTable tableName="SAMPLE_PRODUCT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLE_PRODUCT"/>
+            </column>
+            <column name="IMAGE" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATE"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATE"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATE"/>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="sample">
+        <createTable tableName="SAMPLE_PRODUCT_TAG">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SAMPLE_PRODUCT_TAG"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="sample">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="SAMPLE_PRODUCT_PRODUCT_TAG_LINK"
+                                 constraintName="FK_RSTPROPROTAG_ON_PRODUCT" referencedColumnNames="ID"
+                                 referencedTableName="SAMPLE_PRODUCT"/>
+    </changeSet>
+    <changeSet id="9" author="sample">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_TAG_ID" baseTableName="SAMPLE_PRODUCT_PRODUCT_TAG_LINK"
+                                 constraintName="FK_RSTPROPROTAG_ON_PRODUCT_TAG" referencedColumnNames="ID"
+                                 referencedTableName="SAMPLE_PRODUCT_TAG"/>
+    </changeSet>
+    <changeSet id="10" author="sample">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="SAMPLE_ORDER_LINE"
+                                 constraintName="FK_SAMPLEORDERLINE_ON_PRODUCT" referencedColumnNames="ID"
+                                 referencedTableName="SAMPLE_PRODUCT"/>
+    </changeSet>
+    <changeSet id="11" author="sample">
+        <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="SAMPLE_ORDER_LINE"
+                                 constraintName="FK_SAMPLE_ORDER_LINE_ON_ORDER" referencedColumnNames="ID"
+                                 referencedTableName="SAMPLE_ORDER"/>
+    </changeSet>
+    <changeSet id="12" author="sample">
+        <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="SAMPLE_ORDER"
+                                 constraintName="FK_SAMPLE_ORDER_ON_CUSTOMER" referencedColumnNames="ID"
+                                 referencedTableName="SAMPLE_CUSTOMER"/>
+    </changeSet>
+
+    <changeSet id="13" author="sample">
+        <addNotNullConstraint columnName="AMOUNT" defaultNullValue="0" tableName="SAMPLE_ORDER"/>
+        <addNotNullConstraint columnName="DATE_" defaultNullValue="current_date" tableName="SAMPLE_ORDER"/>
+    </changeSet>
+</databaseChangeLog>

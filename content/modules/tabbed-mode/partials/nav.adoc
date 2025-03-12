@@ -1,0 +1,4 @@
+* xref:tabbed-mode:index.adoc[]
+** xref:tabbed-mode:opening-views.adoc[]
+** xref:tabbed-mode:migration.adoc[]
+** xref:tabbed-mode:app-properties.adoc[]

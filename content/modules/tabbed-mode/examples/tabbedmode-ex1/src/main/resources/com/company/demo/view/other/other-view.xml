@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://otherView.title">
+    <layout>
+        <hbox>
+            <button id="saveBtn" text="Save"/>
+            <button id="closeBtn" text="Close"/>
+            <button id="okBtn" text="Ok"/>
+            <button id="cancelBtn" text="Cancel"/>
+        </hbox>
+    </layout>
+</view>

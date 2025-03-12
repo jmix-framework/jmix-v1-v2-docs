@@ -75,7 +75,7 @@ public class EntityComboBoxView extends StandardView {
     private Stream<Department> departmentFieldItemsFetchCallback(final Query<Department, String> query) {
         String param = query.getFilter().orElse("");
         return dataManager.load(Department.class)
-                .condition(PropertyCondition.contains("name", param))
+                .condition(PropertyCondition.contains("name", param).skipNullOrEmpty())
                 .firstResult(query.getOffset())
                 .maxResults(query.getLimit())
                 .list()

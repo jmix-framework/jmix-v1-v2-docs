@@ -1,0 +1,64 @@
+= 迁移
+
+当项目中添加了多标签应用程序模式扩展组件后，Vaadin 的导航功能将被禁用，此时不会有任何导航事件发送到视图中，例如 `BeforeEnterEvent` 或 `AfterNavigationEvent`。因此，可能需要对依赖这些事件的视图做一些代码重构。
+
+为了简化代码重构的过程，`View` 基类提供了 `processBeforeEnterInternal()` 方法，该方法接收一个 `BeforeEnterEvent` 作为参数。
+
+[[regular-views]]
+== 常规视图
+
+看一个示例，下面的视图依赖一个必须的路由参数，并使用这个参数查找所需的数据并进一步处理：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/roleassignment/RoleAssignmentView.java[tags=roleAssignmentViewBegin;findUser;roleAssignmentViewEnd]
+----
+<1> 视图路由包含必须参数
+<2> 获取路由参数并用来查找用户实例。
+<3> 获取特定的路由参数并加载用户实例。
+
+在将该视图迁移至标签页模式时，需要重写 `processBeforeEnterInternal()` 方法，并在其中调用 `findUser` 方法：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/roleassignment/RoleAssignmentView.java[tags=findUserRefactored]
+----
+
+[[detail-views]]
+== 详情视图
+
+一个详情视图有两种方式可以初始化被编辑的实体：
+
+* `setupEntityToEdit(String)` - 当详情视图通过导航打开且被编辑的实体通过 `id` 加载时调用，这里的 `id` 通过路由参数传递。
+
+* `setupEntityToEdit(Entity)` - 当详情视图通过对话框打开且编辑实体直接传入时调用。
+
+下面的示例中，详情视图有自定义的代码，根据路由参数初始化被编辑的实体：
+
+[source,java,indent=0]
+----
+@Override
+protected void initExistingEntity(String serializedEntityCode) {
+    String code = urlParamSerializer.deserialize(String.class, serializedEntityCode);
+    ResourceRole roleByCode = roleRepository.findRoleByCode(code);
+
+    ResourceRoleModel resourceRoleModel = roleModelConverter.createResourceRoleModel(roleByCode);
+
+    childRolesDc.mute();
+    childRolesDc.setItems(loadChildRoleModels(resourceRoleModel));
+    childRolesDc.unmute();
+
+    ResourceRoleModel merged = dataContext.merge(resourceRoleModel);
+    roleModelDc.setItem(merged);
+}
+----
+
+示例中，实际需要编辑的实体是通过对数据库数据的转变而得来，即，通过路由参数 `id` 加载。由于这个视图不会在对话框模式打开，且缺少直接使用传入实体实例的代码。为了让这个视图在标签模式也能用，只需要重写 `setupEntityToEdit()` 方法并提供一个空方法体即可：
+
+[source,java,indent=0]
+----
+@Override
+protected void setupEntityToEdit(ResourceRoleModel entityToEdit) {
+    // do nothing
+}
+----

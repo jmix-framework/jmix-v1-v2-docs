@@ -1,0 +1,55 @@
+= 消息模板
+:page-aliases: email-template:index.adoc
+
+消息模板扩展组件提供了一种灵活，有效的方法，可以在 Jmix 应用程序中管理和使用可重用的消息模板。支持开发者定义带有占位符的模板，可以在运行时动态填充数据。此扩展组件简化了个性化消息（例如电子邮件或应用内通知）的创建过程。
+
+[[overview]]
+== 概览
+
+此扩展组件支持创建并自定义将静态内容与动态参数相结合的消息模板。可以使用可视化的 HTML 设计器设计模板，该设计器提供了多种 HTML 元素。可视化 HTML 设计器为模板设计提供了一个全面的工具包，为制作丰富和专业的消息模板提供了便利。
+
+image::add-on-overview.png[align="center", width="1206"]
+
+[[message-template-engine]]
+=== 消息模板引擎
+
+消息生成的过程使用了大家广泛接受的 https://freemarker.apache.org/[Apache FreeMarker 模板引擎^]。支持创建 `HTML` 或纯文本的模板，为发送不同类型的消息提供了最大的灵活性。
+
+[[html-template-editor]]
+=== HTML 模板编辑器
+
+系统集成了强大的 https://github.com/GrapesJS/grapesjs[GrapesJS^] web 组件，为起草 HTML 模板提供了用户友好的可视化编辑器。编辑器支持使用预定义的 HTML 块构建模板。可通过拖拽的方式将这些块从工具箱拖放至画布，简化了模板创建的过程。
+
+[[features]]
+== 功能
+
+* *集中的模板管理*：所有的消息模板存储在同一个位置，易于访问、编辑和维护。
+* *模板类型*：支持 HTML 和纯文本模板，为消息的格式化提供了灵活性。
+* *集成 Apache FreeMarker*：使用了强大的 https://freemarker.apache.org/[Apache FreeMarker 模板引擎^]，支持在模板中使用占位符、表达式、循环、条件逻辑等强大的功能。因此可以创建动态的，由数据驱动的消息。
+* *可视化的 HTML 模板编辑器*：内置基于 https://github.com/GrapesJS/grapesjs[GrapesJS^] 的可视化 HTML 编辑器，可以使用预定义的 HTML 块，通过拖拽的方式简化了 HTML 模板的创建过程。不需要高级的 HTML 编码技巧。
+* *可重用*：模板支持一次创建，多次使用。
+* *参数化*：在创建具体的消息时，可以为模板传递参数，因而支持个性化和数据驱动的内容。
+
+[[additionally]]
+== 其他组件的支持
+
+*消息模板* 扩展组件支持与下列 Jmix 扩展组件的集成：
+
+* xref:multitenancy:index.adoc[多租户]。当项目中安装了 *多租户* 和 *消息模板* 时，模板、块和分组会自动按租户隔离。以确保每个租户只能访问自己的模板组，可以维护数据的隔离性和安全性。
+
+* xref:email:index.adoc[电子邮件]。安装了 *电子邮件* 扩展组件后，可以发送从消息模板生成的电子邮件。因此可以在应用程序内创建动态的、基于模板的电子邮件。
+
+* xref:notifications:index.adoc[通知]。安装了 *通知* 扩展组件后，可以在创建通知时使用预先制作的消息模板。可以简化为用户创建统一或个性化消息的过程。请参阅 xref:message-templates:notification-integration.adoc[] 部分。
+
+[[installation]]
+== 安装
+
+按照 xref:ROOT:add-ons.adoc#installation[扩展组件] 章节的说明通过 Jmix 市场进行自动安装。
+
+手动安装，在 `build.gradle` 添加下列依赖：
+
+[source, groovy, indent=0]
+----
+implementation 'io.jmix.messagetemplates:jmix-messagetemplates-flowui-starter'
+implementation 'io.jmix.messagetemplates:jmix-messagetemplates-starter'
+----

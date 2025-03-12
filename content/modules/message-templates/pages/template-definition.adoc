@@ -1,0 +1,79 @@
+= 2. 模板定义
+
+我们将为创建预订的用户设计通知消息模板，包含主题栏和正文栏。
+
+[[create-subject-template]]
+== 创建主题模板
+
+首先，我们为预订成功的消息主题创建一个模板。这个模板将包含一个动态的标题，使得主题栏能够更灵活且与用户更相关。
+
+在应用程序内打开 **Message Templates** 视图。点击 *Create* 按钮开始创建一个新的模板。
+
+在打开的模板设计器内，需要配置以下内容：
+
+* *Name*：输入模板的可读名称，例如 `预订邮件主题`。这个名称可以方便地在列表中找到需要的模板。
+* *Code*：设置模板的编码为 `booking-email-subject`。这个编码后续在代码中用于标识该模板。
+* *Type*：选择 *Plain text* 类型，因为主题栏不需要使用 HTML 格式。
+* *Content*：定义模板的内容。对于主题栏，使用以下格式：
++
+[source,text,indent=0]
+----
+Booking confirmation for ${booking.title}
+----
++
+这里，`${booking.title}` 是一个 Apache FreeMarker xref:message-templates:message-templates.adoc#placeholders[占位符]，将来在生成消息时会被实际的预订标题替换。
+
+image::template-subject.png[align="center", width="888"]
+
+配置完成后，请保存。
+
+[[create-body-template]]
+== 创建正文模板
+
+下一步，我们继续创建消息正文的模板。再次点击 *Create* 按钮，然后填写以下内容：
+
+* *Name*：输入模板的可读名称，例如 `预订邮件正文`。
+* *Code*：设置模板的编码为 `booking-email-body`。这个编码后续在代码中用于标识该模板。
+* *Type*：选择 *HTML* 类型，消息正文我们使用 HTML 格式。
+* *Content*：定义模板的内容。可以拖拽设计器右侧工具箱内的元素至画布中进行设计。
++
+设计好后的模板匹配类似如下的内容：
++
+[source,text,indent=0]
+----
+Hello ${booking.creator.firstName!"Guest"}
+
+Thank you for booking your date and time for ${booking.title}.
+Your time starts at ${booking.startDate?datetime} and ends at ${booking.endDate?datetime}
+
+The booking took place ${today?date}.
+
+Have a nice day,
+Developer team.
+
+Developer
+www.jmix.io
+----
++
+这个模板将交由 Apache FreeMarker 模板引擎进行格式化。
++
+例如，在模板引擎中，`${booking.startDate?datetime}` 表达式将按下面的逻辑进行处理：
++
+** `${...}`：这是 FreeMarker 中的插值语法。告诉 FreeMarker 去计算大括号内部的表达式，并将结果插入到输出中。简单的可以认为，这是将被动态值替换的占位符。
+** `booking.startDate`：这是一个变量的引用。在当前的表达式中，引擎会假设有一名为 `booking` 的变量，且这是一个对象（JPA 实体），有名为 `startDate` 的一个属性。FreeMarker 使用 `.` 标记符访问对象的属性。
+** `?datetime`：这个是 FreeMarker 内置的函数。用来将变量值格式化为日期时间。`?` 左侧是内置函数使用的参数。
++
+更多信息，请参阅 https://freemarker.apache.org/[FreeMarker^] 文档。
++
+image::template-body.png[align="center", width="1191"]
+
+完成后保存模板。
+
+[[summary]]
+== 小结
+
+本小节内，我们学习了：
+
+* 打开 xref:message-templates.adoc[消息模板] 视图。
+* 使用 xref:message-templates.adoc#template-details[模板编辑器] 创建新模板。
+* 为消息的主题和正文定义不同的模板。

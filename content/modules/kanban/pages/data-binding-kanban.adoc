@@ -100,7 +100,7 @@ image::changelog-kanban-task.png[align="center", width="1036"]
 
 Studio 会先在数据库执行 changlog，然后构建并运行应用程序：
 
-image::run-app.png[align="center", width="1290"]
+image::run-app.png[align="center", width="1040"]
 
 应用程序启动完成后，在浏览器打开 `++http://localhost:8080++` 地址，用 admin/admin 登录。
 

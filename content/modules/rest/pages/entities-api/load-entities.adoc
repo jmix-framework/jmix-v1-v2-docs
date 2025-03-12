@@ -91,74 +91,6 @@ GET http://localhost:8080/rest
 ----
 ====
 
-[[fetch-plans]]
-=== 使用 Fetch Plan
-
-根据客户的用例、UI 或集成场景不同，需要加载的实体属性通常也会有所不同。因此，仅加载实体的直接属性通常是不够的。
-
-由于每种实体类型只能在专门的请求中加载，所以需要在后续请求中加载实体引用的信息。然而，这将导致整个应用程序中出现 N+1 查询问题。特别是当通过 HTTP 进行交互时，相应的开销可能会非常大。
-
-为此，*实体加载* API 也支持 xref:data-access:fetching.adoc[Fetch Plan] 的概念。使用 Fetch plan 可以配置一次从数据库需要加载的属性树，并通过实体加载 API 传递给客户端。
-
-下面的示例展示如何加载 Orders 实体及其相关的 customer、order lines 信息，甚至 order line 的 product 信息。
-
-首先，需要在 `fetch-plans.xml` 配置文件中注册 `order-with-details`：
-
-[source,xml]
-.fetch-plans.xml
-----
-<fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
-    <fetchPlan class="rest.sample.entity.Order"
-               extends="_base"
-               name="order-with-details">
-        <property name="customer"/>
-        <property name="lines" fetchPlan="_base">
-            <property name="product" fetchPlan="_instance_name" />
-        </property>
-    </fetchPlan>
-</fetchPlans>
-----
-
-Fetch plan 配置好后，可以用 URL 参数 `fetchPlan` 使用并发起请求。
-
-下面示例中 ID 为 `21021f78-edac-224b-e6f8-6e71e02a0f0d` 的 Order 通过 fetch plan `order-with-details` 进行加载，此时会加载附加的 `customer` 和 `lines` 数据：
-
-[source, http request]
-.使用 Fetch plan 请求加载 Order
-----
-GET http://localhost:8080/rest
-            /entities
-            /sample_Order
-            /21021f78-edac-224b-e6f8-6e71e02a0f0d
-            ?fetchPlan=order-with-details
-----
-
-[source, json]
-.Response: 200 - OK
-----
-{
-  "id": "21021f78-edac-224b-e6f8-6e71e02a0f0d",
-  "date": "2020-12-13",
-  "amount": 49.99,
-  "lines": [ //<1>
-    {
-      "id": "64e4fbb0-7fd6-818b-984e-a8769c4fbe88",
-      "product": {
-        "id": "7750adbe-6c30-cede-31a6-577a1a96aa83",
-        "name": "Outback Power Remote Power System"
-      },
-      "quantity": 1.0
-    }
-  ],
-  "version": 1,
-  "customer": {
-    "id": "0826806e-6074-90fa-f241-564b5c94d018",
-    "name": "Sidney Chandler",
-  }
-}
-----
-<1> Fetch plan `order-with-details` 保证了结果包含额外的属性 `lines` 和 `customer`。
-
 [[load-list]]
 == 加载实体列表
 
@@ -194,7 +126,7 @@ NOTE: 响应中的每个实体都有 `_entityName` 属性，表示实体的名�
 还可以用下列 URL 查询参数进一步控制 API 的行为：
 
 dynamicAttributes:: 是否加载实体的 xref:dyn-attr:index.adoc[动态属性] `（Boolean）`。
-fetchPlan:: 实体的 xref:data-access:fetching.adoc[fetch plan] 名称 `（String）`。
+fetchPlan:: 实体 xref:data-access:fetching.adoc[fetch plan] 的名称或 URL 加密的 JSON 对象 `（String）`。
 limit:: 限制 API 获取实例的个数 `（int）`。
 offset:: 查询第一个实体的偏移量 `（int）`。
 sort:: 用于排序的实体属性 `（String）`。
@@ -576,3 +508,160 @@ GET http://localhost:8080/rest
 <1> 响应中包含空值的 `type` 属性
 
 NOTE: `returnNulls` 可以用在所有的实体加载 API 中：按 ID 加载，加载列表，搜索实体和查询实体。
+
+[[fetch-plans]]
+=== 使用 Fetch Plan
+
+根据客户的用例、UI 或集成场景不同，需要加载的实体属性通常也会有所不同。因此，仅加载实体的直接属性通常是不够的。
+
+在无法通过单一请求加载引用实体时，只能通过额外的请求加载关联数据，从而引起 N+1 查询问题。特别是当通过 HTTP 进行交互时，相应的开销可能会非常大。
+
+为此，实体加载 API 支持了 xref:data-access:fetching.adoc[Fetch Plan]。使用 Fetch plan 可以配置一次从数据库需要加载的属性树，并传递给客户端，提高了性能并减少了开销。
+
+[[named-fetch-plans]]
+=== 命名 Fetch Plans
+
+命名 fetch plan 是指在应用程序共享存储库中注册的 fetch plan（参阅 xref:data-access:fetching.adoc#creating-fetch-plans[创建 fetch plan] 部分）。可以通过指定 fetch plan 的名称在 REST 查询中使用。
+
+下面的示例展示如何加载 Orders 实体及其相关的 customer、order lines 信息，甚至 order line 的 product 信息。
+
+首先，需要在 `fetch-plans.xml` 配置文件中注册 `order-with-details`：
+
+[source,xml]
+.fetch-plans.xml
+----
+<fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
+    <fetchPlan class="rest.sample.entity.Order"
+               extends="_base"
+               name="order-with-details">
+        <property name="customer"/>
+        <property name="lines" fetchPlan="_base">
+            <property name="product" fetchPlan="_instance_name" />
+        </property>
+    </fetchPlan>
+</fetchPlans>
+----
+
+Fetch plan 配置好后，可以用 URL 参数 `fetchPlan` 指定 fetch plan 并发起一个 GET 请求。
+
+下面示例中 ID 为 `21021f78-edac-224b-e6f8-6e71e02a0f0d` 的 Order 通过 fetch plan `order-with-details` 进行加载，此时会加载额外的 `customer` 和 `lines` 数据：
+
+[source, http request]
+.加载 Order 的请求，带有 fetch plan
+----
+GET http://localhost:8080/rest
+            /entities
+            /sample_Order
+            /21021f78-edac-224b-e6f8-6e71e02a0f0d
+            ?fetchPlan=order-with-details
+----
+
+[source, json]
+.Response: 200 - OK
+----
+{
+  "id": "21021f78-edac-224b-e6f8-6e71e02a0f0d",
+  "date": "2020-12-13",
+  "amount": 49.99,
+  "lines": [ //<1>
+    {
+      "id": "64e4fbb0-7fd6-818b-984e-a8769c4fbe88",
+      "product": {
+        "id": "7750adbe-6c30-cede-31a6-577a1a96aa83",
+        "name": "Outback Power Remote Power System"
+      },
+      "quantity": 1.0
+    }
+  ],
+  "version": 1,
+  "customer": {
+    "id": "0826806e-6074-90fa-f241-564b5c94d018",
+    "name": "Sidney Chandler",
+  }
+}
+----
+<1> Fetch plan `order-with-details` 保证了结果包含额外的属性 `lines` 和 `customer`。
+
+当使用 POST 请求加载数据时，例如在 <<load-list-search-filter,搜索>> 端点中，可以在请求体的 JSON 的
+`fetchPlan` 属性中指定 fetch plan 的名称：
+
+[source,http request]
+.使用命名 fetch plan 的搜索 POST 请求
+----
+POST http://localhost:8080/rest/entities/sample_Order/search
+
+{
+  "filter": {
+    "conditions": [
+      {
+        "property": "customer.name",
+        "operator": "=",
+        "value": "Shelby Robinson"
+      }
+    ]
+  },
+  "fetchPlan": "order-with-details"
+}
+----
+
+[[inline-fetch-plans]]
+=== 内联 Fetch Plans
+
+从 Jmix 2.5 开始，实体 API 支持内联 fetch plan。
+
+内联 fetch plan 是指将 fetch plan 作为 JSON 对象与 REST 请求一并发送，这个 JSON 对象包含 fetch plan 的结构。实体的本地属性直接用名称表示，引用属性则用嵌套的 JSON 对象表示，嵌套的 JSON 中包含嵌套实体的属性和嵌套的 fetch plan。使用顶层结构中的 `entity` 属性设置根实体名称。
+
+如果从另一个 Jmix 应用程序发送通用 REST 请求，则可以用 `FetchPlanSerialization` bean 将 fetch plan 转换为 JSON 字符串。
+
+内联 fetch plan 可以用在所有能接收 fetch plan 的端点。示例：
+
+[source,http request]
+.使用内联 fetch plan 的搜索 POST 请求
+----
+POST http://localhost:8080/rest/entities/sample_Order/search
+
+{
+  "filter": {
+    "conditions": [
+      {
+        "property": "customer.name",
+        "operator": "=",
+        "value": "Shelby Robinson"
+      }
+    ]
+  },
+  "fetchPlan": {
+    "entity": "sample_Order",
+    "properties": [
+      "id",
+      "number",
+      "date",
+      "amount",
+      {
+        "name": "customer",
+        "fetchPlan": {
+          "properties": [
+            "id",
+            "name",
+            "status"
+          ]
+        }
+      }
+    ]
+  }
+}
+----
+
+如果在 GET 请求中的 URL 参数中使用内联 fetch plan，则 JSON 必须进行 URL 加密。示例：
+
+[source, http request]
+.使用内联 fetch plan 加载 Order
+----
+GET http://localhost:8080/rest
+            /entities
+            /sample_Order
+            /21021f78-edac-224b-e6f8-6e71e02a0f0d
+            ?fetchPlan=%7B%22entity%22%3A%22sample_Order%22%2C%22properties%22%3A%5B%22id%22%2C%22number%22%2C%22date%22%2C%22amount%22%2C%7B%22name%22%3A%22customer%22%2C%22fetchPlan%22%3A%7B%22properties%22%3A%5B%22id%22%2C%22name%22%2C%22status%22%5D%7D%7D%5D%7D
+----
+
+内联 fetch plan 可以通过 xref:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] 应用程序属性禁用。

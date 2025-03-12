@@ -1,17 +1,29 @@
 rootProject.name = 'jmix-docs'
 
+ext.pullExamples = true
+
 void cloneOrPull(String repoUrl, String targetDir) {
     File dir = file(targetDir)
     if (!dir.exists()) {
-        println "Cloning ${repoUrl} into ${dir.absolutePath}"
+        def branch = 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+        println "Cloning ${repoUrl} into ${dir.absolutePath} and switching to ${branch}"
         exec {
             commandLine 'git', 'clone', repoUrl, dir.absolutePath
         }
+        exec {
+            workingDir dir.absolutePath
+            commandLine 'git', 'checkout', branch
+        }
     } else if (settings.ext.find('pullExamples')) {
+        def workingBranch = 'release_2_5'
         println "Pulling the latest changes in ${dir.absolutePath}"
         exec {
             workingDir dir.absolutePath
             commandLine 'git', 'pull'
+        }
+        exec {
+            workingDir dir.absolutePath
+            commandLine 'git', 'checkout', workingBranch
         }
     }
 }
@@ -45,6 +57,9 @@ includeBuild 'external/jmix-data-modeling-entity-inheritance-sample'
 
 cloneOrPull('https://github.com/jmix-framework/jmix-data-modeling-composition-sample', 'external/jmix-data-modeling-composition-sample')
 includeBuild 'external/jmix-data-modeling-composition-sample'
+
+cloneOrPull('https://github.com/jmix-framework/jmix-initial-entity-values-sample', 'external/jmix-initial-entity-values-sample')
+includeBuild 'external/jmix-initial-entity-values-sample'
 
 cloneOrPull('https://github.com/jmix-framework/jmix-social-login-sample', 'external/jmix-social-login-sample')
 includeBuild 'external/jmix-social-login-sample'
@@ -120,3 +135,7 @@ includeBuild 'content/modules/webdav/examples/webdav-ex1'
 
 includeBuild 'content/modules/pivot-table/examples/pivottable-onboarding'
 includeBuild 'content/modules/pivot-table/examples/pivottable-ex1'
+
+includeBuild 'content/modules/message-templates/examples/messagetemplates-ex1'
+
+includeBuild 'content/modules/tabbed-mode/examples/tabbedmode-ex1'

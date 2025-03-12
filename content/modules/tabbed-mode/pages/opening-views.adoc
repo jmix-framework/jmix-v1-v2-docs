@@ -1,0 +1,199 @@
+= 打开视图
+
+在列表或详情视图时，可以通过 xref:flow-ui:actions/standard-actions.adoc[标准操作] 从主视图打开其他视图，也可以编程式打开。
+
+下面介绍在应用程序代码中如何打开视图。
+
+
+[[using-viewbuilders-bean]]
+== 使用 ViewBuilders Bean
+
+`ViewBuilders` bean 提供了打开视图的流式接口。流式接口的终止方法可以获取打开视图的实例。因此可以直接给视图实例传递输入参数，或者添加监听器在视图关闭后获取结果。
+
+打开视图时，注入 `ViewBuilders` bean 并调用 `view()` 方法，参数为当前视图和需要打开的视图类或 id。然后调用 `open()` 终止方法：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openView]
+----
+
+[[opening-detail-views]]
+=== 打开详情视图
+
+在大多数情况下，可以用标准操作，比如 xref:flow-ui:actions/list-actions.adoc#list_create[list_create] 打开详情视图。下面我们看一个示例，使用 `ViewBuilders` API 从 xref:flow-ui:actions.adoc[action] 或 xref:flow-ui:vc/components/button.adoc#ClickEvent[button] 的处理方法中直接打开详情视图。
+
+如需在详情视图中创建一个新实体，请调用 `newEntity()` 方法，示例：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToCreate]
+----
+
+如需在详情视图编辑一个已有的实体，可以将实体用 `editEntity()` 方法传入：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToEdit]
+----
+
+上面的示例中，详情视图会创建/更新实体，但是视图的调用方却无法拿到更新后的实例。
+
+通常我们需要编辑显示在列表数据视图组件中的一个实体，例如，xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]。那么我们需要按照下面的方式调用，这样更方便并能自动更新 `dataGrid`：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToEdit]
+----
+
+如果需要创建一个新实体并在详情视图打开，调用 `newEntity()` 方法即可：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToCreate]
+----
+
+同样的，如果需要创建或编辑设置到字段的实体，也可以用这个简单的方法：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openDetailViewFieldToEdit]
+----
+
+`ViewBuilders` 提供了许多方法设置打开视图的可选参数。例如，下面的代码创建了一个新实体，并进行初始化，然后在一个以对话框方式打开的特定详情视图中编辑：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewDialog]
+----
+
+[[opening-lookup-views]]
+=== 打开查找视图
+
+打开查找视图也类似，与详情视图一样，多数情况是通过标准操作打开，例如，xref:flow-ui:actions/entity-picker-actions.adoc#entity_lookup[entity_lookup]。下面的示例演示使用 `ViewBuilders` API，在不使用标准操作时也很方便。
+
+如需从列表视图选择实体时，请用 `lookup()` 方法打开视图：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openLookupView]
+----
+
+如果需要将查找的实体设置给一个字段，则可以用更简洁的方式：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openLookupViewSelect]
+----
+
+同样的，如果需要将查找到的实体添加至列表数据组件，例如，`dataGrid`，示例：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openLookupViewDataGrid]
+----
+
+与详情视图一样，可以用 builder 的方法设置打开视图的可选参数。例如，下面的代码用对话框模式查找 `User` 实体：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openLookupViewDialog]
+----
+
+
+[[passing-parameters-to-views]]
+== 为视图传递参数
+
+如果需要为打开的视图传递参数，可以调用 `withViewConfigurer` 方法为视图添加一个视图配置器。
+
+如下面的视图：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/fancymessage/FancyMessageView.java[tags=fancyMessageViewFull]
+----
+
+在 `ViewConfigurer` 处理方法中，可以调用打开视图的 public setter：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openViewWithParameters]
+----
+
+
+[[executing-code-after-close]]
+== 视图关闭后执行代码以及返回值
+
+每个视图会在关闭时发送 xref:flow-ui:views/view-events.adoc#after-close-event[AfterCloseEvent] 事件。使用 `ViewBuilders` 时，监听器可以在 `withAfterCloseListener()` 方法提供：
+
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithCloseListener]
+----
+
+事件对象提供了视图关闭方式的信息。可以通过两种方法获取这个信息：
+
+* 检查视图是否以 `StandardOutcome` 枚举定义的某种输出关闭。
+
+* 通过获取 `CloseAction` 对象。第一种方式比较简单，但第二种方式更加灵活。
+
+我们看看第一种方式：使用一个标准输出关闭视图，并在调用代码中检查输出。下面是我们将调用的视图：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!closeAction]
+----
+<1> 点击 *Save* 按钮设置结果状态并以 `StandardOutcome.SAVE` 枚举值关闭视图。
+<2> 点击 *Close* 按钮以 `StandardOutcome.CLOSE` 结果关闭视图.
+
+在 `AfterCloseEvent` 监听器中，可以用事件的 `closedWith()` 方法检查视图是如何关闭的，并按需读取结果值：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithResult]
+----
+
+[[using-custom-close-action]]
+=== 使用自定义 CloseAction
+
+另一个从视图返回值的方法是使用自定义的 `CloseAction` 实现。我们重写一下上面的示例，使用下面的操作类：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/action/MyCloseAction.java[tags=myCloseAction]
+----
+
+在关闭视图时，我们可以用这个操作：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!resultField]
+----
+<1> 点击 *Ok* 按钮，创建自定义的关闭操作并设置结果值。
+<2> 点击 *Close* 按钮，使用框架提供的默认操作。
+
+在 `AfterCloseEvent` 监听器中，可以从事件中获取 `CloseAction`，并读取结果值：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithCloseAction]
+----
+
+可以看到，当结果值通过自定义的 `CloseAction` 返回时，调用方无需知道打开的视图的任何信息，因为不需要调用该视图控制器的任何方法。因此视图可以通过 id 创建。
+
+[[view-inference-conventions]]
+== 视图推断规则
+
+一个查找视图或详情视图可以从实体类推断。
+
+当使用 `viewBuilders.lookup(this, SomeEntity.class)` 打开列表视图时，框架按下列顺序选择需要打开的视图：
+
+. 带 `@PrimaryLookupView(SomeEntity.class)` 注解的视图。
+. 视图 id 为 `SomeEntity.lookup`。
+. 带 `@PrimaryListView(SomeEntity.class)` 注解的视图。
+. 视图 id 为 `SomeEntity.list`。
+
+When opening a detail view using `viewBuilders.detail(this, SomeEntity.class)`, the framework selects a view in the following order:
+
+. 带 `@PrimaryDetailView(SomeEntity.class)` 注解的视图。
+. 视图 id 为 `SomeEntity.detail`。

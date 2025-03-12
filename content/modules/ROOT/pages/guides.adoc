@@ -14,6 +14,10 @@
 |入门级
 |将自定义逻辑放置在控制器中的优缺点、如何在不同的 UI 视图之间共享业务逻辑以及将业务逻辑集中在可重用的服务中。
 
+|xref:initial-entity-values-guide:index.adoc[]
+|Beginner
+|了解如何使用属性的默认值、生命周期事件以及 UI 的初始化方法定义实体的默认值。
+
 |xref:data-modeling-many-to-many-guide:index.adoc[]
 |入门级
 |展示实体之间的多对多关系。
