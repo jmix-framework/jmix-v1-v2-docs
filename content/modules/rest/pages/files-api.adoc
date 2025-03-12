@@ -129,7 +129,7 @@ Content-Type: image/jpeg // <2>
 <2>	Заголовок `Content-Type` содержит тип содержимого файла.
 <3> `> ./cat-via-direct-content-type.jpg` обозначает двоичные данные файла (`фактическое двоичное содержимое здесь не отображается`).
 
-Вы можете управлять заголовком `Content-Disposition` ответа, установив параметр запроса `attachment`. Если установлено значение true, то `Content-Disposition` будет установлен в "attachment", а в противном случае – в "inline".
+Вы можете управлять заголовком `Content-Disposition` ответа, установив параметр запроса `attachment`. Если установлено значение true, то `Content-Disposition` будет установлен в `attachment`, а в противном случае – в `inline`.
 
 [source, http request]
 .Attachment request parameter
@@ -139,6 +139,8 @@ GET http://localhost:8080/rest
             ?fileRef=<your-file-ref>
             &attachment=true
 ----
+
+Список расширений файлов, которые можно скачать с заголовком `Content-Disposition: inline`, установлен в свойстве приложения xref:app-properties.adoc#jmix.rest.inline-enabled-file-extensions[jmix.rest.inline-enabled-file-extensions].
 
 NOTE: Чтобы скачивать файлы, пользователю необходимо иметь роль со xref:security:resource-roles.adoc#specific-policy[специальной политикой] `rest.fileDownload.enabled`.
 

@@ -27,6 +27,13 @@ jmix.rest.entity-max-fetch-size.sample_Product = 500
 jmix.rest.entity-max-fetch-size.sample_Customer = 1000
 ----
 
+[[jmix.rest.inline-enabled-file-extensions]]
+=== jmix.rest.inline-enabled-file-extensions
+
+Список расширений файлов, которые могут быть xref:files-api.adoc#downloading-files[скачаны] с заголовком `Content-Disposition: inline`.
+
+Значение по умолчанию: `jpg,png,jpeg,pdf`
+
 [[jmix.rest.inline-fetch-plan-enabled]]
 === jmix.rest.inline-fetch-plan-enabled
 

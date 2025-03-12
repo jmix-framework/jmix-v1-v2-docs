@@ -78,6 +78,8 @@ include::example$/files-ex1/build.gradle[tags=dependencies]
 jmix.localfs.storage-dir = /opt/file-storage
 ----
 
+Свойство `jmix.localfs.max-file-size` ограничивает максимальный размер загружаемых файлов. Его значение по умолчанию составляет `100MB`.
+
 [[aws-fs]]
 == Хранилище файлов AWS
 
