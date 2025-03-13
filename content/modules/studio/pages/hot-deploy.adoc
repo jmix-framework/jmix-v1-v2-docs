@@ -23,6 +23,18 @@ The hot deploy works as follows:
 
 The location of the directory for hot deploying resources is determined by the xref:ROOT:app-properties.adoc#jmix.core.conf-dir[jmix.core.conf-dir] application property. This directory is cleaned on the application start by the *Before launch* task configured in xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug Configuration Settings].
 
+Additionally, to ensure that the cleanup is more reliable and not dependent on Studio, there is a Gradle task called `cleanConf`. This task runs every time before launching the application using the `bootRun` task.
+
+If you encounter any issues with this feature, you can disable the `cleanConf` task in your project by adding the following property to your `build.gradle` file:
+
+[source,gradle]
+----
+jmix {
+    // ...
+    confDirCleanupEnabled = false
+}
+----
+
 Studio also sends signals to the application to clear appropriate caches to make it load the changed resources. These are messages cache and the configurations of fetch plans, registered views and menu. Signals are implemented as trigger files created in the `.jmix/temp/triggers` directory (its location can be changed by the xref:ROOT:app-properties.adoc#jmix.core.temp-dir[jmix.core.temp-dir] property).
 
 NOTE: The application may require 2-3 seconds to reload classes and resources after saving them in Studio. If you don't see expected changes after opening a view, try to refresh the web page again.
