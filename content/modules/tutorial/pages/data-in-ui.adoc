@@ -307,15 +307,15 @@ private List<UserStep> steps;
         ...
     </formLayout>
     <hbox id="buttonsPanel" classNames="buttons-panel">
-        <button action="stepsDataGrid.create"/>
-        <button action="stepsDataGrid.edit"/>
-        <button action="stepsDataGrid.remove"/>
+        <button action="stepsDataGrid.createAction"/>
+        <button action="stepsDataGrid.editAction"/>
+        <button action="stepsDataGrid.removeAction"/>
     </hbox>
     <dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...> <!--3-->
         <actions>
-            <action id="create" type="list_create"/>
-            <action id="edit" type="list_edit"/>
-            <action id="remove" type="list_remove"/>
+            <action id="createAction" type="list_create"/>
+            <action id="editAction" type="list_edit"/>
+            <action id="removeAction" type="list_remove"/>
         </actions>
         <columns>
             <column property="version"/>
@@ -417,9 +417,6 @@ public class UserDetailView extends StandardDetailView<User> {
 
     @Autowired
     private DataManager dataManager;
-
-    @Autowired
-    private Notifications notifications;
 
     @ViewComponent
     private DataContext dataContext;
@@ -523,7 +520,7 @@ image::data-in-ui/ordering-3.png[align="center"]
 [[rearrange-data-grid-columns]]
 === Перестановка колонок таблицы
 
-В настоящее время таблица UserSteps не очень информативна. Давайте удалим колонки `Version` и `Sort value` и добавим колонку, показывающую название шага.
+В настоящее время таблица UserSteps не очень информативна. Давайте удалим колонку `Sort value` и добавим колонку, показывающую название шага.
 
 Удалить колонку просто: выберите ее на панели структуры *Jmix UI* и нажмите *Delete* или удалите элемент непосредственно из XML.
 
@@ -531,17 +528,18 @@ image::data-in-ui/ordering-3.png[align="center"]
 
 image::data-in-ui/columns-2.png[align="center"]
 
-Как вы можете видеть, это не позволяет вам добавить название шага. Это связано с тем, что атрибут `step` является ссылкой, и вы не определили надлежащий фетч-план для его загрузки.
+Выберите `step` -> `name` и нажмите на кнопку *OK*. Новая колонка будет добавлен в конец списка колонок:
 
-Выберите контейнер данных `userDc` на панели структуры *Jmix UI* и нажмите кнопку *Edit* (image:common/edit.svg[]) либо в свойстве `fetchPlan` на панели инспектора *Jmix UI*, либо в маркере строки редактора XML:
-
-image::data-in-ui/columns-3.png[align="center",width="1151"]
-
-В окне *Edit Fetch Plan* выберите атрибут `steps` -> `step` и нажмите на кнопку *OK*:
-
-image::data-in-ui/columns-4.png[align="center"]
-
-Вложенный атрибут будет добавлен в фетч-план в редакторе XML:
+[source,xml]
+----
+<dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...>
+    <columns>
+        <column property="dueDate"/>
+        <column property="completedDate"/>
+        <column property="step.name"/>
+    </columns>
+----
+Кроме того, вложенный атрибут будет автоматически добавлен в фетч-план:
 
 [source,xml]
 ----
@@ -559,22 +557,6 @@ image::data-in-ui/columns-4.png[align="center"]
 ----
 
 Теперь коллекция UserSteps будет жадно загружена из базы данных вместе со связанным экземпляром `Step`.
-
-Выберите элемент `columns` на панели структуры *Jmix UI* и нажмите *Add* -> *Column* на панели инспектора *Jmix UI*. Диалоговое окно *Add Column* теперь содержит связанную сущность `Step` и ее атрибуты:
-
-image::data-in-ui/columns-5.png[align="center", width="386"]
-
-Выберите `step` -> `name` и нажмите на кнопку *OK*. Новая колонка будет добавлен в конец списка колонок:
-
-[source,xml]
-----
-<dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...>
-    <columns>
-        <column property="dueDate"/>
-        <column property="completedDate"/>
-        <column property="step.name"/>
-    </columns>
-----
 
 Вместо `step.name` вы могли бы использовать просто `step`. В этом случае в колонке будет отображаться xref:references.adoc#instance-name[имя экземпляра] сущности. Для сущности `Step` имя экземпляра получается из атрибута `name`, поэтому результат будет таким же.
 

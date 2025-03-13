@@ -117,8 +117,8 @@ image::ui-from-scratch/data-container-3.png[]
 [source,java]
 ----
 @Route(value = "MyOnboardingView", layout = MainView.class)
-@ViewController("MyOnboardingView")
-@ViewDescriptor("my-onboarding-view.xml")
+@ViewController(id = "MyOnboardingView")
+@ViewDescriptor(path = "my-onboarding-view.xml")
 public class MyOnboardingView extends StandardView {
     @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
@@ -170,7 +170,7 @@ public void onBeforeShow(final BeforeShowEvent event) {
 [[set-up-data-grid]]
 === Настройка таблицы (dataGrid)
 
-На панели структуры *Jmix UI* нажмите правой кнопкой мыши на элементе `layout` и выберите пункт *Add Component* в контекстном меню. Найдите и дважды щелкните на компоненте `DataGrid`. Выберите контейнер данных `userStepsDc` в диалоге *DataGrid Properties Editor*:
+На панели структуры *Jmix UI* нажмите правой кнопкой мыши на элементе `layout` и выберите пункт *Add Component* в контекстном меню. Найдите и дважды щелкните на компоненте `DataGrid`. В диалоге *DataGrid* выберите контейнер данных `userStepsDc` и отключите все флажки *Actions*:
 
 image::ui-from-scratch/table-1.png[align="center",width="741"]
 
@@ -191,9 +191,7 @@ image::ui-from-scratch/table-1.png[align="center",width="741"]
 
 `Step` является ссылочным атрибутом и по умолчанию не включается в фетч-план и таблицу. Вы уже видели эту ситуацию в xref:tutorial:data-in-ui.adoc#rearrange-data-grid-columns[предыдущей главе], когда отображалась таблица UserSteps на экране деталей пользователя.
 
-Добавьте атрибут `step` в фетч-план, затем добавьте колонку для него в dataGrid и удалите ненужную колонку `sortValue`:
-
-image::ui-from-scratch/table-2.gif[align="center"]
+Добавьте атрибут `step.name` в колонки и в фетч-план и удалите ненужную колонку `sortValue`:
 
 На этом этапе XML-дескриптор экрана должен быть таким, как показано ниже:
 
