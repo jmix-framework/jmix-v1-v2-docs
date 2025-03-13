@@ -22,7 +22,7 @@ On the first step of the *New Project* wizard, select *Jmix Project* in the list
 
 image::project-setup/create-project-2.png[align="center",width="914"]
 
-In the *Project JDK* field, select a JDK version 17. If the field displays `<No SDK>`, select *Download JDK* in its dropdown list and follow further instructions to download and select a JDK.
+In the *Project JDK* field, select a JDK version 17 or 21. If the field displays `<No SDK>`, select *Download JDK* in its dropdown list and follow further instructions to download and select a JDK.
 
 Click *Next*.
 
@@ -38,7 +38,7 @@ image::project-setup/create-project-4.png[align="center",width="915"]
 
 The *Base package* field defines the Java package which will contain all classes and resources of the project. Keep the value suggested by the wizard (`com.company.onboarding`) to conform the code in the tutorial.
 
-*Project id* is not required for an application, so leave the field empty.
+*Project id* is optional for an application, so leave the field empty.
 
 Click *Create*.
 

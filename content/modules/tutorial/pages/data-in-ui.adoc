@@ -304,15 +304,15 @@ Studio will modify `user-detail-view.xml` as shown below:
         ...
     </formLayout>
     <hbox id="buttonsPanel" classNames="buttons-panel">
-        <button action="stepsDataGrid.create"/>
-        <button action="stepsDataGrid.edit"/>
-        <button action="stepsDataGrid.remove"/>
+        <button action="stepsDataGrid.createAction"/>
+        <button action="stepsDataGrid.editAction"/>
+        <button action="stepsDataGrid.removeAction"/>
     </hbox>
     <dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...> <!--3-->
         <actions>
-            <action id="create" type="list_create"/>
-            <action id="edit" type="list_edit"/>
-            <action id="remove" type="list_remove"/>
+            <action id="createAction" type="list_create"/>
+            <action id="editAction" type="list_edit"/>
+            <action id="removeAction" type="list_remove"/>
         </actions>
         <columns>
             <column property="version"/>
@@ -414,9 +414,6 @@ public class UserDetailView extends StandardDetailView<User> {
 
     @Autowired
     private DataManager dataManager;
-
-    @Autowired
-    private Notifications notifications;
 
     @ViewComponent
     private DataContext dataContext;
@@ -520,7 +517,7 @@ image::data-in-ui/ordering-3.png[align="center"]
 [[rearrange-data-grid-columns]]
 === Rearranging Data Grid Columns
 
-Currently, the UserSteps data grid is not very informative. Let's remove the `Version` and `Sort value` columns and add a column showing the Step name.
+Currently, the UserSteps data grid is not very informative. Let's remove the `Sort value` column and add a column showing the Step name.
 
 Removing a column is straightforward: just select it in the *Jmix UI* structure panel and press *Delete*, or remove the element directly from XML.
 
@@ -528,17 +525,19 @@ To add a column, select the `columns` element in the *Jmix UI* structure panel a
 
 image::data-in-ui/columns-2.png[align="center"]
 
-As you can see, it doesn't allow you to add a Step name. This is because the `step` attribute is a reference, and you didn't define a proper fetch plan to load it.
+Select `step` -> `name` and click *OK*. The new column will be added to the end of the columns list:
 
-Select the `userDc` data container in the *Jmix UI* structure panel and click the *Edit* button (image:common/edit.svg[]) either in the `fetchPlan` property in the *Jmix UI* inspector panel or in the gutter of the XML editor:
+[source,xml]
+----
+<dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...>
+    <columns>
+        <column property="dueDate"/>
+        <column property="completedDate"/>
+        <column property="step.name"/>
+    </columns>
+----
 
-image::data-in-ui/columns-3.png[align="center",width="1151"]
-
-In the *Edit Fetch Plan* window, select `steps` -> `step` attribute and click *OK*:
-
-image::data-in-ui/columns-4.png[align="center"]
-
-The nested attribute will be added to fetch plan XML:
+Also, the nested attribute will be automatically added to the fetch plan XML:
 
 [source,xml]
 ----
@@ -557,21 +556,6 @@ The nested attribute will be added to fetch plan XML:
 
 Now the collection of UserSteps will be eagerly loaded from the database together with the related `Step` instances.
 
-Select the `columns` element in the *Jmix UI* structure panel and click *Add* -> *Column* in the *Jmix UI* inspector panel. The *Add Column* dialog now contains the related `Step` entity and its attributes:
-
-image::data-in-ui/columns-5.png[align="center", width="386"]
-
-Select `step` -> `name` and click *OK*. The new column will be added to the end of the columns list:
-
-[source,xml]
-----
-<dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...>
-    <columns>
-        <column property="dueDate"/>
-        <column property="completedDate"/>
-        <column property="step.name"/>
-    </columns>
-----
 
 Instead of `step.name` you could use just `step`. In this case, the column would display the xref:references.adoc#instance-name[instance name] of the entity. For `Step`, the instance name is obtained from the `name` attribute, so the result would be the same.
 

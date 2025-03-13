@@ -117,8 +117,8 @@ Click *OK*. Studio will generate a handler method stub:
 [source,java]
 ----
 @Route(value = "MyOnboardingView", layout = MainView.class)
-@ViewController("MyOnboardingView")
-@ViewDescriptor("my-onboarding-view.xml")
+@ViewController(id = "MyOnboardingView")
+@ViewDescriptor(path = "my-onboarding-view.xml")
 public class MyOnboardingView extends StandardView {
     @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
@@ -170,7 +170,7 @@ That's why you didn't invoke `load()` method of data loaders in the CRUD views c
 [[set-up-data-grid]]
 === Setting up Data Grid
 
-Right-click the `layout` element of the *Jmix UI* structure panel and select the *Add Component* item in the context menu. Find and double-click the `DataGrid` component. Select `userStepsDc` data container in the *DataGrid Properties Editor* dialog:
+Right-click the `layout` element of the *Jmix UI* structure panel and select the *Add Component* item in the context menu. Find and double-click the `DataGrid` component. Select `userStepsDc` data container and unselect all *Actions* checkboxes in the *DataGrid* dialog:
 
 image::ui-from-scratch/table-1.png[align="center",width="741"]
 
@@ -191,9 +191,7 @@ As you can see, the created data grid doesn't have a column for displaying the S
 
 `Step` is a reference attribute and is not included in the fetch plan and data grid by default. You already saw this situation in the xref:tutorial:data-in-ui.adoc#rearrange-data-grid-columns[previous chapter] when displayed a data grid of UserSteps in the User detail view.
 
-Add the `step` attribute to fetch plan, then add a column for it to the data grid and remove the unneeded `sortValue` column:
-
-image::ui-from-scratch/table-2.gif[align="center"]
+Add the `step.name` attribute to columns and fetch plan, and remove the unneeded `sortValue` column.
 
 At this stage, the view XML should be as below:
 

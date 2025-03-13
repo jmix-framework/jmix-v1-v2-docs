@@ -8,7 +8,7 @@ Guides are comprehensive resources that provide step-by-step instructions and ex
 
 |xref:tutorial:index.adoc[]
 |Beginner
-|Learn the essentials of Jmix by building a simple full-stack web application. The tutorial covers the entire development process, from data modelling to creating UI and managing access rights.
+|Learn the essentials of Jmix by building a simple full-stack web application. The tutorial covers the entire development process, from data modeling to creating UI and managing access rights.
 
 |xref:business-logic-guide:index.adoc[]
 |Beginner
