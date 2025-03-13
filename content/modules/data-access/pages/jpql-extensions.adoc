@@ -28,6 +28,17 @@ select e from Customer e where e.manager.email = :current_user_email
 
 You don't have to set the value for the `session_customerCode` or `current_user_email` parameter. They will be assigned automatically before the query execution. This is especially useful in the framework features where you don't have full control over the execution of the query, like xref:security:row-level-roles.adoc#jpql-policy[JPQL policies] of row-level roles or JPQL conditions of the xref:flow-ui:vc/components/genericFilter.adoc[] component.
 
+You can also use the `current_locale` predefined query parameter in the same way as parameters with the `current_user_` prefix.
+
+For example, you can write a JPQL query like this:
+
+[source,JPQL]
+----
+select e from Region e where e.locale = :current_locale
+----
+
+The parameter value is derived from the locale of the current user session, which is obtained from the xref:security:authentication.adoc#current[CurrentAuthentication] object.
+
 [[case-insensitive-substring-search]]
 == Case-Insensitive Substring Search
 
