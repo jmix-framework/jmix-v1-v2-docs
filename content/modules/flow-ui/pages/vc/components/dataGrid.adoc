@@ -207,11 +207,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ====
 
 [[auto-save]]
-=== Auto-save Edits
+=== Auto-Save Edits
 
-Visual components, including `dataGrid`, keep temporary changes in a data container until a confirmation action is triggered to commit them to the database.
+Typically, changes to entity instances made by visual components are saved to the database by xref:flow-ui:data/data-context.adoc[] when a confirmation action is triggered by the user.
 
-To automatically commit inline edits when the user leaves the current cell, create a handler for `ItemPropertyChangeEvent` and save the changes with `dataManager`:
+To automatically commit inline edits when the user leaves the current cell, create a handler for the data container's `ItemPropertyChangeEvent` and save the `DataContext`:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-data-context]
+----
+
+If the entities in the `dataGrid` are not merged into the `DataContext` (for example if the `loader` has the `readOnly="true"` attribute), save the changed entity using `DataManager`:
 
 [source,java,indent=0]
 ----
