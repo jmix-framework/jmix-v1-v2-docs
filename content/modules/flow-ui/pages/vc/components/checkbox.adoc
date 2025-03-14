@@ -142,7 +142,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[required-state]]
 *Required*
 
-The `checkbox` component supports validation to ensure compliance with its `required` state. A checkbox can be designated as required either through its own `required` attribute or because it's linked to a mandatory attribute of an entity. If a checkbox is deemed required via either of these methods, validation will only pass successfully if the checkbox is checked - that is, if its value evaluates to `true`. If the user attempts to proceed without checking the required checkbox, the validation will fail, and the view stays open.
+Компонент `checkbox` поддерживает валидацию, чтобы обеспечить соответствие его состоянию `required`. Чекбокс может быть обозначен как обязательный либо через его собственный атрибут `required`, либо потому что он связан с обязательным атрибутом сущности. Если чекбокс считается обязательным любым из этих способов, валидация успешно пройдет только в том случае, если чекбокс отмечен, то есть если его значение равно `true`. Если пользователь попытается продолжить, не отметив обязательный чекбокс, валидация не пройдет, и окно останется открытым.
 
 [[click-events]]
 == События клика мыши
@@ -185,7 +185,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 |Указывает, находится ли компонент `checkbox` в режиме только для чтения. Смотрите <<read-only-state,Состояние Read-Only>>.
 |`false`
 |[[required]]required
-|Set the required state of `checkbox`. See <<required-state,Required State>>.
+|Устанавливает обязательное состояние для `checkbox`. Смотрите <<required-state,Состояние Required>>.
 |`false`
 |===
 
