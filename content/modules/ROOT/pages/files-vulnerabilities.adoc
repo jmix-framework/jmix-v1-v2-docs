@@ -8,11 +8,11 @@
 
 . *XSS in the /files Endpoint of the Generic REST API*
 +
-The fileRef parameter, which consists of a file path and name, can be manipulated to return a `Content-type` of `text/html` when the name parameter ends with `.html`. This could allow malicious JavaScript code to be executed in the browser. A malicious file needs to be uploaded beforehand.
+The input parameter, which consists of a file path and name, can be manipulated to return the `Content-Type` header with `text/html` if the name part ends with `.html`. This could allow malicious JavaScript code to be executed in the browser. A malicious file needs to be uploaded to the file storage beforehand.
 
 . *DoS in the Local File Storage*
 +
-The local file storage implementation does not restrict the size of uploaded files. An attacker could exploit this by uploading excessively large files, potentially causing the server to run out of space and return a 500 error, resulting in a denial of service.
+The local file storage implementation does not restrict the size of uploaded files. An attacker could exploit this by uploading excessively large files, potentially causing the server to run out of space and return the HTTP 500 error, resulting in a denial of service.
 
 Affected versions:
 
@@ -26,7 +26,7 @@ Affected versions:
 [start=3]
 . *Path Traversal in Local File Storage*
 +
-Attackers could manipulate the FileRef parameter to access files on the system where the Jmix application is deployed, provided the application server has the necessary permissions. This can be accomplished either by modifying the `FileRef` directly in the database or by supplying a harmful value in the `fileRef` parameter of the `/files` endpoint of the generic REST API.
+Attackers could manipulate the `FileRef` parameter to access files on the system where the Jmix application is deployed, provided the application server has the necessary permissions. This can be accomplished either by modifying the `FileRef` directly in the database or by supplying a harmful value in the `fileRef` parameter of the `/files` endpoint of the generic REST API.
 
 Affected versions:
 
@@ -41,6 +41,7 @@ The vulnerabilities have been fixed in the following versions:
 - *Jmix 2.x:* Versions 2.4.0 and above
 - *CUBA:* Versions 7.2.23 and above
 - *CUBA REST API add-on:* Versions 7.2.7 and above
+- *CUBA JPA Web API add-on:* Versions 1.1.1 and above
 
 [[workarounds]]
 == Workarounds
@@ -49,7 +50,7 @@ For those unable to upgrade immediately, we provide two workarounds:
 
 . A fix for the Path Traversal vulnerability in Jmix.
 
-. Instructions to disable the /files REST endpoint to eliminate the XSS vulnerability and DoS attack vector.
+. Instructions to disable the `/files` REST endpoint to eliminate the XSS vulnerability and DoS attack vector.
 
 [[fix-path-traversal-in-jmix-application]]
 === Fix Path Traversal in Jmix Application
