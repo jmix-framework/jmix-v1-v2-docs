@@ -18,6 +18,7 @@ import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
+import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,8 @@ public class DataGridFeaturesView extends StandardView {
     private UiComponents uiComponents;
     @Autowired
     private Notifications notifications;
+    @ViewComponent
+    private DataContext dataContext;
 
     // end::injects[]
 
@@ -90,9 +93,17 @@ public class DataGridFeaturesView extends StandardView {
     // end::getActiveCount[]
 
 
+    // tag::auto-save-data-context[]
+    @Subscribe(id = "usersDc", target = Target.DATA_CONTAINER)
+    public void onUsersDcItemPropertyChange1(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
+        dataContext.save();
+    }
+    // end::auto-save-data-context[]
+
+
     // tag::auto-save[]
     @Subscribe(id = "usersDc", target = Target.DATA_CONTAINER)
-    public void onUsersDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
+    public void onUsersDcItemPropertyChange2(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
         dataManager.save(event.getItem());
     }
 
