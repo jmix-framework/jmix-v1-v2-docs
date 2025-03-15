@@ -25,8 +25,8 @@ image::business-logic-diagram.svg[align="center"]
 
 To use a Spring bean as part of the Jmix Services API, it needs to meet one of the following conditions:
 
-* *New Experimental Annotation-Based Approach*: The Spring bean must be created using the new experimental annotation-based method.
-* *Traditional Approach*: The Spring bean must fulfill these criteria:
+* *Annotation-Based Approach*: The Spring bean must be created using the `@RestService` annotation-based method.
+* *XML-based Approach*: The Spring bean must fulfill these criteria:
 1. The Spring bean needs to be annotated with Spring's `@Service` annotation (a specialized version of the `@Component` annotation).
 2. The Spring bean needs to be registered in the `rest-services.xml` configuration file.
 
@@ -34,8 +34,6 @@ Let's examine these two methods in more detail.
 
 [[using-annotations]]
 ==== Using Annotations
-
-NOTE: This is a part of experimental API which may be changed or removed in the future. Use at your own risk.
 
 Create the Spring bean and annotate it with the `@RestService` annotation.
 
@@ -222,14 +220,54 @@ The REST API method returns a serialized `OrderValidationResult` POJO:
 }
 ----
 
-[[service-parameters]]
-==== Passing Parameters
+[[service-parameters-formats]]
+==== Service Parameter Formats
 
 Parameter values must be passed in a format defined for the corresponding xref:data-model:data-types.adoc[datatype].
 
 * If the parameter type is `java.util.Date`, then the value is handled by `DateTimeDatatype`. This datatype implementation uses the https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE_TIME[ISO_DATE_TIME^] format where the date and time parts are separated with `T`, for example `2011-12-03T10:15:30`.
 * Parameters of `java.sql.Date` type are handled by `DateDatatype` which uses https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE[ISO_DATE^] format, for example `2011-12-03`.
 * Parameters of `java.sql.Time` type are handled by `TimeDatatype` which uses https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_TIME[ISO_TIME^] format, for example `10:15:30`.
+
+[[using-dto-parameters]]
+==== Using DTOs as Request Parameters
+
+When using a structured request object as a method parameter, the JSON request body must include the parameter name as the top-level key.
+
+Example:
+
+[source,java]
+----
+public Owner registerOwner(OwnerRegistration registration) {
+    return dataManager.create(Owner.class);
+}
+----
+
+With the following DTO definition:
+
+[source,java]
+----
+public record OwnerRegistration(String firstName, String lastName) {}
+----
+
+The request must follow this structure:
+
+[source,json]
+----
+{
+  "registration": {
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+----
+
+
+[[recommended-dto-usage]]
+[NOTE]
+====
+Instead of using POJOs as parameter objects, it is recommended to use xref:data-model:entities.adoc#dto[DTO Entities]. This provides several advantages like correct OpenAPI Schema Generation and better support for Bean Validation to validate the request parameters.
+====
 
 [[custom-controller]]
 == Custom Controller
