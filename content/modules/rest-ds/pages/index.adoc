@@ -29,6 +29,9 @@ include::example$/rest-ds-client/build.gradle[tags=dependencies]
 [[configuration]]
 == Configuration
 
+[[basic-configuration]]
+=== Basic Configuration
+
 The basic configuration includes the steps listed below.
 
 In the service application project:
@@ -55,11 +58,45 @@ include::example$rest-ds-client/src/main/resources/application.properties[tags=s
 include::example$rest-ds-client/src/main/resources/application.properties[tags=connection]
 ----
 
+[[authentication-with-password-grant]]
+=== Authentication With Password Grant
+
 If you want to authenticate real users in the service application as demonstrated in xref:separate-tiers-guide:index.adoc[] guide, set up the xref:authorization-server:obtaining-tokens.adoc#resource-owner-password-credentials-grant[Password Grant] in the service application and add the following properties to the client application:
 
 [source,properties]
 ----
 include::example$rest-ds-client/src/main/resources/application.properties[tags=authenticator]
+----
+
+[[ui-user-settings]]
+=== UI User Settings
+
+To save UI user settings and filter configurations through the REST data store, do the following:
+
+* In `build.gradle`:
+** add `io.jmix.flowui:jmix-flowui-restds-starter` dependency
+** remove `io.jmix.flowui:jmix-flowui-data-starter` dependency
+* In `application.properties`, specify the name of the REST data store in the `jmix.restds.ui-config-store` property, for example:
++
+[source,properties]
+----
+jmix.restds.ui-config-store=serviceapp
+----
+
+See xref:separate-tiers-guide:index.adoc#frontend-application[Frontend Application Configuration] in the Separating Application Tiers guide for more information.
+
+[[rest-paths]]
+=== REST API Paths
+
+If the REST API endpoints have non-standard xref:rest:app-properties.adoc#paths[paths], you can configure access to them using the application properties shown below. The properties start from the data store name (`serviceapp` in this example):
+
+[source,properties]
+----
+serviceapp.basePath=/rest
+serviceapp.entitiesPath=/entities
+serviceapp.userInfoPath=/userInfo
+serviceapp.permissionsPath=/permissions
+serviceapp.capabilitiesPath=/capabilities
 ----
 
 [[data-model]]
