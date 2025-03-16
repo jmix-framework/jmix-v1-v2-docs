@@ -29,6 +29,9 @@ include::example$/rest-ds-client/build.gradle[tags=dependencies]
 [[configuration]]
 == Конфигурация
 
+[[basic-configuration]]
+=== Базовая конфигурация
+
 Базовая конфигурация включает следующие шаги.
 
 В проекте сервисного приложения:
@@ -55,11 +58,45 @@ include::example$rest-ds-client/src/main/resources/application.properties[tags=s
 include::example$rest-ds-client/src/main/resources/application.properties[tags=connection]
 ----
 
+[[authentication-with-password-grant]]
+=== Аутентификация с помощью Password Grant
+
 Если вы хотите выполнять аутентификацию реальных пользователей в сервисном приложении, как продемонстрировано в руководстве xref:separate-tiers-guide:index.adoc[], настройте xref:authorization-server:obtaining-tokens.adoc#resource-owner-password-credentials-grant[Password Grant] в сервисном приложении и добавьте следующие свойства в клиентское приложение:
 
 [source,properties]
 ----
 include::example$rest-ds-client/src/main/resources/application.properties[tags=authenticator]
+----
+
+[[ui-user-settings]]
+=== UI-настройки пользователей
+
+Чтобы сохранять UI-настройки пользователей и конфигурации фильтров через REST-хранилище данных, выполните следующие действия:
+
+* В `build.gradle`:
+** добавьте зависимость `io.jmix.flowui:jmix-flowui-restds-starter`
+** удалите зависимость `io.jmix.flowui:jmix-flowui-data-starter`
+* В `application.properties` укажите имя REST-хранилища данных в свойстве `jmix.restds.ui-config-store`, например:
++
+[source,properties]
+----
+jmix.restds.ui-config-store=serviceapp
+----
+
+См. также xref:separate-tiers-guide:index.adoc#frontend-application[Frontend Application Configuration] в руководстве Separating Application Tiers.
+
+[[rest-paths]]
+=== REST API Paths
+
+Если эндпойнты REST API имеют нестандартные xref:rest:app-properties.adoc#paths[пути], вы можете настроить доступ к ним, используя свойства приложения, показанные ниже. Свойства начинаются с имени хранилища данных (`serviceapp` в данном примере):
+
+[source,properties]
+----
+serviceapp.basePath=/rest
+serviceapp.entitiesPath=/entities
+serviceapp.userInfoPath=/userInfo
+serviceapp.permissionsPath=/permissions
+serviceapp.capabilitiesPath=/capabilities
 ----
 
 [[data-model]]
