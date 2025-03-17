@@ -3,9 +3,38 @@
 
 `nativeLabel` represents the `label` HTML element that creates a caption for a component.
 
-* XML element: `nativeLabel`
-
-* Java class: `NativeLabel`
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`nativeLabel`
+|Java Class
+|`NativeLabel`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+<<setFor, setFor>> -
+xref:vc/common-attributes.adoc#text[text] -
+<<themeNames,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 == Basics
 
@@ -22,7 +51,7 @@ image::visual-components/html-components/label-basic.png[align="center", width="
 
 Having the label associated with a component makes the label text correctly interpreted by assistive technologies, such as screen readers.
 
-To add text that is not associated to a component, use the `span` or `div` components.
+To add text that is not associated with a component, use the `span` or `div` components.
 
 [[dynamic-label]]
 == Dynamic Label
@@ -43,8 +72,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/htmlcompo
 
 image::visual-components/html-components/label-dynamic.png[align="center", width="180"]
 
-[[themeNames]]
-== Theme Variants
+[[themes]]
+== Themes
 
 Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to customize component's color, size, and shape. Start by transforming the component into a badge using `themeNames = "badge"`. Then, apply supplementary themes to enhance different visual aspects.
 
@@ -109,59 +138,46 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[attributes]]
 == Attributes
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#property[property] -
-<<setFor, setFor>> -
-xref:vc/common-attributes.adoc#text[text] -
-<<themeNames,themeNames>> -
-xref:vc/common-attributes.adoc#title[title] -
-xref:vc/common-attributes.adoc#visible[visible] -
-<<whiteSpace, whiteSpace>> -
-xref:vc/common-attributes.adoc#width[width]
+In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+The following are attributes specific to `nativeLabel`:
 
-[[setFor]]
-=== setFor
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[themeNames]]themeNames
+|Adds a theme to the component. Possible values: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. For a theme to take effect, combine `badge` with another value as shown <<themes, above>>.
 
-Specifies which element is to be associated with the label by providing its id.
+*Predefined themes are sets of CSS classes that may affect other styling options of the component or its nested components.*
+|-
+|[[setFor]]setFor
+|Associates the label with a specific element by its id, enabling assistive technologies like screen readers to interpret it correctly.
+|-
+|===
 
-[[whiteSpace]]
-=== whiteSpace
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines the component's `white-space` style value. Possible values are:
-
-* `NORMAL`
-* `NOWRAP`
-* `PRE`
-* `PRE_WRAP`
-* `PRE_LINE`
-* `BREAK_SPACES`
-* `INHERIT`
-* `INITIAL`
 
 [[handlers]]
 == Handlers
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
+The following are handlers specific to `nativeLabel`:
 
 include::../handler-generation-tip.adoc[]
+
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|[[ClickEvent]]ClickEvent
+|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
+
+*click* – fires the event whenever the component is clicked.
+
+*singleClick* – fires the event after a timeout to ensure it is not a double click.
+
+*doubleClick* – fires the event when the component is double-clicked.
+|===
 
 == See Also
 

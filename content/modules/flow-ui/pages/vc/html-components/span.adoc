@@ -8,10 +8,37 @@
 
 `span` can be used to add a small piece of text. It enables using styles, such as color or font.
 
-* XML element: `span`
-
-* Java class: `Span`
-
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`span`
+|Java Class
+|`Span`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+xref:vc/common-attributes.adoc#text[text] -
+<<themeNames,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 == Basics
 
 Like its HTML counterpart, the `span` component can be used to add and style text. However, the `span` XML element cannot be applied to a piece of text contained in another XML element.
@@ -33,8 +60,8 @@ In the above example, the content of `div` is placed on top and takes up all ava
 
 Note that a parent layout can force a line break after `span`. For example, a root layout of a standard view arranges all components in a vertical column.
 
-[[themeNames]]
-== Theme Variants
+[[themes]]
+== Themes
 
 Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to customize component's color, size, and shape. Start by transforming the component into a badge using `themeNames = "badge"`. Then, apply supplementary themes to enhance different visual aspects.
 
@@ -99,39 +126,42 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[attributes]]
 == Attributes
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#property[property] -
-xref:vc/common-attributes.adoc#text[text] -
-<<themeNames,themeNames>> -
-xref:vc/common-attributes.adoc#title[title] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
-xref:vc/common-attributes.adoc#width[width]
+In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+The following are attributes specific to `span`:
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[themeNames]]themeNames
+|Adds a theme to the component. Possible values: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. For a theme to take effect, combine `badge` with another value as shown <<themes, above>>.
+
+*Predefined themes are sets of CSS classes that may affect other styling options of the component or its nested components.*
+|-
+|===
 
 [[handlers]]
 == Handlers
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
+The following are handlers specific to `span`:
 
 include::../handler-generation-tip.adoc[]
 
-[[ClickEvent]]
-=== ClickEvent
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|[[ClickEvent]]ClickEvent
+|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
 
-`com.vaadin.flow.component.ClickEvent` is sent when the user clicks on the component.
+*click* – fires the event whenever the component is clicked.
+
+*singleClick* – fires the event after a timeout to ensure it is not a double click.
+
+*doubleClick* – fires the event when the component is double-clicked.
+|===
 
 == See Also
 

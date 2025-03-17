@@ -9,9 +9,41 @@
 
 `image` is designed to display images from different sources. The component can be bound to a xref:vc/common-attributes.adoc#dataContainer[data container] or configured programmatically.
 
-* XML element: `image`
-
-* Java class: `JmixImage`
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`image`
+|Java Class
+|`JmixImage`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<alternateText, alternateText>> -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan]
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+<<resource, resource>> -
+xref:vc/common-attributes.adoc#text[text] -
+<<themeNames,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 [[basics]]
 == Basics
@@ -100,90 +132,43 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // === ThemeResource
 
 == Attributes
+In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+The following are attributes specific to `span`:
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<alternateText, alternateText>> -
-<<ariaLabel, ariaLabel>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan]
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#property[property] -
-<<resource, resource>> -
-xref:vc/common-attributes.adoc#text[text] -
-<<themeNames,themeNames>> -
-xref:vc/common-attributes.adoc#title[title] -
-xref:vc/common-attributes.adoc#visible[visible] -
-<<whiteSpace, whiteSpace>> -
-xref:vc/common-attributes.adoc#width[width]
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[alternateText]]alternateText
+|Sets an alternate text for an image in case the resource is not set or unavailable.
+|-
+|[[resource]]resource
+|Specifies the location of the image. See <<resources, resources>>.
+|-
+|[[themeNames]]themeNames
+|Adds a theme to the component. Possible values: `fill`, `contain`, `cover`, `scale-down`.
+|-
+|===
 
-[[alternateText]]
-=== alternateText
-
-Sets an alternate text for an image in case the resource is not set or unavailable.
-
-[[ariaLabel]]
-=== ariaLabel
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets a separate, visually hidden label for accessibility technologies, such as screen readers.
-
-[[resource]]
-=== resource
-
-Specifies the resource from which the image is obtained.
-
-[[themeNames]]
-=== themeNames
-
-Adds a theme to the component. Possible values are:
-
-* `fill`
-* `contain`
-* `cover`
-* `scale-down`
-
-[[whiteSpace]]
-=== whiteSpace
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines the component's `white-space` style value. Possible values are:
-
-* `NORMAL`
-* `NOWRAP`
-* `PRE`
-* `PRE_WRAP`
-* `PRE_LINE`
-* `BREAK_SPACES`
-* `INHERIT`
-* `INITIAL`
-
+[[handlers]]
 == Handlers
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
+The following are handlers specific to `image`:
 
 include::../handler-generation-tip.adoc[]
 
-[[ClickEvent]]
-=== ClickEvent
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|[[ClickEvent]]ClickEvent
+|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
 
-`com.vaadin.flow.component.ClickEvent` is sent when the user clicks on the image.
+*click* – fires the event whenever the component is clicked.
+
+*singleClick* – fires the event after a timeout to ensure it is not a double click.
+
+*doubleClick* – fires the event when the component is double-clicked.
+|===
