@@ -3,8 +3,9 @@
       title="msg://divView.title">
     <layout>
         <!-- tag::basics[] -->
-        <div themeNames="badge">
-            <p text="This paragraph is styled as a badge."/>
+        <div>
+            <h2 text="Sample Title"/>
+            <p text="This is a sample paragraph inside a div."/>
         </div>
         <!-- end::basics[] -->
 
