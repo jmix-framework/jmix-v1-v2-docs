@@ -220,7 +220,7 @@ The REST API method returns a serialized `OrderValidationResult` POJO:
 }
 ----
 
-[[service-parameters-formats]]
+[[service-parameters]]
 ==== Service Parameter Formats
 
 Parameter values must be passed in a format defined for the corresponding xref:data-model:data-types.adoc[datatype].
