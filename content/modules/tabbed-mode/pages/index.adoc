@@ -1,6 +1,6 @@
 = Tabbed Application Mode
 
-This add-on allows you to open views in separate tabs inside main view, so multiple views can be opened simultaneously and the user can switch between them. Additionally, multiple views can be opened in the same tab, creating a view stack that is displayed as breadcrumbs.
+This add-on allows you to open views in separate tabs within the main view, allowing users to simultaneously access multiple views and switch between them easily. It also supports opening multiple views within the same tab, creating a view stack represented by breadcrumbs.
 
 image::tabbed-mode-overview.png[align="center",width="1214"]
 
