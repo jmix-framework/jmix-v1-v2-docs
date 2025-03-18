@@ -23,7 +23,7 @@ image::business-logic-diagram.svg[align="center"]
 
 Чтобы использовать Spring-бин как часть Jmix Services API, он должен соответствовать одному из следующих условий:
 
-* *Новый экспериментальный подход на основе аннотаций*: Spring-бин должен быть создан с использованием нового экспериментального метода на основе аннотаций.
+* *Подход на основе аннотаций*: Spring-бин должен быть создан с использованием специальных аннотаций.
 * *Традиционный подход*: Spring-бин должен соответствовать следующим критериям:
 1. Бин должен иметь аннотацию Spring `@Service` (специализированная версия аннотации `@Component`).
 2. Бин необходимо зарегистрировать в файле конфигурации `rest-services.xml`.
@@ -33,9 +33,7 @@ image::business-logic-diagram.svg[align="center"]
 [[using-annotations]]
 ==== С использованием аннотаций
 
-NOTE: Это часть экспериментального API, которая может быть изменена или удалена в будущем. Используйте на свой страх и риск.
-
-Создайте Spring-бин и аннотируйте его аннотацией `@RestService`.
+Создайте класс сервиса и добавьте ему аннотацию `@RestService`.
 
 [source,java]
 ----
@@ -221,13 +219,53 @@ POST http://localhost:8080/rest/services/sales_OrderService/validateOrder
 ----
 
 [[service-parameters]]
-==== Передача параметров
+==== Формат параметров
 
 Значения параметров должны передаваться в формате, определенном для соответствующего xref:data-model:data-types.adoc[datatype].
 
 * Если тип параметра – `java.util.Date`, то значение обрабатывает `DateTimeDatatype`. Эта реализация datatype использует формат https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE_TIME[ISO_DATE_TIME^], в котором части даты и времени разделены `T`, например 2011-12-03T10:15:30.
 * Параметры типа `java.sql.Date` обрабатывает `DateDatatype`, который использует формат https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE[ISO_DATE^], например `2011-12-03`.
 * Параметры типа `java.sql.Time` обрабатывает `TimeDatatype`, который использует формат https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_TIME[ISO_TIME^], например `10:15:30`.
+
+[[using-dto-parameters]]
+==== Использование DTO в качестве параметров запроса
+
+При использовании структурированного объекта в качестве параметра метода тело JSON-запроса должно включать имя параметра в качестве ключа верхнего уровня.
+
+Например:
+
+[source,java]
+----
+public Owner registerOwner(OwnerRegistration registration) {
+    return dataManager.create(Owner.class);
+}
+----
+
+При следующем определении DTO:
+
+[source,java]
+----
+public record OwnerRegistration(String firstName, String lastName) {}
+----
+
+Запрос должен иметь следующую структуру:
+
+[source,json]
+----
+{
+  "registration": {
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+----
+
+
+[[recommended-dto-usage]]
+[NOTE]
+====
+Вместо POJO рекомендуется использовать xref:data-model:entities.adoc#dto[DTO-сущности]. Это предоставляет такие преимущества, как правильная генерация схемы OpenAPI и поддержка Bean Validation для валидации параметров запроса.
+====
 
 [[custom-controller]]
 == Пользовательские контроллеры
