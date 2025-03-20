@@ -44,25 +44,11 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderL
 
 Если вам нужно загрузить или сохранить какие-либо данные в слушателе событий "after commit", всегда начинайте новую транзакцию.
 
-В приведенном ниже примере демонстрируется обработка исключений и загрузка сущности с помощью `DataManager` в отдельной транзакции (см. метод `joinTransaction(false)`):
+В приведенном ниже примере демонстрируется обработка исключений и загрузка сущности с помощью `DataManager` в отдельной транзакции:
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;logger;data-manager;after-commit]
-----
-
-Если вам нужно сохранить сущность в слушателе "after commit", используйте `SaveContext` и его метод `setJoinTransaction(false)`, например:
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=save-after-commit]
-----
-
-Если у вас есть несколько вызовов `DataManager` или других сервисов, которые могут потребовать наличие транзакции, начните новую транзакцию для всего метода, например:
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=after-commit-tx]
 ----
 <1> `Propagation.REQUIRES_NEW` здесь необходим для запуска новой транзакции.
 

@@ -82,14 +82,14 @@ public class CustomerEventListener {
 
     // tag::after-commit[]
     @TransactionalEventListener
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // <1>
     void onCustomerChangedAfterCommit(EntityChangedEvent<Customer> event) {
         try {
             if (event.getType() != EntityChangedEvent.Type.DELETED
                     && event.getChanges().isChanged("grade")) {
 
-                Customer customer = dataManager.load(event.getEntityId())
-                        .joinTransaction(false)
-                        .one();
+                Customer customer = dataManager.load(event.getEntityId()).one();
+
                 emailCustomerTheirNewGrade(customer.getEmail(), customer.getGrade());
             }
         } catch (Exception e) {
@@ -101,19 +101,6 @@ public class CustomerEventListener {
     private void emailCustomerTheirNewGrade(String customerEmail, CustomerGrade grade) {
         SentEmail entity = dataManager.create(SentEmail.class);
         entity.setEmailedTo(customerEmail);
-        // tag::save-after-commit[]
-        dataManager.save(new SaveContext()
-                .saving(entity)
-                .setJoinTransaction(false)
-        );
-        // end::save-after-commit[]
+        dataManager.save(entity);
     }
-
-    // tag::after-commit-tx[]
-    @TransactionalEventListener
-    @Transactional(propagation = Propagation.REQUIRES_NEW) // <1>
-    void onCustomerChangedAfterCommit2(EntityChangedEvent<Customer> event) {
-        // ...
-    }
-    // end::after-commit-tx[]
 }
