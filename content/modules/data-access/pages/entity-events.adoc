@@ -44,25 +44,11 @@ Note that exceptions occurred in an "after commit" event listener are not propag
 
 If you need to load or save any data in an "after commit" event listener, always start a new transaction.
 
-The example below demonstrates exception handling and loading an entity with `DataManager` in a separate transaction (see `joinTransaction(false)` method):
+The example below demonstrates exception handling and loading an entity with `DataManager` in a separate transaction:
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;logger;data-manager;after-commit]
-----
-
-If you need to save an entity in an "after commit" event listener, use `SaveContext` and its `setJoinTransaction(false)` method, for example:
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=save-after-commit]
-----
-
-If you have multiple calls to `DataManager` or to other services that may require a transaction, start the new transaction for the whole method, for example:
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=after-commit-tx]
 ----
 <1> `Propagation.REQUIRES_NEW` is necessary here for starting the new transaction.
 
