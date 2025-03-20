@@ -71,7 +71,7 @@ image::role-specific.png[align="center", width="722"]
 [[row-level-role-wizard]]
 == Мастер ролей уровня строк
 
-Для создания новой роли уровня строк нажмите *New → Row-level Role* xref:studio:tool-window.adoc[онке инструментов Jmix].
+Для создания новой роли уровня строк нажмите *New → Row-level Role* xref:studio:tool-window.adoc[окне инструментов Jmix].
 
 image::row-level-role-open.png[align="center", width="248"]
 
