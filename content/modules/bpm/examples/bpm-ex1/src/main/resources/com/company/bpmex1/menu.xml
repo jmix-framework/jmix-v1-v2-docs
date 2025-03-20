@@ -5,6 +5,8 @@
         <item view="User.list" title="msg://com.company.bpmex1.view.user/UserListView.title"/>
         <item view="smpl_Order.list" title="msg://com.company.bpmex1.view.order/orderListView.title"/>
         <item view="smpl_Customer.list" title="msg://com.company.bpmex1.view.customer/customerListView.title"/>
+        <item view="AdvancedTaskListView"
+              title="msg://com.company.bpmex1.view.advancedtasklist/advancedTaskListView.title"/>
     </menu>
 
 </menu-config>
