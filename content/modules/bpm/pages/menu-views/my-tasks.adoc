@@ -27,3 +27,42 @@ image::my-tasks/my-group-task.png[,800]
 ====
 In most cases, the _entity instance name_ can serve as an effective business key.
 ====
+
+[[advanced-task-list-view]]
+== Advanced Task List View
+
+The framework includes a BPM task view with advanced features for task management, including filtering, pagination, and sorting. This view is customizable to fit specific project requirements.
+
+To simplify this task view creation, Jmix Studio provides the *BPM: Advanced Task List View* template in its xref:studio:view-wizard.adoc[view creation wizard]:
+
+image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
+
+Creating an advanced task view involves similar steps as creating a standard blank view.
+
+After all steps are executed, the studio produces the descriptor and controller files. Despite their significant size, these files include extensive inline comments, making the code easier to understand and customize.
+
+The generated view will not extend or override the *My Tasks* view provided by the BPM add-on, and it can be customized to fit the project's needs.
+
+Let's see how the generated view looks in the application.
+
+image::my-tasks/advanced-my-tasks-view.png[align="center",width="982"]
+
+The left side of the view includes a custom filter component, which offers filtering capabilities based on task name, process, and assignment type.
+
+The right side of the view contains a data grid, which displays a sortable list of user tasks retrieved from the database.
+
+[[advanced-task-list-security]]
+=== Security
+
+Because this view is a custom view at the project level, you must manually grant permissions to it and its related entities.
+
+Create new `BpmProcessTaskPerformerRole` xref:security:resource-roles.adoc[resource role].
+
+This role grants the user access to view user tasks and work with process forms in the generated *Advanced Task List* view.
+
+[source, java, indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/security/BpmProcessTaskPerformerRole.java[tags=role]
+----
+<1> Specify the generated view id here.
+<2> Provide the id of the menu item that navigates to the generated view.
