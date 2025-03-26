@@ -75,6 +75,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 Обработчик `saveDelegate` должен возвращать `Set` сохраненных экземпляров. Если это невозможно, верните исходные экземпляры из `saveContext.getEntitiesToSave()` или просто пустой `Set`. Не возвращайте удаленные экземпляры. Возвращенные экземпляры будут помещены обратно в `DataContext`, и экран продолжит работу с обновленным состоянием.
 
+См. раздел xref:data/entities-in-ui.adoc[] для дополнительной информации о сохранении сущностей с использованием кастомных сервисов.
+
 [[change-event]]
 === ChangeEvent
 

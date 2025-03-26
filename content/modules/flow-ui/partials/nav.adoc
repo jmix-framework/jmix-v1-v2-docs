@@ -103,6 +103,7 @@
 *** xref:flow-ui:data/data-loaders.adoc[]
 *** xref:flow-ui:data/data-context.adoc[]
 *** xref:flow-ui:data/data-examples.adoc[]
+*** xref:flow-ui:data/entities-in-ui.adoc[]
 
 ** xref:flow-ui:actions.adoc[]
 *** xref:flow-ui:actions/declarative-actions.adoc[]

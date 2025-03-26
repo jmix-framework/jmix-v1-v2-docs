@@ -28,4 +28,8 @@ public class DepartmentService {
     public Set<Object> saveEntities(EntitySet entitiesToSave, EntitySet entitiesToRemove) {
         return null;
     }
+
+    public Department saveEntity(Department entity) {
+        return dataManager.save(entity);
+    }
 }
