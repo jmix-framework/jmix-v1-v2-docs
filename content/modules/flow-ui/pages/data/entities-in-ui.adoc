@@ -1,0 +1,26 @@
+= Working with Entities in UI
+
+Entities loaded into a view become associated with the view components, such as xref:data/data-containers.adoc[data containers] and xref:data/data-context.adoc[DataContext]. This association occurs because data containers and `DataContext` register listeners that respond to changes in the entity attributes. When passing the loaded entities to services for modification and saving, the entity instances should be isolated from the view components. Otherwise, the changes made by the service will directly affect the view state. Additionally, there is a risk of memory leaks if the instances are retained in a cache.
+
+The standard implementation of `DataContext` provides proper isolation of saved instances while saving entities to `DataManager`. This is achieved through the use of the `io.jmix.core.Copier` bean.
+
+You can do the same to isolate entities when sending them from views to custom services. The following example shows how to save an entity by a service:
+
+[source,java,indent=0]
+----
+include::example$onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView2.java[tags=save-custom]
+----
+<1> Make a copy of the entity to separate the instance representing the view state from the one that is being saved.
+<2> Send the copy to the service.
+<3> If you want to update the view state by the changes made in the service, merge the returned instance back into `DataContext`. The result of the `merge()` operation can be safely ignored in this case.
+
+[NOTE]
+====
+When using xref:data/data-context.adoc#save-delegate[saveDelegate] handler to intercept the standard `DataContext` save procedure, take into account the following differences from a regular method shown above:
+
+* The `SaveContext` object already contains copies of entities associated with the view components, so you don't need to create copies again.
+
+* The saved entities returned in the resulting `Set` from the handler are merged into the `DataContext` automatically, therefore you shouldn't invoke `merge()` operation explicitly.
+====
+
+// Add link to saving-entity-by-service in UI Samples

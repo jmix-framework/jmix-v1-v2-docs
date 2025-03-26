@@ -193,7 +193,7 @@ Related issue: https://github.com/jmix-framework/jmix/issues/3424[#3424^]
 
 The new `Copier` interface provides the `copy(Object)` method for copying entities. It is similar by semantics to `MetadataTools.deepCopy(Object)` but different in that its default implementation doesn't rely on metadata and copies all object's state using Java serialization.
 
-You can use `Copier` to isolate entities from UI when sending them to custom services from views. `DataContext` uses this interface to make entity copies when saving them to `DataManager`.
+You can use `Copier` to isolate entities from UI when sending them to custom services from views. `DataContext` uses this interface to make entity copies when saving them to `DataManager`. See more information in the xref:flow-ui:data/entities-in-ui.adoc[] section.
 
 Related issue: https://github.com/jmix-framework/jmix/issues/3937[#3937^]
 

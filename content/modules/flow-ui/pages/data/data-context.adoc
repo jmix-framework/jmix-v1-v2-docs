@@ -75,6 +75,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 The save delegate should return the set of saved instances. If it's impossible, return the original instances from `saveContext.getEntitiesToSave()` or just an empty set. Do not return removed instances. `DataContext` will merge back the returned instances so the view will continue working with the updated state.
 
+See the xref:data/entities-in-ui.adoc[] section for more information on saving entities using custom services.
+
 [[change-event]]
 === ChangeEvent
 
