@@ -142,7 +142,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[required-state]]
 *Required*
 
-The `checkbox` component supports validation to ensure compliance with its `required` state. A checkbox can be designated as required either through its own `required` attribute or because it's linked to a mandatory attribute of an entity. If a checkbox is deemed required via either of these methods, validation will only pass successfully if the checkbox is checked - that is, if its value evaluates to `true`. If the user attempts to proceed without checking the required checkbox, the validation will fail, and the view stays open.
+A checkbox can be configured as required using its <<required,required>> attribute or by binding it to a mandatory attribute with `@NotNull` validation.
+
+NOTE: Like input fields, a checkbox will only pass `@NotNull` validation if it is not empty (i.e., if it is checked). The default behavior can be modified using the xref:ui-properties.adoc#jmix.ui.component.checkbox-required-state-initialization-enabled[jmix.ui.component.checkbox-required-state-initialization-enabled] property, which allows the unchecked state to be treated as `false`.
 
 [[click-events]]
 == Click Events
