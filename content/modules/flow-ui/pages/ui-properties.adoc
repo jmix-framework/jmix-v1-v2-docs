@@ -195,6 +195,17 @@ Default value: `false`.
 [[components]]
 == Компоненты
 
+[[jmix.ui.component.checkbox-required-state-initialization-enabled]]
+=== jmix.ui.component.checkbox-required-state-initialization-enabled
+
+Это свойство управляет поведением компонента checkbox, связанного с обязательным булевым атрибутом с валидацией `@NotNull`.
+
+* Если выбрано `true`, то checkbox должен быть отмечен, чтобы пройти валидацию.
+
+* Если выбрано `false`, checkbox может быть неотмеченным без возникновения ошибок валидации. Это позволяет ему представлять значения `true` или `false` по необходимости.
+
+Значение по умолчанию: `true`
+
 [[jmix.ui.component.default-notification-duration]]
 === jmix.ui.component.default-notification-duration
 
