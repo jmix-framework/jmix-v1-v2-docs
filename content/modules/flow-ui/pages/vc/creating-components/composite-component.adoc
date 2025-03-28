@@ -1,6 +1,12 @@
 = Composite Component
 :page-aliases: custom-components/composite-components.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/composite-component" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 A composite component is a component consisting of other components. Like xref:fragments/fragments.adoc[fragments], composite components allow you to reuse some presentation layout and logic.
 
 We recommend using composite components in the following cases:

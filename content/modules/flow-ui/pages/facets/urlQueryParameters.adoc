@@ -1,5 +1,11 @@
 = urlQueryParameters
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/url-query-parameters?genericFilterCondition=property%3Aage_greater_30" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 `urlQueryParameters` facet is designed for declarative binding of the view state to the URL. It allows you to preserve the view state when xref:flow-ui:views/opening-views.adoc[navigating] between views or refreshing the browser page.
 
 If the entire view state comes from the database, which is the case for xref:views/views.adoc#standard-detail-view[entity detail views], the entity identifier in the URL route is enough to restore the state. But if some view components contain values that are not stored in the database, you need to encode them in the URL to restore when the view is reinitialised.

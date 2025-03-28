@@ -1,5 +1,11 @@
 = h1-h6
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/html-declaratively" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 The `h1` to `h6` HTML elements represent six levels of headings.
 
 [cols="1h,6", grid=none]

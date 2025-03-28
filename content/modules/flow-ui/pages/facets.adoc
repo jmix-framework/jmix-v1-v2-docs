@@ -1,5 +1,11 @@
 = Facets
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/facets" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 Facets are non-visual components that add supplementary behavior to the view or its components.
 
 [[built-in]]

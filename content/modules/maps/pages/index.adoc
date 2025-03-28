@@ -4,7 +4,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/geo-map-actions" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/maps" class="live-demo-btn" target="_blank">LIVE DEMO</a>
 </div>
 ++++
 

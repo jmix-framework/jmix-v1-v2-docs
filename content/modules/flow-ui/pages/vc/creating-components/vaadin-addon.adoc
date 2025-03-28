@@ -1,5 +1,11 @@
 = Integrating Vaadin Add-on
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/charts-addon" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 You can use any third-party Vaadin add-ons located in the https://vaadin.com/directory[Vaadin Directory^] or elsewhere. The example below demonstrates the integration of the https://vaadin.com/directory/component/pdf-viewer[Pdf Viewer^] add-on.
 
 To include the Vaadin add-on in your application, add the Vaadin Add-ons maven repository and the add-on dependency to the project's `build.gradle`:

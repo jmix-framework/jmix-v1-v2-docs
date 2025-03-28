@@ -23,4 +23,4 @@ When using xref:data/data-context.adoc#save-delegate[saveDelegate] handler to in
 * The saved entities returned in the resulting `Set` from the handler are merged into the `DataContext` automatically, therefore you shouldn't invoke `merge()` operation explicitly.
 ====
 
-// Add link to saving-entity-by-service in UI Samples
+TIP: See also the https://demo.jmix.io/ui-samples/sample/saving-entity-by-service[Saving entity by custom service^] online example that demonstrates how to isolate entities when sending them from a view to a custom service.

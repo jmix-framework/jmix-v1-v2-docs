@@ -1,5 +1,11 @@
 = Dialogs
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/dialogs-and-notifications" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 The `Dialogs` interface is designed to display standard dialog windows. A dialog window is a small popup window that you can use to present information and user interface elements in an overlay.
 
 The `createMessageDialog()`, `createOptionDialog()`, and `createInputDialog()` methods are the entry points to the fluent API that allows you to construct and show dialogs.

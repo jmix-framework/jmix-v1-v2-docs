@@ -1,6 +1,12 @@
 = dataLoadCoordinator
 :page-aliases: facets/data-load-coordinator.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/data-load-coordinator" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 `dataLoadCoordinator` facet is designed for triggering data loaders and for declarative linking of data loaders to data containers, visual components, and view lifecycle events.
 
 [[basics]]
@@ -142,3 +148,12 @@ The `refresh` element can have the following nested elements defining the trigge
 //----
 //include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-screen-event]
 //----
+
+[[see-also]]
+== See Also
+
+Explore the following online examples to see `dataLoadCoordinator` in action:
+
+* https://demo.jmix.io/ui-samples/sample/data-load-coordinator[DataLoadCoordinator^]
+* https://demo.jmix.io/ui-samples/sample/cascading-dropdowns[Cascading dropdowns^]
+* https://demo.jmix.io/ui-samples/sample/custom-filter[Custom filter using declarative conditions^]

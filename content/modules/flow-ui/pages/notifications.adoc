@@ -1,5 +1,11 @@
 = Notifications
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/notification-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 Notifications are pop-up messages displayed to inform users about activities, processes, and events in the application.
 
 To show a notification, inject the `Notifications` bean into the view class and use its fluent interface. In the following example, a notification with default parameters is shown on the button click:

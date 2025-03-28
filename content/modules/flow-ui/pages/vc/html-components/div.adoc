@@ -1,6 +1,12 @@
 = div
 :page-aliases: vcl/containers/grid-layout.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/html-declaratively" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 `div` is a container that groups related components together.
 [cols="1h,6", grid=none]
 |===

@@ -1,6 +1,12 @@
 = Fragments
 :page-aliases: screens/screen-fragment-events.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/fragments" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 A _fragment_ is a UI building block that can be used as a part of views and other fragments. It's a composite component with the following additional features:
 
 * Ability to define the content in XML.

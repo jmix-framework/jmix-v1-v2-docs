@@ -18,3 +18,12 @@ Besides, you can configure key-value containers using their Java API which inclu
 * `setIdName()` is an optional method that allows you to define one of the attributes as an identifier attribute of the entity. It means that `KeyValueEntity` instances stored in this container will have identifiers obtained from the given attribute. Otherwise, `KeyValueEntity` instances get randomly generated UUIDs.
 
 * `getEntityMetaClass()` returns a dynamic implementation of the xref:data-model:metadata.adoc[MetaClass] interface that represents the current schema of `KeyValueEntity` instances. It is determined by previous calls to `addProperty()`.
+
+[TIP]
+====
+Explore the following online examples to see key-value containers in action:
+
+* https://demo.jmix.io/ui-samples/sample/data-grid-key-value[DataGrid with key-value container^]
+* https://demo.jmix.io/ui-samples/sample/property-filter-key-value[PropertyFilter with key-value container^]
+====
+

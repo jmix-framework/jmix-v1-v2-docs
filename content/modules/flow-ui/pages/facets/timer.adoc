@@ -72,3 +72,8 @@ To register the event handler programmatically, use the `addTimerActionListener(
 `TimerStopEvent` is sent when the timer is stopped by invoking the `stop()` method of the facet.
 
 To register the event handler programmatically, use the `addTimerStopListener()` method of the facet.
+
+[[see-also]]
+== See Also
+
+The https://demo.jmix.io/ui-samples/sample/delayed-data-load[Delayed data loading^] online example shows how to use the `timer` facet to delay a costly data loading operation.

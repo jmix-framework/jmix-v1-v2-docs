@@ -1,6 +1,12 @@
 = Integrating JavaScript Library
 :page-aliases: custom-components/js-component.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/custom-component-js-library" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 You can create custom UI components based on third-party JavaScript libraries. The example in this section demonstrates integration of the https://jqueryui.com/slider/[jQuery UI Slider^] widget.
 
 [[web-component]]

@@ -6,6 +6,9 @@ and optimization of business processes to enhance efficiency and effectiveness.
 
 BPM add-on provides functionality for modeling and running business processes.
 
+TIP: Explore the https://demo.jmix.io/bookstore/[Bookstore^] online demo application to see Jmix BPM add-on in action.
+
+
 [[installation]]
 == Installation
 [NOTE]

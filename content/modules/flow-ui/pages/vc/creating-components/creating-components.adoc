@@ -1,4 +1,10 @@
 = Creating Components
 :page-aliases: custom-components.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/custom-component" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 This section describes different ways of creating custom UI components in Jmix applications.

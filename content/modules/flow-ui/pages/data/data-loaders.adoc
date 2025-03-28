@@ -82,6 +82,8 @@ Sometimes you need to modify a data loader query at runtime to filter the loaded
 
 Instead of the universal filter or in addition to it, you can create a set of conditions for the loader query. A condition is a set of query fragments with parameters. These fragments are added to the resulting query text only when all parameters used in the fragments are set for the query.
 
+TIP: Explore the https://demo.jmix.io/ui-samples/sample/custom-filter[Custom filter using declarative conditions^] online example to see query conditions in action.
+
 Conditions are processed on the data store level, so they can contain fragments of different query languages supported by data stores. The framework provides out-of-the-box handling of conditions for JPQL.
 
 Let’s consider creating a set of conditions for filtering the `Department` entity by its `name` and `hrManager` attributes.

@@ -12,7 +12,7 @@ Jmix is intended for fast development of web applications with a large data mode
 
 Jmix is based on Spring Boot, which is a de-facto standard for creating enterprise Java web applications. It means that you can use a lot of third-party libraries and frameworks with minimal configuration, in addition to the functionality provided by Jmix.
 
-// todo Open-source, apps are owned by developers
+Jmix is an open-source framework, giving developers full control over their applications. Applications built with Jmix are owned entirely by the developers, with no vendor lock-in or proprietary restrictions, ensuring complete freedom to customize, deploy, and scale as needed.
 
 *Jmix Studio* is a plugin for IntelliJ IDEA that helps you at all stages of the application development: creating and configuring a project, defining data model, generating database migration scripts, developing UI views in a visual editor. It provides advanced navigation, code completion and inspections specific to Jmix projects.
 
@@ -32,3 +32,7 @@ The documentation contains everything you need to know for developing with Jmix:
 * The top-level sections from xref:data-model:index.adoc[] to xref:deployment:index.adoc[] contain reference information and how-to guides that will help you develop applications with Jmix.
 
 * The xref:ROOT:add-ons.adoc[] section describes additional modules that can be used in your project.
+
+https://demo.jmix.io/ui-samples[Jmix UI Samples^] application includes a large collection of examples related to UI.
+
+Other https://www.jmix.io/live-demo[online demo^] applications provide examples of the various features available in Jmix.
