@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-simple" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -120,7 +120,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-custom-items" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-custom-items" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -179,7 +179,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-custom-filtering" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-custom-filtering" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -197,7 +197,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-user-input" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-user-input" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -224,7 +224,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 //Lazy Loading
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-items-query" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-items-query" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -278,7 +278,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 //Custom Item Presentation
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-custom-renderer" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-custom-renderer" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -318,7 +318,7 @@ include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=over
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-theme-variant" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/combobox-theme-variant" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 

@@ -1,5 +1,11 @@
 = Фасеты
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/facets" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 Фасеты - это невизуальные компоненты, которые добавляют дополнительное поведение к экрану или его компонентам.
 
 [[built-in]]

@@ -2,7 +2,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/virtual-list-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/virtual-list-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -40,7 +40,7 @@ Note that items in `virtualList` can't be selected or navigated using the keyboa
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/virtual-list-inline-editor" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/virtual-list-inline-editor" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -76,7 +76,7 @@ Sets the name of a data container which contains a list of items. The component 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/virtual-list-custom-items" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/virtual-list-custom-items" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 

@@ -318,7 +318,7 @@ Jmix также поддерживает более сильную связь м
 
 Объекты, принадлежащие композиции, редактируются в UI вместе. Например, пользователь открывает экран редактирования Order и может создавать и редактировать OrderLines в их отдельных экранах редактирования, но все изменения как для Order, так и для всех его OrderLines сохраняются в базе данных вместе в одной транзакции и только после того, как пользователь подтвердит сохранение объекта-владельца – Order.
 
-Для более подробной информации о композиции обратитесь к руководству xref:data-modeling-composition-guide:index.adoc[].
+Для более подробной информации о композиции обратитесь к руководству xref:data-modeling-composition-guide:index.adoc[] и коллекции онлайн-примеров в https://demo.jmix.ru/ui-samples/sample/cookbook[Сборнике рецептов^].
 
 Отношение-композиция определяется аннотацией <<composition,@Composition>> к ссылочному атрибуту.
 
@@ -417,6 +417,8 @@ TIP: Studio поддерживает создание комментариев �
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Order.java[tags=composition]
 ----
+
+TIP: Для получения подробной информации о композиции обратитесь к руководству xref:data-modeling-composition-guide:index.adoc[] и коллекции онлайн-примеров в https://demo.jmix.ru/ui-samples/sample/cookbook[Сборнике рецептов^].
 
 [[db-view]]
 === @DbView

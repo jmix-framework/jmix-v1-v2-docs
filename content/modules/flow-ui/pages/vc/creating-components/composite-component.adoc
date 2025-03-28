@@ -1,6 +1,12 @@
 = Композитный компонент
 :page-aliases: custom-components/composite-components.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/composite-component" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 Композитный компонент — это компонент, состоящий из других компонентов. Как и xref:fragments/fragments.adoc[фрагменты], композитные компоненты позволяют повторно использовать элементы компоновки  и логику экранов.
 
 Композитные компоненты рекомендуется использовать в следующих случаях:

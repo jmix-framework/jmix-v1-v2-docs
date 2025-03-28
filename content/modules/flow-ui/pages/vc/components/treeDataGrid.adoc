@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-tree" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-tree" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -241,7 +241,7 @@ include::../handler-generation-tip.adoc[]
 |[[partNameGenerator]]partNameGenerator
 |Generates parts of CSS class names for cells based on given conditions. This allows for customizing cell appearance based on the data displayed.
 |[[tooltipGenerator]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
 |===
 
 
@@ -368,11 +368,11 @@ The key has to be unique within the data grid, and it can’t be changed after s
 |[[DataGridColumnVisibilityChangedEvent]]DataGridColumnVisibilityChangedEvent
 |Fired when the column visibility is changed through the xref:flow-ui:vc/components/gridColumnVisibility.adoc[] component.
 |[[partNameGenerator-column]]partNameGenerator
-|Generates parts of CSS class names for this column based on given conditions. This allows for customizing cell appearance based on the data displayed. See https://demo.jmix.io/ui-samples/sample/data-grid-part-name-generator[live demo^].
+|Generates parts of CSS class names for this column based on given conditions. This allows for customizing cell appearance based on the data displayed. See https://demo.jmix.ru/ui-samples/sample/data-grid-part-name-generator[live demo^].
 |[[renderer]]renderer
 |Renders column content using text or components. See xref:vc/components/dataGrid.adoc#text-renderer[text renderer] and xref:vc/components/dataGrid.adoc#component-renderer[component renderer].
 |[[tooltipGenerator-column]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
 |===
 
 [[context-menu-element]]

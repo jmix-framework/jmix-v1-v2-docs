@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-simple" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -183,7 +183,7 @@ include::../examples/pivottable-ex1/src/main/java/com/company/ex1/view/pivottabl
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-ui" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-ui" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -505,7 +505,7 @@ include::../../flow-ui/pages/vc/handler-generation-tip.adoc[]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-derived-properties" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-derived-properties" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -625,7 +625,7 @@ The `rendererOptions` element provides a way to customize the specific settings 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-sorter-function" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/pivot-table-sorter-function" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 

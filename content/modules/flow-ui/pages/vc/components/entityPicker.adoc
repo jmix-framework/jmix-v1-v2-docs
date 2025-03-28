@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/entity-picker-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/entity-picker-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -50,8 +50,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 For more interactive example of `entityPicker` and its variations, see:
 
-* https://demo.jmix.io/ui-samples/sample/entity-picker-actions[entityPicker with actions^]
-* https://demo.jmix.io/ui-samples/sample/entity-picker-meta-class[entityPicker with metaClass^]
+* https://demo.jmix.ru/ui-samples/sample/entity-picker-actions[entityPicker with actions^]
+* https://demo.jmix.ru/ui-samples/sample/entity-picker-meta-class[entityPicker with metaClass^]
 
 == Data Binding
 

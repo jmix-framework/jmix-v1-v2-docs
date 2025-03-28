@@ -2,7 +2,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/timer-facet" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/timer-facet" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -72,3 +72,8 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 `TimerStopEvent` отправляется, когда таймер останавливается вызовом метода `stop()` фасета.
 
 Чтобы зарегистрировать обработчик программно, используйте метод `addTimerStopListener()` фасета.
+
+[[see-also]]
+== См. также
+
+Онлайн-пример https://demo.jmix.ru/ui-samples/sample/delayed-data-load[Задержка загрузки данных^] демонстрирует, как помощью таймера можно отложить затратную операцию загрузки данных.

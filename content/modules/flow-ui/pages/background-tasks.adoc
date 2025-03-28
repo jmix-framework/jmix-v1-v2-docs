@@ -88,6 +88,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[notes-and-tips]]
 == Заметки и советы
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/background-task-dialog" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 1. Используйте метод `dialogs.createBackgroundTaskDialog()` для отображения модального окна с индикатором прогресса и кнопкой *Отмена*. Он позволяет определить тип индикации прогресса и разрешить или запретить отмену фоновой задачи для окна.
 2. Если необходимо использовать определенные значения визуальных компонентов в потоке задачи, нужно реализовать их получение в методе `getParams()`, который выполняется в потоке пользовательского интерфейса после запуска задачи. В методе `run()` эти параметры будут доступны через метод `getParams()` объекта `TaskLifeCycle`.
 3. На выполнения фоновых задач влияют свойства приложения xref:ui-properties.adoc#jmix.ui.background-task.task-killing-latency[jmix.ui.background-task.task-killing-latency], xref:ui-properties.adoc#jmix.ui.background-task.threads-count[jmix.ui.background-task.threads-count], и xref:ui-properties.adoc#jmix.ui.background-task.timeout-expiration-check-interval[jmix.ui.background-task.timeout-expiration-check-interval].

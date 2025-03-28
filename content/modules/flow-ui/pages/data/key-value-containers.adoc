@@ -18,3 +18,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/kvsa
 * `setIdName()` опциональный метод, позволяющий назначить один из атрибутов идентификатором сущности. Это означает, что экземпляры `KeyValueEntity`, содержащиеся в данном контейнере, будут иметь идентификаторы, получаемые из данного атрибута. В противном случае экземпляры `KeyValueEntity` получают случайно сгенерированные UUIDs.
 
 * `getEntityMetaClass()` возвращает динамическую реализацию интерфейса xref:data-model:metadata.adoc[MetaClass], которая представляет текущую схему экземпляров `KeyValueEntity`, заданную вызовами метода `addProperty()`.
+
+[TIP]
+====
+Следующие онлайн-примеры демонстрируют KeyValue контейнеры в действии:
+
+* https://demo.jmix.ru/ui-samples/sample/data-grid-key-value[DataGrid с контейнером key-value^]
+* https://demo.jmix.ru/ui-samples/sample/property-filter-key-value[PropertyFilter с контейнером key-value^]
+====
+

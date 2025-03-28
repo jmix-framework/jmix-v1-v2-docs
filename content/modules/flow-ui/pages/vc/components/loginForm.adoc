@@ -2,7 +2,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/custom-login" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/custom-login" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -84,7 +84,7 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/login/Logi
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/custom-login" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/custom-login" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 

@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/kanban-simple" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/kanban-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -123,7 +123,7 @@ image::kanban-basic.png[align="center",width="804"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/kanban-data" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/kanban-data" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -232,7 +232,7 @@ include::../examples/kanban-ex1/src/main/java/com/company/onboarding/view/kanban
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-data-saving" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-data-saving" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -289,7 +289,7 @@ image::kanban-actions.png[align="center",width="800"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-hierarchical-columns" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-hierarchical-columns" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -436,7 +436,7 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 |Если установлено значение `true`, обновляет высоту столбцов в зависимости от задач внутри. Эффект этого свойства наблюдается, когда <<columnColorEntireSurfaceEnabled, columnColorEntireSurfaceEnabled>> имеет значение `true`.
 |`false`
 |[[autoSave]]autoSave
-|Если установлено значение `true`, автоматически устанавливает <<saveDelegate, saveDelegate>>, который сохраняет xref:flow-ui:data/data-context.adoc[DataContext] текущего экрана. Может быть определен только декларативно с помощью XML. Для программной настройки используйте <<saveDelegate, saveDelegate>>. Смотрите http://demo.jmix.io/ui-samples/sample/kanban-data-saving[демонстрацию^] в режиме реального времени.
+|Если установлено значение `true`, автоматически устанавливает <<saveDelegate, saveDelegate>>, который сохраняет xref:flow-ui:data/data-context.adoc[DataContext] текущего экрана. Может быть определен только декларативно с помощью XML. Для программной настройки используйте <<saveDelegate, saveDelegate>>. См. http://demo.jmix.ru/ui-samples/sample/kanban-data-saving[онлайн-пример^].
 |`false`
 |[[collapsible]]collapsible
 |Если установлено значение `true`, включает возможность сворачивания столбца с помощью соответствующей кнопки в заголовке столбца, контекстного меню действий в заголовке столбца или двойного щелчка по заголовку столбца. Состояние этого атрибута может быть сохранено в xref:flow-ui:facets/settings.adoc[настройках пользователя].
@@ -508,7 +508,7 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/kanban-events" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/kanban-events" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -580,7 +580,7 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 |*Описание*
 |*Значение по умолчанию*
 |[[columnsEnum]]columnsEnum
-|Указывает FQN перечисления, которое будет использоваться в качестве значений столбцов. Значения перечисления будут использоваться в качестве <<columnDataField,dataField>> столбца, а его локализованное значение будет использоваться в качестве <<columnLabel,метки>> столбца. Вложенные столбцы недоступны в этом варианте определения. Смотрите http://demo.jmix.io/ui-samples/sample/kanban-columns-enum[демонстрацию^] в режиме реального времени.
+|Указывает FQN перечисления, которое будет использоваться в качестве значений столбцов. Значения перечисления будут использоваться в качестве <<columnDataField,dataField>> столбца, а его локализованное значение будет использоваться в качестве <<columnLabel,метки>> столбца. Вложенные столбцы недоступны в этом варианте определения. См. http://demo.jmix.ru/ui-samples/sample/kanban-columns-enum[онлайн-пример^].
 |–
 |===
 

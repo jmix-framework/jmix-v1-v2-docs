@@ -1,5 +1,11 @@
 = Интеграция дополнений Vaadin
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/charts-addon" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 В Jmix-приложениях можно использовать любые сторонние дополнения Vaadin, расположенные в https://vaadin.com/directory[Vaadin Directory^] или в любом другом репозитории. Пример ниже демонстрирует интеграцию дополнения https://vaadin.com/directory/component/pdf-viewer[Pdf Viewer^].
 
 Чтобы включить дополнение Vaadin в ваше приложение, добавьте maven-репозиторий дополнений Vaadin и зависимость выбранного дополнения в `build.gradle` проекта:

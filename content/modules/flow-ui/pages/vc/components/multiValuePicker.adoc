@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/value-picker-multi" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/value-picker-multi" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -112,7 +112,7 @@ NOTE: Вы можете создать собственный экран *Select
 +
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/value-picker-multi-enum" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/value-picker-multi-enum" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 +
@@ -130,7 +130,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 +
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/value-picker-multi-entity" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/value-picker-multi-entity" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 +

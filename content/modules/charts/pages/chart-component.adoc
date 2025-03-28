@@ -78,7 +78,7 @@ NOTE: Элемент `chart` может включать только одну �
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/charts" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/charts" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -86,14 +86,14 @@ NOTE: Элемент `chart` может включать только одну �
 
 Основные типы графиков, поддерживаемые Jmix, включают:
 
-* https://demo.jmix.io/ui-samples/sample/line-series-simple[Line series^]
-* https://demo.jmix.io/ui-samples/sample/bar-series-simple[Bar series^]
-* https://demo.jmix.io/ui-samples/sample/pie-series-simple[Pie series^]
-* https://demo.jmix.io/ui-samples/sample/scatter-series-simple[Scatter^] и https://demo.jmix.io/ui-samples/sample/effect-scatter-series[effect-scatter series^]
-* https://demo.jmix.io/ui-samples/sample/candlestick-series-simple[Candlestick series^]
-* https://demo.jmix.io/ui-samples/sample/funnel-series-simple[Funnel series^]
-* https://demo.jmix.io/ui-samples/sample/gauge-series-simple[Gauge series^]
-* https://demo.jmix.io/ui-samples/sample/radar-series-simple[Radar series^]
+* https://demo.jmix.ru/ui-samples/sample/line-series-simple[Line series^]
+* https://demo.jmix.ru/ui-samples/sample/bar-series-simple[Bar series^]
+* https://demo.jmix.ru/ui-samples/sample/pie-series-simple[Pie series^]
+* https://demo.jmix.ru/ui-samples/sample/scatter-series-simple[Scatter^] и https://demo.jmix.ru/ui-samples/sample/effect-scatter-series[effect-scatter series^]
+* https://demo.jmix.ru/ui-samples/sample/candlestick-series-simple[Candlestick series^]
+* https://demo.jmix.ru/ui-samples/sample/funnel-series-simple[Funnel series^]
+* https://demo.jmix.ru/ui-samples/sample/gauge-series-simple[Gauge series^]
+* https://demo.jmix.ru/ui-samples/sample/radar-series-simple[Radar series^]
 
 В следующем примере элемент `series` определяет круговую диаграмму:
 

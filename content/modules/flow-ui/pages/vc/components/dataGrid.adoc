@@ -3,7 +3,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -135,7 +135,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-inline-editor" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-inline-editor" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -255,7 +255,7 @@ By default, the inline editor uses `StatusChangeHandler` to set error message of
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-header-footer" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-header-footer" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -294,7 +294,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 <1> Cells within the header can be merged together. This helps to provide general information about related columns.
 ====
 
-TIP: Both the header and footer can contain rich content and components. See https://demo.jmix.io/ui-samples/sample/data-grid-header-footer[live demo^].
+TIP: Both the header and footer can contain rich content and components. See https://demo.jmix.ru/ui-samples/sample/data-grid-header-footer[live demo^].
 
 [[column-filtering]]
 == Column Headers Filtering
@@ -541,7 +541,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-item-details" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-item-details" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -562,7 +562,7 @@ Any column can be used for sorting the data displayed. Clicking on the column he
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-multi-sort" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-multi-sort" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -727,7 +727,7 @@ include::../handler-generation-tip.adoc[]
 |Handles the event when the user presses the Enter key.
 |[[tooltipGenerator]]tooltipGenerator
 // Flow UI sample uses different approach.
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
 |===
 
 == Elements
@@ -851,11 +851,11 @@ The key has to be unique within the data grid, and it can’t be changed after s
 |[[DataGridColumnVisibilityChangedEvent]]DataGridColumnVisibilityChangedEvent
 |Fired when the column visibility is changed through the xref:flow-ui:vc/components/gridColumnVisibility.adoc[] component.
 |[[partNameGenerator]]partNameGenerator
-|Generates parts of CSS class names for this column based on given conditions. This allows for customizing cell appearance based on the data displayed. See https://demo.jmix.io/ui-samples/sample/data-grid-part-name-generator[live demo^].
+|Generates parts of CSS class names for this column based on given conditions. This allows for customizing cell appearance based on the data displayed. See https://demo.jmix.ru/ui-samples/sample/data-grid-part-name-generator[live demo^].
 |[[renderer]]renderer
 |Renders column content using text or components. See <<text-renderer,text renderer>> and <<component-renderer, component renderer>>.
 |[[tooltipGenerator-column]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
 |===
 
 [[context-menu-element]]

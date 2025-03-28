@@ -2,7 +2,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/select-simple" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/select-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -93,7 +93,7 @@ image::visual-components/components/select-basics.png[align="center", width="278
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/select-dataaware" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/select-dataaware" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 

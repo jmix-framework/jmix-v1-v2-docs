@@ -2,7 +2,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -287,7 +287,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-simple-calendar-event" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-simple-calendar-event" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -303,7 +303,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-recurring-events" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-recurring-events" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -386,7 +386,7 @@ include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsam
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-container-calendar-data-provider" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-container-calendar-data-provider" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -412,7 +412,7 @@ include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsam
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-list-calendar-data-provider" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-list-calendar-data-provider" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -438,7 +438,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-callback-calendar-data-provider" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-callback-calendar-data-provider" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -494,7 +494,7 @@ NOTE: Этот JPQL-запрос предполагает, что значени
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-callback-load-delegate" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-callback-load-delegate" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -514,7 +514,7 @@ NOTE: Если ваша реализация делегата загрузки �
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-calendar-data-retriever" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-calendar-data-retriever" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -530,7 +530,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-calendar-display-modes" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-calendar-display-modes" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -627,7 +627,7 @@ image::multi-month-year-mode.png[align="center",width="1127"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-display-mode-specific-properties" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-display-mode-specific-properties" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -656,7 +656,7 @@ NOTE: В атрибуте `name` вы должны указать имя сво�
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-custom-calendar-display-mode" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-custom-calendar-display-mode" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -699,7 +699,7 @@ TIP: Режим отображения по умолчанию - это day grid
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-generic-calendar-display-modes" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-generic-calendar-display-modes" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -743,7 +743,7 @@ NOTE: Когда установлен видимый диапазон, мето�
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-start-editable" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-start-editable" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -782,7 +782,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-duration-editable" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-duration-editable" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -824,7 +824,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-constraint" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-constraint" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -847,7 +847,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-overlap-function" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-overlap-function" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -871,7 +871,7 @@ TIP: Вы можете найти все доступные свойства с�
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-selection" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-selection" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -940,7 +940,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-select-overlap-function" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-select-overlap-function" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -1000,7 +1000,7 @@ include::example$fullcalendar-ex2/src/main/java/com/company/fullcalendarsample/v
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-business-hours" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-business-hours" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -1038,7 +1038,7 @@ image::business-hours-custom.png[align="center",width="1048"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-context-menu" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-context-menu" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -1070,7 +1070,7 @@ image::context-menu.png[align="center",width="445"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-styling" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-event-styling" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -1134,7 +1134,7 @@ image::styling-properties3.png[align="center",width="186"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-class-names-generator" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/calendar-class-names-generator" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 

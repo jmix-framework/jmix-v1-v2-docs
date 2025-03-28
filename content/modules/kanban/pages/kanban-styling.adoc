@@ -11,7 +11,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-column-actions" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-column-actions" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
@@ -35,7 +35,7 @@ image::column-controls-buttons.png[align="center",width="1143"]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-styling" class="live-demo-btn" target="_blank">ДЕМОНСТРАЦИЯ</a>
+    <a href="http://demo.jmix.ru/ui-samples/sample/kanban-styling" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
