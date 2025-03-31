@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://iconsView.title">
+    <layout>
+        <hbox>
+            <!-- tag::declarative[] -->
+            <icon icon="vaadin:user"/>
+            <icon icon="lumo:user"/>
+            <!-- end::declarative[] -->
+        </hbox>
+
+        <!-- tag::programmatic[] -->
+        <button id="iconButton1" text="Default Icon"/>
+        <button id="iconButton2" text="Default Icon"/>
+        <!-- end::programmatic[] -->
+
+        <hbox>
+            <!-- tag::sprite[] -->
+            <icon icon="my-icons:star"/>
+            <icon icon="my-icons:heart"/>
+            <icon icon="my-icons:circle"/>
+            <!-- end::sprite[] -->
+        </hbox>
+
+        <!-- tag::programmatic-sprite[] -->
+        <button id="spriteIconButton" text="Sprite Icon"/>
+        <!-- end::programmatic-sprite[] -->
+
+        <!-- tag::declarative-standalone-1[] -->
+        <svgIcon resource="/icons/tree.svg"/>
+        <!-- end::declarative-standalone-1[] -->
+
+        <!-- tag::declarative-standalone-2[] -->
+        <button text="Click!">
+            <prefix>
+                <svgIcon resource="/icons/tree.svg"/>
+            </prefix>
+        </button>
+        <!-- end::declarative-standalone-2[] -->
+
+        <!-- tag::programmatic-standalone[] -->
+        <button id="standaloneIconButton" text="Click!"/>
+        <!-- end::programmatic-standalone[] -->
+    </layout>
+</view>
