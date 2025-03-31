@@ -195,7 +195,7 @@ Available css class names are obtained from the following sources:
 // +
 // ** The *JMIX ICONS* tab contains icons from the default `JmixIcon` icon set. It includes an almost full `FontAwesome` icon set and Jmix-specific icons.
 // ** The *FONT AWESOME* tab contains icons from the `FontAwesome` set of font icons.
-// ** The *ICON SET* tab contains icons from the xref:ui:icons/icon-sets.adoc[custom icon sets].
+// ** The *ICON SET* tab contains icons from the xref:ui:icons/custom-icons.adoc[custom icon sets].
 // ** The *APPLICATION ICONS* tab contains icons from the xref:ui:themes.adoc[theme] sources.
 
 [[handlers-tab]]

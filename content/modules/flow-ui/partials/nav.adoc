@@ -129,4 +129,7 @@
 ** xref:flow-ui:exception-handlers.adoc[]
 ** xref:flow-ui:themes/themes.adoc[]
 *** xref:flow-ui:themes/styling-ui-components.adoc[]
+** xref:flow-ui:icons.adoc[]
+*** xref:flow-ui:icons/default-icons.adoc[]
+*** xref:flow-ui:icons/custom-icons.adoc[]
 ** xref:flow-ui:ui-properties.adoc[]

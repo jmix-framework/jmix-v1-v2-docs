@@ -101,6 +101,7 @@
         <item view="CssAttrView" title="msg://com.company.onboarding.view.component.cssattr/cssAttrView.title"/>
         <item view="PrefixSuffixView"
               title="msg://com.company.onboarding.view.component.misc.prefixsuffix/prefixSuffixView.title"/>
+        <item view="IconsView" title="msg://com.company.onboarding.view.icons/iconsView.title"/>
     </menu>
 
     <menu id="layouts" title ="msg://com.company.onboarding/menu_config.layouts.title" >

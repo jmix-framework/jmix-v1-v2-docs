@@ -1,0 +1,46 @@
+= Icons
+
+Jmix includes two built-in icon sets and enables adding custom icons. You can use icons in numerous places, such as:
+
+* Dedicated xref:vc/components/icon.adoc[] component
+* Any component with the icon property (xref:vc/components/button.adoc[], xref:vc/layouts/tabSheet.adoc[], etc.)
+* xref:vc/miscellaneous/prefix-suffix.adoc[Prefix and suffix]
+* xref:actions.adoc[]
+* xref:menu-config.adoc[Main menu]
+
+// Icon sets enable simple use of icons without having to specify a path to the icon image.
+
+
+
+
+
+
+
+//
+//
+// = TOC
+// * встроенные сеты иконок
+// ** Работа со встроенным сетом через Studio (возможно ссылка на существующую доку по студио)
+// ** добавление иконки во встроенный сет
+//
+//
+//
+// * Что такое сет иконок? (рассказать что это енумерация)
+// * создание собственного сета иконок
+// ** использование ресурса откуда берётся иконка (это нужно передать в описание аттрибута)
+//
+// * font libraries
+// * пример добавление font library
+// * переопределение иконок в существующем сете
+
+
+
+
+
+// Image files used in the xref:ui:vcl/xml.adoc#icon[icon] property for xref:ui:actions.adoc[actions] and xref:ui:vcl.adoc[visual components], for example, xref:vcl/components/button.adoc[Button], can be added to your xref:ui:themes/custom_theme.adoc[custom theme].
+//
+// For example, to add an icon to the Helium custom theme, you should add the image file to the `themes/helium-extended` directory described in the xref:ui:themes/custom_theme.adoc[Creating a Custom Theme] section (it is recommended to create a subfolder):
+//
+// image::icons/path-to-icons.png[align="center"]
+//
+// In the following sections, we consider using the icons in visual components and adding icons from arbitrary font libraries.

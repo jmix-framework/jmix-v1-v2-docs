@@ -1,0 +1,31 @@
+= Default Icons
+
+There are two default icon sets: Vaadin and Lumo.
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/icon-all" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+== Declarative Usage
+
+Set an icon for a component with the `icon` attribute. Use the `vaadin:` and `lumo:` prefixes for different icon sets.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative]
+----
+
+When set through the inspector, the *Choose Icon* dialog appears, displaying icon names and preview for easier selection:
+
+image::icons/choose-icon-dialog.png[align="center", width="512"]
+
+== Programmatic Usage
+
+An icon can be set programmatically to a component:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic]
+----
