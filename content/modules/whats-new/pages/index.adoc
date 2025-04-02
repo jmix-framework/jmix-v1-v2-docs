@@ -165,12 +165,7 @@ Related issue: https://github.com/jmix-framework/jmix/issues/4052[#4052^]
 [[sessions-in-rest-api]]
 ==== Sessions in REST API
 
-The *Jmix Sessions* add-on provides support for sessions maintained across REST requests with the same token. You can use the add-on in your project by adding the following dependency to your `build.gradle`:
-
-[source,gradle]
-----
-implementation 'io.jmix.sessions:jmix-sessions-starter'
-----
+The *Jmix Sessions* subsystem provides support for user sessions maintained across REST requests with the same token. See xref:security:authentication.adoc#sessions-in-rest-api[Sessions in REST API] for more information.
 
 Related issue: https://github.com/jmix-framework/jmix/issues/3915[#3915^]
 
