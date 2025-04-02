@@ -319,6 +319,7 @@ If you have extended versions of these beans, you may need to adapt them.
 
 * Resolved issues in Jmix Framework:
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.1[2.5.1^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
 
 * Resolved issues in Jmix Studio:
