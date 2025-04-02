@@ -163,6 +163,18 @@ jmix.cors.allowed-origins = https://www.allowed1.com, https://www.allowed2.com
 
 Значение по умолчанию: `*`
 
+[[session]]
+== Session
+
+[[jmix.core.session.maximum-sessions-per-user]]
+=== jmix.core.session.maximum-sessions-per-user
+
+Максимальное количество xref:security:authentication.adoc#user-session[сессий] на пользователя.
+
+Это свойство влияет на параметр {spring-security-api}/org/springframework/security/config/annotation/web/configurers/SessionManagementConfigurer.html#maximumSessions(int)[SessionManagementConfigurer.maximumSessions^] в Spring Security.
+
+Значение по умолчанию: `100`
+
 [[see-also]]
 == Смотрите также
 

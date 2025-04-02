@@ -163,12 +163,7 @@ REST API теперь предоставляет новый xref:rest:capabiliti
 [[sessions-in-rest-api]]
 ==== Сессии в REST API
 
-Дополнение *Jmix Sessions* предоставляет поддержку сессий, поддерживаемых для REST-запросов с одним и тем же токеном. Дополнение подключается в проект добавлением следующей зависимости в `build.gradle`:
-
-[source,gradle]
-----
-implementation 'io.jmix.sessions:jmix-sessions-starter'
-----
+Подсистема *Jmix Sessions* предоставляет поддержку сессий, поддерживаемых для REST-запросов с одним и тем же токеном. Подробнее см. xref:security:authentication.adoc#sessions-in-rest-api[Сессии в REST API].
 
 Связанный тикет: https://github.com/jmix-framework/jmix/issues/3915[#3915^]
 
