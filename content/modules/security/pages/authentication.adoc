@@ -150,6 +150,8 @@ When connecting to a Jmix application via Jmix UI or REST API, a user session ba
 
 You can track user sessions at runtime using the xref:audit:user-sessions.adoc[] view of the *Audit* add-on.
 
+The maximum number of sessions per user can be defined using the xref:ROOT:app-properties.adoc#jmix.core.session.maximum-sessions-per-user[jmix.core.session.maximum-sessions-per-user] property.
+
 [[sessions-in-ui]]
 === Sessions in UI
 
