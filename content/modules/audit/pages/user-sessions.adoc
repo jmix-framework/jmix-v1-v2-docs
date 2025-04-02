@@ -2,6 +2,6 @@
 
 The Audit add-on includes the `UserSessions` bean that provides details on currently active user sessions.
 
-Additionally, the add-on features a view that displays active sessions and enables their invalidation.
+Additionally, the add-on features a view that displays active sessions and enables their invalidation. This view is available through the *Audit → User sessions* main menu item.
 
-To access the content of the user session details, navigate to the *Audit → User sessions* view.
+See the xref:security:authentication.adoc#user-session[Authentication: User Session] section for more information about sessions.
