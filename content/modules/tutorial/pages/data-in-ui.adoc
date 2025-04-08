@@ -304,15 +304,15 @@ Studio 会修改 `user-detail-view.xml`：
         ...
     </formLayout>
     <hbox id="buttonsPanel" classNames="buttons-panel">
-        <button action="stepsDataGrid.create"/>
-        <button action="stepsDataGrid.edit"/>
-        <button action="stepsDataGrid.remove"/>
+        <button action="stepsDataGrid.createAction"/>
+        <button action="stepsDataGrid.editAction"/>
+        <button action="stepsDataGrid.removeAction"/>
     </hbox>
     <dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...> <!--3-->
         <actions>
-            <action id="create" type="list_create"/>
-            <action id="edit" type="list_edit"/>
-            <action id="remove" type="list_remove"/>
+            <action id="createAction" type="list_create"/>
+            <action id="editAction" type="list_edit"/>
+            <action id="removeAction" type="list_remove"/>
         </actions>
         <columns>
             <column property="version"/>
@@ -415,15 +415,11 @@ public class UserDetailView extends StandardDetailView<User> {
     @Autowired
     private DataManager dataManager;
 
-    @Autowired
-    private Notifications notifications;
-
     @ViewComponent
     private DataContext dataContext;
 
     @ViewComponent
     private CollectionPropertyContainer<UserStep> stepsDc;
-}
 ----
 
 [TIP]
@@ -521,7 +517,7 @@ image::data-in-ui/ordering-3.png[align="center"]
 [[rearrange-data-grid-columns]]
 === 数据网格的列重排
 
-此时，UserSteps 数据网格提供的信息并不是很有用。我们需要删除 `Version` 和 `Sort value` 列并添加展示步骤名称的列。
+此时，UserSteps 数据网格提供的信息并不是很有用。我们需要删除 `Sort value` 列并添加展示步骤名称的列。
 
 删除列很简单，在 *Jmix UI* 的结构面板中选择这些列并按下 *Delete*，或直接从 XML 代码里删除相应的元素即可。
 
@@ -529,17 +525,19 @@ image::data-in-ui/ordering-3.png[align="center"]
 
 image::data-in-ui/columns-2.png[align="center"]
 
-可以看到，这里并不允许添加步骤名称。这是因为 `step` 属性是一个关联属性，而我们没有定义一个合适的 fetch plan 去加载这个实体。
+选择 `step` -> `name` 并点击 *OK*。新的列会添加至列表的最后：
 
-在 *Jmix UI* 的结构面板中，选择 `userDc` 数据容器，然后可以在 *Jmix UI* 组件面板中 `fetchPlan` 属性处或者直接在 XML 编辑器的装订线栏中点击 *Edit*（image:common/edit.svg[]）按钮：
+[source,xml]
+----
+<dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...>
+    <columns>
+        <column property="dueDate"/>
+        <column property="completedDate"/>
+        <column property="step.name"/>
+    </columns>
+----
 
-image::data-in-ui/columns-3.png[align="center",width="1151"]
-
-*Edit Fetch Plan* 窗口中，选中 `steps` -> `step` 属性，然后点击 *OK*：
-
-image::data-in-ui/columns-4.png[align="center"]
-
-内部的 `step` 属性会被添加至 fetch plan XML：
+内部属性会被添加至 fetch plan XML：
 
 [source,xml]
 ----
@@ -558,21 +556,6 @@ image::data-in-ui/columns-4.png[align="center"]
 
 现在 UserSteps 集合会与 `Step` 实例一起从数据库进行预加载。
 
-在 *Jmix UI* 的结构面板中选择 `columns` 元素并在组件面板中点击 *Add* -> *Column*。现在 *Add Column* 弹窗中包含了关联的 `Step` 实体和属性了：
-
-image::data-in-ui/columns-5.png[align="center", width="386"]
-
-选择 `step` -> `name`，然后点击 *OK*。新列会添加在最后面：
-
-[source,xml]
-----
-<dataGrid id="stepsDataGrid" dataContainer="stepsDc" ...>
-    <columns>
-        <column property="dueDate"/>
-        <column property="completedDate"/>
-        <column property="step.name"/>
-    </columns>
-----
 
 除了 `step.name` 之外，也可以直接使用 `step`。此时，表格列中将展示实体的 xref:references.adoc#instance-name[实例名称]。对于 `Step` 实体，实例名称是从 `name` 属性获取，所以结果没有不同。
 

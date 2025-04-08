@@ -78,6 +78,8 @@ include::example$/files-ex1/build.gradle[tags=dependencies]
 jmix.localfs.storage-dir = /opt/file-storage
 ----
 
+`jmix.localfs.max-file-size` 属性可以限制上传文件的大小。默认值为 `100MB`。
+
 [[aws-fs]]
 == AWS 文件存储
 

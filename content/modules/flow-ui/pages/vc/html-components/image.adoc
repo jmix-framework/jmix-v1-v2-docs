@@ -9,9 +9,41 @@
 
 `image` 用户展示不同来源的图片。该组件可以与 xref:vc/common-attributes.adoc#dataContainer[数据容器] 绑定或通过编程的方式设置。
 
-* XML 元素：`image`
-
-* Java 类：`JmixImage`
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`image`
+|Java 类
+|`JmixImage`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<alternateText, alternateText>> -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan]
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+<<resource, resource>> -
+xref:vc/common-attributes.adoc#text[text] -
+<<themeNames,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
+xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 [[basics]]
 == 基本用法
@@ -44,7 +76,8 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 * XML 中：
 +
-如果图片位于 `/src/main/resources/META-INF/resources`，比如 `/src/main/resources/META-INF/resources/icons/icon.png`，可以按照下列方式指定图片：
+如果图片位于 `/src/main/resources/META-INF/resources`，
+比如 `/src/main/resources/META-INF/resources/icons/icon.png`，可以按照下列方式指定图片：
 +
 [source,xml,indent=0]
 ----
@@ -99,90 +132,43 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // === ThemeResource
 
 == XML 属性
+在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+下面是 `image` 的特殊属性：
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<alternateText, alternateText>> -
-<<ariaLabel, ariaLabel>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#property[property] -
-<<resource, resource>> -
-xref:vc/common-attributes.adoc#text[text] -
-<<themeNames,themeNames>> -
-xref:vc/common-attributes.adoc#title[title] -
-xref:vc/common-attributes.adoc#visible[visible] -
-<<whiteSpace, whiteSpace>> -
-xref:vc/common-attributes.adoc#width[width]
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[alternateText]]alternateText
+|设置图片的替代文本。如果图片资源未设置或不可用。
+|-
+|[[resource]]resource
+|设置图片的资源位置。参阅 <<resources, 资源>>。
+|-
+|[[themeNames]]themeNames
+|为组件添加一个样式版本。支持：`fill`、`contain`、`cover`、`scale-down`。
+|-
+|===
 
-[[alternateText]]
-=== alternateText
-
-设置替换文本，当资源未设置或加载失败时展示。
-
-[[ariaLabel]]
-=== ariaLabel
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-设置一个单独的用于辅助功能的隐形标签，比如用于屏幕阅读器。
-
-[[resource]]
-=== resource
-
-设置图片的资源。
-
-[[themeNames]]
-=== themeNames
-
-为组件添加主题。支持：
-
-* `fill`
-* `contain`
-* `cover`
-* `scale-down`
-
-[[whiteSpace]]
-=== whiteSpace
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-定义组件的 `white-space` 样式值。支持：
-
-* `NORMAL`
-* `NOWRAP`
-* `PRE`
-* `PRE_WRAP`
-* `PRE_LINE`
-* `BREAK_SPACES`
-* `INHERIT`
-* `INITIAL`
-
+[[handlers]]
 == 事件和处理器
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+下面是 `image` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
 
-[[ClickEvent]]
-=== ClickEvent
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|[[ClickEvent]]ClickEvent
+|当点击组件时触发 `com.vaadin.flow.component.ClickEvent` 事件。该事件的处理方法需要指定处理的是以下哪种点击事件：
 
-`com.vaadin.flow.component.ClickEvent` 在用户点击时发送。
+*click* – 当用户点击组件时触发。
+
+*singleClick* – 当用户在单击组件一小段时间后会（确保不是双击）触发。
+
+*doubleClick* – 当用户在短时间内点击组件两次时触发。
+|===

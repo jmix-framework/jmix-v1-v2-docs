@@ -1,0 +1,11 @@
+= 图标
+
+Jmix 包含了两组内置的图标，并支持添加自定义的图标。图标可以用在很多地方，例如：
+
+* 专用的 xref:vc/components/icon.adoc[] 组件
+* 任何有 icon 属性的组件（xref:vc/components/button.adoc[]、xref:vc/layouts/tabSheet.adoc[] 等）
+* xref:vc/miscellaneous/prefix-suffix.adoc[前缀和后缀组件]
+* xref:actions.adoc[]
+* xref:menu-config.adoc[主菜单]
+
+下面的章节介绍如何使用已有的图标以及如何添加新的图标。

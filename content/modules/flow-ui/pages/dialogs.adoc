@@ -1,5 +1,11 @@
 = 对话框
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/dialogs-and-notifications" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 `Dialogs` 接口用来展示标准的对话框窗口。对话框窗口是一个小的弹出窗口，可以在当前页面叠加展示信息或者 UI 元素。
 
 使用流式接口可以创建和展示对话框，入口方法是 `createMessageDialog()`、`createOptionDialog()` 和 `createInputDialog()`。

@@ -1,0 +1,66 @@
+= 自定义图标
+
+自定义图标可以通过 SVG sprite 或以独立的图标进行添加，使用方法与内置的图标一样。
+
+== 图标组
+
+SVG sprite 是 SVG 图片的集合，以单一文件的形式加载到应用程序中，以提供更好的性能。Sprite 可以通过很多第三方工具创建。
+
+按照以下步骤添加图标组：
+
+. 将 SVG sprite 放置在 `/frontend/icons/` 文件夹内。下面的 `my-icons.js` 是一个例子，其中包含三个图标：
++
+.my-icons.js
+[source,java,indent=0]
+----
+include::example$/onboarding/frontend/icons/my-icons.js[tags=my-icons-sprite]
+----
++
+. 创建一个枚举，实现 `IconFactory`：
++
+.MyIcons.java
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/icons/MyIcons.java[tags=my-icons-enum]
+----
+
+之后，就可以像使用默认图标一样使用自定义图标：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=sprite]
+----
+
+image::icons/sprite-icons.png[align="center", width="125"]
+
+Java 代码中，可以通过下面的方式使用：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-sprite]
+----
+
+== 单一图标
+
+独立的图标可以添加到应用程序的静态资源文件夹。Spring Boot 默认以下 classpath 为静态资源目录：`/static`、`/public`、`/resources` 或 `/META-INF/resources`。为了更好地管理图标，也可以创建子目录，例如 `META-INF/resources/icons`。
+
+XML 中通过 `svgIcon` 组件使用静态图标资源：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-1]
+----
+
+如果需要为组件设置该类型的图标，可以使用组件的前缀或后缀组件。例如，将图标设置到按钮文字的前面：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-2]
+----
+
+Java 中的设置方法：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-standalone]
+----

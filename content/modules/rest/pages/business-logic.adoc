@@ -25,8 +25,8 @@ image::business-logic-diagram.svg[align="center"]
 
 如需将一个 Spring bean 作为 Jmix 服务 API 的一部分，需要满足下列条件之一：
 
-* *新的基于注解的试验方式*：Spring bean 中必须使用新的基于注解的方法。
-* *传统方法*：Spring bean 必须满足下列条件：
+* *基于注解的方式*：Spring bean 中必须使用 `@RestService` 注解创建。
+* *基于 XML 配置的方式*：Spring bean 必须满足下列条件：
 1. Spring bean 需要使用 Spring 的 `@Service` 注解（`@Component` 注解的特殊版本）。
 2. Spring bean 需要在 `rest-services.xml` 配置文件中注册。
 
@@ -34,8 +34,6 @@ Let's examine these two methods in more detail.
 
 [[using-annotations]]
 ==== 使用注解
-
-NOTE: 这是试验性的 API，将来有可能更改或删除。使用风险自担。
 
 创建 Spring bean，且使用 `@RestService` 注解。
 
@@ -223,13 +221,53 @@ REST API 方法返回一个序列化的 `OrderValidationResult` POJO：
 ----
 
 [[service-parameters]]
-==== 参数传递
+==== 服务参数格式
 
 参数值格式必须符合对应 xref:data-model:data-types.adoc[数据类型] 的要求。
 
 * 如果参数类型是 `java.util.Date`，值的格式由 `DateTimeDatatype` 处理。此数据类型的实现使用 https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE_TIME[ISO_DATE_TIME^] 格式进行解析，其中日期和时间部分以 `T` 分隔，例如，`2011-12-03T10:15:30`。
 * 对于 `java.sql.Date` 参数类型，值的格式 `DateDatatype` 处理。使用 https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE[ISO_DATE^] 格式，例如，`2011-12-03`。
 * 对于 `java.sql.Time` 参数类型，值的格式 `TimeDatatype` 处理。使用 https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_TIME[ISO_TIME^] 格式，例如，`10:15:30`。
+
+[[using-dto-parameters]]
+==== 使用 DTOs 作为请求参数
+
+当使用结构化请求对象作为方法参数时，JSON 的请求体必须将参数名设置为顶级的键值。
+
+例如在下面的方法中：
+
+[source,java]
+----
+public Owner registerOwner(OwnerRegistration registration) {
+    return dataManager.create(Owner.class);
+}
+----
+
+使用了这个 DTO 定义：
+
+[source,java]
+----
+public record OwnerRegistration(String firstName, String lastName) {}
+----
+
+那么请求的 JSON 必须按照以下格式构建：
+
+[source,json]
+----
+{
+  "registration": {
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+----
+
+
+[[recommended-dto-usage]]
+[NOTE]
+====
+除了使用 POJO 作为参数对象外，我们建议使用 xref:data-model:entities.adoc#dto[DTO 实体]。这种方式提供了多个优势，例如能正确生成 OpenAPI 架构，以及在请求参数验证时更好地支持 bean 验证。
+====
 
 [[custom-controller]]
 == 自定义控制器

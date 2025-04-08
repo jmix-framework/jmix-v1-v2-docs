@@ -1,6 +1,12 @@
 = 集成 JavaScript 库
 :page-aliases: custom-components/js-component.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/custom-component-js-library" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 可以基于第三方 JavaScript 库创建自定义的 UI 组件。本节中的示例演示了如何集成 https://jqueryui.com/slider/[jQuery UI Slider^]。
 
 [[web-component]]

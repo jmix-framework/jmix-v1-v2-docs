@@ -1,5 +1,11 @@
 = Facets
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/facets" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 Facets 是非可视化组件，用于为视图或组件添加辅助功能。
 
 [[built-in]]

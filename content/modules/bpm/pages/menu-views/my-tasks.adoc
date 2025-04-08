@@ -27,3 +27,42 @@ image::my-tasks/my-group-task.png[,800]
 ====
 多数情况下，_实体实例名_ 可作为有效的业务键值使用。
 ====
+
+[[advanced-task-list-view]]
+== 高级任务列表视图
+
+框架还提供了另外一个 BPM 任务视图，带有高级的任务管理功能，包括：过滤、分页和排序。这个视图可以根据项目的特定需求进行自定义。
+
+为了简化创建该任务视图的过程，Jmix Studio 在 xref:studio:view-wizard.adoc[视图创建向导] 中提供了 *BPM: Advanced Task List View* 模板：
+
+image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
+
+创建高级任务视图的步骤与创建标准空白视图的步骤类似。
+
+完成所有步骤之后，Studio 会生成页面的 XML 和 Java 代码。虽然这些代码量有点大，但是其中包含了丰富的注释，使得代码更易于理解并进行定制化。
+
+生成的视图不会对 BPM 扩展组件提供的 *My Tasks* 视图进行扩展或覆盖，并可以根据需要进行自定义。
+
+下面是生成的视图样式：
+
+image::my-tasks/advanced-my-tasks-view.png[align="center",width="982"]
+
+视图左侧包含一个自定义的过滤器组件，提供了根据任务名称、流程和分配类型进行过滤的功能。
+
+视图的右侧是一个表格，显示根据条件从数据库获取的可排序任务列表。
+
+[[advanced-task-list-security]]
+=== 安全
+
+由于该视图是在项目级别的自定义视图，因此需要手动分配视图及其相关实体的权限。
+
+创建新的 `BpmProcessTaskPerformerRole` xref:security:resource-roles.adoc[资源角色]。
+
+该角色支持用户在生成的 *Advanced Task List* 视图中查看用户任务并处理流程表单。
+
+[source, java, indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/security/BpmProcessTaskPerformerRole.java[tags=role]
+----
+<1> 指定生成的视图 id。
+<2> 提供该视图的菜单项 id。

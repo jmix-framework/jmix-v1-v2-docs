@@ -28,6 +28,17 @@ select e from Customer e where e.manager.email = :current_user_email
 
 无需为 `session_customerCode` 或 `current_user_email` 参数设置值，框架会在执行查询前自动为其赋值。因此，在框架中某些无法完全控制查询语句执行的地方这种机制会很有用，例如，行级角色的 xref:security:row-level-roles.adoc#jpql-policy[JPQL 策略] 或 xref:flow-ui:vc/components/genericFilter.adoc[] 的 JPQL 条件。
 
+与 `current_user_` 前缀的参数类似，还可以使用预定义的 `current_locale` 参数。
+
+例如，JPQL 可以写成下面这样：
+
+[source,JPQL]
+----
+select e from Region e where e.locale = :current_locale
+----
+
+参数值从当前用户的会话中获取，会话通过 xref:security:authentication.adoc#current[CurrentAuthentication] 获取。
+
 [[case-insensitive-substring-search]]
 == 不区分大小写的子串搜索
 

@@ -6,6 +6,9 @@
 
 BPM 扩展组件提供对业务流进行建模和运行的功能。
 
+TIP: 通过 https://demo.jmix.io/bookstore/[Bookstore^] 在线示例了解 BPM 扩展组件的实际应用。
+
+
 [[installation]]
 == 安装
 [NOTE]

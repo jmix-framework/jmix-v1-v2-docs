@@ -165,12 +165,7 @@ REST API 端点的路径现在可以使用应用程序属性进行配置了，�
 [[sessions-in-rest-api]]
 ==== REST API 的会话
 
-*Jmix Sessions* 扩展组件提供了在使用相同 token 的 REST 请求之间维护会话的功能。在 `build.gradle` 中添加下面的内容可以使用这个组件：
-
-[source,gradle]
-----
-implementation 'io.jmix.sessions:jmix-sessions-starter'
-----
+*Jmix Sessions* 子系统提供了在使用相同 token 的 REST 请求之间维护会话的功能。参阅 xref:security:authentication.adoc#sessions-in-rest-api[REST API 中的会话] 了解详情。
 
 参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3915[#3915^]。
 
@@ -193,7 +188,7 @@ jmix.core.legacy-entity-uuid=true
 
 新的 `Copier` 接口提供了 `copy(Object)` 方法，可以复制实体。语义上与 `MetadataTools.deepCopy(Object)` 类似，但是不同之处在于，新方法的实现不依赖元数据，仅通过 Java 的序列化复制对象的状态。
 
-可以用 `Copier` 从 UI 中分离实体，并中视图中将分离的实体发送给自定义服务。`DataContext` 在通过 `DataManager` 保存实体时，也使用这个接口复制实体。
+可以用 `Copier` 从 UI 中分离实体，并中视图中将分离的实体发送给自定义服务。`DataContext` 在通过 `DataManager` 保存实体时，也使用这个接口复制实体。参阅 xref:flow-ui:data/entities-in-ui.adoc[] 了解更多。
 
 参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3937[#3937^]。
 
@@ -319,8 +314,10 @@ include::separate-tiers-guide:example$backend-app/src/main/java/com/company/back
 
 * Jmix 框架解决的问题：
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.1[2.5.1^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
 
 * Jmix Studio 解决的问题：
 
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.1[2.5.1^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]

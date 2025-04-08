@@ -1,6 +1,12 @@
 = Fragments
 :page-aliases: screens/screen-fragment-events.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/fragments" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 一个 _fragment_ 是一个 UI 块，可以作为视图的一部分或其他 fragment 的一部分使用。由不同的 UI 组件构成，但是还提供了下列附加功能：
 
 * 可以在 XML 中定义内容。

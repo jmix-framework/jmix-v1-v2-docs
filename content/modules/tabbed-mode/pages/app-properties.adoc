@@ -7,7 +7,6 @@
 
 默认值：`20`
 
-
 [[jmix.tabmod.show-breadcrumbs]]
 == jmix.tabmod.show-breadcrumbs
 
@@ -15,11 +14,9 @@
 
 默认值：`true`
 
-
 [[jmix.tabmod.multiple-open]]
 == jmix.tabmod.multiple-open
 
 配置当一个视图不带 `@MultipleOpen` 注解时，是否可以在主视图多次打开。
 
 默认值：`false`
-

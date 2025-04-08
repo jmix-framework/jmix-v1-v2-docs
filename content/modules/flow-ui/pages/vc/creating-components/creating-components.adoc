@@ -1,4 +1,10 @@
 = 创建组件
 :page-aliases: custom-components.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/custom-component" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 本节介绍在 Jmix 应用程序中创建自定义 UI 组件的不同方法。

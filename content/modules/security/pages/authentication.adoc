@@ -28,7 +28,6 @@ Jmix 使用 Spring Security 的 https://docs.spring.io/spring-security/site/docs
 
 类似地，行级角色的前缀可以通过 `jmix.security.default-row-level-role-prefix` 应用程序属性修改。
 ====
-
 * `getLocale()` 和 `getTimeZone()` 返回当前用户的语言环境和时区。
 
 * `isSet()` 如果当前线程已通过认证，则返回 `true`，即已经包含用户的相关信息。否则，上面的 `getUser()`、`getLocale()` 和 `getTimeZone()` 方法将抛出 `IllegalStateException`。
@@ -93,37 +92,6 @@ include::example$/security-ex1/src/main/java/com/company/demo/view/user/UserDeta
 +
 如果 <<jmix.security.bruteforceprotection.enabled,jmix.security.bruteforceprotection.enabled>> 属性启用开，定义相同用户名和 IP 地址的最大失败尝试登录次数。默认值：`5`。
 
-[[session-attributes]]
-=== 会话属性
-
-如需在同一用户的不同请求中共享值，请使用 `SessionData` bean。其中包含读写当前用户会话中命名值的方法。
-
-可以直接在 UI 视图注入 `SessionData` bean：
-
-[source,java,indent=0]
-----
-include::example$/security-ex1/src/main/java/com/company/demo/view/customer/CustomerListView.java[tags=session-data]
-----
-
-在 singleton bean 中，通过 `org.springframework.beans.factory.ObjectProvider` 使用 `SessionData`：
-
-[source,java,indent=0]
-----
-include::example$/security-ex1/src/main/java/com/company/demo/service/CustomerService.java[tags=session-data]
-----
-
-TIP: 会话属性也可以用在 xref:data-access:jpql-extensions.adoc#session-and-user-attributes[JPQL 查询语句] 中。
-
-当处理 UI 请求时，共享值保存在 HTTP 会话中。
-
-// todo jmix-session
-// 如需在使用同一个 token 的 REST API 请求之间共享会话属性，请在 `build.gradle` 添加下列依赖：
-
-// [source,groovy]
-// ----
-// implementation 'io.jmix.sessions:jmix-sessions-starter'
-// ----
-
 [[system]]
 == 系统认证
 
@@ -174,3 +142,70 @@ CAUTION: 在该事件监听器中，不要使用 `CurrentAuthentication` bean �
 <6> `AbstractAuthenticationFailureEvent` 仅包含用于认证的用户名。
 <7> `LogoutSuccessEvent` 当用户登出时发送。
 <8> `LogoutSuccessEvent` 包含用户实体。
+
+[[user-session]]
+== 用户会话
+
+当通过 Jmix UI 或 REST API 连接 Jmix 应用程序时，会创建一个基于 HTTP 会话的用户会话（user session）。本节介绍不同客户端中关于用户会话的细节，如何管理会话超时以及如何在用户会话中保存自定义的值。
+
+在运行时可以通过 *Audit* 扩展组件的 xref:audit:user-sessions.adoc[] 视图跟踪用户的会话信息。
+
+每个用户的最大会话数量可以通过 xref:ROOT:app-properties.adoc#jmix.core.session.maximum-sessions-per-user[jmix.core.session.maximum-sessions-per-user] 应用程序属性定义。
+
+[[sessions-in-ui]]
+=== UI 中的会话
+
+默认情况下，只要有一个浏览器标签页打开了应用程序，UI 的用户会话就会一直保持。如果应用程序的所有浏览器标签页都关闭了，用户会话还会持续 {spring-boot-doc}/appendix/application-properties/index.html#application-properties.server.server.servlet.session.timeout[server.servlet.session.timeout^] 应用程序属性定义的时长。
+
+NOTE: `server.servlet.session.timeout` 属性仅在通过可执行 JAR 部署应用程序的情况下对内嵌的 web 服务有效。如果项目是通过 WAR 部署至外部的 web 服务，那么需要使用该 web 服务的配置设置 HTTP 会话的超时时限。
+
+下面的应用程序属性也会影响会话的超时：
+
+* `vaadin.heartbeatInterval` - 当浏览器 tab 打开时，Vaadin 客户端往服务端发送的心跳请求频率（单位为秒）。默认值是 300（5 分钟）。通过心跳可以保证在用户没有操作的情况下会话的活跃度。该频率的配置必须小于 `server.servlet.session.timeout` 的配置。
+
+* `vaadin.closeIdleSessions` - 如果设置为 `true`，则忽略心跳请求，会话在 `server.servlet.session.timeout` 定义的时间内如果没有活动则过期。
+
+下面的示例中，设置会话的超时时限为 10 分钟，心跳频率为 3 分钟：
+
+[source,properties]
+----
+server.servlet.session.timeout=10m
+vaadin.heartbeatInterval=180
+----
+
+参阅 {vaadin-docs}/flow/advanced/application-lifecycle#application.lifecycle.session[Vaadin 文档：用户会话^]。
+
+[[sessions-in-rest-api]]
+=== REST API 中的会话
+
+默认情况下，REST API 中的用户会话是按请求创建的，过期时间依据 `server.servlet.session.timeout` 的设置。如果客户端支持 cookies，则会话在使用相同 cookie 的多个请求中保持。
+
+*Jmix Sessions* 子系统将用户会话与 REST 端点中使用的 OAuth2 token 进行了绑定。也就是说，使用相同 token 的 REST 请求共享一个会话。如果需要在项目中使用 *Jmix Sessions*，请在 `build.gradle` 中添加：
+
+[source,groovy]
+----
+implementation 'io.jmix.sessions:jmix-sessions-starter'
+----
+
+NOTE: 如果由于服务端重启导致会话丢失，但 token 却仍然保留（比如保存在数据库中），那么会为该 token 创建一个新的会话。
+
+[[session-attributes]]
+=== 会话属性
+
+如需在同一用户会话的不同请求中共享某些值，请使用 `SessionData` bean。其中包含读写当前用户会话中命名值的方法。
+
+可以直接在 UI 视图注入 `SessionData` bean：
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/view/customer/CustomerListView.java[tags=session-data]
+----
+
+在单例 bean 中，通过 `org.springframework.beans.factory.ObjectProvider` 使用 `SessionData`：
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/service/CustomerService.java[tags=session-data]
+----
+
+TIP: 会话属性也可以用在 xref:data-access:jpql-extensions.adoc#session-and-user-attributes[JPQL 查询语句] 中。

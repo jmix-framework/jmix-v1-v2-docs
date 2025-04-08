@@ -5,7 +5,6 @@
 *** xref:webdav:configuring-https.adoc[]
 *** xref:webdav:customizing-ui.adoc[]
 *** xref:webdav:data-access-control.adoc[]
-*** xref:webdav:next.adoc[]
 //*** xref:webdav:getting-started-basics.adoc[]
 //*** xref:webdav:getting-started-advanced.adoc[]
 //** xref:webdav:features.adoc[]

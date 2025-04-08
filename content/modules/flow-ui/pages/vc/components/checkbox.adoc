@@ -37,6 +37,7 @@ xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#property[property] -
 <<readOnly,readOnly>> -
+<<required,required>> -
 xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
 xref:vc/components/textField.adoc#value[value] -
 xref:vc/common-attributes.adoc#visible[visible] -
@@ -138,6 +139,13 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
+[[required-state]]
+*必填*
+
+复选框也可以通过 <<required,required>> 配置或绑定一个带 `@NotNull` 验证的必需属性设置为必填项。
+
+NOTE: 与输入字段类似，只有当复选框非空（即勾选）时才能通过 `@NotNull` 验证。该行为的默认值可以通过 xref:ui-properties.adoc#jmix.ui.component.checkbox-required-state-initialization-enabled[jmix.ui.component.checkbox-required-state-initialization-enabled] 属性修改，以支持非选择状态为 `false`。
+
 [[click-events]]
 == 点击事件
 
@@ -176,6 +184,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 |`false`
 |[[readOnly]]readOnly
 |设置 `checkbox` 为只读模式。参阅 <<read-only-state,只读状态>>。
+|`false`
+|[[required]]required
+|设置 `checkbox` 的必填状态。参阅 <<required-state,必填状态>>。
 |`false`
 |===
 

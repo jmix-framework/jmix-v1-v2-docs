@@ -1,5 +1,11 @@
 = 通知消息
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/notification-simple" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 通知消息是通知用户关于应用程序中的活动、流程、事件的弹出消息窗口。
 
 如需展示通知消息，在视图类中注入 `Notifications` bean，然后使用其流式接口即可。下面的示例中，点击按钮时展示一个使用默认参数的通知：

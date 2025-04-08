@@ -1,5 +1,11 @@
 = 创建 Web 组件
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/custom-component-from-scratch" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 可以基于 https://polymer-library.polymer-project.org/[Polymer 3^] 或 https://lit.dev/[Lit^] 库创建自己的 https://vaadin.com/docs/latest/flow/create-ui/web-components/introduction-to-webcomponents[Web 组件^]。实现 JavaScript Web 组件后，可以为其创建 Java API。
 
 下面的示例展示基于 https://lit.dev/[Lit^] 如何创建明暗主题切换的开关。

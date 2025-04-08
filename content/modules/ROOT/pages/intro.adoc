@@ -12,7 +12,7 @@ Jmix 旨在快速开发具有大型数据模型和复杂 UI 且面向组织内�
 
 Jmix 基于 Spring Boot，这是企业级 Java web 应用程序的事实标准。也就是说，除了使用 Jmix 提供的功能之外，还能以最小的配置使用很多第三方库和框架。
 
-// todo Open-source, apps are owned by developers
+Jmix 是一个开源框架，开发者可以完全掌控使用 Jmix 开发的应用程序。使用 Jmix 构建的应用程序完全由开发者所有，无供应商锁定或专有限制，可以根据需要进行自由定制、部署和扩展。
 
 *Jmix Studio* 是 IntelliJ IDEA 的一个插件，可以在整个应用程序开发周期为你提供帮助：创建和配置项目、定义数据模型、生成数据库脚本以及在可视化编辑器开发 UI 视图。更是为 Jmix 项目提供了代码的高级导航、自动完成和提示功能。
 
@@ -32,3 +32,7 @@ Jmix 基于 Spring Boot，这是企业级 Java web 应用程序的事实标准�
 * 从 xref:data-model:index.adoc[] 至 xref:deployment:index.adoc[] 章节包含参考信息和使用指南，可以帮助你使用 Jmix 开发应用程序。
 
 * xref:ROOT:add-ons.adoc[] 章节介绍了项目中能用到的附加模块功能。
+
+https://demo.jmix.io/ui-samples[Jmix UI 示例^] 应用程序中有关于 UI 的大量示例。
+
+其他 https://www.jmix.io/live-demo[在线示例^] 提供了 Jmix 中不同功能的示例应用。

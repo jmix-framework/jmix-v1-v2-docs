@@ -22,7 +22,7 @@ image::project-setup/create-project-1.png[align="center",width="912"]
 
 image::project-setup/create-project-2.png[align="center",width="914"]
 
-在 *Project JDK* 字段，选择 JDK 17。如果该字段显示 `<No SDK>`，可以在下拉列表中选择 *Download JDK* 并根据进一步的说明下载和选择 JDK。
+在 *Project JDK* 字段，选择 JDK 17 或 21。如果该字段显示 `<No SDK>`，可以在下拉列表中选择 *Download JDK* 并根据进一步的说明下载和选择 JDK。
 
 点击 *Next*。
 

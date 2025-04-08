@@ -72,3 +72,8 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 `TimerStopEvent` 当调用 facet 的 `stop()` 方法停止计时器后发送。
 
 如需编程式注册事件的处理方法，可以使用 facet 的 `addTimerStopListener()` 方法。
+
+[[see-also]]
+== 参考
+
+https://demo.jmix.io/ui-samples/sample/delayed-data-load[延迟数据加载^] 在线示例展示如何使用 `timer` facet 延迟一个费时的数据加载操作。

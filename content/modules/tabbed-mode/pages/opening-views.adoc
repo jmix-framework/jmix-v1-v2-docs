@@ -1,9 +1,8 @@
 = 打开视图
 
-在列表或详情视图时，可以通过 xref:flow-ui:actions/standard-actions.adoc[标准操作] 从主视图打开其他视图，也可以编程式打开。
+在需要打开列表或详情视图时，可以通过 xref:flow-ui:actions/standard-actions.adoc[标准操作] 从主视图打开，也可以编程式打开。
 
-下面介绍在应用程序代码中如何打开视图。
-
+下面介绍如何在应用程序代码中如何打开视图。
 
 [[using-viewbuilders-bean]]
 == 使用 ViewBuilders Bean
@@ -29,23 +28,23 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToCreate]
 ----
 
-如需在详情视图编辑一个已有的实体，可以将实体用 `editEntity()` 方法传入：
+如需在详情视图编辑一个已有的实体，可以用 `editEntity()` 方法将实体传入：
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToEdit]
 ----
 
-上面的示例中，详情视图会创建/更新实体，但是视图的调用方却无法拿到更新后的实例。
+上面的示例中，详情视图会创建或更新实体，但是视图的调用方却无法拿到更新后的实例。
 
-通常我们需要编辑显示在列表数据视图组件中的一个实体，例如，xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]。那么我们需要按照下面的方式调用，这样更方便并能自动更新 `dataGrid`：
+如果需要编辑显示在列表数据视图组件中的一个实体（例如，在 xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] 中）。那么我们需要按照下面的方式调用，这样更方便并能自动更新 `dataGrid`：
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToEdit]
 ----
 
-如果需要创建一个新实体并在详情视图打开，调用 `newEntity()` 方法即可：
+如果需要创建一个新实体并打开其详情视图，调用 `newEntity()` 方法即可：
 
 [source,java,indent=0]
 ----
@@ -59,7 +58,7 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openDetailViewFieldToEdit]
 ----
 
-`ViewBuilders` 提供了许多方法设置打开视图的可选参数。例如，下面的代码创建了一个新实体，并进行初始化，然后在一个以对话框方式打开的特定详情视图中编辑：
+`ViewBuilders` 提供了许多方法设置打开视图的可选参数。例如，下面的代码创建了一个新实体，并进行初始化，然后在一个以对话框方式打开的详情视图中编辑：
 
 [source,java,indent=0]
 ----
@@ -69,7 +68,7 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 [[opening-lookup-views]]
 === 打开查找视图
 
-打开查找视图也类似，与详情视图一样，多数情况是通过标准操作打开，例如，xref:flow-ui:actions/entity-picker-actions.adoc#entity_lookup[entity_lookup]。下面的示例演示使用 `ViewBuilders` API，在不使用标准操作时也很方便。
+现在看一个打开查找视图的例子。与详情视图一样，多数情况是通过标准操作打开，例如，xref:flow-ui:actions/entity-picker-actions.adoc#entity_lookup[entity_lookup]。下面的示例中使用了 `ViewBuilders` API，在不使用标准操作时也很方便。
 
 如需从列表视图选择实体时，请用 `lookup()` 方法打开视图：
 
@@ -92,13 +91,12 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openLookupViewDataGrid]
 ----
 
-与详情视图一样，可以用 builder 的方法设置打开视图的可选参数。例如，下面的代码用对话框模式查找 `User` 实体：
+与详情视图类似，可以用 builder 的方法设置打开视图的可选参数。例如，下面的代码用对话框模式查找 `User` 实体：
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openLookupViewDialog]
 ----
-
 
 [[passing-parameters-to-views]]
 == 为视图传递参数
@@ -119,12 +117,10 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/fancymessag
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openViewWithParameters]
 ----
 
-
 [[executing-code-after-close]]
 == 视图关闭后执行代码以及返回值
 
 每个视图会在关闭时发送 xref:flow-ui:views/view-events.adoc#after-close-event[AfterCloseEvent] 事件。使用 `ViewBuilders` 时，监听器可以在 `withAfterCloseListener()` 方法提供：
-
 
 [source,java,indent=0]
 ----
@@ -135,7 +131,9 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 
 * 检查视图是否以 `StandardOutcome` 枚举定义的某种输出关闭。
 
-* 通过获取 `CloseAction` 对象。第一种方式比较简单，但第二种方式更加灵活。
+* 通过获取 `CloseAction` 对象。
+
+第一种方式比较简单，但第二种方式更加灵活。
 
 我们看看第一种方式：使用一个标准输出关闭视图，并在调用代码中检查输出。下面是我们将调用的视图：
 

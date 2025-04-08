@@ -1,6 +1,12 @@
 = 复合组件
 :page-aliases: custom-components/composite-components.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/composite-component" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 复合组件是由其他多个组件组合而成。与 xref:fragments/fragments.adoc[fragments] 类似，复合组件能复用一些展示布局和逻辑。
 
 下列情况我们建议使用复合组件：

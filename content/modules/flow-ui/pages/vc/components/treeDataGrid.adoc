@@ -27,6 +27,7 @@ xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
 <<detailsVisibleOnClick, detailsVisibleOnClick>> -
 <<dropMode, dropMode>> -
 <<editorBuffered, editorBuffered>> -
+xref:vc/components/dataGrid.adoc#emptyStateText[emptyStateText] -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 <<hierarchyProperty,hierarchyProperty>> -
@@ -70,7 +71,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<partNameGenerator, partNameGenerator>> -
 <<tooltipGenerator, tooltipGenerator>>
 |XML 内部元素
-|xref:flow-ui:vc/components/dataGrid.adoc#actions[actions] - <<columns, columns>> - <<column, column>> - <<context-menu-element, contextMenu>>
+|xref:flow-ui:vc/components/dataGrid.adoc#actions[actions] - <<columns, columns>> - <<column, column>> - <<context-menu-element, contextMenu>> - xref:vc/components/dataGrid.adoc#empty-state-component-element[emptyStateComponent]
 |===
 
 == 基本用法

@@ -2,6 +2,12 @@
 :page-aliases: config.adoc, data.adoc, events.adoc, examples.adoc, export.adoc, types.adoc, \
   types/angular-gauge-chart.adoc, types/funnel-chart.adoc, types/gantt-chart.adoc, types/pie-chart.adoc, types/radar-chart.adoc, types/serial-chart.adoc, types/stock-chart-group.adoc, types/xy-chart.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/charts" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 Jmix 图表（Charts）扩展组件在 Jmix UI 中集成了 https://echarts.apache.org[Apache ECharts^]，这是一个开源的 JS 可视化库。开发者可以使用 ECharts 来创建类型丰富的图表。
 
 [[installation]]

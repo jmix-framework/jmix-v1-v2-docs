@@ -1,0 +1,31 @@
+= 默认图标
+
+有两组默认的图标：Vaadin 和 Lumo。
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/icon-all" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
+== 声明式用法
+
+为带有 `icon` 属性的组件设置图标。使用 `vaadin:` 和 `lumo:` 前缀引用不同分组内的图标。
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative]
+----
+
+当通过组件属性面板配置图标时，在 *Choose Icon* 对话框中会显示图标的名称和预览，以便进行选择：
+
+image::icons/choose-icon-dialog.png[align="center", width="512"]
+
+== 编程式用法
+
+组件的图标也可以编程式设置：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic]
+----

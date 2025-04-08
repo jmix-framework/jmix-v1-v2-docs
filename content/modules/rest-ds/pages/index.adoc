@@ -29,6 +29,9 @@ include::example$/rest-ds-client/build.gradle[tags=dependencies]
 [[configuration]]
 == 配置
 
+[[basic-configuration]]
+=== 基本配置
+
 基本的配置过程包含下列步骤。
 
 在服务端应用中：
@@ -55,11 +58,45 @@ include::example$rest-ds-client/src/main/resources/application.properties[tags=s
 include::example$rest-ds-client/src/main/resources/application.properties[tags=connection]
 ----
 
+[[authentication-with-password-grant]]
+=== 密码认证
+
 如果需要按照 xref:separate-tiers-guide:index.adoc[] 演示的内容使用真实的用户做服务端认证，那么需要在服务端先配置 xref:authorization-server:obtaining-tokens.adoc#resource-owner-password-credentials-grant[密码授权]，然后在客户端应用添加以下配置：
 
 [source,properties]
 ----
 include::example$rest-ds-client/src/main/resources/application.properties[tags=authenticator]
+----
+
+[[ui-user-settings]]
+=== UI 用户设置
+
+如果需要通过 REST 数据存储保存用户的 UI 设置和过滤器设置，请按以下步骤：
+
+* 在 `build.gradle` 中：
+** 添加 `io.jmix.flowui:jmix-flowui-restds-starter` 依赖
+** 移除 `io.jmix.flowui:jmix-flowui-data-starter` 依赖
+* 在 `application.properties` 中，通过 `jmix.restds.ui-config-store` 属性配置 REST 数据存储的名称，示例：
++
+[source,properties]
+----
+jmix.restds.ui-config-store=serviceapp
+----
+
+参阅应用程序分层指南中的 xref:separate-tiers-guide:index.adoc#frontend-application[前端应用程序配置] 部分了解更多。
+
+[[rest-paths]]
+=== REST API 路径
+
+如果 REST API 的端点具有非标准的 xref:rest:app-properties.adoc#paths[路径]，可以用下面展示的这些应用程序属性进行配置。这些属性以数据存储的名称开头（该示例中为 `serviceapp`）：
+
+[source,properties]
+----
+serviceapp.basePath=/rest
+serviceapp.entitiesPath=/entities
+serviceapp.userInfoPath=/userInfo
+serviceapp.permissionsPath=/permissions
+serviceapp.capabilitiesPath=/capabilities
 ----
 
 [[data-model]]

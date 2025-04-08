@@ -140,6 +140,8 @@ GET http://localhost:8080/rest
             &attachment=true
 ----
 
+可以通过 `Content-Disposition: inline` 下载的文件类型扩展名列表在 xref:app-properties.adoc#jmix.rest.inline-enabled-file-extensions[jmix.rest.inline-enabled-file-extensions] 应用程序属性设置。
+
 NOTE: 如需下载文件，用户的角色需要包含 `rest.fileDownload.enabled` xref:security:resource-roles.adoc#specific-policy[特殊策略]。
 
 [[referencing-files-from-entities]]
@@ -147,7 +149,7 @@ NOTE: 如需下载文件，用户的角色需要包含 `rest.fileDownload.enable
 
 文件上传至 Jmix 应用程序之后，可以将文件与实体属性关联。
 
-首先，<<_uploading_files,上传文件>> 至 Jmix 应用程序。在上传的返回体中，有类似 `fs://2021/03/12/2266c97c-cf23-c202-481d-04d972e185b4.jpg?name=cat-via-direct-request.jpg` 的文件引用。在创建/更新实体时，可以使用该引用将实体与文件进行关联。
+首先，<<uploading-files,上传文件>> 至 Jmix 应用程序。在上传的返回体中，有类似 `fs://2021/03/12/2266c97c-cf23-c202-481d-04d972e185b4.jpg?name=cat-via-direct-request.jpg` 的文件引用。在创建/更新实体时，可以使用该引用将实体与文件进行关联。
 
 下面示例中，`Product` 实体使用文件引用保存产品图片。
 

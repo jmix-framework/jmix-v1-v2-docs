@@ -2,6 +2,14 @@
 <view xmlns="http://jmix.io/schema/flowui/view"
       title="msg://dataGridFeaturesView.title">
     <data>
+        <collection id="customersDc" class="com.company.onboarding.entity.Customer">
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Customer e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
         <collection id="usersDc" class="com.company.onboarding.entity.User">
             <loader id="usersDl" readOnly="true">
                 <query>
@@ -91,6 +99,39 @@
                     </columns>
                 </dataGrid>
                 <!-- end::lit-renderer[] -->
+            </accordionPanel>
+            <accordionPanel width="100%" summaryText="DataGrid with Empty State">
+                <!-- tag::empty-state[] -->
+                <dataGrid id="dataGridEmptyState"
+                          dataContainer="customersDc"
+                          width="100%"
+                          emptyStateText="No customers found">
+                    <columns>
+                        <column property="firstName"/>
+                        <column property="lastName"/>
+                        <column property="age"/>
+                        <column property="martialStatus"/>
+                    </columns>
+                </dataGrid>
+                <!-- end::empty-state[] -->
+            </accordionPanel>
+            <accordionPanel width="100%" summaryText="DataGrid with Empty State Component">
+                <!-- tag::empty-state-comp[] -->
+                <dataGrid id="dataGridEmptyStateComp"
+                          dataContainer="customersDc"
+                          width="100%">
+                    <columns>
+                        <column property="firstName"/>
+                        <column property="lastName"/>
+                        <column property="age"/>
+                        <column property="martialStatus"/>
+                    </columns>
+                    <emptyStateComponent>
+                        <button id="newCustomerBtn"
+                                text="Create customer" width="100%"/>
+                    </emptyStateComponent>
+                </dataGrid>
+                <!-- end::empty-state-comp[] -->
             </accordionPanel>
         </accordion>
     </layout>

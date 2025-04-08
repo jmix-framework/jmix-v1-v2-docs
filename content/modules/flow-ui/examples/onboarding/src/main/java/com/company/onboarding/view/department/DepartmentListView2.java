@@ -8,6 +8,7 @@ import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import io.jmix.core.Copier;
 import io.jmix.core.DataManager;
 import io.jmix.core.Id;
 import io.jmix.core.SaveContext;
@@ -79,9 +80,11 @@ public class DepartmentListView2 extends StandardListView<Department> {
     private DataManager dataManager;
 
     // tag::data-context-inject[]
+    // tag::save-custom[]
     @ViewComponent
     private DataContext dataContext;
     // end::data-context-inject[]
+    // end::save-custom[]
 
     private void loadDepartment(Id<Department> departmentId) {
         Department department = dataManager.load(departmentId).one();
@@ -143,9 +146,11 @@ public class DepartmentListView2 extends StandardListView<Department> {
     }
     // end::post-save-event[]
 
+    // tag::save-custom[]
     // tag::save-delegate[]
     @Autowired
     private DepartmentService departmentService;
+    // end::save-custom[]
 
     @Install(target = Target.DATA_CONTEXT)
     private Set<Object> saveDelegate(final SaveContext saveContext) {
@@ -154,5 +159,18 @@ public class DepartmentListView2 extends StandardListView<Department> {
                 saveContext.getEntitiesToRemove());
     }
     // end::save-delegate[]
+
+    // tag::save-custom[]
+    @Autowired
+    private Copier copier;
+
+    private void saveToCustomService(Department entity) {
+        Department entityCopy = copier.copy(entity); // <1>
+
+        Department savedEntity = departmentService.saveEntity(entityCopy); // <2>
+
+        Department ignored = dataContext.merge(savedEntity);// <3>
+    }
+    // end::save-custom[]
 
 }

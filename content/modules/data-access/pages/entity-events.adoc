@@ -44,25 +44,11 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderL
 
 如需在“提交之后”事件处理器中加载或保存任何数据，都需要新起一个事务。
 
-下面的例子中展示了异常处理和使用 `DataManager` 在单独的事务中加载实体（参考 `joinTransaction(false)` 方法）：
+下面的例子中展示了异常处理和使用 `DataManager` 在单独的事务中加载实：
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;logger;data-manager;after-commit]
-----
-
-如需在“提交之后”事件处理器中保存实体，使用 `SaveContext` 及其 `setJoinTransaction(false)` 方法，示例：
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=save-after-commit]
-----
-
-如果需要多次调用 `DataManager` 或其他需要使用事务的 service，那么可以为整个方法启动一个新的事务，示例：
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=after-commit-tx]
 ----
 <1> 使用 `Propagation.REQUIRES_NEW` 启动新事务。
 

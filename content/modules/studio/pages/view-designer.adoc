@@ -195,7 +195,7 @@ image::class-names-wizard.png[align="center",width="912"]
 // +
 // ** *JMIX ICONS* 标签页包含默认的 `JmixIcon` 图标集。几乎包含全部的 `FontAwesome` 图标集以及 Jmix 特定的图标。
 // ** *FONT AWESOME* 标签页包含 `FontAwesome` 字体图标集。
-// ** *ICON SET* 标签页包含 xref:ui:icons/icon-sets.adoc[自定义图标集]。
+// ** *ICON SET* 标签页包含 xref:ui:icons/custom-icons.adoc[自定义图标集]。
 // ** *APPLICATION ICONS* 标签页包含 xref:ui:themes.adoc[主题] 资源。
 
 [[handlers-tab]]

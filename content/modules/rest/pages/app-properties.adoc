@@ -27,6 +27,13 @@ jmix.rest.entity-max-fetch-size.sample_Product = 500
 jmix.rest.entity-max-fetch-size.sample_Customer = 1000
 ----
 
+[[jmix.rest.inline-enabled-file-extensions]]
+=== jmix.rest.inline-enabled-file-extensions
+
+可以通过 `Content-Disposition: inline` 请求头 xref:files-api.adoc#downloading-files[下载] 的文件类型扩展名。
+
+默认值：`jpg,png,jpeg,pdf`
+
 [[jmix.rest.inline-fetch-plan-enabled]]
 === jmix.rest.inline-fetch-plan-enabled
 

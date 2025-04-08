@@ -82,6 +82,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 无论是否使用全局过滤器，都可以为加载器查询语句单独创建一组过滤条件。一个过滤条件是一组带参数的查询子句。子句中所有的参数都设置了之后，这些子句才会被添加到生成的查询语句文本中。
 
+TIP: 访问 https://demo.jmix.io/ui-samples/sample/custom-filter[使用声明式条件自定义过滤^] 的在线示例了解查询条件的实操用法。
+
 过滤条件会在数据存储级别处理，因此可以包含各个数据存储支持的不同语言的子句。框架会自动处理 JPQL 的过滤条件。
 
 下面例子中，按照 `Department` 实体的两个属性：`name` 和 `hrManager` 对实体进行过滤。

@@ -318,7 +318,7 @@ Jmix 还支持一种更强的实体关联关系，叫做 _composition（组合�
 
 组合关系的实体在 UI 中一并编辑。例如，用户打开一个 Order 编辑界面，可以在其单独的编辑界面中创建和编辑 OrderLines，但是 Order 及其所有的 OrderLines 更改会在同一个事务中一起保存到数据库中，并且是只在用户确认保存所有者实体（即 Order）的时候。
 
-有关对组合的更详细理解，请参阅 xref:data-modeling-composition-guide:index.adoc[] 指南。
+TIP: 有关对组合的更详细理解，请参阅 xref:data-modeling-composition-guide:index.adoc[] 指南，或者可以查看 https://demo.jmix.io/ui-samples/sample/cookbook[Cookbook^] 中的示例。
 
 组合关系由引用属性上的 <<composition,@Composition>> 注解指定。
 
@@ -417,6 +417,8 @@ TIP: Studio 支持在 xref:studio:entity-designer.adoc[实体设计器] 中创�
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Order.java[tags=composition]
 ----
+
+TIP: 有关对组合的更详细理解，请参阅 xref:data-modeling-composition-guide:index.adoc[] 指南，或者可以查看 https://demo.jmix.io/ui-samples/sample/cookbook[Cookbook^] 中的示例。
 
 [[db-view]]
 === @DbView

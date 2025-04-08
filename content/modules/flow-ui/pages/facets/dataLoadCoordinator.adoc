@@ -1,6 +1,12 @@
 = dataLoadCoordinator
 :page-aliases: facets/data-load-coordinator.adoc
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/data-load-coordinator" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 `dataLoadCoordinator` facet 支持触发数据加载，以及声明式的将数据加载器和数据容器、可视化组件、视图生命周期事件进行连接。
 
 [[basics]]
@@ -139,3 +145,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/depa
 //----
 //include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-screen-event]
 //----
+
+[[see-also]]
+== 参考
+
+通过下面的在线示例了解 `dataLoadCoordinator` 的实际用法：
+
+* https://demo.jmix.io/ui-samples/sample/data-load-coordinator[DataLoadCoordinator^]
+* https://demo.jmix.io/ui-samples/sample/cascading-dropdowns[级联下拉框^]
+* https://demo.jmix.io/ui-samples/sample/custom-filter[使用声明条件的自定义过滤器^]

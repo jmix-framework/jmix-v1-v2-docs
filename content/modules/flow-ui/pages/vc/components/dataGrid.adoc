@@ -28,6 +28,7 @@ xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
 <<detailsVisibleOnClick,detailsVisibleOnClick>> -
 <<dropMode,dropMode>> -
 <<editorBuffered,editorBuffered>> -
+<<emptyStateText,emptyStateText>> -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
 xref:vc/common-attributes.adoc#height[height] -
@@ -67,7 +68,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<enterPressHandler,enterPressHandler>> -
 <<tooltipGenerator,tooltipGenerator>>
 |XML 内部元素
-|<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>>
+|<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>> - <<empty-state-component-element,emptyStateComponent>>
 |===
 
 [[basics]]
@@ -208,9 +209,16 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[auto-save]]
 === 自动保存改动
 
-包括 `dataGrid` 在内的可视化组件会将改动的数据暂存在数据容器中，直到有一个确认的操作将数据提交至数据库。
+通常，当用户触发确认操作时，可视化组件对实体实例的修改会通过 xref:flow-ui:data/data-context.adoc[] 保存至数据库。
 
-如果需要在用户离开当前单元格时自动保存行内编辑的修改，可以创建一个 `ItemPropertyChangeEvent` 事件的处理器并通过 `dataManager` 保存数据：
+如果需要在用户离开当前单元格时自动保存行内编辑的修改，可以为数据容器创建一个 `ItemPropertyChangeEvent` 事件的处理器并保存 `DataContext`：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-data-context]
+----
+
+如果 `dataGrid` 中的实体没有合并到 `DataContext` 中（例如，`loader` 是 `readOnly="true"`），则可以通过 `DataManager` 保存实体：
 
 [source,java,indent=0]
 ----
@@ -597,6 +605,30 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridUserStatusAggregation.java[tags=aggregatable-grid]
 ----
 
+[[empty-state]]
+== 空状态
+
+当数据网格没有数据可供展示时，表格中间的数据显示区默认为空。此时可以利用空状态的功能显示一条消息或 UI 组件，告诉用户目前没有数据。
+
+* 通过 `emptyStateText` 属性可以定义空状态的文本。
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=empty-state]
+----
++
+NOTE: 该属性的优先级高于在 Java 中通过 `setEmptyStateComponent(Component)` 或 XML 中通过 `emptyStateComponent` 设置的空状态元素。即，设置 `emptyStateText` 会自动移除所有已经存在的组件。
+* 使用 `emptyStateComponent` 元素定义空状态显示的组件。
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=empty-state-comp]
+----
++
+一旦设置了 `emptyStateComponent` 后，就可以与这些空状态的元素进行交互。比如自定义组件的样式或创建组件的事件监听器。
++
+NOTE: 设置该元素会覆盖在视图控制器中通过 `setEmptyStateText(String)` 方法或在 XML 中通过 `emptyStateText` 定义的空状态文字。
+
 == XML 属性
 
 在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
@@ -630,6 +662,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 |[[editorBuffered]]editorBuffered
 |如果设置为 `true`，则启用缓存模式的 <<inline-editing, 行内编辑>>，只有当用户点击保存按钮时才会提交改动。该模式下用户也可以取消修改。在非缓存模式时，改动会自动提交。
 |`false`
+|[[emptyStateText]]emptyStateText
+|当表格无数据时显示的文本。使用 null 移除当前空状态的内容。参阅 <<empty-state, 空状态>>。
+|–
 |[[multiSort]]multiSort
 |如果设置为 `true`，则启用多列排序。
 |`false`
@@ -853,6 +888,11 @@ include::../handler-generation-tip.adoc[]
 |[[dynamicContentHandler]]dynamicContentHandler
 |在菜单打开时处理菜单的动态更新，例如添加菜单项或其内容。请参阅 <<context-menu, 示例>>。
 |===
+
+[[empty-state-component-element]]
+=== emptyStateComponent
+
+`emptyStateComponent` 可以定义表格空状态时显示的组件。使用 null 移除当前空状态的内容。参阅 <<empty-state, 空状态>>。
 
 == 参考
 

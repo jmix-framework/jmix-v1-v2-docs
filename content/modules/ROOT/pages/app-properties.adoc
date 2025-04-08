@@ -6,7 +6,8 @@
 [[jmix.core.anonymous-authentication-token-key]]
 === jmix.core.anonymous-authentication-token-key
 
-用在 Spring Security {spring-security-api}/org/springframework/security/authentication/AnonymousAuthenticationProvider.html[AnonymousAuthenticationProvider^] 和 {spring-security-api}/org/springframework/security/web/authentication/AnonymousAuthenticationFilter.html[AnonymousAuthenticationFilter^] 中的 key。
+用在 Spring Security {spring-security-api}/org/springframework/security/authentication/AnonymousAuthenticationProvider.html[AnonymousAuthenticationProvider^] 和
+{spring-security-api}/org/springframework/security/web/authentication/AnonymousAuthenticationFilter.html[AnonymousAuthenticationFilter^] 中的 key。
 
 默认值：`de72c623-6d3d-458c-a187-c526de515ecd`
 
@@ -145,18 +146,36 @@ TIP: `${user.dir}` 是用户的工作目录（JVM 的启动目录）。
 [[jmix.cors.allowed-methods]]
 === jmix.cors.allowed-methods
 
-允许的 HTTP 方法，例如 "GET"、"POST"、"PUT" 等。特殊值 “*” 表示允许所有方法。
+允许的 HTTP 方法，例如 "GET"、"POST"、"PUT" 等。
+特殊值 “*” 表示允许所有方法。
 
 默认值：`*`
 
 [[jmix.cors.allowed-origins]]
 === jmix.cors.allowed-origins
 
-定义 origin 列表，列表中的 origin 可以使用跨域访问。特殊值 “*” 表示允许所有 origin。
+定义 origin 列表，列表中的 origin 可以使用跨域访问。 特殊值 “*” 表示允许所有 origin。
 
-例如，`++https://www.allowed1.com, https://www.allowed2.com++`
+例如，
+
+[source,properties]
+----
+jmix.cors.allowed-origins = https://www.allowed1.com, https://www.allowed2.com
+----
 
 默认值：`*`
+
+[[session]]
+== Session
+
+[[jmix.core.session.maximum-sessions-per-user]]
+=== jmix.core.session.maximum-sessions-per-user
+
+每个用户可以拥有的最大 xref:security:authentication.adoc#user-session[session] 数量。
+
+这个属性会影响 Spring Security 的 {spring-security-api}/org/springframework/security/config/annotation/web/configurers/SessionManagementConfigurer.html#maximumSessions(int)[SessionManagementConfigurer.maximumSessions^] 参数。
+
+默认值：`100`
 
 [[see-also]]
 == 参考

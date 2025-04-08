@@ -2,7 +2,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/pivot-table-simple" class="live-demo-btn" target="_blank">在线示例</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/pivot-table" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 

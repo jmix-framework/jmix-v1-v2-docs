@@ -1,5 +1,11 @@
 = urlQueryParameters
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/url-query-parameters?genericFilterCondition=property%3Aage_greater_30" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 `urlQueryParameters` facet 用来声明式地将视图状态绑定至 URL。支持在不同的视图之间 xref:flow-ui:views/opening-views.adoc[导航] 或者刷新浏览器网页时保留视图状态。
 
 如果整个视图状态来自数据库（例如，xref:views/views.adoc#standard-detail-view[实体详情视图]），URL 路由中的实体 id 已经足够用来恢复视图状态。但是如果某些视图组件包含了非数据库信息，那么需要将这些信息编码至 URL 中，以便重新初始化该视图时能恢复数据。

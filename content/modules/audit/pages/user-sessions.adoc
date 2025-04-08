@@ -2,6 +2,6 @@
 
 实体日志扩展组件提供了 `UserSessions` bean，可用于获取当前用户会话的详细信息。
 
-此外，扩展组件还提供了一个用于展示和管理活跃用户会话的视图。
+此外，扩展组件还提供了一个用于展示和管理活跃用户会话的视图。视图通过主菜单的 *Audit → User sessions* 打开。
 
-视图通过 *Audit → User sessions* 打开。
+参阅 xref:security:authentication.adoc#user-session[认证：用户会话] 了解更多。

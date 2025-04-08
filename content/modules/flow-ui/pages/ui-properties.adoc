@@ -195,6 +195,17 @@ jmix.ui.menu-config = com/company/onboarding/menu.xml
 [[components]]
 == 组件配置
 
+[[jmix.ui.component.checkbox-required-state-initialization-enabled]]
+=== jmix.ui.component.checkbox-required-state-initialization-enabled
+
+该属性控制当 checkbox 绑定一个带 `@NotNull` 验证的必需布尔属性时的行为。
+
+* 如果配置为 `true`，则 checkbox 必需勾选以通过验证。
+
+* 如果配置为 `false`，则 checkbox 可以保留非选择状态而不会导致验证错误。这样可以表示所需的 `true` 或 `false` 值。
+
+默认值：`true`
+
 [[jmix.ui.component.default-notification-duration]]
 === jmix.ui.component.default-notification-duration
 

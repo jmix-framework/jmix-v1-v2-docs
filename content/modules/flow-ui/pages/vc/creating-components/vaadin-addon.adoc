@@ -1,5 +1,11 @@
 = 集成 Vaadin 插件
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/charts-addon" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 可以使用任何位于 https://vaadin.com/directory[Vaadin Directory^] 或其他地方的第三方 Vaadin 插件。下面的示例演示如何集成 https://vaadin.com/directory/component/pdf-viewer[Pdf 阅读器^] 插件。
 
 为应用程序添加 Vaadin 插件时，需要在项目的 `build.gradle` 中添加 Vaadin 插件 maven 仓库以及插件的依赖：

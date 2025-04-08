@@ -1,39 +1,21 @@
 = div
 :page-aliases: vcl/containers/grid-layout.adoc
 
-`div` 是一个支持放入相关联组件的容器。如果没有配置属性，或内部无组件，则显示为空白。
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/html-declaratively" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
 
-* XML 元素：`div`
-
-* Java 类：`Div`
-
-== 基本用法
-
-下面示例展示如何用 `div` 对内部组件使用标准主题：
-
-[source,xml,indent=0]
-----
-include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/div/div-view.xml[tags=basics]
-----
-
-image::visual-components/html-components/div-basic.png[align="center", width="260"]
-
-[[variants]]
-== 样式
-
-如需使用不同的样式，可以将 `badge` 与其他 <<themeNames,themeNames>> 值进行组合。下面的示例展示了一个文本段使用的 `success` 主题：
-
-[source,xml,indent=0]
-----
-include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/div/div-view.xml[tags=variants]
-----
-
-image::visual-components/html-components/div-success.png[align="center", width="430"]
-
-[[attributes]]
-== XML 属性
-
-xref:vc/common-attributes.adoc#id[id] -
+`div` 是一个支持放入相关联组件的容器。
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`div`
+|Java 类
+|`Div`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
@@ -50,55 +32,74 @@ xref:vc/common-attributes.adoc#text[text] -
 <<themeNames,themeNames>> -
 xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible] -
-<<whiteSpace, whiteSpace>> -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
-[[themeNames]]
-=== themeNames
+== 基本用法
 
-为组件添加主题。支持：
+下面的示例中 `div` 带有内部组件：
 
-* `badge`
-* `normal`
-* `success`
-* `error`
-* `contrast`
-* `primary`
-* `small`
-* `pill`
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/div/div-view.xml[tags=basics]
+----
 
-只有将 `badge` 与其他主题组合才能生效，如 <<variants, 上面>> 所示。
+TIP: 原生 HTML 请使用 xref:vc/components/html.adoc[html] 组件。
+// image::visual-components/html-components/div-basic.png[align="center", width="260"]
 
-[[whiteSpace]]
-=== whiteSpace
+[[themes]]
+== 样式版本
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
+该组件可以为内部的组件应用预定义的样式。需要将 `badge` 与其他 <<themeNames,themeNames>> 一起使用：
 
-定义组件的 `white-space` 样式值。支持：
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/div/div-view.xml[tags=variants]
+----
 
-* `NORMAL`
-* `NOWRAP`
-* `PRE`
-* `PRE_WRAP`
-* `PRE_LINE`
-* `BREAK_SPACES`
-* `INHERIT`
-* `INITIAL`
+image::visual-components/html-components/div-success.png[align="center", width="430"]
+
+[[attributes]]
+== XML 属性
+
+在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+下面是 `div` 的特殊属性：
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[themeNames]]themeNames
+|为组件添加一个样式。支持 `badge`、`normal`、`success`、`error`、`contrast`、`primary`、`small`、`pill`。样式生效需要与 `badge` 一起使用，请参考 <<themes, 上面的示例>>。
+
+*预定义的样式是一组 CSS 类，有可能影响组件或内部组件的其他样式设置。*
+|-
+|===
 
 [[handlers]]
 == 事件和处理器
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+下面是 `div` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
 
-[[ClickEvent]]
-=== ClickEvent
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|[[ClickEvent]]ClickEvent
+|当点击组件时触发 `com.vaadin.flow.component.ClickEvent` 事件。该事件的处理方法需要指定处理的是以下哪种点击事件：
 
-`com.vaadin.flow.component.ClickEvent` 在用户点击时发送。
+*click* – 当用户点击组件时触发。
+
+*singleClick* – 当用户在单击组件一小段时间后会（确保不是双击）触发。
+
+*doubleClick* – 当用户在短时间内点击组件两次时触发。
+|===

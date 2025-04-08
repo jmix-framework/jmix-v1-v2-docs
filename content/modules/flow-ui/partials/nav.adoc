@@ -112,6 +112,7 @@
 *** xref:flow-ui:data/data-loaders.adoc[]
 *** xref:flow-ui:data/data-context.adoc[]
 *** xref:flow-ui:data/data-examples.adoc[]
+*** xref:flow-ui:data/entities-in-ui.adoc[]
 
 ** xref:flow-ui:actions.adoc[]
 *** xref:flow-ui:actions/declarative-actions.adoc[]
@@ -137,4 +138,7 @@
 ** xref:flow-ui:exception-handlers.adoc[]
 ** xref:flow-ui:themes/themes.adoc[]
 *** xref:flow-ui:themes/styling-ui-components.adoc[]
+** xref:flow-ui:icons.adoc[]
+*** xref:flow-ui:icons/default-icons.adoc[]
+*** xref:flow-ui:icons/custom-icons.adoc[]
 ** xref:flow-ui:ui-properties.adoc[]

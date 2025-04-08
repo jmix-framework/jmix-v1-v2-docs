@@ -18,3 +18,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/kvsa
 * `setIdName()` 是一个可选方法，通过这个方法可以将一个属性定义为实体的 id 属性。也就是说，保存在此容器内的 `KeyValueEntity` 实体将使用指定的属性作为 id。否则，`KeyValueEntity` 将使用随机生成的 UUID 作为标识符。
 
 * `getEntityMetaClass()` 返回 xref:data-model:metadata.adoc[MetaClass] 接口的动态实现类，这个类表达了 `KeyValueEntity` 实例的当前结构，实例的结构是通过之前调用 `addProperty()` 来定义的。
+
+
+[TIP]
+====
+浏览以下在线示例，了解键值对容器的实际用法：
+
+* https://demo.jmix.io/ui-samples/sample/data-grid-key-value[使用键值对容器的 DataGrid^]
+* https://demo.jmix.io/ui-samples/sample/property-filter-key-value[使用键值对容器的 PropertyFilter^]
+====

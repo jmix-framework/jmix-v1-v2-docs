@@ -23,6 +23,18 @@ Jmix 支持热部署技术，该技术支持将项目更改立即应用于正在
 
 热部署资源放置的文件夹位置通过 xref:ROOT:app-properties.adoc#jmix.core.conf-dir[jmix.core.conf-dir] 应用程序属性确定。在应用程序启动时，该文件夹会由 xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug Configuration Settings] 中配置的 *Before launch* 任务清空。
 
+此外，为了确保清理工作更加可靠，且不依赖 Studio，可以使用名为 `cleanConf` 的 Gradle 任务。这个任务每次在通过 `bootRun` 启动应用程序时运行。
+
+如果在使用清理功能时出现问题，可以在项目中禁用 `cleanConf` 任务，需要添加以下内容至 `build.gradle`：
+
+[source,gradle]
+----
+jmix {
+    // ...
+    confDirCleanupEnabled = false
+}
+----
+
 Studio 还会向应用程序发送信号，要求清除相应的缓存，以便加载更改后的资源。包括消息缓存、fetch plan 配置、注册的视图以及菜单项。信号是作为一个触发器文件放在 `.jmix/temp/triggers` 目录中（目录可通过 xref:ROOT:app-properties.adoc#jmix.core.temp-dir[jmix.core.temp-dir] 配置修改）。
 
 NOTE: 应用程序可能需要 2-3 秒重新加载 Studio 保存后的类和资源文件。如果在打开的视图看不到期望的改动，可以尝试刷新网页。

@@ -3,9 +3,38 @@
 
 `nativeLabel` 对应 HTML 的 `label` 元素，可用于为组件创建标题。
 
-* XML 元素：`nativeLabel`
-
-* Java 类：`NativeLabel`
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`nativeLabel`
+|Java 类
+|`NativeLabel`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+<<setFor, setFor>> -
+xref:vc/common-attributes.adoc#text[text] -
+<<themeNames,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
+xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 == 基本用法
 
@@ -43,7 +72,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/htmlcompo
 
 image::visual-components/html-components/label-dynamic.png[align="center", width="180"]
 
-[[themeNames]]
+[[themes]]
 == 样式版本
 
 使用 xref:vc/common-attributes.adoc#themeNames[themeNames] 属性来自定义组件的颜色、大小和形状。首先使用 `themeNames = "badge"` 将组件转换为徽章。然后，使用其他主题来增强组件的视觉效果。
@@ -109,59 +138,46 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[attributes]]
 == XML 属性
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#property[property] -
-<<setFor, setFor>> -
-xref:vc/common-attributes.adoc#text[text] -
-<<themeNames,themeNames>> -
-xref:vc/common-attributes.adoc#title[title] -
-xref:vc/common-attributes.adoc#visible[visible] -
-<<whiteSpace, whiteSpace>> -
-xref:vc/common-attributes.adoc#width[width]
+在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+下面是 `nativeLabel` 的特殊属性：
 
-[[setFor]]
-=== setFor
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[themeNames]]themeNames
+|为组件添加一个样式版本。支持：`badge`、`normal`、`success`、`error`、`contrast`、`primary`、`small`、`pill`。样式生效需要与 `badge` 一起使用，请参考 <<themes, 上面的示例>>。
 
-设置该 label 关联的目标组件 id。
+*预定义的样式是一组 CSS 类，有可能影响组件或内部组件的其他样式设置。*
+|-
+|[[setFor]]setFor
+|标签通过元素的 id 与特定元素关联，从而使屏幕阅读器等辅助技术能正确理解。
+|-
+|===
 
-[[whiteSpace]]
-=== whiteSpace
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-定义组件的 `white-space` 样式值。支持：
-
-* `NORMAL`
-* `NOWRAP`
-* `PRE`
-* `PRE_WRAP`
-* `PRE_LINE`
-* `BREAK_SPACES`
-* `INHERIT`
-* `INITIAL`
 
 [[handlers]]
 == 事件和处理器
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+下面是 `nativeLabel` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
+
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|[[ClickEvent]]ClickEvent
+|当点击组件时触发 `com.vaadin.flow.component.ClickEvent` 事件。该事件的处理方法需要指定处理的是以下哪种点击事件：
+
+*click* – 当用户点击组件时触发。
+
+*singleClick* – 当用户在单击组件一小段时间后会（确保不是双击）触发。
+
+*doubleClick* – 当用户在短时间内点击组件两次时触发。
+|===
 
 == 参考
 

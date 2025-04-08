@@ -88,6 +88,12 @@ JavaDocs 中提供了 `BackgroundTask`、`TaskLifeCycle`、`BackgroundTaskHandle
 [[notes-and-tips]]
 == 注意事项
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/background-task-dialog" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 1. 用 `dialogs.createBackgroundTaskDialog()` 方法展示一个包含进度条和 *Cancel* 按钮的模态窗。该模态窗可以定义进度条的不同类型，以及允许或禁止取消后台任务。
 2. 如果需要在任务线程中使用可视化组件的某个值，应该在 `getParams()` 方法中实现获取的逻辑，该方法在任务启动时在 UI 线程中运行一次。在 `run()` 方法中，可以通过 `TaskLifeCycle` 对象的 `getParams()` 方法访问这些参数。
 3. 后台任务相关的配置参数有：xref:ui-properties.adoc#jmix.ui.background-task.task-killing-latency[jmix.ui.background-task.task-killing-latency]、xref:ui-properties.adoc#jmix.ui.background-task.threads-count[jmix.ui.background-task.threads-count] 和 xref:ui-properties.adoc#jmix.ui.background-task.timeout-expiration-check-interval[jmix.ui.background-task.timeout-expiration-check-interval]。

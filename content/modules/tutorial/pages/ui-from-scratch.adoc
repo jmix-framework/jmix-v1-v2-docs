@@ -117,8 +117,8 @@ image::ui-from-scratch/data-container-3.png[]
 [source,java]
 ----
 @Route(value = "MyOnboardingView", layout = MainView.class)
-@ViewController("MyOnboardingView")
-@ViewDescriptor("my-onboarding-view.xml")
+@ViewController(id = "MyOnboardingView")
+@ViewDescriptor(path = "my-onboarding-view.xml")
 public class MyOnboardingView extends StandardView {
     @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
@@ -170,7 +170,7 @@ public void onBeforeShow(final BeforeShowEvent event) {
 [[set-up-data-grid]]
 === 配置数据网格
 
-右键点击 *Jmix UI* 结构面板中的 `layout` 元素，选择 *Add Component* 菜单。找到并双击 `DataGrid` 组件。在 *DataGrid Properties Editor* 弹窗中，选择 `userStepsDc` 数据容器：
+右键点击 *Jmix UI* 结构面板中的 `layout` 元素，选择 *Add Component* 菜单。找到并双击 `DataGrid` 组件。在 *DataGrid* 弹窗中，选择 `userStepsDc` 数据容器，并反选所有的 *Actions*：
 
 image::ui-from-scratch/table-1.png[align="center",width="741"]
 
@@ -191,9 +191,7 @@ image::ui-from-scratch/table-1.png[align="center",width="741"]
 
 `Step` 是一个关联属性，默认不包含在数据网格的 fetch plan 中。xref:tutorial:data-in-ui.adoc#rearrange-data-grid-columns[前一章节] 中我们在用户详情视图展示 UserSteps 数据网格的时候就遇到过这种情况。
 
-在 fetch plan 中添加 `step` 属性，然后在数据网格中添加相应的列，并删除不需要的 `sortValue` 列：
-
-image::ui-from-scratch/table-2.gif[align="center"]
+在 fetch plan 和列中添加 `step.name` 属性，并删除不需要的 `sortValue` 列。
 
 此时，视图的 XML 如下：
 

@@ -8,10 +8,37 @@
 
 `span` 可用来添加文本。支持使用样式，比如颜色和字体。
 
-* XML 元素：`span`
-
-* Java 类：`Span`
-
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`span`
+|Java 类
+|`Span`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+xref:vc/common-attributes.adoc#text[text] -
+<<themeNames,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
+xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent, ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 == 基本用法
 
 与 HTML 中的同名元素一样，`span` 组件可以用来添加文本或为文本添加样式。但是，XML 中的 `span` 元素不能用在其他 XML 元素中的部分文本。
@@ -31,9 +58,9 @@ image::visual-components/html-components/span-basic.png[align="center", width="6
 
 上面的示例中，`div` 的内容放置于顶部，并占用全部可用宽度。`span` 中的文本放置在旁边，并且只占据了所需的空，这样一来可以在一行内同时放置多个不同样式的 `span` 元素。
 
-注意，父布局组件可以强制在 `span` 后换行。例如，标准视图的 root 布局会将所有内部元素垂直排列。 
+注意，父布局组件可以强制在 `span` 后换行。例如，标准视图的 root 布局会将所有内部元素垂直排列。
 
-[[themeNames]]
+[[themes]]
 == 样式版本
 
 使用 xref:vc/common-attributes.adoc#themeNames[themeNames] 属性来自定义组件的颜色、大小和形状。首先使用 `themeNames = "badge"` 将组件转换为徽章。然后，使用其他主题来增强组件的视觉效果。
@@ -99,39 +126,42 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[attributes]]
 == XML 属性
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#property[property] -
-xref:vc/common-attributes.adoc#text[text] -
-<<themeNames,themeNames>> -
-xref:vc/common-attributes.adoc#title[title] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
-xref:vc/common-attributes.adoc#width[width]
+在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+下面是 `span` 的特殊属性：
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[themeNames]]themeNames
+|为组件添加一个样式。支持 `badge`、`normal`、`success`、`error`、`contrast`、`primary`、`small`、`pill`。样式生效需要与 `badge` 一起使用，请参考 <<themes, 上面的示例>>。
+
+*预定义的样式是一组 CSS 类，有可能影响组件或内部组件的其他样式设置。*
+|-
+|===
 
 [[handlers]]
 == 事件和处理器
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+下面是 `span` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
 
-[[ClickEvent]]
-=== ClickEvent
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|[[ClickEvent]]ClickEvent
+|当点击组件时触发 `com.vaadin.flow.component.ClickEvent` 事件。该事件的处理方法需要指定处理的是以下哪种点击事件：
 
-`com.vaadin.flow.component.ClickEvent` 当用户点击组件时发送。
+*click* – 当用户点击组件时触发。
+
+*singleClick* – 当用户在单击组件一小段时间后会（确保不是双击）触发。
+
+*doubleClick* – 当用户在短时间内点击组件两次时触发。
+|===
 
 == 参考
 

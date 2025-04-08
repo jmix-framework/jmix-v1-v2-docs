@@ -1,0 +1,26 @@
+= UI 中处理实体
+
+视图中加载的实体会自动与视图中的组件关联，例如 xref:data/data-containers.adoc[数据容器] 和 xref:data/data-context.adoc[DataContext]。这种关联是由于数据容器和 `DataContext` 会注册响应实体属性变更的监听器。如果将加载的实体传递给服务层进行修改和保存，则需要将实体和视图组件做一个隔离。否则，服务层对实体的改动会直接影响视图的状态。此外，如果实体保存在缓存中还会有内存泄露的风险。
+
+当在 UI 中使用 `DataManager` 保存实体时，`DataContext` 的标准实现中提供了对需要保存实体的隔离。通过 `io.jmix.core.Copier` bean 实现。
+
+当需要将实体从视图发送给服务时，也可以做同样的隔离。下面的示例展示了如何通过服务保存实体：
+
+[source,java,indent=0]
+----
+include::example$onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView2.java[tags=save-custom]
+----
+<1> 复制实体，将需要保存的实体和视图中展示的实体进行分隔。
+<2> 将复制的实体发给服务。
+<3> 如果需要使用服务中对实体的改动更新视图状态，可以将返回的实体合并到 `DataContext` 中。示例中 `merge()` 方法的结果可以忽略掉。
+
+[NOTE]
+====
+当使用 xref:data/data-context.adoc#save-delegate[saveDelegate] 处理方法拦截标准的 `DataContext` 保存过程时，请留意与上面常规方法的不同之处：
+
+* `SaveContext` 对象已经包含实体的拷贝，无需手动创建。
+
+* 处理方法返回的已保存实体的 `Set` 会自动合并到 `DataContext` 中，无需手动调用 `merge()` 方法。
+====
+
+TIP: 参阅 the https://demo.jmix.io/ui-samples/sample/saving-entity-by-service[使用自定义服务保存实体^] 的在线示例，了解如何在服务层和视图之间隔离实体。

@@ -75,6 +75,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 代理方法需要返回一组已保存的实体实例。如果无法返回已保存的实例，那也可以返回保存前的实例，通过 `saveContext.getEntitiesToSave()` 获取，或者返回一个空集合。不要返回删除的实例。`DataContext` 会将返回的实例合并到视图中，使得视图能使用更新后的状态继续运行。
 
+参阅 xref:data/entities-in-ui.adoc[] 部分了解如何用自定义的服务保存实体。
+
 [[change-event]]
 === ChangeEvent
 
