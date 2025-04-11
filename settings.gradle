@@ -57,6 +57,10 @@ includeBuild 'external/jmix-initial-entity-values-sample'
 cloneOrPull('https://github.com/jmix-framework/jmix-social-login-sample', 'external/jmix-social-login-sample')
 includeBuild 'external/jmix-social-login-sample'
 
+cloneOrPull('https://github.com/jmix-framework/jmix-restds-oidc-sample', 'external/jmix-restds-oidc-sample')
+includeBuild 'external/jmix-restds-oidc-sample/integrated-apps'
+includeBuild 'external/jmix-restds-oidc-sample/separate-tiers'
+
 includeBuild 'content/modules/audit/examples/audit-ex1'
 
 includeBuild 'content/modules/authorization-server/examples/authserver-ex1'
