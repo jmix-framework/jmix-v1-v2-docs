@@ -58,8 +58,7 @@ cloneOrPull('https://github.com/jmix-framework/jmix-social-login-sample', 'exter
 includeBuild 'external/jmix-social-login-sample'
 
 cloneOrPull('https://github.com/jmix-framework/jmix-restds-oidc-sample', 'external/jmix-restds-oidc-sample')
-includeBuild 'external/jmix-restds-oidc-sample/integrated-apps'
-includeBuild 'external/jmix-restds-oidc-sample/separate-tiers'
+includeBuild 'external/jmix-restds-oidc-sample'
 
 includeBuild 'content/modules/audit/examples/audit-ex1'
 
