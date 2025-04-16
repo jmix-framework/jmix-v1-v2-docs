@@ -24,7 +24,7 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 * Вычисляет и загружает артефакты, используемые любой отдельной библиотекой.
 * Экспортирует загруженные артефакты в формате репозитория Maven.
 * Вычисляет npm-зависимости в виде `package-lock.json`.
-* Экспортирует npn-зависимости в виде tgz-архивов.
+* Экспортирует npm-зависимости в виде tgz-архивов.
 * Импортирует артефакты в собственный Nexus.
 
 Полная документация по утилите находится в файле https://github.com/jmix-framework/jmix-dependencies-tool#readme[README^].
@@ -56,6 +56,9 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 |2.4
 |8.10.2
 
+|2.5
+|8.12.1
+
 |===
 
 . *Node.js*: https://nodejs.org/en/download[^]
@@ -64,18 +67,18 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 
 . *Jmix Studio* (плагин Jmix для IDE): https://plugins.jetbrains.com/plugin/14340-jmix/versions[^]
 +
-Выберите наиболее свежую версию, соответствующую версии IDE. Например, если IDE версии 2023.3, то версия плагина оканчивается на `-233`
+Выберите наиболее свежую версию, соответствующую версии IDE. Например, если IDE версии 2024.3, то версия плагина оканчивается на `-243`
 
 Распакуйте все архивы, кроме плагина Jmix, в следующую файловую структуру:
 
 [source,plain]
 ----
 ~/work/
-├── deptool-2.0.0
-├── gradle-8.6
-├── idea-IC-233
-├── jdk-17.0.9
-├── jdk8u362
+├── deptool-...
+├── gradle-...
+├── idea-IC-...
+├── jdk-17...
+├── jdk8u...
 ├── nexus
 └── node
 ----
@@ -97,8 +100,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 [source,bash]
 ----
 ./deptool resolve-jmix \
-  --jmix-version 2.1.1 \
-  --jmix-plugin-version 2.1.1 \
+  --jmix-version 2.5.1 \
+  --jmix-plugin-version 2.5.1 \
   --resolve-commercial-addons \
   --jmix-license-key 123456123456-abcdefabcdef
 ----
@@ -141,8 +144,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 [source,bash]
 ----
 ./deptool resolve-npm \
-  --jmix-version 2.1.1 \
-  --jmix-plugin-version 2.1.1 \
+  --jmix-version 2.5.1 \
+  --jmix-plugin-version 2.5.1 \
   --resolve-commercial-addons \
   --jmix-license-key 123456123456-abcdefabcdef
 ----
@@ -173,15 +176,15 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 [[env-variables]]
 == Настройка переменных окружения
 
-Откройте в текстовом редакторе файл `~/.bashrc` и внесите в конец файла следующие строки:
+Откройте в текстовом редакторе файл `~/.bashrc` и внесите в конец файла следующие строки, указывая конкретные версии продуктов:
 
 [source,bash]
 ----
-export INSTALL4J_JAVA_HOME=/home/$USER/work/jdk8u362
-export JAVA_HOME=/home/$USER/work/jdk-17.0.9
+export INSTALL4J_JAVA_HOME=/home/$USER/work/jdk8u...
+export JAVA_HOME=/home/$USER/work/jdk-17...
 
 PATH=$PATH:$JAVA_HOME/bin
-PATH=$PATH:/home/$USER/work/gradle-8.6/bin
+PATH=$PATH:/home/$USER/work/gradle-.../bin
 PATH=$PATH:/home/$USER/work/node/bin
 ----
 
@@ -245,7 +248,7 @@ image::ROOT:nexus-repository-create.png[align="center"]
 
 Импорт артефактов зависимостей в репозиторий Nexus осуществляется командой `upload` утилиты `deptool`:
 
-Откройте терминал, перейдите в каталог `~/work/deptool-2.0.0/bin` и запустите команду:
+Откройте терминал, перейдите в подкаталог `bin` утилиты `deptool` и запустите команду:
 
 [source,bash]
 ----
@@ -267,7 +270,7 @@ image::ROOT:nexus-repository-create.png[align="center"]
 
 Импорт npm зависимостей осуществляется командой `upload-npm` утилиты `deptool`
 
-Откройте терминал, перейдите в каталог `~/work/deptool-2.0.0/bin` и запустите команду:
+Откройте терминал, перейдите в каталог подкаталог `bin` утилиты `deptool` и запустите команду:
 
 [source,bash]
 ----
@@ -288,7 +291,7 @@ image::ROOT:nexus-repository-create.png[align="center"]
 [[ide-setup]]
 == Настройка IDE
 
-Откройте терминал, перейдите в каталог `~/work/idea-IC-233/bin` и запустите команду:
+Откройте терминал, перейдите в каталог `~/work/idea-IC-.../bin` и запустите команду:
 
 [source,bash]
 ----
@@ -297,7 +300,7 @@ image::ROOT:nexus-repository-create.png[align="center"]
 
 В окне *Welcome to IntelliJ IDEA* перейдите на вкладку *Plugins*, нажмите на иконку шестеренки и выберите *Install Plugin from Disk*. Выберите ZIP-файл загруженного плагина Jmix. После установки плагина перезапустите IDE.
 
-Для работы плагина Jmix требуется наличие файла `sif.dat` в конфигурационном каталоге IDE. При работе онлайн он создается автоматически при активации Jmix Studio. В изолированной сети его необходимо перенести вручную в каталог `~/.config/JetBrains/IdeaIC2023.3` (соответствует версии вашей IntelliJ IDEA, см. подробнее в https://www.jetbrains.com/help/idea/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html[документации IntelliJ^]). Данный файл можно либо скопировать с компьютера с уже активированной Jmix Studio, либо получить по email, направив запрос по адресу `info@jmix.io`.
+Для работы плагина Jmix требуется наличие файла `sif.dat` в конфигурационном каталоге IDE. При работе онлайн он создается автоматически при активации Jmix Studio. В изолированной сети его необходимо перенести вручную в каталог `~/.config/JetBrains/IdeaIC...` (соответствует версии вашей IntelliJ IDEA, см. подробнее в https://www.jetbrains.com/help/idea/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html[документации IntelliJ^]). Данный файл можно либо скопировать с компьютера с уже активированной Jmix Studio, либо получить по email, направив запрос по адресу `info@jmix.io`.
 
 [[create-jmix-project]]
 == Создание проекта Jmix
@@ -316,7 +319,7 @@ image::ROOT:new-project-repo.png[align="center",width="800"]
 +
 image::ROOT:gradle-location.png[align="center",width="1201"]
 
-* После сохранения настроек Gradle начнется импорт проекта и завершится с ошибкой вида `org.gradle.api.plugins.UnknownPluginException: Plugin [id: 'io.jmix', version: '2.1.1'] was not found ...`
+* После сохранения настроек Gradle начнется импорт проекта и завершится с ошибкой вида `org.gradle.api.plugins.UnknownPluginException: Plugin [id: 'io.jmix', version: '2.5.1'] was not found ...`
 +
 * Откройте на редактирование файл `settings.gradle` и добавьте следующие строки в его начало:
 +
