@@ -6,6 +6,7 @@
 
 * xref:integrated-apps-guide:index.adoc[]
 * xref:separate-tiers-guide:index.adoc[]
+* xref:restds-oidc-guide:index.adoc[]
 
 В данном документе используются следующие термины:
 

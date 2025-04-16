@@ -50,6 +50,10 @@
 |Продвинутый
 |Описывает пример приложения Jmix с отдельным фронтендом и бэкендом.
 
+|xref:restds-oidc-guide:index.adoc[]
+|Продвинутый
+|Описывает примеры интеграции приложений Jmix используя REST DataStore и Keycloak.
+
 |xref:openapi-integration-guide:index.adoc[]
 |Продвинутый
 |Описывает шаги интеграции приложения Jmix с внешним REST-сервисом, используя схему OpenAPI.
