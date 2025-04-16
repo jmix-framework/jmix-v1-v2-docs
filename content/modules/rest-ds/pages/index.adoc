@@ -6,6 +6,7 @@ This document provides reference information about the REST DataStore add-on. If
 
 * xref:integrated-apps-guide:index.adoc[]
 * xref:separate-tiers-guide:index.adoc[]
+* xref:restds-oidc-guide:index.adoc[]
 
 In this document, we will use the following terms:
 
