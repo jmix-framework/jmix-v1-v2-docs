@@ -50,6 +50,10 @@ Guides are comprehensive resources that provide step-by-step instructions and ex
 |Advanced
 |Explore an example of a Jmix application with separate frontend and backend tiers.
 
+|xref:restds-oidc-guide:index.adoc[]
+|Advanced
+|Learn how to integrate Jmix applications using REST DataStore and Keycloak.
+
 |xref:openapi-integration-guide:index.adoc[]
 |Advanced
 |Discover the steps to integrate a Jmix application with an external REST service using an OpenAPI schema.

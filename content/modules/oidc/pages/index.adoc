@@ -10,6 +10,8 @@ The add-on leverages Spring Security support for OAuth2 and OpenID Connect 1.0. 
 
 The add-on applies `OidcAutoConfiguration` unless it is explicitly disabled by setting the `jmix.oidc.use-default-configuration=false` application property. The configuration enables OpenID Connect authentication for UI and REST API URLs.
 
+See also the xref:restds-oidc-guide:index.adoc[] guide for practical examples.
+
 [[installation]]
 == Installation
 
