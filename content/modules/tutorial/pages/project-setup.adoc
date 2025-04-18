@@ -176,8 +176,6 @@ What does it mean?
 
 On each start of the application, Studio tries to bring the database schema in sync with the project data model. So when you change your entities and their attributes, Studio will automatically generate Liquibase changelogs for making appropriate changes in the database.
 
-To generate a changelog, Studio needs a current schema to be present in the database. Then it compares the database schema with the current data model and generates a changelog for the difference.
-
 At the moment, our database is empty (actually, in our default case of the file-based HSQL database, it doesn't exist at all), so to generate a diff changelog, Studio first needs to create the database and execute all existing changelogs of the project. In the dialog, you can see the existing changelogs from the project dependencies (marked _read only_) and from the project itself (`010-init-user.xml`).
 
 Click *Execute and proceed*.
