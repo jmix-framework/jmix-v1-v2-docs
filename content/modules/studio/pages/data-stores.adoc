@@ -43,7 +43,7 @@ Studio resolves the placeholders and uses the resulting values for all operation
 
 To create additional data store, use <<data-store-actions,an action>> from the context menu. Another way is to select the one from  *Advanced*:
 
-image::data-advanced.png[align="center",width="447"]
+image::new.png[align="center",width="427"]
 
 See the description of the <<database-properties, database properties>> common for both the main and additional data stores above.
 

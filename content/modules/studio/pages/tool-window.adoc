@@ -2,24 +2,32 @@
 
 Jmix tool window is designed to represent significant elements of the project. It normally opens on the left side of the IDE. You can change the position of the tool window in the IDE, see https://www.jetbrains.com/help/idea/manipulating-the-tool-windows.html[IntelliJ IDEA documentation^].
 
-image::tool-window.png[align="center",width="482"]
+image::tool-window.png[align="center",width="336"]
 
 [[sections]]
 == Sections
 
-* *Build Scripts* contains two main project scripts:
+* *Build Scripts* contains three main project scripts:
 ** `build.gradle` defines the build configuration.
 ** `settings.gradle` defines the project name and the set of modules.
+** `gradle.properties` contains configuration setting that disables the Hilla framework within the project.
 * *Configuration* includes application configuration files:
 ** `application.properties` - defines database connection parameters, logging levels and other properties of the Spring Boot application.
-** `OnboardingApplication` - the main application class of the project.
-* *Add-ons* displays the list of Jmix xref:ROOT:add-ons.adoc[add-ons] installed for the project.
+** `SampleSecurityConfiguration` complements the standard security configurations provided by Jmix modules. You can configure xref:security:custom-endpoints.adoc[custom API endpoint] security by defining `SecurityFilterChain` beans within this class.
+** `SampleApplication` - the main application class of the project.
+* *Add-ons* displays the list of Jmix xref:ROOT:add-ons.adoc[add-ons] installed for the project. If you double-click on the *Add-ons* node, Studio will open a dialog window for managing add-ons in your project.
 * *Data Stores* displays and manages the list of xref:data-model:data-stores.adoc[data stores] the project is connected to and their Liquibase changelogs. By default, there is only one Main data store.
++
+In the new project, the HSQL relational database is used by default. It stores data in the `.jmix/hsqldb` folder of the project.
++
+Liquibase changelogs are XML files describing the database schema changes.
++
+If you double-click on the *Main Data Store* node, you will see parameters of the database connection in a dialog window. These parameters are stored in the `application.properties` file.
 * *Data Model* displays and manages the xref:data-model:index.adoc[data model] of the project. It contains xref:data-model:entities.adoc[entities] and their related elements like UI views and beans.
 +
 There are subsections *Refers to* and *Referenced by* under every entity. They show dependencies between entities, embedded attributes, and inheritance relationships.
 +
-image::tool-data-model.png[align="center", width="469"]
+image::tool-data-model.png[align="center", width="319"]
 +
 --
 ** *Refers to* shows references to other entities.
@@ -34,9 +42,11 @@ These subsections help you to explore the data model and navigate to related ent
 ** *Message Bundle* opens the xref:localization:message-bundles.adoc[message bundle] of the application.
 ** *Main Menu* opens the xref:studio:menu-designer.adoc[].
 * *Beans* displays Spring beans defined in the project.
-* *Security* contains xref:security:index.adoc[security settings] roles.
+* *Security* contains xref:security:index.adoc[security settings] roles. The new project contains the `FullAccessRole` which is assigned to the `admin` user and `UiMinimalRole` which gives minimal permissions to users.
 * *Deployment* lets you xref:studio:quick-cloud-deployment.adoc[quickly deploy] a containerized application to the cloud.
-* *Sources* lets you switch to the *Project* tree.
+* If you double-click on the *Sources* node, Studio will open the *Project* tool window with the usual view of the entire source code:
++
+image::project-tool-window.png[align="center", width="336"]
 * Double-click the *Tests* item opens the *Project* tree in the `src/test/java` folder.
 
 [[context-menu]]
@@ -44,7 +54,7 @@ These subsections help you to explore the data model and navigate to related ent
 
 Context menu allows you to create new elements. For example, right-clicking on the *User Interface* calls actions related to the views and themes of the user interface.
 
-image::context-menu.png[align="center",width="436"]
+image::context-menu.png[align="center",width="427"]
 
 [[toolbar]]
 == Toolbar
@@ -52,13 +62,11 @@ image::context-menu.png[align="center",width="436"]
 The toolbar provides quick access to commonly used actions and settings.
 
 [[creating-new-elements]]
-=== Creating New Elements
+=== New
 
-In the *New* group of actions, you can find the project elements you need to create.
+The *New* actions group is where you can create new project elements. For example, you can create new xref:studio:entity-designer.adoc#jpa-entity-designer[JPA Entity], or xref:studio:data-stores.adoc#additional-data-store[Additional Data Store], or other essential components.
 
-image::new.png[align="center",width="255"]
-
-For example, *JPA Entity* opens the dialog for creating an entity.
+image::new.png[align="center",width="427"]
 
 [[settings]]
 === Settings
@@ -72,6 +80,8 @@ In the xref:studio:project-properties.adoc[Project Properties] editor, you can c
 *Marketplace* action opens the xref:studio:marketplace.adoc[Add-ons] window, where you can manage add-ons included in your project.
 
 image::marketplace.png[align="center",width="942"]
+
+The *Jmix Plugin Settings* opens a dialog containing settings related to all projects opened in this Studio instance.
 
 *Account Information* action opens the xref:studio:subscription.adoc[Jmix Subscription] dialog where you can view details about your account and subscription.
 
@@ -91,8 +101,9 @@ Also, you should use this action to apply changes that you made manually in the 
 [[help]]
 === Help
 
-image::help.png[align="center", width="313"]
+image::help.png[align="center", width="305"]
 
+* Use the built-in feedback form to share your thoughts on Jmix Studio – what you love, and what you think could be better. You can find it under the *Submit Feedback* menu item.
 * *Jmix Documentation* opens the documentation website in browser.
 * *Third-Party Libraries* opens a dialog that provides information about third-party libraries. 
 * *Welcome* opens the xref:studio:welcome.adoc[welcome screen].

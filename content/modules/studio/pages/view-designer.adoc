@@ -100,10 +100,19 @@ image::components-hierarchy.png[align="center",width="410"]
 
 The *Jmix UI* inspector panel displays the *Properties* and *Handlers* tabs.
 
+[[properties-tab]]
+=== Properties Tab
+
+The *Properties* tab shows attributes of the selected view element and allows you to edit them.
+
+image::component-properties-panel.png[align="center",width="337"]
+
+The properties of the selected component are grouped into categories for easier navigation. To find a specific property, either browse through the relevant category or use the search field at the top of the component inspector. You can reorder the categories using the image:icons/editorConfig.svg[Categories Order] button. Buttons image:icons/collapseAll.svg[Collapse All] and image:icons/expandAll.svg[Expand All] control the display of the categories, allowing you to collapse or expand them.
+
 [[component-inspector-add-button]]
 For some types of selected elements, the *+ Add* button is shown that allows you to add the related sub-element, such as data grid action, column, formatter, validator, and so on.
 
-image::component-inspector-add-button.png[align="center", width="410"]
+image::component-inspector-add-button.png[align="center", width="357"]
 
 [[add-picker-action]]
 * To add an xref:flow-ui:actions/entity-picker-actions.adoc[entity picker] or xref:flow-ui:actions/value-picker-actions.adoc[value picker] action, select the appropriate component in the view descriptor XML or in the *Jmix UI* structure panel and click *Add → Action* in the *Jmix UI* inspector panel. The *Add Action* dialog appears:
@@ -140,20 +149,12 @@ This list contains the properties that are contained in the xref:data-access:fet
 // +
 // Studio will add the generated column to the table XML and a handler method to the screen controller.
 
-[[properties-tab]]
-=== Properties Tab
+Now, let's go back to the list of properties and take a closer look.
 
-The *Properties* tab shows attributes of the selected view element and allows you to edit them.
+The first column lists the names of the attributes for the selected component. The second column displays the property values as follows:
 
-image::component-properties-panel.png[align="center",width="410"]
-
-Some properties have default values that are grayed out.
-
-Use the search field to find the necessary attribute.
-
-Attributes come by default arranged by name. The first column lists the names of the attributes for the selected component. The second column on the *Properties* tab displays the property values as follows:
-
-*  When the property is selected, the value changes to an edit field where you can type a new value.
+* Some properties have default values that are grayed out.
+* When the property is selected, the value changes to an edit field where you can type a new value.
 +
 image::properties-text-value.png[align="center",width="385"]
 

@@ -2,7 +2,7 @@
 
 *Project Properties* editor allows you to configure your project. You can open it from the toolbar of the *Jmix Tool Window*.
 
-image::prop-open.png[align="center",width="309"]
+image::toolbar-settings.png[align="center",width="257"]
 
 In the *Jmix* tab, you can configure project repositories.
 

@@ -6,13 +6,13 @@ include::subscription-note.adoc[]
 
 First, you need to create a configuration file using the menu in xref:studio:tool-window.adoc[Jmix Tool Window].
 
-image::fetch-menu.png[align="center",width="474"]
+image::fetch-menu.png[align="center",width="408"]
 
 After that, the `fetch-plans.xml` file will be created and opened in the designer. The *Structure* tab displays the list of fetch plans defined in this configuration file and allows you to visually construct fetch plans definitions.
 
 To create a new fetch plan, you can use the *New ->Advanced* menu of the Jmix Tool Window that will contain the *Fetch Plan* item. Also, use the plus button in the *Structure* tab.
 
-image::fetch-edit.png[align="center",width="1110"]
+image::fetch-edit.png[align="center",width="733"]
 
 The fetch plan creation dialog contains the following fields:
 
@@ -24,7 +24,7 @@ The full list of attributes of the current entity is displayed in the tree below
 
 If your fetch plan extends another fetch plan, all inherited attributes are selected and disabled. When you select a reference attribute, the following properties will appear in the right panel:
 
-image::fetch-extend.png[align="center",width="736"]
+image::fetch-extend.png[align="center",width="733"]
 
 * *Fetch plan* - an optional fetch plan to load the referenced entity. We recommend to use references to named fetch plans, as it makes it easier to maintain complex fetch plans.
 * *Fetch* - an optional property of reference attributes that specifies how to fetch the related entity from the database.

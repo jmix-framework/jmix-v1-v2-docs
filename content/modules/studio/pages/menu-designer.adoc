@@ -6,11 +6,11 @@ include::subscription-note.adoc[]
 
 An easy way to access the structure of the main menu is to double-click the *Main Menu* subsection in xref:studio:tool-window.adoc[Jmix Tool Window].
 
-image::menu-open.png[align="center",width="273"]
+image::menu-open.png[align="center",width="235"]
 
 On the *Structure* tab, you can view and configure the menu while the *Text* contains the XML code.
 
-image:menu-designer.png[align="center",width="897"]
+image:menu-designer.png[align="center",width="999"]
 
 In the visual designer, you can just drag menu items in the tree to change their location in the menu structure.
 
@@ -19,15 +19,15 @@ In the visual designer, you can just drag menu items in the tree to change their
 
 By default, the *Composite mode* is selected. It means the menu contains items from `menu.xml` of the application, and all included add-ons as well as inherited from the framework. The inherited menu items can not be edited.
 
-image:menu-composite.png[align="center",width="351"]
+//image:menu-composite.png[align="center",width="351"]
 
 When you are switching from *Composite mode* to *Single mode*, Studio suggests you retain menu items inherited from the framework and add-ons:
 
-image:menu-suggest.png[align="center",width="581"]
+image:menu-suggest.png[align="center",width="585"]
 
 In the *Single mode*, Studio provides the ability to add inherited menu items from the add-ons included in the project. All available items are always displayed in the separate panel on the left, and you can easily drag-and-drop them into your current custom menu.
 
-image:menu-single.png[align="center",width="654"]
+image:menu-single.png[align="center",width="724"]
 
 If you decide to retain inherited menu items, their structure will be copied to your project, and you will be able to customize them. If later you decide to switch the main menu back to the composite mode, note that you will need to manually remove all duplicated menus and items from your project’s configuration. Otherwise, the menu would become broken as the menu structure doesn’t allow duplicated items.
 
@@ -36,7 +36,7 @@ If you decide to retain inherited menu items, their structure will be copied to 
 
 To add a menu item, click the plus button in the designer. The *Create Menu Item* window will be opened.
 
-image:menu-create-item.png[align="center",width="859"]
+image:menu-create-item.png[align="center",width="898"]
 
 You can create the following types of menu items:
 

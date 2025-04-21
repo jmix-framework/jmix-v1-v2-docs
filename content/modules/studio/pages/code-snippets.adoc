@@ -2,17 +2,17 @@
 
 Studio provides code snippets to improve the developer experience. The *Code Snippets* palette is available by clicking the *Code Snippets* button in the editor window top panel for Spring beans and UI controllers.
 
-image::snippet-window.png[align="center",width="597"]
+image::snippet-window.png[align="center",width="645"]
 
 You can just drag the necessary snippet from the palette to your code. Snippets are context-dependent and may request parameters from the developer.
 
 In the example below, the *Get localized message* code snippet is dragged to the code, and the dialog requesting key message appeared.
 
-image::snippet-example.png[align="center",width="783"]
+image::snippet-example.png[align="center",width="784"]
 
 The result of adding the code snippet will be the following:
 
-image::snippet-example-result.png[align="center",width="783"]
+image::snippet-example-result.png[align="center",width="784"]
 
 When you use code snippets that load data by query, the JPQL designer is automatically opened. The JPQL designer allows you to define JPQL queries for loading entities and scalar values from the database.
 
@@ -20,10 +20,10 @@ include::subscription-note.adoc[]
 
 In the example below, the JPQL designer is appeared after dragging the *Load list of entities by query* code snippet.
 
-image::snippet-query.png[align="center",width="1132"]
+image::snippet-query.png[align="center",width="952"]
 
 In the result, the following code will be added:
 
-image::snippet-query-result.png[align="center",width="783"]
+image::snippet-query-result.png[align="center",width="762"]
 
 All code snippet templates are located in `jmix-code-snippets.xml` files inside the relevant framework modules. You can define your own snippets on the project or an add-on level: just create a `jmix-code-snippets.xml` file in the project’s resources using an example from the framework.

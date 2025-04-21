@@ -2,8 +2,8 @@
 
 Welcome screen is always opened in the workspace after a new project is created. You can also open it from the toolbar of the *Jmix Tool Window*.
 
-image::open-welcome.png[align="center",width="334"]
+image::open-welcome.png[align="center",width="283"]
 
 This screen provides quick access to the main project settings, commonly used actions, documentation, and community web pages. It also shows Jmix version used in your project, Studio version, and subscription information.
 
-image::welcome.png[align="center",width="1314"]
+image::welcome.png[align="center",width="1552"]

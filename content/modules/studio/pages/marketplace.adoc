@@ -2,7 +2,7 @@
 
 Studio provides useful UI to manage add-ons in your application. The *Add-ons* dialog is accessible from xref:studio:tool-window.adoc[Jmix Tool Window] -> *Marketplace*.
 
-image::add-ons-open.png[align="center",width="309"]
+image::add-ons-open.png[align="center",width="248"]
 
 The *Marketplace* tab displays published add-ons that are compatible with your project.
 
@@ -10,7 +10,7 @@ image::marketplace.png[align="center",width="942"]
 
 By clicking on the add-on's title, you can overview the add-on's information. 
 
-image::add-ons-info.png[align="center",width="877"]
+image::add-ons-info.png[align="center",width="942"]
 
 You can install one or more add-ons by clicking the *Install* button and then *Apply & Close*.
 
@@ -23,14 +23,14 @@ Detailed installation instructions are placed for each add-on in the xref:ROOT:a
 
 The *Installed* tab displays add-ons that are already added to the current project.
 
-image::add-ons-installed.png[align="center",width="942"]
+image::add-ons-installed.png[align="center",width="877"]
 
 Installed add-ons are grouped into two categories. *Marketplace Add-Ons* are installed from Marketplace. *Custom Add-Ons* are developed by third parties and hosted in third-party repositories, including local Maven.
 
 Also, you can use button next to *Install*, to add an add-on by coordinates.
 
-image::add-ons-button.png[align="center", width="928"]
+image::add-ons-button.png[align="center", width="877"]
 
 Add-on coordinates is a Gradle dependency string, for example, `com.mycompany.addons:myaddon:0.1.5`. This string can be published on Jmix site or by the author of the add-on.
 
-image::add-ons-coordinates.png[align="center", width="624"]
+image::add-ons-coordinates.png[align="center", width="661"]

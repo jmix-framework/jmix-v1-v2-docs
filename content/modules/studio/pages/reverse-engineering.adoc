@@ -6,7 +6,7 @@ First, you should create an xref:studio:data-stores.adoc#additional-data-store[a
 
 Right-click the data store item in the xref:studio:tool-window.adoc[Jmix Tool Window] and select *Generate Model from Database* in the context menu.
 
-image::generate-data-model-item.png[align="center",width="429"]
+image::generate-data-model-item.png[align="center",width="442"]
 
 Then Studio opens the *Generate Model from Database* wizard.
 
@@ -54,11 +54,11 @@ The image:icons/refresh.svg[Refresh mapping button] button allows you to re-laun
 
 The image:icons/edit.svg[Edit mapping] button opens a dialog window with the mapping details. There you can change the entity name and the list of system interfaces implemented by the entity class. It will affect the number of system columns being created for compatibility with Jmix entities.
 
-image::table-mapping-editor.png[align="center",width="748"]
+image::table-mapping-editor.png[align="center",width="767"]
 
 The *Choose PK* button appears instead of *Edit mapping* when a database view is selected, and you need to select columns for the entity identifier.
 
-By clicking *Back*, you can go to the previous step to select or deselect tables.
+By clicking *Previous*, you can go to the previous step to select or deselect tables.
 
 Click *Next* to go to the next step.
 --
@@ -70,7 +70,7 @@ At this step, you can specify what UI views should be created for new entities.
 
 image::generate-data-model-step3.png[align="center",width="936"]
 
-If you deselect the *Create standard view* checkbox, Studio will not generate UI for the new entities.
+If you deselect the *Create standard views* checkbox, Studio will not generate UI for the new entities.
 
 Use the *In module*, *Package*, and *Menu* fields to specify where to place the views source code and where to display them in the main menu.
 

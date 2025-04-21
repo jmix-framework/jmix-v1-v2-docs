@@ -9,17 +9,17 @@ include::subscription-note.adoc[]
 
 To create a new resource role, use the menu in xref:studio:tool-window.adoc[Jmix Tool Window]. 
 
-image::role-open.png[align="center", width="248"]
+image::role-open.png[align="center", width="244"]
 
 Enter a role name and its code in the appeared dialog.
 
-image::role-create.png[align="center", width="662"]
+image::role-create.png[align="center", width="663"]
 
 Resource Role Designer is integrated with the code editor that is available on the *Text* tab. You can edit the source code directly or use the Designer’s controls to generate the code.
 
 The *Definition* tab defines basic role attributes.
 
-image::role-definition.png[align="center", width="722"]
+image::role-definition.png[align="center", width="724"]
 
 [NOTE]
 ====
@@ -28,7 +28,7 @@ Role code is used when assigning the role to users, therefore it should not be c
 
 On the *User Interface* tab, you can define permissions for menu items and views.
 
-image::role-user-interface.png[align="center", width="722"]
+image::role-user-interface.png[align="center", width="724"]
 
 The tree on the left displays the structure of the main menu, both project-defined views and inherited views from the framework and add-ons. The *All Views* group displays all remaining application views that are not directly available through the main menu. You can find the necessary view with the help of the search field located above the tree.
 
@@ -40,7 +40,7 @@ The *Allow all views* checkbox is useful when you want to grant access to all vi
 
 On the *Entities* tab, you can define CRUD permissions for entities and entity attributes.
 
-image::role-entities.png[align="center", width="722"]
+image::role-entities.png[align="center", width="724"]
 
 The table on the left side of the panel displays entities defined in the project as well as entities inherited from the framework and add-ons. The entity list can be filtered by name with the help of the search field located above the table.
 
@@ -60,7 +60,7 @@ The *Allow all* checkbox in the entities' table permits all CRUD operations and 
 [[specific-tab]]
 On the *Specific* tab, you can define specific permissions.
 
-image::role-specific.png[align="center", width="722"]
+image::role-specific.png[align="center", width="724"]
 
 The framework uses specific permissions to restrict access to various mechanisms. In the tree, you can see the permissions inherited from the framework and add-ons. 
 
@@ -73,11 +73,11 @@ All specific policies are denied by default. Select the policy in the tree and a
 
 To create a new row-level role, click *New → Row-level Role* in the xref:studio:tool-window.adoc[Jmix Tool Window].
 
-image::row-level-role-open.png[align="center", width="248"]
+//image::row-level-role-open.png[align="center", width="248"]
 
 Enter role parameters in the appeared dialog.
 
-image::row-level-role-create.png[align="center", width="635"]
+image::row-level-role-create.png[align="center", width="636"]
 
 [NOTE]
 ====
@@ -86,7 +86,7 @@ Role code is used when assigning the role to users, therefore it should not be c
 
 Studio will create and open an annotated role interface. To add a xref:security:row-level-roles.adoc#jpql-policy[JPQL policy], click *Add Policy → JPQL Policy* in the top actions panel:
 
-image::add-policy-button.png[align="center", width="624"]
+image::add-policy-button.png[align="center", width="724"]
 
 In the *Add JPQL Policy* dialog, specify the policy parameters:
 
@@ -96,4 +96,4 @@ Click *OK*. A method defining the policy will be added to the role interface.
 
 Similarly, to add a xref:security:row-level-roles.adoc#predicate-policy[predicate policy], click *Add Policy → Predicate Policy* in the top actions panel. In the *Add Predicate Policy* dialog, specify an entity and select the actions for which the policy should be applied:
 
-image::add-predicate-policy.png[align="center", width="515"]
+image::add-predicate-policy.png[align="center", width="531"]

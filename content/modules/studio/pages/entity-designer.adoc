@@ -9,7 +9,7 @@ include::subscription-note.adoc[]
 
 To create a xref:data-model:entities.adoc#jpa[JPA entity], use the menu in the xref:studio:tool-window.adoc[Jmix Tool Window].
 
-image::new.png[align="center",width="278"]
+image::new-jpa.png[align="center",width="221"]
 
 The *New JPA Entity* dialog appears.
 
