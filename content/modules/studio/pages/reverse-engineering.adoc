@@ -6,7 +6,7 @@ Studio позволяет создавать xref:data-model:index.adoc[моде
 
 Щелкните правой кнопкой мыши элемент хранилища данных в xref:studio:tool-window.adoc[Окне инструментов Jmix] и выберите *Generate Model from Database* в контекстном меню.
 
-image::generate-data-model-item.png[align="center",width="429"]
+image::generate-data-model-item.png[align="center",width="442"]
 
 Затем Studio откроет мастер *Generate Model from Database*.
 
@@ -54,11 +54,11 @@ image::generate-data-model-step2.png[align="center",width="936"]
 
 Кнопка image:icons/edit.svg[Edit mapping] открывает диалоговое окно с деталями сопоставления. Там вы можете изменить имя сущности и список системных интерфейсов, реализуемых классом сущности. Это повлияет на количество создаваемых системных колонок для совместимости с сущностями Jmix.
 
-image::table-mapping-editor.png[align="center",width="748"]
+image::table-mapping-editor.png[align="center",width="767"]
 
 Кнопка *Choose PK* появляется вместо `Edit mapping`, когда выбрано представление базы данных, и нужно выбрать колонки для идентификатора сущности.
 
-Нажав *Back*, вы можете вернуться к предыдущему шагу, чтобы выбрать или отменить выбор таблиц.
+Нажав *Previous*, вы можете вернуться к предыдущему шагу, чтобы выбрать или отменить выбор таблиц.
 
 Нажмите *Next*, чтобы перейти к следующему шагу.
 --
@@ -70,7 +70,7 @@ image::table-mapping-editor.png[align="center",width="748"]
 
 image::generate-data-model-step3.png[align="center",width="936"]
 
-Если снять флажок *Create standard view*, Studio не будет генерировать UI для новых сущностей.
+Если снять флажок *Create standard views*, Studio не будет генерировать UI для новых сущностей.
 
 Используйте поля *In module*, *Package*, и *Menu*, чтобы указать, где размещать исходный код экранов и где отображать их в главном меню.
 

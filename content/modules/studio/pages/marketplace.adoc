@@ -2,7 +2,7 @@
 
 Studio обладает удобным UI для управления дополнениями в приложении. Диалоговое окно *Add-ons* доступно из xref:studio:tool-window.adoc[Окна инструментов Jmix].
 
-image::add-ons-open.png[align="center",width="309"]
+image::add-ons-open.png[align="center",width="248"]
 
 На вкладке *Marketplace* отображаются опубликованные дополнения, совместимые с вашим проектом.
 
@@ -10,7 +10,7 @@ image::marketplace.png[align="center",width="942"]
 
 Ознакомьтесь с информацией о дополнении, нажав на его название.
 
-image::add-ons-info.png[align="center",width="877"]
+image::add-ons-info.png[align="center",width="942"]
 
 Вы можете установить одно или несколько дополнений, нажав кнопку *Install*, а затем *Apply & Close*.
 
@@ -23,14 +23,14 @@ image::add-ons-install.png[align="center",width="942"]
 
 На вкладке *Installed* отображаются дополнения, которые уже добавлены в текущий проект.
 
-image::add-ons-installed.png[align="center",width="942"]
+image::add-ons-installed.png[align="center",width="877"]
 
 Установленные дополнения сгруппированы в две категории. *Marketplace Add-Ons* установлены из Каталога. *Custom Add-Ons* разрабатываются сторонними лицами и размещены в сторонних репозиториях, включая локальный Maven.
 
 Кроме того, вы можете добавить дополнение по координатам, используя кнопку рядом с *Install*.
 
-image::add-ons-button.png[align="center", width="928"]
+image::add-ons-button.png[align="center", width="877"]
 
 Координаты дополнения – это строка зависимости Gradle, например, `com.mycompany.addons:myaddon:0.1.5`. Эта строка может быть опубликована на сайте Jmix или автором дополнения.
 
-image::add-ons-coordinates.png[align="center", width="624"]
+image::add-ons-coordinates.png[align="center", width="661"]

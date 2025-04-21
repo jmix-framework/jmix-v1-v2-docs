@@ -9,7 +9,7 @@ include::subscription-note.adoc[]
 
 Чтобы создать сущность, используйте меню в xref:studio:tool-window.adoc[Окне инструментов Jmix].
 
-image::new.png[align="center",width="278"]
+image::new-jpa.png[align="center",width="221"]
 
 Появится диалог *New JPA Entity*.
 

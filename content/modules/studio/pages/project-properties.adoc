@@ -2,7 +2,7 @@
 
 Редактор *Project Properties* позволяет вам настроить свойства вашего проекта. Вы можете открыть его из панели инструментов *Jmix Tool Window*.
 
-image::prop-open.png[align="center",width="309"]
+image::toolbar-settings.png[align="center",width="257"]
 
 На вкладке *Jmix* вы можете настроить репозитории проекта.
 

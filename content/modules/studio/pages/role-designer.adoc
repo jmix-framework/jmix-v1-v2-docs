@@ -9,17 +9,17 @@ include::subscription-note.adoc[]
 
 Чтобы создать новую ресурсную роль, используйте меню в xref:studio:tool-window.adoc[Окне инструментов Jmix].
 
-image::role-open.png[align="center", width="248"]
+image::role-open.png[align="center", width="244"]
 
 В появившемся диалоговом окне введите имя роли и ее код.
 
-image::role-create.png[align="center", width="662"]
+image::role-create.png[align="center", width="663"]
 
 Дизайнер ролей интегрирован с редактором кода, который доступен на вкладке *Text*. Вы можете редактировать исходный код напрямую или использовать для создания кода элементы управления дизайнера.
 
 Вкладка *Definition* определяет основные атрибуты роли.
 
-image::role-definition.png[align="center", width="722"]
+image::role-definition.png[align="center", width="724"]
 
 [NOTE]
 ====
@@ -28,7 +28,7 @@ image::role-definition.png[align="center", width="722"]
 
 На вкладке *User Interface* вы можете определить разрешения для элементов меню и экранов.
 
-image::role-user-interface.png[align="center", width="722"]
+image::role-user-interface.png[align="center", width="724"]
 
 Дерево слева отображает структуру главного меню, экранов, определенных проектом и экранов, унаследованных от фреймворка и дополнений. В группе *All Views* отображаются все оставшиеся экраны приложений, недоступные напрямую через главное меню. Найти нужный экран можно с помощью поля поиска, расположенного над деревом.
 
@@ -40,7 +40,7 @@ image::role-user-interface.png[align="center", width="722"]
 
 На вкладке *Entities* можете определить разрешения CRUD для сущностей и атрибутов сущностей.
 
-image::role-entities.png[align="center", width="722"]
+image::role-entities.png[align="center", width="724"]
 
 В таблице панели слева отображаются сущности, определенные в проекте, а также унаследованные от фреймворка и дополнений. Список сущностей можно отфильтровать по имени с помощью поля поиска, расположенного над таблицей.
 
@@ -60,7 +60,7 @@ image::role-entities.png[align="center", width="722"]
 [[specific-tab]]
 На вкладке *Specific* вы можете определить определенные разрешения.
 
-image::role-specific.png[align="center", width="722"]
+image::role-specific.png[align="center", width="724"]
 
 Фреймворк использует определенные разрешения для ограничения доступа к различным механизмам. В дереве можно увидеть разрешения, унаследованные от фреймворка и дополнений.
 
@@ -73,11 +73,11 @@ image::role-specific.png[align="center", width="722"]
 
 Для создания новой роли уровня строк нажмите *New → Row-level Role* xref:studio:tool-window.adoc[окне инструментов Jmix].
 
-image::row-level-role-open.png[align="center", width="248"]
+//image::row-level-role-open.png[align="center", width="248"]
 
 Введите параметры роли в появившемся диалоге.
 
-image::row-level-role-create.png[align="center", width="635"]
+image::row-level-role-create.png[align="center", width="636"]
 
 [NOTE]
 ====
@@ -86,7 +86,7 @@ image::row-level-role-create.png[align="center", width="635"]
 
 Studio создаст и откроет аннотированный интерфейс роли. Чтобы создать xref:security:row-level-roles.adoc#jpql-policy[JPQL-политику], нажмите *Add Policy → JPQL Policy* в верхней панели действий:
 
-image::add-policy-button.png[align="center", width="624"]
+image::add-policy-button.png[align="center", width="724"]
 
 Введите параметры политики в диалоге *Add JPQL Policy*:
 
@@ -96,4 +96,4 @@ image::add-jpql-policy.png[align="center", width="636"]
 
 Аналогично, чтобы создать xref:security:row-level-roles.adoc#predicate-policy[предикатную политику], нажмите *Add Policy → Predicate Policy* в верхней панели действий. В диалоге *Add Predicate Policy* укажите сущность и выберите операции, для которых должна действовать политика:
 
-image::add-predicate-policy.png[align="center", width="515"]
+image::add-predicate-policy.png[align="center", width="531"]

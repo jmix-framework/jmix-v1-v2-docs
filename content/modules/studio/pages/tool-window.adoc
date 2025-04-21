@@ -2,24 +2,32 @@
 
 В окне инструментов Jmix представлены важные элементы проекта. Обычно оно открывается с левой стороны IDE. Чтобы изменить расположение окна инструментов в IDE см. https://www.jetbrains.com/help/idea/manipulating-the-tool-windows.html[документацию IntelliJ IDEA^].
 
-image::tool-window.png[align="center",width="482"]
+image::tool-window.png[align="center",width="336"]
 
 [[sections]]
 == Разделы
 
-* *Build Scripts* содержит два основных скрипта проекта:
+* *Build Scripts* содержит три основных скрипта проекта:
 ** `build.gradle` определяет конфигурацию сборки.
 ** `settings.gradle` определяет название проекта и набор модулей.
+** В файле `gradle.properties` указаны параметры конфигурации, отключающие фреймворк Hilla в проекте.
 * *Configuration* включает в себя файлы конфигурации приложения:
 ** `application.properties` определяет параметры подключения к базе данных, уровни логирования и другие свойства приложения Spring Boot.
-** `OnboardingApplication` - главный класс приложения.
-* *Add-ons* отображает список установленных xref:ROOT:add-ons.adoc[дополнений] Jmix.
+** `SampleSecurityConfiguration` дополняет стандартные настройки безопасности, предоставляемые модулями Jmix. Вы можете настроить безопасность xref:security:custom-endpoints.adoc[API кастомных эндпоинтов], определяя бины `SecurityFilterChain` в этом классе.
+** `SampleApplication` - главный класс приложения.
+* *Add-ons* показывает перечень установленных в проекте xref:ROOT:add-ons.adoc[дополнений] Jmix. Двойной клик по разделу *Add-ons* открывает в Studio диалоговое окно управления дополнениями проекта.
 * *Data Stores* отображает список xref:data-model:data-stores.adoc[хранилищ данных], к которым подключен проект, и управляет ими. По умолчанию существует только одно основное хранилище данных.
++
+В новом проекте по умолчанию применяется реляционная база данных HSQL, которая хранит данные в каталоге `.jmix/hsqldb`.
++
+Changelog-файлы Liquibase представляют собой XML-документы, содержащие описание изменений структуры БД.
++
+При двойном клике по разделу *Main Data Store* открывается диалоговое окно с параметрами подключения к базе данных. Эти настройки сохраняются в файле `application.properties`.
 * *Data Model* отображает xref:data-model:index.adoc[модель данных] проекта и управляет ею. Содержит сущности и связанные с ними элементы, такие как экраны UI и бины.
 +
 Под каждой сущностью есть подразделы *Refers to* и *Referenced by*. Они показывают зависимости между сущностями, встроенные сущности и отношения наследования.
 +
-image::tool-data-model.png[align="center", width="469"]
+image::tool-data-model.png[align="center", width="319"]
 +
 --
 ** *Refers to* показывает ссылки на другие сущности.
@@ -36,7 +44,9 @@ image::tool-data-model.png[align="center", width="469"]
 * *Beans* отображает бины Spring beans, определенные в проекте.
 * *Security* содержит xref:security:index.adoc[роли] подсистемы безопасности.
 * *Deployment* позволяет быстро xref:studio:quick-cloud-deployment.adoc[развернуть контейнеризированное приложение] в облаке.
-* *Sources* позволяет переключиться на дерево проекта.
+* Если дважды щелкнуть на разделе *Sources*, Studio откроет окно *Project* со стандартным представлением всего исходного кода:
++
+image::project-tool-window.png[align="center", width="336"]
 * Двойной щелчок по разделу *Tests* открывает дерево проекта в папке `src/test/java`.
 
 [[context-menu]]
@@ -44,7 +54,7 @@ image::tool-data-model.png[align="center", width="469"]
 
 Контекстное меню позволяет создавать новые элементы. Например, щелчок правой кнопкой мыши по *User Interface* вызывает список действий, связанных с пользовательским интерфейсом.
 
-image::context-menu.png[align="center",width="436"]
+image::context-menu.png[align="center",width="427"]
 
 [[toolbar]]
 == Панель инструментов
@@ -52,16 +62,14 @@ image::context-menu.png[align="center",width="436"]
 Панель инструментов обеспечивает быстрый доступ к часто используемым действиям и настройкам.
 
 [[creating-new-elements]]
-=== Создание новых элементов
+=== New
 
-В группе действий *New* вы можете найти элементы проекта, которые вам может понадобиться создать.
+В разделе *New* доступны действия для создания элементов проекта, таких как xref:studio:entity-designer.adoc#jpa-entity-designer[JPA-сущности], xref:studio:data-stores.adoc#additional-data-store[дополнительные хранилища данных] и другие ключевые компоненты.
 
-image::new.png[align="center",width="255"]
-
-Например, *JPA Entity* открывает диалоговое окно для создания сущности.
+image::new.png[align="center",width="427"]
 
 [[settings]]
-=== Настройки
+=== Settings
 
 Эта группа действий предоставляет доступ к некоторым настройкам проекта.
 
@@ -72,6 +80,8 @@ image::toolbar-settings.png[align="center",width="257"]
 *Marketplace* открывает окно xref:studio:marketplace.adoc[Add-ons], в котором вы можете управлять дополнениями, включенными в ваш проект.
 
 image::marketplace.png[align="center",width="942"]
+
+Редактор *Jmix Plugin Settings* предоставляет доступ к параметрам, применяемым ко всем проектам в текущем экземпляре Studio.
 
 *Account Information* открывает окно xref:studio:subscription.adoc[Jmix Subscription], в котором вы можете посмотреть дополнительные сведения о вашем аккаунте и подписке.
 
@@ -89,10 +99,11 @@ image::gradle.png[align="center",width="313"]
 * *Edit Gradle Properties* открывает файл `~/.gradle/gradle.properties` для редактирования.
 
 [[help]]
-=== Помощь
+=== Help
 
-image::help.png[align="center", width="313"]
+image::help.png[align="center", width="305"]
 
+* Используйте встроенную форму обратной связи, чтобы поделиться своим мнением о Jmix Studio — расскажите, что вам нравится, и что, по вашему мнению, можно улучшить. Найти её можно в пункте меню *Submit Feedback*.
 * *Jmix Documentation* открывает веб-сайт документации в браузере.
 * *Third-Party Libraries* показывает диалог с информацией о сторонних библиотеках, используемых в Studio.
 * *Welcome* открывает xref:studio:welcome.adoc[приветственный экран].

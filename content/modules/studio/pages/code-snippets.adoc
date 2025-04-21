@@ -2,17 +2,17 @@
 
 Studio предоставляет сниппеты кода для удобства разработки. Окно инструмента *Code Snippets* открывается при нажатии на кнопку *Code Snippets* в верхней панели действий окна редактора для бинов Spring и контроллеров экранов.
 
-image::snippet-window.png[align="center",width="597"]
+image::snippet-window.png[align="center",width="645"]
 
 Вы можете просто перетащить необходимый сниппет из палитры в свой код. Сниппеты кода зависят от контекста и могут запрашивать параметры у разработчика.
 
 В приведенном ниже примере фрагмент кода *Get localized message* перетаскивается в код, и появляется диалоговое окно с запросом ключевого сообщения.
 
-image::snippet-example.png[align="center",width="783"]
+image::snippet-example.png[align="center",width="784"]
 
 Результатом добавления снипетта кода будет следующее:
 
-image::snippet-example-result.png[align="center",width="783"]
+image::snippet-example-result.png[align="center",width="784"]
 
 При использовании снипеттов кода, которые загружают данные по запросу, автоматически открывается дизайнер JPQL. Он позволяет определять запросы JPQL для загрузки сущностей и скалярных значений из базы данных.
 
@@ -20,10 +20,10 @@ include::subscription-note.adoc[]
 
 В приведенном ниже примере дизайнер JPQL появляется после перетаскивания снипетта *Load list of entities by query*.
 
-image::snippet-query.png[align="center",width="1132"]
+image::snippet-query.png[align="center",width="952"]
 
 В результате будет добавлен следующий код:
 
-image::snippet-query-result.png[align="center",width="783"]
+image::snippet-query-result.png[align="center",width="762"]
 
 Все шаблоны снипеттов кода находятся в файлах `jmix-code-snippets.xml` внутри соответствующих модулей фреймворка. Вы можете определить свои собственные фрагменты на уровне проекта или дополнения: для этого просто создайте файл `jmix-code-snippets.xml` в ресурсах проекта, используя пример из фреймворка.

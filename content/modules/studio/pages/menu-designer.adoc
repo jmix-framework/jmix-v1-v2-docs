@@ -6,11 +6,11 @@ include::subscription-note.adoc[]
 
 Простой способ получить доступ к структуре главного меню - использовать дерево в xref:studio:tool-window.adoc[Окне инструментов Jmix].
 
-image::menu-open.png[align="center",width="273"]
+image::menu-open.png[align="center",width="235"]
 
 На вкладке *Structure* можно просматривать и настраивать меню, а вкладка *Text* содержит XML-код.
 
-image:menu-designer.png[align="center",width="897"]
+image:menu-designer.png[align="center",width="999"]
 
 В визуальном дизайнере вы можете просто перетаскивать пункты меню в дереве, чтобы изменить их расположение в структуре меню.
 
@@ -19,15 +19,15 @@ image:menu-designer.png[align="center",width="897"]
 
 По умолчанию выбран *Composite mode*, что означает, что меню содержит элементы из файла `menu.xml` приложения и все включенных дополнений, а также унаследованные от фреймворка. Унаследованные пункты меню нельзя редактировать.
 
-image:menu-composite.png[align="center",width="351"]
+//image:menu-composite.png[align="center",width="351"]
 
 При переключении из *Composite mode* в *Single mode*, Studio предложит вам сохранить пункты меню, унаследованные от фреймворка и дополнений:
 
-image:menu-suggest.png[align="center",width="581"]
+image:menu-suggest.png[align="center",width="585"]
 
 В режиме *Single mode* Studio позволяет добавлять в проект пункты меню, унаследованные из подключенных дополнений. Доступные пункты всегда отображаются в отдельной панели слева, что позволяет при необходимости перетаскивать их в свое меню.
 
-image:menu-single.png[align="center",width="654"]
+image:menu-single.png[align="center",width="724"]
 
 Если вы решите сохранить унаследованные пункты меню, их структура будет скопирована в проект и их можно будет настраивать. Если позже вы решите переключить главное меню обратно в режим *Composite*, обратите внимание, что вам нужно будет вручную удалить все дублирующиеся меню и пункты из конфигурации проекта. В противном случае меню будет сломано, так как структура меню не допускает дублирования элементов.
 
@@ -36,7 +36,7 @@ image:menu-single.png[align="center",width="654"]
 
 Чтобы добавить пункт меню, нажмите кнопку "плюс" в дизайнере. Откроется окно *Create Menu Item*.
 
-image:menu-create-item.png[align="center",width="859"]
+image:menu-create-item.png[align="center",width="898"]
 
 Возможно создать следующие типы пунктов меню:
 
