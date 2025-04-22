@@ -27,6 +27,8 @@ Affected versions:
 . *Path Traversal in Local File Storage*
 +
 Attackers could manipulate the `FileRef` parameter to access files on the system where the Jmix application is deployed, provided the application server has the necessary permissions. This can be accomplished either by modifying the `FileRef` directly in the database or by supplying a harmful value in the `fileRef` parameter of the `/files` endpoint of the generic REST API.
++
+CVE ID
 
 Affected versions:
 
@@ -237,3 +239,21 @@ If you are using the legacy CUBA REST v1 (which was extracted to JPA Web API add
 </filter-mapping>
 ----
 
+[[references]]
+== References
+
+The following GitHub advisories describe the vulnerabilities and include the corresponding CVE IDs:
+
+*Jmix*
+
+- https://github.com/jmix-framework/jmix/security/advisories/GHSA-jx4g-3xqm-62vh[Path Traversal in Local File Storage^]
+- https://github.com/jmix-framework/jmix/security/advisories/GHSA-f3gv-cwwh-758m[DoS in the Local File Storage^]
+- https://github.com/jmix-framework/jmix/security/advisories/GHSA-x27v-f838-jh93[XSS in the /files Endpoint of the Generic REST API^]
+
+*CUBA*
+
+* https://github.com/cuba-platform/cuba/security/advisories/GHSA-w3mp-6vrj-875g[DoS in the File Storage^]
+
+* https://github.com/cuba-platform/restapi/security/advisories/GHSA-88h5-34xw-2q56[XSS in the /files Endpoint of the Generic REST API^]
+
+* https://github.com/cuba-platform/jpawebapi/security/advisories/GHSA-hg25-w3vg-7279[XSS in the /download Endpoint of the JPA Web API^]
