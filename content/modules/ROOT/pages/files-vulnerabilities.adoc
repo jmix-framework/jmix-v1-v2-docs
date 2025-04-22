@@ -27,8 +27,6 @@ Affected versions:
 . *Path Traversal in Local File Storage*
 +
 Attackers could manipulate the `FileRef` parameter to access files on the system where the Jmix application is deployed, provided the application server has the necessary permissions. This can be accomplished either by modifying the `FileRef` directly in the database or by supplying a harmful value in the `fileRef` parameter of the `/files` endpoint of the generic REST API.
-+
-CVE ID
 
 Affected versions:
 
