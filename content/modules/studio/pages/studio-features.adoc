@@ -2,3 +2,47 @@
 :page-aliases: studio-ui.adoc
 
 В этом разделе описывается функциональность и пользовательский интерфейс элементов IDE, специфичных для Jmix Studio. Для получения информации обо всех функциях IntelliJ IDEA обратитесь к ее https://www.jetbrains.com/help/idea/discover-intellij-idea.html[документации^].
+
+Возможности Jmix Studio можно в целом разделить на следующие области:
+
+== Основные инструменты разработки
+[cols="a,a,a", grid=none, frame=none]
+|===
+| xref:entity-designer.adoc[]
+| xref:view-wizard.adoc[]
+| xref:view-designer.adoc[]
+| xref:fetch-plan-designer.adoc[]
+| xref:menu-designer.adoc[]
+| xref:role-designer.adoc[]
+| xref:coding-assistance.adoc[]
+| xref:code-snippets.adoc[]
+| xref:jpql-designer.adoc[]
+| xref:hot-deploy.adoc[]
+| xref:data-stores.adoc[]
+| xref:bpmn-designer.adoc[]
+| xref:reverse-engineering.adoc[]
+|
+|
+|===
+
+== Управление проектом и окружение
+[cols="a,a,a", grid=none, frame=none]
+|===
+| xref:welcome.adoc[]
+| xref:tool-window.adoc[]
+| xref:project-properties.adoc[]
+| xref:marketplace.adoc[]
+| xref:plugin-settings.adoc[]
+| xref:composite-projects.adoc[]
+| xref:profile-specific-properties.adoc[]
+|
+|
+|===
+
+== Расширенные
+[cols="a,a,a", grid=none, frame=none]
+|===
+| xref:quick-cloud-deployment.adoc[]
+| xref:custom-project-templates.adoc[]
+| xref:data-repository-wizard.adoc[]
+|===
