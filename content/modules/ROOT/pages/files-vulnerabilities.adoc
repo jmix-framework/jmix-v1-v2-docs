@@ -1,5 +1,4 @@
 = Files Functionality Vulnerabilities
-:noindex:
 
 [[summary-of-vulnerabilities]]
 == Summary of Vulnerabilities
