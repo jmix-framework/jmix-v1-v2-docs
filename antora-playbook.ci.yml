@@ -6,6 +6,7 @@ content:
   sources: 
   - url: https://github.com/jmix-framework/jmix-docs.git
     branches:
+    - release_1_7
     - release_1_6
     - release_1_5
     - release_1_4

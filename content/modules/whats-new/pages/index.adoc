@@ -9,162 +9,97 @@ Version {page-component-display-version} doesn't come with a corresponding versi
 
 [IMPORTANT]
 ====
-To create new projects with Jmix {page-component-display-version} or to upgrade an existing project, you need Studio 2.3 or later, so xref:studio:update.adoc[update] your Jmix Studio plugin first.
+To automatically upgrade an existing project to {page-component-display-version}, you need Studio 2.5.2 or later, so xref:studio:update.adoc[update] your Jmix Studio plugin first.
 
-Studio 2.3 requires IntelliJ IDEA version 2023.3 or newer.
+Studio 2.5.2 requires IntelliJ IDEA version 2024.3 or newer.
 ====
 
 See xref:studio:project.adoc#upgrading-project[Upgrading Project] section for how to upgrade your project using Studio. The automatic migration procedure makes the following changes in your project:
 
 * Updates the version of Jmix BOM which in turn defines versions of all dependencies.
 * Updates the version of Jmix Gradle plugin.
-* Updates the version of Gradle wrapper to 8.0.2 in `gradle/wrapper/gradle-wrapper.properties`.
-
-See also the full list of <<breaking-changes,breaking changes>> that can affect your project after the upgrade.
+* Updates the version of Gradle wrapper to 8.12.1 in `gradle/wrapper/gradle-wrapper.properties`.
 
 [[updated-dependencies]]
 == Updated Dependencies
 
-[source]
-----
-ch.qos.logback:logback-classic:1.2.13
-ch.qos.logback:logback-core:1.2.13
-com.fasterxml.jackson.core:jackson-core:2.16.1
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1
-com.fasterxml.woodstox:woodstox-core:6.5.1
-com.google.guava:guava:33.1.0-jre
-com.google.gwt:gwt-dev:2.10.0
-com.google.protobuf:protobuf-java:3.21.12
-com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1
-com.hazelcast:hazelcast:5.3.6
-com.ibm.icu:icu4j:74.2
-com.jayway.jsonpath:json-path:2.9.0
-com.nimbusds:nimbus-jose-jwt:9.37.3
-com.nimbusds:oauth2-oidc-sdk:9.43.4
-com.opencsv:opencsv:5.9
-com.thoughtworks.xstream:xstream:1.4.20
-commons-io:commons-io:2.15.1
-net.sf.jasperreports:jasperreports-fonts:6.20.6
-net.sf.jasperreports:jasperreports:6.20.6
-org.apache.commons:commons-compress:1.26.0
-org.apache.james:apache-mime4j-core:0.8.10
-org.apache.logging.log4j:log4j-core:2.18.0
-org.apache.poi:poi:5.2.5
-org.apache.tika:tika-parsers:1.28.5
-org.apache.tomcat.embed:tomcat-embed-core:9.0.95
-org.apache.tomcat.embed:tomcat-embed-el:9.0.95
-org.apache.tomcat.embed:tomcat-embed-websocket:9.0.95
-org.apache.xmlgraphics:batik-*:1.17
-org.apache.xmlgraphics:fop:2.8
-org.apache.xmlgraphics:xmlgraphics-commons:2.8
-org.docx4j:docx4j-ImportXHTML:8.3.11
-org.docx4j:docx4j-JAXB-ReferenceImpl:11.3.2
-org.docx4j:docx4j-export-fo:11.3.2
-org.dom4j:dom4j:2.1.4
-org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.24
-org.freemarker:freemarker:2.3.32
-org.glassfish:jakarta.el:3.0.4
-org.hsqldb:hsqldb:2.7.2
-org.jsoup:jsoup:1.17.2
-org.postgresql:postgresql:42.7.3
-org.springframework.security:spring-security-core:5.7.12
-org.springframework:spring-web:5.3.39
-org.springframework:spring-webmvc:5.3.39
-org.springframework:spring-webflux:5.3.39
-org.webjars.npm:grapesjs-blocks-basic:1.0.2'
-org.webjars.npm:grapesjs-blocks-flexbox:1.0.1'
-org.webjars.npm:grapesjs-custom-code:1.0.2'
-org.webjars.npm:grapesjs-parser-postcss:1.0.3'
-org.webjars.npm:grapesjs-plugin-ckeditor:1.0.1'
-org.webjars.npm:grapesjs-plugin-forms:2.0.6'
-org.webjars.npm:grapesjs-preset-newsletter:1.0.2'
-org.webjars.npm:grapesjs-preset-webpage:1.0.3'
-org.webjars.npm:grapesjs-style-filter:1.0.2'
-org.webjars.npm:grapesjs-tabs:1.0.6'
-org.webjars.npm:grapesjs-tooltip:0.1.8'
-org.webjars.npm:grapesjs-tui-image-editor:1.0.2'
-org.webjars.npm:grapesjs:0.21.8'
-org.webjars.npm:mime-db:1.51.0'
-org.webjars:jquery-ui:1.13.2
-org.yaml:snakeyaml:2.2
-xerces:xercesImpl:2.12.2
-----
+The following major dependencies have been updated:
+
+* Vaadin 8.14.4
+* EclipseLink 2.7.15
+* Embedded Tomcat 9.0.102
 
 [[new-features]]
 == New Features and Improvements
 
-[[sorting-by-multiple-columns-in-datagrid]]
-=== Sorting by Multiple Columns in DataGrid
+[[reduced-build-time]]
+=== Reduced Build Time
 
-Sorting by multiple columns in xref:ui:vcl/components/data-grid.adoc[] is now possible when you click a column header while holding down the `Shift` key.
+The build process now skips enhancing entities if they have not been modified since the last build, which significantly reduces build time for projects with a large data model.
 
-[[grouptable-sorts-by-grouping-columns]]
-=== GroupTable Sorts by Grouping Columns
+For example, if you have built your project, then you modify a view controller and build again, you should see the following message in the console: `Entities enhancing was skipped, because entity classes haven’t been changed since the last build`.
 
-xref:ui:vcl/components/group-table.adoc[] now automatically adds sorting by grouping columns. So, when using pagination, the distribution of data between pages corresponds to grouping.
+To disable this behavior and enhance all entities on each compilation, add the following configuration to `build.gradle`:
 
-You can add the `sortOnGroupEnabled="false"` attribute to the `groupTable` element to turn off this feature.
+[source]
+----
+jmix {
+    entitiesEnhancing {
+        skipUnmodifiedEntitiesEnhancing = false
+    }
+}
+----
 
-[[collection-properties-in-generic-filter]]
-=== Collection Properties in Generic Filter
+See https://github.com/jmix-framework/jmix/issues/4254[#4254^] for more information.
 
-The xref:ui:vcl/components/filter.adoc[] component now allows you to create conditions for collection (to-many) properties.
+[[oauth2-tokens-table-cleanup]]
+=== OAuth2 Tokens Table Cleanup
 
-For example, in the xref:tutorial:index.adoc#data-model[Onboarding application], you can filter Users by the `steps` property and its nested properties: `steps.dueDate`, `steps.step.name`, etc. The JPA data store will automatically create an appropriate JPQL query with the `join` clause. Previously, you could achieve this only by defining a xref:ui:vcl/components/filter.adoc#jpql-conditions[JPQL condition] manually.
+The `expires_at` column has been added to the `oauth_access_token` and `oauth_refresh_token` tables. It's filled with the expiration date taken from the token data during its creation.
 
-[[total-progress-in-filemultiuploadfield]]
-=== Total Progress in FileMultiUploadField
+The new `OAuth2ExpiredTokenCleaner` service allows you to remove expired access/refresh tokens. If you want to invoke it regularly, set up a Quartz job.
 
-xref:ui:vcl/components/file-multi-upload-field.adoc[] now displays the total progress of uploaded files. It provides better feedback to users when uploading many small files.
+Note that existing records will not be updated during migration and will keep null values in the `expires_at column`. Thus, `OAuth2ExpiredTokenCleaner` will not remove these records. If you want to remove old records, execute the appropriate SQL on your database manually.
 
-Use `totalProgressFormat` property to set a custom total label format and `totalProgressEnabled` property to set whether to display the total progress bar.
+See https://github.com/jmix-framework/jmix/issues/4120[#4120^] for more information.
 
-[[monitoring-loaders-in-screens]]
-=== Monitoring Loaders in Screens
+[[table-and-datagrid-columns]]
+=== Table and DataGrid Columns
 
-Data loaders now provide detailed monitoring data through the Micrometer API.
+Previously, if any column changed its name, all user settings were ignored for the whole component. Now the column settings are applied for all unchanged columns.
 
-See https://github.com/jmix-framework/jmix/issues/3023[#3023^] and https://github.com/jmix-framework/jmix/issues/1704#issuecomment-1943207017[#1704^] for more information.
+See https://github.com/jmix-framework/jmix/issues/3953[#3953^] for more information.
+
+[[action-state-refresh]]
+=== Action State Refresh
+
+Each screen now finds all its actions in the `AfterShowEvent` and refreshes their state according to the list of `EnabledRule`.
+
+See https://github.com/jmix-framework/jmix/issues/3907[#3907^] for more information.
+
+[[default-dialog-mode-dimensions]]
+=== Default Dialog Mode Dimensions
+
+The `dialogMode` height and width of the generated screens are now set to `AUTO` by default.
+
+See https://github.com/jmix-framework/jmix/issues/3952[#3952^] for more information.
+
+[[list-of-all-enumerations]]
+=== List of All Enumerations
+
+Lists of enumerations in UI now include also enumerations that are not used in entity attributes.
+
+See https://github.com/jmix-framework/jmix/issues/3930[#3930^] for more information.
 
 [[breaking-changes]]
 == Breaking Changes
 
-[[removed-flow-ui]]
-=== Removed Flow UI
-
-Last year, when we released Jmix 2.0, we announced that Classic UI would continue to exist in the Jmix 1.x branch, while Flow UI would be included in Jmix from version 2.0 onwards (see https://www.jmix.io/blog/extended-support-for-classic-ui/[Extended Support for Classic UI^]).
-
-Therefore, we have removed Flow UI modules from Jmix 1.6.
-
-If you have a project on Jmix 1.5 using Flow UI, migrate to the latest Jmix 2.x.
-
-[[yarg-classes-moved-into-reports]]
-=== YARG Classes Moved Into Reports
-
-The YARG report engine has been moved from an external dependency into the Reports add-on sources. If you have used `++com.haulmont.yarg.*++` classes in your project, replace their imports to `++io.jmix.reports.yarg.*++`.
-
-[[data-repositories-initialization]]
-=== Data Repositories Initialization
-
-Previously optional `@EnableJmixDataRepositories` annotation is now required to initialize data repositories in the project. See https://github.com/jmix-framework/jmix/issues/3428[#3428^] and https://github.com/jmix-framework/jmix/issues/1589[#1589^] for more information.
-
-[[lazy-loaded-soft-deleted-onetoone-reference]]
-=== Lazy Loaded Soft Deleted OneToOne Reference
-
-The lazy loading of soft-deleted one-to-one references has been fixed. Now it behaves the same as eager loading with fetch plans:
-
-* Soft-deleted entities are loaded through one-to-one references from the owning side.
-* Soft-deleted entities are NOT loaded through one-to-one references from the mappedBy side.
-
-Previously, the behavior of lazy loading was opposite.
-
-See https://github.com/jmix-framework/jmix/issues/2466[#2466^] for more information.
+There are no breaking changes in this release.
 
 [[changelog]]
 == Changelog
 
 Resolved issues in Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.6.2[1.6.2^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.6.1[1.6.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.6.0[1.6.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F29%20reason%3Acompleted[1.7.0^]
+// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.7.0[1.7.0^]
