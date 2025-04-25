@@ -11,162 +11,97 @@ NOTE: Для создания новых проектов рекомендует
 
 [IMPORTANT]
 ====
-Для обновления проекта на Jmix {page-component-display-version} требуется Studio 2.3 или более поздней версии, поэтому в первую очередь xref:studio:update.adoc[обновите] плагин Jmix Studio.
+Для автоматического обновления проекта на Jmix {page-component-display-version} требуется Studio 2.5.2 или более поздней версии, поэтому в первую очередь xref:studio:update.adoc[обновите] плагин Jmix Studio.
 
-Studio 2.3 требует IntelliJ IDEA версии 2023.3 или выше.
+Studio 2.5.2 требует IntelliJ IDEA или OpenIDE версии 2024.3 или выше.
 ====
 
 Перейдите к разделу xref:studio:project.adoc#upgrading-project[Апгрейд проекта], чтобы узнать, как обновить проект с помощью Studio. Процедура автоматической миграции вносит следующие изменения в ваш проект:
 
 * Обновляет версию Jmix BOM, которая, в свою очередь, определяет версии всех зависимостей.
 * Обновляет версию Jmix Gradle plugin.
-* Обновляет версию Gradle wrapper до 8.0.2 в `gradle/wrapper/gradle-wrapper.properties`.
-
-См. полный список <<breaking-changes,опасных изменений>>, которые могут затронуть ваш проект после обновления.
+* Обновляет версию Gradle wrapper до 8.12.1 в `gradle/wrapper/gradle-wrapper.properties`.
 
 [[updated-dependencies]]
 == Обновленные зависимости
 
-[source]
-----
-ch.qos.logback:logback-classic:1.2.13
-ch.qos.logback:logback-core:1.2.13
-com.fasterxml.jackson.core:jackson-core:2.16.1
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1
-com.fasterxml.woodstox:woodstox-core:6.5.1
-com.google.guava:guava:33.1.0-jre
-com.google.gwt:gwt-dev:2.10.0
-com.google.protobuf:protobuf-java:3.21.12
-com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1
-com.hazelcast:hazelcast:5.3.6
-com.ibm.icu:icu4j:74.2
-com.jayway.jsonpath:json-path:2.9.0
-com.nimbusds:nimbus-jose-jwt:9.37.3
-com.nimbusds:oauth2-oidc-sdk:9.43.4
-com.opencsv:opencsv:5.9
-com.thoughtworks.xstream:xstream:1.4.20
-commons-io:commons-io:2.15.1
-net.sf.jasperreports:jasperreports-fonts:6.20.6
-net.sf.jasperreports:jasperreports:6.20.6
-org.apache.commons:commons-compress:1.26.0
-org.apache.james:apache-mime4j-core:0.8.10
-org.apache.logging.log4j:log4j-core:2.18.0
-org.apache.poi:poi:5.2.5
-org.apache.tika:tika-parsers:1.28.5
-org.apache.tomcat.embed:tomcat-embed-core:9.0.95
-org.apache.tomcat.embed:tomcat-embed-el:9.0.95
-org.apache.tomcat.embed:tomcat-embed-websocket:9.0.95
-org.apache.xmlgraphics:batik-*:1.17
-org.apache.xmlgraphics:fop:2.8
-org.apache.xmlgraphics:xmlgraphics-commons:2.8
-org.docx4j:docx4j-ImportXHTML:8.3.11
-org.docx4j:docx4j-JAXB-ReferenceImpl:11.3.2
-org.docx4j:docx4j-export-fo:11.3.2
-org.dom4j:dom4j:2.1.4
-org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.24
-org.freemarker:freemarker:2.3.32
-org.glassfish:jakarta.el:3.0.4
-org.hsqldb:hsqldb:2.7.2
-org.jsoup:jsoup:1.17.2
-org.postgresql:postgresql:42.7.3
-org.springframework.security:spring-security-core:5.7.12
-org.springframework:spring-web:5.3.39
-org.springframework:spring-webmvc:5.3.39
-org.springframework:spring-webflux:5.3.39
-org.webjars.npm:grapesjs-blocks-basic:1.0.2'
-org.webjars.npm:grapesjs-blocks-flexbox:1.0.1'
-org.webjars.npm:grapesjs-custom-code:1.0.2'
-org.webjars.npm:grapesjs-parser-postcss:1.0.3'
-org.webjars.npm:grapesjs-plugin-ckeditor:1.0.1'
-org.webjars.npm:grapesjs-plugin-forms:2.0.6'
-org.webjars.npm:grapesjs-preset-newsletter:1.0.2'
-org.webjars.npm:grapesjs-preset-webpage:1.0.3'
-org.webjars.npm:grapesjs-style-filter:1.0.2'
-org.webjars.npm:grapesjs-tabs:1.0.6'
-org.webjars.npm:grapesjs-tooltip:0.1.8'
-org.webjars.npm:grapesjs-tui-image-editor:1.0.2'
-org.webjars.npm:grapesjs:0.21.8'
-org.webjars.npm:mime-db:1.51.0'
-org.webjars:jquery-ui:1.13.2
-org.yaml:snakeyaml:2.2
-xerces:xercesImpl:2.12.2
-----
+Обновлены следующие важные зависимости:
+
+* Vaadin 8.14.4
+* EclipseLink 2.7.15
+* Embedded Tomcat 9.0.102
 
 [[new-features]]
 == Новая и улучшенная функциональность
 
-[[sorting-by-multiple-columns-in-datagrid]]
-=== Сортировка по нескольким столбцам в DataGrid
+[[reduced-build-time]]
+=== Сокращение времени сборки
 
-Сортировка по нескольким столбцам в xref:ui:vcl/components/data-grid.adoc[] теперь возможна, если нажать на заголовок столбца, удерживая клавишу `Shift`.
+Процесс сборки теперь пропускает этап энхансинга сущностей, если они не изменялись с момента последней сборки, что значительно сокращает время сборки для проектов с большой моделью данных.
 
-[[grouptable-sorts-by-grouping-columns]]
-=== GroupTable сортирует по группирующим столбцам
+Например, если вы собрали проект, затем изменили контроллер экрана и снова запустили сборку, в консоли должно появиться сообщение: `Entities enhancing was skipped, because entity classes haven’t been changed since the last build`.
 
-xref:ui:vcl/components/group-table.adoc[] теперь автоматически добавляет сортировку по группирующим столбцам. При постраничной загрузке это позволяет корректно, в соответствии с группировкой, распределить данные между страницами.
+Чтобы отключить это поведение и энхансить все сущности при каждой компиляции, добавьте следующую конфигурацию в `build.gradle`:
 
-Чтобы отключить эту функцию, добавьте атрибут `sortOnGroupEnabled="false"` к элементу `groupTable`.
+[source]
+----
+jmix {
+    entitiesEnhancing {
+        skipUnmodifiedEntitiesEnhancing = false
+    }
+}
+----
 
-[[collection-properties-in-generic-filter]]
-=== Свойства-коллекции в универсальном фильтре
+Подробнее см. https://github.com/jmix-framework/jmix/issues/4254[#4254^].
 
-Компонент xref:ui:vcl/components/filter.adoc[] теперь позволяет создавать условия для свойств-коллекций (ссылок один-ко-многим).
+[[oauth2-tokens-table-cleanup]]
+=== Очистка таблицы токенов OAuth2
 
-Например, в xref:tutorial:index.adoc#data-model[приложении Onboarding] вы можете фильтровать пользователей по свойству `steps` и его вложенным свойствам: `steps.dueDate`, `steps.step.name` и т.д. Хранилище данных с доступом через JPA автоматически создаст соответствующий JPQL-запрос с предложением `join`. Ранее этого можно было достичь только путем ручного определения xref:ui:vcl/components/filter.adoc#jpql-conditions[условия JPQL].
+В таблицы `oauth_access_token` и `oauth_refresh_token` добавлен столбец `expires_at`. Он заполняется датой истечения срока действия, взятой из данных токена при его создании.
 
-[[total-progress-in-filemultiuploadfield]]
-=== Общий прогресс в FileMultiUploadField
+Новый сервис `OAuth2ExpiredTokenCleaner` позволяет удалять просроченные access/refresh токены. Если вы хотите вызывать его регулярно, настройте задание Quartz.
 
-xref:ui:vcl/components/file-multi-upload-field.adoc[] теперь отображает общий прогресс загрузки файлов. Это обеспечивает лучшую обратную связь для пользователей при загрузке большого количества небольших файлов.
+Обратите внимание, что существующие записи не будут обновлены при миграции, и в столбце `expires_at` у них останутся значения `null`. Таким образом, `OAuth2ExpiredTokenCleaner` не удалит эти записи. Если нужно очистить старые записи, выполните соответствующий SQL-запрос вручную.
 
-Свойство `totalProgressFormat` можно использовать для установки собственного формата сообщения общего прогресса, свойство `totalProgressEnabled` - для включения или отключения отображения общего прогресса.
+Подробнее см. https://github.com/jmix-framework/jmix/issues/4120[#4120^].
 
-[[monitoring-loaders-in-screens]]
-=== Мониторинг загрузчиков в экранах
+[[table-and-datagrid-columns]]
+=== Колонки Table и DataGrid
 
-Загрузчики данных в экранах теперь предоставляют подробные данные мониторинга через API Micrometer.
+Раньше, если имя любой колонки изменялось, все пользовательские настройки игнорировались для всего компонента. Теперь настройки колонок применяются для всех неизменённых колонок.
 
-Для получения более подробной информации см. https://github.com/jmix-framework/jmix/issues/3023[#3023^] и https://github.com/jmix-framework/jmix/issues/1704#issuecomment-1943207017[#1704^].
+Подробнее см. https://github.com/jmix-framework/jmix/issues/3953[#3953^].
+
+[[action-state-refresh]]
+=== Обновление состояния действий
+
+Теперь при открытии каждого экрана в `AfterShowEvent` состояние всех его действий обновляется в соответствии со списком `EnabledRule`.
+
+Подробнее см. https://github.com/jmix-framework/jmix/issues/3907[#3907^].
+
+[[default-dialog-mode-dimensions]]
+=== Размеры диалогового режима по умолчанию
+
+Высота и ширина `dialogMode` для генерируемых экранов теперь по умолчанию установлены в `AUTO`.
+
+Подробнее см. https://github.com/jmix-framework/jmix/issues/3952[#3952^].
+
+[[list-of-all-enumerations]]
+=== Список всех перечислений
+
+Теперь списки перечислений в UI включают также те перечисления, которые не используются в атрибутах сущностей.
+
+Подробнее см. https://github.com/jmix-framework/jmix/issues/3930[#3930^].
 
 [[breaking-changes]]
 == Опасные изменения
 
-[[removed-flow-ui]]
-=== Flow UI удален
-
-В прошлом году, когда мы выпустили Jmix 2.0, мы объявили, что Classic UI будет продолжать существовать в ветке Jmix 1.x, в то время как Flow UI будет включен в Jmix, начиная с версии 2.0 (см. https://www.jmix.ru/blog/extended-support-for-classic-ui/[Расширенная поддержка классического UI^]).
-
-Поэтому модули Flow UI удалены из Jmix 1.6.
-
-Если у вас есть проект на Jmix 1.5, использующий Flow UI, обновите его на последнюю версию Jmix 2.x.
-
-[[yarg-classes-moved-into-reports]]
-=== Классы YARG перемещены в Reports
-
-Движок отчетов YARG был перемещен из внешней зависимости в исходники дополнения Reports. Если вы использовали классы `++com.haulmont.yarg.*++` в своем проекте, замените их импорты на `++io.jmix.reports.yarg.*++`.
-
-[[data-repositories-initialization]]
-=== Инициализация Data Repositories
-
-Ранее необязательная аннотация `@EnableJmixDataRepositories` теперь требуется для инициализации репозиториев данных в проекте. Для получения более подробной информации см. https://github.com/jmix-framework/jmix/issues/3428[#3428^] и https://github.com/jmix-framework/jmix/issues/1589[#1589^].
-
-[[lazy-loaded-soft-deleted-onetoone-reference]]
-=== Ленивые мягко удаленные ссылки один-к-одному
-
-Исправлена ленивая загрузка мягко удаленных ссылок один-к-одному. Теперь она ведет себя так же, как жадная загрузка с фетч-планами:
-
-* Мягко удаленные сущности загружаются через ссылки один-к-одному с владеющей стороны.
-* Мягко удаленные сущности НЕ загружаются через ссылки один-к-одному со стороны mappedBy.
-
-Ранее поведение ленивой загрузки было противоположным.
-
-Для получения более подробной информации см. https://github.com/jmix-framework/jmix/issues/2466[#2466^].
+Данный релиз не содержит опасных изменений.
 
 [[changelog]]
 == Список изменений
 
 * Решенные проблемы в Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.6.2[1.6.2^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.6.1[1.6.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.6.0[1.6.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F29%20reason%3Acompleted[1.7.0^]
+//** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.7.0[1.7.0^]

@@ -1,7 +1,7 @@
 name: jmix
 title: Документация Jmix
-version: "1.6"
-display_version: "1.6"
+version: "1.7"
+display_version: "1.7"
 start_page: ROOT:intro.adoc
 nav:
   - modules/ROOT/nav.adoc
