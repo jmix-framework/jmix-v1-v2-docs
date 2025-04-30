@@ -15,18 +15,17 @@
 [[studio]]
 == Установка Jmix Studio
 
-*Jmix Studio* реализована как плагин для IntelliJ IDEA. Минимальная поддерживаемая версия IntelliJ IDEA – {minimal-idea-version}.
+*Jmix Studio* реализована как плагин для Java IDE: {idea-download-site}[IntelliJ IDEA^] или https://openide.ru/download[OpenIDE^]. Минимальная поддерживаемая версия IDE – {minimal-idea-version}.
 
-Если у вас еще не установлена IntelliJ IDEA, скачайте *Community* редакцию на {idea-download-site}[сайте JetBrains^] и установите ее.
+После установки IDE, выполните следующие действия:
 
-После установки IntelliJ IDEA, выполните следующие действия:
-
-. Запустите IntelliJ IDEA ({minimal-idea-version} или новее).
+. Запустите IDE.
 . На стартовом экране IDE перейдите в секцию *Plugins*.
-. Выберите настройки (шестеренка в правом верхнем углу), далее *Manage Plugin Repositories*.
-. Добавьте адрес `++https://storage.jmix.ru/jmix-studio/release/updatePlugins-release.xml++` в список репозиториев.
-. Нажмите OK и перезапустите IntelliJ IDEA.
-. Снова перейдите в секцию *Plugins* и переключитесь на вкладку *Marketplace*.
+. Если вы используете IntelliJ IDEA и загрузка плагинов из стандартного репозитория недоступна:
+* Выберите настройки (шестеренка в правом верхнем углу), далее *Manage Plugin Repositories*.
+* Добавьте адрес `++https://storage.jmix.ru/jmix-studio/release/updatePlugins-release.xml++` в список репозиториев.
+* Нажмите OK и перезапустите IntelliJ IDEA.
+* Снова перейдите в секцию *Plugins* и переключитесь на вкладку *Marketplace*.
 . Введите "Jmix" в поисковое поле. Вы увидите плагин Jmix в результатах поиска.
 . Нажмите *Install* и следуйте дальнейшим инструкциям в IDE.
 +
@@ -41,7 +40,7 @@ NOTE: Чтобы получить доступ к премиум-функция�
 
 //TIP: Данный шаг не обязателен, так как JDK можно загрузить во время создания нового проекта в Jmix Studio, см. xref:studio:project.adoc#creating-new-project[Создание нового проекта].
 
-Скачайте JDK версии 17 или 21 (например, https://adoptium.net/temurin/releases/?version=17[Eclipse Temurin^]) и установите в каталог, предложенный установщиком. Этого достаточно для создания и запуска приложений в IDE.
+Скачайте JDK версии 17 или 21 (например, https://adoptium.net/temurin/releases/?version=17[Eclipse Temurin^] или https://axiomjdk.ru[Axiom JDK^]) и установите в каталог, предложенный установщиком. Этого достаточно для создания и запуска приложений в IDE.
 
 NOTE: Jmix {page-component-display-version} поддерживает Java 17 или 21 от любого поставщика. Однако мы не рекомендуем использовать JDK, основанный на OpenJ9, так как в прошлом это вызывало проблемы.
 

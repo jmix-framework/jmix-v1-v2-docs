@@ -63,9 +63,17 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 
 . *Node.js*: https://nodejs.org/en/download[^]
 
-. *IntelliJ IDEA Community Edition*: https://www.jetbrains.com/idea/download[^]
+. *OpenIDE* или *IntelliJ IDEA Community Edition*:
+** https://openide.ru/download/[^]
+** https://www.jetbrains.com/idea/download[^]
 
-. *Jmix Studio* (плагин Jmix для IDE): https://plugins.jetbrains.com/plugin/14340-jmix/versions[^]
+. *Jmix Studio* (плагин Jmix для IDE). Вы можете скачать его с одного из следующих ресурсов:
++
+--
+** https://marketplace.openide.ru/plugin/jmix/337[^]
+** https://plugins.jetbrains.com/plugin/14340-jmix/versions[^]
+** https://www.jmix.ru/studio-resources[^]
+--
 +
 Выберите наиболее свежую версию, соответствующую версии IDE. Например, если IDE версии 2024.3, то версия плагина оканчивается на `-243`
 
@@ -76,11 +84,11 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 ~/work/
 ├── deptool-...
 ├── gradle-...
-├── idea-IC-...
 ├── jdk-17...
 ├── jdk8u...
 ├── nexus
-└── node
+├── node
+└── openIDE-...
 ----
 
 [[dependencies-archive]]
@@ -291,21 +299,21 @@ image::ROOT:nexus-repository-create.png[align="center"]
 [[ide-setup]]
 == Настройка IDE
 
-Откройте терминал, перейдите в каталог `~/work/idea-IC-.../bin` и запустите команду:
+Откройте терминал, перейдите в каталог `~/work/openIDE-.../bin` и запустите команду:
 
 [source,bash]
 ----
-./idea.sh
+./openide.sh
 ----
 
-В окне *Welcome to IntelliJ IDEA* перейдите на вкладку *Plugins*, нажмите на иконку шестеренки и выберите *Install Plugin from Disk*. Выберите ZIP-файл загруженного плагина Jmix. После установки плагина перезапустите IDE.
+В окне *Welcome to OpenIDE* перейдите на вкладку *Plugins*, нажмите на иконку шестеренки и выберите *Install Plugin from Disk*. Выберите ZIP-файл загруженного плагина Jmix. После установки плагина перезапустите IDE.
 
-Для работы плагина Jmix требуется наличие файла `sif.dat` в конфигурационном каталоге IDE. При работе онлайн он создается автоматически при активации Jmix Studio. В изолированной сети его необходимо перенести вручную в каталог `~/.config/JetBrains/IdeaIC...` (соответствует версии вашей IntelliJ IDEA, см. подробнее в https://www.jetbrains.com/help/idea/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html[документации IntelliJ^]). Данный файл можно либо скопировать с компьютера с уже активированной Jmix Studio, либо получить по email, направив запрос по адресу `info@jmix.io`.
+Для работы плагина Jmix требуется наличие файла `sif.dat` в конфигурационном каталоге IDE. При работе онлайн он создается автоматически при активации Jmix Studio. В изолированной сети его необходимо перенести вручную в каталог `~/.config/OpenIDE/OpenIDE...` (соответствует версии вашей IDE, см. подробнее в https://www.jetbrains.com/help/idea/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html[документации IntelliJ^]). Данный файл можно либо скопировать с компьютера с уже активированной Jmix Studio, либо получить по email, направив запрос по адресу `info@jmix.io`.
 
 [[create-jmix-project]]
 == Создание проекта Jmix
 
-* Запустите IntelliJ IDEA с установленным плагином Jmix.
+* Запустите IDE с установленным плагином Jmix.
 
 * Создайте xref:studio:project.adoc#creating-new-project[новый] Jmix проект с пользовательской конфигурацией репозиториев, в которой укажите адрес локального репозитория `++http://localhost:8081/repository/jmix++`:
 +
