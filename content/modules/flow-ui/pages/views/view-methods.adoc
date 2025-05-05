@@ -95,14 +95,16 @@ dialog.open();
 +
 В слушателе xref:views/view-events.adoc#init-event[InitEvent] этот метод возвращает `null`. В слушателе xref:views/view-events.adoc#before-show-event[BeforeShowEvent] этот метод возвращает экземпляр, переданный экрану для редактирования (позже в процессе открытия экрана сущность перезагружается и в контейнер данных устанавливается другой экземпляр).
 
-Методы, которые можно использовать для закрытия экрана деталей:
-
+* Методы, которые можно использовать для закрытия экрана деталей:
++
+--
 [[close-with-save-method]]
 * `closeWithSave()` - проверяет и сохраняет изменения, затем закрывает экран с результатом `StandardOutcome.SAVE`. Вы можете вызвать этот метод из слушателя события (например, xref:vc/components/button.adoc#ClickEvent[ClickEvent]) или добавить в экран встроенное действие `detail_saveClose`.
 
 * `closeWithDiscard()` - игнорирует любые несохраненные изменения и закрывает экран с результатом `StandardOutcome.DISCARD`. Вы можете вызвать этот метод из слушателя события (например, xref:vc/components/button.adoc#ClickEvent[ClickEvent]) или добавить в экран встроенное действие `detail_discard`.
 
 Если экран закрывается с помощью `close(StandardOutcome.CLOSE)` или `closeWithDefaultAction()` и имеет несохраненные изменения в xref:data/data-context.adoc[DataContext], то перед закрытием экрана будет отображен диалог с соответствующим сообщением. Тип уведомления можно настроить с помощью свойства приложения xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation]. Если вы используете методы `closeWithDiscard()` или `close(StandardOutcome.DISCARD)`, несохраненные изменения игнорируются без какого-либо сообщения.
+--
 
 * `hasUnsavedChanges()` - возвращает `true`, если в экране есть несохраненные изменения. Реализация по умолчанию проверяет, есть ли удаленные или измененные сущности в `DataContext`. Если только новые сущности были зарегистрированы как измененные в `DataContext`, проверяет, были ли они изменены с момента открытия экрана. Этот метод можно переопределить и провести дополнительные проверки, или пропустить проверку и просто вернуть `false`.
 
@@ -121,11 +123,13 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 
 * `setShowSaveNotification(boolean)` - устанавливает, должно ли быть показано уведомление при успешном сохранении. По умолчанию `true`.
 
+* `getSaveNotificationText()` - возвращает текст уведомления о сохранении. Стандартная реализация генерирует текст на основе имен сущности и экземпляра. Вы можете переопределить этот метод, чтобы вернуть свой собственный текст.
+
 * `setShowValidationErrors(boolean)` - устанавливает, должны ли быть показаны ошибки после валидации компонентов с помощью метода xref:views/view-validation.adoc#showValidationErrors[showValidationErrors()]. По умолчанию `true`.
 
 * `setCrossFieldValidationEnabled(boolean)` - устанавливает, должна ли выполняться кросс-проверка полей перед сохранением изменений. Использует xref:data-model:bean-validation.adoc#constraint-groups[группу ограничений] `UiCrossFieldChecks` для проверки экземпляра сущности. По умолчанию `true`.
 
-* `getLockStatus()` - Возвращает статус xref:pessimistic-lock:index.adoc[пессимистической блокировки] текущего редактируемого экземпляра сущности. Возможные варианты:
+* `getLockStatus()` - возвращает статус xref:pessimistic-lock:index.adoc[пессимистической блокировки] текущего редактируемого экземпляра сущности. Возможные варианты:
 ** `LockStatus.NOT_SUPPORTED` - если сущность не поддерживает пессимистическую блокировку.
 ** `LockStatus.LOCKED` - если экземпляр сущности успешно заблокирован.
 ** `LockStatus.FAILED` - если блокировка не удалась из-за того, что сущность уже заблокирована другим пользователем.
