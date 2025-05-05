@@ -60,6 +60,9 @@ includeBuild 'external/jmix-social-login-sample'
 cloneOrPull('https://github.com/jmix-framework/jmix-restds-oidc-sample', 'external/jmix-restds-oidc-sample')
 includeBuild 'external/jmix-restds-oidc-sample'
 
+cloneOrPull('https://github.com/jmix-framework/jmix-observability-logging-sample', 'external/jmix-observability-logging-sample')
+includeBuild 'external/jmix-observability-logging-sample'
+
 includeBuild 'content/modules/audit/examples/audit-ex1'
 
 includeBuild 'content/modules/authorization-server/examples/authserver-ex1'

@@ -46,6 +46,9 @@ content:
   - url: ./external/jmix-restds-oidc-sample
     branches: HEAD
     start_path: doc
+  - url: ./external/jmix-observability-logging-sample
+    branches: HEAD
+    start_path: doc
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
