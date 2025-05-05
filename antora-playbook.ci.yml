@@ -77,6 +77,10 @@ content:
     branches:
       - release_2_5
     start_path: doc
+  - url: https://github.com/jmix-framework/jmix-observability-logging-sample.git
+    branches:
+      - release_2_5
+    start_path: doc
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable

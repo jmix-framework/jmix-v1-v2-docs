@@ -61,4 +61,8 @@
 |xref:mongodb-integration-guide:index.adoc[]
 |Продвинутый
 |Описывает интеграцию MongoDB в качестве дополнительной базы данных в приложении Jmix.
+
+|xref:observability-logging-guide:index.adoc[]
+|Продвинутый
+|Показывает, как настроить централизованное логгирование для Jmix-приложений используя OpenTelemetry, Grafana Loki и Grafana.
 |===
