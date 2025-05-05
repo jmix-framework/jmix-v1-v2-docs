@@ -94,14 +94,16 @@ dialog.open();
 +
 In the xref:views/view-events.adoc#init-event[InitEvent] listener, this method returns `null`. In the xref:views/view-events.adoc#before-show-event[BeforeShowEvent] listener, this method returns the instance passed to the view for editing (later in the view opening process the entity is reloaded and a different instance is set to the data container).
 
-The following methods can be used to close the detail screen:
-
+* The following methods can be used to close the detail screen:
++
+--
 [[close-with-save-method]]
 * `closeWithSave()` - validates and saves changes, then closes the view with `StandardOutcome.SAVE`. You can call this method from a custom event listener or add the built-in `detail_saveClose` action to the view.
 
 * `closeWithDiscard()` - ignores any unsaved changes and closes the view with `StandardOutcome.DISCARD`. You can call this method from a custom event listener or add the built-in `detail_discard` action to the view.
 
 If the view is closed using `close(StandardOutcome.CLOSE)` or `closeWithDefaultAction()` and has unsaved changes in its xref:data/data-context.adoc[DataContext], a dialog with a corresponding message will be displayed before the view is closed. You can adjust the notification type using the xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation] application property. If you use the `closeWithDiscard()` or `close(StandardOutcome.DISCARD)` methods, unsaved changes are ignored without any message.
+--
 
 * `hasUnsavedChanges()` - returns `true` if the view has unsaved changes. The default implementations checks if there are removed or modified entities in the `DataContext`. If only new entities have been registered as modified in the `DataContext`, checks whether they have been modified since the view was opened. You can override this method to provide additional checks or skip checking altogether and just return `false`.
 
@@ -120,11 +122,13 @@ This method is invoked by the framework with `true` value when the view is opene
 
 * `setShowSaveNotification(boolean)` - sets whether a notification should be shown in case of a successful save. The default value is `true`.
 
+* `getSaveNotificationText()` - returns the save notification text. The default implementation generates the text based on the entity and instance names. You can override this method to return your own text.
+
 * `setShowValidationErrors(boolean)` - sets whether to indicate about errors after components validation using the xref:views/view-validation.adoc#showValidationErrors[showValidationErrors()] method. The default value is `true`.
 
 * `setCrossFieldValidationEnabled(boolean)` - sets whether cross-field validation should be performed before saving changes. It uses `UiCrossFieldChecks` xref:data-model:bean-validation.adoc#constraint-groups[constraint group] to validate the entity instance. The default value is `true`.
 
-* `getLockStatus()` - Returns xref:pessimistic-lock:index.adoc[pessimistic lock] status of the currently edited entity instance. Possible variants:
+* `getLockStatus()` - returns the xref:pessimistic-lock:index.adoc[pessimistic lock] status of the currently edited entity instance. Possible variants:
 ** `LockStatus.NOT_SUPPORTED` - if the entity does not support pessimistic locking.
 ** `LockStatus.LOCKED` - if the entity instance is successfully locked.
 ** `LockStatus.FAILED` - if the lock failed because the entity is already locked by someone else.
