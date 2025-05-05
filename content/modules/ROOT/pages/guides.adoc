@@ -61,4 +61,8 @@ Guides are comprehensive resources that provide step-by-step instructions and ex
 |xref:mongodb-integration-guide:index.adoc[]
 |Advanced
 |Learn how to integrate MongoDB as an additional database within a Jmix application.
+
+|xref:observability-logging-guide:index.adoc[]
+|Advanced
+|Learn how to set up centralized logging for your Jmix applications using OpenTelemetry, Grafana Loki, and Grafana.
 |===
