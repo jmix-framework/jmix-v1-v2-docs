@@ -69,6 +69,40 @@ If you want to authenticate real users in the service application as demonstrate
 include::example$rest-ds-client/src/main/resources/application.properties[tags=authenticator]
 ----
 
+* `[datastore-name].authenticator` property defines the name of a bean that implements the `RestAuthenticator` interface and is used to authenticate requests to the REST API.
++
+The `restds_RestPasswordAuthenticator` bean retrieves access and refresh tokens from the service application when the user logs in, saves the tokens in the user session and uses them for authenticating further requests to the service's REST API.
+
+* The `jmix.restds.authentication-provider-store` property is required for configuring the Spring Security's `AuthenticationProvider` which uses `restds_RestPasswordAuthenticator` during the user authentication process. The value of this property must contain the name of the corresponding REST DataStore.
+
+[[external-authentication]]
+=== External Authentication
+
+If you want to use an external authentication provider (for example Keycloak) instead of the Jmix Authorization Server, remove the Authorization Server add-on from the project and add the xref:oidc:index.adoc[] add-on.
+
+Define the following application properties:
+[source,properties]
+----
+include::restds-oidc-guide:example$integrated-apps/client-app/src/main/resources/application.properties[tags=restds-auth]
+----
+
+* `[datastore-name].authenticator` property defines the name of a bean that implements the `RestAuthenticator` interface and is used to authenticate requests to the REST API.
++
+The `restds_RestOidcAuthenticator` bean uses the OAuth2 token of the current user.
+
+* `[datastore-name].oauth2-client-registration` defines the Spring Security OAuth2 client registration ID which is used in the `spring.security.oauth2.client.registration.[ID]` properties for connecting to an OIDC provider.
++
+For example, if you connect to Keycloak using this property:
++
+[source,properties]
+----
+spring.security.oauth2.client.registration.keycloak.client-id=integrated-apps-client
+----
++
+Then the `[datastore-name].oauth2-client-registration` property value should be `keycloak`.
+
+See the complete example in the xref:restds-oidc-guide:index.adoc[] guide.
+
 [[ui-user-settings]]
 === UI User Settings
 

@@ -32,6 +32,11 @@ The following major dependencies have been updated:
 [[new-features]]
 == New Features and Improvements
 
+[[rest-data-store-oidc-authentication]]
+=== REST DataStore OIDC Authentication
+
+The REST DataStore add-on now includes the `restds_RestOidcAuthenticator` bean that allows you to use an external authentication provider (for example Keycloak) when integrating applications. See xref:rest-ds:index.adoc#external-authentication[REST DataStore: External Authentication] for more information.
+
 [[breaking-changes]]
 == Breaking Changes
 
