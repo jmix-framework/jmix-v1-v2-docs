@@ -16,308 +16,32 @@ See xref:studio:project.adoc#upgrading-project[Upgrading Project] section for ho
 
 * Updates the version of Jmix BOM which in turn defines versions of all dependencies.
 * Updates the version of Jmix Gradle plugin.
-* Updates the version of Gradle wrapper to 8.12.1 in `gradle/wrapper/gradle-wrapper.properties`.
-* Migrates imports of `NotInstantiatedList` and `NotInstantiatedSet` classes. See details <<core-modules-refactoring,below>>.
-* If the project includes the REST API add-on, sets the xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] to `false`. See details <<fetch-plans-in-rest-api-and-rest-datastore,below>>.
-* If the project includes the Authorization Server add-on, sets the xref:authorization-server:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] property to `true`. See details <<authorization-server-token-storage,below>>.
+// * Updates the version of Gradle wrapper to 8.12.1 in `gradle/wrapper/gradle-wrapper.properties`.
 
 See also the full list of <<breaking-changes,breaking changes>> that can affect your project after the upgrade.
-
-[IMPORTANT]
-====
-If, after upgrading the project and starting the application, you encounter the following exception:
-
-`com.vaadin.flow.server.ExecutionFailedException: Vite build exited with a non zero status`
-
-remove the following files and directories from the project root: `node_modules`, `package.json`, `pnpm-lock.yaml`, `tsconfig.json`, `types.d.ts`, `vite.config.ts`, `vite.generated.ts`
-
-Also, if you have Node.js installed globally, update it to the latest LTS version available on the website https://nodejs.org[^].
-====
 
 [[updated-dependencies]]
 == Updated Dependencies
 
 The following major dependencies have been updated:
 
-* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.4-Release-Notes[3.4^].
+// * Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.4-Release-Notes[3.4^].
 
-* Vaadin https://github.com/vaadin/platform/releases/tag/24.6.0[24.6^].
+// * Vaadin https://github.com/vaadin/platform/releases/tag/24.6.0[24.6^].
 
 [[new-features]]
 == New Features and Improvements
 
-[[studio-improvements]]
-=== Studio Improvements
-
-[[hot-deploy-indication]]
-==== Hot Deploy Indication
-
-Studio now displays a new icon in the top right corner of hot-deployable files (view controllers and descriptors, message bundles, roles, etc.). This icon indicates the status of hot deployment for this file.
-
-The purpose of the indicator is to continuously inform the developer about the delivery of the latest changes in the source code to the working application.
-
-[[application-log-analysis]]
-==== Application Log Analysis
-
-Studio can now detect common exceptions appearing in the application console and offer suggestions for their resolution.
-
-The hot deploy indicator also works by analyzing the application console output.
-
-[[jmix-run-debug-configuration]]
-==== Jmix Run/Debug Configuration
-
-We have introduced a new Jmix run/debug configuration that replaces the standard Gradle configuration. It is created automatically when you open a Jmix project in the IDE. You can distinguish the new configuration by the Jmix icon.
-
-In contrast to the Gradle configuration, the new Jmix configuration allows the application to shut down gracefully without generating errors in the console.
-
-You can create the Jmix run/debug configuration in *Run/Debug Configurations* window by clicking *Add New Configuration* tool button and selecting *Jmix Application* item. The configuration is also created if you click *Start Application* in the context menu of the root node in the Jmix tool window.
-
-[[class-names-editor-and-autocompletion]]
-==== classNames Editor and Autocompletion
-
-Studio now provides advanced support for entering values in the `classNames` property of UI components. When editing a view XML descriptor, available class names are offered by autocompletion. The Jmix UI component inspector provides an editor window that allows you to select class names visually.
-
-Available class names are obtained from the following sources:
-
-* `com.vaadin.flow.theme.lumo.LumoUtility` class and its nested classes.
-* `io.jmix.flowui.themes.JmixLumoUtility` class.
-* Any custom class annotated with `@ThemeUtilityClasses`. You can provide shared class names in your own add-ons and in the application sources.
-
-[[openapi-client-generation-by-tags]]
-==== OpenAPI Client Generation by Tags
-
-When generating client code by OpenAPI schema as described in xref:openapi-integration-guide:index.adoc[] guide, you can now select only particular tags defined in the schema. This reduces the amount of generated code if not all paths of the schema are needed for the integration.
-
-[[message-templates-add-on]]
-=== Message Templates Add-on
-
-The xref:message-templates:index.adoc[] add-on allows you to create reusable templates for sending emails and in-app notifications.
-
-[[tabbed-app-mode]]
-=== Tabbed Application Mode (Experimental)
-
-The new xref:tabbed-mode:index.adoc[] add-on allows you to open application views in separate tabs inside the main view.
-
-The add-on transparently replaces xref:flow-ui:views/opening-views.adoc#navigation[navigation] by opening views in the main view tabs. You can also use the specific `ViewBuilders` bean to open views in the current main view tab, in a new tab, or in a dialog window.
-
-CAUTION: The Tabbed App Mode add-on is currently in the experimental state and can change significantly in the next Jmix release.
-
-[[editing-objects-on-map]]
-=== Editing Objects on Map
-
-The xref:maps:index.adoc[] add-on now provides support for selecting, moving and modifying features added to vector sources.
-
-See https://github.com/jmix-framework/jmix/issues/2832[#2832^] for more information.
-
-[[advanced-bpm-task-list-view]]
-=== Advanced BPM Task List View
-
-Now you can generate an advanced BPM task list view in your project using the *BPM: Advanced task list view* template of the view creation wizard.
-
-This view has more features than the built-in *My tasks* view and can be customized in the project as needed.
-
-See https://github.com/jmix-framework/jmix/issues/3752#issuecomment-2618313306[#3752^] for more information.
-
-[[substituted-user-in-audit]]
-=== Substituted User in Audit
-
-The *Entity log* view provided by the xref:audit:index.adoc[] add-on now shows both the logged-in user and a xref:security:users.adoc#user-substitution[substituted user] for each change.
-
-Related issue: https://github.com/jmix-framework/jmix/issues/4034[#4034^]
-
-[[datagrid-empty-state]]
-=== DataGrid Empty State
-
-The xref:flow-ui:vc/components/dataGrid.adoc[] component now supports `emptyStateComponent` and `emptyStateText` properties for displaying some content when there’s no data available.
-
-For more information, see https://vaadin.com/docs/latest/components/grid#empty-state[Vaadin documentation^] and https://github.com/jmix-framework/jmix/issues/3884[#3884^].
-
-[[rest-improvements]]
-=== REST API and REST DataStore Improvements
-
-[[fetch-plans-in-rest-api-and-rest-datastore]]
-==== Fetch Plans in REST API and REST DataStore
-
-Previously, generic REST endpoints could accept only names of fetch plans registered in the shared fetch plan repository. Now you can also pass arbitrary fetch plans as JSON objects, see xref:rest:entities-api/load-entities.adoc#inline-fetch-plans[Inline Fetch Plans].
-
-This feature affects the usage of xref:rest-ds:index.adoc[]: now you don't have to define all fetch plans in the shared repositories both on the client and in the service. Instead, you can use inline fetch plans in your client views and Java code as usual.
-
-The REST API now exposes a new xref:rest:capabilities-api.adoc[]. It informs the client about features supported by this generic REST API. Currently, the JSON object returned by the `/capabilities` endpoint includes a single property: `inlineFetchPlans`. If its value is `true`, then inline fetch plans are enabled. Otherwise, a client can pass only named fetch plans as before.
-
-You can disable inline fetch plans for the generic REST in your application using the xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] application property. When you use Studio to upgrade an existing project to Jmix 2.5, it sets this property to `false` automatically to prevent accidental data leaks.
-
-Related issue: https://github.com/jmix-framework/jmix/issues/4031[#4031^]
-
-[[using-filestorage-with-rest-datastore]]
-==== Using FileStorage with REST DataStore
-
-The REST DataStore add-on now includes a specific `FileStorage` implementation that works with files located in the remote application's file storage through the `/files` generic REST endpoints. See xref:rest-ds:index.adoc#file-storage[REST DataStore: File Storage] for more information.
-
-Related issue: https://github.com/jmix-framework/jmix/issues/4119[#4119^]
-
-[[configurable-paths-of-rest-endpoints]]
-==== Configurable Paths of REST Endpoints
-
-Paths of the generic REST API endpoints can now be configured using application properties, see xref:rest:app-properties.adoc#paths[REST Properties: Paths].
-
-Related issue: https://github.com/jmix-framework/jmix/issues/4052[#4052^]
-
-[[sessions-in-rest-api]]
-==== Sessions in REST API
-
-The *Jmix Sessions* subsystem provides support for user sessions maintained across REST requests with the same token. See xref:security:authentication.adoc#sessions-in-rest-api[Sessions in REST API] for more information.
-
-Related issue: https://github.com/jmix-framework/jmix/issues/3915[#3915^]
-
-[[using-uuidv7-for-entity-identifiers]]
-=== Using UUIDv7 for Entity Identifiers
-
-https://www.ietf.org/archive/id/draft-peabody-dispatch-new-uuid-format-04.html#name-uuid-version-7[UUIDv7^] are now used when generating values for `UUID` attributes annotated with `@JmixGeneratedValue`. UUIDv7 are time-based, which makes them better suited for database keys because of natural ordering.
-
-The `UuidProvider` class now has the `createUuidV7()` method that is used by default by `EntityUuidGenerator` bean. If you want to revert to previous random UUIDs for entity identifiers, set the following application property:
-
-[source,properties]
-----
-jmix.core.legacy-entity-uuid=true
-----
-
-Related issue: https://github.com/jmix-framework/jmix/issues/3424[#3424^]
-
-[[copier-interface]]
-=== Copier Interface
-
-The new `Copier` interface provides the `copy(Object)` method for copying entities. It is similar by semantics to `MetadataTools.deepCopy(Object)` but different in that its default implementation doesn't rely on metadata and copies all object's state using Java serialization.
-
-You can use `Copier` to isolate entities from UI when sending them to custom services from views. `DataContext` uses this interface to make entity copies when saving them to `DataManager`. See more information in the xref:flow-ui:data/entities-in-ui.adoc[] section.
-
-Related issue: https://github.com/jmix-framework/jmix/issues/3937[#3937^]
-
-[[current-locale-query-parameter]]
-=== Current Locale Query Parameter
-
-Now you can use the `current_locale` predefined query parameter in the same way as parameters with the xref:data-access:jpql-extensions.adoc#session-and-user-attributes[current_user_] prefix. For example:
-
-[source,jql]
-----
-select e from Region e where e.locale = :current_locale
-----
-
-The parameter value is the locale of the current user session taken from the xref:security:authentication.adoc#current[CurrentAuthentication] object.
-
-Related issue: https://github.com/jmix-framework/jmix/issues/3958[#3958^]
-
-[[hot-deploy-folder-cleanup]]
-=== Hot Deploy Folder Cleanup
-
-Previously, the `.jmix/conf` folder that is used for hot deploy was cleaned only by Studio "before launch" task `Clean Hot Deploy Conf Directory`.
-
-To make the cleanup more reliable and not depending on Studio, we have added the `cleanConf` task to the Jmix Gradle plugin. It runs each time before launching the application by the `bootRun` task.
-
-If you have any trouble with this feature, you can disable the `cleanConf` task in the project by adding the following property to your `build.gradle`:
-
-[source,gradle]
-----
-jmix {
-    // ...
-    confDirCleanupEnabled = false
-}
-----
-
-Related issue: https://github.com/jmix-framework/jmix/issues/3451[#3451^]
-
 [[breaking-changes]]
 == Breaking Changes
-
-[[checkbox-required-state]]
-=== Checkbox Required State
-
-The xref:flow-ui:vc/components/checkbox.adoc[] component supports validation of the "required" state. If the checkbox is required due to its own `required` attribute or if it's connected to a mandatory entity attribute, only `true` value will pass the validation and the detail view will be closed.
-
-For more information, see https://vaadin.com/docs/latest/components/checkbox#required[Vaadin documentation^] and https://github.com/jmix-framework/jmix/issues/4045[#4045^].
-
-[[core-modules-refactoring]]
-=== Core Modules Refactoring
-
-Due to refactoring of database-related dependencies of core subsystems (in https://github.com/jmix-framework/jmix/issues/3918[#3918^]), the following breaking changes may affect your project:
-
-* `NotInstantiatedList` and `NotInstantiatedSet` classes have been moved from `io.jmix.data.impl.lazyloading` to `io.jmix.eclipselink.lazyloading` package. These classes are used for initializing entity collection attributes in Kotlin projects. Update imports in your entities accordingly.
-
-* `io.jmix.data.entity.ReferenceToEntity` embeddable entity has been removed. If you need it in your project, create your own copy.
-
-* `io.jmix.flowuidata.accesscontext.UiGenericFilterModifyGlobalConfigurationContext` class has been moved to `io.jmix.flowui.accesscontext` package.
-
-* All classes of `io.jmix.flowuidata.action.genericfilter` package have been moved to `io.jmix.flowui.action.genericfilter` package.
-
-* All classes of `io.jmix.securityflowui.model` have been moved to `io.jmix.security.model` package.
-
-* `io.jmix.flowuidata.genericfilter.UiDataGenericFilterSupport` class has been merged into `io.jmix.flowui.component.genericfilter.GenericFilterSupport` and removed.
-
-See https://github.com/jmix-framework/jmix/issues/3982[#3982^] for more information.
-
-[[authorization-server-token-storage]]
-=== Authorization Server Token Storage
-
-The xref:authorization-server:index.adoc[] add-on now stores tokens in the database, which ensures the tokens are preserved on server restarts.
-
-If you are using the xref:authorization-server:obtaining-tokens.adoc#resource-owner-password-credentials-grant[Password Grant], you need to define a bean of the `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` type and implement it as follows:
-
-[source,java]
-----
-import io.jmix.authserver.service.mapper.DefaultOAuth2TokenUserMixin;
-import io.jmix.authserver.service.mapper.JdbcOAuth2AuthorizationServiceObjectMapperCustomizer;
-// ...
-@SpringBootApplication
-public class MyApplication implements AppShellConfigurator {
-    // ...
-
-    @Bean
-    JdbcOAuth2AuthorizationServiceObjectMapperCustomizer tokenObjectMapperCustomizer() {
-        return objectMapper ->
-                objectMapper.addMixIn(User.class, DefaultOAuth2TokenUserMixin.class);
-    }
-}
-----
-
-Here `User` is your user entity class.
-
-If you get `java.lang.IllegalArgumentException: The class ... is not in the allowlist` when using a token, it means that your user entity contains fields of types not supported by the token serializer by default. Then create a mixin class extending `DefaultOAuth2TokenUserMixin` and use it in the `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` bean. For example:
-
-[source,java,indent=0]
-----
-include::separate-tiers-guide:example$backend-app/src/main/java/com/company/backend/security/OAuth2TokenUserMixin.java[]
-----
-
-If you want to revert to the previous in-memory token storage, set the xref:authorization-server:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] application property to `true`.  When you use Studio to upgrade an existing project to Jmix 2.5, it sets this property to `true` automatically to facilitate the process.
-
-See https://github.com/jmix-framework/jmix/pull/4153[#4153^] for more information.
-
-[[filestoragelocator-interface]]
-=== FileStorageLocator Interface
-
-Added `getAll()` method to `io.jmix.core.FileStorageLocator` interface. If you have your own implementation of this interface, implement also this method. See https://github.com/jmix-framework/jmix/issues/4119[#4119^] for more information.
-
-[[changed-constructors]]
-=== Changed Constructors
-
-Due to internal refactoring (https://github.com/jmix-framework/jmix/issues/4152[#4152]), constructor signatures of the following beans have been changed:
-
-* `DetailViewNavigationProcessor`
-* `HtmlContainerReadonlyDataBindingImpl`
-* `MenuItemCommands`
-* `UrlQueryParametersFacetProvider`
-* `ViewNavigationDelegate`
-
-If you have extended versions of these beans, you may need to adapt them.
 
 [[changelog]]
 == Changelog
 
 * Resolved issues in Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.1[2.5.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
+// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
 
 * Resolved issues in Jmix Studio:
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.1[2.5.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
+// ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
