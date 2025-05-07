@@ -32,10 +32,19 @@ The following major dependencies have been updated:
 [[new-features]]
 == New Features and Improvements
 
+[[save-without-reload]]
+=== DataManager.saveWithoutReload method
+
+The new `DataManager.saveWithoutReload()` method improves performance when the saved instances are not immediately required for further processing. You can use it instead of the verbose `save(new SaveContext().saving(entities).setDiscardSaved(true))` operation.
+
+See xref:data-access:data-manager.adoc#save[Using DataManager: Saving Entities] for more information.
+
 [[rest-data-store-oidc-authentication]]
 === REST DataStore OIDC Authentication
 
-The REST DataStore add-on now includes the `restds_RestOidcAuthenticator` bean that allows you to use an external authentication provider (for example Keycloak) when integrating applications. See xref:rest-ds:index.adoc#external-authentication[REST DataStore: External Authentication] for more information.
+The REST DataStore add-on now includes the `restds_RestOidcAuthenticator` bean that allows you to use an external authentication provider (for example Keycloak) when integrating applications.
+
+See xref:rest-ds:index.adoc#external-authentication[REST DataStore: External Authentication] for more information.
 
 [[breaking-changes]]
 == Breaking Changes

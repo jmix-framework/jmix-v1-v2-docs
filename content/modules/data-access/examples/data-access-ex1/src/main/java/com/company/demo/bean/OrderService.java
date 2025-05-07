@@ -1,6 +1,8 @@
 package com.company.demo.bean;
 
-import com.company.demo.entity.*;
+import com.company.demo.entity.Customer;
+import com.company.demo.entity.Order;
+import com.company.demo.entity.Product;
 import io.jmix.core.*;
 import io.jmix.core.entity.KeyValueEntity;
 import io.jmix.core.querycondition.PropertyCondition;
@@ -9,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
@@ -139,25 +140,18 @@ public class OrderService {
 
     // tag::save-unconstrained[]
     void saveByUnconstrainedDataManager(List<Customer> entities) {
-        SaveContext saveContext = new SaveContext().setDiscardSaved(true);
-        for (Customer entity : entities) {
-            saveContext.saving(entity);
-        }
         // use 'UnconstrainedDataManager' which bypasses security
-        dataManager.unconstrained().save(saveContext);
+        dataManager.unconstrained().saveWithoutReload(entities);
     }
     // end::save-unconstrained[]
 
     // tag::save-batches[]
     void saveInBatches(List<Customer> entities) {
-        SaveContext saveContext = new SaveContext().setDiscardSaved(true);
-        for (int i = 0; i < entities.size(); i++) {
-            saveContext.saving(entities.get(i));
-            // save by 100 instances
-            if ((i + 1) % 100 == 0 || i == entities.size() - 1) {
-                dataManager.save(saveContext);
-                saveContext = new SaveContext().setDiscardSaved(true);
-            }
+        // save by 100 instances
+        for (int i = 0; i < entities.size(); i += 100) {
+            int endIndex = Math.min(i + 100, entities.size());
+            List<Customer> batch = entities.subList(i, endIndex);
+            dataManager.saveWithoutReload(batch);
         }
     }
     // end::save-batches[]

@@ -218,6 +218,13 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerSe
 
 NOTE: Usually the passed and returned instances are not the same. The returned instance can be affected by entity event listeners, database triggers or access control rights. So if you need to save an entity and then continue working with it, always use the instance returned from the `save()` method.
 
+If you don't need the saved instance immediately, use the `saveWithoutReload()` method. This will improve performance because `DataManager` will not fetch the saved entity back from the database. For example:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=save-without-reload]
+----
+
 The `save()` method can accept multiple instances at once. In this case, it returns the `EntitySet` object which can be used to easily get the saved instances. In the example below, we create and save two linked entities, and return one of them:
 
 [source,java,indent=0]
@@ -226,6 +233,15 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 ----
 <1> Save two linked entities. The order of `save()` parameters is not important.
 <2> The `EntitySet.get()` method lets you obtain the saved instance by its source instance.
+
+If you need to save a collection of entities (`List`, `Set`, etc.), and return the saved instances, use the `saveAll()` method. For example:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=save-all]
+----
+
+The `saveWithoutReload()` method also accepts multiple instances and collections. Use it instead of `save()` and `saveAll()` if you don't need the saved entities for further actions.
 
 The most powerful form of the `save()` method accepts `SaveContext` object that can be used to add multiple instances and specify additional parameters of saving. In the example below, we save a collection of entities using `SaveContext`:
 
@@ -239,9 +255,9 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 
 There are a few techniques for improving performance of the save operation. They are especially useful if you are working with a large collection of entities.
 
-First of all, instead of passing each entity instance to separate calls of the `save(entity)` method, consider saving all entities (if the collection is not very large, say, less than 1000) in a single transaction: add entities to the `SaveContext` and use the `save(SaveContext)` method as explained in the previous section.
+First of all, instead of passing each entity instance to separate calls of the `save(entity)` method, consider saving all entities (if the collection is not very large, say, less than 1000) in a single transaction by invoking the save method once for the whole collection.
 
-If you don't need saved instances immediately, use `SaveContext.setDiscardSaved(true)` method. It will significantly improve performance because `DataManager` will not fetch saved entities back from the database. For example:
+If you don't need the saved instances immediately, use `saveWithoutReload()` method. To achieve the same result when using the `SaveContext` object, invoke the `setDiscardSaved(true)` method on it. For example:
 
 [source,java,indent=0]
 ----
