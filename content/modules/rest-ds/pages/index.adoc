@@ -88,7 +88,7 @@ include::restds-oidc-guide:example$integrated-apps/client-app/src/main/resources
 
 * `[datastore-name].authenticator` property defines the name of a bean that implements the `RestAuthenticator` interface and is used to authenticate requests to the REST API.
 +
-The `restds_RestOidcAuthenticator` bean uses the OAuth2 token of the current user.
+The `restds_RestOAuth2ClientAuthenticator` bean uses the OAuth2 token of the current user.
 
 * `[datastore-name].oauth2-client-registration` defines the Spring Security OAuth2 client registration ID which is used in the `spring.security.oauth2.client.registration.[ID]` properties for connecting to an OIDC provider.
 +
