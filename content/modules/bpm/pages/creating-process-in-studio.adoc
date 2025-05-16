@@ -124,6 +124,9 @@ First, add a new element on the canvas:
 * Click the *Append task* image:quick-start/append-task-icon.png[width="20"] icon.
 * Click the *Change type* image:quick-start/change-type-icon.png[width="20"] icon
 and select *User Task* in the drop-down.
+* In the *Assignee* section use the following settings:
+** *Assignee Source*: `Process variable`
+** *Process variable*: `manager`
 +
 // image::getting-started/add-user-task-studio.png[,800]
 image::getting-started/manager-assigned-studio.png[,800]
@@ -249,17 +252,17 @@ You can open it any time later using image:quick-start/open-draft-button.png[wid
 +
 image::quick-start/user-group.png[align="center" width="1414"]
 
-image::getting-started/setting-candidates-studio.png[,800]
+
 
 NOTE: Users involved in the processes must be granted the `BPM: process actor` role.
 This role provides access to BPM views and entities required for starting processes and working with user tasks.
 You can assign roles in the *Application-> Users* view.
 
 * Go back to the modeler and select the `Payment` user task.
-* Find the *Candidate groups* property field and click the edit button image:getting-started/edit-btn-studio.png[width="32"] next to it.
-* In the Candidate group editor, add the `Accountants` group.
+* Set the Candidate groups property to `accountants`.
 +
-image::quick-start/groups.png[align="center" width="756"]
+image::getting-started/setting-candidates-studio.png[,800]
++
 
 * Configure an input dialog for the `Payment` task similarly to `Approval` task.
 Set the following properties:
