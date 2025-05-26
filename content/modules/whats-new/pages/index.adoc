@@ -319,5 +319,6 @@ include::separate-tiers-guide:example$backend-app/src/main/java/com/company/back
 
 * Решенные проблемы в Jmix Studio:
 
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.2[2.5.2^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.1[2.5.1^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
