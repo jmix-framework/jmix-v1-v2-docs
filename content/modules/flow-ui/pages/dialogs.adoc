@@ -138,6 +138,36 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> Создает выпадающий список внутри поля пользовательского параметра.
 <3> Загружает список вариантов в выпадающий список.
 
+[NOTE]
+====
+При использовании метода `InputParameter.withField()` в создаваемое поле передается только атрибут `label` из `InputParameter`. Другие атрибуты, заданные в `InputParameter`, *не* применяются автоматически к полю, создаваемому внутри лямбда-выражения `withField()`.
+
+Следующие атрибуты `InputParameter` *не* передаются при использовании `withField()`:
+
+- `required`
+- `requiredMessage`
+- `datatype`
+- `defaultValue`
+
+Это связано с тем, что вы полностью отвечаете за ручное создание и настройку поля внутри лямбда-выражения. Поэтому все дополнительные настройки, кроме `label`, должны задаваться явно.
+
+В приведённом ниже примере важные атрибуты, такие как `datatype` и `required`, необходимо устанавливать вручную для созданного поля. Если полагаться только на `withField()` без явной настройки этих атрибутов, они применяться автоматически не будут.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=required-custom-parameter]
+----
+
+Если вам не нужно вручную настраивать поле, вы можете просто задать атрибуты напрямую в `InputParameter`:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=required-custom-parameter-2]
+----
+
+В этом случае Jmix автоматически создаст поле и применит все указанные атрибуты.
+====
+
 [[custom-validator]]
 === Пользовательский валидатор
 
