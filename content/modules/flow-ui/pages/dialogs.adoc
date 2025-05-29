@@ -138,6 +138,35 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> Creates a combobox within a custom parameter field.
 <3> Loads a list of options into the combobox.
 
+[NOTE]
+====
+When using the `InputParameter.withField()` method, only the `label` attribute from the `InputParameter` is propagated to the created field. Other attributes set on the `InputParameter` are *not* automatically applied to the field created inside the `withField()` lambda.
+
+The following `InputParameter` attributes are *not* propagated when using `withField()`:
+
+- `required`
+- `requiredMessage`
+- `datatype`
+- `defaultValue`
+
+This is because you are fully responsible for manually creating and configuring the field inside the lambda. Therefore, all additional settings except for the `label` must be explicitly applied.
+
+In the example below, important attributes like `datatype` and `required` need to be set manually on the created field. If you rely solely on `withField()` without explicitly configuring these attributes, they will not be applied automatically.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=required-custom-parameter]
+----
+
+If you do not need to customize the field manually, you can simply configure the attributes directly on the `InputParameter`:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=required-custom-parameter-2]
+----
+
+In this case, Jmix will automatically create the field and apply all specified attributes.
+====
 
 [[custom-validator]]
 === Custom Validator
