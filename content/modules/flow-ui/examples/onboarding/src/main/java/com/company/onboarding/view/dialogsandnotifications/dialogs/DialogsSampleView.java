@@ -8,19 +8,25 @@ import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
+import io.jmix.core.metamodel.datatype.DatatypeRegistry;
 import io.jmix.flowui.Dialogs;
 import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.action.DialogAction;
 import io.jmix.flowui.app.inputdialog.DialogActions;
 import io.jmix.flowui.app.inputdialog.DialogOutcome;
+import io.jmix.flowui.app.inputdialog.InputParameter;
 import io.jmix.flowui.backgroundtask.BackgroundTask;
 import io.jmix.flowui.backgroundtask.TaskLifeCycle;
 import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.datepicker.TypedDatePicker;
 import io.jmix.flowui.component.validation.ValidationErrors;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.company.onboarding.entity.User;
+
+import java.time.LocalDate;
+
 import static io.jmix.flowui.app.inputdialog.InputParameter.*;
 
 @Route(value = "DialogsSampleView", layout = MainView.class)
@@ -30,6 +36,8 @@ public class DialogsSampleView extends StandardView {
     // tag::inject-dialogs[]
     @Autowired
     private Dialogs dialogs;
+    @Autowired
+    private DatatypeRegistry datatypeRegistry;
 
     // end::inject-dialogs[]
 
@@ -208,4 +216,52 @@ public class DialogsSampleView extends StandardView {
         }
     }
     // end::backgroundTaskDialog[]
+
+    @Subscribe(id = "customParameterRequiredButton", subject = "clickListener")
+    public void onCustomParameterRequiredButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createInputDialog(this)
+                .withHeader("Enter values")
+                .withParameters(
+                        // tag::required-custom-parameter[]
+                        InputParameter.parameter("passedDate")
+                                .withLabel("Date")
+                                .withField(() -> {
+                                    TypedDatePicker<LocalDate> datePicker = uiComponents.create(TypedDatePicker.class);
+                                    datePicker.setDatatype(datatypeRegistry.get(LocalDate.class));
+                                    datePicker.setRequired(true);
+                                    return datePicker;
+                                })
+                        // end::required-custom-parameter[]
+                )
+                .withActions(DialogActions.OK_CANCEL)
+                .withCloseListener(closeEvent -> {
+                    if (closeEvent.closedWith(DialogOutcome.OK)) {
+                        LocalDate passedDate = closeEvent.getValue("passedDate");
+                        // process entered values...
+                    }
+                })
+                .open();
+    }
+
+    @Subscribe(id = "customParamRequiredButton", subject = "clickListener")
+    public void onCustomParamRequiredButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createInputDialog(this)
+                .withHeader("Enter values")
+                .withParameters(
+                        // tag::required-custom-parameter-2[]
+                        InputParameter.parameter("passedDate")
+                                .withLabel("Date")
+                                .withRequired(true)
+                                .withDatatype(datatypeRegistry.get(LocalDate.class))
+                        // end::required-custom-parameter-2[]
+                )
+                .withActions(DialogActions.OK_CANCEL)
+                .withCloseListener(closeEvent -> {
+                    if (closeEvent.closedWith(DialogOutcome.OK)) {
+                        LocalDate passedDate = closeEvent.getValue("passedDate");
+                        // process entered values...
+                    }
+                })
+                .open();
+    }
 }
