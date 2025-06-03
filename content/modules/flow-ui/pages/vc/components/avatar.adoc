@@ -6,16 +6,16 @@
 </div>
 ++++
 
-`avatar` is a content area that displays an image, typically a photo of a person or a company logo.
+`avatar` - это область контента, в которой отображается изображение, обычно фотография человека или логотип компании.
 
-* XML element: `avatar`
+* XML-элемент: `avatar`
 
-* Java class: `Avatar`
+* Java-класс: `Avatar`
 
 [[basics]]
-== Basics
+== Основы
 
-The following example demonstrates four possible content options for `avatar`.
+В приведённом примере показаны четыре возможных варианта содержимого для компонента `avatar`.
 
 image::visual-components/components/avatar-basic.png[align="center", width="205"]
 
@@ -24,31 +24,30 @@ image::visual-components/components/avatar-basic.png[align="center", width="205"
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/avatar/avatar-view.xml[tags=basics]
 ----
 
-Note the priority of the attributes. The <<image,image>> is displayed first. If no image is set or cannot render, it will be substituted with the <<abbreviation, abbreviation>> value. The first letters in the <<name, name>> are displayed if neither image nor abbreviation is set. There is also a fallback image that is displayed in case there is no content at all.
+Обратите внимание на приоритет атрибутов: сначала отображается <<image,image>>. Если изображение не задано или не может быть отображено, вместо него показывается значение сокращения (<<abbreviation, abbreviation>>). Если не заданы ни изображение, ни сокращение, отображаются первые буквы имени (<<name, name>>). Также предусмотрено запасное изображение, которое показывается, если отсутствует любое другое содержимое.
 
 [[image-resource]]
-== Image Resource
+== Источник изображения
 
-The `avatar` component can display an image from different resources. You can set a path to the resource declaratively with the <<image, image>> attribute, or set it programmatically.
+Компонент `avatar` может отображать изображение из различных источников. Путь к изображению можно задать декларативно с помощью атрибута <<image, image>> или установить программно.
 
 [[static-image]]
-=== Static Image
+=== Статическое изображение
 
-An image can be served statically by the application.
+Изображение может быть статически загружено приложением.
 
-By default, static content is served from `/static`, `/public`, `/resources`, or `/META-INF/resources` directories of the classpath (see details in the https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot documentation^]).
+По умолчанию статический контент обслуживается из каталогов `/static`, `/public`, `/resources` или `/META-INF/resources` в classpath (подробности см. в документации https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot^]).
 
-* In XML:
+* В XML:
 +
-For example, if your image is located
-under `/src/main/resources/META-INF/resources`, such as `/src/main/resources/META-INF/resources/icons/mary.png`, you can specify the image as follows:
+Если ваше изображение находится по пути `/src/main/resources/META-INF/resources`, например, `/src/main/resources/META-INF/resources/icons/mary.png`, вы можете указать его следующим образом:
 +
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/avatar/avatar-view.xml[tags=static-image]
 ----
 +
-* In Java:
+* В Java:
 +
 [source,java,indent=0]
 ----
@@ -56,18 +55,18 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/component/
 ----
 
 [[url-image]]
-=== URL Image
+=== Изображение из URL
 
-Similarly, an image can be loaded from an arbitrary URL.
+Аналогично, изображение можно загрузить с любого URL-адреса.
 
-* In XML:
+* В XML:
 +
 [source, xml, indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/avatar/AvatarView.java[tags=url-image]
 ----
 
-* In Java:
+* В Java:
 +
 [source,java,indent=0]
 ----
@@ -75,18 +74,18 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/component/
 ----
 
 [[stream-image]]
-=== Stream Image
+=== Потоковое изображение
 
-An image can be provided by an `InputStream`.
+Изображение может быть предоставлено через `InputStream`.
 
-* In Java: `StreamResource` interface.
+* В Java: интерфейс `StreamResource`.
 +
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/avatar/AvatarView.java[tags=stream-image]
 ----
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 <<abbreviation, abbreviation>> -
@@ -109,42 +108,42 @@ xref:vc/common-attributes.adoc#width[width]
 [[abbreviation]]
 === abbreviation
 
-Sets an abbreviation to display in the component. This can be initials, or other short form to identify the avatar owner. It's better to keep it to 2-3 characters.
+Устанавливает сокращение для отображения в компоненте. Это могут быть инициалы или другая короткая форма для идентификации владельца аватара. Рекомендуется ограничиваться 2–3 символами.
 
 [[colorIndex]]
 === colorIndex
 
-Specifies the background color for the avatar component. There are seven different colors that correspond to index values from 0 to 6.
+Задает цвет фона для компонента `avatar`. Доступно семь различных цветов, соответствующих индексам от 0 до 6.
 
 image::visual-components/components/avatar-colorindex.png[align="center", width="360"]
 
 [[image]]
 === image
 
-Specifies a path to an image resource. An image can be served from the <<static-image,static resource>> directory or obtained from an <<url-image,arbitrary URL>>.
+Задает путь к ресурсу изображения. Изображение может быть получено из каталога <<static-image,статических ресурсов>> или загружено с <<url-image,произвольного URL>>.
 
 [[name]]
 === name
 
-Sets a name of the avatar holder.
+Задает имя владельца аватара.
 
 [[themeNames]]
 === themeNames
 
-By default, the component is of standard, medium size. There are four different size variants:
+По умолчанию компонент имеет стандартный средний размер. Доступно четыре варианта размера:
 
 * `xsmall`
 * `small`
 * `large`
 * `xlarge`
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 
 include::../handler-generation-tip.adoc[]
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/avatar[Vaadin Docs^] for more information.
+Смотрите https://vaadin.com/docs/latest/components/avatar[документацию Vaadin^] для получения дополнительной информации.
