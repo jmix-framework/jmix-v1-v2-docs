@@ -1,9 +1,9 @@
-= Мастер создания репозиториев данных
+= Поддержка репозиториев данных
 
 [[data-repository-wizard]]
-== Data Repository Wizard
+== Мастер создания репозиториев данных
 
-Studio предоставляет мастер для создания и управления xref:data-access:data-repositories.adoc[репозиториями данных]
+Studio предоставляет мастер для создания и управления xref:data-access:data-repositories.adoc[репозиториями данных].
 
 Чтобы создать репозиторий, нажмите *New → Data Repository* на панели инструментов окна *Jmix*.
 
@@ -26,14 +26,14 @@ image::find-method-create.png[align="center",width="936"]
 image::data-repository-methods-gear.png[align="center",width="756"]
 
 [[data-repository-tool-window]]
-== Data Repositories in Tool Window
+== Репозитории данных в окне инструментов
 
 Репозитории данных, созданные для конкретной сущности, отображаются в окне инструментов *Jmix* в разделе *Data Repositories* внутри раздела сущности.
 
 image::data-repository-tool-window.png[align="center",width="518"]
 
 [[data-repositories-in-views]]
-== Data Repositories in Views
+== Репозитории данных в экранах
 
 Вы можете легко делегировать загрузку и сохранение данных в экранах репозиториям Spring Data.
 
