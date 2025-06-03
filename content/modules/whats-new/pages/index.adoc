@@ -103,5 +103,5 @@ jmix {
 
 * Решенные проблемы в Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F29%20reason%3Acompleted[1.7.0^]
-//** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.7.0[1.7.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.7.1[1.7.1^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A1.7.0[1.7.0^]
