@@ -1,141 +1,141 @@
-= JPQL Designer
+= Дизайнер JPQL
 
-JPQL Designer is a visual tool designed to simplify the creation and modification of Java Persistence Query Language (JPQL) queries within your Jmix applications. It aims to abstract away some of the complexity of writing JPQL by hand, making it easier for developers of all experience levels to work with data access.
+Дизайнер JPQL - это визуальный инструмент, созданный упростить создание и редактирование запросов на языке Java Persistence Query Language (JPQL) в ваших приложениях на Jmix. Его цель - снять часть сложности, связанной с ручным написанием JPQL, делая работу с доступом к данным более удобной для разработчиков любого уровня.
 
-The JPQL Designer provides a visual interface for constructing JPQL queries. You can define the target tables, data selection conditions, sorting, and other parameters without directly writing JPQL code. The tool outputs a properly formatted JPQL query string.
+Дизайнер JPQL предоставляет визуальный интерфейс для конструирования JPQL-запросов. Вы можете задавать целевые таблицы, условия выбора данных, сортировку и другие параметры без прямого написания кода JPQL. Инструмент формирует корректно отформатированную строку JPQL-запроса.
 
 include::subscription-note.adoc[]
 
-The key functionalities include:
+Основные функции включают:
 
-* *Visual Query Design*: A graphical user interface allows for the construction of JPQL queries without direct JPQL syntax input.
-* *Intelligent Auto-Completion*: Context-aware suggestions for attributes and entities minimize manual typing and errors.
-* *Query Syntax Validation*: Real-time checks for correct syntax and common errors ensure query integrity.
+* *Визуальное проектирование запросов*: графический интерфейс позволяет создавать JPQL-запросы без непосредственного ввода синтаксиса JPQL.
+* *Интеллектуальное автозаполнение*: контекстно-зависимые подсказки по атрибутам и сущностям минимизируют ручной ввод и ошибки.
+* *Проверка синтаксиса запросов*: проверка правильности синтаксиса и распространённых ошибок в режиме реального времени обеспечивает целостность запроса.
 
 [[launching-jpql-designer]]
-== Launching JPQL Designer
+== Запуск дизайнера JPQL
 
-You can start the JPQL Designer in the following ways:
+Вы можете запустить JPQL дизайнер следующими способами:
 
-* Through the xref:studio:code-snippets.adoc[Code Snippets] palette of common user actions when creating data loading operations (entity or entity list loads).
-* Through a xref:studio:coding-assistance.adoc#line-markers[line marker] that appears alongside an existing JPQL query, facilitating its modification.
+* Через палитру xref:studio:code-snippets.adoc[сниппетов кода] с часто используемыми действиями при создании операций загрузки данных (загрузка сущности или списка сущностей).
+* Через xref:studio:coding-assistance.adoc#line-markers[маркер строки], который появляется рядом с существующим JPQL-запросом, облегчая его редактирование.
 +
 image::jpql-designer-launch-1.png[align="center",width="655"]
-* Through the *Jmix UI* inspector panel, accessing the `query` property.
+* Через панель инспектора *Jmix UI*, открыв свойство `query`.
 +
 image::jpql-designer-launch-2.png[align="center",width="399"]
 
 [[jpql-designer-dialogue]]
-== JPQL Designer Dialog
+== Диалоговое окно дизайнера JPQL
 
-The JPQL designer provides a dialog where the query's structure is displayed, and allows for users to edit and add to the query's functionality.
+Дизайнер JPQL предоставляет диалоговое окно, в котором отображается структура запроса и даётся возможность пользователям редактировать и расширять функциональность запроса.
 
 image::jpql-designer.png[align="center",width="952"]
 
-The JPQL designer displays the generated JPQL query in a text area for review.
+Сгенерированный JPQL-запрос отображается в текстовом поле для удобства просмотра и проверки.
 
-The JPQL designer performs validation before saving to ensure that the query structure is valid and that the various parts of the query are consistent with one another. Specifically, the validation checks:
+Дизайнер JPQL выполняет проверку перед сохранением, чтобы убедиться, что структура запроса корректна и все его части согласованы между собой. В частности, проверка включает:
 
-* That any entity attribute used for sorting is also present in the query's result set.
-* That the data types of inline parameters used in conditions are compatible with the data types of the entity attributes they are compared against.
+* Наличие в результирующем запросе всех атрибутов сущности, используемых для сортировки.
+* Совместимость типов данных встроенных параметров, используемых в условиях, с типами данных атрибутов сущности, с которыми они сравниваются.
 
-When saving a JPQL query structure, the designer generates a JPQL string and stores it in the original Java code or XML file from where the designer was invoked.
+При сохранении структуры JPQL-запроса дизайнер генерирует строку JPQL и сохраняет её в исходном Java-коде или XML-файле, из которого был вызван дизайнер.
 
-If the designer is opened to edit an existing query, it parses the JPQL structure upon loading. However, if the existing query structure uses constructs not supported by the designer (such as nested subqueries), the designer will not open and instead displays a message informing the user that it cannot be launched.
+Если дизайнер открыт для редактирования существующего запроса, он при загрузке выполняет разбор структуры JPQL. Однако, если в существующей структуре запроса используются конструкции, не поддерживаемые дизайнером (например, вложенные подзапросы), дизайнер не откроется и вместо этого выведет сообщение, информирующее пользователя о невозможности запуска.
 
 [[root-entity-selection]]
-=== Root Entity Selection
+=== Выбор корневой сущности
 
-When creating a new query, the designer prompts the user to select the query's root entity (the `"from E"` clause).
+При создании нового запроса дизайнер предлагает пользователю выбрать корневую сущность запроса (раздел `«from E»`).
 
 image::jpql-designer-1.png[align="center",width="583"]
 
-* The *Entity class* field provides a list of options, allowing quick searches by class name or entity name.
+* Поле *Entity class* содержит список доступных вариантов с возможностью быстрого поиска по имени класса или имени сущности.
 
-*  The *Entity alias* field requires the user to enter an alias for the entity, which is then validated to ensure compliance with JPQL grammar.
+* В поле *Entity alias* пользователь должен ввести алиас для выбранной сущности, который затем проверяется на соответствие синтаксису JPQL.
 
-When editing an existing query, the designer does not allow changing the root entity without completely clearing the existing query structure.
+При редактировании существующего запроса дизайнер не позволяет изменить корневую сущность без полного удаления текущей структуры запроса.
 
 [[query-result]]
-=== JPQL Query Results
+=== Результаты JPQL-запроса
 
-The *Result type* field is used to specify the output parameters of the query.
+Поле *Result type* используется для указания выходных параметров запроса.
 
 image::jpql-designer-2.png[align="center",width="952"]
 
-The output parameter can be:
+В качестве выходного параметра могут быть выбраны:
 
-* The root entity itself as the output object.
-* An attribute of the entity, or a nested path to an entity attribute (for example, `student.group.number`).
-* Aggregate functions applied to the root entity or entity attributes: `AVG`, `COUNT`, `MIN`, `MAX`, `SUM`.
+* Сама корневая сущность как объект результата.
+* Атрибут сущности или вложенный путь к атрибуту сущности (например, `student.group.number`).
+* Агрегатные функции, применённые к корневой сущности или её атрибутам: `AVG`, `COUNT`, `MIN`, `MAX`, `SUM`.
 
-Multiple output parameters can be specified. Additionally, a *Distinct* option can be selected.
+Можно указать несколько выходных параметров. Дополнительно доступна опция *Distinct* для исключения дублирующихся значений.
 
 [[query-conditions]]
-=== Specifying Query Conditions
+=== Задание условий запроса
 
-The JPQL designer provides several ways to specify query conditions, allowing you to filter and sort the data you retrieve. This section will detail the usage of `WHERE`, `HAVING`, and `ORDER BY` clauses within the JPQL Designer.
+Дизайнер JPQL предлагает несколько способов указать условия запроса, позволяя фильтровать и сортировать получаемые данные. В этом разделе подробно рассматривается использование операторов `WHERE`, `HAVING` и `ORDER BY` в дизайнере JPQL.
 
 [[where-clause]]
-==== Filtering Results with the WHERE Clause
+==== Фильтрация результатов с помощью WHERE
 
-The `WHERE` clause is used to filter rows based on one or more specified conditions in JPQL queries.
+Оператор `WHERE` используется для фильтрации строк на основе одного или нескольких заданных условий в JPQL-запросах.
 
-In the JPQL Designer, you can define `WHERE` conditions by interacting with the visual elements that represent entity attributes and related values. This includes:
+В JPQL дизайнере вы можете задать условия `WHERE`, используя удобный визуальный интерфейс, который отображает атрибуты сущности и связанные с ними значения. Для этого нужно:
 
-* Selecting an entity alias, an attribute, or nested attribute path from the list of available attributes.
-* Choosing a comparison operator (for example, `=`, `<>`, `>`, `<`, `LIKE`, `IN`).
-* Specifying a value, another attribute, or parameter for the comparison.
+* Выбрать алиас сущности, атрибут или вложенный путь к атрибуту из списка доступных.
+* Выбрать оператор сравнения (например, `=`, `<>`, `>`, `<`, `LIKE`, `IN`).
+* Указать значение, другой атрибут или параметр для сравнения.
 
-The JPQL query designer provides the following capabilities:
+Дизайнер JPQL-запросов предоставляет следующие возможности:
 
-* Sub-Condition Construction:
-** Selection of a logical operator: `=`, `<>`, `>`, `<`, `>=`, `+<=+`, `IN`, `NOT IN`, `LIKE`, `NOT LIKE`, `IS NULL`, `IS NOT NULL`.
-** Modifier support (`%`, `_`) for `LIKE` patterns.
-** Support for string functions: `LOWER`, `UPPER`, `TRIM`, and others.
-** Support for date/time functions: `CURRENT_DATE`, `CURRENT_TIME`, `CURRENT_TIMESTAMP`, and others.
-* Combining Conditions:
-** `AND`: Both conditions must be `true`.
-** `OR`: At least one condition must be `true`.
-* Parameterized Conditions:
+* Построение подусловий:
+** Выбор логического оператора: `=`, `<>`, `>`, `<`, `>=`, `+<=+`, `IN`, `NOT IN`, `LIKE`, `NOT LIKE`, `IS NULL`, `IS NOT NULL`.
+** Поддержка модификаторов (`%`, `_`) для шаблонов `LIKE`.
+** Поддержка строковых функций: `LOWER`, `UPPER`, `TRIM` и других.
+** Поддержка функций даты и времени: `CURRENT_DATE`, `CURRENT_TIME`, `CURRENT_TIMESTAMP` и других.
+* Объединение условий:
+** `AND`: оба условия должны быть `true`.
+** `OR`: достаточно, чтобы было истинным хотя бы одно из условий.
+* Параметризованные условия:
 +
-It's also possible to create parameterized conditions. This is useful when you need to build dynamic queries. You define parameters within the designer and pass their values when executing the query.
+Также возможно создавать параметризованные условия. Это удобно при построении динамических запросов. Параметры задаются внутри дизайнера, а их значения передаются при выполнении запроса.
 
-You can specify conditions for your query by clicking either the *Add query condition* link or the *Add (+)* button.
+Условия для запроса можно добавить, нажав на ссылку *Add query condition* или кнопку *Add (+)*.
 
 image::jpql-designer-3.png[align="center",width="952"]
 
-Then, select an entity attribute from the *Choose Attribute* dialog and choose an operator from the available list:
+Затем выберите атрибут сущности в диалоговом окне *Choose Attribute* и укажите требуемый оператор из списка доступных:
 
 image::jpql-designer-4.png[align="center",width="969"]
 
-To specify a query parameter, click the *...* button in the *Parameter* column. This will open a dialog where you can either enter the parameter name directly, select an entity attribute, or utilize a function.
+Чтобы задать параметр запроса, нажмите кнопку *...* в колонке *Parameter*. Откроется диалоговое окно, где можно ввести имя параметра вручную, выбрать атрибут сущности или использовать функцию.
 
 image::jpql-designer-6.png[align="center",width="908"]
 
-Query conditions can be grouped using `and` and `or` operators. The final query might resemble the example below:
+Условия запроса могут группироваться с помощью операторов `AND` и `OR`. Итоговый запрос может выглядеть, например, следующим образом:
 
 image::jpql-designer-5.png[align="center",width="952"]
 
 [[order-by-clause]]
-==== Sorting Results with the ORDER BY Clause
+==== Сортировка результатов с помощью ORDER BY
 
-The `ORDER BY` clause allows you to sort your query results based on one or more attributes in ascending (`ASC`) or descending (`DESC`) order.
+Оператор `ORDER BY` позволяет сортировать результаты запроса по одному или нескольким атрибутам в порядке возрастания (`ASC`) или убывания (`DESC`).
 
-You can specify a single or multiple sorting criteria in the *ORDER* tab. A sort criterion can be either:
+Вкладка *ORDER* позволяет задать один или несколько критериев сортировки. Критерием сортировки может быть:
 
-* An attribute of the root entity.
-* A nested attribute path (for example, `student.group.number`).
+* Атрибут корневой сущности.
+* Вложенный путь к атрибуту (например, `student.group.number`).
 
-For each sort criterion you define, you must also select the sort order: `ASC` (ascending) or `DESC` (descending).
+Для каждого критерия сортировки необходимо выбрать порядок сортировки: `ASC` (по возрастанию) или `DESC` (по убыванию).
 
 [[having-clause]]
-==== Filtering Aggregated Data with the HAVING Clause
+==== Фильтрация агрегированных данных с помощью HAVING
 
-The `HAVING` clause is used specifically with aggregated data. It filters groups based on results from aggregate functions (for example, `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`).
+Оператор `HAVING` используется специально для работы с агрегированными данными. Он фильтрует группы на основе результатов агрегатных функций (например, `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`).
 
-The *HAVING* tab is displayed if the user chooses the *Tuple* <<query-result,result type>> and applies an aggregate function to an entity attribute.
+Вкладка *HAVING* отображается, если пользователь выбирает <<query-result,тип результата>> *Tuple* и применяет агрегатную функцию к атрибуту сущности.
 
 image::jpql-designer-7.png[align="center",width="952"]
 
-The `GROUP BY` functionality is activated if the user selects an entity attribute in the *Select* block without specifying an aggregate function to it (leaving that the *Aggregate* field blank).
+Функция `GROUP BY` активируется, если пользователь выбирает атрибут сущности в блоке *Select* без указания к нему агрегатной функции (то есть оставляет поле *Aggregate* пустым).
