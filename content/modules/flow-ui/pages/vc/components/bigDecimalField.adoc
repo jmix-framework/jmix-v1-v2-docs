@@ -6,14 +6,15 @@
 </div>
 ++++
 
-`bigDecimalField` has many of the same features as xref:vc/components/textField.adoc[textField], but it accepts only `BigDecimal` input.
+Поле `bigDecimalField` обладает многими функциями, аналогичными xref:vc/components/textField.adoc[textField], но принимает только значения типа `BigDecimal`.
+
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`bigDecimalField`
-|Java Class
+|Java-класс
 |`JmixBigDecimalField`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -51,7 +52,7 @@ xref:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
 xref:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] -
@@ -67,16 +68,16 @@ xref:vc/common-handlers.adoc#KeyPressEvent[KeyPressEvent] -
 xref:vc/common-handlers.adoc#KeyUpEvent[KeyUpEvent] -
 xref:vc/common-handlers.adoc#statusChangeHandler[statusChangeHandler] -
 xref:vc/components/textField.adoc#validator[validator]
-|Elements
+|Элементы
 |xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
 xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/validator.adoc[validator]
 |===
 
-== Basics
+== Основы
 
-An example of `bigDecimalField`:
+Пример `bigDecimalField`:
 
 [source,xml,indent=0]
 ----
@@ -85,16 +86,16 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 image::visual-components/components/big-decimal-field-basics.png[align="center", width="143"]
 
-== Data Binding
+== Привязка данных
 
-You can bind a component to an entity and its attributes hold in a xref:data/data-containers.adoc[data container].
+Вы можете связать компонент с сущностью и её атрибутами, хранящимися в xref:data/data-containers.adoc[контейнере данных].
 
-To bind `bigDecimalField` to an entity attribute:
+Чтобы связать `bigDecimalField` с атрибутом сущности:
 
-. Specify the name of the data container as the xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] attribute value.
-. Specify the name of the entity attribute as the xref:flow-ui:vc/common-attributes.adoc#property[property] attribute value.
+. Укажите имя контейнера данных в значении атрибута xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer].
+. Укажите имя атрибута сущности в значении атрибута xref:flow-ui:vc/common-attributes.adoc#property[property].
 
-The entity attribute must be of `BigDecimal` type.
+Атрибут сущности должен иметь тип `BigDecimal`.
 
 [source,xml,indent=0]
 ----
@@ -104,7 +105,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 image::visual-components/components/big-decimal-field-data-binding.png[align="center", width="143"]
 
 [[theme-variants]]
-== Theme Variants
+== Варианты оформления
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -112,7 +113,7 @@ image::visual-components/components/big-decimal-field-data-binding.png[align="ce
 </div>
 ++++
 
-The component’s appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select among five different options:
+Внешний вид компонента можно настроить с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который позволяет выбрать один из пяти вариантов:
 
 * `small`
 * `align-left`
@@ -120,8 +121,8 @@ The component’s appearance is customizable with the xref:vc/common-attributes.
 * `align-right`
 * `helper-above-field`
 
-See the `textField` xref:vc/components/textField.adoc#themeVariants[Theme Variants] section for more information.
+Подробнее смотрите в разделе xref:vc/components/textField.adoc#themeVariants[Варианты оформления] для `textField`.
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/number-field[Vaadin Docs^] for more information.
+Смотрите https://vaadin.com/docs/latest/components/number-field[документацию Vaadin^] для получения дополнительной информации.
