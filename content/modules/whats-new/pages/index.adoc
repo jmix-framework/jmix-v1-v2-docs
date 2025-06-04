@@ -13,313 +13,32 @@
 
 * Обновляет версию Jmix BOM, которая, в свою очередь, определяет версии всех зависимостей.
 * Обновляет версию Jmix Gradle plugin.
-* Обновляет версию Gradle wrapper до 8.12.1 в `gradle/wrapper/gradle-wrapper.properties`.
-* Мигрирует импорты классов `NotInstantiatedList` и `NotInstantiatedSet`. Подробнее см. <<core-modules-refactoring,ниже>>.
-* Если проект включает дополнение REST API, устанавливает
-свойство xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] в `false`. Подробнее см. <<fetch-plans-in-rest-api-and-rest-datastore,ниже>>.
-* Если проект включает дополнение Authorization Server, устанавливает свойство xref:authorization-server:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] в `true`. Подробнее см. <<authorization-server-token-storage,ниже>>.
+// * Обновляет версию Gradle wrapper до 8.12.1 в `gradle/wrapper/gradle-wrapper.properties`.
 
 См. полный список <<breaking-changes,критических изменений>>, которые могут затронуть ваш проект после обновления.
-
-[IMPORTANT]
-====
-Если после обновления проекта и запуска приложения вы столкнетесь со следующей исключительной ситуацией:
-
-`com.vaadin.flow.server.ExecutionFailedException: Vite build exited with a non zero status`
-
-удалите следующие файлы и каталоги из корня проекта: `node_modules`, `package.json`, `pnpm-lock.yaml`, `tsconfig.json`, `types.d.ts`, `vite.config.ts`, `vite.generated.ts`
-
-Кроме того, если у вас глобально установлен Node.js, обновите его до последней LTS версии доступной на сайте https://nodejs.org[^].
-====
 
 [[updated-dependencies]]
 == Обновленные зависимости
 
 Следующие основные зависимости были обновлены:
 
-* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.4-Release-Notes[3.4^].
-
-* Vaadin https://github.com/vaadin/platform/releases/tag/24.6.0[24.6^].
+// * Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.4-Release-Notes[3.4^].
+//
+// * Vaadin https://github.com/vaadin/platform/releases/tag/24.6.0[24.6^].
 
 [[new-features]]
 == Новая и улучшенная функциональность
 
-[[studio-improvements]]
-=== Улучшения в Studio
-
-[[hot-deploy-indication]]
-==== Индикация Hot Deploy
-
-Studio отображает новый значок в правом верхнем углу файлов, поддерживающих горячее развертывание (контроллеры и дескрипторы экранов, пакеты сообщений, роли и т.д.). Этот значок указывает статус горячего развертывания для данного файла.
-
-Цель индикатора — постоянно информировать разработчика о доставке последних изменений в исходном коде в работающее приложение.
-
-[[application-log-analysis]]
-==== Анализ логов приложения
-
-Теперь Studio может обнаруживать распространенные исключения, появляющиеся в консоли приложения, и предлагать способы их устранения.
-
-Индикатор горячего развертывания также работает путем анализа вывода консоли приложения.
-
-[[jmix-run-debug-configuration]]
-==== Конфигурация запуска/отладки Jmix
-
-Мы реализовали новую конфигурацию запуска/отладки *Jmix Application*, которая заменяет стандартную конфигурацию Gradle. Она создается автоматически, когда вы открываете проект Jmix в IDE. Новую конфигурацию можно отличить по значку Jmix.
-
-В отличие от конфигурации Gradle, новая конфигурация Jmix позволяет приложению корректно завершать работу без генерации ошибок в консоли.
-
-Конфигурацию запуска/отладки Jmix можно создать  в окне *Run/Debug Configurations*, нажав кнопку *Add New Configuration* и выбрав пункт *Jmix Application*. Конфигурация также создается, если вы нажмете *Start Application* в контекстном меню корневого узла в окне инструментов Jmix.
-
-[[class-names-editor-and-autocompletion]]
-==== Редактор и автодополнение classNames
-
-Новая версия Studio предоставляет расширенную поддержку для ввода значений свойства `classNames` UI-компонентов. При редактировании XML-дескриптора экрана доступные имена классов предлагаются через автодополнение. Инспектор компонентов Jmix UI предоставляет окно редактора, которое позволяет визуально выбирать имена классов.
-
-Доступные имена классов получаются из следующих источников:
-
-* Класс `com.vaadin.flow.theme.lumo.LumoUtility` и его вложенные классы.
-* Класс `io.jmix.flowui.themes.JmixLumoUtility`.
-* Любой пользовательский класс, аннотированный `@ThemeUtilityClasses`. Вы можете предоставить общие имена классов в своих собственных дополнениях и в исходном коде приложения.
-
-[[openapi-client-generation-by-tags]]
-==== Генерация клиента OpenAPI по тегам
-
-При генерации клиентского кода по схеме OpenAPI, как описано в руководстве xref:openapi-integration-guide:index.adoc[], теперь можно выбрать только определенные теги, определенные в схеме. Это уменьшает объем генерируемого кода, если не все пути схемы необходимы для интеграции.
-
-[[message-templates-add-on]]
-=== Дополнение Message Templates
-
-Дополнение xref:message-templates:index.adoc[] позволяет создавать повторно используемые шаблоны для отправки электронных писем и уведомлений в приложении.
-
-[[tabbed-app-mode]]
-=== Режим приложения с вкладками (Experimental)
-
-Новое дополнение xref:tabbed-mode:index.adoc[] позволяет открывать экраны приложения в отдельных вкладках внутри главного экрана.
-
-Дополнение прозрачно заменяет xref:flow-ui:views/opening-views.adoc#navigation[навигацию], открывая экраны во вкладках главного экрана. Кроме того, можно использовать специальный бин `ViewBuilders` для открытия экранов в текущей вкладке главного экрана, в новой вкладке или в диалоговом окне.
-
-CAUTION: Дополнение Tabbed App Mode в настоящее время является экспериментальным и может значительно измениться в следующем релизе Jmix.
-
-[[editing-objects-on-map]]
-=== Редактирование объектов на карте
-
-Дополнение xref:maps:index.adoc[] теперь предоставляет поддержку выбора, перемещения и изменения объектов, добавленных в векторные источники.
-
-Подробнее см. https://github.com/jmix-framework/jmix/issues/2832[#2832^].
-
-[[advanced-bpm-task-list-view]]
-=== Расширенный вид списка задач BPM
-
-Теперь вы можете сгенерировать расширенный вид списка задач BPM в вашем проекте, используя шаблон *BPM: Advanced task list view* мастера создания экранов.
-
-Этот экран имеет больше функций, чем встроенный экран *My tasks*, и может быть настроен в проекте по мере необходимости.
-
-Подробнее см. https://github.com/jmix-framework/jmix/issues/3752#issuecomment-2618313306[#3752^].
-
-[[substituted-user-in-audit]]
-=== Замещаемый пользователь в аудите
-
-Экран *Entity log*, предоставляемый дополнением xref:audit:index.adoc[], теперь отображает как вошедшего в систему пользователя, так и xref:security:users.adoc#user-substitution[замещаемого пользователя] для каждого изменения.
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/4034[#4034^]
-
-[[datagrid-empty-state]]
-=== Пустое состояние DataGrid
-
-Компонент xref:flow-ui:vc/components/dataGrid.adoc[] теперь поддерживает свойства `emptyStateComponent` и `emptyStateText` для отображения некоторого содержимого, когда данные отсутствуют.
-
-Подробнее см. https://vaadin.com/docs/latest/components/grid#empty-state[документацию Vaadin^] и https://github.com/jmix-framework/jmix/issues/3884[#3884^].
-
-[[rest-improvements]]
-=== Улучшения REST API и REST DataStore
-
-[[fetch-plans-in-rest-api-and-rest-datastore]]
-==== Фетч-планы в REST API и REST DataStore
-
-Ранее универсальные эндпойнты xref:rest:index.adoc[] могли принимать только имена фетч-планов, зарегистрированных в общем репозитории фетч-планов. Теперь вы также можете передавать произвольные фетч-планы в виде JSON-объектов, см. xref:rest:entities-api/load-entities.adoc#inline-fetch-plans[встроенные фетч-планы].
-
-Эта функция влияет на использование xref:rest-ds:index.adoc[]: теперь вам не нужно определять все фетч-планы в общих репозиториях как на клиенте, так и в сервисе. Вместо этого вы можете использовать встроенные фетч-планы в ваших клиентских экранах и Java-коде как обычно.
-
-REST API теперь предоставляет новый xref:rest:capabilities-api.adoc[]. Он информирует клиента о функциях, поддерживаемых данным универсальным REST API. В настоящее время JSON-объект, возвращаемый эндпойнтом `/capabilities`, включает одно свойство: `inlineFetchPlans`. Если его значение `true`, то встроенные фетч-планы поддерживаются. В противном случае клиент может передавать только именованные фетч-планы, как раньше.
-
-Вы можете отключить встроенные фетч-планы для универсального REST в вашем приложении, используя свойство приложения xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled]. При обновлении существующего проекта до Jmix 2.5, Studio автоматически устанавливает это свойство в `false`, чтобы предотвратить случайные утечки данных.
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/4031[#4031^]
-
-[[using-filestorage-with-rest-datastore]]
-==== Использование FileStorage с REST DataStore
-
-Дополнение xref:rest-ds:index.adoc[] теперь включает специальную реализацию `FileStorage`, которая работает с файлами, расположенными в хранилище файлов удаленного приложения через REST-эндпойнты `/files`. См. xref:rest-ds:index.adoc#file-storage[REST DataStore: Хранилище файлов].
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/4119[#4119^]
-
-[[configurable-paths-of-rest-endpoints]]
-==== Настраиваемые пути REST-эндпойнтов
-
-Пути универсальных эндпойнтов xref:rest:index.adoc[] теперь можно настраивать с помощью свойств приложения. См. xref:rest:app-properties.adoc#paths[Свойства REST: Пути].
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/4052[#4052^]
-
-[[sessions-in-rest-api]]
-==== Сессии в REST API
-
-Подсистема *Jmix Sessions* предоставляет поддержку сессий, поддерживаемых для REST-запросов с одним и тем же токеном. Подробнее см. xref:security:authentication.adoc#sessions-in-rest-api[Сессии в REST API].
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/3915[#3915^]
-
-[[using-uuidv7-for-entity-identifiers]]
-=== Использование UUIDv7 для идентификаторов сущностей
-
-https://www.ietf.org/archive/id/draft-peabody-dispatch-new-uuid-format-04.html#name-uuid-version-7[UUIDv7^] теперь используются при генерации значений для атрибутов `UUID`, аннотированных `@JmixGeneratedValue`. UUIDv7 основаны на времени, что делает их более подходящими для ключей базы данных из-за естественного возрастающего порядка.
-
-В класс `UuidProvider` добавлен метод `createUuidV7()`, который используется по умолчанию бином `EntityUuidGenerator`. Если вы хотите вернуться к предыдущим случайным UUID для идентификаторов сущностей, установите следующее свойство приложения:
-
-[source,properties]
-----
-jmix.core.legacy-entity-uuid=true
-----
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/3424[#3424^]
-
-[[copier-interface]]
-=== Интерфейс Copier
-
-Новый интерфейс `Copier` предоставляет метод `copy(Object)` для копирования сущностей. Он схож по семантике с `MetadataTools.deepCopy(Object)`, но отличается тем, что его реализация по умолчанию не зависит от метаданных и копирует все состояние объекта с использованием Java-сериализации.
-
-Вы можете использовать `Copier` для изоляции сущностей от UI при отправке их в собственные сервисы из экранов. `DataContext` использует этот интерфейс для создания копий сущностей при их сохранении в `DataManager`. Подробнее см. раздел xref:flow-ui:data/entities-in-ui.adoc[].
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/3937[#3937^]
-
-[[current-locale-query-parameter]]
-=== Текущая локаль в параметрах запросов
-
-Теперь вы можете использовать предопределенный параметр запроса `current_locale` так же, как параметры с префиксом xref:data-access:jpql-extensions.adoc#session-and-user-attributes[current_user_]. Например:
-
-[source,jql]
-----
-select e from Region e where e.locale = :current_locale
-----
-
-Значение параметра — это локаль текущей пользовательской сессии, взятая из объекта xref:security:authentication.adoc#current[CurrentAuthentication].
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/3958[#3958^]
-
-[[hot-deploy-folder-cleanup]]
-=== Очистка папки Hot Deploy
-
-Ранее папка `.jmix/conf`, используемая для горячего развертывания, очищалась только "before launch" задачей `Clean Hot Deploy Conf Directory` в Studio.
-
-Чтобы сделать очистку более надежной и не зависящей от Studio, мы добавили задачу `cleanConf` в плагин Jmix Gradle. Она выполняется каждый раз перед запуском приложения с помощью задачи `bootRun`.
-
-Если у вас возникнут проблемы с этой функцией, вы можете отключить задачу `cleanConf` в проекте, добавив следующее свойство в ваш `build.gradle`:
-
-[source,gradle]
-----
-jmix {
-    // ...
-    confDirCleanupEnabled = false
-}
-----
-
-Связанный тикет: https://github.com/jmix-framework/jmix/issues/3451[#3451^]
-
 [[breaking-changes]]
 == Критические изменения
-
-[[checkbox-required-state]]
-=== Обязательное состояние Checkbox
-
-Компонент xref:flow-ui:vc/components/checkbox.adoc[] поддерживает валидацию "required" состояния. Если checkbox является обязательным из-за его собственного атрибута `required` или если он связан с обязательным атрибутом сущности, только значение `true` пройдет валидацию и экран деталей будет закрыт.
-
-Подробнее см. https://vaadin.com/docs/latest/components/checkbox#required[Vaadin documentation^] и https://github.com/jmix-framework/jmix/issues/4045[#4045^].
-
-[[core-modules-refactoring]]
-=== Рефакторинг основных модулей
-
-В связи с рефакторингом основных подсистем в части их зависимости от баз данных (в https://github.com/jmix-framework/jmix/issues/3918[#3918^]), следующие критические изменения могут повлиять на ваш проект:
-
-* Классы `NotInstantiatedList` и `NotInstantiatedSet` были перемещены из пакета `io.jmix.data.impl.lazyloading` в пакет `io.jmix.eclipselink.lazyloading`. Эти классы используются для инициализации атрибутов коллекции сущностей в Kotlin проектах. Обновите импорты в ваших сущностях соответственно.
-
-* Встраиваемая сущность `io.jmix.data.entity.ReferenceToEntity` была удалена. Если она нужна вам в проекте, создайте свою собственную копию.
-
-* Класс `io.jmix.flowuidata.accesscontext.UiGenericFilterModifyGlobalConfigurationContext` был перемещен в пакет `io.jmix.flowui.accesscontext`.
-
-* Все классы пакета `io.jmix.flowuidata.action.genericfilter` были перемещены в пакет `io.jmix.flowui.action.genericfilter`.
-
-* Все классы `io.jmix.securityflowui.model` были перемещены в пакет `io.jmix.security.model`.
-
-* Класс `io.jmix.flowuidata.genericfilter.UiDataGenericFilterSupport` был объединен в `io.jmix.flowui.component.genericfilter.GenericFilterSupport` и удален.
-
-См. https://github.com/jmix-framework/jmix/issues/3982[#3982^] для получения дополнительной информации.
-
-[[authorization-server-token-storage]]
-=== Хранение токенов сервера авторизации
-
-Дополнение xref:authorization-server:index.adoc[] теперь хранит токены в базе данных, что гарантирует сохранение токенов при перезапуске сервера.
-
-Если вы используете xref:authorization-server:obtaining-tokens.adoc#resource-owner-password-credentials-grant[Password Grant], вам нужно определить бин типа `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` в приложении и реализовать его следующим образом:
-
-[source,java]
-----
-import io.jmix.authserver.service.mapper.DefaultOAuth2TokenUserMixin;
-import io.jmix.authserver.service.mapper.JdbcOAuth2AuthorizationServiceObjectMapperCustomizer;
-// ...
-@SpringBootApplication
-public class MyApplication implements AppShellConfigurator {
-    // ...
-
-    @Bean
-    JdbcOAuth2AuthorizationServiceObjectMapperCustomizer tokenObjectMapperCustomizer() {
-        return objectMapper ->
-                objectMapper.addMixIn(User.class, DefaultOAuth2TokenUserMixin.class);
-    }
-}
-----
-
-Здесь `User` — это ваш класс сущности пользователя.
-
-Если при использовании токена вы получаете `java.lang.IllegalArgumentException: The class ... is not in the allowlist`, это означает, что ваша сущность пользователя содержит поля типов, не поддерживаемых сериализатором токенов по умолчанию. В этом случае создайте класс миксина, расширяющий `DefaultOAuth2TokenUserMixin`, и используйте его в бине `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer`. Например:
-
-[source,properties,indent=0]
-----
-include::separate-tiers-guide:example$backend-app/src/main/java/com/company/backend/security/OAuth2TokenUserMixin.java[]
-----
-
-Если вы хотите вернуть хранение токенов в памяти, как в предыдущих версиях, установите свойство приложения xref:authorization-server:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] в `true`. При обновлении существующего проекта до Jmix 2.5, Studio автоматически устанавливает это свойство в `true`, чтобы упростить процесс перехода на новую версию.
-
-Подробнее см. https://github.com/jmix-framework/jmix/pull/4153[#4153^].
-
-[[filestoragelocator-interface]]
-=== Интерфейс FileStorageLocator
-
-В интерфейс `io.jmix.core.FileStorageLocator` добавлен метод `getAll()`. Если у вас есть собственная реализация этого интерфейса, реализуйте также и этот метод.
-
-См. https://github.com/jmix-framework/jmix/issues/4119[#4119^] для получения дополнительной информации
-
-[[changed-constructors]]
-=== Измененные конструкторы
-
-В результате внутреннего рефакторинга (https://github.com/jmix-framework/jmix/issues/4152[#4152^]) изменены сигнатуры конструкторов следующих бинов:
-
-* `DetailViewNavigationProcessor`
-* `HtmlContainerReadonlyDataBindingImpl`
-* `MenuItemCommands`
-* `UrlQueryParametersFacetProvider`
-* `ViewNavigationDelegate`
-
-Если у вас определены расширенные версии этих бинов, может потребоваться их адаптация.
 
 [[changelog]]
 == Список изменений
 
 * Решенные проблемы в Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.2[2.5.2^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.1[2.5.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
+// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
 
 * Решенные проблемы в Jmix Studio:
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.2[2.5.2^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.1[2.5.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
+// ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
