@@ -7,26 +7,26 @@
 </div>
 ++++
 
-A button to trigger an action when a user clicks on it.
+Кнопка - это элемент интерфейса, который выполняет действия при нажатии пользователем.
 
-* XML element: `button`
+* XML-элемент: `button`
 
-* Java class: `JmixButton`
+* Java-класс: `JmixButton`
 
-== Basics
+== Основы
 
-A button can have a text, an icon, or both:
+Кнопка может содержать текст, иконку или одновременно и то, и другое:
 
 image::visual-components/components/button-1.png[align="center", width="247"]
 
-An example of defining a button with text, icon and a tooltip (`title` attribute) retrieved from the xref:localization:message-bundles.adoc[message bundle]:
+Пример определения кнопки с текстом, иконкой и всплывающей подсказкой (атрибут `title`), полученной из xref:localization:message-bundles.adoc[пакета сообщений]:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=basics-1]
 ----
 
-To handle button clicks, subscribe to the `ClickEvent` in the view class:
+Для обработки кликов по кнопке необходимо подписаться на событие `ClickEvent` в классе экрана:
 
 [source,java,indent=0]
 ----
@@ -34,18 +34,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[action]]
-== Action
+== Использование Action
 
-Instead of creating a <<ClickEvent,ClickEvent>> handler, you can associate the button with an existing xref:actions.adoc[Action]. Using existing actions provides a more efficient approach, as it automatically updates various attributes and behavior of the button. This can include button's state, visibility, text, title, icon, and user interaction outcome.
+Вместо создания обработчика <<ClickEvent,ClickEvent>> вы можете связать кнопку с существующим xref:actions.adoc[Action]. Использование существующих действий обеспечивает более эффективный подход, поскольку автоматически обновляет различные атрибуты и поведение кнопки. К ним относятся состояние кнопки, видимость, текст, подсказка (`title`), иконка, а также результат взаимодействия с пользователем.
 
-If the action is defined for the view, specify the action id in the button's `action` attribute:
+Если действие определено для экрана, укажите его идентификатор в атрибуте `action` кнопки:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=layout;action-1;action-2]
 ----
 
-If the action is defined for a component, such as xref:vc/components/dataGrid.adoc[dataGrid], specify the component id and action id separated by the dot in the button's `action` attribute:
+Если действие определено для компонента, например xref:vc/components/dataGrid.adoc[dataGrid], укажите в атрибуте `action` кнопки идентификатор компонента и идентификатор действия, разделённые точкой:
 
 [source,xml,indent=0]
 ----
@@ -53,7 +53,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[variants]]
-== Variants
+== Варианты
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -61,9 +61,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 </div>
 ++++
 
-The xref:vc/common-attributes.adoc#themeNames[themeNames] attribute allows you to assign a specific button style from the set of predefined variants.
+Атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] позволяет назначить кнопке определённый стиль из набора предустановленных вариантов.
 
-* Importance variants:
+* Варианты важности:
 +
 image::visual-components/components/button-variant-1.png[align="center", width="319"]
 +
@@ -72,7 +72,7 @@ image::visual-components/components/button-variant-1.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-1]
 ----
 
-* Danger or error variants:
+* Варианты для опасных действий/ошибок:
 +
 image::visual-components/components/button-variant-2.png[align="center", width="319"]
 +
@@ -81,7 +81,7 @@ image::visual-components/components/button-variant-2.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-2]
 ----
 
-* Success variants:
+* Варианты для успешных операций:
 +
 image::visual-components/components/button-variant-3.png[align="center", width="319"]
 +
@@ -90,7 +90,7 @@ image::visual-components/components/button-variant-3.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-3]
 ----
 
-* Contrast variants:
+* Контрастные варианты:
 +
 image::visual-components/components/button-variant-4.png[align="center", width="319"]
 +
@@ -99,7 +99,7 @@ image::visual-components/components/button-variant-4.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-4]
 ----
 
-* Size variants:
+* Варианты размеров:
 +
 image::visual-components/components/button-variant-5.png[align="center", width="319"]
 +
@@ -108,7 +108,7 @@ image::visual-components/components/button-variant-5.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-5]
 ----
 
-* Inline variant without any white space around the button text:
+* Компактный вариант - без отступов вокруг текста кнопки:
 +
 image::visual-components/components/button-variant-6.png[align="center", width="119"]
 +
@@ -117,9 +117,9 @@ image::visual-components/components/button-variant-6.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-6]
 ----
 
-The variant theme names are defined in the {vaadin-api}/com/vaadin/flow/component/button/ButtonVariant.html[ButtonVariant^] class. See also {vaadin-docs}/latest/components/button#styles[Vaadin Docs^] for more information about button styles.
+Все варианты стилей определены в классе {vaadin-api}/com/vaadin/flow/component/button/ButtonVariant.html[ButtonVariant^]. Подробнее о стилях кнопок можно узнать в {vaadin-docs}/latest/components/button#styles[документации Vaadin^].
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 <<action,action>> -
@@ -151,7 +151,9 @@ xref:vc/common-attributes.adoc#width[width]
 [[disable-on-click]]
 === disableOnClick
 
-If the `disableOnClick` attribute is set to `true`, the button will be automatically disabled when clicked, typically to prevent (accidental) extra clicks on a button. You can later re-enable the button by invoking the `setEnabled(true)` method.
+При установке атрибута `disableOnClick` в значение `true` кнопка будет автоматически отключаться после нажатия. Это предотвращает случайные повторные клики.
+
+Чтобы снова включить кнопку, используйте метод `setEnabled(true)`:
 
 [[icon]]
 === icon
@@ -162,47 +164,47 @@ If the `disableOnClick` attribute is set to `true`, the button will be automatic
 </div>
 ++++
 
-Allows to set the `Icon` component for the button. There are two built-in icon sets:
+Позволяет задать иконку для кнопки с помощью компонента `Icon`. Доступны два встроенных набора иконок:
 
-* Lumo Icons. You can set the Lumo icon in XML:
+* Иконки Lumo. Можно установить через XML:
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=lumo-btn]
 ----
-or in the controller class:
+или в классе контроллера:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/button/ButtonView.java[tags=lumoBtn;onInit]
 ----
-* Vaadin Icons. The icons from this set have constants. You can set the Vaadin icon in XML:
+* Иконки Vaadin. Иконки из этого набора имеют константы. Вы можете задать иконку Vaadin в XML:
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=vaadin-btn]
 ----
-or in the controller class:
+или в классе контроллера:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/button/ButtonView.java[tags=vaadinBtn;onInit]
 ----
 
-Since button can have xref:vc/miscellaneous/prefix-suffix.adoc[prefix and suffix] components, external images can be used instead of icons.
+Поскольку у кнопки могут быть xref:vc/miscellaneous/prefix-suffix.adoc[префикс и суффикс], вместо иконок можно использовать внешние изображения.
 
-* xref:vc/html-components/image.adoc[] component as an icon:
+* Компонент xref:vc/html-components/image.adoc[] в качестве иконки:
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=image-icon-btn]
 ----
-<1> Set the same width as for `VaadinIcon`
+<1> Установите ширину, равную ширине `VaadinIcon`
 
 +
 image::visual-components/components/button-icon-image.png[align="center", width="106"]
 
-* `svgIcon` component as an icon:
+* Компонент `svgIcon` в качестве иконки:
 +
 [source,xml,indent=0]
 ----
@@ -221,7 +223,7 @@ image::visual-components/components/button-icon-svg.png[align="center", width="1
 </div>
 ++++
 
-If the `iconAfterText` attribute is set to `true`, this button's icon should be positioned after it's text content.
+Если атрибут `iconAfterText` установлен в значение `true`, иконка кнопки будет расположена после текста.
 
 [[whiteSpace]]
 === whiteSpace
@@ -232,7 +234,7 @@ If the `iconAfterText` attribute is set to `true`, this button's icon should be 
 </div>
 ++++
 
-Defines the component's `white-space` style value. Possible values are:
+Определяет значение стиля `white-space` для компонента. Возможные значения:
 
 * `NORMAL`
 * `NOWRAP`
@@ -243,7 +245,7 @@ Defines the component's `white-space` style value. Possible values are:
 * `INHERIT`
 * `INITIAL`
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -258,53 +260,53 @@ include::../handler-generation-tip.adoc[]
 [[ClickEvent]]
 === clickListener
 
-Fires the `com.vaadin.flow.component.ClickEvent` with the `click` subject. It is triggered whenever the component is clicked.
+Обрабатывает событие `com.vaadin.flow.component.ClickEvent`, возникающее при клике по компоненту. Срабатывает каждый раз, когда происходит нажатие на компонент.
 
-For example:
+Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/button/ButtonView.java[tags=clickListener]
 ----
-<1> The `@Subscribe` annotation connects the handler method to the component by the component's id.
-<2> If needed, you can get the clicked button from the event object.
+<1> Аннотация `@Subscribe` связывает метод-обработчик с компонентом по его идентификатору.
+<2> При необходимости вы можете получить нажатую кнопку из объекта события.
 
-To register the event handler programmatically, use the `addClickListener()` component method.
+Для программной регистрации обработчика события используйте метод компонента `addClickListener()`.
 
 [[doubleClickListener]]
 === doubleClickListener
 
-Fires the `com.vaadin.flow.component.ClickEvent` with the `doubleClick` subject. It is triggered when the user clicks the button twice within a short time interval.
+Обрабатывает событие `com.vaadin.flow.component.ClickEvent` с параметром `doubleClick`. Срабатывает, когда пользователь дважды быстро нажимает на кнопку.
 
-For example:
+Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/button/ButtonView.java[tags=doubleClickListener]
 ----
 
-To register the event handler programmatically, use the `addDoubleClickListener()` component method.
+Для программной регистрации обработчика события используйте метод компонента `addDoubleClickListener()`.
 
 [[singleClickListener]]
 === singleClickListener
 
-Fires the `com.vaadin.flow.component.ClickEvent` with the `singleClick` subject. The event is triggered after a timeout to ensure it is not a double-click.
+Генерирует событие `com.vaadin.flow.component.ClickEvent` с параметром `singleClick`. Событие возникает с задержкой (timeout), чтобы гарантировать, что это не двойной клик.
 
-For example:
+Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/button/ButtonView.java[tags=singleClickListener]
 ----
 
-To register the event handler programmatically, use the `addSingleClickListener()` component method.
+Для программной регистрации обработчика события используйте метод компонента `addSingleClickListener()`.
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
 xref:vc/miscellaneous/prefix-suffix.adoc[suffix]
 
-== See Also
+== Смотрите также
 
-See {vaadin-docs}/components/button[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/button[документацию Vaadin^] для получения дополнительной информации.
