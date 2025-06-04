@@ -1,1 +1,7 @@
 /* Define your styles here */
+
+/* tag::tab-text-max-width[] */
+html {
+  --jmix-tabmod-main-tab-text-max-width: 5em;
+}
+/* end::tab-text-max-width[] */

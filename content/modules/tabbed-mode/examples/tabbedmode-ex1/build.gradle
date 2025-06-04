@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.5.1'
+    id 'io.jmix' version '2.6.0-M1'
     id 'java'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
 }
@@ -8,17 +8,24 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.5.1'
+    bomVersion = '2.6.999-SNAPSHOT'
 }
 
 group = 'com.company'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    mavenLocal()
     maven {
         url 'https://nexus.jmix.io/repository/public'
+    }
+    maven {
+        url = 'https://nexus.jmix.io/repository/premium'
+        credentials {
+            username = rootProject['premiumRepoUser']
+            password = rootProject['premiumRepoPass']
+        }
     }
 }
 
@@ -43,7 +50,6 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
 }
 
 configurations.implementation {

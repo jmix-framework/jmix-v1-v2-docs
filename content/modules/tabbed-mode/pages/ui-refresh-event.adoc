@@ -1,0 +1,8 @@
+= Web Page Refresh Event
+
+`UiRefreshEvent` is an application event sent on each web page refresh. It’s a xref:flow-ui:ui-events.adoc[UI Event], so it can be handled only by event listener methods of UI components and view controllers.
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/user/UserListView.java[tags=userListView;!debug]
+----
