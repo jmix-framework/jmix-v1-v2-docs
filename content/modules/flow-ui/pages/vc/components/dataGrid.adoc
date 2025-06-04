@@ -141,7 +141,14 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 The component supports inline editing, allowing users to switch between reading and editing table data. Inline editing can be activated through buttons in the <<actions-column, actions column>> or on <<double-click-editing,double click>>.
 
-NOTE: Inline edits require an explicit save action to commit the changes to the database. Provide users with a "Save" button or implement <<auto-save,auto-save>> to commit changes when the user leaves the current cell.
+[NOTE]
+====
+Inline editing updates entity attributes in memory. To save changes to the database, use the following methods:
+
+* In a detail view, entities are merged into the xref:data/data-context.adoc[]. Changes will be saved automatically when the user clicks *OK*, triggering `DataContext.save()`.
+
+* In a list view, where `DataContext` is not used, save changes with `DataManager` as explained <<auto-save,below>>.
+====
 
 [[actions-column]]
 === Actions Column
@@ -209,28 +216,37 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[auto-save]]
 === Auto-Save Edits
 
-Typically, changes to entity instances made by visual components are saved to the database by xref:flow-ui:data/data-context.adoc[] when a confirmation action is triggered by the user.
+In a typical list view, loaded entities are not merged into `DataContext` (if the `loader` XML element has the `readOnly="true"` attribute). Besides, list views usually do not include confirmation actions such as *OK* or *Save*. Therefore, modified entities should be saved to the database explicitly.
 
-To automatically commit inline edits when the user leaves the current cell, create a handler for the data container's `ItemPropertyChangeEvent` and save the `DataContext`:
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-data-context]
-----
-
-If the entities in the `dataGrid` are not merged into the `DataContext` (for example if the `loader` has the `readOnly="true"` attribute), save the changed entity using `DataManager`:
+In non-buffered mode, you can do it by using `DataManager` in an `EditorCloseEvent` as follows:
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-non-buffered]
 ----
+<1> Save the entity and get the saved instance.
+<2> Replace the current instance with the saved one in the data container. Further edits will be performed on the latest version of the entity.
+
+In buffered mode, do the same in the `EditorSaveEvent` listener:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-buffered]
+----
+
+[TIP]
+====
+To generate listeners as annotated methods, use the *Handlers* tab of the Jmix Studio's *Component Inspector*, where editor event listeners are marked with `[Editor]` prefixes.
+
+The listeners can also be added programmatically via `dataGrid.getEditor().addSaveListener()` and similar methods.
+====
 
 [[DataGridEditor]]
 === DataGridEditor
 
-The `io.jmix.flowui.component.grid.editor.DataGridEditor` interface provides additional editor functionality: configure an editor, open the editor, save and cancel a row editing, and utility methods for defining column edit components.
+The `io.jmix.flowui.component.grid.editor.DataGridEditor` interface provides additional editor functionality: configure an editor, open the editor, save and cancel a row editing, register listeners, and utility methods for defining column edit components.
 
-WARNING: To support framework mechanisms like data containers, value sources, etc., the column editor component must be added using `DataGridEditor` methods (`DataGridEditor#setColumnEditorComponent()`) instead of direct column API `Column#setEditorComponent()`.
+CAUTION: To support framework mechanisms like data containers, value sources, etc., the column editor component must be added using `DataGridEditor` methods (`DataGridEditor#setColumnEditorComponent()`) instead of direct column API `Column#setEditorComponent()`.
 
 See the example:
 

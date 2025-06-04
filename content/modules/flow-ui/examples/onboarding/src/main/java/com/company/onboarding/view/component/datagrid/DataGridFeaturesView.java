@@ -6,6 +6,8 @@ import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.grid.FooterRow;
 import com.vaadin.flow.component.grid.HeaderRow;
+import com.vaadin.flow.component.grid.editor.EditorCloseEvent;
+import com.vaadin.flow.component.grid.editor.EditorSaveEvent;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
@@ -33,8 +35,10 @@ public class DataGridFeaturesView extends StandardView {
     // tag::injects[]
     @ViewComponent
     private DataGrid<User> dataGrid;
+    // tag::auto-save-non-buffered[]
     @ViewComponent
     private CollectionContainer<User> usersDc;
+    // end::auto-save-non-buffered[]
     @ViewComponent
     private CollectionLoader<User> usersDl;
     @Autowired
@@ -92,22 +96,25 @@ public class DataGridFeaturesView extends StandardView {
 
     // end::getActiveCount[]
 
+    // tag::auto-save-non-buffered[]
 
-    // tag::auto-save-data-context[]
-    @Subscribe(id = "usersDc", target = Target.DATA_CONTAINER)
-    public void onUsersDcItemPropertyChange1(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
-        dataContext.save();
+    @Install(to = "usersDataGrid.@editor", subject = "closeListener")
+    private void usersDataGridEditorCloseListener(final EditorCloseEvent<User> event) {
+        User user = event.getItem();
+        User savedUser = dataManager.save(user); // <1>
+        usersDc.replaceItem(savedUser); // <2>
     }
-    // end::auto-save-data-context[]
+    // end::auto-save-non-buffered[]
 
-
-    // tag::auto-save[]
-    @Subscribe(id = "usersDc", target = Target.DATA_CONTAINER)
-    public void onUsersDcItemPropertyChange2(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
-        dataManager.save(event.getItem());
+    // tag::auto-save-buffered[]
+    @Install(to = "usersDataGrid.@editor", subject = "saveListener")
+    private void usersDataGridEditorSaveListener(final EditorSaveEvent<User> event) {
+        User user = event.getItem();
+        User savedUser = dataManager.save(user);
+        usersDc.replaceItem(savedUser);
     }
+    // end::auto-save-buffered[]
 
-    // end::auto-save[]
     // tag::renderer[]
     @Supply(to = "dataGridCheckbox.active", subject = "renderer")
     private Renderer<User> dataGridCheckboxActiveRenderer() {
