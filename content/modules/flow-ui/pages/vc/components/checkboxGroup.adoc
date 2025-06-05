@@ -7,14 +7,15 @@
 </div>
 ++++
 
-`checkBoxGroup` allows users to select multiple values from a list of items using checkboxes.
+Компонент `checkBoxGroup` позволяет пользователям выбрать несколько значений из списка с помощью флажков (чекбоксов).
+
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`checkBoxGroup`
-|Java Class
+|Java-класс
 |`JmixCheckboxGroup`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -41,7 +42,7 @@ xref:vc/common-attributes.adoc#requiredMessage[requiredMessage] -
 <<theme-variants,themeNames>> -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] -
 xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
@@ -52,13 +53,13 @@ xref:vc/components/comboBox.adoc#itemLabelGenerator[itemLabelGenerator] -
 <<custom-item-presentation,renderer>> -
 xref:vc/common-handlers.adoc#statusChangeHandler[statusChangeHandler] -
 xref:vc/components/textField.adoc#validator[validator]
-|Elements
+|Элементы
 |<<fragment-renderer,fragmentRenderer>> - xref:vc/components/tooltip.adoc[tooltip]
 |===
 
-== Basics
+== Основы
 
-The simplest case of using `checkBoxGroup` is to select values from an enumeration.
+Самый простой случай использования `checkBoxGroup` - выбор значений из перечисления.
 
 [source,xml,indent=0]
 ----
@@ -67,7 +68,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 image::visual-components/components/check-box-group-basics-default.png[align="center", width="366"]
 
-== Data Binding
+== Привязка данных
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -75,21 +76,21 @@ image::visual-components/components/check-box-group-basics-default.png[align="ce
 </div>
 ++++
 
-You can bind a component to an entity and its attributes hold in a xref:data/data-containers.adoc[data container].
+Вы можете связать компонент с сущностью и её атрибутами, которые хранятся в xref:data/data-containers.adoc[контейнере данных].
 
-To bind `checkBoxGroup` to an entity attribute:
+Чтобы связать `checkBoxGroup` с атрибутом сущности:
 
-. Specify the name of the data container as the xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] attribute value.
-. Specify the name of the entity attribute as the xref:flow-ui:vc/common-attributes.adoc#property[property] attribute value.
+. Укажите имя контейнера данных в атрибуте xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer].
+. Укажите имя атрибута сущности в атрибуте xref:flow-ui:vc/common-attributes.adoc#property[property].
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/checkboxgroup/checkboxgroup-view.xml[tags=data;userDc;hobbiesDc;layout;data-bind]
 ----
 
-In this case, `checkBoxGroup` will display instance names of the `Hobby` entity, and its `getTypedValue()` method will return the `Collection` of selected entity instances.
+В этом случае `checkBoxGroup` будет отображать имена экземпляров сущности `Hobby`, а метод `getTypedValue()` вернёт коллекцию выбранных экземпляров этой сущности.
 
-== Custom Items
+== Пользовательские элементы
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -97,38 +98,38 @@ In this case, `checkBoxGroup` will display instance names of the `Hobby` entity,
 </div>
 ++++
 
-To set the list of `checkBoxGroup` items, use the following methods:
+Для задания списка элементов в `checkBoxGroup` используйте следующие методы:
 
-=== Items List
+=== Список элементов
 
-The `setItems()` method allows you to specify component items programmatically.
+Метод `setItems()` позволяет программно задать элементы компонента.
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/checkboxgroup/CheckboxgroupView.java[tags=checkboxGroupInt;onInit;setItems]
 ----
 
-=== Items Map
+=== Список элементов с описаниями
 
-`ComponentUtils.setItemsMap()` allows you to specify a string label for each item value explicitly.
+`ComponentUtils.setItemsMap()` позволяет вам явно указать строковое описание для каждого значения элемента.
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/checkboxgroup/CheckboxgroupView.java[tags=ratingCheckboxGroup;onInit;setItemsMap]
 ----
 
-=== Items Enum
+=== Список значений перечисления
 
-You can use either a declarative or programmatic approach to set the values of an enum as `checkBoxGroup` items.
+Вы можете задать значения перечисления в качестве элементов `checkBoxGroup` как декларативным, так и программным способом.
 
-The following example demonstrates the declarative approach.
+Ниже приведён пример декларативного подхода.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/checkboxgroup/checkboxgroup-view.xml[tags=basics-default]
 ----
 
-The example below uses the programmatic approach.
+Пример ниже использует программный подход.
 
 [source,java,indent=0]
 ----
@@ -136,9 +137,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[orientation]]
-== Orientation
+== Ориентация
 
-Items are arranged horizontally by default. To change the layout to vertical, you can use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute:
+По умолчанию элементы располагаются горизонтально. Чтобы изменить расположение на вертикальное, используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames]:
 
 [source,xml,indent=0]
 ----
@@ -148,11 +149,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 image::visual-components/components/check-box-group-basics.png[align="center", width="156"]
 
 [[theme-variants]]
-== Theme Variants
+== Варианты оформления
 
-To customize the <<orientation,layout of items>> and where the helper text shows up, use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute.
+Для настройки <<orientation,расположения элементов>> и положения вспомогательного текста используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames].
 
-For example, `helper-above-field` will position the helper text above the field instead of below it:
+Например, значение `helper-above-field` разместит вспомогательный текст над полем, а не под ним:
 
 [source,xml,indent=0]
 ----
@@ -162,9 +163,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 image::visual-components/components/check-box-group-helper-above-field.png[align="center", width="373"]
 
 [[custom-item-presentation]]
-== Custom Item Presentation
+== Рендеринг элементов
 
-It is possible to customize the render of elements. You can use the `setRenderer()` method or the `@Supply` annotation for it.
+Возможно настроить способ отображения элементов. Для этого используется метод `setRenderer()` или аннотация `@Supply`.
 
 [source,java,indent=0]
 ----
@@ -174,8 +175,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 image::visual-components/components/check-box-group-renderer.png[align="center", width="198"]
 
 [[fragment-renderer]]
-Alternatively, you can render items using a nested `fragmentRenderer` element. Refer to the xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment Renderer] section for more information.
+В качестве альтернативы вы можете отображать элементы с помощью вложенного элемента `fragmentRenderer`. Дополнительную информацию смотрите в разделе xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Рендерер фрагментов].
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/checkbox[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/checkbox[документацию Vaadin^] для получения дополнительной информации.
