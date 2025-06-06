@@ -192,6 +192,11 @@ Specifies whether https://www.crockford.com/base32.html[Base32 Crockford Encodin
 
 Default value: `false`
 
+[[jmix.ui.ui-test-mode]]
+=== jmix.ui.ui-test-mode
+
+Enables generating special test ids to use with the Masquerade testing library. To learn more, please see xref:testing:masquerade.adoc[Masquerade].
+
 [[components]]
 == Components
 

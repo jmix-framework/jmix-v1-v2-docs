@@ -2,4 +2,5 @@
 ** xref:testing:getting-started.adoc[]
 ** xref:testing:unit-tests.adoc[]
 ** xref:testing:integration-tests.adoc[]
+** xref:testing:masquerade.adoc[]
 ** xref:testing:ui-integration-tests.adoc[]

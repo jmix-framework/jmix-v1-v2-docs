@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://myTestView.title">
+    <data>
+        <collection id="usersDc" class="com.company.masqueradeex1.entity.User">
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <button id="myButton" text="Button"/>
+        <textArea id="myTextArea" value="TextArea" label="TextArea"/>
+        <entityComboBox id="entityComboBox" metaClass="User" label="EntityComboBox"
+                        itemsContainer="usersDc">
+            <actions>
+                <action id="lookup" type="entity_lookup"/>
+                <action id="clear" type="entity_clear"/>
+            </actions>
+        </entityComboBox>
+    </layout>
+</view>
