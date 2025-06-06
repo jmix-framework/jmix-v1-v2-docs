@@ -133,3 +133,4 @@ includeBuild 'content/modules/pivot-table/examples/pivottable-ex1'
 includeBuild 'content/modules/message-templates/examples/messagetemplates-ex1'
 
 includeBuild 'content/modules/tabbed-mode/examples/tabbedmode-ex1'
+includeBuild 'content/modules/testing/examples/masquerade-ex1'

@@ -192,6 +192,11 @@ Default value: `false`.
 
 Значение по умолчанию: `false`
 
+[[jmix.ui.ui-test-mode]]
+=== jmix.ui.ui-test-mode
+
+Включает генерацию специальных тестовых идентификаторов для использования с библиотекой тестирования Masquerade. Чтобы узнать больше, посетите раздел xref:testing:masquerade.adoc[Masquerade].
+
 [[components]]
 == Компоненты
 

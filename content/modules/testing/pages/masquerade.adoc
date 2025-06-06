@@ -1,0 +1,232 @@
+= Masquerade
+
+Masquerade это библиотека для автоматизации тестирования пользовательского интерфейса в приложениях Jmix. Библиотека помогает использовать паттерн Page Object для всех частей пользовательского интерфейса Jmix, включая экраны, компоненты, диалоги, уведомления и композиты. Библиотека основана на https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] и https://github.com/selenide/selenide[Selenide^].
+
+NOTE: Masquerade предназначена для приложений, созданных с использованием **Jmix 2.6** или новее.
+
+== Установка Masquerade
+
+Чтобы установить Masquerade, выполните следующие шаги:
+
+. Убедитесь, что в проекте используется Jmix 2.6 или новее. Посетите раздел xref:studio:project.adoc#upgrading-project[Апгрейд Проекта], чтобы узнать как обновить проект с помощью Studio.
+. Укажите зависимость в файле `build.gradle` как `testImplementation`:
++
+.build.gradle
+----
+testImplementation 'io.jmix.masquerade:jmix-masquerade'
+----
+
+== Использование Selenide
+
+Masquerade основан на Selenide, что позволяет использовать любые его методы. Рассмотрим пример, типичный для автоматизации тестирования, в котором выполняется вход в приложение Jmix:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/SelenideTest.java[tags=selenideLogin]
+----
+
+Стандартный метод `Selenide.$` принимает селектор в качестве аргумента, например, `byId`. В результате будет возвращен объект `SelenideElement`, с которым можно выполнять дальнейшие действия.
+
+TIP: Ознакомьтесь с https://selenide.org/documentation.html[Selenide API^], чтобы узнать о других методах.
+
+== Создание Теста в Masquerade
+
+Masquerade предлагает использование <<_wrappers,оберток>> для различных компонентов Jmix, что помогает лучше организовать и управлять тестами. Давайте создадим тест, который выполняет вход в приложение Jmix с использованием Masquerade. Для этого выполним два шага:
+
+=== Шаг 1. Создание Обертки Экрана
+
+Базовый проект Jmix содержит экран логина по умолчанию. Для взаимодействия с этим экраном и его компонентами во время тестирования создадим для него <<_view_wrapper,обертку экрана>>:
+
+* В каталоге `src/test/java`, в пакете `com.company.testproject`, создайте пакет `view`. Внутри создайте Java класс с именем `LoginView`:
++
+----
+TestProject/
+└── src/
+    ├── main/
+    └── test/
+        └── java/
+            └── com.company.testproject
+                └── test_support
+                    └── view
+                       └── LoginView.java
+----
+
+* Добавьте <<_component_wrapper,обертки компонентов>> и методы get для каждого компонента, необходимого для теста:
++
+[source,java,indent=0]
+.LoginView.java
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/sys/LoginView.java[tags=LoginViewWrapper]
+----
+
+=== Шаг 2. Создание тестового класса
+
+Тестовый класс будет вызывать методы из обертки для прохождения сценария по входу в приложение. Выполните следующие шаги для его создания:
+
+* В каталоге `src/test/java`, в пакете `com.company.testproject`, создайте новый пакет `ui-autotest`. Внутри создайте Java класс с именем `LoginUiTest`:
++
+----
+TestProject/
+└── src/
+    ├── main/
+    └── test/
+        └── java/
+            ├── com.company.testproject
+            │   └── test_support
+            │       └── view
+            │          └── LoginView.java
+            └────── ui_autotest
+                    └── LoginUiTest.java
+----
+* Определите последовательность действий для вашего тестового сценария:
++
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/LoginUiTest.java[tags=LoginUiTest]
+----
++
+<1> Переход на страницу логина выполняется с помощью стандартного метода Selenide.
+<2> Используйте метод `Masquerade.$j`, чтобы выбрать класс обертки и вызывать его методы.
+
+[[jmix-test-id]]
+== Генерация Jmix Test IDs
+
+Masquerade может помочь вам с генерацией специального атрибута `j-test-id` (Jmix test ID) для каждого компонента, созданного с помощью фабрики `UiComponents`. Эти идентификаторы упрощают поиск элементов на странице. Чтобы включить эту функцию, установите значение xref:flow-ui:ui-properties.adoc#jmix.ui.ui-test-mode[jmix.ui.ui-test-mode] в true:
+
+.application.properties
+[source,properties]
+----
+jmix.ui.ui-test-mode = true
+----
+
+WARNING: Генерация идентификаторов может повлиять на производительность. Рекомендуется использовать это свойство только для тестового профиля приложения.
+
+Значение тестовых идентификаторов по умолчанию соответствует значение заданному в аттрибуте `id` для компонента:
+
+image::testing:masquerade-j-test-id.png[align="center", width = 848]
+
+Если `id` компонента не был задан, тестовый идентификатор `j-test-id` будет сгенерирован на основе привязки данных, атрибута `action` или `text`.
+
+Чтобы работать с элементом напрямую по его `j-test-id`, используйте метод `Masquerade.$j`:
+
+[source,java,indent=0,opts=novalidate]
+----
+$j("myButton").click();
+----
+
+[[_wrappers]]
+== Обертки
+
+Обертки это классы, которые представляют различные части пользовательского интерфейса Jmix инкапсулируя взаимодействия с ними. Они помогают отделить тестовые сценарии от деталей взаимодействия с пользовательским интерфейсом. Всего существует пять типов оберток.
+
+[[_view_wrapper]]
+=== Обертка Экрана
+
+Обертка экрана инкапсулирует экран, создавая упрощенный интерфейс для взаимодействия с его компонентами во время теста. Добавлять все компоненты в обертку не обязательно — можно добавить только те, которые необходимы для тестов.
+
+Рассмотрим простой пример обертки экрана:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/MyView.java[tags=MyViewWrapper]
+----
+
+<1> Обертка экрана должна содержать аннотацию `io.jmix.masquerade.TestView`. Значение `id` в аннотации должно соответствовать идентификатору представления, указанному через `@ViewController`:
++
+[source, java, indent=0]
+----
+include::example$/masquerade-ex1/src/main/java/com/company/masqueradeex1/view/mytest/MyView.java[tags=view-controller-id]
+----
++
+Если вы не укажете `id`, то в качестве идентификатора по умолчанию будет использован simple class name для этого экрана.
+
+<2> Класс обертки наследуется от `io.jmix.masquerade.sys.View` и передает собственный класс `MyView` в качестве параметра типа. Это необходимо для предоставления API для написания тестов.
+
+[[_component_wrapper]]
+=== Обертка Компонента
+
+Обертки компонентов инкапсулируют компоненты внутри оберток экрана. Чтобы указать что поле класса является оберткой компонента, используйте аннотации `@TestComponent` или `@FindBy`. Это показано в следующем примере:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/MyView.java[tags=ComponentWrappers]
+----
+
+- `@TestComponent` указывает, что поле является оберткой компонента. Если значение path не указано, предполагается, что по умолчанию используется значение атрибута <<jmix-test-id,j-test-id>> соответствующего веб-элемента.
+- `@FindBy` явно задает селектор, который будет использован при идентификации компонента.
+
+TIP: Список всех доступных оберток компонентов доступен в пакете `io.jmix.masquerade.component`.
+
+Обертки компонентов предлагают различные методы для взаимодействия с компонентами. Например, вы можете открыть оверлей или даже диалоговое окно для `EntityCombobox`:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/MyViewUiTest.java[tags=EntityComboBoxTest]
+----
+
+Обертки компонентов также предлагают специфические условия проверки состояния компонентов. Вы можете найти список всех доступных условий в пакете `io.jmix.masquerade.condition`.
+
+=== Обертка Диалоговых Окон
+
+Обертки для диалоговых окон аналогичны оберткам экрана, но наследуются от класса `io.jmix.masquerade.sys.DialogWindow`. Этот класс предлагает специфические действия, такие как их закрытие окна и проверка заголовка. Для иллюстрации рассмотрим пример:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/user/UserListDialog.java[tags=UserListDialog]
+----
+
+=== Обертка Уведомлений
+
+Обертка для уведомления представляет собой специальный тип обертки компонента. Рассмотрим пример работы с уведомлением:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/NotificationUiTest.java[tags=NotificationTest]
+----
+
+Если на экране одновремнно открыто несколько уведомлений, вы можете выбрать нужное с помощью xpath:
+
+[source,java,indent=0,opts=novalidate]
+----
+$j(Notification.class, xpath("{xpath-to-notification}"));
+----
+
+=== Обертка Композита
+
+Обертка композита инкапсулирует некоторую часть экрана, также называемую фрагментом. Способ доступа к фрагменту будет различаться в зависимости от того, добавлен ли он в обертку экрана или нет.
+
+Предположим, у нас есть экран, состоящий из двух фрагментов, но только один из них добавлен в соответствующую обертку экрана:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/FragmentsView.java[tags=FragmentsView]
+----
+
+Обертки для упомянутых фрагментов выглядят следующим образом:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/fragment/TestFragment1.java[tags=TestFragment1]
+----
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/fragment/TestFragment2.java[tags=TestFragment2]
+----
+
+<1> Обертка композита наследуется от `io.jmix.masquerade.sys.Composite`.
+<2> Обертки композита могут быть дополнительно аннотированы с помощью @TestComponent, чтобы предоставить значение пути для использования в `Masquerade.$j`.
+
+Фрагмент из обертки экрана можно получить через цепочку методов, аналогично тому как это делается для компонентов:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/FragmentsUiTest.java[tags=openFragmentsView;testChildFragment]
+----
+
+В случае если фрагмент не добавлен в обертку экрана, получить к нему доступ можно передав его класс в метод `Masquerade.$j`:
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/FragmentsUiTest.java[tags=openFragmentsView;testLoneFragment]
+----
