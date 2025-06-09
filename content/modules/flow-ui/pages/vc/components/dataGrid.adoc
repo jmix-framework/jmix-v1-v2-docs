@@ -7,14 +7,15 @@
 </div>
 ++++
 
-A table of data that can be edited, sorted, filtered, and aggregated based on a column. It performs lazy loading while scrolling to ensure efficiency with large datasets.
+`dataGrid` - это таблица данных, которую можно редактировать, сортировать, фильтровать и агрегировать по столбцам. Для работы с большими объёмами данных используется отложенная загрузка при прокрутке, что обеспечивает высокую производительность.
+
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`dataGrid`
-|Java Class
+|Java-класс
 |`DataGrid`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 <<aggregatable, aggregatable>> -
 <<aggregationPosition,aggregationPosition>> -
@@ -48,7 +49,7 @@ xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
 xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 <<CellFocusEvent,CellFocusEvent>> -
@@ -67,46 +68,50 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<dropFilter,dropFilter>>
 <<enterPressHandler,enterPressHandler>> -
 <<tooltipGenerator,tooltipGenerator>>
-|Elements
+|Элементы
 |<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>> - <<empty-state-component-element,emptyStateComponent>>
 |===
 
 [[basics]]
-== Basics
+== Основы
 
-To create the component, use the `dataGrid` XML element and bind it to a xref:flow-ui:data/data-containers.adoc[data container]. The component supports both collection and key-value containers. Then, specify which attributes from the container you want to display:
+Для создания компонента используйте XML-элемент `dataGrid` и свяжите его с xref:flow-ui:data/data-containers.adoc[контейнером данных]. Поддерживаются оба типа контейнеров: коллекции и KeyValue.
 
-* To display all attributes as specified in the fetch plan, add the <<columns,columns>> element with `includeAll = true`. To exclude unnecessary attributes, list them in the `exclude` attribute separated by commas.
-* To display only certain attributes, add the <<columns,columns>> element nesting individual <<column, column>> elements for each attribute you want to include.
-* If the fetch plan contains a reference attribute, this attribute will be displayed according to its xref:data-model:entities.adoc#instance-name[instance name]. To display a specific attribute, add it explicitly to the fetch plan as well as in the `column` element.
+Затем укажите, какие атрибуты из контейнера вы хотите отобразить:
 
-The following example demonstrates how a basic `dataGrid` is created:
+* Чтобы показать все атрибуты, указанные в фетч-плане, добавьте элемент <<columns,columns>> с атрибутом `includeAll`, установленным в `true`. Чтобы исключить ненужные атрибуты, перечислите их через запятую в атрибуте `exclude`.
+
+* Если нужно отобразить только определённые атрибуты, добавьте элемент <<columns,columns>> и вложите в него отдельные элементы <<column, column>> для каждого нужного атрибута.
+
+* Если фетч-план содержит ссылочный атрибут, этот атрибут будет отображаться по xref:data-model:entities.adoc#instance-name[имени его экземпляра]. Чтобы отобразить конкретный атрибут, добавьте его явно как в фетч-план, так и в элемент `column`.
+
+Ниже приведён пример создания базового компонента `dataGrid`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=data;usersDc;layout;basics]
 ----
 
-<1> Reference attribute.
-<2> Column to display the attribute from the root entity.
-<3> Column to display the reference attribute accessed using dot notation.
+<1> Ссылочный атрибут.
+<2> Столбец для отображения атрибута из корневой сущности.
+<3> Столбец для отображения ссылочного атрибута, к которому обращаются с помощью точечной нотации.
 
 image::visual-components/components/data-grid-basics.png[align="center", width="804"]
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a data container. Data grid can display data loaded to either xref:data/collection-container.adoc[collection container] or xref:data/key-value-containers.adoc[key-value container].
+Привязка данных - это связывание визуального компонента с контейнером данных. Компонент `dataGrid` может отображать данные, загруженные как в xref:data/collection-container.adoc[контейнер коллекции], так и в xref:data/key-value-containers.adoc[контейнер KeyValue].
 
 [[collection-container]]
-=== Collection Container
+=== Контейнер коллекции
 
-Typically, you bind a `dataGrid` to data declaratively in the XML descriptor using the `dataContainer` attribute. This attribute should refer to a xref:flow-ui:data/collection-container.adoc[collection container],  that holds the data you want to display. Please see the relevant <<basics, example>> in the previous section.
+Обычно `dataGrid` связывается с данными декларативно в XML-дескрипторе с помощью атрибута `dataContainer`. Этот атрибут должен ссылаться на xref:flow-ui:data/collection-container.adoc[контейнер коллекции], который содержит данные для отображения. Соответствующий <<basics,пример>> приведён в предыдущем разделе.
 
 [[key-value-containers-binding]]
-=== Key-Value Container
+=== Контейнер Key-Value
 
-It is also possible to bind the DataGrid to a xref:flow-ui:data/key-value-containers.adoc[key-value container]. This allows you to display the results of a query that returns scalar values and/or aggregates. For example:
+Также возможно привязать `dataGrid` к xref:flow-ui:data/key-value-containers.adoc[контейнеру Key-Value]. Это позволяет отображать результаты запроса, возвращающего скалярные значения и/или агрегаты. Например:
 
 [source,xml,indent=0]
 ----
@@ -114,16 +119,16 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[programmatic-binding]]
-=== Programmatic Binding
+=== Программная привязка
 
-If you need to define a data container programmatically, use the xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass] attribute instead of xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer]:
+Если необходимо задать контейнер данных программно, используйте атрибут xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass] вместо xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer]:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=metaClass]
 ----
 
-After that, in the view controller, use the `ContainerDataGridItems` class to bind the data grid to a data container:
+После этого в контроллере экрана используйте класс `ContainerDataGridItems` для привязки `dataGrid` к контейнеру данных:
 
 [source,java,indent=0]
 ----
@@ -131,7 +136,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[inline-editing]]
-== Inline Editing
+== Встроенное редактирование
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -139,67 +144,67 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 </div>
 ++++
 
-The component supports inline editing, allowing users to switch between reading and editing table data. Inline editing can be activated through buttons in the <<actions-column, actions column>> or on <<double-click-editing,double click>>.
+Компонент поддерживает встроенное редактирование, позволяя пользователям переключаться между просмотром и редактированием данных таблицы. Встроенное редактирование можно активировать с помощью кнопок в <<actions-column,колонке действий>> или <<double-click-editing,двойным щелчком мыши>>.
 
 [NOTE]
 ====
-Inline editing updates entity attributes in memory. To save changes to the database, use the following methods:
+Встроенное редактирование обновляет атрибуты сущностей в памяти. Для сохранения изменений в базе данных используйте следующие методы:
 
-* In a detail view, entities are merged into the xref:data/data-context.adoc[]. Changes will be saved automatically when the user clicks *OK*, triggering `DataContext.save()`.
+* В экране деталей сущности объединяются в xref:data/data-context.adoc[]. Изменения сохраняются автоматически при нажатии *OK*, и происходит вызов метода `DataContext.save()`.
 
-* In a list view, where `DataContext` is not used, save changes with `DataManager` as explained <<auto-save,below>>.
+* В экране списка, где `DataContext` не используется, сохранение изменений выполняется с помощью `DataManager`, как описано <<auto-save,ниже>>.
 ====
 
 [[actions-column]]
-=== Actions Column
+=== Колонка действий
 
-Use `editorActionsColumn` to provide *Edit* and *Close* buttons next to each row. These enable users to start and stop editing respectively.
+Используйте `editorActionsColumn` для добавления кнопок *Edit* и *Close* рядом с каждой строкой. Они позволяют пользователям начать и завершить редактирование соответственно.
 
-NOTE: The actions column is added relatively to other columns. When `includeAll="true"` is set, the editor column is placed at the far right.
+NOTE: Колонка действий по умолчанию добавляется рядом с другими колонками. Если указано `includeAll="true"` - автоматически размещается крайней справа.
 
 image::visual-components/components/data-grid-editing.gif[align="center"]
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=dataGrid-non-buffered-editor]
 ----
-<1> Make appropriate columns <<editable, editable>>.
-<2> Button to initiate editing.
-<3> Button to stop editing.
+<1> Сделайте нужные столбцы <<editable, редактируемыми>>.
+<2> Кнопка для начала редактирования.
+<3> Кнопка для завершения редактирования.
 ====
 
-==== Buffered Mode
+==== Буферизованный режим
 
-With <<editorBuffered, buffered mode>> on, users will have to confirm or cancel their edits reducing the risk of accidental modifications. Clicking on a different row discards edits.
+При включённом <<editorBuffered,буферизованном режиме>> пользователям необходимо подтверждать или отменять свои изменения, что снижает риск случайных правок. При переходе на другую строку внесённые изменения отменяются.
 
 image::visual-components/components/data-grid-buffered-editor.gif[align="center"]
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=dataGrid-buffered-editor]
 ----
-<1> Enable buffered mode.
-<2> Make appropriate columns <<editable, editable>>.
-<3> Button to initiate editing.
-<4> Button to confirm changes.
-<5> Button to cancel changes.
+<1> Включить буферизованный режим.
+<2> Сделать соответствующие столбцы <<editable,редактируемыми>>.
+<3> Кнопка для начала редактирования.
+<4> Кнопка для подтверждения изменений.
+<5> Кнопка для отмены изменений.
 ====
 // TIP: Inline editing can be configured programmatically as described in the https://vaadin.com/docs/latest/components/grid#inline-editing-java-only[Vaadin documentation^]
 
 [[double-click-editing]]
-=== Edit on Double Click
+=== Редактирование по двойному клику
 
-Sometimes it is more convenient to start inline editing by double-clicking the item.
+Иногда удобнее начинать встроенное редактирование, дважды щёлкнув по элементу.
 
 image::visual-components/components/data-grid-double-click-editing.gif[align="center"]
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -214,20 +219,20 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ====
 
 [[auto-save]]
-=== Auto-Save Edits
+=== Автосохранение изменений
 
-In a typical list view, loaded entities are not merged into `DataContext` (if the `loader` XML element has the `readOnly="true"` attribute). Besides, list views usually do not include confirmation actions such as *OK* or *Save*. Therefore, modified entities should be saved to the database explicitly.
+В стандартном экране списка загруженные сущности не объединяются в `DataContext` (если в XML-элементе загрузчика установлен атрибут `readOnly="true"`). Кроме того, в экранах списка обычно отсутствуют кнопки подтверждения, такие как *OK* или *Save*. Поэтому изменённые сущности необходимо явно сохранять в базе данных.
 
-In non-buffered mode, you can do it by using `DataManager` in an `EditorCloseEvent` as follows:
+В небуферизованном режиме это можно сделать с помощью `DataManager` в обработчике события `EditorCloseEvent` следующим образом:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-non-buffered]
 ----
-<1> Save the entity and get the saved instance.
-<2> Replace the current instance with the saved one in the data container. Further edits will be performed on the latest version of the entity.
+<1> Сохранить сущность и получить сохранённый экземпляр.
+<2> Заменить текущий экземпляр сохранённым в контейнере данных. Все последующие изменения будут применяться к актуальной версии сущности.
 
-In buffered mode, do the same in the `EditorSaveEvent` listener:
+В буферизованном режиме аналогичные действия выполняются в обработчике события `EditorSaveEvent`:
 
 [source,java,indent=0]
 ----
@@ -236,38 +241,38 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 [TIP]
 ====
-To generate listeners as annotated methods, use the *Handlers* tab of the Jmix Studio's *Component Inspector*, where editor event listeners are marked with `[Editor]` prefixes.
+Для генерации обработчиков в виде аннотированных методов используйте вкладку *Handlers* в *Component Inspector* Jmix студии, где обработчики событий редактора помечены префиксами `[Editor]`.
 
-The listeners can also be added programmatically via `dataGrid.getEditor().addSaveListener()` and similar methods.
+Обработчики также можно добавить программно с помощью методов `dataGrid.getEditor().addSaveListener()` и аналогичных.
 ====
 
 [[DataGridEditor]]
 === DataGridEditor
 
-The `io.jmix.flowui.component.grid.editor.DataGridEditor` interface provides additional editor functionality: configure an editor, open the editor, save and cancel a row editing, register listeners, and utility methods for defining column edit components.
+Интерфейс `io.jmix.flowui.component.grid.editor.DataGridEditor` предоставляет дополнительную функциональность редактора: настройку, открытие, сохранение и отмену редактирования строки, регистрацию обработчиков событий, а также служебные методы для определения компонентов редактирования столбцов.
 
-CAUTION: To support framework mechanisms like data containers, value sources, etc., the column editor component must be added using `DataGridEditor` methods (`DataGridEditor#setColumnEditorComponent()`) instead of direct column API `Column#setEditorComponent()`.
+CAUTION: Для поддержки механизмов фреймворка, таких как контейнеры данных, источники значений и т.д., компонент редактирования столбца должен добавляться с использованием методов `DataGridEditor` (например, `DataGridEditor#setColumnEditorComponent()`), а не через прямое API столбца `Column#setEditorComponent()`.
 
-See the example:
+Пример использования:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=uiComponents;editableUserTable;onInit;DataGridEditor]
 ----
-<1> Get the instance of `DataGridEditor`.
-<2> The `JmixComboBox` component instance is created using the `UiComponents` factory.
-<3> Set <<SupportsStatusChangeHandler,StatusChangeHandler>>.
-<4> The `setColumnEditorComponent()` method returns the visual component to be shown as the column editor component.
+<1> Получить экземпляр `DataGridEditor`.
+<2> Экземпляр компонента `JmixComboBox` создается с помощью фабрики `UiComponents`.
+<3> Установить <<SupportsStatusChangeHandler,StatusChangeHandler>>.
+<4> Метод `setColumnEditorComponent()` возвращает визуальный компонент, который будет отображаться как редактор столбца.
 
 [[SupportsStatusChangeHandler]]
 === SupportsStatusChangeHandler
 
-By default, field components (for example, xref:flow-ui:vc/components/textField.adoc[textField], xref:flow-ui:vc/components/comboBox.adoc[comboBox]) display error messages in a label above them. Such behaviour has disadvantages in case of limited area of edit cell. The `io.jmix.flowui.component.SupportsStatusChangeHandler` interface enables to define different way of displaying error messages. Components that implement this interface support error handling delegation.
+По умолчанию компоненты ввода (например, xref:flow-ui:vc/components/textField.adoc[textField], xref:flow-ui:vc/components/comboBox.adoc[comboBox]) отображают сообщения об ошибках в тексте над собой. Такое поведение имеет недостатки при ограниченной области ячейки редактирования. Интерфейс `io.jmix.flowui.component.SupportsStatusChangeHandler` позволяет определить альтернативный способ отображения сообщений об ошибках. Компоненты, реализующие этот интерфейс, поддерживают делегирование обработки ошибок.
 
-By default, the inline editor uses `StatusChangeHandler` to set error message of a component as its xref:flow-ui:vc/common-attributes.adoc#title[title].
+По умолчанию встроенный редактор использует `StatusChangeHandler` для установки сообщения об ошибке компонента в качестве его xref:flow-ui:vc/common-attributes.adoc#title[title].
 
 [[header-footer]]
-== Header and Footer
+== Заголовок и подвал
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -275,27 +280,27 @@ By default, the inline editor uses `StatusChangeHandler` to set error message of
 </div>
 ++++
 
-The component can include header and footer sections to show supplementary information. Each section can contain one or more rows, which you can add using the following methods:
+Компонент может включать секции заголовка (header) и подвала (footer) для отображения дополнительной информации. Каждая секция может содержать одну или несколько строк, которые можно добавить с помощью следующих методов:
 
 [cols="1h,6", grid=rows]
 |===
-|*Method*
-|*Description*
+|*Метод*
+|*Описание*
 |`appendHeaderRow()`
-|Adds a new row at the bottom of the header section.
+|Добавляет новую строку в нижнюю часть секции заголовка.
 |`prependHeaderRow()`
-|Adds a new row at the top of the header section.
+|Добавляет новую строку в верхнюю часть секции заголовка.
 |`appendFooterRow()`
-|Adds a new row at the bottom of the footer section.
+|Добавляет новую строку в нижнюю часть секции подвала.
 |`prependFooterRow()`
-|Adds a new row at the top of the footer section.
+|Добавляет новую строку в верхнюю часть секции подвала.
 |===
 
-The following example demonstrates a `dataGrid` that includes merged cells in its header and a computed value in the footer:
+Ниже приведён пример `dataGrid`, который содержит объединённые ячейки в заголовке и вычисляемое значение в подвале:
 
 image::visual-components/components/data-grid-header-footer.png[align="center", width="750"]
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -307,48 +312,48 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=injects;onInit;initHeader;initFooter;getActiveCount]
 ----
-<1> Cells within the header can be merged together. This helps to provide general information about related columns.
+<1> Ячейки в заголовке могут быть объединены. Это позволяет представить общую информацию о связанных столбцах.
 ====
 
-TIP: Both the header and footer can contain rich content and components. See https://demo.jmix.ru/ui-samples/sample/data-grid-header-footer[live demo^].
+TIP: Как в заголовке, так и в подвале можно размещать сложное содержимое и компоненты. Смотрите https://demo.jmix.ru/ui-samples/sample/data-grid-header-footer[интерактивный пример^].
 
 [[column-filtering]]
-== Column Headers Filtering
+== Фильтрация по заголовкам столбцов
 
-CAUTION: This is a preview feature. Its look and feel, as well as implementation details, may change significantly in future releases.
+CAUTION: Это экспериментальная функция. Внешний вид и детали реализации могут существенно измениться в следующем релизе Jmix.
 
-Data in `dataGrid` can be filtered using xref:flow-ui:vc/components/propertyFilter.adoc[property filters] embedded into column headers.
+Данные в `dataGrid` можно фильтровать с помощью встроенных в заголовки столбцов xref:flow-ui:vc/components/propertyFilter.adoc[фильтров свойств].
 
-You can define which columns should have a filter using the `filterable` XML attribute. Filterable columns have the "funnel" icon (image:visual-components/components/funnel.svg[]) in their headers. If the user clicks this icon, a dialog with the property filter condition appears. If a condition is set, the icon in that column is highlighted.
+Вы можете указать, для каких столбцов должен быть доступен фильтр, используя XML-атрибут `filterable`. В фильтруемых столбцах в заголовках отображается иконка фильтра (image:visual-components/components/funnel.svg[]). При клике на эту иконку появляется диалог с условием фильтрации по свойству. Если условие задано, иконка в соответствующем столбце подсвечивается.
 
-To make sure the filter icon is always visible, set an appropriate width for the column using the `width` or `autoWidth` attribute. Don't make the column resizable, otherwise users will be able to shrink the column width and lose the filter icon.
+Чтобы иконка фильтра всегда была видна, задайте столбцу подходящую ширину с помощью атрибутов `width` или `autoWidth`. Не делайте столбец изменяемым по ширине, иначе пользователь сможет уменьшить его ширину и иконка фильтра станет невидимой.
 
-For example:
+Например:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=filterable]
 ----
 
-Property filters in column headers work in the same way as standalone property filters and xref:flow-ui:vc/components/genericFilter.adoc[] - they add conditions to the xref:flow-ui:data/data-loaders.adoc[data loader]. In the standard flow, the conditions are translated to the JPQL query and filter data on the database level.
+Фильтры свойств в заголовках столбцов работают так же, как отдельные фильтры по свойствам и как xref:flow-ui:vc/components/genericFilter.adoc[] - они добавляют условия к xref:flow-ui:data/data-loaders.adoc[загрузчику данных]. В стандартном режиме эти условия преобразуются в JPQL-запрос и фильтруют данные на уровне базы данных.
 
-Filterable columns can be used together with `propertyFilter` and `genericFilter` components. Conditions of all filters are combined by logical `AND`.
+Фильтруемые столбцы можно использовать совместно с компонентами `propertyFilter` и `genericFilter`. Условия всех фильтров объединяются логическим оператором `AND`.
 
-Currently, column filter conditions are not bound to the page URL. It means that if a user applies a filter and then navigates to a detail view and back, the filter will be cleared.
+В настоящее время условия фильтрации в столбцах не сохраняются в URL страницы. Это означает, что если пользователь применит фильтр, перейдёт в экран деталей и затем вернётся обратно, фильтр будет сброшен.
 
 [[actions]]
-== Actions
+== Действия
 
-The `dataGrid` component implements the `HasActions` interface and can contain both standard xref:flow-ui:actions/list-actions.adoc[list actions] and custom actions. Actions are invoked by clicking designated buttons or from the <<context-menu, context menu>> that appears on the right click.
+Компонент `dataGrid` реализует интерфейс `HasActions` и может содержать как стандартные xref:flow-ui:actions/list-actions.adoc[действия списка], так и пользовательские. Выполнение действий происходит при нажатии соответствующих кнопок или через <<context-menu, контекстное меню>>, которое вызывается по правому клику.
 
 image::visual-components/components/data-grid-actions.png[align="center", width="732"]
 
 [TIP]
 ====
-To add `action` in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#add-action[Add->Action] button in the *Jmix UI* inspector panel.
+Чтобы добавить `action` в Jmix Studio, выберите компонент в XML-дескрипторе экрана или в панели структуры *Jmix UI*, затем нажмите кнопку xref:studio:screen-designer.adoc#add-action[Add->Action] в панели инспектора *Jmix UI*.
 ====
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -356,31 +361,31 @@ To add `action` in Jmix Studio, select the component in the view descriptor XML 
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=dataGrid-actions]
 ----
 
-<1> Define `hbox` to contain action buttons.
-<2> Define the `list_create` standard action.
-<3> Define the `getInfo` custom action. Value of its xref:flow-ui:vc/common-attributes.adoc#text[text] attribute represents the action in the context menu and is used as the button caption.
+<1> Определите `hbox` для размещения кнопок действий.
+<2> Определите стандартное действие `list_create`.
+<3> Определите пользовательское действие `getInfo`. Значение его атрибута xref:flow-ui:vc/common-attributes.adoc#text[text] используется как название действия в контекстном меню и как подпись кнопки.
 ====
 
 [[context-menu]]
-== Context Menu
+== Контекстное меню
 
-The context menu offers an alternative way to access <<actions, actions>> through a right click. Each action is represented by its own menu item.
+Контекстное меню предоставляет альтернативный способ доступа к <<actions, действиям>> через правую кнопку мыши. Каждое действие представлено отдельным пунктом меню.
 
-Use the `contextMenu` element to refine the list of items in the menu, organizing them with separators and a hierarchical structure.
+Элемент `contextMenu` позволяет настроить список пунктов, организовав их с помощью разделителей и иерархической структуры.
 
 image::visual-components/components/data-grid-context-menu.png[align="center", width="732"]
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=dataGrid-context-menu]
 ----
-<1> Hide all actions from the menu. Or hide a specific action using its xref:vc/common-attributes.adoc#visible[visible] attribute.
-<2> Add menu items explicitly for necessary actions.
-<3> Nest items within each other to create a hierarchy.
-<4> The item with content added dynamically via <<dynamicContentHandler, dynamicContentHandler>>.
+<1> Скрыть все действия из меню или скрыть конкретное действие, установив для него атрибут xref:vc/common-attributes.adoc#visible[visible].
+<2> Явно добавить пункты меню для необходимых действий.
+<3> Вложить пункты друг в друга для создания иерархии.
+<4> Пункт с содержимым, добавленным динамически через <<dynamicContentHandler, dynamicContentHandler>>.
 
 [source,java,indent=0]
 ----
@@ -389,7 +394,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ====
 
 [[renderers]]
-== Renderers
+== Рендереры
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -397,24 +402,24 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 </div>
 ++++
 
-Renderers are used to customize the display of data in a data grid. For example, you could use a renderer to:
+Рендереры используются для настройки отображения данных в таблице. Например, с помощью рендерера можно:
 
-* Format dates or numbers.
-* Display custom icons or images.
-* Create interactive elements, such as buttons or links.
-* Show different content based on the value of the cell.
+* Форматировать даты или числа.
+* Отображать пользовательские иконки или изображения.
+* Создавать интерактивные элементы, такие как кнопки или ссылки.
+* Показывать разное содержимое в зависимости от значения ячейки.
 
-Renderers can be defined in the following ways:
+Рендереры можно определить следующими способами:
 
-* *Declaratively in XML*
+* *Декларативно в XML*
 +
-There are a few pre-built renderers that can be assigned to a column in XML:
+Существует несколько встроенных рендереров, которые можно назначить столбцу в XML:
 
 ** `numberRenderer`
 ** `localDateRenderer`
 ** `localDateTimeRenderer`
 +
-They accept a `format` string. For example:
+Они принимают строку `format`. Например:
 +
 [source,xml,indent=0]
 ----
@@ -423,62 +428,62 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 +
 [TIP]
 ====
-To add a renderer in Jmix Studio, select the `column` element in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#component-inspector[Add-><Some>Renderer] button in the *Jmix UI* inspector panel.
+Для добавления рендерера в Jmix Studio выберите элемент `column` XML-дескрипторе экрана или в панели структуры *Jmix UI*, затем нажмите кнопку xref:studio:screen-designer.adoc#component-inspector[Add-><Some>Renderer] в панели инспектора *Jmix UI*.
 ====
 
-* *Using @Supply Annotation*
+* *Используя аннотацию @Supply*
 +
-Renderers can be supplied in a view controller using the `@Supply` annotation. Methods annotated with `@Supply` return a value that will be passed as an input parameter to a method defined by `subject`.
-+
-[TIP]
-====
-A custom renderer can be assigned to a column using the `renderer` handler which is available on the *Handlers* tab of the *Jmix UI* inspector for any `column` element.
-====
+Рендереры могут быть предоставлены в контроллере экрана с помощью аннотации `@Supply`. Методы, помеченные этой аннотацией, возвращают значение, которое передаётся в качестве входного параметра методу, указанному в свойстве `subject`.
 +
 [TIP]
 ====
-The <<column,column>> element can be defined without the <<property,property>> attribute, that is without direct binding to an entity attribute. In this case, the `column` element must have the <<key,key>> attribute with a unique value.
+Пользовательский рендерер может быть назначен столбцу с помощью обработчика `renderer`, доступного на вкладке *Handlers* в инспекторе *Jmix UI* для любого элемента `column`.
 ====
 +
-Check out examples <<text-renderer,here>> and <<component-renderer,here>>.
+[TIP]
+====
+Элемент <<column,column>> может быть определён без атрибута <<property,property>>, то есть без прямой привязки к атрибуту сущности. В этом случае элемент `column` должен иметь атрибут <<key,key>> с уникальным значением.
+====
++
+Примеры использования можно посмотреть <<text-renderer,здесь>> и <<component-renderer,здесь>>.
 
 [[fragment-renderer]]
-* *Using FragmentRenderer*
+* *Используя FragmentRenderer*
 +
-You can render columns using a nested `fragmentRenderer` element. Refer to the xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment Renderer] section for more information.
+Колонки можно отображать с помощью вложенного элемента `fragmentRenderer`. Подробнее смотрите в разделе xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Рендерер фрагментов].
 
-* *Using addColumn() and addComponentColumn()*
+* *Используя addColumn() и addComponentColumn()*
 +
-The `addColumn()` and `addComponentColumn()` methods allow you to add columns to the data grid.
+Методы `addColumn()` и `addComponentColumn()` позволяют добавлять столбцы в таблицу.
 +
-You can configure the added columns to use a renderer to show the data.
+Добавленным столбцам можно настроить использование рендерера для отображения данных.
 +
-In the following example, we will add a column displaying the user's picture:
+В следующем примере мы добавим столбец, показывающий фотографию пользователя:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=usersDtGr;fileStorage;onInit;addComponentColumn]
 ----
-<1> Adds a new column that shows the `image` component.
-<2> The `Image` component instance is created using the `UiComponents` factory.
-<3> `image` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
-<4> The `addComponentColumn()` method returns the visual component to be shown in the column cells.
+<1> Добавляет новый столбец, в котором отображается компонент `image`.
+<2> Экземпляр компонента `image` создаётся с помощью фабрики `UiComponents`.
+<3> Изображение получает содержимое из переданного `StreamResource`, ссылка на который хранится в атрибуте `picture` сущности `User`.
+<4> Метод `addComponentColumn()` возвращает визуальный компонент, который будет отображаться в ячейках столбца.
 
 [[local-date-renderer]]
-=== Local Date Renderer
+=== Рендерер LocalDate
 
-The `LocalDateRenderer` is responsible for presenting dates in the form of `LocalDate` values.
+`LocalDateRenderer` отвечает за отображение дат в формате значений типа `LocalDate`.
 
-Within the data grid's `column` element, there is a `localDateRenderer` sub-element that includes an optional `nullRepresentation` attribute and a mandatory `format` string attribute.
+В элементе `column` таблицы присутствует вложенный элемент `localDateRenderer`, который содержит необязательный атрибут `nullRepresentation` и обязательный атрибут `format` для строки формата.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=localDateRenderer]
 ----
 
-The `nullRepresentation` attribute is used to specify the textual representation of `null` values.
+Атрибут `nullRepresentation` используется для задания текстового отображения значений `null`.
 
-Below is an example using `LocalDateRenderer` with the `addColumn()` method:
+Ниже приведён пример использования `LocalDateRenderer` с методом `addColumn()`:
 
 [source,java,indent=0]
 ----
@@ -486,46 +491,46 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[local-date-time-renderer]]
-=== Local Date Time Renderer
+=== Рендерер LocalDateTime
 
-The `LocalDateTimeRenderer` is responsible for presenting dates in the form of `LocalDateTime` values.
+`LocalDateTimeRenderer` отвечает за отображение дат в формате значений типа `LocalDateTime`.
 
-Within the data grid's `column` element, there is a `localDateTimeRenderer` sub-element that includes an optional `nullRepresentation` attribute and a mandatory `format` string attribute.
+В элементе `column` таблицы присутствует вложенный элемент `localDateRenderer`, который содержит необязательный атрибут `nullRepresentation` и обязательный атрибут `format`, задающий строку формата.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=localDateTimeRenderer]
 ----
 
-The `nullRepresentation` attribute is used to specify the textual representation of `null` values.
+Атрибут `nullRepresentation` используется для задания текстового отображения значений `null`.
 
 [[number-renderer]]
-=== Number Renderer
+=== NumberRenderer
 
-The `NumberRenderer` allows you to display numbers in a specified format within the grid cells. It is particularly useful for rendering various types of numbers, including floating-point values.
+`NumberRenderer` позволяет отображать числа в заданном формате в ячейках таблицы. Он особенно полезен для отображения различных типов чисел, включая числа с плавающей запятой.
 
-Within the data grid's `column` element, there is a `numberRenderer` sub-element that includes an optional `nullRepresentation` attribute and a mandatory `format` or `numberFormat` attribute.
+В элементе `column` таблицы присутствует вложенный элемент `numberRenderer`, который содержит необязательный атрибут `nullRepresentation` и обязательный атрибут `format` или `numberFormat`.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=numberFormat]
 ----
 
-The `nullRepresentation` attribute is used to specify the textual representation of `null` values.
+Атрибут `nullRepresentation` используется для задания текстового отображения значений `null`.
 
-The `numberFormat` attribute follows the formatting rules and syntax of the `java.text.DecimalFormat` class.
+Атрибут `numberFormat` использует правила и синтаксис форматирования класса `java.text.DecimalFormat`.
 
 [NOTE]
 ====
-`numberRenderer` requires only one format attribute. Without any attributes, it will throw a `GuiDevelopmentException`. Additionally, it is not possible to apply a format from two attributes defined together - a `GuiDevelopmenException` will be thrown.
+Для `numberRenderer` требуется указать только один атрибут формата. Если ни один из атрибутов не задан, будет выброшено исключение `GuiDevelopmentException`. Кроме того, нельзя одновременно задавать формат с помощью двух атрибутов - это также приведёт к выбросу исключения `GuiDevelopmentException`.
 ====
 
 [[text-renderer]]
-=== Text Renderer
+=== TextRenderer
 
-`TextRenderer` is a renderer for presenting simple plain-text string values.
+`TextRenderer` - это рендерер для отображения простых строковых значений в виде обычного текста.
 
-In the example below, a custom text is displayed in the column:
+В приведённом ниже примере в колонке отображается пользовательский текст:
 
 [source,xml,indent=0]
 ----
@@ -538,9 +543,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[component-renderer]]
-=== Component Renderer
+=== ComponentRenderer
 
-The example below shows how to define a column with custom renderer which displays a checkbox:
+В примере ниже показано, как определить столбец с пользовательским рендерером, отображающим чекбокс:
 
 [source,xml,indent=0]
 ----
@@ -553,7 +558,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[item-details]]
-== Item Details
+== Детализация элементов
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -561,20 +566,23 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 </div>
 ++++
 
+Компонент `ItemDetails` позволяет разворачивать строки для отображения дополнительной информации об элементе. Для реализации данной функциональности используйте метод `setItemDetailsRenderer()`.
 
-This component allows rows to expand, revealing additional information about each item. To implement this functionality, use the `setItemDetailsRenderer()` method. This method takes a <<component-renderer, ComponentRenderer>> as an argument, which specifies how the details are rendered.
+Метод принимает в качестве аргумента объект <<component-renderer, ComponentRenderer>>, который определяет способ отображения детализированной информации.
 
 image::visual-components/components/data-grid-items-details.png[align="center", width="750"]
 
-The <<detailsVisibleOnClick, detailsVisibleOnClick>> attribute allows you to control whether these details appear when the row is clicked. If you prefer the details to be triggered by an event other than clicking, set this attribute to `false`.
+Атрибут <<detailsVisibleOnClick, detailsVisibleOnClick>> позволяет управлять отображением дополнительных сведений при клике на строку. Если необходимо, чтобы детализация появлялась по другому событию (не по клику), установите значение этого атрибута в `false`.
 
 [[sorting]]
-== Sorting
+== Сортировка
 
-Any column can be used for sorting the data displayed. Clicking on the column header activates a special control in the grid that shows which column is currently being sorted and the sorting direction (ascending or descending). Each subsequent click on the same header will toggle the sorting direction.
+Любой столбец таблицы может использоваться для сортировки отображаемых данных. При нажатии на заголовок столбца в таблице активируется специальный индикатор, который показывает текущий столбец сортировки и направление сортировки (по возрастанию или убыванию).
+
+Последующие нажатия на тот же заголовок будут переключать направление сортировки на противоположное.
 
 [[multiple-sorting]]
-=== Sorting by Multiple Columns
+=== Сортировка по нескольким столбцам
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -582,9 +590,11 @@ Any column can be used for sorting the data displayed. Clicking on the column he
 </div>
 ++++
 
-It is also possible to sort by multiple columns simultaneously. When sorting by multiple columns, the first selected column determines the primary sorting criterion, the second column sets the secondary criterion, and so on. You can configure it using <<multiSort, multiSort>>, <<multiSortOnShiftClickOnly, multiSortOnShiftClickOnly>>, and <<multiSortPriority, multiSortPriority>> attributes.
+Данные можно сортировать одновременно по нескольким столбцам. В этом случае первый выбранный столбец определяет основной критерий сортировки, второй столбец задаёт дополнительный критерий, а последующие столбцы устанавливают второстепенные критерии сортировки.
 
-For example:
+Настройка осуществляется с помощью атрибутов <<multiSort, multiSort>>, <<multiSortOnShiftClickOnly, multiSortOnShiftClickOnly>> и <<multiSortPriority, multiSortPriority>>.
+
+Пример:
 
 [source,xml,indent=0]
 ----
@@ -592,29 +602,29 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[aggregating]]
-== Aggregating
+== Агрегация данных
 
-The component supports aggregating values in its rows. When aggregation is enabled, it will display an additional row containing aggregated values. For example:
+Компонент поддерживает агрегацию значений в строках. При включении этой функции отображается дополнительная строка с агрегированными значениями.
+
+Например:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=aggregatable-dataGrid]
 ----
 
-<1> Set the <<aggregatable, aggregatable>> attribute to `true`.
+<1> Установите атрибут <<aggregatable, aggregatable>> в значение `true`.
+<2> Для каждого столбца, который нужно агрегировать, добавьте элемент `aggregation`. При необходимости укажите атрибут `cellTitle` для отображения подсказки при наведении на агрегированное значение.
+<3> Определите xref:flow-ui:vc/miscellaneous/formatter.adoc[formatter] для отображения значения в нестандартном формате.
 
-<2> Add the `aggregation` element for columns you want to aggregate. Add optional `cellTitle` attribute to display a hint when the user hovers aggregated value.
-
-<3> Specify xref:flow-ui:vc/miscellaneous/formatter.adoc[formatter] to display the aggregated value in the format other than the standard for this data type.
-
-The `aggregation` element can specify a class with custom aggregation logic through `strategyClass` attribute:
+Элемент `aggregation` позволяет задать пользовательскую логику вычисления агрегированных значений с помощью атрибута `strategyClass`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-view.xml[tags=aggregatable-grid]
 ----
 
-Such class must implement `AggregationStrategy` interface. For example:
+Такой класс должен реализовывать интерфейс `AggregationStrategy`. Например:
 
 [source,java,indent=0]
 ----
@@ -622,294 +632,308 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[empty-state]]
-== Empty State
+== Отображение при отсутствии данных
 
-When a data grid has no data to display, the area between the header and footer is blank by default. Use the empty state feature to display a message or UI component informing the user that there are no items to show.
+Когда таблица данных не содержит информации для отображения, область между заголовком и подвалом по умолчанию остается пустой. Функция пустого состояния позволяет вывести сообщение или интерфейсный компонент, информирующий пользователя об отсутствии данных.
 
-* Use the `emptyStateText` attribute to define the text that appears when the data grid is empty.
+* Используйте атрибут `emptyStateText` для определения текста, который будет отображаться при пустой таблице.
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=empty-state]
 ----
 +
-NOTE: This attribute takes precedence over any empty state component configured using the `setEmptyStateComponent(Component)` method in the view controller or the `emptyStateComponent` element in the view XML-descriptor. Setting `emptyStateText` will remove any existing component.
-* Use the `emptyStateComponent` element to define the component that appears when the grid is empty.
+NOTE: Данный атрибут имеет приоритет над компонентом пустого состояния, настроенным через метод `setEmptyStateComponent(Component)` в контроллере экрана и над элементом `emptyStateComponent` в XML-дескрипторе. Установка значения `emptyStateText` приведёт к удалению любого ранее заданного компонента.
+* Для отображения компонента при отсутствии данных используйте элемент `emptyStateComponent`.
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datagrid/data-grid-features-view.xml[tags=empty-state-comp]
 ----
 +
-Once you've set `emptyStateComponent`, you can interact with the nested component as usual. This includes customizing its styling and creating event handlers.
+После настройки `emptyStateComponent` вы можете работать с вложенным компонентом как обычно, включая настройку его стилей и создание обработчиков событий.
 +
-NOTE: Setting this element overrides any empty state text defined using the `setEmptyStateText(String)` method in the view controller or the `emptyStateText` attribute in the view XML-descriptor.
+[NOTE]
+====
+Установка этого компонента отменяет:
 
-== Attributes
+* любой текст пустого состояния, заданный методом `setEmptyStateText(String)` в контроллере экрана;
+* атрибут `emptyStateText` в XML-дескрипторе экрана.
+====
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
- The following are attributes specific to `dataGrid`:
+== Атрибуты
+
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые выполняют одинаковые функции для всех компонентов. Ниже перечислены атрибуты, специфичные для `dataGrid`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по-умолчанию*
 |[[allRowsVisible]]allRowsVisible
-|If `true`, the data grid will display all rows at once with no scroll bars, effectively disabling virtual scrolling. This means that instead of only rendering the visible rows and loading more as the user scrolls, the grid will render all the rows in the DOM simultaneously.
+|Если значение равно `true`, таблица будет отображать все строки одновременно без полос прокрутки, фактически отключая виртуальную прокрутку. Это означает, что вместо рендеринга только видимых строк и подгрузки дополнительных при прокрутке пользователем, таблица будет отображать все строки в DOM одновременно.
 
-*Using this feature is discouraged for a large number of items as it may cause performance issues.*
+*Использование этой функции не рекомендуется при работе с большим количеством элементов, так как это может вызвать проблемы с производительностью.*
 |`false`
 |[[aggregatable]]aggregatable
-|If `true`, enables aggregating of columns. See <<aggregating, Aggregating>>.
+|Если значение `true`, активирует агрегацию столбцов. Смотрите раздел <<aggregating, Агрегация данных>>.
 |`false`
 |[[aggregationPosition]]aggregationPosition
-|If the data in the component is <<aggregatable,aggregatable>>, determines whether the aggregation row is displayed above or below the other rows. Possible values: `TOP` or `BOTTOM`. See <<aggregating, Aggregating>>.
+|Определяет положение строки с <<aggregatable,агрегированными>> данными. Допустимые значения: `TOP` (вверху) или `BOTTOM` (внизу). Подробнее смотрите раздел <<aggregating, Агрегация данных>>.
 |`BOTTOM`
 |[[columnReorderingAllowed]]columnReorderingAllowed
-|If `true`, enables users to change the order of columns.
+|Если значение `true`, позволяет пользователям изменять порядок столбцов.
 |`false`
 |[[detailsVisibleOnClick]]detailsVisibleOnClick
-|If `true`, enables <<item-details,item details>> to be revealed on mouse click.
+|Если значение `true`, позволяет раскрывать <<item-details,детализацию элементов>> по клику мыши.
 |`true`
 |[[dropMode]]dropMode
-|Determines rows where a drop can happen. Possible values: `BETWEEN`, `ON_TOP`, `ON_TOP_OR_BETWEEN`, `ON_GRID`. This feature might be used, for example, to reorder rows and to drag rows between grids.
+|Определяет, в каких строках возможно выполнение операции перетаскивания (drop). Допустимые значения: `BETWEEN`, `ON_TOP`, `ON_TOP_OR_BETWEEN`, `ON_GRID`. Данная функция может использоваться, например, для изменения порядка строк и для перемещения строк в рамках таблицы.
 |–
 |[[editorBuffered]]editorBuffered
-|If `true`, activates buffered mode for <<inline-editing, inline editing>>,  meaning that the user must confirm making changes by clicking a confirm button. This mode also allows users to cancel their changes. In unbuffered mode changes are applied without the need for confirmation.
+|При значении `true` активируется буферизированный режим <<inline-editing,редактирования>>, который означает что:
+
+- пользователь должен подтверждать изменения нажатием кнопки подтверждения;
+
+- предусмотрена возможность отмены внесённых изменений.
+
+В небуферизированном режиме (unbuffered mode) изменения применяются сразу без необходимости подтверждения.
 |`false`
 |[[emptyStateText]]emptyStateText
-|The text to display when the data grid is empty. Use null to remove the current empty state content. See <<empty-state, Empty State>>.
+|Определяет текст, отображаемый когда таблица данных пуста. Используйте `null` для удаления текущего содержимого пустого состояния. Подробнее смотрите раздел <<empty-state, Отображение при отсутствии данных>>.
 |–
 |[[multiSort]]multiSort
-|If `true`, enables sorting by multiple columns.
+|При значении `true` активируется возможность сортировки данных по нескольким столбцам одновременно.
 |`false`
 |[[multiSortOnShiftClickOnly]]multiSortOnShiftClickOnly
-|If `true`, multi-sorting is activated only when clicking on the column header while holding down the Shift key.
+|При значении `true` множественная сортировка активируется только при одновременном нажатии и удержании клавиши Shift и клике на заголовке.
 |`false`
 |[[multiSortPriority]]multiSortPriority
-|Determines whether the clicked column is added to the end or beginning of the sorted columns list. Possible values: `PREPEND`, `APPEND`.
+|Определяет, добавляется ли выбранный столбец в начало или конец списка сортировки. Допустимые значения: `PREPEND`, `APPEND`.
 |`PREPEND`
 |[[nestedNullBehavior]]nestedNullBehavior
-|Sets the behavior when parsing nested properties which may contain null values in the property chain. Possible values: `THROW`, `ALLOW_NULLS`.
+|Определяет поведение при обработке вложенных свойств, которые могут содержать значения null в цепочке свойств. Допустимые значения: `THROW`, `ALLOW_NULLS`.
 |`THROW`
 |[[pageSize]]pageSize
-|Determines the page size or the number of items that will be fetched from the data provider at a time.
+|Определяет размер страницы (количество элементов, загружаемых из источника данных за один раз).
 |`50`
 |[[rowDraggable]]rowDraggable
-|If `true`, enables users to drag rows in the grid.
+|Если значение `true`, пользователи могут перетаскивать строки в таблице.
 |`false`
 |[[selectionMode]]selectionMode
-|Sets the selection mode. Possible values: `SINGLE`, `MULTI`.
+|Устанавливает режим выделения элементов. Допустимые значения:
+
+- `SINGLE` - одиночное выделение
+
+- `MULTI` - множественное выделение
 |`SINGLE`
 |===
 
-== Handlers
+== Обработчики
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `dataGrid`:
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов. Ниже представлены обработчики, специфичные для `dataGrid`:
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[CellFocusEvent]]CellFocusEvent
-|`com.vaadin.flow.component.grid.CellFocusEvent` fired when a cell in the data grid is focused. Corresponds to the `grid-cell-focus` DOM event.
+|`com.vaadin.flow.component.grid.CellFocusEvent` - событие, которое возникает при фокусировке ячейки в таблице. Соответствует событию DOM `grid-cell-focus`.
 |[[ColumnReorderEvent]]ColumnReorderEvent
-|`com.vaadin.flow.component.grid.ColumnReorderEvent` fired when the columns in the data grid are reordered. Corresponds to the `column-reorder-all-columns` DOM event.
+|`com.vaadin.flow.component.grid.ColumnReorderEvent` - событие, которое возникает при изменении порядка столбцов в таблице. Соответствует событию DOM `column-reorder-all-columns`.
 |[[ColumnResizeEvent]]ColumnResizeEvent
-|`com.vaadin.flow.component.grid.ColumnResizeEvent` fired when a data grid column is resized by the user. Corresponds to the `column-drag-resize` DOM event.
+|`com.vaadin.flow.component.grid.ColumnResizeEvent` - событие, которое возникает при изменении размера столбца в таблице данных пользователем. Соответствует событию DOM `column-drag-resize`.
 |[[GridDragEndEvent]]GridDragEndEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - drag end event of dataGrid rows. Corresponds to the `grid-dragend` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - событие окончания перетаскивания строк в таблице данных. Соответствует событию DOM `grid-dragend`.
 |[[GridDragStartEvent]]GridDragStartEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - drag start event of dataGrid rows. Corresponds to the `grid-dragstart` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - событие начала перетаскивания строк в таблице данных. Соответствует событию DOM `grid-dragstart`.
 |[[GridDropEvent]]GridDropEvent
-|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - drop event that occurs on the data grid or its rows. Corresponds to the `grid-drop` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - представляет событие перетаскивания (drop), которое возникает на самой таблице данных или на её строках. Соответствует событию DOM `grid-drop`.
 |[[ItemClickEvent]]ItemClickEvent
-|`com.vaadin.flow.component.grid.ItemClickEvent` fired when a data grid item is clicked. Corresponds to the `item-click` DOM event.
+|`com.vaadin.flow.component.grid.ItemClickEvent` - событие, которое возникает при клике на элемент таблицы данных. Соответствует событию DOM `item-click`.
 |[[ItemDoubleClickEvent]]ItemDoubleClickEvent
-|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` fired when a data grid item is double-clicked. Corresponds to the `item-double-click` DOM event.
+|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` - событие, которое возникает при двойном клике на элемент таблицы данных. Соответствует событию DOM `item-double-click`.
 |[[SortEvent]]SortEvent
-|`com.vaadin.flow.data.event.SortEvent` - event describing a change in sorting of a DataProvider. Fired by `SortNotifiers`.
+|`com.vaadin.flow.data.event.SortEvent` - событие, описывающее изменение сортировки в `DataProvider`. Генерируется объектами, реализующими интерфейс `SortNotifier`.
 |[[dataGenerator]]dataGenerator
-|Adds a data generator for the data grid. If the generator was already added, does nothing. See the `com.vaadin.flow.data.provider.HasDataGenerators` interface.
+|Добавляет генератор данных для таблицы. Если генератор уже был добавлен, действие не выполняется. Подробнее см. в интерфейсе `com.vaadin.flow.data.provider.HasDataGenerators`.
 |[[dragFilter]]dragFilter
-|Allows to control which specific rows can be dragged, rather than making all rows draggable with <<rowDraggable, rowDraggable>>.
+|Позволяет задавать, какие именно строки можно перетаскивать, вместо активации этой функции для всех строк через атрибут <<rowDraggable, rowDraggable>>.
 |[[dropFilter]]dropFilter
-|Allows to control which specific rows are valid drop targets.
+|Позволяет задавать, какие именно строки могут быть целями для операции перетаскивания (drop targets).
 |[[enterPressHandler]]enterPressHandler
-|Handles the event when the user presses the Enter key.
+|Обрабатывает событие нажатия пользователем клавиши Enter.
 |[[tooltipGenerator]]tooltipGenerator
 // Flow UI sample uses different approach.
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Функция создает всплывающие подсказки (tooltip) для ячеек столбца на основе заданных условий. Смотрите рабочий пример в https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[живой демонстрации^].
 |===
 
-== Elements
+== Элементы
 
-Elements of `dataGrid` provide a wide range of options to control the appearance, behavior, and functionality of columns both collectively and individually.
+Элементы `dataGrid` предоставляют широкий набор возможностей для управления внешним видом, поведением и функциональностью столбцов как в целом, так и по отдельности.
 
 [TIP]
 ====
-To add an element to a selected component click the xref:studio:screen-designer.adoc#add-column[Add] button in the *Jmix UI* inspector panel.
+Чтобы добавить элемент в выбранный компонент, нажмите кнопку xref:studio:screen-designer.adoc#add-column[Add] в панели инспектора *Jmix UI*.
 ====
 
 [[columns]]
 === columns
 
-The `columns` element can specify a set of attributes to display and behaviors for all columns.
+Элемент `columns` позволяет задать набор атрибутов для отображения и поведения для всех столбцов.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`columns`
-|Attributes
+|Атрибуты
 |<<exclude,exclude>> - <<includeAll,includeAll>> - <<resizable-columns,resizable>> - <<sortable-columns,sortable>>
-|Elements
+|Элементы
 |<<column,column>> - <<actions-column,EditorActionsColumn>>
 |===
 
-.Attributes
+.Атрибуты
 [cols="1h,5,1", grid=rows]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по-умолчанию*
 |[[exclude]]exclude
-|Excludes specific attributes from being shown. Several attributes must be separated with a comma. For example: `exclude = "id, version, sortValue"`.
+|Исключает отображение определённых атрибутов. Несколько атрибутов следует перечислять через запятую. Например: `exclude = "id, version, sortValue"`.
 |–
 |[[includeAll]]includeAll
-|If `true` includes all the attributes specified in the corresponding data container's fetch plan.
+|Если значение равно `true`, включаются все атрибуты, указанные в фетч-плане соответствующего контейнера данных.
 |–
 |[[resizable-columns]]resizable
-|If `true`, all columns are user-resizable.
+|При значении `true` пользователь может изменять ширину всех столбцов таблицы.
 |`false`
 |[[sortable-columns]]sortable
-|If `true`, all columns are sortable.
+|Если значение равно `true`, все столбцы поддерживают сортировку пользователем.
 |`true`
 |===
 
 [[column]]
 === column
 
-The `column` element defines an individual column. Attributes set for an individual column override those set for all columns.
+Элемент `column` определяет отдельный столбец. Атрибуты, заданные для отдельного столбца, переопределяют атрибуты, установленные для всех столбцов.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`column`
-|Attributes
+|Атрибуты
 |<<autowidth,autowidth>> - <<editable,editable>> - <<filterable,filterable>> - <<flexGrow,flexGrow>> - <<footer,footer>> - <<frozen,frozen>> - <<header,header>> - <<key,key>> - <<property,property>> - <<resizable-column,resizable>> - <<sortable-column,sortable>> - <<textAlign,textAlign>> - <<visible,visible>> - <<width,width>>
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] - <<DataGridColumnVisibilityChangedEvent,DataGridColumnVisibilityChangedEvent>> - xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<partNameGenerator,partNameGenerator>> - <<renderer,renderer>> - <<tooltipGenerator-column,tooltipGenerator>>
-|Elements
+|Элементы
 |<<aggregating,Aggregation>> - <<fragment-renderer,FragmentRenderer>> - <<local-date-renderer,LocalDateRenderer>> - <<local-date-time-renderer,LocalDateTimeRenderer>> - <<number-renderer,NumberRenderer>>
 |===
 
-.Attributes
+.Атрибуты
 [cols="1h,5,1", grid=rows]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по-умолчанию*
 |[[autowidth]] autoWidth
-|If `true`, the column width will adjust to its contents.
+|Если значение равно `true`, ширина столбца будет автоматически подстраиваться под его содержимое.
 |`false`
 |[[editable]]editable
-|If `true`, the column can be edited. See <<inline-editing, Inline Editing>>.
+|Если значение равно `true`, столбец можно редактировать. Подробнее смотрите раздел <<inline-editing, Встроенное редактирование>>.
 |`false`
 |[[filterable]]filterable
-|If `true` enables filtering for this column. See <<column-filtering,Filtering>>.
+|Если значение равно `true`, для этого столбца включается фильтрация. Подробнее смотрите раздел <<column-filtering,Фильтрация по заголовкам столбцов>>.
 |`false`
 |[[flexGrow]]flexGrow
-|Sets the flex grow ratio for this column. When set to `0`, the column width is fixed.
+|Задаёт коэффициент расширения (flex grow) для данного столбца. При значении `0` ширина столбца фиксирована.
 |`0`
 |[[footer]]footer
-|Sets a footer text to the column. The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+|Задаёт текст в нижней части столбца (футере). Значением атрибута может быть либо сам текст, либо ключ из xref:localization:message-bundles.adoc[пакета сообщений]. В случае использования ключа значение должно начинаться с префикса `msg://`.
 | –
 |[[frozen]]frozen
-|If `true`, freezes (locks in place) the column, so that it remains visible as the user scrolls the table horizontally. It's generally recommended to freeze columns from left to right.
+|Если значение равно `true`, столбец фиксируется (закрепляется на месте) и остаётся видимым при горизонтальной прокрутке таблицы. Рекомендуется фиксировать столбцы слева направо.
 |`false`
 |[[header]]header
-|Sets the column header text. The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+|Задаёт текст заголовка столбца. Значением атрибута может быть либо сам текст, либо ключ из xref:localization:message-bundles.adoc[пакета сообщений]. В случае использования ключа значение должно начинаться с префикса `msg://`.
 | –
 |[[key]]key
-|Sets the user-defined identifier to map this column. The key can be used to fetch the column later with the `getColumnByKey(String)` method.
+|Задаёт пользовательский идентификатор для привязки к этому столбцу. Этот ключ можно использовать для последующего получения столбца с помощью метода `getColumnByKey(String)`.
 
-The key has to be unique within the data grid, and it can’t be changed after set once.
+Ключ должен быть уникальным в пределах `dataGrid` и не может быть изменён после установки.
 |–
 |[[property]]property
-|Specifies the name of an entity attribute to be displayed in the column. This can be an attribute of the root entity `property = "user"` or an attribute of its child entity `property = `user.department.name` (use dot notation to traverse the object graph).
+|Указывает имя атрибута сущности, который будет отображаться в столбце. Это может быть атрибут корневой сущности, например, `property = "user"`, или атрибут дочерней сущности, например, `property = "user.department.name"` (используйте точечную нотацию для перехода по объектному графу).
 |–
 |[[resizable-column]]resizable
-|If `true`, the column is user-resizable.
+|Если значение равно `true`, пользователь может изменять ширину столбца.
 |`false`
 |[[sortable-column]]sortable
-|If `true`, the column is sortable.
+|Если значение равно `true`, столбец поддерживает сортировку.
 |`false`
 |[[textAlign]]textAlign
-|Specifies the alignment of the text with the following possible values: `START`, `CENTER`, `END`. See Text Alignment.
+|Задает выравнивание текста с возможными значениями: `START`, `CENTER`, `END`.
 |`START`
 |[[visible]]visible
-|If `true`, the column is visible.
+|Если значение `true`, столбец видимый.
 |`true`
 |[[width]]width
-|Sets the width of the column as a CSS string.
+|Задает ширину столбца в виде CSS-строки.
 |–
 |===
 
-.Handlers
+.Обработчики
 [cols="1h,6", grid=rows]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[DataGridColumnVisibilityChangedEvent]]DataGridColumnVisibilityChangedEvent
-|Fired when the column visibility is changed through the xref:flow-ui:vc/components/gridColumnVisibility.adoc[] component.
+|Срабатывает при изменении видимости столбца через компонент xref:flow-ui:vc/components/gridColumnVisibility.adoc[].
 |[[partNameGenerator]]partNameGenerator
-|Generates parts of CSS class names for this column based on given conditions. This allows for customizing cell appearance based on the data displayed. See https://demo.jmix.ru/ui-samples/sample/data-grid-part-name-generator[live demo^].
+|Генерирует части CSS-классов для этого столбца на основе заданных условий. Это позволяет настраивать внешний вид ячеек в зависимости от отображаемых данных. Смотрите https://demo.jmix.ru/ui-samples/sample/data-grid-part-name-generator[живую демонстрацию^].
 |[[renderer]]renderer
-|Renders column content using text or components. See <<text-renderer,text renderer>> and <<component-renderer, component renderer>>.
+|Отображает содержимое столбца с использованием текста или компонентов. Смотрите <<text-renderer,TextRenderer>> и <<component-renderer, ComponentRenderer>>.
 |[[tooltipGenerator-column]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Генерирует всплывающую подсказку для ячейки столбца на основе заданных условий. Смотрите https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[живую демонстрацию^].
 |===
 
 [[context-menu-element]]
 === contextMenu
 
-The `contextMenu` element organizes items the right-click menu in a way that differs from their default arrangement. See the <<context-menu, example>>.
+Элемент `contextMenu` организует пункты контекстного меню (вызываемого правой кнопкой мыши) в порядке, отличном от стандартного. Смотрите  <<context-menu, пример>>.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`contextMenu`
-|Attributes
+|Атрибуты
 
 |xref:vc/common-attributes.adoc#id[id] - xref:vc/common-attributes.adoc#classNames[classNames] - xref:vc/common-attributes.adoc#css[css] - xref:vc/common-attributes.adoc#enabled[enabled] - xref:vc/common-attributes.adoc#visible[visible]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<GridContextMenuOpenedEvent,GridContextMenuOpenedEvent>> - <<openedChangeEvent,openedChangeEvent>> - <<dynamicContentHandler,dynamicContentHandler>>
-|Elements
+|Элементы
 |item - separator
 |===
 
-.Handlers
+.Обработчики
 [cols="1h,6", grid=rows]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[GridContextMenuOpenedEvent]]GridContextMenuOpenedEvent
-|Fired when the context menu opened state changes. May return the target item or the id of the target column allowing the menu to display items based on the clicked item.
+|Срабатывает при изменении состояния открытия контекстного меню. Может возвращать целевой элемент или идентификатор целевого столбца, позволяя меню отображать пункты в зависимости от выбранного элемента.
 |[[openedChangeEvent]]openedChangeEvent
-|Fired when the context menu opened state changes.
+|Срабатывает при изменении состояния открытия контекстного меню.
 |[[dynamicContentHandler]]dynamicContentHandler
-|Handles dynamic updates to the menu when it opens, such as adding menu items or their content. See the <<context-menu, example>>.
+|Обрабатывает динамические обновления меню при его открытии, такие как добавление пунктов меню или их содержимого. Смотрите <<context-menu, пример>>.
 |===
 
 [[empty-state-component-element]]
 === emptyStateComponent
 
-The `emptyStateComponent` element defines the component to display when the grid is empty. Use null to remove the current empty state content. See <<empty-state, Empty State>>.
+Элемент `emptyStateComponent` определяет компонент для отображения при пустом состоянии таблицы. Используйте `null`, чтобы удалить текущее содержимое. Смотрите раздел <<empty-state, Отображение при отсутствии данных>>.
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/grid[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/grid[документацию Vaadin^] для получения дополнительной информации.
