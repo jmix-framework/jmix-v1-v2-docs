@@ -7,9 +7,10 @@
 </div>
 ++++
 
-`codeEditor` - это компонент для отображения и ввода исходного кода.
+`codeEditor` - это компонент для отображения и ввода исходного кода. Он представляет собой многострочное текстовое поле с подсветкой синтаксиса, опциональным полем печати и боковой панелью с номерами строк.
 
-`codeEditor` представляет собой многострочное текстовое поле с подсветкой синтаксиса, опциональным полем печати и боковой панелью с номерами строк.
+`codeEditor` основан на встраиваемом редакторе кода https://ace.c9.io[Ace^], написанном на JavaScript.
+
 [cols="1h,6", grid=none]
 |===
 |XML-элемент
@@ -23,6 +24,7 @@ xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
 xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+<<defaultSuggestionsEnabled,defaultSuggestionsEnabled>> -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#errorMessage[errorMessage] -
 xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
@@ -32,6 +34,7 @@ xref:vc/common-attributes.adoc#helperText[helperText] -
 <<highlightActiveLine,highlightActiveLine>> -
 <<highlightGutterLine,highlightGutterLine>> -
 xref:vc/common-attributes.adoc#label[label] -
+<<liveSuggestionsEnabled,liveSuggestionsEnabled>> -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
@@ -46,6 +49,7 @@ xref:vc/common-attributes.adoc#requiredMessage[requiredMessage] -
 <<showLineNumbers,showLineNumbers>> -
 <<showPrintMargin,showPrintMargin>> -
 xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
+<<suggestOn,suggestOn>> -
 <<textWrap,textWrap>> -
 <<theme,theme>> -
 xref:vc/common-attributes.adoc#title[title] -
@@ -132,6 +136,45 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Список поддерживаемых тем определяется в перечислении `CodeEditorTheme`.
 
+[[suggestion]]
+== Автодополнение
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/code-editor-suggestions" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+Компонент `codeEditor` поддерживает функции автодополнения.
+
+Автодополнение может предлагать стандартные варианты в зависимости от <<about-mode,режима>>, если установить атрибут `defaultSuggestionsEnabled` в `true`:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/codeeditor/code-editor-view.xml[tags=defaultSuggestionsEnabled]
+----
+
+Вы можете предоставить свои варианты, используя обработчик `suggester`, например:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/codeeditor/code-editor-view.xml[tags=code-editor-with-custom-suggestions]
+----
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/codeeditor/CodeEditorView.java[tags=code-editor-with-custom-suggestions]
+----
+
+По умолчанию всплывающее окно автодополнения открывается при нажатии пользователем сочетания клавиш:
+
+* Windows и Linux: *Ctrl-Space*
+* macOS: *⌥-Space* или *⌃-Space* (в зависимости от настроек системы)
+
+Если атрибут `suggestOn` установлен в регулярное выражение, всплывающее окно автодополнения открывается автоматически при вводе пользователем соответствующей строки. Например, если `suggestOn="\."`, автодополнение сработает после ввода точки.
+
+Если атрибут `liveSuggestionsEnabled` установлен в `true`, предложения будут появляться автоматически по мере ввода текста, без необходимости ручного вызова или настройки атрибута `suggestOn`. Все обработчики `suggester` будут запрашивать варианты, как только пользователь введёт какой-либо символ слова. Обратите внимание, что живое автодополнение может потреблять значительные ресурсы при работе с большим объёмом контента или сложными обработчиками, поэтому по умолчанию `liveSuggestionsEnabled` имеет значение `false`.
+
 [[validation]]
 == Валидация
 
@@ -158,6 +201,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |*Название*
 |*Описание*
 |*Значение по умолчанию*
+|[[defaultSuggestionsEnabled]]defaultSuggestionsEnabled
+|Автодополнение <<suggestion,предлагает>> варианты по умолчанию, в зависимости от языкового <<mode,режима>>.
+|`false`
 |[[fontSize]]fontSize
 |Устанавливает размер шрифта для кода в редакторе.
 |`1rem`
@@ -167,6 +213,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[highlightGutterLine]]highlightGutterLine
 |Устанавливает выделение текущей строки в боковой панели с номерами строк. Если выделение включено, строка в боковой панели, на которой находится курсор, будет выделена.
 |`true`
+|[[liveSuggestionsEnabled]]liveSuggestionsEnabled
+|Открывать всплывающее окно <<suggestion,автодополнения>> автоматически при наборе текста пользователем.
+|`false`
 |[[mode]]mode
 |Устанавливает подсветку синтаксиса для определенного режима. Список поддерживаемых режимов определяется в перечислении `CodeEditorMode`. Смотрите <<about-mode, Режим отображения кода>>.
 |`CodeEditorMode.PLAIN_TEXT`
@@ -182,6 +231,10 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[showPrintMargin]]showPrintMargin
 |Используется для управления видимостью линии отступа для печати. Эта линия представляет собой вертикальную направляющую, которая появляется в редакторе кода и помогает разработчикам визуально разделить код, который поместится на печатной странице, от кода, который будет обрезан.
 |`true`
+|[[suggestOn]]suggestOn
+|A regular expression to trigger <<suggestion,autocompletion>> when the user enters a matching string.
+Регулярное выражение для вызова <<suggestion,автодополнения>> при вводе пользователем соответствующей строки.
+|
 |[[textWrap]]textWrap
 |Определяет, должны ли длинные строки кода переноситься (разбиваться на несколько строк), чтобы поместиться в видимую область редактора, или же они должны отображаться как одна строка, которая выходит за пределы ширины окна.
 |`false`

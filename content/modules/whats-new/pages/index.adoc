@@ -34,6 +34,19 @@
 
 Новый компонент xref:flow-ui:vc/components/switch.adoc[switch] предназначен для представления бинарного выбора, позволяя пользователям переключаться между двумя состояниями (например, `true`/`false`).
 
+=== Автодополнение в CodeEditor
+
+Компонент `codeEditor` теперь предоставляет автодополнение для определенного режима языка или с использованием пользовательских обработчиков.
+
+Подробнее см. в разделе xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor: Автодополнение].
+
+[[save-without-reload]]
+=== Метод DataManager.saveWithoutReload
+
+Новый метод `DataManager.saveWithoutReload()` улучшает производительность, когда сохраненные экземпляры не требуются для дальнейшей обработки сразу. Вы можете использовать его вместо громоздкой операции `save(new SaveContext().saving(сущности).setDiscardSaved(true))`.
+
+Подробнее см. в разделе xref:data-access:data-manager.adoc#save[Работа с DataManager: Сохранение сущностей].
+
 [[breaking-changes]]
 == Критические изменения
 

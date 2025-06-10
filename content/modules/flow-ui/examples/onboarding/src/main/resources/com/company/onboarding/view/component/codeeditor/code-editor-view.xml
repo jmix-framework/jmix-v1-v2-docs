@@ -25,5 +25,13 @@
                     dataContainer="orderReportDc"
                     property="code"/> <!--3-->
         <!-- end::data-aware[] -->
+
+        <!-- tag::defaultSuggestionsEnabled[] -->
+        <codeEditor mode="GROOVY" defaultSuggestionsEnabled="true"/>
+        <!-- end::defaultSuggestionsEnabled[] -->
+
+        <!-- tag::code-editor-with-custom-suggestions[] -->
+        <codeEditor id="codeEditorWithCustomSuggestions"/>
+        <!-- end::code-editor-with-custom-suggestions[] -->
     </layout>
 </view>
