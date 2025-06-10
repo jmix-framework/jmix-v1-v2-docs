@@ -13,7 +13,8 @@
 
 * Обновляет версию Jmix BOM, которая, в свою очередь, определяет версии всех зависимостей.
 * Обновляет версию Jmix Gradle plugin.
-* Сканирует все экраны в проекте и добавляет предыдущие значения по умолчанию атрибутам кнопок в `editorActionsColumn`, которые не имеют явных значений. Подробнее см. <<editor-actions-column-buttons,ниже>>.
+* Добавляет предыдущие значения по умолчанию атрибутам кнопок в `editorActionsColumn`, которые не имеют явных значений, во всех экранах проекта. Подробнее см. <<editor-actions-column-buttons,ниже>>.
+* Переименовывает атрибут `id` элемента `settings.component` в `componentId` во всех экранах проекта. Подробнее см. <<settings-component-id,ниже>>.
 
 См. полный список <<breaking-changes,критических изменений>>, которые могут затронуть ваш проект после обновления.
 
@@ -36,43 +37,64 @@
 [[breaking-changes]]
 == Критические изменения
 
+[[node-20]]
+=== Node.js v.20
+
+Vaadin 24.7 требует Node.js 20 или выше. Если вы используете локально установленный Node, обновите его при необходимости.
+
 [[editor-actions-column-buttons]]
-=== Removed defaults of editorActionsColumn buttons
+=== Удалены значения по умолчанию для кнопок editorActionsColumn
 
-Previously, the nested buttons within the xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn] element had default values for certain attributes. Specifically, all buttons were assigned an `icon`, while both the `editButton` and `cancelButton` had a `text` attribute assigned.
+Ранее вложенные кнопки внутри элемента xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn] имели значения по умолчанию для некоторых атрибутов. В частности, всем кнопкам назначалась иконка (`icon`), а кнопки `editButton` и `cancelButton` также имели атрибут `text`.
 
-This behavior was inconsistent and prevented from removing an icon or text from the button in an application project.
+Такое поведение было непоследовательным и не позволяло убрать иконку или текст с кнопки в проекте приложения.
 
-Now the buttons have no default values at all.
+Теперь кнопки не имеют значений по умолчанию.
 
-The Studio migration procedure scans all views in the project and automatically adds previous default values to the buttons that don't have explicit values.
+Процедура миграции в Studio сканирует все экраны в проекте и автоматически добавляет предыдущие значения по умолчанию для кнопок, у которых нет явно указанных значений.
 
-See https://github.com/jmix-framework/jmix/issues/4493[#4493^] for more information.
+Подробнее см. https://github.com/jmix-framework/jmix/issues/4493[#4493^].
 
 [[settings-component-id]]
-=== Renamed settings.component id attribute
+=== Переименован атрибут id у component.settings
 
-The `id` attribute of the `settings` -> `component` element has been renamed to `componentId` to not confuse with the commonly used `id` attribute. For example:
+Атрибут `id` элемента `component` в фасете xref:flow-ui:facets/settings.adoc[settings] был переименован в `componentId`, чтобы избежать путаницы с часто используемым атрибутом `id`. Например:
 
 Jmix 2.5:
 [source,xml]
 ----
-<settings>
-    <component id="genericFilter"/>
-</settings>
+<facets>
+    <settings>
+        <component id="genericFilter"/>
+    </settings>
+</facets>
 ----
 
 Jmix 2.6+:
 [source,xml]
 ----
-<settings>
-    <component componentId="genericFilter"/>
-</settings>
+<facets>
+    <settings>
+        <component componentId="genericFilter"/>
+    </settings>
+</facets>
 ----
 
-The Studio migration procedure scans all views in the project and automatically renames this attribute.
+Процедура миграции в Studio сканирует все экраны в проекте и автоматически переименовывает этот атрибут.
 
-See https://github.com/jmix-framework/jmix/issues/4412[#4412^] for more information.
+Подробнее см. https://github.com/jmix-framework/jmix/issues/4412[#4412^].
+
+[[dynamic-attributes-views]]
+=== Изменения в экранах Dynamic Attributes
+
+Экраны управления xref:dyn-attr:index.adoc[Dynamic Attributes] были значительно переработаны. Если вы переопределяли эти экраны, адаптируйте ваш код соответствующим образом.
+
+[[in-app-notification-list-view]]
+=== Изменения в in-app-notification-list-view.xml
+
+В дескрипторе `in-app-notification-list-view.xml` дополнения xref:notifications:index.adoc[] действие `create` было удалено из `inAppNotificationsDataGrid`. Это действие перенесено в секцию `actions` экрана и переименовано в `createNotificationAction`.
+
+Если вы переопределяли этот экран, адаптируйте ваш код соответствующим образом.
 
 [[changelog]]
 == Список изменений

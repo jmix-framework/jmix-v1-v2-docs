@@ -24,7 +24,7 @@
         </urlQueryParameters>
         <!-- tag::settings[] -->
         <settings auto="true">
-            <component id="hobbiesDataGrid" enabled="false"/>
+            <component componentId="hobbiesDataGrid" enabled="false"/>
         </settings>
         <!-- end::settings[] -->
         <!-- tag::facets[] -->
