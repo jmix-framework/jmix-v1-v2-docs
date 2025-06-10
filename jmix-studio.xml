@@ -550,6 +550,32 @@
           </option>
         </ModuleSettings>
       </entry>
+      <entry key="integrated-apps-client.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
+      <entry key="integrated-apps-service.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
       <entry key="jmix-application-events-sample.main">
         <ModuleSettings>
           <option name="dataStoreOptionsV2">
@@ -1111,6 +1137,32 @@
           </option>
         </ModuleSettings>
       </entry>
+      <entry key="jmix-petclinic-portal.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
+      <entry key="jmix-petclinic.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
       <entry key="jmix-social-login-sample.main">
         <ModuleSettings>
           <option name="dataStoreOptionsV2">
@@ -1442,6 +1494,19 @@
         </ModuleSettings>
       </entry>
       <entry key="security-ex1.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
+      <entry key="separate-tiers-backend.main">
         <ModuleSettings>
           <option name="dataStoreOptionsV2">
             <map>

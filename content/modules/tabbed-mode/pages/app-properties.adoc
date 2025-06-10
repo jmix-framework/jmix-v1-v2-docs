@@ -17,6 +17,38 @@ Default value: `true`
 [[jmix.tabmod.multiple-open]]
 == jmix.tabmod.multiple-open
 
-Defines whatever a view should be opened multiple times from the main menu if the `@MultipleOpen` annotation is not present on the view.
+Defines whether a view should be opened multiple times from the main menu if the `@MultipleOpen` annotation is not present on the view.
 
 Default value: `false`
+
+[[jmix.tabmod.default-view-closeable]]
+== jmix.tabmod.default-view-closeable
+
+Defines whether a view defined in xref:flow-ui:ui-properties.adoc#jmix.ui.default-view-id[jmix.ui.default-view-id] can be closed by standard operations like a tab's close button and close tab actions.
+
+Default value: `true`
+
+[[jmix.tabmod.open-next-tab-shortcut]]
+== jmix.tabmod.open-next-tab-shortcut
+
+Defines the keyboard shortcut that is used to navigate to the next tab.
+
+[[jmix.tabmod.open-previous-tab-shortcut]]
+== jmix.tabmod.open-previous-tab-shortcut
+
+Defines the keyboard shortcut that is used to navigate to the previous tab.
+
+[[jmix.tabmod.close-this-tab-shortcut]]
+== jmix.tabmod.close-this-tab-shortcut
+
+Defines the keyboard shortcut that is used to execute xref:actions.adoc#tabmod_closeThisTab[tabmod_closeThisTab] action.
+
+[[jmix.tabmod.close-other-tabs-shortcut]]
+== jmix.tabmod.close-other-tabs-shortcut
+
+Defines the keyboard shortcut that is used to execute xref:actions.adoc#tabmod_closeOtherTabs[tabmod_closeOtherTabs] action.
+
+[[jmix.tabmod.close-all-tabs-shortcut]]
+== jmix.tabmod.close-all-tabs-shortcut
+
+Defines the keyboard shortcut that is used to execute xref:actions.adoc#tabmod_closeAllTabs[tabmod_closeAllTabs] action.
