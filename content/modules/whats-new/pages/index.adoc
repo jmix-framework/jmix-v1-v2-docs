@@ -63,6 +63,31 @@ The Studio migration procedure scans all views in the project and automatically 
 
 See https://github.com/jmix-framework/jmix/issues/4493[#4493^] for more information.
 
+[[settings-component-id]]
+=== Renamed settings.component id attribute
+
+The `id` attribute of the `settings` -> `component` element has been renamed to `componentId` to not confuse with the commonly used `id` attribute. For example:
+
+Jmix 2.5:
+[source,xml]
+----
+<settings>
+    <component id="genericFilter"/>
+</settings>
+----
+
+Jmix 2.6+:
+[source,xml]
+----
+<settings>
+    <component componentId="genericFilter"/>
+</settings>
+----
+
+The Studio migration procedure scans all views in the project and automatically renames this attribute.
+
+See https://github.com/jmix-framework/jmix/issues/4412[#4412^] for more information.
+
 [[changelog]]
 == Changelog
 
