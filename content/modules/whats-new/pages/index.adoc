@@ -13,7 +13,7 @@
 
 * Обновляет версию Jmix BOM, которая, в свою очередь, определяет версии всех зависимостей.
 * Обновляет версию Jmix Gradle plugin.
-// * Обновляет версию Gradle wrapper до 8.12.1 в `gradle/wrapper/gradle-wrapper.properties`.
+* Сканирует все экраны в проекте и добавляет предыдущие значения по умолчанию атрибутам кнопок в `editorActionsColumn`, которые не имеют явных значений. Подробнее см. <<editor-actions-column-buttons,ниже>>.
 
 См. полный список <<breaking-changes,критических изменений>>, которые могут затронуть ваш проект после обновления.
 
@@ -22,9 +22,9 @@
 
 Следующие основные зависимости были обновлены:
 
-// * Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.4-Release-Notes[3.4^].
-//
-// * Vaadin https://github.com/vaadin/platform/releases/tag/24.6.0[24.6^].
+* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.5-Release-Notes[3.5^].
+
+* Vaadin https://github.com/vaadin/platform/releases/tag/24.7.0[24.7^].
 
 [[new-features]]
 == Новая и улучшенная функциональность
@@ -36,13 +36,28 @@
 [[breaking-changes]]
 == Критические изменения
 
+[[editor-actions-column-buttons]]
+=== Removed defaults of editorActionsColumn buttons
+
+Previously, the nested buttons within the xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn] element had default values for certain attributes. Specifically, all buttons were assigned an `icon`, while both the `editButton` and `cancelButton` had a `text` attribute assigned.
+
+This behavior was inconsistent and prevented from removing an icon or text from the button in an application project.
+
+Now the buttons have no default values at all.
+
+The Studio migration procedure scans all views in the project and automatically adds previous default values to the buttons that don't have explicit values.
+
+See https://github.com/jmix-framework/jmix/issues/4493[#4493^] for more information.
+
 [[changelog]]
 == Список изменений
 
 * Решенные проблемы в Jmix Framework:
 
-// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F30%20reason%3Acompleted[2.6.0]
+
+// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
 
 * Решенные проблемы в Jmix Studio:
 
-// ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.0,-2.5.*%20Affected%20versions:%20-SNAPSHOT[2.6.0^]
