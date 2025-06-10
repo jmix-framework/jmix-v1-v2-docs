@@ -7,9 +7,10 @@
 </div>
 ++++
 
-`codeEditor` is a component to display and enter source code.
+`codeEditor` is a component to display and enter source code. It is a multi-line text area featured with code highlighting and optional print margin and gutter with line numbers.
 
-`codeEditor` is a multi-line text area featured with code highlighting and optional print margin and gutter with line numbers.
+`codeEditor` is based on the https://ace.c9.io[Ace^] embeddable code editor written in JavaScript.
+
 [cols="1h,6", grid=none]
 |===
 |XML Element
@@ -23,6 +24,7 @@ xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
 xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+<<defaultSuggestionsEnabled,defaultSuggestionsEnabled>> -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#errorMessage[errorMessage] -
 xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
@@ -32,6 +34,7 @@ xref:vc/common-attributes.adoc#helperText[helperText] -
 <<highlightActiveLine,highlightActiveLine>> -
 <<highlightGutterLine,highlightGutterLine>> -
 xref:vc/common-attributes.adoc#label[label] -
+<<liveSuggestionsEnabled,liveSuggestionsEnabled>> -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
@@ -46,6 +49,7 @@ xref:vc/common-attributes.adoc#requiredMessage[requiredMessage] -
 <<showLineNumbers,showLineNumbers>> -
 <<showPrintMargin,showPrintMargin>> -
 xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
+<<suggestOn,suggestOn>> -
 <<textWrap,textWrap>> -
 <<theme,theme>> -
 xref:vc/common-attributes.adoc#title[title] -
@@ -131,6 +135,45 @@ The `theme` attribute is used to define the visual appearance and style of the e
 
 The list of supported themes is defined in the `CodeEditorTheme` enumeration.
 
+[[suggestion]]
+== Suggestion
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/code-editor-suggestions" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+The `codeEditor` component supports autocompletion features.
+
+Autocompletion can suggest default options depending on the language <<about-mode,mode>> if you set the `defaultSuggestionsEnabled` attribute to `true`:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/codeeditor/code-editor-view.xml[tags=defaultSuggestionsEnabled]
+----
+
+You can provide your own options using the `suggester` handler, for example:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/codeeditor/code-editor-view.xml[tags=code-editor-with-custom-suggestions]
+----
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/codeeditor/CodeEditorView.java[tags=code-editor-with-custom-suggestions]
+----
+
+By default, autocompletion popup is opened when the user presses a shortcut:
+
+* Windows and Linux: *Ctrl-Space*
+* macOS: *⌥-Space* or *⌃-Space*, depending on system settings
+
+If the `suggestOn` attribute is set to a regular expression, the autocompletion popup opens automatically when the user enters a matching string. For example, if `suggestOn="\."`, the autocompletion will trigger after the user enters a dot.
+
+If the `liveSuggestionsEnabled` attribute is set to `true`, suggestions will appear automatically as the user types, without requiring a manual trigger or setting the `suggestOn` attribute. All suggesters will be requested for options as soon as the user enters a word character. Note that live autocompletion can be resource-intensive with large content or with complex suggesters, so `liveSuggestionsEnabled` is `false` by default.
+
 [[validation]]
 == Validation
 
@@ -157,6 +200,9 @@ The following are attributes specific to `codeEditor`:
 |*Name*
 |*Description*
 |*Default*
+|[[defaultSuggestionsEnabled]]defaultSuggestionsEnabled
+|Autocompletion <<suggestion,suggests>> default options depending on the language <<mode,mode>>.
+|`false`
 |[[fontSize]]fontSize
 |Sets the font size for code in the editor.
 |`1rem`
@@ -166,6 +212,9 @@ The following are attributes specific to `codeEditor`:
 |[[highlightGutterLine]]highlightGutterLine
 |Sets the highlight of the current gutter line. If the highlighting is enabled, the gutter line the cursor is on will be highlighted.
 |`true`
+|[[liveSuggestionsEnabled]]liveSuggestionsEnabled
+|Open <<suggestion,suggestions>> popup automatically as the user types.
+|`false`
 |[[mode]]mode
 |Sets syntax highlighting for a specific mode. The list of supported modes is defined in the `CodeEditorMode` enumeration. See <<about-mode, Mode>>.
 |`CodeEditorMode.PLAIN_TEXT`
@@ -181,6 +230,9 @@ The following are attributes specific to `codeEditor`:
 |[[showPrintMargin]]showPrintMargin
 |Is used to control the visibility of the print margin line. This line is a vertical guideline that appears in the code editor and helps developers visually separate the code that will fit on a printed page from the code that will be cut off.
 |`true`
+|[[suggestOn]]suggestOn
+|A regular expression to trigger <<suggestion,autocompletion>> when the user enters a matching string.
+|
 |[[textWrap]]textWrap
 |It determines whether long lines of code should be wrapped (broken into multiple lines) to fit within the editor's viewable area or if they should be displayed as a single line that extends beyond the window's width.
 |`false`

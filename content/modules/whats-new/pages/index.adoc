@@ -34,6 +34,12 @@ The following major dependencies have been updated:
 [[new-features]]
 == New Features and Improvements
 
+=== Autocompletion in CodeEditor
+
+The `codeEditor` component now provides autocompletion for a specific language mode or using custom suggestion handlers.
+
+See xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor: Suggestion] for more information.
+
 [[save-without-reload]]
 === DataManager.saveWithoutReload method
 
