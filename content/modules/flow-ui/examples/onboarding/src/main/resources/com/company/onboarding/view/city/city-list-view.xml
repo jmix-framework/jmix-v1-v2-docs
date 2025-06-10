@@ -19,7 +19,7 @@
         <!-- end::facets[] -->
         <!-- tag::settings[] -->
         <settings>
-            <component id="citiesDataGrid"/>
+            <component componentId="citiesDataGrid"/>
         </settings>
         <!-- end::settings[] -->
         <dataLoadCoordinator auto="true"/>
