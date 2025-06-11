@@ -7,7 +7,7 @@ This section describes annotations that can be added to a view controller to pro
 
 The `@TabbedModeViewProperties` annotation defines parameters of a view specific for the Tabbed Application Mode. It provides the following properties:
 
-* `closeable` - whether a view can be closed by standard operations like a tab close button, xref:actions.adoc[close tab actions], `io.jmix.tabbedmode.Views.OpenedViews` and `io.jmix.tabbedmode.Views.ViewStack` methods. This means that a view can only be closed by invoking the xref:flow-ui:views/view-methods.adoc#methods-of-all-views[close()] method of the view.
+* `closeable` - whether a view can be closed by standard operations like a tab close button, xref:main-tab-sheet.adoc[close tab actions], `io.jmix.tabbedmode.Views.OpenedViews` and `io.jmix.tabbedmode.Views.ViewStack` methods. This means that a view can only be closed by invoking the xref:flow-ui:views/view-methods.adoc#methods-of-all-views[close()] method of the view.
 
 * `forceDialog` - if set to `true`, the view is always opened in a dialog window, regardless of the initial setting of `ViewOpenMode`.
 

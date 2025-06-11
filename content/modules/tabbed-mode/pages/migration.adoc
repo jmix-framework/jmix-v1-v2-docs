@@ -1,4 +1,4 @@
-= Migration
+= Migration to Tabbed Mode
 
 When the Tabbed Application Mode add-on is added, Vaadin's navigation functionality is disabled. As a result, navigation events like `BeforeEnterEvent` and `AfterNavigationEvent` are no longer sent to views. Consequently, you may need to refactor views that rely on these events.
 
