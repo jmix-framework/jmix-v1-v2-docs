@@ -81,6 +81,7 @@
         <item view="SelectView" title="msg://com.company.onboarding.view.component.select/selectView.title"/>
         <item view="SimplePaginationView"
               title="msg://com.company.onboarding.view.component.simplepagination/simplePaginationView.title"/>
+        <item view="SwitchView" title="msg://com.company.onboarding.view.component.switchcomponent/switchView.title"/>
         <item view="TabsView" title="msg://com.company.onboarding.view.component.tabs/tabsView.title"/>
         <item view="TextAreaView" title="msg://com.company.onboarding.view.component.textarea/textAreaView.title"/>
         <item view="TextFieldView" title="msg://com.company.onboarding.view.component.textfield/textFieldView.title"/>

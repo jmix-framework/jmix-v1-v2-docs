@@ -198,11 +198,11 @@ Default value: `false`.
 [[jmix.ui.component.checkbox-required-state-initialization-enabled]]
 === jmix.ui.component.checkbox-required-state-initialization-enabled
 
-Это свойство управляет поведением компонента checkbox, связанного с обязательным булевым атрибутом с валидацией `@NotNull`.
+Это свойство управляет поведением компонентов xref:vc/components/checkbox.adoc[checkbox] и xref:vc/components/switch.adoc[switch], связанных с обязательным булевым атрибутом с валидацией `@NotNull`.
 
-* Если выбрано `true`, то checkbox должен быть отмечен, чтобы пройти валидацию.
+* Если выбрано `true`, то `checkbox`/`switch` должен быть отмечен, чтобы пройти валидацию.
 
-* Если выбрано `false`, checkbox может быть неотмеченным без возникновения ошибок валидации. Это позволяет ему представлять значения `true` или `false` по необходимости.
+* Если выбрано `false`, `checkbox`/`switch` может быть неотмеченным без возникновения ошибок валидации. Это позволяет ему представлять значения `true` или `false` по необходимости.
 
 Значение по умолчанию: `true`
 
@@ -219,7 +219,6 @@ Default value: `false`.
 Определяет позицию уведомления по умолчанию на странице. Возможные значения: `TOP_STRETCH`, `TOP_START`, `TOP_CENTER`, `TOP_END`, `MIDDLE`, `BOTTOM_START`, `BOTTOM_CENTER`, `BOTTOM_END`, `BOTTOM_STRETCH`.
 
 Значение по умолчанию: `MIDDLE`
-Default value: `MIDDLE`
 
 [[jmix.ui.component.default-trim-enabled]]
 === jmix.ui.component.default-trim-enabled

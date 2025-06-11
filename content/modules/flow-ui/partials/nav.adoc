@@ -51,6 +51,7 @@
 **** xref:flow-ui:vc/components/richTextEditor.adoc[]
 **** xref:flow-ui:vc/components/select.adoc[]
 **** xref:flow-ui:vc/components/simplePagination.adoc[]
+**** xref:flow-ui:vc/components/switch.adoc[]
 **** xref:flow-ui:vc/components/tabs.adoc[]
 **** xref:flow-ui:vc/components/textArea.adoc[]
 **** xref:flow-ui:vc/components/textField.adoc[]
