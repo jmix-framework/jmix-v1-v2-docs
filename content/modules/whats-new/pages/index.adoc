@@ -33,7 +33,7 @@
 [[switch-component]]
 === Компонент Switch
 
-Новый компонент xref:flow-ui:vc/components/switch.adoc[switch] предназначен для представления бинарного выбора, позволяя пользователям переключаться между двумя состояниями (например, `true`/`false`).
+Новый компонент xref:flow-ui:vc/components/switch.adoc[switch] позволяет пользователям переключаться между двумя состояниями (например, `вкл/выкл`или `true`/`false`). Он имитирует физический переключатель-слайдер с движущейся ручкой.
 
 [[tabbed-application-mode]]
 === Улучшения в Tabbed Application Mode
