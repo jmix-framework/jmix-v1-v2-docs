@@ -2,19 +2,19 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/switch-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/switch-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
-`switch` allows users to toggle between two states: `true` (on) and `false` (off), making it ideal for enabling/disabling settings, preferences, or binary options.
+Переключатель (`switch`) позволяет пользователям переключаться между двумя состояниями: `true` (включено) и `false` (выключено). Это делает компонент идеальным для: включения/отключения настроек, управления предпочтениями, работы с бинарными опциями.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`switch`
-|Java Class
+|Java-классс
 |`Switch`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -43,32 +43,34 @@ xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
 xref:vc/components/textField.adoc#value[value] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:vc/components/checkbox.adoc#ClickEvent[ClickEvent] -
 xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 xref:vc/common-handlers.adoc#FocusEvent[FocusEvent]
-|Elements
+|Элементы
 |xref:vc/components/tooltip.adoc[tooltip]
 |===
 
-== Basics
+== Основы
 
-`switch` is an alternative to the xref:flow-ui:vc/components/checkbox.adoc[checkbox] component, designed to represent binary states clearly and intuitively. Switches are best for:
+`switch` является альтернативой компоненту xref:flow-ui:vc/components/checkbox.adoc[checkbox] и предназначен для интуитивно понятного отображения бинарных состояний.
 
-* Toggling between two mutually exclusive options (for example, on/off).
-* Providing immediate visual feedback.
-* Enabling or disabling settings that take effect right away.
+Когда использовать `switch`:
 
-The `checkbox` and xref:flow-ui:vc/components/checkboxGroup.adoc[checkboxGroup] components, on the other hand, are better suited for:
+* Переключение между двумя взаимоисключающими состояниями (например, Вкл/Выкл).
+* Мгновенная визуальная обратная связь.
+* Включение/отключение настроек с немедленным применением.
 
-* Selecting one or more options from a list.
-* Allowing multiple, non-exclusive choices.
-* Scenarios where changes do not take immediate effect.
+Компоненты `checkbox` и xref:flow-ui:vc/components/checkboxGroup.adoc[checkboxGroup], в свою очередь, больше подходят для:
 
-An example of `switch`:
+* Выбора одного или нескольких пунктов из списка.
+* Возможности множественного, неисключающего выбора.
+* Сценариев, где изменения не применяются мгновенно
+
+Пример использования переключателя:
 
 [source,xml,indent=0]
 ----
@@ -77,39 +79,39 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 image::visual-components/components/switch-basics.png[align="center", width="205"]
 
-== Data Binding
+== Привязка данных
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/switch-dataaware" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/switch-dataaware" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
-Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container]. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных означает связывание визуального компонента с xref:data/data-containers.adoc[контейнером данных]. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Смотрите xref:flow-ui:data/data-examples.adoc[Использование компонентов данных] для получения дополнительной информации.
 
-The following example produces a data-aware `switch`. The entity attribute must be of `Boolean` type.
+Следующий пример создает переключатель, связанный с данными. Атрибут сущности должен быть типа `Boolean`.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/switchcomponent/switch-view.xml[tags=data;layout;data-aware]
 ----
-<1> `InstanceContainer` for the `User` entity.
-<2> Inline fetch plan of the entity instance located in the container.
-<3> Binding the component to a data container and property. The `dataContainer` attribute contains a link to the `userDc` data container, and the `property` attribute refers to the `active` entity attribute.
+<1> `InstanceContainer` для сущности `User`.
+<2> Встроенный план выборки экземпляра сущности, находящегося в контейнере.
+<3> Привязка компонента к контейнеру данных и свойству. Атрибут `dataContainer` содержит ссылку на контейнер данных `userDc`, а атрибут `property` ссылается на атрибут сущности `active`.
 
-== States
+== Состояния
 
-`switch` can exist in several states that define its visual appearance and functionality.
+`switch` может находиться в нескольких состояниях, определяющих его внешний вид и функциональность.
 
 [[enabled-state]]
 *Enabled*
 
-* Disabled: `switch` is inactive and cannot be interacted with by the user. Visually, it is often grayed out to indicate its inactive state.
-* Enabled: `switch` is interactive and responsive to user input. Users can click on it to change its state.
+* Отключено: переключатель неактивен и не реагирует на действия пользователя. Визуально он часто отображается серым цветом, чтобы указать на его неактивное состояние.
+* Включено: переключатель интерактивный и реагирует на действия пользователя. Пользователи могут щелкнуть по нему, чтобы изменить его состояние.
 
 image::visual-components/components/switch-enable-disable.png[align="center", width="206"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -121,11 +123,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[read-only-state]]
 *Read-only*
 
-The `readOnly` attribute controls whether the `switch` component can be interacted with by the user. If set to `true`, `switch` becomes read-only, meaning the user cannot change its state.
+Атрибут `readOnly` управляет возможностью взаимодействия пользователя с компонентом `switch`. Если он установлен в `true`, переключатель становится доступным только для чтения, то есть пользователь не может изменить его состояние.
 
 image::visual-components/components/switch-readonly.png[align="center", width="203"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -137,31 +139,32 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[required-state]]
 *Required*
 
-`switch` can be configured as required using its <<required,required>> attribute or by binding it to a mandatory attribute with `@NotNull` validation.
+Компонент можно настроить как обязательный, используя атрибут <<required,required>> или связав его с обязательным атрибутом c `@NotNull` валидацией.
 
 image::visual-components/components/switch-required.png[align="center", width="209"]
 
-When the field is marked as required, a visual indicator appears next to the label to inform the user. If `switch` is initially turned on (selected) and then turned off (deselected), the field will be marked as invalid until the required condition is met again.
+Когда поле отмечено как обязательное, рядом с меткой появляется визуальный индикатор, информирующий пользователя. Если переключатель изначально включен (выбран), а затем выключен (снят выбор), поле будет помечено как невалидное, пока снова не будет выполнено требование обязательности.
 
-NOTE: Like input fields, `switch` will only pass `@NotNull` validation if it is not empty (i.e., if it is checked). The default behavior can be modified using the xref:ui-properties.adoc#jmix.ui.component.checkbox-required-state-initialization-enabled[jmix.ui.component.checkbox-required-state-initialization-enabled] property, which allows the unchecked state to be treated as `false`.
+NOTE: Как и поля ввода, `switch` пройдет валидацию `@NotNull` только в том случае, если он не пуст (т.е. если он отмечен). Поведение по умолчанию можно изменить с помощью свойства xref:ui-properties.adoc#jmix.ui.component.checkbox-required-state-initialization-enabled[jmix.ui.component.checkbox-required-state-initialization-enabled] которое позволяет считать неотмеченное состояние равным значению `false`.
 
-== Attributes
+== Атрибуты
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `switch`:
+В Jmix есть множество xref:vc/common-attributes.adoc[общих атрибутов], которые выполняют одну и ту же функцию для всех компонентов.
+
+Ниже приведены атрибуты, специфичные для `switch`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[enabled]]enabled
-|Sets the component explicitly disabled or enabled. See <<enabled-state,Enabled State>>.
+|Устанавливает компонент явно отключенным или включенным. Смотрите <<enabled-state,Состояние Enabled>>.
 |`true`
 |[[readOnly]]readOnly
-|Specifies whether the `switch` component is in read-only mode. See <<read-only-state,Read-Only State>>.
+|Указывает, находится ли компонент `switch` в режиме только для чтения. Смотрите <<read-only-state,Состояние Read-Only>>.
 |`false`
 |[[required]]required
-|Set the required state of `switch`. See <<required-state,Required State>>.
+|Устанавливает обязательное состояние для `switch`. Смотрите <<required-state,Состояние Required>>.
 |`false`
 |===
