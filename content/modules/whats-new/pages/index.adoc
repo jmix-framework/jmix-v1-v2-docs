@@ -34,6 +34,10 @@ The following major dependencies have been updated:
 [[new-features]]
 == New Features and Improvements
 
+=== Switch Component
+
+The new xref:flow-ui:vc/components/switch.adoc[switch] component is used to represent a binary choice, allowing users to toggle between two states, such as `true`/`false`.
+
 === Autocompletion in CodeEditor
 
 The `codeEditor` component now provides autocompletion for a specific language mode or using custom suggestion handlers.
