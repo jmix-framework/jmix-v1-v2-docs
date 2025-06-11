@@ -198,11 +198,11 @@ Default value: `false`
 [[jmix.ui.component.checkbox-required-state-initialization-enabled]]
 === jmix.ui.component.checkbox-required-state-initialization-enabled
 
-This property controls the behavior of a checkbox component bound to a mandatory boolean attribute with `@NotNull` validation.
+This property controls the behavior of xref:vc/components/checkbox.adoc[checkbox] and xref:vc/components/switch.adoc[switch] bound to a mandatory boolean attribute with `@NotNull` validation.
 
-* If `true`, the checkbox must be checked to pass validation.
+* If `true`, `checkbox`/`switch` must be checked to pass validation.
 
-* If `false`, the checkbox can remain unchecked without causing validation errors. This allows it to represent either a `true` or `false` value as needed.
+* If `false`, `checkbox`/`switch` can remain unchecked without causing validation errors. This allows it to represent either a `true` or `false` value as needed.
 
 Default value: `true`
 
