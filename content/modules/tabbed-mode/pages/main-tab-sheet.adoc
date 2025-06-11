@@ -1,4 +1,4 @@
-= mainTabSheet
+= MainTabSheet Component
 
 A container that is intended to display open views in tabs. Only the content of the selected tab is visible at a time.
 
@@ -35,7 +35,7 @@ xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 [[Basics]]
 == Basics
 
-To create the component, use the `mainTabSheet` XML element inside the `workArea` element. Both `workArea` and `mainTabSheet` available only in the main view descriptor.
+To create the component, use the `mainTabSheet` XML element inside the `workArea` element. Both `workArea` and `mainTabSheet` are available only in the main view descriptor.
 
 The following example demonstrates how a basic `mainTabSheet` is created:
 
@@ -47,9 +47,32 @@ include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/m
 [[actions]]
 == Actions
 
-The `mainTabSheet` component implements the `HasActions` interface and can contain both standard xref:tabbed-mode:actions.adoc[MainTabSheet actions] and custom actions. Actions are invoked from the context menu that appears on the right click on the tabs area.
+The `mainTabSheet` component implements the `HasActions` interface and can contain both standard and custom actions. Actions are invoked from the context menu that appears on the right click on the tabs area.
 
 image::main-tab-sheet/tabsheet-context-menu.png[align="center", width="500"]
+
+The standard actions are the following:
+
+[[tabmod_closeThisTab]]
+=== tabmod_closeThisTab
+
+Action class: `CloseThisTabAction`
+
+Closes the selected tab.
+
+[[tabmod_closeOtherTabs]]
+=== tabmod_closeOtherTabs
+
+Action class: `CloseOtherTabsAction`
+
+Closes all currently open tabs in the `mainTabSheet` except the selected tab.
+
+[[tabmod_closeAllTabs]]
+=== tabmod_closeAllTabs
+
+Action class: `CloseAllTabsAction`
+
+Closes all currently open tabs in the `mainTabSheet`.
 
 [[drag-and-drop]]
 == Drag and Drop

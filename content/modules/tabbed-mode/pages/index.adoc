@@ -1,6 +1,6 @@
 = Tabbed Application Mode
 
-This add-on allows you to open views in separate tabs within the main view, allowing users to simultaneously access multiple views and switch between them easily. It also supports opening multiple views within the same tab, creating a view stack represented by breadcrumbs.
+This add-on allows you to open views in separate tabs within the main view, allowing users to simultaneously access multiple views in a single browser tab and switch between them easily. It also supports opening multiple views within the same main view tab, creating a view stack represented by breadcrumbs.
 
 image::tabbed-mode-overview.png[align="center",width="1214"]
 
@@ -8,11 +8,31 @@ image::tabbed-mode-overview.png[align="center",width="1214"]
 [[installation]]
 == Installation
 
+[NOTE]
+====
+This add-on requires the Enterprise https://www.jmix.io/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
+====
+
 For automatic installation, use a dedicated project template:
 
 image::project-template.png[align="center",width="912"]
 
 For manual installation:
+
+. Make sure the premium repository is defined in `build.gradle`:
++
+[source,groovy]
+----
+repositories {
+    // ...
+    maven {
+        url = 'https://global.repo.jmix.io/repository/premium'
+        credentials {
+            username = rootProject['premiumRepoUser']
+            password = rootProject['premiumRepoPass']
+        }
+    }
+----
 
 . Add the following dependency to your `build.gradle`:
 +
@@ -28,7 +48,7 @@ implementation 'io.jmix.tabbedmode:jmix-tabbedmode-flowui-starter'
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=baseClass;!notifications;!tabsCollectionChangeEvent;!selectedChangeEvent]
 ----
 
-. In the `main-view.xml`, change the `xmlns` attribute value of the `mainView` element to use the `XSD` schema from the add-on:
+. In the `main-view.xml`, change the `xmlns` attribute value of the `mainView` element to use the XSD schema from the add-on:
 +
 [source,xml,indent=0]
 ----

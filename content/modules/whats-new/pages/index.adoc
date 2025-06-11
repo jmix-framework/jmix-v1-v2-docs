@@ -34,10 +34,25 @@ The following major dependencies have been updated:
 [[new-features]]
 == New Features and Improvements
 
+[[switch-component]]
 === Switch Component
 
 The new xref:flow-ui:vc/components/switch.adoc[switch] component is used to represent a binary choice, allowing users to toggle between two states, such as `true`/`false`.
 
+[[tabbed-application-mode]]
+=== Tabbed Application Mode Improvements
+
+The xref:tabbed-mode:index.adoc[] add-on has been improved and now is ready for production use.
+
+* The `mainTabSheet` component is now explicitly defined in the main view layout. It can contain actions invoked through the tab context menu or using keyboard shortcuts.
+* Drag and drop of tabs is now supported.
+* The `@TabbedModeViewProperties` annotation lets you define parameters of the view opened in a tab.
+* The UI state is preserved when the web page is refreshed.
+* The `UIRefreshEvent` is fired each time a web page is refreshed.
+
+NOTE: The final version of the Tabbed Application Mode add-on requires the Enterprise subscription.
+
+[[autocompletion-in-codeeditor]]
 === Autocompletion in CodeEditor
 
 The `codeEditor` component now provides autocompletion for a specific language mode or using custom suggestion handlers.
