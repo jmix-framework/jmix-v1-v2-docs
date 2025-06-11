@@ -6,7 +6,7 @@
 </div>
 ++++
 
-`switch` allows users to toggle between two states: `true` (on) and `false` (off), making it ideal for enabling/disabling settings, preferences, or binary options.
+`switch` allows users to toggle between two states: on/off or true/false, making it ideal for enabling/disabling settings, preferences, or binary options. Its visual design mimics a physical toggle switch with a sliding handle.
 
 [cols="1h,6", grid=none]
 |===

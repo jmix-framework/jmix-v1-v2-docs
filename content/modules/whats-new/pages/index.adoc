@@ -37,7 +37,7 @@ The following major dependencies have been updated:
 [[switch-component]]
 === Switch Component
 
-The new xref:flow-ui:vc/components/switch.adoc[switch] component is used to represent a binary choice, allowing users to toggle between two states, such as `true`/`false`.
+The new xref:flow-ui:vc/components/switch.adoc[switch] component allows users to toggle between two states (e.g., on/off or true/false). It mimics a physical toggle switch with a sliding handle.
 
 [[tabbed-application-mode]]
 === Tabbed Application Mode Improvements
