@@ -1,6 +1,6 @@
 = Masquerade
 
-Masquerade is an end-to-end testing library designed to automate UI testing for Jmix applications. The library helps you use page object techniques for all parts of Jmix UI, including views, components, dialogs, notifications, and composites. It is based on https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] and https://github.com/selenide/selenide[Selenide^].
+Masquerade is an end-to-end testing library designed to automate UI testing for Jmix applications. The library helps you use the Page Object pattern for all parts of Jmix UI, including views, components, dialogs, notifications, and composites. It is based on https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] and https://github.com/selenide/selenide[Selenide^].
 
 NOTE: Masquerade is for applications that are built with *Jmix 2.6* or newer.
 
@@ -12,9 +12,9 @@ To install Masquerade, follow the steps below:
 . Specify the dependency in the project `build.gradle` file as `testImplementation`:
 +
 .build.gradle
-```
+----
 testImplementation 'io.jmix.masquerade:jmix-masquerade'
-```
+----
 
 == Using Selenide
 Masquerade is based on Selenide, so you can use any of its methods.
@@ -37,7 +37,7 @@ Masquerade emphasizes the use of <<_wrappers,wrappers>> for various Jmix compone
 
 A basic Jmix project includes a login view from the start. Create a <<_view_wrapper,view wrapper>> to represent this view and its components under test:
 
-* In the `src/test/java` directory, within the `com.company.example` package create a new package named `view`. Then, create a Java class named `LoginView`:
+* In the `src/test/java` directory, within the `com.company.testproject` package create a new package named `view`. Then, create a Java class named `LoginView`:
 +
 ----
 TestProject/
@@ -62,7 +62,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_su
 
 The test class will invoke methods from the wrapper to go through the login scenario. Follow the steps below to create it:
 
-* In the `src/test/java` directory, within the `com.company.example` package create a new package named `ui-autotest`. Then create a Java class named `LoginUiTest`:
+* In the `src/test/java` directory, within the `com.company.testproject` package create a new package named `ui-autotest`. Then create a Java class named `LoginUiTest`:
 +
 ----
 TestProject/
@@ -85,7 +85,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_auto
 ----
 +
 <1> Open the login page using the standard Selenide method.
-<2> Use the `Selenide.$j` method to select the view wrapper and call its methods.
+<2> Use the `Masquerade.$j` method to select the view wrapper and call its methods.
 
 == Jmix Test IDs
 
@@ -147,7 +147,7 @@ Component wrappers encapsulate components within view wrappers. To designate a f
 include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/MyView.java[tags=ComponentWrappers]
 ----
 
-- `@TestComponent` indicates that the current field is a component wrapper. If the `path` value is not specified, the default value is assumed to be the value of the `j-test-id` attribute for the corresponding web element.
+- `@TestComponent` indicates that the current field is a component wrapper. If the `path` value is not specified, the default value is assumed to be the value of the <<_jmix_test_ids,j-test-id>> attribute for the corresponding web element.
 - `@FindBy` specifies a selector to be used for this field.
 
 TIP: Find the list of all available component wrappers in the `io.jmix.masquerade.component` package.
@@ -210,7 +210,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_su
 ----
 
 <1> Composite wrappers must extend `io.jmix.masquerade.sys.Composite`.
-<2> Composite wrappers can be optionally annotated with `@TestComponent` to provide a path value for use in `Selenide.$j`.
+<2> Composite wrappers can be optionally annotated with `@TestComponent` to provide a path value for use in `Masquerade.$j`.
 
 To access the fragment in the view wrapper, chain it as you would with components:
 
@@ -219,7 +219,7 @@ To access the fragment in the view wrapper, chain it as you would with component
 include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/FragmentsUiTest.java[tags=openFragmentsView;testChildFragment]
 ----
 
-To test the second fragment, not present in the view wrapper, select it using `Selenide.$j`:
+To test the second fragment, not present in the view wrapper, select it using `Masquerade.$j`:
 
 [source,java,indent=0]
 ----
