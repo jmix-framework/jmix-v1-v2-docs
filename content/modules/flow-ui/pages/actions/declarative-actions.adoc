@@ -48,7 +48,7 @@ If the `type` attribute is not set, the framework creates an instance of the `Ba
 
 * `actionVariant` - defines a variant of the action and sets the xref:vc/components/button.adoc#variants[variant] of the linked button: `DEFAULT`, `PRIMARY`, `DANGER`, `SUCCESS`.
 
-* `shortcutCombination` - a keyboard shortcut to execute the action. It's a combination of key codes and modifiers separated by the "-" character. The key codes and modifiers are defined in the `com.vaadin.flow.component.Key` class. In the view XML, they should be used in upper case. For example:
+* `shortcutCombination` - a xref:keyboard-shortcuts.adoc[keyboard shortcut] to execute the action. For example:
 +
 [source,xml,indent=0]
 ----

@@ -125,12 +125,12 @@ Default value: `[htm, html, jpg, png, jpeg, pdf]`
 [[jmix.ui.view.close-shortcut]]
 === jmix.ui.view.close-shortcut
 
-Defines the keyboard shortcut that is used to close the current view.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to close the current view.
 
 [[jmix.ui.view.save-shortcut]]
 === jmix.ui.view.save-shortcut
 
-Defines the keyboard shortcut that is used to save changes.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to save changes.
 
 [[jmix.ui.view.create-action-adds-first]]
 === jmix.ui.view.create-action-adds-first
@@ -258,7 +258,7 @@ The fully qualified class name (FQN) of `entityPicker` is `io.jmix.flowui.compon
 [[jmix.ui.component.filter-apply-shortcut]]
 === jmix.ui.component.filter-apply-shortcut
 
-Defines the keyboard shortcut that is used to apply current filtering conditions in a xref:vc/components/genericFilter.adoc[genericFilter] component in case they are not <<jmix.ui.component.filter-auto-apply, automatically applied>>.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to apply current filtering conditions in a xref:vc/components/genericFilter.adoc[genericFilter] component in case they are not <<jmix.ui.component.filter-auto-apply, automatically applied>>.
 
 For example, you can disable auto-apply for all filters and provide a shortcut to apply them manually:
 
@@ -310,31 +310,31 @@ Default value: `false`
 [[jmix.ui.component.grid-add-shortcut]]
 === jmix.ui.component.grid-add-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:actions/list-actions.adoc#list_add[list_add] action.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:actions/list-actions.adoc#list_add[list_add] action.
 
 [[jmix.ui.component.grid-create-shortcut]]
 === jmix.ui.component.grid-create-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:actions/list-actions.adoc#list_create[list_create] action.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:actions/list-actions.adoc#list_create[list_create] action.
 
 [[jmix.ui.component.grid-edit-shortcut]]
 === jmix.ui.component.grid-edit-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:actions/list-actions.adoc#list_edit[list_edit] action.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:actions/list-actions.adoc#list_edit[list_edit] action.
 
 Default value: `ENTER`
 
 [[jmix.ui.component.grid-read-shortcut]]
 === jmix.ui.component.grid-read-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:actions/list-actions.adoc#list_read[list_read] action.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:actions/list-actions.adoc#list_read[list_read] action.
 
 Default value: `ENTER`
 
 [[jmix.ui.component.grid-remove-shortcut]]
 === jmix.ui.component.grid-remove-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:actions/list-actions.adoc#list_remove[list_remove] action.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:actions/list-actions.adoc#list_remove[list_remove] action.
 
 [[jmix.ui.component.immediate-required-validation-enabled]]
 === jmix.ui.component.immediate-required-validation-enabled
@@ -357,17 +357,17 @@ Default value: `[20, 50, 100, 500, 1000, 5000]`
 [[jmix.ui.component.picker-clear-shortcut]]
 === jmix.ui.component.picker-clear-shortcut
 
-Defines the keyboard shortcut that is used to clear input of a picker component.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to clear input of a picker component.
 
 [[jmix.ui.component.picker-lookup-shortcut]]
 === jmix.ui.component.picker-lookup-shortcut
 
-Defines the keyboard shortcut that is used to open a lookup view for a picker component.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to open a lookup view for a picker component.
 
 [[jmix.ui.component.picker-open-shortcut]]
 === jmix.ui.component.picker-open-shortcut
 
-Defines the keyboard shortcut that is used to open a detail view for the entity selected in a picker component.
+Defines the keyboard xref:keyboard-shortcuts.adoc[shortcut] that is used to open a detail view for the entity selected in a picker component.
 
 [[jmix.ui.component.show-error-message-below-field]]
 === jmix.ui.component.show-error-message-below-field

@@ -151,7 +151,7 @@ Sets the visibility of the button which clears the field.
 [[clickShortcut]]
 == clickShortcut
 
-Defines the keyboard shortcut to fire a click event associated with the component. The component must have an appropriate handler to process the click event, otherwise the key combination will not have any effect.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] to fire a click event associated with the component. The component must have an appropriate handler to process the click event, otherwise the key combination will not have any effect.
 
 [[colspan]]
 == colspan
@@ -254,7 +254,7 @@ Sets the flex grow factor for this component. When set to `0`, the width is fixe
 [[focusShortcut]]
 == focusShortcut
 
-Defines the keyboard shortcut that is used to place focus on this component.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to place focus on this component.
 
 [[height]]
 == height
