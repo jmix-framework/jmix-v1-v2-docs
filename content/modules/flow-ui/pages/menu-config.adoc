@@ -96,7 +96,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 include::example$onboarding/src/main/java/com/company/onboarding/app/MenuBean.java[tags=start;method-with-params;end]
 ----
 
-* `shortcutCombination` -- a keyboard shortcut for this menu item. Possible modifiers -- `ALT`, `CTRL`, `SHIFT` -- are separated with “-”. For example:
+* `shortcutCombination` -- a xref:keyboard-shortcuts.adoc[keyboard shortcut] for this menu item. For example:
 +
 [source,xml,indent=0]
 ----

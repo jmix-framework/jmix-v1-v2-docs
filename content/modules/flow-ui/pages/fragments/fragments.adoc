@@ -29,7 +29,7 @@ Elements available in the XML descriptor:
 
 * `content` - required element that contains the fragment layout (similar to the view `layout` element). Since the root component of a fragment can be any component, `content` has no attributes and doesn't represent any component.
 
-* `actions` - optional fragment actions element (similar to the view `actions` element). If an action has a shortcut, it is bound to the root component of the fragment. That is, the shortcut can be triggered only if focus is within the fragment layout.
+* `actions` - optional fragment actions element (similar to the view `actions` element). If an action has a xref:keyboard-shortcuts.adoc[shortcut], it is bound to the root component of the fragment. That is, the shortcut can be triggered only if focus is within the fragment layout.
 
 * `data` - optional fragment data element (similar to the view `data` element). A fragment can define its own data containers and loaders or get them by id from a host view or enclosing fragment as described in the xref:flow-ui:fragments/using-fragments.adoc#using-data-components[Using Data Components] section.
 

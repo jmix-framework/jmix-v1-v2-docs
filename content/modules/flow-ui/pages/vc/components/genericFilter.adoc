@@ -306,7 +306,7 @@ xref:vc/common-attributes.adoc#width[width]
 [[applyShortcut]]
 === applyShortcut
 
-Defines the keyboard shortcut that can be used to apply a filtering condition. This shortcut is only relevant when the filtering conditions are not set to be <<autoApply, automatically applied>>.
+Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that can be used to apply a filtering condition. This shortcut is only relevant when the filtering conditions are not set to be <<autoApply, automatically applied>>.
 
 The default value is specified by the xref:ui-properties.adoc#jmix.ui.component.filter-apply-shortcut[jmix.ui.component.filter-apply-shortcut] property.
 
