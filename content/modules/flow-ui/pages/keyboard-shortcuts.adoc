@@ -1,0 +1,472 @@
+= Горячие клавиши
+
+Горячие клавиши могут быть назначены для различных элементов интерфейса Jmix, включая xref:actions.adoc[действия], xref:vc/components/button.adoc[кнопки] и xref:menu-config.adoc#item-attributes[элементы главного меню].
+
+Горячая клавиша — это комбинация кодов клавиш и модификаторов, которые определены в классах Vaadin {vaadin-api}/com/vaadin/flow/component/Key.html[Key^] и {vaadin-api}/com/vaadin/flow/component/KeyModifier.html[KeyModifier^].
+
+В XML-описании экрана коды клавиш должны быть записаны в верхнем регистре и разделены дефисом (`-`). Модификаторы должны предшествовать кодам клавиш. Например:
+
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/step/step-detail-view.xml[tags=keyboard-shortcuts]
+----
+<1> Фокусировать эту кнопку при нажатии Meta (Win или ⌘) + Enter
+<2> Выполнить действие при нажатии Shift + Escape
+
+При назначении горячих клавиш в XML можно использовать свойства приложения вместо прямого указания кодов клавиш. Например:
+
+[source,xml]
+.some-detail-view.xml
+----
+<button id="closeBtn" action="closeAction"
+        shortcutCombination="${shortcut.close-detail-view}"/>
+----
+
+[source,properties,indent=0]
+.application.properties
+----
+shortcut.close-detail-view=SHIFT-ESCAPE
+----
+
+Для программного назначения горячих клавиш используйте соответствующие слушатели и метод `setShortcutCombination()`. Класс `io.jmix.flowui.kit.component.KeyCombination` позволяет создавать горячие клавиши из строк или из констант `Key` и `KeyModifier`. Например:
+
+[source,java,indent=0]
+----
+include::example$onboarding/src/main/java/com/company/onboarding/view/step/StepDetailView.java[tags=keyboard-shortcuts]
+----
+
+В таблице ниже приведены наиболее часто используемые коды клавиш. Полный список доступен в классе {vaadin-api}/com/vaadin/flow/component/Key.html[Key^].
+
+Клавиши, которые могут использоваться как модификаторы: `SHIFT`, `CONTROL`, `ALT`, `ALT_GRAPH`, `META`.
+
+[cols="1,3"]
+|===
+|Key Code |Description
+
+|ALT
+|The Alt (Alternative) key.
+
+|ALT_GRAPH
+|The AltGr or AltGraph (Alternate Graphics) key. Enables the ISO Level 3 shift modifier (where Shift is the level 2 modifier).
+
+|CAPS_LOCK
+|The CapsLock or ⇪ key. Toggles the capital character lock on and off for subsequent input.
+
+|CONTROL
+|The Control, Ctrl, or Ctl key. Allows typing control characters.
+
+|FN
+|The Fn (Function modifier) key. Used to allow generating function key (F1-F15, for instance) characters on keyboards without a dedicated function key area. Often handled in hardware so that events aren't generated for this key.
+
+|FN_LOCK
+|The FnLock or F-Lock (Function Lock) key. Toggles the function key mode described by "Fn" on and off. Often handled in hardware so that events aren't generated for this key. Found on the Microsoft Natural Keyboard.
+
+|HYPER
+|The Hyper key.
+
+|META
+|The Meta key. Allows issuing special command inputs. This is the Windows logo key, or the Command or ⌘ key on Mac keyboards.
+
+|NUM_LOCK
+|The NumLock (Number Lock) key. Toggles the numeric keypad between number entry some other mode (often directional arrows). On the Mac, the " NumLock " code should be used for the numpad Clear key.
+
+|SCROLL_LOCK
+|The Scroll Lock key. Toggles between scrolling and cursor movement modes.
+
+|SHIFT
+|The Shift key. Modifies keystrokes to allow typing upper (or other) case letters, and to support typing punctuation and other special characters.
+
+|SUPER
+|The Super key.
+
+|SYMBOL
+|The Symbol modifier key (found on certain virtual keyboards).
+
+|SYMBOL_LOCK
+|The Symbol Lock key.
+
+|ENTER
+|The Enter or ↵ key. Labelled Return on Apple keyboards.
+
+|TAB
+|Tab or ⇥
+
+|SPACE
+|The space key, Space Bar.
+
+|ARROW_DOWN
+|The down arrow key (↓).
+
+|ARROW_LEFT
+|The left arrow key (←).
+
+|ARROW_RIGHT
+|The right arrow key (→).
+
+|ARROW_UP
+|The up arrow key (↑).
+
+|END
+|The End key. Moves to the end of content. In case of a event.code in the case of event.key the name may be Page Down, End or ↘.
+
+|HOME
+|The Home or ↖ key. Moves to the start of content.
+
+|PAGE_DOWN
+|The Page Down (or PgDn) key. Scrolls down or displays the next page of content.
+
+|PAGE_UP
+|The Page Up (or PgUp) key. Scrolls up or displays the previous page of content.
+
+|BACKSPACE
+|Backspace or ⌫. Labelled Delete on Apple keyboards.
+
+|DELETE
+|The Delete key, Del, and ⌦. The forward delete key. Note that on Apple keyboards, the key labelled Delete on the main part of the keyboard should be encoded as " Backspace ".
+
+|INSERT
+|The Insert key, Ins. Toggles between inserting and overwriting text. Not present on Apple keyboards.
+
+|CONTEXT_MENU
+|Shows the context menu. Typically found between the Windows (or OS) key and the Control key on the right side of the keyboard.
+
+|ESCAPE
+|The Esc (Escape) or ⎋ key. Typically used as an exit, cancel, or "escape this operation" button. Historically, the Escape character was used to signal the start of a special control sequence of characters called an "escape sequence."
+
+|FIND
+|The Find key. Opens an interface (typically a dialog box) for performing a find/search operation.
+
+|PAUSE
+|The Pause key. Pauses the current application or state, if applicable. Note: This shouldn't be confused with the "MediaPause" key value, which is used for media controllers, rather than to control applications and processes.
+
+|PLAY
+|The Play key. Resumes a previously paused application, if applicable. Note: This shouldn't be confused with the "MediaPlay" key value, which is used for media controllers, rather than to control applications and processes.
+
+|PRINT_SCREEN
+|The PrintScreen or PrtScr key. Sometimes SnapShot. Captures the screen and prints it or saves it to disk.
+
+|F1
+|The first general-purpose function key, F1.
+
+|F2
+|The F2 key.
+
+|F3
+|The F3 key.
+
+|F4
+|The F4 key.
+
+|F5
+|The F5 key.
+
+|F6
+|The F6 key.
+
+|F7
+|The F7 key.
+
+|F8
+|The F8 key.
+
+|F9
+|The F9 key.
+
+|F10
+|The F10 key.
+
+|F11
+|The F11 key.
+
+|F12
+|The F12 key.
+
+|F13
+|The F13 key.
+
+|F14
+|The F14 key.
+
+|F15
+|The F15 key.
+
+|F16
+|The F16 key.
+
+|F17
+|The F17 key.
+
+|F18
+|The F18 key.
+
+|F19
+|The F19 key.
+
+|F20
+|The F20 key.
+
+|DECIMAL
+|The decimal point key (typically . or ,) depending on the region.
+
+|KEY11
+|The 11 key found on certain media numeric keypads.
+
+|KEY12
+|The 12 key found on certain media numeric keypads.
+
+|MULTIPLY
+|The numeric keypad's multiplication key, *.
+
+|ADD
+|The numeric keypad's addition key, +.
+
+|DIVIDE
+|The numeric keypad's division key, /.
+
+|SUBTRACT
+|The numeric keypad's subtraction key, -.
+
+|SEPARATOR
+|The numeric keypad's places separator character (in the United States, this is a comma, but elsewhere it is frequently a period).
+
+|BACKQUOTE
+|`~ on a US keyboard. This is the 半角/全角/漢字 ( hankaku/zenkaku/kanji ) key on Japanese keyboards
+
+|BACKSLASH
+|Used for both the US \| (on the 101-key layout) and also for the key located between the " and Enter keys on row C of the 102-, 104- and 106-key layouts. Labelled #~ on a UK (102) keyboard.
+
+|BRACKET_LEFT
+|[{ on a US keyboard.
+
+|BRACKET_RIGHT
+|]} on a US keyboard.
+
+|COMMA
+|,< on a US keyboard.
+
+|DIGIT_0
+|0) on a US keyboard.
+
+|DIGIT_1
+|1! on a US keyboard.
+
+|DIGIT_2
+|2@ on a US keyboard.
+
+|DIGIT_3
+|3# on a US keyboard.
+
+|DIGIT_4
+|4$ on a US keyboard.
+
+|DIGIT_5
+|5% on a US keyboard.
+
+|DIGIT_6
+|6^ on a US keyboard.
+
+|DIGIT_7
+|7& on a US keyboard.
+
+|DIGIT_8
+|8* on a US keyboard.
+
+|DIGIT_9
+|9( on a US keyboard.
+
+|EQUAL
+|=+ on a US keyboard.
+
+|INTL_BACKSLASH
+|Located between the left Shift and Z keys. Labelled \| on a UK keyboard.
+
+|INTL_YEN
+|Located between the = and Backspace keys. Labelled ¥ ( yen ) on a Japanese keyboard. \/ on a Russian keyboard.
+
+|KEY_A
+|a on a US keyboard. Labelled q on an AZERTY (e.g., French) keyboard.
+
+|KEY_B
+|b on a US keyboard.
+
+|KEY_C
+|c on a US keyboard.
+
+|KEY_D
+|d on a US keyboard.
+
+|KEY_E
+|e on a US keyboard.
+
+|KEY_F
+|f on a US keyboard.
+
+|KEY_G
+|g on a US keyboard.
+
+|KEY_H
+|h on a US keyboard.
+
+|KEY_I
+|i on a US keyboard.
+
+|KEY_J
+|j on a US keyboard.
+
+|KEY_K
+|k on a US keyboard.
+
+|KEY_L
+|l on a US keyboard.
+
+|KEY_M
+|m on a US keyboard.
+
+|KEY_N
+|n on a US keyboard.
+
+|KEY_O
+|o on a US keyboard.
+
+|KEY_P
+|p on a US keyboard.
+
+|KEY_Q
+|q on a US keyboard. Labelled a on an AZERTY (e.g., French) keyboard.
+
+|KEY_R
+|r on a US keyboard.
+
+|KEY_S
+|s on a US keyboard.
+
+|KEY_T
+|t on a US keyboard.
+
+|KEY_U
+|u on a US keyboard.
+
+|KEY_V
+|v on a US keyboard.
+
+|KEY_W
+|w on a US keyboard. Labelled z on an AZERTY (e.g., French) keyboard.
+
+|KEY_X
+|x on a US keyboard.
+
+|KEY_Y
+|y on a US keyboard. Labelled z on a QWERTZ (e.g., German) keyboard.
+
+|KEY_Z
+|z on a US keyboard. Labelled w on an AZERTY (e.g., French) keyboard, and y on a QWERTZ (e.g., German) keyboard.
+
+|MINUS
+|-_ on a US keyboard.
+
+|PERIOD
+|.> on a US keyboard.
+
+|QUOTE
+|' on a US keyboard.
+
+|SEMICOLON
+|;: on a US keyboard.
+
+|SLASH
+|/? on a US keyboard.
+
+|ALT_LEFT
+|Alt, Option or ⌥.
+
+|ALT_RIGHT
+|Alt, Option or ⌥. This is labelled AltGr key on many keyboard layouts.
+
+|CONTROL_LEFT
+|Control or ⌃
+
+|CONTROL_RIGHT
+|Control or ⌃
+
+|META_LEFT
+|The Windows, ⌘, Command or other OS symbol key.
+
+|META_RIGHT
+|The Windows, ⌘, Command or other OS symbol key.
+
+|SHIFT_LEFT
+|Shift or ⇧
+
+|SHIFT_RIGHT
+|Shift or ⇧
+
+|NUMPAD_0
+|0 Ins on a keyboard 0 on a phone or remote control
+
+|NUMPAD_1
+|1 End on a keyboard 1 or 1 QZ on a phone or remote control
+
+|NUMPAD_2
+|2 ↓ on a keyboard 2 ABC on a phone or remote control
+
+|NUMPAD_3
+|3 PgDn on a keyboard 3 DEF on a phone or remote control
+
+|NUMPAD_4
+|4 ← on a keyboard 4 GHI on a phone or remote control
+
+|NUMPAD_5
+|5 on a keyboard 5 JKL on a phone or remote control
+
+|NUMPAD_6
+|6 → on a keyboard 6 MNO on a phone or remote control
+
+|NUMPAD_7
+|7 Home on a keyboard 7 PQRS or 7 PRS on a phone or remote control
+
+|NUMPAD_8
+|8 ↑ on a keyboard 8 TUV on a phone or remote control
+
+|NUMPAD_9
+|9 PgUp on a keyboard 9 WXYZ or 9 WXY on a phone or remote control
+
+|NUMPAD_ADD
+|+
+
+|NUMPAD_BACKSPACE
+|Found on the Microsoft Natural Keyboard.
+
+|NUMPAD_CLEAR
+|C or AC (All Clear). Also for use with numpads that have a Clear key that is separate from the NumLock key. On the Mac, the numpad Clear key should always be encoded as " NumLock ".
+
+|NUMPAD_COMMA
+|, (thousands separator). For locales where the thousands separator is a "." (e.g., Brazil), this key may generate a . .
+
+|NUMPAD_DECIMAL
+|. For locales where the decimal separator is "," (e.g., Brazil), this key may generate a ",".
+
+|NUMPAD_DIVIDE
+|/
+
+|NUMPAD_ENTER
+|↵
+
+|NUMPAD_EQUAL
+|=
+
+|NUMPAD_MULTIPLY
+|* on a keyboard. For use with numpads that provide mathematical operations ( +, -, * and / ). Use "NumpadStar" for the * key on phones and remote controls.
+
+|NUMPAD_PAREN_LEFT
+|( Found on the Microsoft Natural Keyboard.
+
+|NUMPAD_PAREN_RIGHT
+|) Found on the Microsoft Natural Keyboard.
+
+|NUMPAD_STAR
+|* on a phone or remote control device. This key is typically found below the 7 key and to the left of the 0 key. Use " NumpadMultiply " for the * key on numeric keypads.
+
+|NUMPAD_SUBTRACT
+|-
+
+|===

@@ -125,12 +125,12 @@ jmix.ui.menu-config = com/company/onboarding/menu.xml
 [[jmix.ui.view.close-shortcut]]
 === jmix.ui.view.close-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для закрытия текущего экрана.
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для закрытия текущего экрана.
 
 [[jmix.ui.view.save-shortcut]]
 === jmix.ui.view.save-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для сохранения изменений.
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для сохранения изменений.
 
 [[jmix.ui.view.create-action-adds-first]]
 === jmix.ui.view.create-action-adds-first
@@ -259,7 +259,7 @@ jmix.ui.component.entity-field-fqn.User = io.jmix.flowui.component.combobox.Enti
 [[jmix.ui.component.filter-apply-shortcut]]
 === jmix.ui.component.filter-apply-shortcut
 
-Определяет клавишу быстрого доступа для применения условий в компоненте xref:vc/components/genericFilter.adoc[genericFilter] в том случае если они не <<jmix.ui.component.filter-auto-apply, применяются автоматически>>.
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа] для применения условий в компоненте xref:vc/components/genericFilter.adoc[genericFilter] в том случае если они не <<jmix.ui.component.filter-auto-apply, применяются автоматически>>.
 
 Например, можно отключить автоматическое применение условий в фильтрах и указать сочетание клавиш для применения их вручную:
 
@@ -310,31 +310,31 @@ jmix.ui.component.filter-apply-shortcut = ALT-ENTER
 [[jmix.ui.component.grid-add-shortcut]]
 === jmix.ui.component.grid-add-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для выполнения действия xref:actions/list-actions.adoc#list_add[list_add].
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для выполнения действия xref:actions/list-actions.adoc#list_add[list_add].
 
 [[jmix.ui.component.grid-create-shortcut]]
 === jmix.ui.component.grid-create-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для выполнения действия xref:actions/list-actions.adoc#list_create[list_create].
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для выполнения действия xref:actions/list-actions.adoc#list_create[list_create].
 
 [[jmix.ui.component.grid-edit-shortcut]]
 === jmix.ui.component.grid-edit-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для выполнения действия xref:actions/list-actions.adoc#list_edit[list_edit].
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для выполнения действия xref:actions/list-actions.adoc#list_edit[list_edit].
 
 Значение по умолчанию: `ENTER`
 
 [[jmix.ui.component.grid-read-shortcut]]
 === jmix.ui.component.grid-read-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для выполнения действия xref:actions/list-actions.adoc#list_read[list_read].
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для выполнения действия xref:actions/list-actions.adoc#list_read[list_read].
 
 Значение по умолчанию: `ENTER`
 
 [[jmix.ui.component.grid-remove-shortcut]]
 === jmix.ui.component.grid-remove-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для выполнения действия xref:actions/list-actions.adoc#list_remove[list_remove].
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для выполнения действия xref:actions/list-actions.adoc#list_remove[list_remove].
 
 [[jmix.ui.component.immediate-required-validation-enabled]]
 === jmix.ui.component.immediate-required-validation-enabled
@@ -357,17 +357,17 @@ jmix.ui.component.filter-apply-shortcut = ALT-ENTER
 [[jmix.ui.component.picker-clear-shortcut]]
 === jmix.ui.component.picker-clear-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для очистки ввода компонента выбора.
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для очистки ввода компонента выбора.
 
 [[jmix.ui.component.picker-lookup-shortcut]]
 === jmix.ui.component.picker-lookup-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для открытия экрана поиска для компонента выбора.
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для открытия экрана поиска для компонента выбора.
 
 [[jmix.ui.component.picker-open-shortcut]]
 === jmix.ui.component.picker-open-shortcut
 
-Определяет клавишу быстрого доступа, которая используется для открытия экрана деталей для выбранной сущности в компоненте выбора.
+Определяет xref:keyboard-shortcuts.adoc[клавишу быстрого доступа], которая используется для открытия экрана деталей для выбранной сущности в компоненте выбора.
 
 [[jmix.ui.component.show-error-message-below-field]]
 === jmix.ui.component.show-error-message-below-field

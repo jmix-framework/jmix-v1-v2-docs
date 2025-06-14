@@ -132,4 +132,5 @@
 ** xref:flow-ui:icons.adoc[]
 *** xref:flow-ui:icons/default-icons.adoc[]
 *** xref:flow-ui:icons/custom-icons.adoc[]
+** xref:flow-ui:keyboard-shortcuts.adoc[]
 ** xref:flow-ui:ui-properties.adoc[]

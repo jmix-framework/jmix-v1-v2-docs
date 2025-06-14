@@ -48,7 +48,7 @@ image::actions/declarative-actions-1.png[align="center",width="601"]
 
 * `actionVariant` - задает вариант действия и xref:vc/components/button.adoc#variants[вариант] связанной кнопки: `DEFAULT`, `PRIMARY`, `DANGER`, `SUCCESS`.
 
-* `shortcutCombination` - комбинация клавиш для вызова действия. Представляет собой комбинацию кодов клавиш и модификаторов, разделенных символом "-". Коды клавиш и модификаторы определены в классе `com.vaadin.flow.component.Key`. В XML-дескрипторе экрана они должны быть заданы в верхнем регистре. Например:
+* `shortcutCombination` - xref:keyboard-shortcuts.adoc[комбинация клавиш] для вызова действия. Например:
 +
 [source,xml,indent=0]
 ----
