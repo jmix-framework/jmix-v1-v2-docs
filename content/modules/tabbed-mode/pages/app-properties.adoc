@@ -31,7 +31,7 @@ Default value: `true`
 [[jmix.tabmod.open-next-tab-shortcut]]
 == jmix.tabmod.open-next-tab-shortcut
 
-Defines the keyboard shortcut that is used to navigate to the next tab. For example:
+Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to navigate to the next tab. For example:
 
 [source,properties]
 ----
@@ -41,7 +41,7 @@ jmix.tabmod.open-next-tab-shortcut=CONTROL-SHIFT-ARROW_RIGHT
 [[jmix.tabmod.open-previous-tab-shortcut]]
 == jmix.tabmod.open-previous-tab-shortcut
 
-Defines the keyboard shortcut that is used to navigate to the previous tab. For example:
+Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to navigate to the previous tab. For example:
 
 [source,properties]
 ----
@@ -51,14 +51,14 @@ jmix.tabmod.open-previous-tab-shortcut=CONTROL-SHIFT-ARROW_LEFT
 [[jmix.tabmod.close-this-tab-shortcut]]
 == jmix.tabmod.close-this-tab-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:main-tab-sheet.adoc#tabmod_closeThisTab[tabmod_closeThisTab] action.
+Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:main-tab-sheet.adoc#tabmod_closeThisTab[tabmod_closeThisTab] action.
 
 [[jmix.tabmod.close-other-tabs-shortcut]]
 == jmix.tabmod.close-other-tabs-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:main-tab-sheet.adoc#tabmod_closeOtherTabs[tabmod_closeOtherTabs] action.
+Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:main-tab-sheet.adoc#tabmod_closeOtherTabs[tabmod_closeOtherTabs] action.
 
 [[jmix.tabmod.close-all-tabs-shortcut]]
 == jmix.tabmod.close-all-tabs-shortcut
 
-Defines the keyboard shortcut that is used to execute xref:main-tab-sheet.adoc#tabmod_closeAllTabs[tabmod_closeAllTabs] action.
+Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:main-tab-sheet.adoc#tabmod_closeAllTabs[tabmod_closeAllTabs] action.
