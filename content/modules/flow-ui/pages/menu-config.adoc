@@ -95,7 +95,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 include::example$onboarding/src/main/java/com/company/onboarding/app/MenuBean.java[tags=start;method-with-params;end]
 ----
 
-* `shortcutCombination` - горячая клавиша для этого элемента меню. Возможные модификаторы - `ALT`, `CTRL`, `SHIFT` - разделяются символом "-". Например:
+* `shortcutCombination` - xref:keyboard-shortcuts.adoc[горячая клавиша] для этого элемента меню. Возможные модификаторы - `ALT`, `CTRL`, `SHIFT` - разделяются символом "-". Например:
 +
 [source,xml,indent=0]
 ----
