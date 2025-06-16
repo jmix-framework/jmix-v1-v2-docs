@@ -262,6 +262,7 @@ Each entity attribute should have an appropriate type. Jmix supports the followi
 * `java.util.UUID`
 * `java.net.URI`
 * `byte[]` (byte array)
+* xref:files:file-storage.adoc[io.jmix.core.FileRef]
 * xref:enumerations.adoc[Enumeration]
 * Entity or a collection of entities (a reference attribute)
 

@@ -66,6 +66,13 @@ The new `DataManager.saveWithoutReload()` method improves performance when the s
 
 See xref:data-access:data-manager.adoc#save[Using DataManager: Saving Entities] for more information.
 
+[[rest-data-store-remote-service-interfaces]]
+=== REST DataStore @RemoteService Interfaces
+
+The REST DataStore add-on now offers a simple way of invoking remote services exposed via REST API. On the client side, you only need to create an interface that mirrors the service methods and annotate it with `@RemoteService`.
+
+See xref:rest-ds:index.adoc#remote-service-interfaces[REST DataStore: @RemoteService Interfaces] for more information.
+
 [[rest-data-store-oidc-authentication]]
 === REST DataStore OIDC Authentication
 

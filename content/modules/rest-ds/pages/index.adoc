@@ -287,9 +287,60 @@ See an example of working with `RestFileStorage` in the xref:separate-tiers-guid
 [[invoking-services]]
 == Invoking Services
 
-The `RestDataStoreUtils` bean provides a reference to the Spring's `RestClient` for a particular REST data store. It allows you to invoke arbitrary endpoints of that service application using connection and authentication parameters configured for the REST data store.
+If the service application xref:rest:business-logic.adoc#exposing-a-service[exposes a Java service] through the REST API, client applications can consume it.
 
-See an example of invoking a business service method in the xref:integrated-apps-guide:index.adoc[] guide.
+[[remote-service-interfaces]]
+=== @RemoteService Interfaces
+
+The simplest way to invoke a service is by creating an interface that mirrors the service methods and annotating it with `@RemoteService`. For interfaces marked with this annotation, the REST DataStore add-on generates client proxy objects. These objects automatically serialize parameters, invoke the remote REST services, and deserialize the results.
+
+The following example shows the service bean implementation:
+
+[source,java,indent=0]
+.CustomerService.java in the service application
+----
+include::example$rest-ds-service/src/main/java/com/company/serviceapp/service/CustomerService.java[tags=service]
+----
+
+The service method is accessible via the `/rest/services/customers/getCustomersByName` endpoint.
+
+To call this service from the client application, create the following interface:
+
+[source,java,indent=0]
+.CustomerService.java in the client application
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/service/CustomerService.java[tags=service]
+----
+
+The REST DataStore add-on will automatically create a bean for this interface, so you can inject it into a view or a bean and use as a regular Spring bean. For example:
+
+[source,java,indent=0]
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/view/customer/CustomerDetailView.java[tags=service]
+----
+
+See another example of invoking a business service method in the xref:integrated-apps-guide:index.adoc[] guide.
+
+[IMPORTANT]
+====
+Methods of `@RemoteService` interfaces can have parameters and results of the following types:
+
+* Simple type: primitive (`int`, `double`, etc.), wrapper (`Integer`, `Double`, etc.), `String`.
+* xref:data-model:entities.adoc[Entity]
+* xref:data-model:enumerations.adoc[Enumeration]
+* A type that have a corresponding xref:data-model:data-types.adoc[Datatype]. These include types supported in xref:data-model:entities.adoc#attributes[entity attributes], as well as custom data types.
+* Arbitrary POJO or Java record with fields of all above types.
+* `java.util.List` parameterized with all above types.
+====
+
+[[using-rest-client]]
+=== Using RestClient
+
+You can also invoke any endpoints of the service application using the Spring's `RestClient` preconfigured with the connection and authentication parameters of the corresponding REST data store:
+
+. Obtain the `RestClient` instance from the `RestDataStoreUtils` bean using the `getRestClient(String dataStoreName)` method.
+
+. Use the `RestClient` API to invoke the endpoint with appropriate parameters.
 
 [[limitations]]
 == Limitations
