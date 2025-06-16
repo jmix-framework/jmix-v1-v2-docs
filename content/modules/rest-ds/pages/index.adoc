@@ -69,6 +69,35 @@ include::example$rest-ds-client/src/main/resources/application.properties[tags=c
 include::example$rest-ds-client/src/main/resources/application.properties[tags=authenticator]
 ----
 
+[[external-authentication]]
+=== Внешняя аутентификация
+
+Если вы хотите использовать внешний провайдер аутентификации (например, Keycloak) вместо Jmix Authorization Server, удалите дополнение Authorization Server из проекта и добавьте дополнение xref:oidc:index.adoc[].
+
+Определите следующие свойства приложения:
+
+[source,properties]
+----
+include::restds-oidc-guide:example$integrated-apps/client-app/src/main/resources/application.properties[tags=restds-auth]
+----
+
+* Свойство `[datastore-name].authenticator` определяет имя бина, который реализует интерфейс `RestAuthenticator` и используется для аутентификации запросов к REST API.
++
+Бин `restds_RestOAuth2ClientAuthenticator` использует OAuth2-токен текущего пользователя.
+
+* Свойство `[datastore-name].oauth2-client-registration` определяет ID регистрации клиента OAuth2 в Spring Security, который используется в свойствах `spring.security.oauth2.client.registration.[ID]` для подключения к OIDC-провайдеру.
++
+Например, если вы подключаетесь к Keycloak с помощью этого свойства:
++
+[source,properties]
+----
+spring.security.oauth2.client.registration.keycloak.client-id=integrated-apps-client
+----
++
+Тогда значение свойства `[datastore-name].oauth2-client-registration` должно быть `keycloak`.
+
+Полный пример см. в руководстве xref:restds-oidc-guide:index.adoc[].
+
 [[ui-user-settings]]
 === UI-настройки пользователей
 
@@ -253,9 +282,60 @@ include::example$rest-ds-client/src/main/java/com/company/clientapp/RestDsClient
 [[invoking-services]]
 == Вызов сервисов
 
-Бин `RestDataStoreUtils` предоставляет ссылку на Spring `RestClient` для конкретного REST DataStore. Он позволяет вызывать произвольные эндпойнты сервисного приложения, используя параметры подключения и аутентификации, настроенные для REST DataStore.
+Если сервисное приложение xref:rest:business-logic.adoc#exposing-a-service[предоставляет Java-сервис] через REST API, клиентские приложения могут его использовать.
 
-Пример вызова метода бизнес-сервиса приведён в руководстве xref:integrated-apps-guide:index.adoc[].
+[[remote-service-interfaces]]
+=== Интерфейсы @RemoteService
+
+Самый простой способ вызвать сервис — создать интерфейс, который отражает методы сервиса, и пометить его аннотацией `@RemoteService`. Для интерфейсов с этой аннотацией дополнение REST DataStore генерирует клиентские прокси-объекты. Эти объекты автоматически сериализуют параметры, вызывают удалённые REST-сервисы и десериализуют результаты.
+
+В следующем примере показана реализация сервисного бина:
+
+[source,java,indent=0]
+.CustomerService.java в сервисном приложении
+----
+include::example$rest-ds-service/src/main/java/com/company/serviceapp/service/CustomerService.java[tags=service]
+----
+
+Метод сервиса доступен через эндпойнт `/rest/services/customers/getCustomersByName`.
+
+Чтобы вызвать этот сервис из клиентского приложения, создайте следующий интерфейс:
+
+[source,java,indent=0]
+.CustomerService.java в клиентском приложении
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/service/CustomerService.java[tags=service]
+----
+
+Дополнение REST DataStore автоматически создаст бин для этого интерфейса, так что вы сможете инжектировать его в экран или бин и использовать как обычный Spring-бин. Например:
+
+[source,java,indent=0]
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/view/customer/CustomerDetailView.java[tags=service]
+----
+
+Другой пример вызова метода бизнес-сервиса можно найти в руководстве xref:integrated-apps-guide:index.adoc[].
+
+[IMPORTANT]
+====
+Методы интерфейсов `@RemoteService` могут иметь параметры и возвращать результаты следующих типов:
+
+* Простые типы: примитивы (`int`, `double` и т.д.), обёртки (`Integer`, `Double` и т.д.), `String`.
+* xref:data-model:entities.adoc[Сущность]
+* xref:data-model:enumerations.adoc[Перечисление]
+* Тип, для которого существует соответствующий xref:data-model:data-types.adoc[Datatype]. Сюда входят типы, поддерживаемые в xref:data-model:entities.adoc#attributes[атрибутах сущностей], а также пользовательские типы данных.
+* Произвольный POJO или Java-record с полями всех вышеперечисленных типов.
+* `java.util.List`, параметризованный любым из вышеперечисленных типов.
+====
+
+[[using-rest-client]]
+=== Использование RestClient
+
+Вы также можете вызывать любые эндпойнты сервисного приложения с помощью Spring `RestClient`, предварительно настроенного параметрами подключения и аутентификации соответствующего REST-хранилища данных:
+
+1. Получите экземпляр `RestClient` из бина `RestDataStoreUtils` с помощью метода `getRestClient(String dataStoreName)`.
+
+2. Используйте API `RestClient` для вызова эндпойнта с соответствующими параметрами.
 
 [[limitations]]
 == Ограничения

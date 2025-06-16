@@ -62,6 +62,20 @@ NOTE: Финальная версия дополнения Tabbed Application Mo
 
 Подробнее см. в разделе xref:data-access:data-manager.adoc#save[Работа с DataManager: Сохранение сущностей].
 
+[[rest-data-store-remote-service-interfaces]]
+=== Интерфейсы @RemoteService в REST DataStore
+
+Дополнение REST DataStore теперь предоставляет простой способ вызова удаленных сервисов, доступных через REST API. На стороне клиента достаточно создать интерфейс, повторяющий методы сервиса, и пометить его аннотацией `@RemoteService`.
+
+Подробнее см. xref:rest-ds:index.adoc#remote-service-interfaces[REST DataStore: Интерфейсы @RemoteService].
+
+[[rest-data-store-oidc-authentication]]
+=== OIDC-аутентификация в REST DataStore
+
+Дополнение REST DataStore теперь включает бин `restds_RestOidcAuthenticator`, который позволяет использовать внешний провайдер аутентификации (например, Keycloak) при интеграции приложений.
+
+Подробнее см. xref:rest-ds:index.adoc#external-authentication[REST DataStore: Внешняя аутентификация].
+
 [[breaking-changes]]
 == Критические изменения
 
