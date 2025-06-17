@@ -34,6 +34,53 @@ The following major dependencies have been updated:
 [[new-features]]
 == New Features and Improvements
 
+[[studio]]
+=== Studio Improvements
+
+[[jmix-ai]]
+==== Jmix AI Assistant
+
+The Jmix AI Assistant is now available in the Studio tool window.
+Open it by clicking image:jmix_ai_big.svg[] icon in the IDE’s right-hand toolbar.
+
+The Jmix AI Assistant in Studio shares the list of chats with the web-based version, allowing seamless switching between them.
+
+[[new-code-snippets]]
+==== New Code Snippets
+
+Added over 20 new UI-related code snippets in the following categories: notifications and dialogs, opening views and fragments, asynchronous execution, and API examples.
+
+[[moving-views]]
+==== Moving Views
+
+You can now easily relocate a view to another package using the *Move View* context menu action in the Jmix tool window. Studio will move the Java controller and the XML descriptor together, updating relevant message keys in the message bundle.
+
+When moving a Java controller or XML descriptor in the Project tool window using the standard move operation, Studio prompts you to relocate the corresponding controller or descriptor and update message keys automatically.
+
+[[scaffolding-renderers]]
+==== Scaffolding Renderers
+
+When generating a xref:flow-ui:vc/miscellaneous/renderers.adoc[renderer] for a UI component (e.g., for a `dataGrid` column), Studio provides a wizard to scaffold a `ComponentRenderer`, `TextRenderer`, or an empty handler method.
+
+[[replacing-strings-with-localized-messages]]
+==== Replacing Strings with Localized Messages
+
+The new intention action *Replace with localized message* allows you to quickly replace a string literal with a localized message from the message bundle. It works in both Java and XML code.
+
+Access this action by placing the cursor on a string literal and pressing `Alt+Enter`.
+
+[[lombok]]
+==== Lombok Support
+
+Studio now recognizes `@Getter` and `@Setter` annotations on entities and `@RequiredArgConstructor` on Spring beans. If these annotations are present, Studio does not generate explicit code when adding attributes to entities and adding dependencies to beans.
+
+Additionally, Studio displays a warning if it detects `@EqualsAndHashCode` or `@Data` annotations on entities (see the caution in the xref:data-model:entities.adoc[] section for explanation).
+
+[[performance-on-large-projects]]
+==== Performance on Large Projects
+
+Studio’s performance on large projects has significantly improved. The project tree in the Jmix tool window and the resource role designer now work quickly, even for projects with over 1000 entities.
+
 [[switch-component]]
 === Switch Component
 
@@ -66,19 +113,46 @@ The new `DataManager.saveWithoutReload()` method improves performance when the s
 
 See xref:data-access:data-manager.adoc#save[Using DataManager: Saving Entities] for more information.
 
+[[export-import-of-message-templates]]
+=== Export/Import of Message Templates
+
+In the xref:message-templates:index.adoc[] add-on, the *Export* and *Import* actions allow you to transfer templates between applications.
+
+[[refreshing-data-in-calendars]]
+=== Refreshing Data in Calendars
+
+In the xref:calendar:index.adoc[] add-on, you can now refresh callback data providers using the new `refetchDataProvider()` methods of the `FullCalendar` component.
+
+[[logout-in-authorization-server]]
+=== Logout in Authorization Server
+
+The xref:authorization-server:index.adoc[] add-on now performs standard logout actions (invalidates HTTP session, clears security context, removes session cookie) when navigating to the `/logout` URL.
+
+Additionally, the xref:authorization-server:configuration.adoc#jmix.authserver.post-logout-url-redirect-parameter-name[jmix.authserver.post-logout-url-redirect-parameter-name] and xref:authorization-server:configuration.adoc#jmix.authserver.use-referer-post-logout[jmix.authserver.use-referer-post-logout] properties have been introduced.
+
+[[rest-data-store]]
+=== REST DataStore Improvements
+
 [[rest-data-store-remote-service-interfaces]]
-=== REST DataStore @RemoteService Interfaces
+==== @RemoteService Interfaces
 
 The REST DataStore add-on now offers a simple way of invoking remote services exposed via REST API. On the client side, you only need to create an interface that mirrors the service methods and annotate it with `@RemoteService`.
 
 See xref:rest-ds:index.adoc#remote-service-interfaces[REST DataStore: @RemoteService Interfaces] for more information.
 
 [[rest-data-store-oidc-authentication]]
-=== REST DataStore OIDC Authentication
+==== OIDC Authentication
 
 The REST DataStore add-on now includes the `restds_RestOidcAuthenticator` bean that allows you to use an external authentication provider (for example Keycloak) when integrating applications.
 
 See xref:rest-ds:index.adoc#external-authentication[REST DataStore: External Authentication] for more information.
+
+[[turning-off-lazy-loading]]
+=== Turning Off Lazy Loading
+
+The xref:data-access:data-properties.adoc#jmix.eclipselink.disable-lazy-loading[jmix.eclipselink.disable-lazy-loading] application property lets you turn off the lazy loading for the whole application.
+
+Note that this is an experimental feature. It can be finalized or abandoned in a future release. If you encounter a problem when using this feature, please file an issue at https://github.com/jmix-framework/jmix/issues[GitHub^].
 
 [[breaking-changes]]
 == Breaking Changes

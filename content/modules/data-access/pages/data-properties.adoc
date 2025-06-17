@@ -39,6 +39,15 @@ Indicates that all loading methods of xref:data-manager.adoc[DataManager] use re
 
 Default value: `true`
 
+[[jmix.eclipselink.disable-lazy-loading]]
+== jmix.eclipselink.disable-lazy-loading
+
+NOTE: This feature is currently experimental. It can be finalized or abandoned in a future release. If you encounter a problem when using this feature, please file an issue at https://github.com/jmix-framework/jmix/issues[GitHub^].
+
+Turns off xref:data-access:fetching.adoc#lazy-loading[lazy loading] for the whole application. If this property is set to `true`, an `IllegalStateException` will be thrown when accessing an unfetched attribute.
+
+Default value: `false`
+
 [[jmix.eclipselink.query-cache-enabled]]
 == jmix.eclipselink.query-cache-enabled
 
