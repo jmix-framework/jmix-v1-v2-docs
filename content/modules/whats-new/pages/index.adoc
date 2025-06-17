@@ -30,6 +30,53 @@
 [[new-features]]
 == Новая и улучшенная функциональность
 
+[[studio]]
+=== Улучшения в Studio
+
+[[jmix-ai]]
+==== Ассистент Jmix AI
+
+Ассистент Jmix AI теперь доступен в окне инструментов Studio.
+Его можно открыть, нажав на иконку image:jmix_ai_big.svg[] в правой панели инструментов IDE.
+
+Ассистент Jmix AI в Studio синхронизирует список чатов с веб-версией, позволяя легко переключаться между ними.
+
+[[new-code-snippets]]
+==== Новые Code Snippets
+
+Добавлено более 20 новых сниппетов, связанных с UI, в следующих категориях: уведомления и диалоги, открытие экранов и фрагментов, асинхронное выполнение и примеры API.
+
+[[moving-views]]
+==== Перемещение экранов
+
+Теперь вы можете легко переместить экран в другой пакет с помощью действия контекстного меню *Move View* в окне инструментов Jmix. Studio переместит Java-контроллер и XML-дескриптор вместе, обновив соответствующие ключи сообщений в бандле.
+
+При перемещении Java-контроллера или XML-дескриптора в окне Project с помощью стандартной операции перемещения Studio предложит перенести соответствующий контроллер или дескриптор и также автоматически обновит ключи сообщений.
+
+[[scaffolding-renderers]]
+==== Генерация рендереров
+
+При создании xref:flow-ui:vc/miscellaneous/renderers.adoc[рендерера] для UI-компонента (например, для колонки `dataGrid`) Studio предоставляет мастер для генерации `ComponentRenderer`, `TextRenderer` или пустого метода-обработчика.
+
+[[replacing-strings-with-localized-messages]]
+==== Замена строк локализованными сообщениями
+
+Новое intention-действие *Replace with localized message* позволяет быстро заменить строковый литерал на локализованное сообщение из бандла. Оно работает как в Java, так и в XML-коде.
+
+Чтобы вызвать это действие, поместите курсор на строковый литерал и нажмите `Alt+Enter`.
+
+[[lombok]]
+==== Поддержка Lombok
+
+Теперь Studio распознает аннотации `@Getter` и `@Setter` на сущностях и `@RequiredArgConstructor` на Spring-бинах. Если эти аннотации присутствуют, Studio не генерирует явный код при добавлении атрибутов к сущностям и зависимостей к бинам.
+
+Кроме того, Studio показывает предупреждение, если обнаруживает аннотации `@EqualsAndHashCode` или `@Data` на сущностях (см. пояснение в разделе xref:data-model:entities.adoc[]).
+
+[[performance-on-large-projects]]
+==== Производительность на крупных проектах
+
+Производительность Studio на больших проектах значительно улучшилась. Дерево проекта в окне инструментов Jmix и дизайнер ресурсных ролей теперь работают быстро даже в проектах с более чем 1000 сущностей.
+
 [[switch-component]]
 === Компонент Switch
 
@@ -62,6 +109,25 @@ NOTE: Финальная версия дополнения Tabbed Application Mo
 
 Подробнее см. в разделе xref:data-access:data-manager.adoc#save[Работа с DataManager: Сохранение сущностей].
 
+[[export-import-of-message-templates]]
+=== Экспорт/импорт шаблонов сообщений
+
+В дополнении xref:message-templates:index.adoc[] действия *Export* и *Import* позволяют переносить шаблоны между приложениями.
+
+[[refreshing-data-in-calendars]]
+=== Обновление данных в календарях
+
+В дополнении xref:calendar:index.adoc[] теперь можно обновлять провайдеры данных с помощью новых методов `refetchDataProvider()` компонента `FullCalendar`.
+
+[[logout-in-authorization-server]]
+=== Logout в сервере авторизации
+
+Дополнение xref:authorization-server:index.adoc[] теперь выполняет стандартные действия для выхода из системы (аннулирует HTTP-сессию, очищает контекст безопасности, удаляет сессионную cookie) при переходе по URL `/logout`.
+
+Кроме того, были добавлены свойства xref:authorization-server:configuration.adoc#jmix.authserver.post-logout-url-redirect-parameter-name[jmix.authserver.post-logout-url-redirect-parameter-name] и xref:authorization-server:configuration.adoc#jmix.authserver.use-referer-post-logout[jmix.authserver.use-referer-post-logout].[[rest-data-store]]
+
+=== Новые возможности в REST DataStore
+
 [[rest-data-store-remote-service-interfaces]]
 === Интерфейсы @RemoteService в REST DataStore
 
@@ -75,6 +141,13 @@ NOTE: Финальная версия дополнения Tabbed Application Mo
 Дополнение REST DataStore теперь включает бин `restds_RestOidcAuthenticator`, который позволяет использовать внешний провайдер аутентификации (например, Keycloak) при интеграции приложений.
 
 Подробнее см. xref:rest-ds:index.adoc#external-authentication[REST DataStore: Внешняя аутентификация].
+
+[[turning-off-lazy-loading]]
+=== Отключение ленивой загрузки
+
+Свойство приложения xref:data-access:data-properties.adoc#jmix.eclipselink.disable-lazy-loading[jmix.eclipselink.disable-lazy-loading] позволяет отключить ленивую загрузку для всего приложения.
+
+Обратите внимание, что это экспериментальная функция. Она может быть доработана или удалена в будущих версиях. Если вы столкнулись с проблемой при использовании этой функции, пожалуйста, создайте issue на https://github.com/jmix-framework/jmix/issues[GitHub^].
 
 [[breaking-changes]]
 == Критические изменения

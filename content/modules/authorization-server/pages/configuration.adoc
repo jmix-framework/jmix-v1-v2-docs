@@ -3,6 +3,13 @@
 [[application-properties]]
 == Application Properties
 
+[[jmix.authserver.post-logout-url-redirect-parameter-name]]
+=== jmix.authserver.post-logout-url-redirect-parameter-name
+
+Name of a URL parameter of the `/logout` request containing a URL to which the user will be redirected after successful logout.
+
+Default value: not set
+
 [[jmix.authserver.use-default-configuration]]
 === jmix.authserver.use-default-configuration
 
@@ -14,5 +21,14 @@ Default value: `true`
 === jmix.authserver.use-in-memory-authorization-service
 
 If set to `true`, uses in-memory storage instead of storing tokens in the database.
+
+Default value: `false`
+
+[[jmix.authserver.use-referer-post-logout]]
+=== jmix.authserver.use-referer-post-logout
+
+If set to `true`, the `referer` header value is used as the post logout redirect URL.
+
+It has lower priority than the URL set by the <<jmix.authserver.post-logout-url-redirect-parameter-name,jmix.authserver.post-logout-url-redirect-parameter-name>> property.
 
 Default value: `false`
