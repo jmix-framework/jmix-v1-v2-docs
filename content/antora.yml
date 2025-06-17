@@ -1,6 +1,6 @@
 name: jmix
 title: Jmix Documentation
-version: master
+version: "2.6"
 display_version: "2.6"
 start_page: ROOT:intro.adoc
 nav:
