@@ -103,11 +103,11 @@ NOTE: Финальная версия дополнения Tabbed Application Mo
 Подробнее см. в разделе xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor: Автодополнение].
 
 [[hbox-slot-placement]]
-=== HorizontalLayout Slot Placement
+=== Размещение компонентов в слотах HorizontalLayout
 
-You can now add components to different alignment slots (`start`, `center`, or `end`) in the `hbox` component. This allows flexible grouping of items within the `HorizontalLayout`, improving control over component positioning.
+Теперь вы можете добавлять компоненты в разные слоты выравнивания (`start`, `center` или `end`) внутри компонента `hbox`. Это позволяет гибко группировать элементы в `HorizontalLayout`, обеспечивая лучший контроль над их расположением.
 
-See xref:flow-ui:vc/layouts/hbox.adoc[hbox: Horizontal Alignment] for more information.
+Подробнее смотрите в разделе xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox: Горизонтальное выравнивание].
 
 [[save-without-reload]]
 === Метод DataManager.saveWithoutReload
