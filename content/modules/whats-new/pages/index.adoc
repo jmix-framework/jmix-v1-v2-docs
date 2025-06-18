@@ -106,6 +106,13 @@ The `codeEditor` component now provides autocompletion for a specific language m
 
 See xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor: Suggestion] for more information.
 
+[[hbox-slot-placement]]
+=== HorizontalLayout Slot Placement
+
+You can now add components to different alignment slots (`start`, `center`, or `end`) in the `hbox` component. This allows flexible grouping of items within the `HorizontalLayout`, improving control over component positioning.
+
+See xref:flow-ui:vc/layouts/hbox.adoc[hbox: Horizontal Alignment] for more information.
+
 [[save-without-reload]]
 === DataManager.saveWithoutReload method
 
