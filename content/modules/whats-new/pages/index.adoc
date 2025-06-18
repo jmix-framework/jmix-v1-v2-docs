@@ -157,20 +157,20 @@ NOTE: Финальная версия дополнения Tabbed Application Mo
 Обратите внимание, что это экспериментальная функция. Она может быть доработана или удалена в будущих версиях. Если вы столкнулись с проблемой при использовании этой функции, пожалуйста, создайте issue на https://github.com/jmix-framework/jmix/issues[GitHub^].
 
 [[data-tools-security]]
-=== Improved Security for Data Tools
+=== Улучшенная безопасность для Data Tools
 
-The Data Tools add-on now includes the following new security roles and policies:
+Теперь дополнение Data Tools включает в себя следующие новые роли безопасности и политики:
 
-New roles:
+Новые роли:
 
-* `datatools-full-access` - grants full access to all Data Tools features.
-* `datatools-minimal-access` - provides read-only access to Data Tools features.
+* `datatools-full-access` - предоставляет полный доступ ко всем функциям Data Tools.
+* `datatools-minimal-access` - обеспечивает доступ только для чтения к функциям Data Tools.
 
-New policy:
+Новая политика:
 
-* `datatools.importExportEntity` - controls access to import/export functionality within Data Tools.
+* `datatools.importExportEntity` - контролирует доступ к функциям импорта/экспорта в Data Tools.
 
-See xref:data-tools:security-roles.adoc[Data Tools: Security Roles] for more information.
+Подробнее смотрите в разделе xref:data-tools:security-roles.adoc[Data Tools: Security Roles].
 
 [[breaking-changes]]
 == Критические изменения
