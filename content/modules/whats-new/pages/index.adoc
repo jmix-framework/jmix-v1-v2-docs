@@ -111,7 +111,7 @@ See xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor: Suggestion
 
 You can now add components to different alignment slots (`start`, `center`, or `end`) in the `hbox` component. This allows flexible grouping of items within the `HorizontalLayout`, improving control over component positioning.
 
-See xref:flow-ui:vc/layouts/hbox.adoc[hbox: Horizontal Alignment] for more information.
+See xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox: Horizontal Alignment] for more information.
 
 [[save-without-reload]]
 === DataManager.saveWithoutReload method
