@@ -161,6 +161,22 @@ The xref:data-access:data-properties.adoc#jmix.eclipselink.disable-lazy-loading[
 
 Note that this is an experimental feature. It can be finalized or abandoned in a future release. If you encounter a problem when using this feature, please file an issue at https://github.com/jmix-framework/jmix/issues[GitHub^].
 
+[[data-tools-security]]
+=== Improved Security for Data Tools
+
+The Data Tools add-on now includes the following new security roles and policies:
+
+New roles:
+
+* `datatools-full-access` - grants full access to all Data Tools features.
+* `datatools-minimal-access` - provides read-only access to Data Tools features.
+
+New policy:
+
+* `datatools.importExportEntity` - controls access to import/export functionality within Data Tools.
+
+See xref:data-tools:security-roles.adoc[Data Tools: Security Roles] for more information.
+
 [[breaking-changes]]
 == Breaking Changes
 

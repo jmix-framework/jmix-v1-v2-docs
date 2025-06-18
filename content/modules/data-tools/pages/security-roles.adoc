@@ -1,0 +1,12 @@
+= Security Roles
+
+To access the Data Tools add-on functionality, users with restricted system permissions must be assigned one of the following predefined xref:security:resource-roles.adoc[resource roles]:
+
+* *Data Tools: full access*: This system role grants complete access to all Data Tools features and functionalities. Users with this role can perform all operations within the Data Tools add-on.
+* *Data Tools: minimal access*: This system role provides read-only access to Data Tools features. Users with this role can view data and information within the Data Tools add-on but cannot modify or create data.
+* *Data Tools: Entity Information view*: This system role grants access to the specific `InfoValue` functionality within Data Tools, allowing users to view detailed information about entities.
+
+The following xref:security:resource-roles.adoc#specific-policy[specific policies] are available for custom security configurations:
+
+* *datatools.importExportEntity*: Controls permissions for importing and exporting entities via Data Tools views.
+* *datatools.showEntityInfo*: Manages access to the `InfoValue` functionality. This policy ensures that users can only view detailed entity information if they have the required permissions.
