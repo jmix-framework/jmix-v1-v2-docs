@@ -9,9 +9,42 @@
 
 `hbox` lays out all nested components in a single horizontal row.
 
-* XML element: `hbox`
-
-* Java class: `HorizontalLayout`
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`hbox`
+|Java Class
+|`HorizontalLayout`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignItems[alignItems] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<boxSizing,boxSizing>> -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+<<expand,expand>> -
+xref:vc/common-attributes.adoc#height[height] -
+<<justifyContent,justifyContent>> -
+<<margin,margin>> -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<padding,padding>> -
+<<spacing,spacing>> -
+xref:vc/common-attributes.adoc#themeNames[themeNames] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+<<ClickEvent,ClickEvent>> -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|Elements
+|<<aligning-individual, endSlot>> - <<aligning-individual, middleSlot>> - <<aligning-individual, startSlot>>
+|===
 
 == Basics
 
@@ -24,104 +57,101 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/hbox-basic.png[align="center", width="385"]
 
+[[horizontal-alignment]]
+== Horizontal Alignment
+
+Horizontal alignment of items can be achieved in two ways: by aligning individual items or by justifying the content.
+
+[[aligning-individual]]
+=== Aligning Individual Items
+
+`hbox` allows you to add child components to different designated areas, or slots. These items can then be aligned to the start, center, or end of the layout container.
+
+image::visual-components/layouts/hbox-slots.png[align="center", width="818"]
+
+Components can be placed in different alignment slots using the following approaches:
+
+* *XML Configuration*
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/hbox/hbox-view.xml[tags=slots]
+----
++
+[TIP]
+====
+To add slot in Jmix Studio, select `hbox` in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:view-designer.adoc#add-picker-action[Add] button in the *Jmix UI* inspector panel.
+====
+
+* *Programmatic Setup*
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/hbox/HboxView.java[tags=slots]
+----
+
+[[justification]]
+=== Justification
+
+Justification modes define how items are distributed within the available horizontal space. The following modes are supported:
+
+* `START` (default)
++
+Aligns items to the left (for left-to-right languages) or to the right (for right-to-left languages).
+
+* `CENTER`
++
+Centers all items horizontally within the layout.
+
+* `END`
++
+Aligns items to the right (for left-to-right languages) or to the left (for right-to-left languages).
+
+* `BETWEEN`
++
+Distributes available space evenly between items. No extra space is added before the first item or after the last.
+
+* `AROUND`
++
+Distributes space evenly around items. The space before the first item and after the last is half the space between adjacent items.
+
+* `EVENLY`
++
+Distributes space evenly between all items, including before the first and after the last, ensuring equal spacing throughout.
+
+Use the <<justifyContent,justifyContent>> attribute to set the justify content mode of the layout.
+
 [[attributes]]
 == Attributes
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignItems[alignItems] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing, boxSizing>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand, expand>> -
-xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent, justifyContent>> -
-<<margin, margin>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding, padding>> -
-<<spacing, spacing>> -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
 
-[[boxSizing]]
-=== boxSizing
+The following are attributes specific to `hbox`:
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets how the total width and height of an element is calculated. Possible values are:
-
-* `UNDEFINED`
-
-* `CONTENT_BOX`
-
-* `BORDER_BOX`
-
-[[expand]]
-=== expand
-
-Specifies a component within the layout that should be expanded to use all available space. In the case of hbox, this attribute sets the component's width to 100%.
-
-//For a container with vertical placement, this attribute sets 100% height to a component; for the containers with horizontal placement - 100% width. Additionally, resizing a container will resize the expanded component.
-
-[[justifyContent]]
-=== justifyContent
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines how the browser distributes space between and around content items. Possible values are:
-
-* `START`
-
-* `END`
-
-* `CENTER`
-
-* `BETWEEN`
-
-* `AROUND`
-
-* `EVENLY`
-
-
-[[margin]]
-=== margin
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines indentation between the outer borders and the container content. Possible values -- `true`, `false`. Default is `false`.
-
-[[padding]]
-=== padding
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets the padding area on all four sides of an element at once. Possible values -- `true`, `false`. Default is `false`.
-
-[[spacing]]
-=== spacing
-
-Sets spacing between components within a layout. Possible values -- `true`, `false`. Default is `false`.
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[boxSizing]]boxSizing
+|Sets how the total width and height of an element is calculated. Possible values are: `UNDEFINED`, `CONTENT_BOX`, `BORDER_BOX`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[MDN page about box-sizing^].
+|-
+|[[expand]]expand
+|Specifies a component within the layout that should be expanded to use all available space. In the case of `hbox`, this attribute sets the component's width to 100%.
+|-
+|[[justifyContent]]justifyContent
+|Defines how the browser distributes space between and around content items. See <<justification,Justification>>.
+|`START`
+|[[margin]]margin
+|Defines indentation between the outer borders and the container content. Possible values: `true`, `false`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/margin[MDN page about margin^].
+|`false`
+|[[padding]]padding
+|Sets the padding area on all four sides of an element at once. Possible values: `true`, `false`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/padding[MDN page about padding^].
+|`false`
+|[[spacing]]spacing
+|Sets spacing between components within a layout. Possible values: `true`, `false`.
+|`false`
+|===
 
 [[handlers]]
 == Handlers
@@ -137,3 +167,7 @@ include::../handler-generation-tip.adoc[]
 === ClickEvent
 
 `com.vaadin.flow.component.ClickEvent` is sent when the user clicks the layout.
+
+== See Also
+
+See {vaadin-docs}/components/horizontal-layout[Vaadin Docs^] for more information.

@@ -10,5 +10,19 @@
             <button text="Cancel"/>
         </hbox>
         <!-- end::basics[] -->
+        <!-- tag::slots[] -->
+        <hbox id="horizontalBox" width="100%" height="100%">
+            <startSlot>
+                <textField label="Start component"/>
+            </startSlot>
+            <middleSlot>
+                <textField label="Middle component"/>
+            </middleSlot>
+            <endSlot>
+                <textField label="End component"/>
+            </endSlot>
+        </hbox>
+        <!-- end::slots[] -->
+        <hbox id="horizonsBox" width="100%" height="100%"/>
     </layout>
 </view>
