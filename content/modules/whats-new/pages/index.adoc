@@ -109,6 +109,16 @@ NOTE: Финальная версия дополнения Tabbed Application Mo
 
 Подробнее смотрите в разделе xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox: Горизонтальное выравнивание].
 
+[[header-footer-dialogwindow]]
+=== Custom Header and Footer of DialogWindow
+
+You can now easily customize the header and footer of dialog windows using two new callbacks:
+
+* `configureDialogWindowHeader()`: override this method in your view to modify the header of dialogs.
+* `configureDialogWindowFooter()`: override this method in your view to customize the footer of dialogs.
+
+See xref:flow-ui:views/view-methods.adoc#methods-of-all-views[Views: Methods of All Views] for more information.
+
 [[save-without-reload]]
 === Метод DataManager.saveWithoutReload
 
