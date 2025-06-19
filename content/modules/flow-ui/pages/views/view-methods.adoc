@@ -51,23 +51,23 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 ** Не выполняется, когда экран открывается в диалоговом режиме.
 ** Не должен быть переопределен без вызова метода `super()`, т.к. базовая реализация выполняет код, связанный с фреймворком.
 
-* Two callbacks allow you to customize the header and footer of views displayed in a dialog window. To utilize these callbacks, you must override them within your view class.
+* Два callback позволяют настраивать заголовок и подвал экранов, открываемых в диалоговом окне. Чтобы использовать эти callback, необходимо переопределить их в классе экрана.
 
-** `configureDialogWindowHeader()` - this callback configures the xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindow] header when the view is opened in `OpenMode.DIALOG`. It provides access to the header component, enabling you to add custom components, titles, or styling elements.
+** `configureDialogWindowHeader()` - этот callback настраивает заголовок xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindow], когда экран открывается в `OpenMode.DIALOG`. Он предоставляет доступ к компоненту заголовка, позволяя добавлять собственные компоненты, заголовки или элементы стиля.
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView.java[tags=dialog-header]
 ----
 
-** `configureDialogWindowFooter()` - this callback configures the xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindow] footer when the view is opened in `OpenMode.DIALOG`. It provides access to the footer component, enabling you to add custom buttons, actions, or informational elements.
+** `configureDialogWindowFooter()` - этот callback настраивает подвал xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindow], когда экран открывается в `OpenMode.DIALOG`. Он предоставляет доступ к компоненту подвала, позволяя добавлять собственные кнопки, действия или информационные элементы.
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView.java[tags=dialog-footer]
 ----
 +
-The screenshot below illustrates an example of a dialog window with customized header and footer.
+На приведенном ниже скриншоте показан пример диалогового окна с кастомизированными заголовком и подвалом.
 +
 image::views/dialog-header-footer.png[align="center",width="802"]
 
