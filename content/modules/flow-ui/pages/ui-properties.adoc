@@ -120,7 +120,7 @@ Default value: `true`
 
 For the `Downloader` bean, specifies the list of file extensions to be shown in the web browser tab instead of downloading them automatically.
 
-Default value: `[htm, html, jpg, png, jpeg, pdf]`
+Default value: `jpg, png, jpeg, pdf`
 
 [[jmix.ui.view.close-shortcut]]
 === jmix.ui.view.close-shortcut
