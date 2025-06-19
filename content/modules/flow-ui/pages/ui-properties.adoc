@@ -120,7 +120,7 @@ jmix.ui.menu-config = com/company/onboarding/menu.xml
 
 Для бина `Downloader` определяет список расширений файлов, которые будут отображаться во вкладке веб-браузера вместо автоматической загрузки.
 
-Значение по умолчанию: `[htm, html, jpg, png, jpeg, pdf]`
+Значение по умолчанию: `jpg, png, jpeg, pdf`
 
 [[jmix.ui.view.close-shortcut]]
 === jmix.ui.view.close-shortcut

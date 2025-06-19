@@ -15,6 +15,7 @@
 * Обновляет версию Jmix Gradle plugin.
 * Добавляет предыдущие значения по умолчанию атрибутам кнопок в `editorActionsColumn`, которые не имеют явных значений, во всех экранах проекта. Подробнее см. <<editor-actions-column-buttons,ниже>>.
 * Переименовывает атрибут `id` элемента `settings.component` в `componentId` во всех экранах проекта. Подробнее см. <<settings-component-id,ниже>>.
+* Добавляет `html,htm` в список расширений в свойстве xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions]. Подробнее см. <<downloading-html-content,ниже>>.
 
 См. полный список <<breaking-changes,критических изменений>>, которые могут затронуть ваш проект после обновления.
 
@@ -231,6 +232,17 @@ Jmix 2.6+:
 Процедура миграции в Studio сканирует все экраны в проекте и автоматически переименовывает этот атрибут.
 
 Подробнее см. https://github.com/jmix-framework/jmix/issues/4412[#4412^].
+
+[[downloading-html-content]]
+=== Загрузка HTML-содержимого
+
+Чтобы предотвратить потенциальные XSS-атаки, `Content-Disposition: inline` больше не используется по умолчанию при загрузке HTML-файлов. В результате HTML-файлы загружаются, а не отображаются автоматически в браузере.
+
+Чтобы восстановить прежнее поведение, добавьте `html` в список расширений в свойстве xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions]. Процедура миграции в Studio автоматически добавляет это расширение.
+
+Дополнение Reports теперь имеет собственный список расширений, разрешенных для просмотра в браузере. Он настраивается с помощью свойства xref:reports:configuration.adoc#jmix.reports.view-file-extensions[jmix.reports.view-file-extensions]. По умолчанию это свойство включает HTML-файлы, так как HTML-содержимое, создаваемое отчетами, считается безопасным.
+
+Подробнее см. https://github.com/jmix-framework/jmix/issues/4364[#4364^].
 
 [[dynamic-attributes-views]]
 === Изменения в экранах Dynamic Attributes
