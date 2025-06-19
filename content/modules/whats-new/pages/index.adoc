@@ -113,6 +113,16 @@ You can now add components to different alignment slots (`start`, `center`, or `
 
 See xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox: Horizontal Alignment] for more information.
 
+[[header-footer-dialogwindow]]
+=== Custom Header and Footer of DialogWindow
+
+You can now easily customize the header and footer of dialog windows using two new callbacks:
+
+* `configureDialogWindowHeader()`: override this method in your view to modify the header of dialogs.
+* `configureDialogWindowFooter()`: override this method in your view to customize the footer of dialogs.
+
+See xref:flow-ui:views/view-methods.adoc#methods-of-all-views[Views: Methods of All Views] for more information.
+
 [[save-without-reload]]
 === DataManager.saveWithoutReload method
 

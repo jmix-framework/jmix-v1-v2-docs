@@ -3,10 +3,13 @@ package com.company.onboarding.view.department;
 import com.company.onboarding.app.DepartmentService;
 import com.company.onboarding.entity.Department;
 import com.company.onboarding.view.main.MainView;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.LoadContext;
 import io.jmix.core.Metadata;
+import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionChangeType;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
@@ -115,4 +118,23 @@ public class DepartmentListView extends StandardListView<Department> {
     }
     // end::post-load[]
 
+
+    @Autowired
+    private UiComponents uiComponents;
+    // tag::dialog-header[]
+    @Override
+    protected void configureDialogWindowHeader(DialogWindowHeader header) {
+        H3 title = uiComponents.create(H3.class);
+        title.setText("- Opened in Dialog Mode!");
+        header.add(title);
+    }
+    // end::dialog-header[]
+    // tag::dialog-footer[]
+    @Override
+    protected void configureDialogWindowFooter(DialogWindowFooter footer) {
+        JmixButton saveButton = uiComponents.create(JmixButton.class);
+        saveButton.setText("Save");
+        footer.add(saveButton);
+    }
+    // end::dialog-footer[]
 }
