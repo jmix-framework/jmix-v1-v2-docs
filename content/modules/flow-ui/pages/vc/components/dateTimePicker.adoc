@@ -53,9 +53,23 @@ The following example produces a data-aware `dateTimePicker`:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=userDc]
 ----
 
+[[step]]
 == Step
 
-The default interval between the items displayed in the time overlay is set to one hour. A custom step value can be set using the xref:vc/common-attributes.adoc#step[step] attribute. This can also be done in the view controller:
+The default interval between the items displayed in the time overlay is set to one hour. To customize this interval, use the xref:vc/common-attributes.adoc#step[step] attribute either in XML or programmatically. The `step` attribute supports flexible time interval configuration using different chrono units. You can specify values with unit suffixes for clarity.
+
+Setting the `step` attribute in the view descriptor XML:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=step]
+----
+<1> 2 hour intervals.
+<2> 1600 second (26m 40s) intervals.
+<3> 20 minute intervals.
+<4> A number without a suffix means minutes.
+
+This can also be done in the view controller:
 
 [source,java,indent=0]
 ----

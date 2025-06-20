@@ -36,15 +36,37 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 To change the type, use the xref:vc/common-attributes.adoc#datatype[datatype] attribute.
 
+[[step]]
 == Step
 
-The default interval between the items displayed in the overlay is set to one hour. A custom step value can be set using the xref:vc/common-attributes.adoc#step[step] attribute.
+The default interval between the items displayed in the time overlay is set to one hour. To customize this interval, use the xref:vc/common-attributes.adoc#step[step] attribute either in XML or programmatically.
 
-image::visual-components/components/time-picker-step.png[align="center", width="230"]
+Setting the `step` attribute in the view descriptor XML:
 
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=step]
+----
+<1> A number without a <<suffix,suffix>> means minutes.
+
+image::visual-components/components/time-picker-step.png[align="center", width="230"]
+
+[[suffix]]
+The `step` attribute supports flexible time interval configuration using different chrono units. You can specify values with unit suffixes for clarity.
+
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=step-unit]
+----
+<1> 2 hour intervals.
+<2> 1600 second (26m 40s) intervals.
+<3> 20 minute intervals.
+
+This can also be done in the view controller:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/timepicker/TimePickerView.java[tags=timePicker;onInit;step]
 ----
 
 The step must divide an hour or day evenly. For example, "15 minutes", "30 minutes" and "2 hours" are valid steps, whereas "42 minutes" isn’t.
