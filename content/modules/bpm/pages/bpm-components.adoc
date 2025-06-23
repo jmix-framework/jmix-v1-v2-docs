@@ -1,6 +1,3 @@
-= BPM Components
+= BPM компоненты
 
-In the BPM components section, we examine the key elements that underpin Business Process Management systems.
-The xref:bpm:process-engine.adoc[process engine] executes BPMN-defined workflows,
-while the xref:bpm:job-executor.adoc[job executor] manages asynchronous tasks and schedules background jobs.
-The xref:bpm:history.adoc[history] service tracks process instances for performance analysis and auditing.
+В этой секции описаны ключевые компоненты системы управления бизнес-процессами. xref:bpm:process-engine.adoc[Движок процессов] выполняет процессы, определенные в нотации BPMN. xref:bpm:job-executor.adoc[Исполнитель задач] управляет асинхронными задачами и планирует фоновые задания. xref:bpm:history.adoc[Служба истории] отслеживает экземпляры процессов для анализа производительности и аудита.

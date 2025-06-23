@@ -1,137 +1,90 @@
-= BPM Concepts
+= Концепции BPM
 
-In the following section,
-we will explore key concepts essential to understanding the Jmix BPM with the embedded Flowable Process Engine.
-These concepts include process models, process definitions, executions, process instances, deployments, tokens, and the process context.
-Each of these elements plays a vital role in how the engine operates, facilitating the execution and management of business processes.
+В этом разделе кратко описаны ключевые концепции, необходимые для понимания работы Jmix BPM и движка Flowable.
 
 [[process-lifecycle]]
-== Process Lifecycle
+== Жизненный цикл процесса
 
-The process lifecycle in Jmix BPM encompasses the various stages that a process instance undergoes from its initiation to completion. Understanding this lifecycle is crucial for effectively managing and controlling business processes.
+Каждый процесс проходит несколько стадий от создания модели до завершения. Вот как это происходит шаг за шагом:
 
 image::bpm:modeling-and-execution/proccess-lifecycle.png[,900]
 
 [[modeling]]
-=== Modeling
-The lifecycle begins with the modeling stage,
-where business xref:bpm:process-artifacts.adoc#process-models[processes models] are designed and defined using BPMN 2.0 notation.
-This involves creating process models that specify the flow, tasks, events, and decision points within the process.
-Process models are represented in XML format.
-
-Beyond the XML model, developers must undertake several additional tasks to create a fully executable business process:
-
-* Business Logic Implementation
-* User Interface (UI) Forms Creation
-* Decision Tables Definition
-* Event Listeners and Error Handling
-
+. Моделирование
++
+Жизненный цикл начинается с этапа моделирования, на котором разрабатываются и определяются xref:bpm:process-artifacts.adoc#process-models[] с использованием нотации BPMN 2.0.
++
+Кроме создания модели, данный этап обычно включает дополнительные шаги для создания полностью исполняемого процесса в приложении Jmix:
++
+* Реализация бизнес-логики
+* Создание форм пользовательского интерфейса
+* Определение таблиц решений (Decision Tables)
+* Настройка слушателей событий и обработка ошибок
++
 [[deployment]]
-=== Deployment
-After modeling, the process models are to be deployed to the process engine.
-This step packages the BPMN models and resources into xref:bpm:process-artifacts.adoc#deployments[deployments] to make them available for execution.
-Deployments ensure that the xref:bpm:process-artifacts.adoc#process-definitions[process definitions] are correctly registered within the engine.
-
+. Развертывание
++
+Готовые модели процессов могут быть развернуты на движке процессов. На этом шаге происходит упаковка модели и связанных ресурсов в xref:bpm:process-artifacts.adoc#deployments[артефакт развертывания] на основе которого будут создаваться экземпляры процессов.
++
 [[instantiating]]
-=== Instantiating
-Once a process definition is deployed,
-new xref:process-artifacts.adoc#process-instances[process instances] can be started.
-Each instance represents a specific execution of the process and is uniquely identified.
-The process instance is initialized with any necessary variables and data.
-
+. Создание экземпляра
++
+После того как процесс развернут, его можно запустить. В результате запуска создается xref:process-artifacts.adoc#process-instances[экземпляр процесса], который получает уникальный идентификатор и инициализируется необходимыми данными.
++
 [[execution]]
-=== Execution
-As the process instance progresses, it transitions through various states managed by the process engine. The engine controls the flow based on the defined process model, navigating between tasks, events, and gateways.
-During execution, the engine may create xref:bpm:process-artifacts.adoc#executions[execution] artifacts to handle parallel paths, multi-instance activities, or subprocesses, ensuring that all aspects of the process are effectively managed.
-
+. Выполнение
++
+По мере выполнения экземпляр процесса проходит через разные состояния, которые контролирует движок. Движок управляет потоком работы на основе модели процесса, перемещаясь между задачами, событиями и шлюзами. Во время выполнения движок может создавать xref:bpm:process-artifacts.adoc#executions[артефакты выполнения] для управления параллельными путями, многократными действиями или подпроцессами, чтобы все элементы процесса были правильно организованы.
++
 [[state-management]]
-=== State Management
-During execution, the process instance can exist in various states, such as running or suspended.
-The engine facilitates dynamic management of these states, allowing processes to be paused or resumed as necessary.
-This capability extends not only to process instances but also to process definitions,
-enabling both to be suspended and activated as needed.
-
+. Управление состоянием
++
+Во время выполнения экземпляр процесса может пе из одного состояние в другое. Например, из состояния выполнения он может перейти в состояние приостановки. Движок управляет состояниями, позволяя приостанавливать или возобновлять процессы по мере необходимости. Эта возможность касается не только экземпляров процессов, но и определений процессов, что позволяет приостанавливать и активировать их по мере необходимости.
++
 [[completion]]
-=== Completion
-A process instance is considered complete when all tasks have been finished,
-and there are no remaining active elements, such as tasks, events, gateways, or subprocesses, within the process.
-At this point, the engine finalizes the execution, and the instance transitions to its end state.
-Any associated data can then be retrieved for reporting or auditing purposes.
-
-[[termination]]
-=== Termination
-In some cases, a process instance may be terminated prematurely due to errors or user intervention.
-The engine provides mechanisms to handle such terminations gracefully,
-ensuring that the process state remains consistent.
-
+. Завершение
++
+Экземпляр процесса считается завершенным, когда все задачи выполнены, и в процессе не осталось активных элементов. В этот момент движок завершает выполнение, и экземпляр переходит в конечное состояние. Все связанные данные могут быть извлечены для отчетности или аудита.
++
+NOTE: В некоторых случаях экземпляр процесса может быть **завершен преждевременно** из-за ошибок или по требованию пользователя. Движок предоставляет механизмы для корректного завершения, обеспечивая сохранение согласованности состояния процесса.
++
 [[history]]
-=== History
-Flowable maintains a history of process instances, capturing important events and state changes throughout the lifecycle.
-This historical data is valuable for auditing, reporting, and analyzing process performance.
-It allows organizations to review past executions and gain insights into process efficiency and effectiveness.
+. Запись в историю
++
+Flowable ведет историю экземпляров процессов, фиксируя все важные события. Эти исторические данные ценны для аудита, отчетности и анализа производительности процессов. Они позволяют организациям пересматривать прошлые выполнения и получать информацию об эффективности процессов.
 
 [[tokens]]
-== Tokens
+== Токены
 
-The token is a key concept in BPMN that helps to understand and define the behavior of a process during execution.
-A token represents the current state of the process
-and serves as a means to visualize how the process behaves at runtime.
+Токен — это ключевое понятие в BPMN, которое помогает понять и определить поведение процесса во время его выполнения. Токен представляет текущее состояние процесса и служит средством визуализации его поведения в реальном времени.
 
-When a process is started, a token is created, typically initiated by a start event.
-This token flows through the process,
-following the sequence flows and interacting with the process elements it encounters.
-At parallel gateways, the token can split into multiple tokens,
-and at other points in the process, these tokens can merge back.
-The token is consumed when it reaches an end event, which signifies the completion of the process instance.
+Токены перемещаются по определению процесса, переходя от одной активности к другой в соответствии с логикой процесса. По мере движения токена он запускает выполнение задач, шлюзов, событий и других элементов, определенных в модели процесса. На параллельных шлюзах токен может разделяться на несколько токенов, а в других точках процесса эти токены могут объединяться. Достижение токеном конечного события означает завершение экземпляра процесса.  Важно отметить, что токены не могут перемещаться по потокам сообщений; только сообщения могут проходить по этим потокам.
 
-Each process instance has its own token that tracks the state of that specific instance.
-Multiple process instances can run concurrently, with each maintaining its own token.
-When a token arrives at an activity, it becomes ready to start,
-and it interacts with gateways to determine the path it will follow.
-It is important to note that tokens cannot traverse message flows; only messages can flow along message flows.
+Каждый экземпляр процесса имеет свой токен, который отслеживает его состояние. Таким образом несколько экземпляров процесса могут работать одновременно, и каждый из них будет иметь свой токен.
 
 image::token-simulation-1.gif[]
 
-[NOTE]
-====
-Direct access to tokens in the context of BPMN execution (as in tracking or manipulating process tokens) is not explicitly provided through the Flowable API.
-Instead, the Process Engine API primarily focuses on managing process instances,
-tasks, and events rather than exposing tokens as a separate entity.
-====
-
+NOTE:
+Хотя вы можете наблюдать за токенами, вы не сможете с ними взаимодействовать напрямую, так как это может привести к непредсказуемому поведению и нарушить процесс. Лучше управлять поведением токенов через модель и другие инструменты, предоставляемые API Flowable.
 
 [[business-key]]
-== Business Key
-A business key is a way to identify a process instance based on business-specific criteria,
-rather than relying solely on the system-generated process instance ID.
-The business key allows you to associate a process instance with a specific business entity or context.
+== Бизнес-ключ
+Бизнес-ключ — это способ идентификации экземпляра процесса на основе специфических для бизнеса критериев, а не только по системному идентификатору. Он позволяет связать экземпляр процесса с конкретной бизнес-единицей или контекстом.
 
-For example, a business key can be:
+Примером бизнес-ключей могут служить:
 
-* Order number
-* Employee ID
-* Contract number
-* Address
-* ... and so on
+* Номер заказа
+* Идентификатор сотрудника
+* Номер контракта
+* Адрес
 
-When the process instance is provided with the business key, it helps users to understand business context.
+Когда у экземпляра процесса есть бизнес-ключ, пользователям проще понять бизнес-контекст.
 
-You can define a business key in the *input dialog form* for the start event,
-see details xref:bpm:input-dialog.adoc#business-key[here].
-In the *Jmix view form*, you can define a business key using `ProcessFormContext`,
-see xref:bpm:bpmn/jmix-view-forms.adoc#business-key[here].
-
-As well, it is possible to set or update a business key programmatically via API,
-see example xref:bpm:jmix-bpm-api.adoc#business-key[here].
+Бизнес-ключ можно определить в форме ввода данных для стартового события. Подробности приведены xref:bpm:input-dialog.adoc#business-key[в инструкции по настройке такой формы]. Также, можно задать бизнес-ключ для процессной формы как показано xref:bpm:bpmn/jmix-view-forms.adoc#business-key[здесь]. Кроме того, вы можете установить или обновить бизнес-ключ программно через API. Пример можно найти xref:bpm:jmix-bpm-api.adoc#business-key[здесь].
 
 [[process-context]]
-== Process Context
+== Контекст процесса
 
-The process context is the collection of data utilized throughout the execution of a process.
-It encompasses all relevant information, including process variables, execution state,
-user roles, and any other data necessary for managing and guiding the workflow effectively.
-This context serves as the foundation for decision-making and operational flow within the process,
-ensuring that all components have access to the information they need to function correctly.
+Контекст процесса — это совокупность данных, используемых на протяжении выполнения процесса. Он включает в себя всю важную информацию, такую как переменные процесса, состояние выполнения, роли пользователей и любые другие данные, необходимые для выполнения. Контекст служит основой для принятия решений и операционного потока в процессе, обеспечивая доступ всех компонентов к необходимой информации для корректной работы.
 
-This is a conceptual framework;
-the process engine does not provide a specific object or class to represent the process context.
+Важно отметить, что контекст процесса представляет собой абстрактную модель, которая не существует в виде отдельного объекта в системе. Движок процесса не создает отдельный объект или класс для контекста процесса.

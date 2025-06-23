@@ -1,13 +1,12 @@
-= BPM User Interface
+= Экраны aдминистрирования
 
-When BPM add-on is installed, the BPM section appears in the main menu:
+После установки дополнения в главном меню приложения появляется новая секция BPM.
 
 image::bpm-menu-views/bpm-main menu.png[,250]
 
-There are the following users' and administrative views:
+В этом разделе описаны доступные в ней экраны.
 
 * xref:menu-views/start-process-view.adoc[Start process]
-//todo: report cosmetics -- Start Process -> Start process
 * xref:menu-views/my-tasks.adoc[My tasks]
 * xref:menu-views/modeler-web.adoc[Modeler]
 * xref:menu-views/process-definitions.adoc[Process definitions]
@@ -17,8 +16,10 @@ There are the following users' and administrative views:
 * xref:menu-views/decision-tables.adoc[Decision tables]
 * xref:menu-views/decision-table-modeler.adoc[Decision table modeler]
 
+[NOTE]
+====
+Для доступа к экранам, пользователю необходимо назначить соответствующую роль:
 
-To access those views, users must be assigned to roles:
-
-* *BPM: process actor* -- for _Start process_ and _My tasks_ views.
-* *BPM: administration* -- for the rest views.
+* *BPM: process actor* – для доступа к экранам xref:menu-views/start-process-view.adoc[Start process] и xref:menu-views/my-tasks.adoc[My tasks].
+* *BPM: administrator* – для доступа ко всем экранам.
+====

@@ -1,5 +1,5 @@
 = Decision Table Modeler
 
+Экран *Decision Table Modeler* предназначен для создания таблиц решений. Описание работы приведено в секции xref:dmn-1-3.adoc#modeling-decision-tables[создание таблицы решений].
 
-This view allows to model decision tables.
-See xref:dmn-1-3.adoc#modeling-decision-tables[Modeling decision tables] section.
+image::dmn/modeler-window.png[,1000]

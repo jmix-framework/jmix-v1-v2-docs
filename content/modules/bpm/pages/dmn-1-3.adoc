@@ -1,54 +1,26 @@
-= Using DMN 1.3
+= Нотация DMN 1.3
 
+Нотации BPMN и DMN (Decision Model and Notation) разработаны для совместной работы. Когда требуется смоделировать сложное решение, диаграмма BPMN становится слишком сложной. В этом случае лучше смоделировать процесс принятия решения в DMN, а затем вернуть управление в BPMN.
 
-If you have a need to model in your process a decision depending on many conditions,
-you can use a xref:bpmn/bpmn-business-rule-task.adoc[Business Rule Task]
-to call the DMN table that returns output values, determined according to your business rules.
-
-****
-*Decision Model and Notation*™ (DMN™) is a modeling language and notation for the precise specification of business decisions and business rules.
-DMN is easily readable by the different types of people involved in decision management.
-These include business professionals who specify the rules and monitor their application; business analysts.
-
-See the original https://www.omg.org/dmn/[the DMN specification^] for details.
-****
-
-BPMN and DMN are designed to collaborate.
-When it is required to model a complex decision, BPMN diagram becomes too complicated.
-In this case, it is better to model making decision in DMN and then return control to BPMN.
+Вызвать таблицу DMN из процесса можно добавив в него элемент xref:bpmn/bpmn-business-rule-task.adoc[Business Rule Task]. Входные значения в соответствии с бизнес-правилами определенными в таблице. В результате вы получите выходные значения в заданном формате.
 
 image::dmn/bpmn-dmn-together.png[,900]
 
-Actually, DMN is a graphical notation like BPMN with its own diagrams.
-However, in practice, software vendors don't implement full notation, they take only DMN tables representing business rules.
-So, *Jmix BPM* supports DMN tables only.
-
+NOTE: DMN — это графическая нотация, подобная BPMN, с собственными диаграммами. Однако на практике поставщики программного обеспечения не реализуют полную нотацию, а используют только таблицы DMN, представляющие бизнес-правила. *Jmix BPM* поддерживает только таблицы DMN.
 
 [[dmn-engine]]
-== DMN Engine
+== DMN движок
 
-The Flowable *DMN engine* evaluates decision tables and executes business rules defined in DMN format.
-It allows users to create complex decision logic that can be integrated with BPMN processes,
-enabling dynamic decision-making based on input data.
-
-The DMN engine supports multiple decision models, operates within a specific execution context, and provides flexible output handling.
-See the xref:jmix-bpm-api.adoc#flowable-dmn-api[DMN API] section, how to access it programmatically.
-
-Additionally, it can be accessed via a xref:jmix-bpm-api.adoc#flowable-dmn-rest-api[DMN REST API],
-allowing external systems to evaluate decisions programmatically.
-This functionality enhances the agility and responsiveness of business processes by facilitating informed decision-making.
+Jmix BPM использует DMN движок Flowable. Он поддерживает несколько моделей решений, и предоставляет гибкие возможности обработки выходных данных. Доступ к движку можно получить программно через xref:jmix-bpm-api.adoc#flowable-dmn-api[DMN API]. Кроме того, можно предоставить доступ для внешних систем через xref:jmix-bpm-api.adoc#flowable-dmn-rest-api[DMN REST API].
 
 [[dmn-defitition]]
-== DMN Definition
+== DMN definition
 
-The root element of the DMN 1.1 schema is a `<definitions>` element.
-Within this element, multiple decision definitions can be defined,
-(although we advise you to have only one decision definition in each file,
-as this simplifies maintenance later in the development process).
-Within each decision, one expression can be defined.
-There are several types of expressions.
-Within Flowable, currently, the expression type decision table is supported.
+Корневым элементом схемы DMN 1.1 является элемент `<definitions>`. Внутри этого элемента можно определить несколько элементов `<decision>`.
 
+TIP: Для читаемости и удобства дальнейшего обслуживания рекомендуется иметь только один элемент `<decision>` в каждом файле.
+
+Элемент `<decision>` может иметь один дочерний элемент `<decisionTable>`.
 [source,xml]
 ----
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101"
@@ -69,168 +41,120 @@ Within Flowable, currently, the expression type decision table is supported.
 [[dmn-tools]]
 == DMN Tools
 
-*Jmix BPM* add-on provides tools for creating and deploying decision tables that are available in web application:
+Дополнение *Jmix BPM* предоставляет инструменты для создания и развертывания таблиц решений, в веб-приложении:
 
-* Decision tables (administration)
-* Decision table modeler
+* Экран xref:bpm:menu-views/decision-tables.adoc[]
+* Экран xref:bpm:menu-views/decision-table-modeler.adoc[]
 
 [[modeling-decision-tables]]
-=== Modeling Decision Tables
+=== Создание Таблицы Решений
 
-To create a new decision table, in the web application use *Decision table modeler* from the *BPM* menu.
-
-image::dmn/dmn-modeler-in-menu.png[,250]
-
-The modeler view opens.
+Чтобы начать создание таблицу решений, из главного меню приложения перейдите на экран *Decision table modeler*.
 
 image::dmn/modeler-window.png[,1000]
 
-Now you can configure your DMN table:
+Чтобы создать таблицу выполните следующие шаги:
 
-* Enter table `id` and `name`
-* Define _inputs_ and _outputs_
-* For outputs, set _pre-defined values_ (if it's necessary)
-* Create _business rules_
-* Set _hit policy_ (if there is more than one rule)
+* Укажите `id` и `name` для таблицы
+* Определите  _inputs_ and _outputs_
+* Установите значения по умолчанию если необходимо
+* Создайте _business rules_
+* В случае, если правил несколько, установите <<hit-policy,_hit policy_>>.
 
-When you finish, deploy the decision table or save draft.
+После завершения настройки, таблицы можно развернуть или сохранить как черновик.
 
 [[defining-inputs-outputs]]
-==== Defining Inputs and Outputs
+==== Определение входных и выходных значений
 
-A decision table uses process variables as  _inputs_ and _outputs_.
-The types of inputs and outputs can be:
+В качестве значений _inputs_ and _outputs_ используются процессные переменные. При этом важно, чтобы имена этих значений совпадали с именами переменных.
+Поддерживаются следующие типы входных и выходных значений:
+
 
 * String
 * Number
 * Boolean
 * Date
 
-[NOTE]
-====
-If output has type _Number_, it is always _double_.
-====
-
-[WARNING]
-====
-There is no mapping between process variables and decision table inputs and outputs.
-But the names of the table parameters must  match the names of process variables.
-It is on developer's responsibility.
-====
-
-A new decision table has one input and one output.
-You can configure them by setting label, name, and type.
-To do this, click the label:
+Новая таблица решений имеет одно входное и одно выходное значение. Вы можете настроить их, установив, имя, имя процессной переменной и тип. Для этого нажмите на название:
 
 image::dmn/input-label.png[,600]
 
-For example, set up the input:
+Например, настройте вход:
 
 image::dmn/input-definition.png[,600]
 
-Outputs are configured the similar way. Besides, outputs may have additional property -- _Predefined output values_.
-They are used in some hit policies.
+Выходные значения настраиваются аналогичным образом, но могут иметь дополнительное свойство – предопределенное значения выходов. Оно используется для некоторых Hit Policy.
 
 image::dmn/output-with-predefined.png[,600]
 
-The decision table may have many inputs and outputs.
-To create additional input or output, click the _plus_ button in the table header:
+Как правило, таблица решений содержит несколько входов и выходов. Чтобы создать дополнительный, нажмите плюс в заголовке таблицы:
 
 image::dmn/add-input.png[,900]
 
-The system will create a new column:
-
-image::dmn/new-input.png[,900]
-
-Configure this parameter as you need.
-
 [[creating-business-rules]]
-==== Creating Business Rules
 
-A _business rule_ is one or more logical conditions based on input parameters implicitly joined by 'AND' operand.
+==== Создание бизнес-правил
+
+Бизнес-правило — это одно или несколько логических условий, основанных на входных параметрах, соединенных логическим оператором 'AND'.
 
 image::dmn/business-rule-full.png[,900]
 
-For example, `color == "red" AND size > 10`.
+Например, color == "red" AND size > 10.
 
-One or more conditions can be empty. In this case, there must be a dash symbol ('-') in the field.
-
-
-image::dmn/input-entry.png[,600]
+NOTE: Некоторые условия могут быть пустыми. В этом случае в поле ставится символ дефиса ('-').
 
 [[hit-policy]]
-=== Hit Policy
 
-*Hit policy* is a parameter of decision table, defining how rules will be applied to data.
-To set up a hit policy, click the link button in the table header as shown below:
+=== Политика Выбора Результата
+
+Таблицы решений могут содержать несколько правил. Если правила пересекаются, т.е. к заданному набору входных значений могут применяться несколько правил применяется политики выбора результата.
+
+Чтобы выбрать политику, нажмите на символ в левом верхнем углу таблицы. Этот символ соответствует начальной букве выбранной политики (Unique, Any, Priority, First, Collect, Output Order, Rule Order).
 
 image::dmn/set-hit-policy.png[,600]
 
-Then you can select a desired hit policy from the pull-down list.
-Default value is `Unique`.
+Затем выберите политику из выпадающего списка. Значение по умолчанию — Unique.
 
 image::dmn/hit-policy-list.png[,550]
 
-There are seven hit policies available of two sorts:
+Политики выбора результата можно разделить на два типа: политики выбора допускающие один результат и политики допускающие несколько результатов.
 
-* *Single hits*
-This group of hit policies returns only one result for each output.
+==== Политики выбора одного результата
 
-* *Multiple hits*
-For multiple hits DMN engine returns result as JSON.
-It cannot be implicitly cast to String variables.
+*FIRST*:: возвращается первый результат согласно порядку применения правил и после этого оценка может быть остановлена. Последнее правило часто является обработчиком.
 
-There are the following hit policies:
+*UNIQUE*:: правила не могут пересекаться, применяется только одно правило. Unique является политикой выбора по умолчанию.
 
-*FIRST*:: Multiple (overlapping) rules can match with different output entries.
-The first hit by rule order is returned (and evaluation can halt).
+*ANY*:: правила могут пересекаться, но в этом случае все они должны давать один и тот же результат. Если выполняется несколько правил, но они возвращают разные результаты, это считается ошибкой, и результат будет пустым и помечен как неудачный.
 
-*UNIQUE*:: No overlap is possible, and all rules are disjointed. Only a single rule can be matched.
-+
-In this case, the DMN engine cannot resolve business rule because of HitPolicy UNIQUE is violated.
-If _amount_ = 300, two rules are activated, but this is restricted.
+*PRIORITY*:: правила могут пересекаться и возвращать различные значения. Применяется правило с наивысшим приоритетом. Приоритеты указываются в списке, где самые важные результаты идут первыми. Важно, что приоритеты не зависят от порядка правил.
 
-*ANY*:: There may be overlap, but all the matching rules show equal output entries for each output, so any match can be used.
-If the output entries are non-equal, the hit policy is incorrect, and the result will be empty and marked as failed.
-When strict mode is disabled, the last valid rule be the result.
-(The violation will be present as a validation message.)
+==== Политики выбора нескольких результатов
 
-*PRIORITY*:: Multiple rules can match with different output entries.
-This policy returns the matching rule with the highest output priority.
-Output priorities are specified in the ordered list of output values, in decreasing order of priority.
-When strict mode is disabled and there are no output values defined, the first valid rule be the result.
-(The violation will be present as a validation message.)
+    Для политик множественного выбора движок DMN возвращает результат в формате JSON. Он не может быть неявно преобразован в переменные типа String.
 
-*OUTPUT ORDER*:: Returns all hits in decreasing output priority order.
-Output priorities are specified in the ordered list of output values in decreasing order of priority.
-+
-The result will be returned into process variable with name equals the name of _decision table_.
-For example, 'output-order'. The type of that variable is _JSON_, and you can't work with it like with string.
+*OUTPUT ORDER*:: применяются все подходящие правила формируя список выходных значений упорядоченный по приоритету от высокого к низкому. Результат будет возвращен в переменную процесса с именем, равным имени таблицы решений.
 
-*RULE ORDER*:: Returns all hits in rule order.
-+
-It's like previous, just without priorities from the predefined output values list.
+*RULE ORDER*:: применяются все подходящие правила формируя список выходных значений в порядке, в котором они расположены в таблице решений.
 
-*COLLECT*:: Returns all hits in arbitrary order.
-An operator (‘+’, ‘<’, ‘>’, ‘#’) can be added to apply a simple function to the outputs.
-If no operator is present, the result is the list of all the output entries.
-+
-If you use _COLLECT_ hit policy without aggregation parameter (Collect none), it works absolutely like _RULE ORDER_.
+*COLLECT*:: применяются все подходящие правила формируя список выходных значений в произвольном порядке. К выходным значениям можно применить операторы (‘+’, ‘<’, ‘>’, ‘#’), в этом случае таблица будет иметь один выходной результат.
 
-* *`+` (sum)*: the result of the decision table is the sum of all the distinct outputs.
+ * *`+` (sum)*: результатом таблицы будет сумма всех уникальных выходных значений.
 
-* *`<` (min)*: the result of the decision table is the smallest value of all the outputs.
+* *`<` (min)*: результатом таблицы будет наименьшее из всех выходных значений.
 
-* *`>` (max)*: the result of the decision table is the largest value of all the outputs.
+* *`>` (max)*: результатом таблицы будет наибольшее из всех выходных значений.
 
-* *`#` (count)*: the result of the decision table is the number of outputs.
+* *`#` (count)*: результат таблицы - количество выходных значений.
 
 [[example]]
-== Example
+== Пример таблицы решений
+
+Таблица решений созданная в Jmix BPM:
 
 image::dmn/discount-example.png[]
 
-*XML Representation*
+XML представление:
 
 [source,xml]
 ----
@@ -291,10 +215,3 @@ image::dmn/discount-example.png[]
   </decision>
 </definitions>
 ----
-
-[[managing-decision-tables]]
-== Managing Decision Tables
-
-To manage decision tables, use xref:menu-views/decision-tables.adoc[Decision tables] view from the _BPN_ menu:
-
-image::dmn/bpm-decision-tables.png[,250]

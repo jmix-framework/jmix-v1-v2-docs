@@ -1,6 +1,5 @@
-= Using BPMN 2.0
+= Нотация BPMN 2.0
 
+Нотация BPMN 2.0 используется для моделирования и выполнения бизнес-процессов. Она предлагает четкий и стандартизированный подход к представлению сложных рабочих процессов.
 
-BPMN 2.0 serves as a vital tool in BPM software for both modeling and executing business processes, providing a clear and standardized method for representing complex workflows.
-
-This section describes basic BPMN 2.0 concepts and their implementation in Jmix BPM.
+В этом разделе мы рассмотрим основные концепции BPMN 2.0 и их реализацию в Jmix BPM.

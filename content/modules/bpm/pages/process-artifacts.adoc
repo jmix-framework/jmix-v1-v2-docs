@@ -1,59 +1,43 @@
-= Process Artifacts
+= Артефакты Процесса
 
-== Overview
+//todo: remove everything but intro, rename.
 
-During the lifecycle of a process, various artifacts are created.
-Understanding these artifacts is crucial for effectively managing and implementing business processes.
+В течение жизненного цикла процесса создаются различные артефакты.
 
-In the diagram below, you can see how these artifacts are related.
-Initially, the user creates a <<process-models,process model>>, which is represented by an XML file.
-Typically, one XML file contains a single process model.
-However, in the case of a <<collaboration-model,collaboration model>>,
-multiple process models may be included within one XML file.
+На диаграмме ниже вы можете увидеть, как эти артефакты связаны. Сначала пользователь создает <<process-models,модель процесса>>, представленную XML-файлом.
+Обычно один XML-файл содержит одну модель. Однако в случае <<collaboration-model,модели сотрудничества>>, файл может включать несколько моделей.
 
-Next, processes must be deployed to the server. This occurs in two steps:
+Далее, модель разворачивается на сервере. Это происходит в два этапа:
 
-* First, a <<deployments,deployment>> object is created.
-This object serves as a batch that can contain several process models, allowing for implementation in a single action.
-* Second, for each process model included in the deployment, a <<process-definitions,process definition>> is created.
+* Создание <<deployments,объекта развертывания>>.
+* Создание <<process-definitions,определения процесса>> для каждой модели включенной в развертывания.
 
-To initiate a process, the server then generates a <<process-instances,process instance>> object.
-At runtime, for specific branches (or paths) of the process, <<executions,execution>> objects may be created.
+Чтобы инициировать процесс, сервер генерирует <<process-instances,экземпляр процесса>>. Во время выполнения, для конкретных потоков процесса могут создаваться <<executions,execution>> объекты.
 
-Finally,
-the process instance can either be transformed into a xref:bpm:history.adoc#historic-process-instances[historic process instance] or deleted.
+Наконец, экземпляр процесса может быть преобразован в xref:bpm:history.adoc#historic-process-instances[исторический экземпляр процесса] или удалён.
 
 image::modeling-and-execution/process-artifacts.png[,900]
 
-Below is a detailed description of the mentioned artifacts:
+Ниже приведено детальное описание артефактов процесса.
 
 [[process-models]]
-== Process Models
+== Модель Процесса
 
-In Jmix BPM, a *process model* refers to the structured representation of a business process, defined in an XML format using the BPMN 2.0 standard.
-The structure of a BPMN process model consists of several key sections that together describe the behavior and flow of the business process.
+Модель процесса представляет собой структурированное представление бизнес-процесса в XML-формате с использованием стандарта BPMN 2.0. Модель состоит из нескольких секций, которые вместе описывают поведение и поток бизнес-процесса.
 
-The `<definitions>` section serves as the root element of the BPMN XML file.
-It encapsulates the entire process model and provides context for the various components defined within it.
-This section typically includes metadata about the model, such as the XML namespace and the schema location,
-which ensures that the document adheres to the BPMN standard.
+Секция `<definitions>` является корневым элементом XML-файла BPMN. Она содержит всю модель процесса и предоставляет контекст для различных компонентов, определенных внутри него. Этот раздел обычно включает метаданные о модели, такие как XML-пространство имен и местоположение схемы, что обеспечивает соответствие документа стандарту BPMN.
 
-Within the `<definitions>` section, you will find either a `<process>` or a `<collaboration>` element.
-The `<process>` element defines a single xref:bpmn/bpmn-process.adoc[process] with its associated activities, events, and gateways.
-This is the most common structure used when modeling a straightforward business process.
+Внутри раздела `<definitions>` вы найдете либо элемент `<process>`, либо элемент `<collaboration>`.
 
-On the other hand,
-the [[collaboration-model]]`<collaboration>` element is used when multiple processes interact with each other,
-allowing for a more complex representation of workflows involving different participants or entities.
-In this case, a xref:bpmn/bpmn-collaboration.adoc[collaboration] model is created.
+* Элемент `<process>` определяет один xref:bpmn/bpmn-process.adoc[процесс], связанные с ним действия, события и шлюзы. Это наиболее распространенная структура, используемая при моделировании простого бизнес-процесса.
 
-The model also includes xref:bpmn/bpmn-events.adoc#event-definitions[event definitions] for *messages*, *signals*, and *errors*.
+* Элемент `<collaboration>` используется, когда несколько процессов взаимодействуют друг с другом, позволяя строить сложные представления процессов с участием различных участников или сущностей. В этом случае создается xref:bpmn/bpmn-collaboration.adoc[модель сотрудничества].
 
-Finally, the `<diagram>` section provides a visual representation of the process model, typically using a graphical notation.
-This section is useful for human readers and process designers, as it allows them to visualize the flow and structure of the process.
-Although the diagram does not affect the execution of the process, it enhances understanding and communication among stakeholders.
+Модель процесса также включает xref:bpmn/bpmn-events.adoc#event-definitions[определения событий] для *сообщений*, *сигналов* и *ошибок*.
 
-Below is an example of the visual process model in BPMN 2.0 notation and its XML representation:
+Наконец, раздел `<diagram>` предоставляет визуальное представление модели процесса, обычно с использованием графической нотации. Этот раздел удобен для составителей процесса и для читателей, так как позволяет им визуализировать поток и структуру процесса. Хотя диаграмма не влияет на выполнение процесса, она улучшает понимание и коммуникацию между заинтересованными сторонами.
+
+Ниже приведен пример визуальной модели процесса в нотации BPMN 2.0 и ее XML-представление:
 
 image::process-example.png[,800]
 
@@ -79,95 +63,69 @@ image::process-example.png[,800]
 </definitions>
 ----
 
-=== Drafts and Processes
+=== Черновики и Процессы
 
-Conceptually, a process model exists in two states: *draft* and *ready for deployment*.
-Technically, both versions are valid BPMN models; the primary distinction lies in their storage locations.
-And the draft version has an additional extension labeled "`.draft`".
+Модель процесса существует в двух состояниях: *черновик* и *готов к развертыванию*. Технически обе версии являются действительными моделями BPMN; основное различие заключается в их местах хранения. А версия черновика имеет дополнительное расширение с меткой "`.draft`".
 
-=== Storing Process Models
+=== Хранение Моделей Процессов
 
-Typically in *Studio*, process models are stored in `src/main/resources/process-drafts` directory for drafts
-and in `src/main/resources/processes` for processes ready for deployment.
+В *Studio* модели процессов хранятся в директории `src/main/resources/process-drafts` для черновиков и в `src/main/resources/processes` для процессов, готовых к развертыванию.
 
-You can change where process models are located using xref:bpm:flowable-application-properties.adoc[],
-but we recommend to use default locations.
+Вы можете изменить местоположение моделей процессов, используя xref:bpm:flowable-application-properties.adoc[], но мы рекомендуем использовать стандартные местоположения.
 
-As well, you can create atd store drafts at runtime using the *Web Modeler*.
+Кроме того, вы можете создавать и хранить черновики во время выполнения, используя экран Моделера в запущенном приложении.
 
-[NOTE]
-====
-Drafts in Studio and in the web application refer the different storages.
-They are not synchronized and contain different sets of models.
-====
+NOTE: Черновики созданные в Studio и в веб-приложении содержатся в различных хранилищах. Они не синхронизированы и содержат разные наборы моделей.
 
 === Deleting Process Models
 
-To delete a process model, use standard IDE capabilities for deleting files.
-
-To delete drafts from the web application, use *Web Modeler* features.
-
+Чтобы удалить модель процесса, используйте стандартные возможности IDE для удаления файлов.
+Удалить черновики из веб-приложения, можно на экране Моделера.
 
 [[deployments]]
-== Deployments
+== Объект Развертывания
 
-A *deployment* object serves as a container for various resources related to business processes,
-such as BPMN process models, images, forms, and other artifacts.
+Объект *развертывание* служит контейнером для различных ресурсов, связанных с бизнес-процессами, таких как модели процессов BPMN, изображения, формы и другие артефакты.
 
 [[business-archive]]
-=== Business Archive
+=== Бизнес Архив
 
-To deploy processes, they have to be wrapped in a _business archive_ (BAR).
-A business archive is the unit of deployment to a process engine.
-A business archive is equivalent to a ZIP file.
-It can contain BPMN 2.0 processes, DMN rules, and any other type of file.
-In general, a business archive contains a collection of named resources.
+Чтобы развернуть процессы, их необходимо упаковать в _бизнес архив_ (BAR). Бизнес архив является единицей развертывания для процессного движка. Бизнес архив эквивалентен ZIP-файлу. Он может содержать процессы BPMN 2.0, правила DMN и любые другие типы файлов.
 
-When a business archive is deployed, it is scanned for BPMN files with a `.bpmn20.xml` or `.bpmn` extension.
-Each of those will be processed and may contain multiple process definitions.
-When the DMN engine is activated, `.dmn` files are also parsed.
+Когда бизнес архив развертывается, он сканируется на наличие файлов BPMN с расширением `.bpmn20.xml` или `.bpmn`. Каждый из этих файлов будет обработан и может содержать несколько определений процессов. Когда движок DMN активирован, файлы `.dmn` также анализируются.
 
-[NOTE]
-====
-Jmix BPM doesn't use Flowable forms.
-====
+NOTE: Jmix BPM не использует формы Flowable.
 
 [[creating-deployments]]
-=== Creating Deployments
+=== Создание Объекта Развертывания
 
-In Jmix BPM, deployments can be created programmatically or by using UI features.
+В Jmix BPM развертывания могут быть созданы программно или с помощью интуитивного пользовательского интерфейса.
 
-Programmatically, deployments are created using the `DeploymentBuilder` interface through `RepositoryService`.
-The resources are added to the deployment using methods such as `addClasspathResource`, `addInputStream`, or other methods.
-Once all resources are included, the deployment is finalized with the `deploy()` method:
+Программно развертывания создаются с помощью интерфейса `DeploymentBuilder` через `RepositoryService`. Ресурсы добавляются в развертывание с использованием методов, таких как `addClasspathResource`, `addInputStream` или других методов. После того как все ресурсы включены, развертывание завершается методом `deploy()`:
 
 [source,java]
 ----
 repositoryService.createDeployment()
-        .name("My Deployment")
+        .name("Мое Развертывание")
         .addClasspathResource("processes/my-process.bpmn") <1>
-        .addString("greeting", "Hello, world!") <2>
+        .addString("greeting", "Привет, мир!") <2>
         .deploy();
 ----
-<1> -- Adding a BPMN process model as an XML file.
-<2> -- Adding a resource as a string.
+<1> – Добавление модели процесса BPMN в виде XML-файла.
+<2> – Добавление ресурса в виде строки.
 
-In *Studio*, processes are deployed automatically, see xref:bpm:auto-deployment.adoc[] section for details.
-Or you can deploy them using the _Hot deploy_ feature in *Studio*.
+В *Studio* процессы развертываются автоматически, см. раздел xref:bpm:auto-deployment.adoc[] для получения подробной информации. Либо вы можете развернуть их, используя функцию _Hot Deploy_ в *Studio*.
 
-In xref:bpm:menu-views/modeler-web.adoc[Web Modeler], you can deploy processes manually.
+На xref:bpm:menu-views/modeler-web.adoc[экране Моделера] вы можете развернуть процессы вручную.
 
-Once a deployment is completed, the deployment object becomes read-only.
-This means that its contents cannot be changed after deployment, ensuring the integrity of the deployed resources.
+После завершения развертывания объект развертывания становится доступным для чтения. Его содержимое не может быть изменено после развертывания, что обеспечивает целостность развернутых ресурсов.
 
-Upon deployment, Flowable parses the BPMN XML files included in the deployment.
-For each BPMN file parsed, Flowable creates one or more process definitions.
-Each process definition is an internal representation of the process defined in the BPMN XML.
+При развертывании Flowable анализирует файлы BPMN XML, включенные в развертывание. Для каждого из файлов Flowable создает одно или несколько определений процессов. Каждое определение процесса является внутренним представлением процесса, определенного в BPMN XML.
 
 [[accessing-deployed-resources]]
-=== Accessing Deployed Resources
+=== Доступ к Развернутым Ресурсам
 
-To access deployed resources at runtime:
+Чтобы получить доступ к развернутым ресурсам во время выполнения:
 
 [source,java]
 ----
@@ -179,15 +137,14 @@ InputStream resourceStream = repositoryService.getResourceAsStream(deploymentId,
 ----
 
 [[storing-deployments]]
-=== Storing Deployments
+=== Хранение Развертываний
 
-The created process definitions are stored in the Flowable database, specifically in table `ACT_RE_DEPLOYMENT`.
-
+Созданные определения процессов хранятся в базе данных Flowable, в частности, в таблице ACT_RE_DEPLOYMENT.
 
 [[deleting-deployments]]
-=== Deleting Deployments
+=== Удаление Развертываний
 
-To delete a deployment in Flowable, you can use the `RepositoryService` to remove the deployment object.
+Чтобы удалить развертывание в Flowable, вы можете использовать `RepositoryService`.
 
 [source,java]
 ----
@@ -200,80 +157,63 @@ String deploymentId = "yourDeploymentId";
 repositoryService.deleteDeployment(deploymentId, true);
 ----
 
-The first parameter is the deployment ID, which you can obtain when you create a deployment or by querying existing deployments.
+Первый параметр — это ID развертывания, который вы можете получить при создании развертывания или запросив существующие развертывания.
 
-The second parameter (`true` or `false`) determines whether to cascade the deletion to all process instances associated with that deployment.
-If set to `true`, all active and historic process instances created from this deployment will also be deleted.
+Второй параметр (`true` или `false`) определяет, следует ли каскадно удалять все экземпляры процессов, связанные с этим развертыванием. Если установить значение `true`, все активные и исторические экземпляры процессов, созданные из этого развертывания, также будут удалены.
 
-If cascade deletion is set to `false`,
-any active or historic process instances created from the processes defined in that deployment will not be deleted.
-This means that while the process definitions are no longer available for new instances,
-the existing instances remain intact in the system.
+Если каскадное удаление установлено на `false`, любые активные или исторические экземпляры процессов, созданные из процессов, определенных в этом развертывании, не будут удалены. Создание новых экземпляров на основе определения станет невозможным, но существующие экземпляры останутся в системе.
 
-[CAUTION]
-====
-You can delete a certain deployment manually in the _Process Definition Detail_ view.
-But keep in mind that this operation deletes _ALL_ process definitions deployed together.
-====
-
+WARNING: Вы можете вручную удалить определенный объект развертывания на экране xref:bpm:menu-views/process-definitions.adoc#process_definition_details[Process definition details]. Но имейте в виду, что эта операция удалит _ВСЕ_ определения развернутые вместе.
 
 [[deployment-properties]]
-=== Deployment Properties
+=== Свойств Объекта Развертывания
 
-A *deployment* has the following properties:
+Объект развертывания обладает следующими свойствами:
 
 [cols="1,2", options="header"]
 |===
-| Property | Description
+| Свойство | Описание
 
 | Id
-| A unique identifier for the deployment.
+| Уникальный идентификатор развертывания.
 
 | Name
-| A descriptive name for the deployment, helping to identify it among multiple deployments.
+| Имя объекта.
 
 | Deployment Time
-| The timestamp indicating when the deployment was created.
+| Временная метка, указывающее, когда было произведено развертывание.
 
 | Resources
-| A collection of resources (e.g., BPMN files, DMN tables) included in the deployment.
+| Коллекция ресурсов (например, файлы BPMN, таблицы DMN), включенных в объект развертывания.
 
 | Version
-| The version number of the deployment, helping manage updates and changes to process definitions over time.
+| Версия объекта развертывания.
 |===
 
-
-
 [[process-definitions]]
-== Process Definitions
+== Определение Процесса
 
-A *process definition* object represents a blueprint for an executable business process.
-It encapsulates the structure, activities, and logic of a process, allowing the process engine
-to manage and execute <<process-instances,process instances>> based on the defined <<process-models,process model>>.
+Определение процесса представляет собой шаблон для исполняемого бизнес-процесса. Оно определяет структуру, действия и логику процесса, позволяя процессному движку создавать и выполнять <<process-instances, экземпляры процесса>> на основе определенных <<process-models, моделей процесса>>.
 
 [[creating-process-definitions]]
-=== Creating Process Definitions
+=== Создание Определения Процесса
 
-It is not possible to create process definition directly.
-Process definitions are created during the deployment process.
+Создать определение процесса напрямую невозможно. Оно будет создано во время развертывания.
 
-Each *process definition* is associated with a specific <<deployments,deployment>>,
-which acts as a container for one or more process definitions and related resources.
+Каждое определение процесса связано с конкретным <<deployments, объектом развертывания>>, которое служит контейнером для одного или нескольких определений процессов и связанных с ними ресурсов.
 
-To see a list of process definitions,
-deployed to the engine, use *BPM*-> xref:menu-views/process-definitions.adoc[Process definitions view].
+Увидеть список определений процессов, развернутых в системе, можно на экране xref:menu-views/process-definitions.adoc[Process Definitions].
 
 [[suspending-activating-definitions]]
-=== Suspending and Activating
+=== Приостановка и Активация
 
-Process definition has two states: *active* and *suspended*.
+Определение процесса имеет два состояния: *active* и *suspended*.
 
-* *Active state*: In this state, the definition can be used to create and execute processes based on its defined structure.
+* *Active*: В этом состоянии определение может использоваться для создания и выполнения процессов на основе его структуры.
 
-* *Suspended State*: In this state, no new instances can be started from this definition,
-but existing instances that were already running can continue until they complete or are terminated.
+* *Suspended*: В этом состоянии новые экземпляры не могут быть запущены на основе этого определения, но существующие экземпляры, которые уже выполняются, могут продолжать работу.
 
-Transition between states:
+Переход между состояниями выполняется следующим образом:
 
 [source,java]
 ----
@@ -284,30 +224,23 @@ repositoryService.suspendProcessDefinitionByKey(processDefinitionKey);
 repositoryService.activateProcessDefinitionByKey(processDefinitionKey);
 ----
 
-As well, you can suspend and activate process definition by ID.
+Также вы можете приостанавливать и активировать определение процесса по ID.
 
 [[process-definition-versiooning]]
-=== Versioning of Process Definitions
+=== Версионирование Определений Процессов
 
-During deployment,
-the process engine assigns a version to the *process definition* before it is stored in the database.
-Thus, process definitions are versioned, allowing multiple versions of the same process to exist simultaneously.
+Во время развертывания процессный движок присваивает версию определению процесса перед его сохранением в базе данных. Таким образом, определения процессов версионируются, что позволяет одновременно существовать нескольким версиям одного и того же процесса.
 
-The `id` property is set to
+Свойство `id` устанавливается в формате
  `\{processDefinitionKey}:\{processDefinitionVersion}:\{generated-id}`,
-where `generated-id` is a unique number
-added to guarantee uniqueness of the process ID for the process definition caches in a clustered environment.
+где `generated-id` – это уникальный номер, который гарантирует, что ID процесса будет уникальным.
 
-[NOTE]
-====
-The property `process id` from the process model is copied to the `key` property of the process definition.
-Keep this in mind when manipulating processes.
-====
+NOTE: Свойство `process id` из модели процесса копируется в свойство `key` определения процесса.
 
 [[accessing-process-definitions]]
-=== Accessing Process Definitions
+=== Доступ к Определениям Процессов
 
-To access process definitions at runtime:
+Чтобы получить доступ к определениям процессов во время выполнения:
 
 [source,java]
 ----
@@ -329,71 +262,64 @@ repositoryService.createProcessDefinitionQuery()
 ----
 
 [[storing-process-definitions]]
-=== Storing Process Definitions
+=== Хранение Определений Процессов
 
-The created process definitions are stored in the  database, specifically in table `ACT_RE_PROCDEF`.
-
+Определения процессов хранятся в базе данных в таблице `ACT_RE_PROCDEF`.
 
 [[deleting-process-definitions]]
-=== Deleting Process Definition
+=== Удаление Определения Процесса
 
-If you need to delete a process definition, you have to delete the associated deployment object.
-See <<deleting-deployments>> section.
-
+Если вам нужно удалить определение процесса, необходимо также удалить связанный объект развертывания. См. <<deleting-deployments, Удаление Развертываний>>.
 
 [[process-definition-properties]]
-=== Process Definition Properties
+=== Свойства Определения Процесса
 
-A process definition in Flowable has several important properties:
+Определение процесса в Flowable имеет следующие свойства:
 
 [cols="1,2", options="header"]
 |===
-| Attribute | Description
+| Свойство | Описание
 
 | ID
-| A unique identifier for the process definition.
+| Уникальный идентификатор определения процесса.
 
 | Key
-| A key that uniquely identifies the process definition across versions. (Important: In the process model this parameter is called `process ID`.)
+| Ключ, который уникально идентифицирует определение процесса среди версий. (Важно: в модели процесса это свойство называется`process ID`.)
 
 | Name
-| A descriptive name for the process definition.
+| Имя определения процесса.
 
 | Version
-| The version number of the process definition.
+| Номер версии определения процесса.
 
 | Deployment ID
-| The deployment, this process definition belongs to.
+| Идентификатор объекта развертывания к которому принадлежит данное определение.
 
 | Resource Name
-| The name of the BPMN XML file that defines the process.
+| Имя XML-файла BPMN, который определяет процесс.
 
 |Category
-|User-defined parameter.
+|Пользовательский параметр.
 |===
 
-
 [[process-instances]]
-== Process Instances
+== Экземпляр Процесса
 
-A *process instance* represents a running instance of a business process. It encapsulates the execution of a specific <<process-definitions,process definition>>, with its own state and data.
+Экземпляр процесса — это запущенный бизнес-процесс, который выполняет конкретное определение процесса и имеет свое собственное состояние и данные.
 
 [[process-instance-lifecycle]]
-=== Process Instance Lifecycle
+=== Жизненный Цикл Экземпляра Процесса
 
-The lifecycle of a process instance encompasses several stages
-that represent the various states and transitions of a running process.
+Жизненный цикл экземпляра *процесса* включает несколько этапов, которые представляют различные состояния и переходы запущенного процесса.
 
 [[pi-lifecycle-creation]]
-==== Creation
+==== Создание
 
-A process instance is created when a new instance of a process definition is started.
-This can be done using the `RuntimeService` with methods like `startProcessInstanceByKey` or `startProcessInstanceById`.
+Создать экземпляр процесса можно с помощью `RuntimeService`, используя методы `startProcessInstanceByKey` или `startProcessInstanceById`.
 
-The BPM administrator can manually start the process using the xref:menu-views/process-definitions.adoc[] view.
-Users with the appropriate permissions can initiate processes using the xref:menu-views/start-process-view.adoc[] view.
+Администратор BPM может запустить процесс вручную через экран xref:menu-views/process-definitions.adoc[], а пользователи через экран xref:menu-views/start-process-view.adoc[].
 
-During this stage, initial variables can be passed to the instance, which can influence its execution.
+На этом этапе можно передать начальные переменные, которые повлияют на выполнение процесса.
 
 [source,java]
 ----
@@ -417,13 +343,11 @@ ProcessInstance processInstance = builder.start();
 ----
 
 [[pi-lifecycle-active]]
-==== Active State
+==== Активное Состояние
 
-Once created, the process instance enters an *active* state,
-where it begins executing tasks as defined in the process definition.
-The instance will progress through various tasks, events, and gateways defined in the BPMN model.
+После создания экземпляр процесса переходит в состояние *Active*, где начинает выполнять задачи, определенные в модели процесса. Экземпляр будет проходить через различные задачи, события и шлюзы, указанные в модели BPMN.
 
-Query to check if the process instance is active:
+Запрос для проверки, активен ли экземпляр процесса:
 
 [source,java]
 ----
@@ -433,7 +357,7 @@ ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
     .singleResult();
 ----
 
-If the process instance was suspended, you can activate it.
+Если экземпляр процесса был приостановлен, вы можете его активировать:
 
 [source,java]
 ----
@@ -441,20 +365,18 @@ runtimeService.activateProcessInstanceById(processInstanceId);
 ----
 
 [[pi-lifecycle-suspended]]
-==== Suspended State
+==== Приостановленное Состояние
 
-A process instance can be *suspended*, which temporarily halts its execution without terminating it.
-This allows for maintenance or updates without losing the current state of the instance.
-While suspended, no tasks will be executed, but existing tasks can still be viewed.
+Экземпляр процесса может быть переведён в состояние *Suspended*, что временно останавливает его выполнение без завершения. Это позволяет проводить обслуживание или обновления, не теряя текущее состояние экземпляра. В приостановленном состоянии задачи не будут выполняться, но существующие задачи все еще можно просматривать.
 
-You can suspend a process instance using a *Process Instance Detail* view or programmatically:
+Вы можете приостановить экземпляр процесса на экране xref:menu-views/process-instances.adoc#process_instance_detail[Process Instance detail] или программно:
 
 [source,java]
 ----
 runtimeService.suspendProcessInstanceById(processInstanceId);
 ----
 
-Query to check if the process instance is suspended:
+Запрос для проверки, приостановлен ли экземпляр процесса:
 
 [source,java]
 ----
@@ -465,66 +387,18 @@ ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
 ----
 
 [[pi-lifecycle-completion]]
-==== Completion
+==== Завершение
 
-When all tasks and events in the process instance are completed, it is considered completed too.
-But there is no special state *completed*.
-At this point, completed process instance is to be deleted,
-and the corresponding xref:bpm:history.adoc#historic-process-instances[historic process instance] is created.
-This historical data can be queried for reporting and auditing purposes.
+Экземпляр процесса считается завершенным после выполнения всех задач и событий. Однако специального состояния *Complete* не существует. Завершенный экземпляр процесса подлежит удалению, и создается соответствующий xref:bpm:history.adoc#historic-process-instances[исторический экземпляр процесса]. Эти исторические данные могут быть использованы для отчетности и аудита.
 
-Any variables that were set during the execution of the process are finalized and stored in the history,
-allowing for retrieval and analysis post-completion.
+Все переменные, установленные во время выполнения процесса, фиксируются и хранятся в истории, что позволяет их извлечение и анализ после завершения.
 
-Upon completion, process engine may trigger specific events defined in the BPMN model,
-such as end events or signals,
-which can initiate further actions or notifications within the system.
-
-[NOTE]
-====
-There is no method to directly call a "complete" action on a process instance itself.
-Instead, you can manage the completion by handling tasks and ensuring that all conditions defined in the BPMN model are satisfied.
-====
-
-[[pi-lifecycle-teermination]]
-==== Termination
-
-A process instance can also be *terminated* before completion.
-This forcibly stops its execution and releases any resources associated with it.
-Terminated instances are no longer active and cannot be resumed.
-
-If the terminated process instance is part of a larger workflow,
-its termination may affect the completion status of parent processes.
-
-[source,java]
-----
-runtimeService.deleteProcessInstance(processInstanceId, "Reason for termination");
-----
-
-[NOTE]
-====
-In Flowable process engine,
-the concepts of *termination* and *deletion* can be considered equivalent when referring to process instances.
-====
-
-A process instance can only be deleted if it is not currently executing any tasks.
-If there are active tasks,
-you will need to ensure that they are completed or that the instance is in a *wait state* before attempting deletion.
-
-If the process instance has asynchronous tasks running, you may encounter a *concurrent update exception*.
-This happens because the process engine uses optimistic locking,
-meaning only one transaction can modify a row in the database at a time.
-If another transaction updates or deletes the same row while you're trying to delete it, an exception will be thrown.
-
-image::optimistic-locking-exception.png[,400]
-
-When a process instance is deleted, process engine does not trigger any listener events associated with the deletion action.
-This means you cannot implement custom behavior directly tied to the deletion event through listeners.
+После завершения процессный движок может инициировать определенные события, заданные в модели BPMN, такие как конечные события или сигналы, которые могут запустить дальнейшие действия или уведомления в системе.
 
 [[acessing-process-instances]]
-=== Accessing Process Instances
+=== Доступ к Экземплярам Процесса
 
-To access process instances at runtime:
+Чтобы получить список экземпляров во время исполнения:
 
 [source,java]
 ----
@@ -532,7 +406,11 @@ To access process instances at runtime:
 List<ProcessInstance> instances = runtimeService.createProcessInstanceQuery()
         .processDefinitionKey(key)
         .list();
+----
 
+Чтобы получить конкертный экземпляр по его id:
+[source,java]
+----
 // Querying for a specific process instance by ID
 ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
         .processInstanceId(instanceId)
@@ -540,81 +418,75 @@ ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
 ----
 
 [[storing-process-instances]]
-=== Storing Process Instances
+=== Хранение Экземпляров Процессов
 
-Process engine stores *process instances* together with *executions* in the table named `ACT_RU_EXECUTION`.
+Процессный движок хранит экземпляры процессов в таблице с названием `ACT_RU_EXECUTION`.
 
 [[deleting-process-instances]]
-=== Deleting Process Instances
+=== Удаление Экземпляра Процесса
 
+Для удаления экземпляра процесса:
+
+[source,java]
+----
+runtimeService.deleteProcessInstance(processInstanceId, "Delete reason");
+----
 
 [[process-instance-properties]]
-=== Process Instance Properties
+=== Свойства Экземпляра Процесса
 
 [cols="1,2", options="header"]
 |===
-| Property | Description
+| Свойство | Описание
 
 | Process Instance ID
-| A unique identifier for the process instance.
+| Уникальный идентификатор.
 
 | Business Key
-| An optional business-level identifier for the process instance.
+| Необязательный бизнес-ключ для идентификации экземпляра.
 
 | Parent ID
-| If this field is null, it indicates that the execution is a *process instance*.
-Otherwise, if it contains a value, it signifies that the execution is a *child execution* of a process instance.
+| Если значение поля null, то данное выполнение представляет собой экземпляр процесса. Если значение присутствует, то оно является ID родителя этого выполнения.
 
 | Process Definition ID
-| The ID of the process definition that the instance is based on.
+| ID определения процесса, на основе которого создан экземпляр.
 
 | Start Time
-| The timestamp when the process instance was started.
+| Временная метка, когда был запущен экземпляр процесса.
 
 | End Time
-| The timestamp when the process instance was completed (if applicable).
+| Временная метка, когда экземпляр процесса был завершен (если применимо).
 
 | Duration
-| The duration of the process instance execution.
+| Продолжительность выполнения экземпляра процесса.
 
 | State
-| The current state of the process instance (e.g., running, suspended, completed).
+| Продолжительность выполнения экземпляра процесса (например, running, suspended, completed).
 
 | Variables
-| The data variables associated with the process instance.
+| Переменные, связанные с экземпляром процесса.
 |===
 
 
 [[executions]]
-== Executions
+== Объект выполнения (Execution)
 
-An *execution* object represents a _"path of execution"_ within a process instance.
-It is a fundamental concept in the Flowable engine
-that allows for tracking the current state and flow of a process as it progresses through various activities.
+Если экземпляр процесса содержит несколько потоков выполнения (как, например, после прохождения параллельного шлюза), то внутри экземпляра процесса будут созданы несколько объектов выполнения по одному для каждого параллельного пути выполнения. Выполнения также создаются для областей, например при достижении встроенного подпроцесса или многократных активностей (multi-instance activities) в бизнес процессе. Сам по себе экземпляр также является корневым выполнением которые может иметь дочерние выполнения, представляющие подпроцессы или параллельные действия.
 
 [NOTE]
 ====
-*Process Instance vs. Execution:*
-
-* A process instance represents a specific execution of a process definition and serves as a container for all related executions.
-* An execution is a pointer to the current state of a process instance and can represent various paths within that instance.
+* *Экземпляр процесса* представляет собой конкретное выполнение определения процесса и служит контейнером для дочерних *выполнений*.
+* *Выполнение* (execution) — это указатель на текущее состояние экземпляра процесса и может представлять различные пути внутри экземпляра.
 ====
 
-Executions are organized in a hierarchical tree structure.
-A process instance is also considered as top-level execution
-that may have child executions representing subprocesses or parallel activities.
-Even in a straightforward process, process engine creates an execution under the process instance.
+Метод getParentId() позволяет получить ID родительского выполнения, устанавливая четкую связь между родительскими и дочерними выполнениями, что важно для управления сложными рабочими процессами.
 
-The method `getParentId()` allows you to retrieve the ID of the parent execution,
-establishing a clear relationship between parent and child executions,
-which is essential for managing complex workflows.
-
-Child executions can hold *local variables* that are specific to their context.
+Дочерние выполнения могут содержать локальные переменные, специфичные для их контекста.
 
 [[accessing-executions]]
-=== Accessing Executions
+=== Доступ к Выполнениям
 
-To specifically query for child executions of a particular process instance:
+Чтобы получить список выполнений конкретного экземпляра процесса:
 
 [source,java]
 ----
@@ -624,61 +496,49 @@ List<Execution> childExecutions = runtimeService.createExecutionQuery()
 ----
 
 [[storing-executions]]
-=== Storing Executions
+=== Хранение Выполнений
 
-Both process instances and *executions* are stored in the `ACT_RU_EXECUTION` table.
-This table contains records for both types of entities, which can complicate querying and management.
+Как экземпляры процессов, так и *выполнения* хранятся в таблице `ACT_RU_EXECUTION`.
 
 [[deleting-executions]]
-=== Deleting Executions
+=== Удаление объекта выполнения
 
-You cannot delete an individual execution that is part of an active process instance
-without deleting the entire process instance.
-Executions are tightly coupled with their parent process instance,
-and they represent the current state of that instance.
+Выполнения связаны с родительским экземпляром процесса. Вы не можете удалить отдельное выполнение, если оно является частью активного экземпляра процесса, не удаляя весь экземпляр.
 
-.*Multi-Instance Executions*
-In cases of multi-instance tasks,
-you can use the deleteMultiInstanceExecution method to delete all executions related to a multi-instance activity,
-but this still relates to the context of the parent process instance.
+NOTE: Убедитесь, что выполнение, которое вы собираетесь удалить, не активно и не находится в состоянии, которое может помешать удалению. Если есть параллельные транзакции или зависимости, могут возникнуть исключения.
 
-[source,java]
-----
-// Replace with your execution ID
-String executionId = "yourExecutionId";
-// Set to true if you want to mark it as completed
-boolean executionIsCompleted = true;
 
-runtimeService.deleteMultiInstanceExecution(executionId, executionIsCompleted);
-----
-
-[NOTE]
-====
-Ensure that the execution you are trying to delete is not currently active or in a state that would prevent deletion.
-If there are concurrent transactions or dependencies, you may encounter exceptions.
-====
+//todo: cross link to multi-instance article
+// .*Multi-Instance Executions*
+// In cases of multi-instance tasks,
+// you can use the deleteMultiInstanceExecution method to delete all executions related to a multi-instance activity,
+// but this still relates to the context of the parent process instance.
+//
+// [source,java]
+// ----
+// // Replace with your execution ID
+// String executionId = "yourExecutionId";
+// // Set to true if you want to mark it as completed
+// boolean executionIsCompleted = true;
+//
+// runtimeService.deleteMultiInstanceExecution(executionId, executionIsCompleted);
+// ----
 
 [[execution-properties]]
-=== Execution Properties
+=== Свойства Выполнения
 
-Executions have the same properties as process instance.
-See the table <<process-instance-properties,above>>.
+Выполнение имеют тот же набор свойств, что и экземпляр процесса. См. <<process-instance-properties, Свойства Экземпляра Процесса>>.
 
 
 [[tasks]]
-== Task Instances
+== Экземпляр Задачи
 
-A *task instance* represents a specific occurrence of a task within a process.
-When a process execution reaches a user task, service task, or any other type of task, a task instance is created.
-Task instances are used to track and manage the execution of tasks by users or systems.
-
+Экземпляр задачи представляет собой конкретное выполнение задачи в рамках процесса. Когда выполнение процесса достигает пользовательской задачи, сервисной задачи или любой другой задачи, создается её экземпляр. Экземпляры задач используются для отслеживания и управления выполнением задач пользователями или системами.
 
 [[standalone-tasks]]
-=== Standalone Tasks
+=== Независимая Задача
 
-You can create standalone tasks that are not directly tied to a specific process instance.
-This feature provides additional flexibility for task management in various scenarios.
-For example:
+Независимые задачи не связаны напрямую с конкретным экземпляром процесса. Такая возможность предоставляет дополнительную гибкость для управления задачами в различных сценариях. Например:
 
 [source,java]
 ----
@@ -689,10 +549,9 @@ taskService.saveTask(newTask);
 ----
 
 [[accessing-task-instances]]
-=== Accessing Task Instances
+=== Доступ к Экземплярам Задач
 
-Task instances can be accessed programmatically through API using the `TaskService`.
-For example:
+Экземпляры задач можно получить программно:
 
 [source,java]
 ----
@@ -704,134 +563,122 @@ List<Task> tasks = taskService.createTaskQuery().taskAssignee("userId").list();
 ----
 
 [[storing-task-instances]]
-=== Storing Task Instances
+=== Хранение Экземпляров Задач
 
-Active task instances are stored in the database, specifically in tables `ACT_RU_TASK`.
-Each task instance is associated with its corresponding process instance and execution context.
+Активные экземпляры задач хранятся в базе данных, в частности, в таблицах ACT_RU_TASK. Каждый экземпляр задачи связан с соответствующим экземпляром процесса и контекстом выполнения.
 
 [[deleting-task-instances]]
-=== Deleting Task Instances
+=== Удаление Экземпляра Задачи
 
-Technically, it is possible to delete tasks programmatically:
+Экземпляр задачи можно удалить программно:
 
 [source,java]
 ----
 taskService.deleteTask(taskId, "Reason for deletion");
 ----
 
-[CAUTION]
-====
-But the deletion of a task can significantly affect the associated process in several ways.
-So, deletion of tasks must be done with caution,
-as it typically requires specifying criteria to avoid unintended data loss.
-====
+WARNING: Удаление задачи может существенно повлиять на связанный экземпляр процесса.
 
 [[task-instance-properties]]
-=== Task Instance Properties
+=== Свойства экземпляра задачи
 
 [cols="1,3"]
 |===
-| Property | Description
+| Свойство | Описание
 
 | Id
-| Unique identifier for the task instance.
+| Уникальный идентификатор экземпляра задачи.
 
 | Execution Id
-| Identifier of the execution associated with the task.
+| Идентификатор выполнения, связанного с задачей.
 
 | Process Instance Id
-| Identifier of the process instance to which the task belongs.
+| Идентификатор экземпляра процесса, к которому принадлежит задача.
 
 | Process Definition Id
-| Identifier of the process definition associated with the task.
+| Идентификатор определения процесса, связанного с задачей.
 
 | Task Definition Id
-| Identifier of the task definition that this instance is based on.
+| Идентификатор определения задачи, на основе которой создан этот экземпляр.
 
 | State
-| Current state of the task (e.g., created, assigned, completed).
+| Текущая стадия задачи (например, created, assigned, completed).
 
 | Name
-| Name of the task as defined in the BPMN model.
+| Название задачи, как определено в модели BPMN.
 
 | Description
-| Description providing additional details about the task.
+| Описание, предоставляющее дополнительные детали о задаче.
 
 | Task Definition Key
-| Key used to reference the task definition in queries. (It is equal to parameter 'task id' in the process model.)
+| Ключ, используемый для ссылки на определение задачи в запросах. (Соответствует параметру 'task id' в модели процесса.)
 
 | Owner
-| Identifier of the user who owns the task.
+| Идентификатор пользователя, который владеет задачей.
 
 | Assignee
-| Identifier of the user currently assigned to complete the task.
+| Идентификатор пользователя, которому в настоящее время назначена задача.
 
 | Delegation
-| Identifier for any delegation associated with this task.
+| Идентификатор для любой делегации, связанной с этой задачей.
 
 | Priority
-| Priority level assigned to this task, influencing its order in processing.
+| Уровень приоритета, назначенный этой задаче, влияющий на порядок ее обработки.
 
 | Create Time
-| Time when the task was created.
+| Время создания задачи.
 
 | In Progress Time
-| Time when work on the task began.
+| Время, когда работа над задачей началась.
 
 | In Progress Started By
-| Identifier of the user who started working on this task.
+| Идентификатор пользователя, который начал работу над этой задачей.
 
 | Claim Time
-| Time when the task was claimed by a user.
+| Время, когда задачу принял пользователь.
 
 | Claimed By
-| Identifier of the user who claimed this task.
+| Идентификатор пользователя, который принял эту задачу.
 
 | Suspended Time
-| Time when the task was suspended, if applicable.
+| Время, когда задача была приостановлена, если применимо.
 
 | Suspended By
-| Identifier of the user who suspended this task.
+| Идентификатор пользователя, который приостановил эту задачу.
 
 | In Progress Due Date
-| Due date for completing work on this task while it is in progress.
+| Срок выполнения работы над этой задачей, пока она в процессе.
 
 | Due Date
-| Final due date by which this task must be completed.
+| Окончательный срок, к которому задача должна быть завершена.
 
 | Category
-| Category or type classification for this task.
+| Категория или тип задачи.
 
 | Suspension State
-| State indicating whether the task is suspended or active.
+| Состояние, указывающее, приостановлена ли задача или активна.
 |===
 
 
 [[process-variables]]
-== Process Variables
+== Переменные Процесса
 
-In BPMN, process variables represent data used during the execution of a process instance.
-They serve as containers for information that can influence the flow of the process,
-store intermediate results, or provide input to tasks and activities.
+В BPMN переменные процесса представляют данные, используемые во время выполнения экземпляра процесса. Они служат контейнерами для информации, которая может влиять на поток процесса, хранить промежуточные результаты или предоставлять входные данные для задач и действий.
 
-Variables can be used in expressions, for example, to select the correct outgoing sequence flow in an exclusive gateway.
-In service tasks, they can be used when calling external services,
-for example, to provide the input or store the result of the service call, and so on.
+Переменные могут использоваться в выражениях, например, для выбора правильного исходящего последовательного потока в эксклюзивном шлюзе. В сервисных задачах они могут использоваться при вызове внешних сервисов, например, для предоставления входных данных или хранения результата вызова сервиса и так далее.
 
 
 [[persisting-process-variables]]
-=== Persisting Process Variables
+=== Сохранение Переменных Процесса
 
-Unlike regular Java variables, process variables are entities managed by process engine.
-The engine creates instances of process variables when the process started
-or when new variables are defined and initialized.
+В отличие от переменных Java, переменные процесса являются сущностями, управляемыми движком процесса. Движок создает экземпляры переменных процесса, когда процесс запускается или когда определяются и инициализируются новые переменные.
 
-So, they are really containers, storing the value of known Java types.
+Таким образом, они по сути являются контейнерами, хранящими значения известных типов Java.
 
 [[variable-types]]
-=== Types of Process Variables
+=== Типы переменных процесса
 
-In Jmix BPM, supported variable types are:
+В Jmix BPM поддерживаемые типы переменных:
 
 * String
 * Multiline string
@@ -844,43 +691,18 @@ In Jmix BPM, supported variable types are:
 * Entity list
 * File
 * Platform enum
-* Object (not available in process forms)
+* Object (не доступен для использования в процессных формах)
 
-Entities here are considered as Jmix entities defined in the data model.
-When such variables are persisted, the process engine de-facto stores in the database in the following format:
-`<entity-name>."<UUID>""`, for example:
+Тип Entity подразумевает сущности Jmix определенные в модели данных. Для хранения переменных в базе данных используется формат вида `<entity-name>."<UUID>""`. Например: `jbt_User."60885987-1b61-4247-94c7-dff348347f93"`.
 
- jbt_User."60885987-1b61-4247-94c7-dff348347f93"
+При использовании переменных типа Entity List учтите, что размер списка имеет ограничение в 4000 символов. Если предположить, что для элемента требуется 50 символов, то в списке будет 80 элементов. Если лимит превышен, это вызовет исключение при сохранении.
 
-So when the process uses this variable later, it reads the actual stated of the entity.
-
-[WARNING]
-====
-When using variables of entities list type, take care of the list size that is limited by 4000 characters.
-Suppose, we need 50 characters for the one entity, so the list size will be approximately 80.
-If the length of the process variable exceeds the limit, it causes an exception when persisting.
-
-But it is possible to use variables of longer size within a transaction boundaries while persisting is not required.
-As well, you can use <<transient-variables,transient variables>>.
-====
+Однако, можно использовать переменные и большего размера в пределах транзакционных границ, когда сохранение в базу данных не требуется. Также, можно использовать <<transient-variables,transient переменные>>.
 
 [[variable-scopes]]
-=== Variable Scopes
-Process variables have a defined scope, typically associated with a specific process instance.
-This means they are accessible throughout the execution of that instance but may not be visible outside it.
-Thus, any task, subprocess, or event within the same process instance can read from and write to these variables.
-A process instance can have any number of variables.
+=== Области видимости переменных
 
-However,
-it's important to note
-that while process instance variables are visible across all embedded scopes (like subprocesses),
-they are not accessible from separate process instances.
-For example, if a subprocess is called using a "call activity,"
-any variables must be explicitly passed between the parent and child processes;
-they do not automatically inherit the parent's variables.
-
-This design ensures that each process instance maintains its own state and data integrity
-while allowing flexibility in managing information across various tasks within that instance.
+Переменные процесса имеют определенную область видимости, обычно связанную с экземпляром процесса. Это означает, что они доступны на протяжении выполнения этого экземпляра, но могут быть недоступны за его пределами. Таким образом, любая задача, подпроцесс или событие в рамках одного и того же экземпляра процесса могут читать и записывать эти переменные.
 
 [[local-variables]]
 === Local Variables
@@ -889,32 +711,23 @@ Local variables in BPMN are variables that exist within a specific scope,
 typically tied to a particular task or subprocess.
 Within multi-instance activities, local variables can be defined for each instance.
 They are used to store data that is relevant only within that scope and are not accessible outside it.
-Scopes can be nested.
-
-Local variables are created when the block of logic is entered and are automatically deleted when the block is exited.
-This behavior helps manage memory efficiently by ensuring that resources are freed up when they are no longer necessary.
-
-Local variables can have the same name as variables in higher scopes (like process instance) without causing conflicts.
-When referenced within their scope, they override any higher-scoped variable with the same name.
 
 [[transient-variables]]
-== Transient Variables
+=== Transient Переменные
 
-Transient variables are variables that behave like regular variables, but are not persisted. Typically, transient variables are used for advanced use cases. When in doubt, use a regular process variable.
-
+Transient переменные ведут себя как обычные переменные, но имеют ограниченное время жизни – они не хранятся в базе данных и не хранятся в истории. Обычно временные переменные используются для сложных сценариев. Если вы не уверены, используйте обычную переменную процесса.
 
 [[using-process-variables]]
-=== Using Process Variables
+=== Использование переменных процесса
 
-You can pass variables into the process instance when starting the process:
+Вы можете передавать переменные в экземпляр процесса при его запуске:
 
 [source,java]
 ----
 ProcessInstance startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables);
 ----
 
-Variables can be added during process execution.
-For example, via `RuntimeService`:
+Переменные можно добавлять во время выполнения процесса. Например:
 
 [source,java]
 ----
@@ -924,9 +737,7 @@ void setVariables(String executionId, Map<String, ? extends Object> variables);
 void setVariablesLocal(String executionId, Map<String, ? extends Object> variables);
 ----
 
-Variables can also be retrieved, as shown below.
-Note that similar methods exist on the `TaskService`.
-This means that tasks, like executions, can have local variables that are 'alive' just for the duration of the task.
+Переменные также можно получать методами приведёнными ниже:
 
 [source,java]
 ----
@@ -938,10 +749,7 @@ Object getVariable(String executionId, String variableName);
 <T> T getVariable(String executionId, String variableName, Class<T> variableClass);
 ----
 
-Variables are often used in Java delegates, expressions, execution listeners, task listeners, scripts, and so on.
-In those constructs, the current execution or task object is available,
-and it can be used for variable setting and/or retrieval.
-The simplest methods are these:
+Переменные часто используются в делегатах Java, выражениях, слушателях выполнения, слушателях задач, скриптах и так далее. В этих конструкциях доступны текущие объекты выполнения или задачи, и их можно использовать для установки и/или извлечения переменных. Самые простые методы следующие:
 
 [source,java]
 ----
@@ -953,40 +761,34 @@ execution.setVariables(Map<String, object> variables);
 execution.setVariable(String variableName, Object value);
 ----
 
-[NOTE]
-====
-A variant with "_local_" is also available for all of the above.
-====
-
-
 [[storing-process-variables]]
-=== Storing Process Variables
+=== Хранение переменных процесса
 
-Variables are stored in the database table named `ACT_RU_VARIABLE`.
+Переменные хранятся в таблице базы данных с именем `ACT_RU_VARIABLE`.
 
 [[process-variable-properties]]
-=== Process Variable Properties
+=== Свойства переменных процесса
 
 [cols="1,2"]
 |===
-| Property | Description
+| Свойство | Описание
 
 | **ID**
-| A unique identifier for the process variable.
+| Уникальный идентификатор переменной процесса.
 
 | **Type**
-| Defines the type of data that the variable can hold, such as String, Integer, Boolean, etc.
+| Определяет тип данных, который может содержать переменная, например, строка, целое число, логическое значение и т.д.
 
 | *Name*
-| The name of the variable.
+| Название переменной.
 
 | *Execution ID*
-| Refers the execution, in which scope the process variable is defined.
+| Ссылается на выполнение, в рамках которого определена переменная процесса.
 
 | *Process instance ID*
-| Refers the process instance, in which scope the process variable is defined.
+| Ссылается на экземпляр процесса, в рамках которого определена переменная процесса.
 
 | *Task instance ID*
-| Refers the task instance, in which scope the process variable is defined.
+| Ссылается на экземпляр задачи, в рамках которого определена переменная процесса.
 
 |===

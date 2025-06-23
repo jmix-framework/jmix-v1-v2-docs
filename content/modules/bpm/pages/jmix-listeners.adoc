@@ -1,17 +1,17 @@
 = Event Listeners
 
-There are several approaches to handle process engine events like task creation, activity completion, and so on.
+Существует несколько подходов к обработке событий процессов, таких как создание задачи, завершение операции и т.д.
 
-First, you can define an execution listener or a task listener for a particular process node. See https://www.flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs#execution-listener[Flowable documentation^] for details.
+Первый подход состоит в определении слушателя выполнения или слушателя задачи для определённого узла процесса. Подробее см. в https://www.flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs#execution-listener[документации Flowable].
 
-Process modeler provides UI for configuring listeners.
+Моделер процессов предоставляет UI для настройки слушателей.
 
-* In the execution listener editor, the drop-down list contains classes that implement the `org.flowable.engine.delegate.ExecutionListener` interface. 
-* In the task listener editor,  the drop-down list contains classes that implement `org.flowable.engine.delegate.TaskListener` interface. If the class contains https://flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs/#field-injection-on-execution-listeners[injected fields^], then these fields will be automatically added to the *Fields* section of the listener editor.
+* В редакторе слушателя завершения выпадающий список содержит классы, реализующие интерфейс `org.flowable.engine.delegate.ExecutionListener`.
+* В редакторе слушателя задачи выпадающий список содержит классы, реализующие интерфейс `org.flowable.engine.delegate.TaskListener`. Если класс содержит https://flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs/#field-injection-on-execution-listeners[инжектированные поля^], то они будут автоматически добавлены в раздел *Fields* редактора слушателя.
 
-The second approach is to declare global event listeners provided by the Flowable framework, see https://flowable.com/open-source/docs/bpmn/ch03-Configuration/#event-handlers[Event handlers^] section. You can define them in the *Event listeners* section in the project properties panel.
+Второй подход – объявить глобальные слушатели событий, предоставляемые фреймворком Flowable, см. раздел https://flowable.com/open-source/docs/bpmn/ch03-Configuration/#event-handlers[Event handlers^] в документации Flowable. Слушатели можно определить в разделе *Event listeners* панели свойств проекта.
 
-BPM add-on additionally introduces a set of Spring application events. The following events are published:
+Дополнение BPM также представляет набор событий приложений Spring. Публикуются следующие события:
 
 * `UserTaskAssignedEvent`
 * `UserTaskCreatedEvent`
@@ -21,36 +21,36 @@ BPM add-on additionally introduces a set of Spring application events. The follo
 * `ProcessStartedEvent`
 * `ProcessCompletedEvent`
 
-Here is an example of an event listener that sends an email notification each time a user task is assigned to a user:
+Ниже представлен пример слушателя, который отправляет уведомление по электронной почте каждый раз, когда пользовательская задача назначается пользователю:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/listener/TaskAssignedNotificationSender.java[tags=event-listener-1;event-listener-2]
 ----
 
-<1> Declares that the method is an event listener.
-<2> The listener is fired each time the `UserTaskAssignedEvent` is published.
-<3> Gets `User` entity to receive a user's first name and email address.The `UserTaskAssignedEvent` contains a `username` of a user who is the task assigned to.
-<4> The `UserTaskAssignedEvent` contains a `Task` object which holds information about the user task.
-<5> Creates and sends email. See the xref:email:index.adoc[Email Sending Guide] for details.
+<1> Аннотация `@EventListenter` указывает что метод является слушателем события.
+<2> Слушатель срабатывает всякий раз когда публикуется событие `UserTaskAssignedEvent`.
+<3> Загрузка экземпляра сущности `User` с указанным именем пользователя (username). Значение `username` содержит имя пользователя которому назначена задача, оно передается из события `UserTaskAssignedEvent`.
+<4> Событие `UserTaskAssignedEvent` содержит объект `Task` с информацией о пользовательской задаче.
+<5> Создание и отправка письма. Подробнее см. в разделе xref:email:index.adoc[].
 
-If you need to get a process variable value in the listener, you can do it this way:
+Если вам нужно получить в слушателе значение переменной процесса, то это можно сделать следующим образом:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/listener/TaskAssignedNotificationSender2.java[tags=get-variable-1;get-variable-2]
 ----
 
-By default, a listener is fired when the user task is assigned in any process. If you want to send notifications only for specific process definition, you can check the process definition in the listener method body:
+По умолчанию слушатель срабатывает, когда в любом процессе назначается пользовательская задача. Если вы хотите отправлять уведомления только для конкретного определения процесса, вы можете проверить определение процесса в теле метода слушателя;
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/listener/TaskAssignedNotificationSender.java[tags=specific-process-1;specific-process-2]
 ----
 
-or you can define a SpEL (Spring Expression Language) expression that should match in order to handle the event:
-
+По умолчанию слушатель срабатывает, когда в любом процессе назначается пользовательская задача. Если вы хотите отправлять уведомления только для конкретного определения процесса, вы можете проверить определение процесса в теле метода слушателя;
 [source,java,indent=0]
+
 ----
 include::example$/ex1/src/main/java/bpm/ex1/listener/TaskAssignedNotificationSender3.java[tags=spel-example-1;spel-example-2]
 ----

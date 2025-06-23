@@ -1,23 +1,18 @@
-= Process Engine
+= Движок Процессов
 
-The Flowable *Process Engine* is a core component responsible for managing and executing business processes defined in BPMN.
-It provides the necessary infrastructure to deploy, start, and control process instances, ensuring that business workflows are executed according to defined rules and logic.
+Движок процессов Flowable является основным компонентом, ответственным за управление и выполнение бизнес-процессов в Jmix BPM. Он предоставляет необходимую инфраструктуру для развертывания, запуска и контроля над процессами.
 
 image::bpm:process-engine.png[,700]
 
-The Process Engine exposes various services, each serving specific functionalities:
+Внутри движка содержатся следующие сервисы:
 
-* **RepositoryService**: Responsible for deploying and managing BPMN process definitions.
-* **RuntimeService**: Manages the execution of process instances and handles their state transitions.
-* **TaskService**: Manages user tasks, allowing for task creation, assignment, and querying.
-* **IdentityService**: Handles user authentication and authorization.
-* **ManagementService**: Provides administrative functions for managing the engine and its resources.
-* **HistoryService**: Manages historical data related to completed process instances.
-* **DynamicBpmnService**: Enables dynamic modifications to BPMN models at runtime.
-* **FormService**: Facilitates form handling within processes. (Not used in Jmix BPM.)
+* **RepositoryService**: Ответственен за развертывание и управление определениями процессов BPMN.
+* **RuntimeService**: Управляет выполнением экземпляров процессов и обрабатывает их переходы состояний.
+* **TaskService**: Управляет пользовательскими задачами, позволяя создавать, назначать и запрашивать задачи.
+* **IdentityService**: Обеспечивает аутентификацию и авторизацию пользователей.
+* **ManagementService**: Предоставляет административные функции для управления движком и его ресурсами.
+* **HistoryService**: Управляет историческими данными, связанными с завершенными экземплярами процессов.
+* **DynamicBpmnService**: Позволяет вносить динамические изменения в модели BPMN во время выполнения.
+* **FormService**: Обеспечивает обработку форм в рамках процессов. (Не используется в Jmix BPM.)
 
-You can access process engine via xref:jmix-bpm-api.adoc#flowable-api[Flowable API].
-
-
-
-== Configuration
+Получить доступ к движку процессов можно через xref:jmix-bpm-api.adoc#flowable-api[Flowable API].

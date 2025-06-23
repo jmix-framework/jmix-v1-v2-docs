@@ -1,58 +1,71 @@
-= Creating Process in Studio
+= Создание Процесса в Jmix Studio
 
-For developers, the BPMN Modeler in Studio serves as the primary tool for creating automated processes.
-It offers features beyond pure modeling, including:
+xref:bpm:modeler-studio.adoc[] предназначен для создания автоматизированных процессов. Он предлагает функции, выходящие за рамки простого моделирования, включая:
 
-* Navigation to process models through the Jmix project tree.
-* BPM Inspector for manipulating the properties of BPMN elements.
-* Entity Data Task: an extended BPMN component that enables manipulating with Jmix entities directly within the process.
-* Wizard for JPQL queries to load entities.
-* Wizard for Jmix view process forms.
-* Suggestions and hints where applicable.
-* Generation of Spring beans and Java delegate templates in the context of the process.
-* Process deployment at application startup and hot deployment.
+* Навигацию к моделям процессов через дерево проекта Jmix.
+* BPMN Inspector для редактирования свойств элементов BPMN.
+* Entity Data Task: расширенный элемент BPMN, который позволяет работать с сущностями Jmix непосредственно в процессе.
+* Мастер создание JPQL-запросов.
+* Мастер создания процессных форм на основе экранов Jmix.
+* Генерацию Spring beans и шаблонов Java делегатов в контексте процесса.
+* Развертывание процессов при запуске приложения и горячее развертывание.
+
+== Описание Процесса
+
+Далее приведены инструкции по созданию простого процесса возмещения расходов. Он аналогичен тому, что описан в разделе xref:bpm:getting-started.adoc[].
+
+
+В процессе будут задействованы три участника:
+
+* работник, который требует возмещения;
+* менеджер, который утверждает возмещение;
+* бухгалтер, который перечисляет деньги на счет работника.
+
+Модель процесса может быть представлена в нотации BPM:
+
+image::quick-start/model.png[align="center"]
 
 [[modeling-process-in-studio]]
-== Modeling Process in Studio
+== Создание Процесса
 
-In the Jmix Tool window, find the BPM node.
-Right click on it and create a new BPMN model.
+В панели инструментов Jmix найдите раздел BPM. Щелкните по нему правой кнопкой и создайте новую модель BPMN.
 
-For our reimbursement process, fill the form:
+Для нашего процесса возмещения заполните форму:
 
 * *Process id*: `reimbursement`
-* *Name*: `Reimbursement` (will be filled automatically)
+* *Name*: `Reimbursement` (будет заполнено автоматически)
 
 image::bpm:getting-started/create-process-studio.png[,400]
 
-Then find a documentation field in the *BPMN Navigator* panel and fill it:
+Затем найдите аттрибут в панели *BPMN Navigator* и добавьте краткое описание:
 
 image::getting-started/fill-documentation-studio.png[,800]
 
 [[creating-start-form]]
-=== Creating Start Form
+=== Создание Стартовой Формы
 
-Each element on the canvas has its own properties.
-At the moment the only element present is `StartEvent`.
-It represents the xref:bpm:getting-started-testing-process.adoc#start-form[Start form]
-seen by the user initiating the process.
-Let's configure it:
 
-* Click on the `StartEvent` element to select it.
+Каждый элемент на холсте обладает собственным набором свойств. Пока единственный элемент на холсте это `StartEvent`. Он соответствует <<start-form, Стартовой форме>> которую увидит пользователь при запуске процесса. Давайте его настроим:
+
+* Нажмите на элемент `StartEvent` чтобы его выделить.
 +
-* Select `Input dialog` in the *Form Type* field. Its *Open mode* is automatically set to *Dialog*.
+* В поле *Form Type* выберите `Input dialog`. В поле *Open mode* будет автоматически выбрано значение *Dialog*.
 +
 image::getting-started/start-form-studio.png[,800]
 
-Next, create input parameters to prompt the user to enter values to this form:
+Далее необходимо указать параметры, которые увидит пользователь в диалоговом окне.
 
-* Click _create_ in the 'Parameters' field
-and add `requestNumber` parameter with the following properties:
+* Нажмите _create_ напротив атрибута Parameters и в диалоговом окне *Input dialog parameter editor* создайте параметр `requestNumber` со следующими свойствами:
 
 image::getting-started/request-number-studio.png[,800]
 
+// ** *Process variable*: `requestNumber`
+// ** *Caption* – Request number (this will be generated automatically.)
+// ** *Type* – String
+// ** *Editable* – true
+// ** *Required* – true
 
-* Repeat the previous step to create three more input parameters:
+* Повторите предыдущий шаг, чтобы создать еще три параметра диалогового окна:
 +
 [cols="1,1,1,1,1"]
 |===
@@ -77,13 +90,12 @@ image::getting-started/request-number-studio.png[,800]
 |true
 
 |===
-
-In result, you'll get all fields created:
-
++
+В результате вы получите следующий набор параметров:
++
 image::getting-started/start-form-filled-studio.png[,800]
 
-* Next, create an input parameter to let users select a manager for approval.
-This will require a few additional properties:
+* Далее, создайте еще один параметр, позволяющий пользователям выбрать менеджера для утверждения заявки. Он потребует несколько дополнительных свойств:
 +
 [cols="1,1,1,1,1,1,1,"]
 |===
@@ -96,49 +108,48 @@ This will require a few additional properties:
 |true
 |User
 |ComboBox
-|_leave blank^*^_
+|_оставьте пустым^*^_
 |===
 +
-__^*^ If no query is specified, this field defaults to__ `select e from User e`.
+__^*^ Если поле не заполнено, будет использован запрос по умолчанию__ `select e from User e`.
 +
 image::getting-started/manager-field-studio.png[,800]
 +
-+
-*  Set `requestNumber` as the *Business key* field value.
-A xref:bpm:bpm-concepts.adoc#business-key[business key] is a domain-specific identifier of a process instance.
+* Установите значение `requestNumber` в поле *Business key*. xref:bpm:bpm-concepts.adoc#business-key[Business key] — это специфичный для домена идентификатор экземпляра процесса.
 
-After adding all the parameters, the *Form* section should look as follows:
+После добавления всех параметров, раздел *Form* должен выглядеть следующим образом:
 
 image::getting-started/set-business-key-studio.png[,800]
 
 [[creating-approval-task]]
-=== Creating Approval Task
+=== Создание пользовательской задачи Approval
 
-Create a task for approval.
-It will be represented by the xref:bpm:getting-started-testing-process.adoc#approval-form[Approval form]
-seen by the manager assigned to approve the reimbursement.
+Создадим пользовательскую задачу утверждения *Approval*. Она соответствует форме утверждения заявки которую увидит менеджер.
 
-First, add a new element on the canvas:
+В первую очередь, добавьте новый элемент на холст:
 
-* Click on the `StartEvent` element to select it.
-* Click the *Append task* image:quick-start/append-task-icon.png[width="20"] icon.
-* Click the *Change type* image:quick-start/change-type-icon.png[width="20"] icon
-and select *User Task* in the drop-down.
-* In the *Assignee* section use the following settings:
-** *Assignee Source*: `Process variable`
+* Нажмите на элемент `StartEvent` чтобы его выделить.
+* Нажмите иконку *Append task* image:quick-start/append-task-icon.png[width="20"].
+* Нажмите иконку *Change type* image:quick-start/change-type-icon.png[width="20"] и выберите *User Task* в выпадающем списке.
++
+image::quick-start/user-task.gif[align="center" width="660"]
++
+* В панели свойств укажите следующие значения для задачи:
+** *Id*: `approval`
+** *Name*: `Approval`
+** *Assignee source*: `Process variable`
 ** *Process variable*: `manager`
 +
 // image::getting-started/add-user-task-studio.png[,800]
 image::getting-started/manager-assigned-studio.png[,800]
 +
-TIP: By default, the built-in `initiator` process variable is available to assign a task.
+TIP: По умолчанию для назначения задачи доступна встроенная переменная процесса `initiator`.
 +
-* Proceed to the *Form* section and specify the following properties:
+* Перейдите в секцию *Form* и укажите следующие свойства:
 ** *Form type*: `Input dialog`
-** *Open mode*: `Dialog` (this will be set by default)
+** *Open mode*: `Dialog` (выбрано автоматически)
 
-* Click the [image:bpm:getting-started/create-btn.png[,60] link button] and
-add the following existing parameters making them non-editable:
+* Нажмите image:bpm:getting-started/create-btn.png[,60] и добавьте следующие имеющиеся параметры, но отключив при этом возможность для их редактирования:
 +
 [cols="1,1,1,1,1"]
 |===
@@ -148,29 +159,28 @@ add the following existing parameters making them non-editable:
 |Request number
 |String
 |false
-|false
+|true
 
 |`expenseAmount`
 |Expense amount
 |Decimal (double)
 |false
-|false
+|true
 
 |`expenseDate`
 |Expense Date
 |Date
 |false
-|false
+|true
 
 |`document`
 |Document
 |File
 |false
-|false
+|true
 |===
 +
-* Click the [image:bpm:getting-started/create-btn.png[,60] link button]
-and create one additional parameter for this form:
+* Нажмите image:bpm:getting-started/create-btn.png[,60] и добавьте дополнительный параметр:
 +
 [cols="1,1,1,1,1"]
 |===
@@ -183,92 +193,95 @@ and create one additional parameter for this form:
 |false
 |===
 +
-This parameter will be represented by a text field allowing the manager to leave notes during the approval step.
-+
 image::getting-started/user-task-form-1.png[,800]
++
+Данный параметр будет соответствовать текстовому полю которое позволит менеджеру сделать пометки при утверждении или отклонении запроса на возмещение.
 
-[[creating-outcomes]]
-=== Creating Outcomes
+Этап *Approval* имеет два возможных сценария развития: запрос одобрен или запрос отклонен. Соответственно, форма предназначенная для менеджера, принимающего решение, должна иметь две кнопки.
 
-The *Approval* step has two outcomes: approved or rejected.
-Therefore, the manager making decision, should see two buttons on the form.
+* Убедитесь что выбран элемент Approval. Перейдите в свойства *Outcomes* и нажмите image:bpm:getting-started/create-btn.png[,60].
+* Задайте свойства для первого выхода:
++
+[cols="1,1,1"]
+|===
+|Business id | Caption | Icon
 
-* Make sure the Approval element is selected.
-Then go to *Outcomes* properties and click the [image:bpm:getting-started/create-btn.png[,60] link button].
+|`approve`
+|Approve
+|CHECK
+|===
++
+* Повторите действия чтобы создать второй выход:
++
+[cols="1,1,1"]
+|===
+|Business id | Caption | Icon
 
-* Set properties for the first outcome:
-
+|`reject`
+|Reject
+|BAN
+|===
++
 image::getting-started/approval-outcomes.png[,800]
 
-Depending on the *Approval* task's outcome, two scenarios are possible.
-To indicate a point with several alternative paths, add an Exclusive Gateway element:
+Чтобы указать точку с несколькими альтернативными путями, добавьте элемент шлюза:
 
-* Select the *Approval* task element and click *Append Gateway* image:quick-start/append-gateway-icon.png[width="20"].
-* Select the gateway element and create another user task with image:quick-start/append-task-icon.png[width="20"] -> image:quick-start/change-type-icon.png[width="20"] -> *User Task*.
-* Select the gateway and click image:quick-start/append-end-event-icon.png[width="20"] to create `EndEvent` element.
-* Select the new sequence flows between elements and name them: `approved` and `rejected`.
+* Выберите задачу *Approval* и нажмите *Append Gateway* image:quick-start/append-gateway-icon.png[width="20"] чтобы добавить шлюз.
+* Выберите элемент шлюза и создайте новую пользовательскую задачу с помощью image:quick-start/append-task-icon.png[width="20"] -> image:quick-start/change-type-icon.png[width="20"] -> *User Task*.
+* Выберите элемент шлюза и нажмите image:quick-start/append-end-event-icon.png[width="20"] чтобы создать элемент `EndEvent`.
+* Дайте имена для связей соединяющих созданные элементы:  `approved` and `rejected`.
 
-image::getting-started/model-3.png[,400]
+Теперь модель должна выглядеть следующим образом:
 
-* Select the `approved` sequence flow and specify its *Condition* properties:
+image::quick-start/flows.png[align="center"]
+
+* Выберите связь `approved` и укажите для неё свойства в разделе *Condition*:
 ** *Condition source*: `User task outcome`
 ** *User task id*: `Approval`
 ** *User task outcome*: `approve`
 +
 image::getting-started/approve-condition-studio.png[,800]
 +
-+
-* Similarly, specify *Condition* properties for the `rejected` sequence flow:
+* Подобно предыдущему шагу укажите свойства для связи `rejected`:
 ** *Condition source*: `User task outcome`
 ** *User task id*: `Approval`
 ** *User task outcome*: `reject`
 
-image::getting-started/default-flow-studio.png[,800]
-
 [[creating-payment-user-task]]
 === Creating Payment User Task
 
-The other user task in our model is to notify accountants about reimbursement payment approval.
-It will be represented by the xref:bpm:getting-started-testing-process.adoc#payment-form[Payment form] available only to accountants.
+=== Создание пользовательской задачи Payment
 
-* Select the user task on the canvas then set its *Id* and *Name*:
+Вторая пользовательская задача в модели уведомляет бухгалтеров об одобрении заявки. Эта задача соответствует <<payment-form, Форме оплаты>> предназначенной только для бухгалтеров.
+
+* Выберите вторую пользовательскую задачу на холсте и задайте свойства *Id* и *Name*:
 ** *Id*: `payment`
 ** *Name*: Payment
 
-For this task, we will implement the following behavior:
-it is sent to all accountants with any of them being able to claim this task.
-To achieve this, instead of a particular assignee,
-there is an option to specify *Candidate groups* or *Candidate users*.
+Для этой задачи будет реализовано следующее поведение: она передается группе бухгалтеров, после чего любой из них может взяться за её выполнение. Для этого, вместо конкретного исполнителя имеется возможность указать *Candidate groups* или *Candidate users*
 
-Therefore, let's create a *Candidate group* for accountants.
+Давайте создадим *Candidate group* для бухгалтеров.
 
-TIP: Before leaving Modeler,
-save your model as draft with image:quick-start/save-draft-button.png[width="32"] button on the toolbar.
-You can open it any time later using image:quick-start/open-draft-button.png[width="32"] button.
+TIP: Прежде чем покинуть моделер, сохраните черновик задачи с помощью кнопки image:quick-start/save-draft-button.png[width="32"] в панели инструментов. К черновикам можно вернуться позднее нажав кнопку image:quick-start/open-draft-button.png[width="32"].
 
-* Go to the *BPM-> User groups* view and create a new group named `Accountants` and set `accountants` as its code.
-* Set the user type to *Users*.
-* Add users to the group.
+* В запущенном приложении перейдите на экран *BPM -> User groups* и создайте группу `Accountants` указав для неё код `accountants`.
+* Установите *Users* как тип группы.
+* Добавьте пользователей в группу.
 +
 image::quick-start/user-group.png[align="center" width="1414"]
 
+NOTE: Пользователям участвующим в процессе должна быть назначена роль `BPM: process actor` для предоставления доступа к экранам и сущностям BPM, необходимым для запуска процесса и работы с пользовательскими задачами. Назначить роли можно на экране *Application -> Users*.
 
-
-NOTE: Users involved in the processes must be granted the `BPM: process actor` role.
-This role provides access to BPM views and entities required for starting processes and working with user tasks.
-You can assign roles in the *Application-> Users* view.
-
-* Go back to the modeler and select the `Payment` user task.
-* Set the Candidate groups property to `accountants`.
+* Вернитесь в моделер и выберите пользовательскую задачу `Payment`.
+* В качестве значения Candidate Groups укажите группу `accountants`.
 +
 image::getting-started/setting-candidates-studio.png[,800]
 +
 
-* Configure an input dialog for the `Payment` task similarly to `Approval` task.
-Set the following properties:
+*  Настройте диалог ввода для задачи `Payment` подобно тому как это было сделано для задачи `Approval`. Установите следующие свойства:
 ** *Form type*: `Input dialog`
 ** *Open mode*: `Dialog` (this will be set by default)
-* Add input parameters. They match the parameters on the Approval form, but the comment field should be non-editable too:
+* Добавьте входные параметры. Они будут такие же, как и на форме `Approval`, однако для комментария менеджера необходимо отключить возможность редактирования:
 +
 [cols="1,1,1,1,1"]
 |===
@@ -306,17 +319,14 @@ Set the following properties:
 
 |===
 +
-* Go back to the canvas and add the `EndEvent` element image:quick-start/append-end-event-icon.png[width="20"] after the `Payment` task.
-
+* На холсте добавьте элемент `EndEvent` image:quick-start/append-end-event-icon.png[width="20"] после задачи `Payment`.
 
 [[specifying-users-to-start-process]]
-=== Specifying Users to Start Process
+=== Указание пользователей для запуска процесса
 
-To start a process, the user must belong to a special user group.
-In our case, such a group will contain all users.
+Чтобы запустить процесс, пользователь должен принадлежать к специальной группе пользователей. В нашем случае, такая группа будет включать всех пользователей.
 
-* Switch to web application.
-* Open the *User groups* view and create a new group with the following properties:
+* В запущенном приложении перейдите на экран *User groups* и создайте группу со следующими свойствами:
 
 ** *Name*: All users
 ** *Code*: all-users
@@ -324,33 +334,32 @@ In our case, such a group will contain all users.
 +
 image::quick-start/all-users.png[align="center" width="1392"]
 
-* Go back to the *Studio Modeler* view and click anywhere on the canvas to display the process properties.
-* Set *Candidate groups* to `All users` in the *Starter candidates* section.
+* Вернитесь в моделер в Studio и щелкните по свободному месту на холсте, чтобы отобразить свойства процесса.
+* Для атрибута *Candidate groups* установите значение `all-users`.
 +
 image::getting-started/set-starters-studio.png[,800]
 
 [[starting-process]]
-== Deploying Process
+== Развертывание процесса
 
-The process model is ready to be deployed to the process engine.
-Do the following steps:
+Модель процесса готова к развертыванию в движке процессов. Выполните следующие шаги:
 
-* Copy draft to processes:
+* Скопируйте черновик в процессы:
 +
 image::getting-started/copy-to-processes-studio.png[,800]
-
-* If the application is started, use "Hot deploy" button:
++
+* Если приложение запущено, используйте кнопку "Hot deploy":
 +
 image::getting-started/hot-deploy-studio.png[,800]
-
-* Otherwise, run the application or start it in the debug mode:
++
+* В противном случае стартуйте приложение или запустите его в режиме отладки:
 +
 image::getting-started/run-debug-buttons.png[,200]
-
-* If the process was deployed OK, you will see a message in the console:
 +
- BPMN process deployed: reimbursement.bpmn
+* Если процесс был успешно развернут, вы увидите сообщение в консоли:
++
+----
+BPMN process deployed: reimbursement.bpmn
+----
 
-Now you can start and test your process, go to the  xref:bpm:getting-started-testing-process.adoc[next section].
-
-
+Теперь процесс можно запустить и протестировать. Инструкции приведены в разделе xref:bpm:getting-started#testing-process[Запуск Процесса].

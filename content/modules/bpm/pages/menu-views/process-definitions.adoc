@@ -1,63 +1,39 @@
 = Process Definitions
 
-This administrative view contains a list of deployed processes (or process definitions) and allows you to open them in modeler,
-view details, upload BPMN XML or start new processes instances.
+Экран *Process Definitions* содержит список доступных определений процессов.
 
 image::bpm-menu-views/process-definitions-list.png[,800]
 
-You can start a new process instance of the selected process definition by clicking the *Start process* button.
-If the process has a start form, it will be displayed before the new instance to be started.
+Выбрав определение, можно выполнить над ним следующие действия:
 
-image::bpm-menu-views/start-process-from-definitions.png[,800]
+* Перейти к моделированию на экране xref:bpm:menu-views/modeler-web.adoc[].
+* Перейти на экран <<process_definition_details,Process Definition details>> с подробным описанием определения.
+* Запустить новый экземпляр процесса.
+* Загрузить BPMN XML файл процесса.
 
-Click *View details* button to open *Process definition editor* that displays process definition properties,
-BPMN XML, active process instances of the selected process definition version.
+[[process_definition_details]]
+== Process definition details
+
+Нажав *View details* вы попадёте на экран *Process definition details*, в котором отображаются свойства определения процесса, BPMN XML, а также активные экземпляры процесса.
 
 image::bpm-menu-views/process-deinition-details.png[,800]
 
-From the detail view, you can suspend the process definition.
-In this case, the process will not be available for starting new instances until you activate it.
-In the suspend process definition dialog, you can suspend running process instances as well.
-In this case, user tasks of suspended instances won’t be displayed in xref:menu-views/my-tasks.adoc[My tasks] view,
-all timers and jobs won’t be executed.
+* Используйте поле *Version,* чтобы переключаться между версиями определения процесса.
 
+* Нажмите *Suspend,* чтобы приостановить выбранное определение процесса. Это сделает невозможным запуск новых экземпляров на его основе. В диалоге доступен чекбокс с помощью которого можно также приостановить все активные экземпляры процесса. Задачи приостановленных экземпляров не будут отображаться в xref:menu-views/my-tasks.adoc[My tasks], а все таймеры и задания будут остановлены.
++
 image::bpm-menu-views/process-definition-suspend.png[,800]
-
-You can activate a suspended process definition.
-As well, you can activate all suspended process instances.
-
++
+* Нажмите *Activate,* чтобы возобновить остановленное ранее определение процесса. Используйте чекбокс, чтобы возобновить выполнение экземпляров процесса.
++
 image::bpm-menu-views/process-definition-activate.png[,800]
-
-You can initiate xref:bpm:instance-migration.adoc[] from here.
-See the details in the corresponding section.
-
++
+* Нажмите *Migrate all process instances* чтобы запустить xref:bpm:instance-migration.adoc[миграцию экземпляров процесса].
++
 image::bpm-menu-views/process-definition-migrate-all.png[]
-
-To find the required process definition, you can use a search filters by the process name and key.
-Enter a search token and click *Apply* button.
-To see all the process definition versions, uncheck the *Last versions only* checkbox.
-
-[NOTE]
-====
-_Key_ is the _Process id_ in the process model.
-====
-
-image::bpm-menu-views/process-definitions-filter.png[]
-
-You can delete only a certain version of the process definition.
-To do that, open the detail view and click *Delete deployment* button.
-
++
+* При необходимости можно удалить конкретную версию определения процесса. Для этого, выберите версию и нажмите кнопку *Delete deployment*.
++
 image::bpm-menu-views/process-definitions-delete.png[]
-
-[IMPORTANT]
-====
-Actually, you cannot delete a single process definition.
-In this case, the whole *deployment* will be deleted.
-Be careful: the deployment may contain several processes and resources.
-====
-
-
-
-
-
-
++
+IMPORTANT: При удалении определения процесса, будут удалены связанные с ним экземпляры процесса, историческая информация и задания.

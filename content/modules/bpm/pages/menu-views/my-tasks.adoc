@@ -1,68 +1,46 @@
 = My Tasks
 
-This view provides access to the active tasks of the currently authenticated user.
-It organizes tasks in a tree structure, grouping them by their respective processes.
-
-The task tree features two root nodes: *Assigned Tasks* and *Group Tasks*.
-The *Assigned Tasks* node contains tasks where the user is the assignee,
-while the *Group Tasks* node includes tasks where the user is a candidate.
-
-The user navigates to a certain process and selects a task to open.
-How to work with tasks, see in the xref:bpm:process-forms.adoc[Process Forms] section.
+Экран *My Tasks* предоставляет доступ к активным задачам текущего пользователя.
+Задачи организованы в виде дерева и сгруппированы по процессам.
 
 image::my-tasks/my-tasks-view.png[,800]
 
-The *Due Date* shows when the task is expected to be completed.
-However, this field is for informational purposes only.
-If you want to monitor when tasks are overdue and perform any actions based on that, it should be done programmatically.
+* Узел *Assigned Tasks* содержит задачи, где пользователь является непосредственным исполнителем, а узел *Group Tasks* содержит задачи, где пользователь является кандидатом на выполнение.
 
-When designing your processes, use a xref:bpm:bpm-concepts.adoc#business-key[business key].
-A business key makes the task list more informative, allowing users to understand which business object is associated with each process.
-
-For example, see group tasks without the business key:
-
-image::my-tasks/my-group-task.png[,800]
-
-[TIP]
-====
-In most cases, the _entity instance name_ can serve as an effective business key.
-====
+* Столбец *Process instance business key* содержит значение xref:bpm:bpm-concepts.adoc#business-key[бизнес-ключа] вашего процесса. Это даёт пользователям понять с каким объектом связан процесс.
++
+TIP: При проектировании процессов старайтесь указывать бизнес-ключ. В большинстве случаев xref:data-model:entities.adoc#instance-name[имя экземпляра] сущности может служить эффективным бизнес-ключом.
++
+* Столбец *Due Date* показывает, когда задача должна быть завершена. Это поле предназначено только для справки. Если вы хотите отслеживать просроченные задачи и выполнять действия на основе этой информации, это нужно делать программно.
 
 [[advanced-task-list-view]]
-== Advanced Task List View
+== Альтернативный экран задач
 
-The framework includes a BPM task view with advanced features for task management, including filtering, pagination, and sorting. This view is customizable to fit specific project requirements.
-
-To simplify this task view creation, Jmix Studio provides the *BPM: Advanced Task List View* template in its xref:studio:view-wizard.adoc[view creation wizard]:
-
-image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
-
-Creating an advanced task view involves similar steps as creating a standard blank view.
-
-After all steps are executed, the studio produces the descriptor and controller files. Despite their significant size, these files include extensive inline comments, making the code easier to understand and customize.
-
-The generated view will not extend or override the *My Tasks* view provided by the BPM add-on, and it can be customized to fit the project's needs.
-
-Let's see how the generated view looks in the application.
+Фреймворк позволяет создать и настроить альтернативный экран для просмотра задач. Он является самостоятельным и не заменяет стандартный экран *My Tasks*. Также его можно легко настроить под нужды вашего проекта.
 
 image::my-tasks/advanced-my-tasks-view.png[align="center",width="982"]
 
-The left side of the view includes a custom filter component, which offers filtering capabilities based on task name, process, and assignment type.
+* Слева находится компонент фильтра, который предлагает фильтрацию по имени задачи, имени процесса или исполнитель.
+* Справа расположена таблица, которая отображает список пользовательских задач.
 
-The right side of the view contains a data grid, which displays a sortable list of user tasks retrieved from the database.
+=== Создание альтернативного экрана задач
+
+Процесс создания альтернативного экрана задач аналогичен созданию прочих экранов в приложении Jmix. xref:studio:view-wizard.adoc[Мастер создания экранов] Jmix Studio предоставляет специальный шаблон *BPM: Advanced Task List View*.
+
+image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
+
+После завершения шагов в мастере, Studio создаст файлы дескриптора и контроллера. Файлы снабжены подробными комментариями упрощая понимание и дальнейшую модификацию экрана.
 
 [[advanced-task-list-security]]
-=== Security
+=== Доступ к экрану
 
-Because this view is a custom view at the project level, you must manually grant permissions to it and its related entities.
+Новый экран задач является пользовательским на уровне проекта. Чтобы обеспечить доступ пользователей этому экрану и связанным сущностям, необходимо создать и назначить соответствующую xref:security:resource-roles.adoc[ресурсную роль].
 
-Create new `BpmProcessTaskPerformerRole` xref:security:resource-roles.adoc[resource role].
-
-This role grants the user access to view user tasks and work with process forms in the generated *Advanced Task List* view.
+Код, приведенный ниже, описывает роль `BpmProcessTaskPerformerRole` с полным набором необходимых разрешений.
 
 [source, java, indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/security/BpmProcessTaskPerformerRole.java[tags=role]
 ----
-<1> Specify the generated view id here.
-<2> Provide the id of the menu item that navigates to the generated view.
+<1> Указан стандартный `id` экрана. Если требуется, замените его на свой.
+<2> Указан стандартный `id` пункта меню. Если требуется, замените его на свой.

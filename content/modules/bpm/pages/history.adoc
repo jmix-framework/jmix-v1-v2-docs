@@ -1,22 +1,17 @@
-= History
+= История
 
-History is the component that captures what happened during process execution and stores it permanently.
-In contrast to the runtime data,
-the history data will remain present in the DB also after process instances have completed.
+История (History) это компонент, который фиксирует всё что происходило во время выполнения процесса, и хранит эту информацию на постоянной основе. В отличие от данных времени выполнения, данные истории остаются в базе данных даже после завершения экземпляров процессов.
 
-There are six history entities:
+Существует шесть сущностей истории:
 
 [[historic-process-instances]]
-* *Historic Process Instances* -- containing information about current and past process instances.
-* *Historic Variable Instances* -- containing the latest value of a process variable or task variable.
-* *Historic Activity Instances* -- containing information about a single execution of an activity (node in the process).
-* *Historic Task Instances* -- containing information about current and past (completed and deleted) task instances.
-* *Historic Identity Links* -- containing information about current and past identity links on tasks and process instances.
-* *Historic Details* -- containing various kinds of information related to either a historic process instances, an activity instance or a task instance.
+* *Historic Process Instances* — содержат информацию о текущих и прошлых экземплярах процессов.
+* *Historic Variable Instances* — содержат последнее значение переменной процесса или переменной задачи.
+* *Historic Activity Instances* — содержат информацию о единственном выполнении активности (node in the process).
+* *Historic Task Instances* — содержат информацию о текущих и прошлых (completed and deleted) экземплярах задач.
+* *Historic Identity Links* — содержат информацию о текущих и прошлых связях идентификации для задач и экземпляров процессов.
+* *Historic Details* — содержат различные виды информации, относящейся к историческому экземпляру процесса, экземпляру активности или экземпляру задачи.
 
-Since the database contains historic entities for past as well as ongoing instances,
-you might want to consider querying these tables
-to minimize access to the runtime process instance data and that way keeping the runtime execution performant.
+Поскольку база данных содержит исторические данные как для прошлых, так и для текущих экземпляров, вы можете выполнять запросы к этим таблицам, чтобы снизить количество обращений к данным рантайма и поддерживать производительность.
 
-
-For details, see https://www.flowable.com/open-source/docs/bpmn/ch10-History[Flowable documentation^].
+Для получения подробной информации посетите раздел https://www.flowable.com/open-source/docs/bpmn/ch10-History[History^] в документации Flowable.

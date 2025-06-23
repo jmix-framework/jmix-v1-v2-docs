@@ -1,32 +1,20 @@
-= Job Executor
+= Исполнитель Задач
 
-The *Job Executor* is a key component responsible for managing and executing asynchronous jobs within the  process engine.
-It handles tasks such as timers, asynchronous continuations, and other background processes that need to be executed outside the main process flow.
-By offloading these tasks, the job executor ensures that the main execution thread remains responsive and efficient.
+*Исполнитель задач* (Job Executor) отвечает за управление и выполнение асинхронных задач. Он обрабатывает такие задачи, как таймеры, асинхронные продолжения и другие фоновые процессы, которые необходимо выполнять вне основного потока процесса. Перенос задач на исполнитель задач обеспечивает сохранение отзывчивости и эффективности основного потока выполнения.
 
-The job executor operates in a multithreaded environment, allowing it to process multiple jobs concurrently.
-It retrieves jobs from the database, executes them, and updates their status accordingly.
-This mechanism is essential for implementing features like delayed tasks and scheduled events in business processes.
-
-Overall, the job executor enhances the performance and scalability of the process engine
-by efficiently managing background jobs and ensuring smooth process execution.
+Исполнитель задач работает в многопоточной среде, что позволяет ему обрабатывать несколько задач одновременно. Он извлекает задачи из базы данных, выполняет их и обновляет их статус соответственно. Этот механизм необходим для реализации таких функций, как отложенные задачи и запланированные события в бизнес-процессах.
 
 [[job-types]]
-== Job Types
+== Типы Задач
 
-There are two primary types of jobs managed by the job executor:
+Исполнитель задач берёт на себя два основных типа задач:
 
-* *Timer Jobs*: These are scheduled to trigger at specific times,
-often associated with boundary events in BPMN models.
-* *Async Jobs*: Created when a task is marked with the `flowable:async="true"` attribute,
-indicating that it should be executed asynchronously.
+* *Timer Jobs*: Эти задачи запланированы на выполнение в определенное время, часто связанные с пограничными событиями в моделях BPMN.
+* *Асинхронные задачи*: Создаются, когда задача помечена атрибутом `flowable:async="true"`, указывающим на то, что она должна выполняться асинхронно.
 
 [[execution-flow]]
-== Execution Flow
+== Поток Выполнения
 
-* When a process instance reaches a point where an async job or timer is necessary,
-the job executor inserts a corresponding entry into the `ACT_RU_JOB` table.
-* For timer jobs, a thread periodically checks for jobs that are due and triggers them accordingly.
-* For async jobs, once an API call that creates the job is successfully committed,
-a transaction listener activates the job executor to execute the job.
-
+* Когда экземпляр процесса достигает точки, где необходима асинхронная задача или таймер, исполнитель задач добавляет соответствующую запись в таблицу `ACT_RU_JOB`.
+* Для задач с таймером поток периодически проверяет задачи, которые должны быть выполнены, и запускает их соответственно.
+* Для асинхронных задач, как только API-вызов для создания задачи успешно завершен, слушатель транзакций запускает исполнителя задач, чтобы выполнить эту задачу.

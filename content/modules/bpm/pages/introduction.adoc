@@ -1,102 +1,72 @@
-= Introduction
+= Обзор возможностей
 
-
-The *BPM add-on* integrates the open-source xref:bpm:introduction.adoc#flowable-bpm[Flowable BPM engine]
-into *Jmix Platform*, bringing to it new tools to design, manage, and automate various complex interactions between people and systems.
+Дополнение BPM превращает Jmix в платформу для автоматизации и оркестрации бизнес-процессов, с помощью которой вы можете реализовать любые сложные сценарии взаимодействия людей и систем. Это достигается за счет интеграции в платформу Jmix open-source BPM движка xref:bpm:introduction.adoc#flowable-bpm[Flowable], а также инструментов для проектирования, мониторинга и администрирования процессов.
 
 [[architecture]]
-== Architecture Overview
+== Инструменты
 
-*BPM add-on* includes components available in *Studio* and in the *web application* at runtime.
-In Studio, the developer has a xref:bpm:modeler-studio.adoc[*Modeler*] for creating BPMN process models,
-a *Process Form Wizard* (in View Creation Wizard), and a BPM section in the *Jmix Tool Window*.
+Дополнение Jmix BPM внедряет новые инструменты для веб-приложения и Jmix Studio:
+
+* В запущенном приложении доступен xref:bpm:menu-views/modeler-web.adoc[моделер процессов] в виде специального экрана, а также xref:menu-views/bpm-ui.adoc[экраны] для управления процессами.
+* В Studio разработчику доступен xref:bpm:modeler-studio.adoc[встроенный моделер процессов], визард создания процессных форм и BPM секция в *Окне Инструментов Jmix*.
 
 image::introduction/bpm-components.png[,800]
 
-In the web application, you have access to the process xref:bpm:menu-views/modeler-web.adoc[*Modeler*],
-which offers functionality similar to that of Studio.
-It includes a set of administrative views as well as user views
-that enable regular users to start processes and manage their tasks.
+[[flowable-bpm]]
+== BPM-движок Flowable
 
-[[extensions]]
-== Extensions in Process Modeling
+Jmix BPM использует движок управления бизнес-процессами https://flowable.com/open-source/[Flowable]. Данный движок является форком *Activiti*, сохраняет его сильные стороны, одновременно предлагая новые возможности. Flowable написан на Java и поддерживает стандарты BPMN 2.0, CMMN и DMN, что обеспечивает возможность создания адаптивных и эффективных бизнес-процессов.
 
-When modeling a process, several extensions become available to enhance functionality:
-
-* xref:bpm:bpmn/jmix-entity-data-task.adoc[*Entity Data Task*] - Allows users to create, modify, and load Jmix Entities directly from the data model.
-* xref:bpm:bpmn/jmix-email-task.adoc[*Email Sending Task*] - Enables users to send emails from within the process.
-* xref:bpm:bpmn/bpmn-user-task.adoc#assign-task-by-user-provider[*User Providers*] - Interfaces that allow users to define task performers and candidates programmatically.
-* xref:bpm:listeners.adoc#spring-events-bpm[*Jmix BPM Spring Events*] - Simplifies the implementation of listeners for process events.
-* ... and a number of other improvements.
-
-Additionally, the BPM add-on automatically creates the required tables in the database to support these features.
+NOTE: Jmix BPM не поддерживает CMMN.
 
 [[bpmn-20]]
-== BPMN 2.0
+== Стандарт BPMN 2.0
 
-Jmix BPM uses BPMN 2.0 that is a widely accepted and supported standard for modeling and executing automated business processes.
+Jmix BPM придерживается широко распространенного стандарта BPMN 2.0. Спецификация BPMN 2.0 доступна на сайте Object Management Group: https://www.omg.org/bpmn/
 
-[quote, Object Management Group]
-The Business Process Modeling Notation is a graphical notation that depicts the steps in a business process.
-BPMN depicts the end-to-end flow of a business process.
-The notation has been specifically designed to coordinate the sequence of processes and the messages that flow between different process participants in a related set of activities.
+[[extensions]]
+== Расширение набора задач
 
-You can find the official version of BPMN specification at the OMG website:
-https://www.omg.org/bpmn/
+Дополнение Jmix BPM позволяет встраивать в процесс уникальные задачи и расширить возможности стандартных задач:
 
-
-[[flowable-bpm]]
-== Flowable BPM Engine
-
-https://flowable.com/open-source/[Flowable] is an open-source Business Process Management (BPM) engine that provides a lightweight, efficient, and highly customizable solution for automating business processes. It is written in Java and supports the BPMN 2.0, CMMN, and DMN standards for modeling and executing processes.
-
-[NOTE]
-====
-Jmix BPM doesn't support case management using CMMN.
-====
-
-Flowable is a fork of *Activiti* (registered trademark of Alfresco). In all the following sections, you’ll notice that the package names, configuration files, and so on, use flowable.
+* xref:bpm:bpmn/jmix-entity-data-task.adoc[*Entity Data Task*] – позволяет создавать, изменять и загружать сущности непосредственно из модели данных.
+* xref:bpm:bpmn/jmix-email-task.adoc[*Email Sending Task*] – позволяет отправлять электронные письма как часть процесса.
+* xref:bpm:bpmn/bpmn-user-task.adoc#assign-task-by-user-provider[*User Providers*] – позволяет программно назначить исполнителя и кандидата для задачи.
+* xref:bpm:listeners.adoc#spring-events-bpm[*Jmix BPM Spring Events*] – упрощает реализацию слушателей для событий процесса.
 
 [[databas-configuration]]
-== Database Configuration
+== Конфигурация базы данных
 
-During the installation process, *Jmix* creates required database tables in the xref:data-model:data-stores.adoc#main[Main Data Store].
-
+Таблицы базы данных необходимые для работы создаются автоматически при установке дополнения. Они будут размещены в базе которая подключена к xref:data-model:data-stores.adoc#main[основному хранилищу].
 
 [[database-table-names]]
-== Database Table Names
+=== Имена таблиц
 
-The database names of Flowable all start with `ACT_`  (that refers to *Activiti* product name).
-The second part is a two-character identification of the use case.
-This use case will also roughly match the service API.
+Имена таблиц начинаются с **ACT_**, что отсылает к продукту Activiti форком которого является Flowable. Вторая часть имени состоит из двух символов, которые обозначают назначение данных, хранящихся в таблице.
 
-*ACT_RE_*: `RE` stands for repository. Tables with this prefix contain 'static' information such as process definitions and process resources (images, rules, etc.)
+* **ACT_RE_**: Таблицы с префиксом RE (Repository) содержат 'статическую' информацию, такую как определения процессов и необходимые ресурсы процессов (изображения, правила и т. д.).
 
-*ACT_RU_*: `RU` stands for runtime. These are the runtime tables that contain the runtime data of process instances, user tasks, variables, jobs, and so on. Flowable only stores the runtime data during process instance execution and removes the records when a process instance ends. This keeps the runtime tables small and fast.
+* **ACT_RU_**: Таблицы с префиксом RU (Runtime) содержат данные о процессах, пользовательских задачах, переменных, заданиях и так далее. Flowable хранит данные во время выполнения экземпляра процесса и удаляет записи, когда экземпляр процесса завершается. Это позволяет поддерживать Runtime таблицы небольшими и быстрыми.
 
-*ACT_HI_*: `HI` stands for history. These are the tables that contain historic data, such as past process instances, variables, tasks, and so on.
+* **ACT_HI_**: Таблицы с префиксом HI (History) содержат исторические данные, такие как прошлые экземпляры процессов, переменные, задачи и так далее. Когда данные удаляются из Runtime таблиц, эти таблицы по-прежнему содержат всю информацию для завершенных экземпляров.
 
-*ACT_GE_*: `GE` means general data, which is used for various use cases.
-
+* **ACT_GE_**: Таблицы GE (General) содержат различные общие данные.
 
 [[bpm-roles]]
-== BPM Roles
+== Роли пользователей
 
-During the installation process, the system creates two distinct roles:
+Дополнение интегрировано с подсистемой безопасности Jmix. Для работы с процессами в дополнение предусмотрено две ресурсные роли пользователей:
 
-* *BPM: administrator* - for administrative tasks.
-* *BPM: process actor* - for participation in processes.
-
-To grant users access to all BPM administrative views, assign them the *BPM: administrator* role. If users only need to participate in processes, assign them the *BPM: process actor* role.
-
+* *BPM: administrator* – для административных задач и доступа ко всем экранам доступным в дополнении.
+* *BPM: process actor* – для участия в бизнес-процессах.
 
 [[additionally]]
-== Additionally
+== Дополнительные возможности
 
-Alongside the BPM features, incorporating other *add-ons* can further enhance your application's capabilities:
+Возможности приложения можно расширить если использовать Jmix BPM совместно с другими дополнениями:
 
-* xref:jmix:quartz:index.adoc[Quartz] – enables scheduled tasks execution, configurable at runtime.
-* xref:jmix:business-calendar:index.adoc[Business calendar] – enables accounting for working hours, which is especially useful in business processes.
-* xref:jmix:notifications:index.adoc[Notifications] – enables sending notifications to process participants and supervisory personnel. See xref:bpm:sending-notifications.adoc[] section for details.
-* xref:jmix:email:index.adoc[Email Sending] -- enables sending email messages, it is required when using xref:bpm:bpmn/jmix-email-task.adoc[Email Sending task].
-* xref:jmix:reports:index.adoc[Reports] – enables building reports based on operational data and process execution statistics.
+* xref:jmix:quartz:index.adoc[Quartz] – позволяет планировать запуск процессов по расписанию.
+* xref:jmix:business-calendar:index.adoc[Business calendar] – возможность учитывать рабочие часы участников процесса.
+* xref:jmix:notifications:index.adoc[Notifications] – отправка in-app уведомлений участникам процесса и контролирующим лицам. Подробнее в разделе xref:bpm:sending-notifications.adoc[].
+* xref:jmix:email:index.adoc[Email Sending] – отправка электронных писем. Подробнее в разделе xref:bpm:bpmn/jmix-email-task.adoc[].
+* xref:jmix:reports:index.adoc[Reports] – построение отчетов на основе оперативных данных и статистики исполнения процессов.

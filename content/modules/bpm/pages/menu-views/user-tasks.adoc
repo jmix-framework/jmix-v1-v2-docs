@@ -1,13 +1,11 @@
 = User Tasks
 
-This view displays all active user tasks.
-At the top of the screen, you can filter tasks using various criteria: process definition,
-task assignee, candidate user, or candidate group.
-By default, the list is empty. Click the *Apply* button to see all tasks or set up filters.
+Этот экран отображает все активные задачи пользователей. Задачи можно фильтровать, используя несколько критериев: по названию процесса, по назначенному исполнителю, по кандидату либо по группе кандидатов.
 
+NOTE: По умолчанию список задач пуст. Нажмите *Apply*, чтобы загрузить все задачи. Чтобы увидеть определенные задачи, настройте фильтр и снова нажмите *Apply*.
 
 image::bpm-menu-views/user-tasks-list.png[,800]
 
-You can open the process instance the task belongs to, or reassign a task performer.
+С помощью действий на экране, вы можете перейти экземпляр процесса, к которому принадлежит задача, а также переназначить исполнителя.
 
 image::bpm-menu-views/task-reassign.png[,800]

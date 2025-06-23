@@ -1,33 +1,397 @@
-= Getting Started with BPM
+= Начало работы
+:page-aliases: bpm:quick-start.adoc
 
-Jmix BPM enables the creation of BPMN process models, configuration of properties for all elements,
-and development of the code that implements business logic and UI forms.
-These features facilitate the creation of executable process models that can be deployed to the embedded BPM server.
+Этот раздел содержит рекомендации для быстрого старта. Здесь описаны шаги по созданию и запуску простого бизнес-процесса с помощью инструментов BPM, доступных в веб-приложении.
 
-The add-on utilizes a visual modeler based on the https://bpmn.io/[bpmn-js^] rendering toolkit for process modeling.
-It is available in two options:
+TIP: Вы также можете создать этот процесс, используя инструменты в Jmix Studio. Для этого следуйте инструкциям в статье xref:bpm:creating-process-in-studio.adoc[]
 
-* As an additional tool in Jmix Studio for use within IntelliJ IDEA.
-* As a functional component of your web application, distributable without any licensing costs.
+Мы создадим приложение в котором реализован процесс возмещения расходов.
 
+В процессе будут задействованы три участника:
 
+* работник, который требует возмещения;
+* менеджер, который утверждает возмещение;
+* бухгалтер, который перечисляет деньги на счет работника.
 
-[[sample-process]]
-== Sample Process
-
-Modeling processes using the *Studio Modeler* and  *Web Modeler* offer a similar experience,
-as both tools feature intuitive interfaces for creating BPMN diagrams.
-
-Next sections describe how to model and run a simple business process in both tools.
-For that, we will create a process for requesting and approving reimbursement.
-
-The process involves three participants:
-
-* an employee who requests a reimbursement;
-* a manager who approves the reimbursement;
-* an accountant who processes payment upon approval.
-
-In terms of BPM, we will be building the following model:
+Модель процесса может быть представлена в нотации BPM:
 
 image::quick-start/model.png[align="center"]
 
+[[modeling-process]]
+== Моделирование процесса
+
+Запустите приложение и перейдите на экран *BPM -> Modeler*. На панели свойств справа отображаются свойства текущего процесса.
+
+Для нашего процесса укажите следующие свойства:
+
+* *Process id*: `reimbursement`
+* *Name*: `Reimbursement`
+* *Documentation*: Добавьте краткое описание процесса.
++
+image::quick-start/properties.png[align="center" width="1392"]
+
+[[creating-start-form]]
+=== Создание стартовой формы
+
+Каждый элемент на холсте обладает собственным набором свойств. Пока единственный элемент на холсте это `StartEvent`. Он соответствует <<start-form, Стартовой форме>> которую увидит пользователь при запуске процесса. Давайте его настроим:
+
+* Нажмите на элемент `StartEvent` чтобы его выделить.
++
+* В поле *Form Type* выберите `Input dialog`. В поле *Open mode* будет автоматически выбрано значение *Dialog*.
++
+image::quick-start/start-event.png[align="center" width="1392"]
+
+Далее необходимо указать параметры, которые увидит пользователь в диалоговом окне.
+
+* Нажмите image:quick-start/plus-button.png[[align="center", width="32"] и в диалоговом окне *Input dialog parameter editor* создайте параметр `requestNumber` со следующими свойствами:
+
+// ** *Process variable*: `requestNumber`
+// ** *Caption* – Request number (this will be generated automatically.)
+// ** *Type* – String
+// ** *Editable* – true
+// ** *Required* – true
+
+image::quick-start/request-number.png[align="center" width="602"]
+
+* Создайте еще три параметра диалогового окна:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`expenseAmount`
+|Expense amount
+|Decimal (double)
+|true
+|true
+
+|`expenseDate`
+|Expense Date
+|Date
+|true
+|true
+
+|`document`
+|Document
+|File
+|true
+|true
+
+|===
+
+* Создайте еще один параметр, позволяющий пользователям выбрать менеджера для утверждения заявки. Он потребует несколько дополнительных свойств:
++
+[cols="1,1,1,1,1,1,1,"]
+|===
+|Process variable | Caption | Type | Editable | Required | Entity name | UI Component | JPQL query
+
+|`manager`
+|Manager
+|Entity
+|true
+|true
+|User
+|ComboBox
+|_оставьте пустым^*^_
+|===
++
+__^*^ Если поле не заполнено, будет использован запрос по умолчанию__ `select e from User e`.
++
+* Установите значение `requestNumber` в поле *Business key*. Бизнес-ключ — это специфичный для домена идентификатор экземпляра процесса.
+
+После добавления всех параметров, раздел *Form* должен выглядеть следующим образом:
+
+image::quick-start/form.png[align="center" width="340"]
+
+// При запуске процесса параметры диалогового окна ввода будут сохранены в соответствующих переменных процесса.
+
+[[creating-approval-user-task]]
+=== Создание пользовательской задачи Approval
+
+Создадим пользовательскую задачу утверждения *Approval*. Она соответствует <<approval-form, форме утверждения заявки>> которую увидит менеджер.
+
+В первую очередь, добавьте новый элемент на холст:
+
+* Нажмите на элемент `StartEvent` чтобы его выделить.
+* Нажмите иконку *Append task* image:quick-start/append-task-icon.png[width="20"].
+* Нажмите иконку *Change type* image:quick-start/change-type-icon.png[width="20"] и выберите *User Task* в выпадающем списке.
++
+image::quick-start/user-task.gif[align="center" width="660"]
++
+* В панели свойств укажите следующие значения для задачи:
+** *Id*: `approval`
+** *Name*: `Approval`
+** *Assignee source*: `Process variable`
+** *Process variable*: `manager`
++
+image::quick-start/manager.png[align="center" width="280"]
++
+TIP: По умолчанию для назначения задачи доступна встроенная переменная процесса `initiator`.
++
+* Перейдите в секцию *Form* и укажите следующие свойства:
+** *Form type*: `Input dialog`
+** *Open mode*: `Dialog` (выбрано автоматически)
+
+* Нажмите image:quick-start/plus-button.png[[align="center", width="36"] и добавьте следующие имеющиеся параметры, но отключив при этом возможность для их редактирования:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`requestNumber`
+|Request number
+|String
+|false
+|true
+
+|`expenseAmount`
+|Expense amount
+|Decimal (double)
+|false
+|true
+
+|`expenseDate`
+|Expense Date
+|Date
+|false
+|true
+
+|`document`
+|Document
+|File
+|false
+|true
+|===
++
+* Нажмите image:quick-start/plus-button.png[[align="center", width="36"] и добавьте дополнительный параметр:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`comment`
+|Comment
+|Multiline string
+|true
+|false
+|===
++
+Данный параметр будет соответствовать текстовому полю которое позволит менеджеру сделать пометки при утверждении или отклонении запроса на возмещение.
+
+[[creating-outcomes]]
+=== Создание выходов
+
+Этап *Approval* имеет два возможных сценария развития: запрос одобрен или запрос отклонен. Соответственно, форма предназначенная для менеджера, принимающего решение, должна иметь две кнопки.
+
+* Убедитесь что выбран элемент Approval. Перейдите в свойства *Outcomes* и нажмите image:quick-start/plus-button.png[[align="center", width="36"].
+* Задайте свойства для первого выхода:
+// +
+// [cols="1,1,1"]
+// |===
+// |Business id | Caption | Icon
+//
+// |`approve`
+// |Approve
+// |CHECK
+// |===
++
+image::quick-start/outcome-approve.png[align="center" width="613"]
++
+* Повторите действия чтобы создать второй выход:
++
+[cols="1,1,1"]
+|===
+|Business id | Caption | Icon
+
+|`reject`
+|Reject
+|BAN
+|===
+
+Чтобы указать точку с несколькими альтернативными путями, добавьте элемент шлюза:
+
+* Выберите задачу *Approval* и нажмите *Append Gateway* image:quick-start/append-gateway-icon.png[width="20"] чтобы добавить шлюз.
+* Выберите элемент шлюза и создайте новую пользовательскую задачу с помощью image:quick-start/append-task-icon.png[width="20"] -> image:quick-start/change-type-icon.png[width="20"] -> *User Task*.
+* Выберите элемент шлюза и нажмите image:quick-start/append-end-event-icon.png[width="20"] чтобы создать элемент `EndEvent`.
+* Дайте имена для связей соединяющих созданные элементы:  `approved` and `rejected`.
+
+Теперь модель должна выглядеть следующим образом:
+
+image::quick-start/flows.png[align="center"]
+
+* Выберите связь `approved` и укажите для неё свойства в разделе *Condition*:
+** *Condition source*: `User task outcome`
+** *User task id*: `Approval`
+** *User task outcome*: `approve`
++
+image::quick-start/flow-approved.png[align="center" width="380"]
++
+* Подобно предыдущему шагу укажите свойства для связи `rejected`:
+** *Condition source*: `User task outcome`
+** *User task id*: `Approval`
+** *User task outcome*: `reject`
+
+[[creating-payment-user-task]]
+=== Создание пользовательской задачи Payment
+
+Вторая пользовательская задача в модели уведомляет бухгалтеров об одобрении заявки. Эта задача соответствует <<payment-form, Форме оплаты>> предназначенной только для бухгалтеров.
+
+* Выберите вторую пользовательскую задачу на холсте и задайте свойства *Id* и *Name*:
+** *Id*: `payment`
+** *Name*: Payment
+
+Для этой задачи будет реализовано следующее поведение: она передается группе бухгалтеров, после чего любой из них может взяться за её выполнение. Для этого, вместо конкретного исполнителя имеется возможность указать *Candidate groups* или *Candidate users*
+
+Давайте создадим *Candidate group* для бухгалтеров.
+
+TIP: Прежде чем покинуть моделер, сохраните черновик задачи с помощью кнопки image:quick-start/save-draft-button.png[width="32"] в панели инструментов. К черновикам можно вернуться позднее нажав кнопку image:quick-start/open-draft-button.png[width="32"].
+
+* Перейдите на экран *BPM -> User groups* и создайте группу `Accountants` указав для неё код `accountants`.
+* Установите *Users* как тип группы.
+* Добавьте пользователей в группу.
++
+image::quick-start/user-group.png[align="center" width="1414"]
+
+NOTE: Пользователям участвующим в процессе должна быть назначена роль `BPM: process actor` для предоставления доступа к экранам и сущностям BPM, необходимым для запуска процесса и работы с пользовательскими задачами. Назначить роли можно на экране *Application -> Users*.
+
+
+* Вернитесь в моделер и выберите пользовательскую задачу `Payment`.
+* Рядом с полем *Candidate groups* нажмите кнопку редактирования image:quick-start/edit-button.png[width="32"].
+* В появившемся редакторе добавьте группу `Accountants`.
++
+image::quick-start/groups.png[align="center" width="756"]
+
+*  Настройте диалог ввода для задачи `Payment` подобно тому как это было сделано для задачи `Approval`. Установите следующие свойства:
+** *Form type*: `Input dialog`
+** *Open mode*: `Dialog` (this will be set by default)
+* Добавьте входные параметры. Они будут такие же, как и на форме `Approval`, однако для комментария менеджера необходимо отключить возможность редактирования:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`requestNumber`
+|Request number
+|String
+|false
+|true
+
+|`expenseAmount`
+|Expense amount
+|Decimal (double)
+|false
+|true
+
+|`expenseDate`
+|Expense Date
+|Date
+|false
+|true
+
+|`document`
+|Document
+|File
+|false
+|true
+
+|`comment`
+|Comment
+|Multiline string
+|false
+|false
+
+|===
++
+* На холсте добавьте элемент `EndEvent` image:quick-start/append-end-event-icon.png[width="20"] после задачи `Payment`.
+
+[[specifying-users-to-start-process]]
+=== Указание пользователей для запуска процесса
+
+Чтобы запустить процесс, пользователь должен принадлежать к специальной группе пользователей. В нашем случае, такая группа будет включать всех пользователей.
+
+* Перейдите на экран *User groups* и создайте группу со следующими свойствами:
+
+** *Name*: All users
+** *Code*: all-users
+** *Type*: All users
++
+image::quick-start/all-users.png[align="center" width="1392"]
+
+* Вернитесь в моделер и щелкните по свободному месту на холсте, чтобы отобразить свойства процесса.
+* В поле *Candidate groups* установите значение `All users`.
++
+image::quick-start/users-start.png[align="center" width="385"]
+
+[[starting-process]]
+== Развертывание процесса
+
+Модель процесса готова к развертыванию.
+
+* Перейдите на экран моделера.
+* Нажмите *Deploy process* image:quick-start/deploy-process-button.png[[align="center", width="32"] на панели инструментов.
+* Откройте экран *Start Process*.
+
+Процесс *Reimbursement* должен появиться в списке.
+
+[[testing-process]]
+== Запуск процесса
+
+Теперь, когда процесс смоделирован и развернут, его можно запустить. Давайте пройдемся по его этапам и рассмотрим представленные в нем процессные формы.
+
+[[start-form]]
+=== Стартовая форма
+
+С заданными настройками процесс может быть запущен любым из пользователей на экране *BPM -> Start Process*.
+
+* Выберите процесс *Reimbursement* и нажмите кнопку *Start process*.
++
+image::quick-start/start-process.png[align="center" width="1392"]
++
+* Заполните поля в форме и нажмите кнопку *Start process*.
++
+image::quick-start/start-form.png[align="center" width="598"]
+
+Назначенный менеджер увидит входящую задачу на утверждение.
+
+[[approval-form]]
+=== Форма утверждения
+
+Давайте рассмотрим, как процесс выглядит с точки зрения менеджера. На предыдущем шаге в качестве утверждающего был выбран менеджер *james*.
+
+* Войдите в приложение от имени менеджера.
+* Перейдите на экран *BPM -> My Tasks*.
+* Выберите задачу из списка и откройте её нажав кнопку *Open Task*.
++
+image::quick-start/approval-step.png[align="center" width="1011"]
++
+* Рассмотрите заявку и нажмите кнопку *Approve*.
++
+image::quick-start/approval-form.png[align="center" width="596"]
+
+После одобрения запрос будет отправлен бухгалтеру, который затем позаботится об оплате.
+
+[[payment-form]]
+=== Форма оплаты
+
+Бухгалтеры увидят заявки, требующие оплаты, в разделе *Group tasks*.
+
+* Войдите в приложение от имени пользователя принадлежащего группе *Accountants*.
+* Перейдите на экран *BPM -> My Tasks*. Раскройте пункт *Group tasks*.
++
+image::quick-start/group-task.png[align="center" width="1010"]
++
+* Откройте форму оплаты.
++
+image::quick-start/payment-task.png[align="center" width="596"]
++
+Пока задача не назначена одному из бухгалтеров, форма будет доступна только для чтения.
++
+* Заявите о выполнении задания, используя один из двух способов:
+** Нажмите *Claim and resume*, чтобы немедленно приступить к следующему шагу задачи. При этом задача будет удалена из списка *Group* а в форме появится кнопка *Complete task*.
+** Нажмите *Claim and close*, чтобы заявить о выполнение задачи, отложив её выполнение. Форма будет закрыта, а задача перемещена из списка *Group* в список *Assigned* для текущего пользователя. После этого задача больше не будет видна другим бухгалтерам.
++
+* Нажмите *Complete task*, чтобы завершить процесс. Эта кнопка отображается по умолчанию для задач у которых не указаны выходы.
++
+image::quick-start/complete-task.png[align="center" width="1392"]
+
+Процесс завершен.

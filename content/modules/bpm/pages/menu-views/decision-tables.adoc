@@ -1,14 +1,11 @@
 = Decision Tables
 
-This administrative view contains a list of deployed decision tables and allows you to open them in modeler,
-view details, and upload from the XML file.
+Экран *Decision Tables* содержит список развернутых таблиц решений и позволяет открывать их в моделере, просматривать свойства и загружать из XML-файла.
 
-By default, the list is empty. Click the *Apply* button to see all decision tables or use a filter.
-To see all the decision table versions, uncheck the *Last versions only* checkbox.
+NOTE: По умолчанию список пуст. Нажмите *Apply*, чтобы загрузить все таблицы. Чтобы увидеть определенные таблицы, настройте фильтр и снова нажмите *Apply*.
 
 image::bpm-menu-views/decision-tables.png[,800]
 
-In the *Decision editor* view, you can inspect the decision table in the XML format.
-Besides, you can delete deployed table.
+Перейдя на экран *Decision editor* вы сможете просмотреть таблицу решений в формате XML. Кроме того, вы можете удалить развернутую таблицу.
 
 image::bpm-menu-views/decision-table-detail.png[,800]

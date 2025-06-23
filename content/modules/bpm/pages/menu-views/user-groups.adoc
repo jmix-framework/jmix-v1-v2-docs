@@ -1,16 +1,13 @@
 = User Groups
 
-In the *User groups* screen, you can manage groups of users
-to define them later as candidates for xref:bpm:bpmn/bpmn-user-task.adoc#candidates-by-user-groups[user task] assignees.
-A user can be a member of several groups.
+Экран *User groups* управляет группами пользователей. Группа пользователей это список кандидатов которых можно назначить для исполнения некоторой пользовательской задачи. Пользователь может быть членом нескольких групп.
 
 image::bpm-menu-views/user-groups-list.png[,800]
 
-A group can be one of the following types:
+Группа может иметь один из следующих типов:
 
-* *Users*. For the group of *Users* type, users should be explicitly selected.
-* *Roles*. For the group of *Roles* type, a set of security roles should be defined.
-Users are considered to be a member of the user group if they have one of the selected roles.
-* *All users*. The group of this type automatically contains all users.
+* *Users*. Для группы такого типа пользователи должны быть выбраны явно.
+* *Roles*.  Для группы такого типа необходимо определить набор ролей безопасности. Пользователи считаются членами группы пользователей, если у них есть одна из выбранных ролей.
+* *All users*. Группа этого типа автоматически включает всех пользователей.
 
 image::bpm-menu-views/user-group-editor.png[,800]

@@ -53,8 +53,8 @@ public class CustomerEdit extends StandardEditor<Customer> {
         params.put("customer", customer); // <1>
         params.put("name", name); // <2>
         runtimeService.startProcessInstanceByKey( // <3>
-                "new-customer", // <4>
-                params); // <5>
+                "new-customer",
+                params);
     }
     // end::commit[]
 

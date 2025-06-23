@@ -1,28 +1,27 @@
-=  Automatic Deployment
+= Автоматическое развертывание моделей
 
-BPMN processes and DMN tables can be automatically deployed on the application startup.
+Процессы BPMN и таблицы DMN могут быть автоматически развернуты при запуске приложения.
 
-Use the following xref:bpm:flowable-application-properties.adoc[Flowable application properties].
+Используйте следующие xref:bpm:flowable-application-properties.adoc[свойства приложения] Flowable.
 
-* `flowable.process-definition-location-prefix` — Defines the folder in which processes need to be searched for auto deployment.
+* `flowable.process-definition-location-prefix` — определяет папку, в которой нужно искать процессы для автоматического развертывания.
 +
-Default value is `classpath*:/processes/`.
+Значение по умолчанию `classpath*:/processes/`.
 +
-* `flowable.process-definition-location-suffixes` — Defines the suffix (extensions) of the files
-that need to be deployed from the `process-definition-location-prefix` location.
+* `flowable.process-definition-location-suffixes` — определяет суффиксы (расширения) файлов, которые необходимо развернуть из папки `process-definition-location-prefix`.
 +
-Default value is `pass:[*]pass:[*].bpmn20.xml,**.bpmn`.
+Значение по умолчанию `pass:[*]pass:[*].bpmn20.xml,**.bpmn`.
 +
-* `flowable.dmn.resource-location` — Defines the location where the DMN resources are located.
+* `flowable.dmn.resource-location` — определяет местоположение ресурсов DMN.
 +
-Default value is `classpath*:/dmn/`.
+Значение по умолчанию – `classpath*:/dmn/`.
 +
-* `flowable.dmn.resource-suffixes` — Defines the suffixes for the resources that need to be scanned.
+* `flowable.dmn.resource-suffixes` — определяет суффиксы для ресурсов, которые необходимо сканировать.
 +
-Default value is `pass:[*]pass:[*].dmn,pass:[*]pass:[*].dmn.xml,pass:[*]pass:[*].dmn11,**.dmn11.xml`.
+Значение по умолчанию – `pass:[*]pass:[*].dmn,pass:[*]pass:[*].dmn.xml,pass:[*]pass:[*].dmn11,**.dmn11.xml`.
 
-Only files modified since the last application start will be deployed.
+Будут развернуты только те файлы, которые были изменены с момента последнего запуска приложения.
 
-Here is an example of locating processes and DMN resources in the directories by default.
+Пример расположения процессов и ресурсов DMN в каталогах по умолчанию:
 
 image::auto-deploy/tree.png[align="center"]

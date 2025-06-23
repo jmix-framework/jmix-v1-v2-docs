@@ -1,50 +1,42 @@
 = Process Instances
 
-This view can display both active and completed process instances.
-To switch between them, change the value of the *State* combo box in the filter and click the *Apply* button.
-By default, the list is empty.
+Экран *Process Instances* содержит список активных и завершенных экземпляров процесса. Для переключения статуса используйте поле *Completion State* в фильтре.
 
 image::bpm-menu-views/process-instances-list.png[,800]
 
-[TIP]
-====
-If the *End time* field is empty, the process is *Active* otherwise it is *Completed*.
-====
+Выбрав экземпляр из списка, вы можете перейти на экран *Process instance detail* с подробностями об экземпляре.
 
-In the *Process instance detail* view,
-you can xref:bpm:instance-migration.adoc[migrate] an instance to a new process definition version,
-suspend an instance or remove it.
+[[process_instance_detail]]
+== Process Instance detail
+
+Экран *Process instance detail* содержит подробности об экземпляре процесса и позволяет производить над ними действия.
 
 image::bpm-menu-views/process-instance-detail.png[,800]
 
-The *Runtime* tab is available only for active process instances
-and contains information about the current process state:
-execution tree, variable values, active user tasks, and failed jobs.
+* Нажмите *Migrate* чтобы xref:bpm:instance-migration.adoc[начать миграцию] в новую версию определения процесса.
 
-Selecting items in the executions tree will modify the content of the *Variables* and *Tasks* tabs.
-If you select a particular execution, only objects related to this execution will be displayed.
+* Используйте кнопки *Suspend* и *Delete*, чтобы приостановить или удалить экземпляр соответственно.
 
-Using the *Variables* tab, you can create, modify and remove process variables.
-Note that when an execution is selected in the tree, a new variable will be put to the selected execution.
+* Вкладка *Runtime* (доступна только для активных процессов) содержит информацию о состоянии процесса: дерево выполнения, значения переменных, активные пользовательские задачи, а также задания завершившиеся неудачно.
 
+* Выбор элементов в дереве выполнения обновит содержимое вкладок *Variables* и *Tasks*, отображая только объекты, связанные с выбранным элементом.
+
+* На вкладке *Variables* можно создавать, изменять или удалять процессные переменные.
++
 image::bpm-menu-views/process-variable-editor.png[,900]
-
-In the *Tasks* tab, you can view a list of active tasks and reassign tasks to other users.
-
++
+* На вкладке *Tasks* можно просмотреть список активных задач и переназначить их другим пользователям.
++
 image::bpm-menu-views/task-reassignment.png[,900]
-
-The *Failed jobs* tab displays the list of jobs that failed with an error.
-For example, if some service task method threw an exception, this service task will appear in the failed jobs list.
-In the UI, you can view the exception stacktrace and restore the failed job after the cause of the error is fixed.
-
++
+* Вкладка *Failed jobs* содержит список заданий, которые завершились ошибкой. Например, если какой-то метод служебной задачи выбросил исключение, эта служебная задача появится в списке невыполненных заданий. В UI можно просмотреть stacktrace исключений и восстановить невыполненное задание после устранения причины ошибки.
++
 image::bpm-menu-views/failed-job.png[,900]
-
-The *History* tab contains a list of all user tasks (completed and active),
-a full list of completed activities and last values of process variables.
-The *History* tab is available both for active and for completed process instances.
-
++
+* Вкладка *History* содержит список всех пользовательских задач (завершенных и активных), полный список выполненных действий и последние значения переменных процесса. Эта вкладка доступна как для активных, так и для завершенных экземпляров процесса.
++
 image::bpm-menu-views/process-instance-history.png[,900]
-
-The *Diagram* tab displays a process model with the highlighted active node.
-
++
+* Вкладка *Diagram* отображает модель процесса. Активный узел выделен цветом, чтобы отобразить текущий этап выполнения.
++
 image::bpm-menu-views/process-instance-diagram.png[,900]

@@ -1,55 +1,47 @@
-= BPMN Modeler in Studio
+= BPMN Моделер в Jmix Studio
 
-
-Studio provides a *BPMN Modeler* that allows you to model business processes directly within the IDE. The designer becomes available only when the xref:bpm:index.adoc[BPM add-on] is added to the project.
-
-== Overview
-
-Here is a BPMN Modeler window:
+Jmix Studio предоставляет встроенный BPMN Моделер, который позволяет строить процессы непосредственно в IDE. Моделер становится доступным сразу после добавления дополнения BPM в проект.
 
 image::process-modeling/studio-modeler.png[,800]
 
-The following areas and controls are present:
+Интерфейс моделера состоит из следующих элементов:
 
-* *Canvas* -- A workspace where you can place BPMN elements.
-* *BPMN Palette* (1) -- The BPMN palette provides a comprehensive set of elements for constructing BPMN diagrams. Located on the left side of the modeling interface, the palette enables users to easily drag and drop various BPMN elements onto the diagram canvas, facilitating intuitive and efficient process modeling.
-* *Process Actions* (2) -- Located at the top left of the modeler window, the process action buttons offer options that vary depending on whether the current model is a draft or a deployable process.
-* *BPMN Inspector* (4) -- This essential feature allows users to configure and manage the properties of BPMN elements within their process models.
-* *Visibility Button* (5) -- This button toggles the visibility of the BPMN Inspector on and off.
-== Navigate to Code
+* *Canvas* – рабочая область для создания схемы процесса.
+* *BPMN Palette* (1) – палитра BPMN предоставляет полный набор элементов для построения диаграмм BPMN.
+* *Process Actions* (2) – панель доступных действий для процесса или черновика.
+* *Editor Modes* (3) – доступны три режима просмотра: только XML, XML и модель, только модель.
+* *BPMN Inspector* (4) – панель инспектора отображает атрибуты выбранного элемента и позволяет их редактировать.
+* *Visibility Button* (5) – переключатель видимости для инспектора.
 
-With the Modeler, you can navigate to the Java code associated with the properties of the selected element,
-allowing you to see where this code will be used.
+== Навигация по коду
+
+С помощью Modeler вы можете перейти к Java-коду, связанному с элементом или его атрибутом.
 
 image::process-modeling/jump-to-code.png[,800]
 
-* image:process-modeling/plus-button.png[,20] (plus) -- This button creates a new Spring bean, Java delegate, Jmix view process, or other component where code writing is necessary.
-* image:process-modeling/right-button.png[,20] (chevron right) -- This button navigates to the code if the element has already been configured.
-* image:process-modeling/down-button.png[,20] (chevron down) -- This button opens a dropdown list where you can select a code component to associate with the selected property.
+* image:process-modeling/plus-button.png[,20] (plus) – кнопка для создания нового Spring bean, Java delegate, процессной формы Jmix или другого компонента.
+* image:process-modeling/right-button.png[,20] (chevron right) – навигация к существующему коду.
+* image:process-modeling/down-button.png[,20] (chevron down) – эта кнопка открывает выпадающий список, в котором вы можете выбрать существующий компонент связанный с атрибутом.
 
-== Property Finder
+== Поиск атрибутов
 
-At the top of the *BPMN Inspector* panel, there is a *Find* field. By inputting the name of the property here, only the properties matching your criteria will be displayed.
-
-For example, let's find properties with the name `id`:
+В верхней части панели *BPMN Inspector* находится поле *Find*. Начните вводить название атрибута, чтобы найти нужный.
 
 image::process-modeling/property-finder.png[,400]
 
-Now only matched properties are displayed.
+== Упорядочение и удаление параметров
 
-== Parameters Ordering and Deletion
-
-When the element property may have several parameters like *Input dialog form*, the BPMN Inspector allows to move them up and down in the list.
+Когда в атрибуте содержится несколько параметров, таких как *Input dialog form*, BPMN Inspector позволяет перемещать их вверх и вниз в списке.
 
 image::process-modeling/parameters-ordering.png[,400]
 
-To do this, use up (image:process-modeling/up-button.png[,20]) and down (image:process-modeling/down-button-1.png[,20]) buttons located at the top of the BPMN Navigator panel.
+Для этого используйте кнопки вверх (image:process-modeling/up-button.png[,20]) и вниз (image:process-modeling/down-button-1.png[,20]), расположенные в верхней части панели BPMN Navigator.
 
-To delete an item from the list, use delete (image:process-modeling/delete-button.png[,20]) button.
+Чтобы удалить параметр списка, используйте кнопку удаления (image:process-modeling/delete-button.png[,20]).
 
-== Editing Commands
+== Горячие клавиши
 
-Modeler supports the following editing commands:
+В моделере доступны следующие горячие клавиши:
 
 [width="50%"]
 |===
@@ -71,83 +63,56 @@ Modeler supports the following editing commands:
 //JST-5290 BPMN Modeler: editing commands work not all
 
 [[processes-and-drafts]]
-== Processes and Drafts
+== Процессы и черновики процессов
 
-When the BPM add-on is installed, an additional *BPM* node appears in the *Jmix project tree*.
-Initially, this node is empty.
-As you create drafts and processes, two sub-nodes will appear: *Process Drafts* and *Processes*.
+Для доступа к процессам и черновикам используйте секции *Processes* и *Process Drafts* в панели инструментов Jmix.
 
 image::process-modeling/bpm-jmix-tree.png[,400]
 
-they are located in the `resources/process-drafts` and `resources/process` directories respectively.
+Физически, эти файлы расположены в директориях `resources/process` и `resources/process-drafts` соответственно.
 
 image::process-modeling/process-directories.png[,400]
 
-These two sub-nodes in the Jmix project tree are designed to enhance the developer's experience.
-In the beginning, you create a draft of the process and save it in the *Process Drafts* node.
-Then, when the process is ready for deployment, copy it to the *Processes* node.
+NOTE: Как процесс, так и черновик процесса являются валидным XML файлами. Однако черновики имеют дополнительное расширение в имени файла по следующему шаблону:
+`<process-id>.draft.xml`. Когда черновик процесса копируется в Processes, система автоматически удалит расширение `.draft` из его имени.
 
-[NOTE]
-====
-Technically, there is no difference between _processes_ and _process drafts_: both are valid BPMN 2.0 XML files.
-But process drafts have an additional extension in the file name following this pattern:
-`<process-id>.draft.xml`
-
-When the process model is copied to the *Processes*, the system removes `.draft` extension from its name.
-====
-
-[IMPORTANT]
-====
-Don't remove manually `.draft` extension from names of the files stored in *Process Drafts*.
-====
-
-Upon the next application startup, all models in the *Processes* node will be deployed to the server.
-Alternatively, you can use the *Hot Deploy* feature to deploy them without restarting the application.
+При запуске приложения все модели в *Processes* будут развернуты на сервере. Кроме того, вы можете использовать функцию *Hot Deploy* для развертывания без перезапуска приложения.
 
 // image::process-modeling/draft-context-menu.png[,400]
 // image::process-modeling/process-context-menu.png[,400]
 
-
 [[process-creating]]
-== Creating Processes
+== Создание нового процесса
 
-In *Jmix Studio*, you can create a new process several ways:
+*Jmix Studio* позволяет создать процесс несколькими способами:
 
-. Using *Jmix Tool Window*:
+. Используя *Jmix Tool Window*:
 +
 image::process-modeling/new-process-from-jmix-menu.png[,400]
 
-. Using the context menu in the *BPM* node (by right click):
+. Используя контекстное меню узла *BPM*:
 +
 image::process-modeling/new-process-from-the-tree.png[,400]
 
-. Using IntelliJ IDEA main menu *File*-> *New*-> *BPMN Process*:
+. Используя главное меню IntelliJ IDEA *File*-> *New*-> *BPMN Process*:
 +
 image::process-modeling/new-process-from-file-menu.png[,500]
 
-. Using the context menu (by the right click) from anywhere within your project:
+. Используя контекстное меню в любой директории вашего проекта:
 +
 image::process-modeling/new-process-context-menu.png[,400]
 
-Next, a *New BPMN Process* dialog window appears.
-Enter the process ID in snake case, and the name will be filled automatically.
+После создания вы увидите диалог *New BPMN Process*. Введите идентификатор процесса. Имя будет заполнено автоматически.
 
 image::bpmn-process/new-process.png[,500]
 
-After clicking the *OK* button, *BPMN Modeler* will open.
-
-The XML file of this process will be created as a _draft_ and to be placed in the *Process Drafts* folder.
+После нажатия кнопки *OK* вы попадёте в моделер. XML файл нового процесса помечается как черновик и доступен в разделе *Process Drafts*.
 
 [[uploading-processes]]
-== Uploading Process Models
+== Загрузка модели процесса
 
-You can upload process models into your project from external sources.
-For this purpose, use regular copy/past features provided by operating system.
+Вы можете загрузить модели процессов в ваш проект из внешних источников.
+Для этого используйте стандартные функции копирования/вставки файловой системы.
 
-Switch to the regular _Project view_ in IntelliJ IDEA and
-place the copied XML file in the `resources/process-drafts` or `resources/process` directory.
-
-[WARNING]
-====
-When placing XML files in *drafts*, add `.draft` extension before `.xml` extension.
-====
+Переключитесь на Project view в IntelliJ IDEA и
+поместите XML файл в директорию `resources/process` или `resources/process-drafts`. Для черновиков используйте следующий шаблон имени: `<process-id>.draft.xml`.
