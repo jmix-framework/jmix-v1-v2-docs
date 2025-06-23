@@ -72,7 +72,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 
 Фреймворк самостоятельно подхватит вашего провайдера и будет использовать возвращенный диалог для необработанных исключений.
 
-NOTE: By default, `ExceptionDialog` appears as a modal window. This behavior can be customized by setting the xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] property in the `application.properties` file.
+NOTE: По умолчанию `ExceptionDialog` отображается как модальное окно. Это поведение можно изменить, настроив свойство xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] в файле `application.properties`.
 
 [[navigation-exception-handling]]
 == Обработка исключений навигации

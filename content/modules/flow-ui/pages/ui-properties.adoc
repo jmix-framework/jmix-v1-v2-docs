@@ -76,15 +76,15 @@ jmix.ui.entity-page-size.Customer = 500
 [[jmix.ui.exception-dialog-modal]]
 === jmix.ui.exception-dialog-modal
 
-This application property controls whether `ExceptionDialog` in Jmix applications should be displayed as a modal window.
+Это свойство приложения определяет, должен ли `ExceptionDialog` отображаться как модальное окно в Jmix-приложениях.
 
-When enabled, `ExceptionDialog` will act as a modal window, preventing interaction with other parts of the application until the dialog is closed.
+Если свойство включено, `ExceptionDialog` будет вести себя как модальное окно, блокируя взаимодействие с другими частями приложения, пока диалог не будет закрыт.
 
-When disabled, `ExceptionDialog` will act as a non-modal window, allowing users to continue interacting with other parts of the application while the dialog is open.
+Если свойство выключено, `ExceptionDialog` будет вести себя как немодальное окно, позволяя пользователям продолжать взаимодействовать с другими частями приложения, пока диалог открыт.
 
-Default value: `true`.
+Значение по умолчанию: `true`.
 
-See also xref:flow-ui:exception-handlers.adoc[Exception Handlers].
+Смотрите также xref:flow-ui:exception-handlers.adoc[Обработчики исключений].
 
 [[jmix.ui.main-view-id]]
 === jmix.ui.main-view-id
