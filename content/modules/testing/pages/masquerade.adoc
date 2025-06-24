@@ -1,6 +1,8 @@
-= Masquerade
+= End-to-end UI Testing Automation
 
-Masquerade is an end-to-end testing library designed to automate UI testing for Jmix applications. The library helps you use the Page Object pattern for all parts of Jmix UI, including views, components, dialogs, notifications, and composites. It is based on https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] and https://github.com/selenide/selenide[Selenide^].
+Automated UI tests simulate real user behavior but in automated manner. They run quickly and can be repeated easily, saving time compared to manual testing.
+
+In Jmix, you can use *Masquerade* to automate UI testing for your applications. This end-to-end testing library helps you use the Page Object pattern for all parts of Jmix UI, including views, components, dialogs, notifications, and composites. It is based on https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] and https://github.com/selenide/selenide[Selenide^].
 
 NOTE: Masquerade is for applications that are built with *Jmix 2.6* or newer.
 
@@ -31,11 +33,11 @@ TIP: Please see https://selenide.org/documentation.html[Selenide API^] to learn 
 
 == Create Test with Masquerade
 
-Masquerade emphasizes the use of <<_wrappers,wrappers>> for various Jmix components, allowing for better organization and management of tests. Let's create a test that logs in to a Jmix application using Masquerade. This will involve two steps:
+Masquerade emphasizes the use of <<wrappers,wrappers>> for various Jmix components, allowing for better organization and management of tests. Let's create a test that logs in to a Jmix application using Masquerade. This will involve two steps:
 
 === Step 1. Create a View Wrapper
 
-A basic Jmix project includes a login view from the start. Create a <<_view_wrapper,view wrapper>> to represent this view and its components under test:
+A basic Jmix project includes a login view from the start. Create a <<view_wrapper,view wrapper>> to represent this view and its components under test:
 
 * In the `src/test/java` directory, within the `com.company.testproject` package create a new package named `view`. Then, create a Java class named `LoginView`:
 +
@@ -50,7 +52,7 @@ TestProject/
                     └── view
                        └── LoginView.java
 ----
-* Add <<_component_wrapper,component wrappers>> along with get methods for each component needed for the test:
+* Add <<component_wrapper,component wrappers>> along with get methods for each component needed for the test:
 +
 [source,java,indent=0]
 .LoginView.java
@@ -87,6 +89,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_auto
 <1> Open the login page using the standard Selenide method.
 <2> Use the `Masquerade.$j` method to select the view wrapper and call its methods.
 
+[[jmix_test_ids]]
 == Jmix Test IDs
 
 Masquerade may assist you in generating a special `j-test-id` (Jmix test ID) attribute for each component created with the `UiComponents` factory.
@@ -113,10 +116,12 @@ To work with an element directly by its `j-test-id`, use the `Masquerade.$j` met
 $j("myButton").click();
 ----
 
+[[wrappers]]
 == Wrappers
 
 Wrappers are classes that represent different parts of Jmix UI and encapsulate interactions with them. They help you separate test scenarios from the complexities of the UI under test. There are five types of wrappers.
 
+[[view_wrapper]]
 === View Wrapper
 
 A view wrapper encapsulates a view, providing a simplified and consistent interface to interact with its components. A view wrapper does not have to include all components of the corresponding view – add just those that are needed for tests.
@@ -138,6 +143,7 @@ include::example$/masquerade-ex1/src/main/java/com/company/masqueradeex1/view/my
 If you don't specify an ID, then the simple class name for this view will be used as id.
 <2> Extend the `io.jmix.masquerade.sys.View` class with typing on itself. This is necessary to provide fluent API for writing tests.
 
+[[component_wrapper]]
 === Component Wrapper
 
 Component wrappers encapsulate components within view wrappers. To designate a field as a component wrapper, use the `@TestComponent` or `@FindBy` annotations. This is illustrated in the following example:
@@ -147,7 +153,7 @@ Component wrappers encapsulate components within view wrappers. To designate a f
 include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/MyView.java[tags=ComponentWrappers]
 ----
 
-- `@TestComponent` indicates that the current field is a component wrapper. If the `path` value is not specified, the default value is assumed to be the value of the <<_jmix_test_ids,j-test-id>> attribute for the corresponding web element.
+- `@TestComponent` indicates that the current field is a component wrapper. If the `path` value is not specified, the default value is assumed to be the value of the <<jmix_test_ids,j-test-id>> attribute for the corresponding web element.
 - `@FindBy` specifies a selector to be used for this field.
 
 TIP: Find the list of all available component wrappers in the `io.jmix.masquerade.component` package.
