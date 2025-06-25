@@ -12,5 +12,8 @@
         <button id="backgroundTaskButton" text="Background Task"/>
         <button id="customParameterRequiredButton" text="Custom Required Parameter"/>
         <button id="customParamRequiredButton" text="Custom Required Parameter"/>
+        <button id="configDialogButton" text="Basic Configuration"/>
+        <button id="dragDialogButton" text="Draggable"/>
+        <button id="resizeDialogButton" text="Resize"/>
     </layout>
 </view>

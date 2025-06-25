@@ -27,36 +27,28 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> Adds a dialog header.
 <2> Adds a text message to show in the dialog.
 
-[[text-formatting]]
-=== Text Formatting
-
-Text formatting is available with HTML -- the dialog can display HTML content using the `withContent()` method. A given HTML fragment must be encapsulated in a component:
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-html]
-----
-
-[[appearance]]
-=== Appearance
-
 The following methods allow you to customize the look and behavior of the message dialog:
 
-[[msg-dialog-modal]]
-* `withModal()` - if `false` is passed, the dialog is shown as non-modal, which allows users to interact with the other parts of the application. Dialogs are modal by default.
-
-[[msg-dialog-close-on-click-outside]]
-* `withCloseOnOutsideClick()` - when `true` is passed, and the dialog is modal, it allows a user to close the dialog by clicking on the application window outside the dialog.
-
-[[msg-dialog-width-height]]
-* `withWidth()`, `withHeight()` - specify the size of the dialog.
-
-For example:
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-custom]
-----
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-modal,withModal>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-closeOnOutsideClick,withCloseOnOutsideClick>> -
+<<with-closeOnEsc,withCloseOnEsc>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
 
 [[option-dialog]]
 == Option Dialog
@@ -75,6 +67,26 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> If you click Yes, the dialog closes and invokes the corresponding `addCustomer()` action method.
 
 The `DialogAction` base class is designed to create actions with standard names and icons. Five types of actions, defined by the `DialogAction.Type` enum, are supported: `OK`, `CANCEL`, `YES`, `NO`, `CLOSE`. Names of buttons are extracted from the xref:localization:message-bundles.adoc[message bundle].
+
+The following methods allow you to customize the look and behavior of the option dialog:
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
 
 [[background-task-dialog]]
 == Background Task Dialog
@@ -96,12 +108,43 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> Set the number of progress bar sections based on the number of tasks.
 <3> Allow user to interrupt the task.
 
+The following methods allow you to customize the look and behavior of the background task dialog:
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
+
 [[input-dialog]]
 == Input Dialog
 
 Input dialog is a versatile tool that allows you to construct input forms using API and often saves you from creating screens for trivial data input. It enables entering values of different types, validates the input, and provides different actions to be selected by the user.
 
 image::dialogs/input-dialog.png[align="center", width = 560]
+
+The following methods allow you to customize the look and behavior of the input dialog:
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-draggable,withDraggable>> -
+<<with-draggedListener,withDraggedListener>>
 
 Let's consider some examples.
 
@@ -183,3 +226,97 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> The custom validator adding logic to ensure at least one parameter is entered.
 <2> In the validator, parameter values can be obtained from the context object.
 <3> The validator returns validation errors if no parameters are entered.
+
+[[dialog-configuration]]
+== Dialog Configuration
+
+You can customize the header, size, and position of all dialogs using the following methods:
+
+[[with-header]]
+* `withHeader()` - sets the header text.
+
+[[with-width]]
+* `withWidth()` - sets the dialog width.
+
+[[with-height]]
+* `withHeight()` - sets the dialog height.
+
+[[with-left]]
+* `withLeft()` - sets the dialog's left offset from its container (unitless values are interpreted as pixels)
+
+[[with-top]]
+* `withTop()` - sets the dialog's top offset (unitless values are interpreted as pixels)
+
+For example:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=basic-config]
+----
+
+Additional appearance and behavior configurations are available for specific dialog types:
+
+[[with-text]]
+* `withText()` - sets the text message to be displayed in the dialog.
+
+[[with-content]]
+* `withContent()` - sets the dialog's content. This is text rendered within a `Paragraph` component. Note that this overrides any text previously set via `withText()`.
++
+[NOTE]
+====
+Text formatting is available with HTML - the dialog can display HTML content using the `withContent()` method. A given HTML fragment must be encapsulated in a component:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-html]
+----
+====
+
+[[with-modal]]
+* `withModal()` - when set to `false`, displays the dialog as non-modal, allowing interaction with other application components. Dialogs are modal by default.
+
+[[with-themeName]]
+* `withThemeName()` - sets the dialog's theme name(s), replacing any previously set values.
+
+[[with-className]]
+* `withClassName()` - sets the CSS class name(s) for the component, replacing all previously defined classes.
+
+[[with-draggable]]
+* `withDraggable()` - sets whether dialog is enabled to be dragged by the user or not. Dialogs are draggable by default.
+
+[[with-resizable]]
+* `withResizable()` - sets whether dialog can be resized by user or not.
+By default, the dialog is not resizable.
+
+[[with-min-max-sizes]]
+* `withMinWidth()`, `withMaxWidth()`, `withMaxWidth()`, `withMaxHeight()` - set the dialog's minimum/maximum width and height dimensions respectively.
+
+[[with-closeOnOutsideClick]]
+* `withCloseOnOutsideClick()` - controls whether clicking outside the dialog closes it. By default, the dialog is closable with an outside click.
+
+[[with-closeOnEsc]]
+* `withCloseOnEsc()` - controls whether pressing `ESC` closes the dialog. By default, the dialog is closable with `ESC`.
+
+[[with-draggedListener]]
+* `withDraggedListener()` - registers a callback invoked after user dragging completes. It is called only if dragging is enabled.
++
+NOTE: By default, the component will sync the top/left values after every dragging.
++
+For example:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=withDraggedListener]
+----
+
+[[with-resizeListener]]
+* `withResizeListener()` - registers a callback invoked after user resizing completes. It is called only if resizing is enabled.
++
+NOTE: By default, the component will sync the width/height and top/left values after every resizing.
++
+For example:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=withResizeListener]
+----
