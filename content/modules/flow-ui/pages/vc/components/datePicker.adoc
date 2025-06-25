@@ -7,30 +7,30 @@
 </div>
 ++++
 
-`datePicker` lets users enter a date by typing or select it using a calendar overlay.
+`datePicker` позволяет пользователям вводить дату с клавиатуры или выбирать ее с помощью всплывающего календаря.
 
-* XML element: `datePicker`
+* XML-элемент: `datePicker`
 
-* Java class: `TypedDatePicker`
+* Java-класс: `TypedDatePicker`
 
-== Basics
+== Основы
 
-Unlike a regular input field, `datePicker` has a calendar button and a calendar overlay. The calendar opens when the user clicks the button or the field itself, or starts entering a date.
+В отличие от обычного поля ввода, `datePicker` имеет кнопку календаря и всплывающий календарь. Календарь открывается, когда пользователь нажимает на кнопку или на само поле, либо начинает вводить дату.
 
 image::visual-components/components/date-picker.png[align="center", width="370"]
 
-The calendar is scrollable and allows selecting a year in the right pane. Click *Today* at the bottom to navigate back to the current date.
+Календарь можно прокручивать, и он позволяет выбирать год в правой панели. Нажмите *Today* внизу, чтобы вернуться к текущей дате.
 
-The following example defines a `datePicker` with a label:
+В следующем примере определяется `datePicker` с меткой:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datepicker/date-picker-view.xml[tags=basics]
 ----
 
-== Data Types
+== Типы данных
 
-`datePicker` is a typed component which supports common data types for storing a date:
+`datePicker` - это типизированный компонент, который поддерживает распространенные типы данных для хранения даты:
 
 * `date`
 * `dateTime`
@@ -38,36 +38,37 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 * `offsetDateTime`
 * `localDate`
 
-When you <<data-binding, bind the component>> to an entity attribute, it will automatically assume the data type of that attribute. To set the type explicitly, use the xref:vc/common-attributes.adoc#datatype[datatype] attribute.
+Когда вы <<data-binding,связываете компонент>> с атрибутом сущности, он автоматически принимает тип данных этого атрибута. Чтобы установить тип явно, используйте атрибут xref:vc/common-attributes.adoc#datatype[datatype].
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных (data binding) относится к связыванию визуального компонента с контейнером данных. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Смотрите xref:data/data-examples.adoc[] для получения более подробной информации.
 
-The following example produces a data-aware `datePicker`:
+В следующем примере создается компонент `datePicker`, работающий с данными:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datepicker/date-picker-view.xml[tags=data-binding]
 ----
 
-== Date Format
+== Формат даты
 //todo: make changes upon completing jmix#858 ticket
-The default date and time format in the application is defined by the xref:data-model:data-types.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
 
-To change the format for a particular component, use its xref:vc/common-attributes.adoc#dateFormat[dateFormat] attribute.
+Формат даты и времени по умолчанию в приложении определяется xref:data-model:data-types.adoc#localized-format-strings[локализованными строками формата]. Чтобы использовать другой формат, добавьте собственные строки формата в пакет сообщений.
 
-== Date Range
+Чтобы изменить формат для конкретного компонента, используйте его атрибут xref:vc/common-attributes.adoc#dateFormat[dateFormat].
 
-To restrict the input to a specific date range, specify the minimum and maximum dates using the <<max, max>> and <<min, min>> attributes:
+== Диапазон дат
+
+Чтобы ограничить ввод конкретным диапазоном дат, укажите минимальную и максимальную даты, используя атрибуты <<max, max>> и <<min, min>>:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datepicker/date-picker-view.xml[tags=range]
 ----
 
-Or specify an adaptable data range within the view controller:
+Или укажите адаптируемый диапазон дат внутри контроллера экрана:
 
 [source,java,indent=0]
 ----
@@ -75,17 +76,17 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[themeVariants]]
-== Theme Variants
+== Варианты оформления
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to adjust date alignment, helper text placement, and component size.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки выравнивания даты, размещения вспомогательного текста и размера компонента.
 
-=== Alignment
+=== Выравнивание
 
-Choose among three alignment options: `align-left` (default), `align-right`, `align-center`.
+Выберите один из трех вариантов выравнивания: `align-left` (по умолчанию), `align-right`, `align-center`.
 
 image::visual-components/components/date-picker-alignment.png[align="center", width="620"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -94,13 +95,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Helper Text Position
+=== Положение вспомогательного текста
 
-Setting `helper-above-field` will move the helper text from its default position below the field to above it.
+Установка значения `helper-above-field` переместит вспомогательный текст из его положения по умолчанию под полем над ним.
 
 image::visual-components/components/date-picker-helper-text-position.png[align="center", width="419"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -109,13 +110,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Size
+=== Размер
 
-Two size options are available: the default size and `small`.
+Доступны два варианта размера: размер по умолчанию и `small` (маленький).
 
 image::visual-components/components/date-picker-size.png[align="center", width="390"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -125,9 +126,9 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ====
 
 [[validation]]
-== Validation
+== Валидация
 
-To check values entered into `datePicker`, add a xref:vc/miscellaneous/validator.adoc[validator] element. This allows adding a custom validation criterion or select one of the following predefined validators:
+Чтобы проверить значения, введенные в `datePicker`, добавьте элемент xref:vc/miscellaneous/validator.adoc[validator]. Это позволяет добавить пользовательский критерий проверки или выбрать один из следующих предопределенных валидаторов:
 
 * xref:vc/miscellaneous/validator.adoc#FutureOrPresentValidator[FutureOrPresent]
 * xref:vc/miscellaneous/validator.adoc#FutureValidator[Future]
@@ -135,14 +136,14 @@ To check values entered into `datePicker`, add a xref:vc/miscellaneous/validator
 * xref:vc/miscellaneous/validator.adoc#PastOrPresentValidator[PastOrPresent]
 * xref:vc/miscellaneous/validator.adoc#PastValidator[Past]
 
-This example demonstrates how to use the `FutureValidator` to ensure that the selected date is in the future:
+Этот пример демонстрирует, как использовать `FutureValidator`, чтобы убедиться, что выбранная дата находится в будущем:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datepicker/date-picker-view.xml[tags=future]
 ----
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -186,10 +187,11 @@ xref:vc/common-attributes.adoc#width[width]
 [[autoOpen]]
 === autoOpen
 
-Defines whether an overlay calendar opens when the user starts typing a date.
+Определяет, открывается ли всплывающий календарь, когда пользователь начинает вводить дату.
 
-* If set to `true`, an overlay calendar opens both on user input and on clicking the calendar button or the field.
-* If set to `false`, an overlay calendar opens only on clicking the calendar button.
+* Если установлено значение `true`, всплывающий календарь открывается как при вводе данных пользователем, так и при нажатии на кнопку календаря или на поле.
+
+* Если установлено значение `false`, всплывающий календарь открывается только при нажатии на кнопку календаря.
 
 [[max]]
 === max
@@ -200,7 +202,7 @@ Defines whether an overlay calendar opens when the user starts typing a date.
 </div>
 ++++
 
-Specifies the latest date that can be selected. Accepted format is `yyyy-MM-dd`.
+Указывает самую позднюю дату, которую можно выбрать. Принимаемый формат - `yyyy-MM-dd`.
 
 [[min]]
 === min
@@ -211,19 +213,19 @@ Specifies the latest date that can be selected. Accepted format is `yyyy-MM-dd`.
 </div>
 ++++
 
-Specifies the earliest date that can be selected. Accepted format is `yyyy-MM-dd`.
+Указывает самую раннюю дату, которую можно выбрать. Принимаемый формат - `yyyy-MM-dd`.
 
 [[name]]
 === name
 
-Specifies a name for an HTML element that can be used to reference the component.
+Указывает имя для HTML-элемента, которое можно использовать для ссылки на компонент.
 
 [[opened]]
 === opened
 
-Specifies whether the calendar overlay is opened.
+Указывает, открыта ли панель календаря.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -242,34 +244,34 @@ include::../handler-generation-tip.adoc[]
 [[ClientValidatedEvent]]
 === ClientValidatedEvent
 
-`ClientValidatedEvent` is sent by the web component whenever it is validated on the client-side.
+`ClientValidatedEvent` отправляется веб-компонентом всякий раз, когда он проходит валидацию на стороне клиента.
 
 [[InvalidChangeEvent]]
 === InvalidChangeEvent
 
-`com.vaadin.flow.component.datepicker.DatePicker.InvalidChangeEvent` is sent when the value of the xref:vc/common-attributes.adoc#invalid[invalid] attribute of the component changes.
+`com.vaadin.flow.component.datepicker.DatePicker.InvalidChangeEvent` отправляется при изменении значения атрибута xref:vc/common-attributes.adoc#invalid[invalid] компонента.
 
 [[OpenedChangeEvent]]
 === OpenedChangeEvent
 
-`OpenedChangeEvent` is sent every time the `opened` attribute of the component changes. That is, when the calendar is opened or closed.
+`OpenedChangeEvent` отправляется каждый раз, когда изменяется атрибут `opened` компонента. То есть, когда календарь открывается или закрывается.
 
 [[validator]]
 === validator
 
-Adds a xref:vc/miscellaneous/validator.adoc[validator] instance to the component. The validator must throw `ValidationException` if the value is not valid. For example:
+Добавляет экземпляр xref:vc/miscellaneous/validator.adoc[валидатора] к компоненту. Валидатор должен выбрасывать исключение `ValidationException`, если значение недействительно. Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datepicker/DatePickerView.java[tags=validator]
 ----
 
-== Elements
+== Элементы
 
 xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
 xref:vc/components/tooltip.adoc[tooltip] -
 <<validation,validator>>
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/latest/components/date-picker[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/date-picker[документацию Vaadin^] для получения дополнительной информации.
