@@ -7,28 +7,28 @@
 </div>
 ++++
 
-An input field to select both a date and a time of the day. To select either a date or a time, use xref:vc/components/datePicker.adoc[datePicker] or xref:vc/components/timePicker.adoc[timePicker], respectively.
+`dateTimePicker` - поле ввода для выбора как даты, так и времени суток. Чтобы выбрать либо дату, либо время, используйте xref:vc/components/datePicker.adoc[datePicker] или xref:vc/components/timePicker.adoc[timePicker], соответственно.
 
-* XML element: `dateTimePicker`
+* XML-элемент: `dateTimePicker`
 
-* Java class: `TypedDateTimePicker`
+* Java-класс: `TypedDateTimePicker`
 
-== Basics
+== Основы
 
-The date and time can be entered directly using the keyboard or selected from the corresponding overlay. The overlay opens when the respective field is clicked or any input is entered.
+Дата и время могут быть введены непосредственно с клавиатуры или выбраны из соответствующей всплывающей панели. Всплывающая панель открывается при нажатии на соответствующее поле или при вводе каких-либо данных.
 
 image::visual-components/components/date-time-picker-basic.png[align="center", width="420"]
 
-The following example defines a `datePicker` with a label:
+В следующем примере определяется компонент `dateTimePicker` с меткой:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=basics]
 ----
 
-== Data Types
+== Типы данных
 
-`dateTimePicker` is a typed component which supports common data types for storing both a date and a time:
+`dateTimePicker` - это типизированный компонент, который поддерживает общие типы данных для хранения как даты, так и времени:
 
 * `date`
 * `dateTime`
@@ -39,23 +39,24 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 * `time`
 * `localDate`
 
-When you <<data-binding, bind the component>> to an entity attribute, it will automatically assume the data type of that attribute. To set the type explicitly, use the xref:vc/common-attributes.adoc#datatype[datatype] attribute.
+Когда вы <<data-binding, связываете компонент>> с атрибутом сущности, он автоматически принимает тип данных этого атрибута. Чтобы установить тип явно, используйте атрибут xref:vc/common-attributes.adoc#datatype[datatype].
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных (data binding) относится к связыванию визуального компонента с контейнером данных. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Смотрите xref:data/data-examples.adoc[] для получения более подробной информации.
 
-The following example produces a data-aware `dateTimePicker`:
+В следующем примере создается компонент `dateTimePicker`, работающий с данными:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=userDc]
 ----
 
-== Step
+[[step]]
+== Шаг
 
-The default interval between the items displayed in the time overlay is set to one hour. A custom step value can be set using the xref:vc/common-attributes.adoc#step[step] attribute. This can also be done in the view controller:
+Интервал по умолчанию между элементами, отображаемыми во всплывающей панели времени, установлен в один час. Пользовательское значение шага можно установить с помощью атрибута xref:vc/common-attributes.adoc#step[step]. Это также можно сделать в контроллере экрана:
 
 [source,java,indent=0]
 ----
@@ -64,37 +65,37 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 image::visual-components/components/date-time-picker-step.png[align="center", width="420"]
 
-The step must divide an hour or day evenly. For example, "15 minutes", "30 minutes" and "2 hours" are valid steps, whereas "42 minutes" isn’t.
+Шаг должен равномерно делить час или день. Например, "15 минут", "30 минут" и "2 часа" - это допустимые шаги, а "42 минуты" - нет.
 
-NOTE: The overlay doesn't appear for steps less than 15 minutes, to avoid showing an impractical number of choices.
+NOTE: Всплывающая панель не отображается для шагов менее 15 минут, чтобы избежать показа непрактичного количества вариантов выбора.
 
-== Date Format
+== Формат даты
 //todo: make changes upon completing jmix#858 ticket
-The default date and time format in the application is defined by the xref:data-model:data-types.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
 
-To change the format for a particular component, use its xref:vc/common-attributes.adoc#dateFormat[dateFormat] attribute.
+Формат даты и времени по умолчанию в приложении определяется xref:data-model:data-types.adoc#localized-format-strings[локализованными строками формата]. Чтобы использовать другой формат, добавьте собственные строки формата в пакет сообщений.
 
-== Date and Time Range
+Чтобы изменить формат для конкретного компонента, используйте его атрибут xref:vc/common-attributes.adoc#dateFormat[dateFormat].
 
-To restrict the input to a specific date range, specify the minimum and maximum dates using the <<max, max>> and <<min, min>> attributes.
+== Диапазон даты и времени
+
+Чтобы ограничить ввод конкретным диапазоном дат, укажите минимальную и максимальную даты, используя атрибуты <<max, max>> и <<min, min>>.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=range]
 ----
 
-Or specify an adaptable data range within the view controller:
+Или укажите адаптируемый диапазон даты и времени внутри контроллера экрана:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datetimepicker/DateTimePickerView.java[tags=dateTimePicker;onInit;time-range]
 ----
 
-
 [[validation]]
-== Validation
+== Валидация
 
-To check values entered into `datePicker`, add a xref:vc/miscellaneous/validator.adoc[validator] element. This allows adding a custom validation criterion or select one of the following predefined validators:
+Чтобы проверить значения, введенные в `dateTimePicker`, добавьте элемент xref:vc/miscellaneous/validator.adoc[validator]. Это позволяет добавить пользовательский критерий проверки или выбрать один из следующих предопределенных валидаторов:
 
 * xref:vc/miscellaneous/validator.adoc#FutureOrPresentValidator[FutureOrPresent]
 * xref:vc/miscellaneous/validator.adoc#FutureValidator[Future]
@@ -102,7 +103,7 @@ To check values entered into `datePicker`, add a xref:vc/miscellaneous/validator
 * xref:vc/miscellaneous/validator.adoc#PastOrPresentValidator[PastOrPresent]
 * xref:vc/miscellaneous/validator.adoc#PastValidator[Past]
 
-This example demonstrates how to use the `FutureValidator` to ensure that the selected time and date are in the future:
+Этот пример демонстрирует, как использовать `FutureValidator`, чтобы убедиться, что выбранные дата и время находятся в будущем:
 
 [source,xml,indent=0]
 ----
@@ -110,17 +111,17 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[themeVariants]]
-== Theme Variants
+== Варианты оформления
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to adjust text alignment, helper text placement, and component size.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки выравнивания текста, размещения вспомогательного текста и размера компонента.
 
-=== Alignment
+=== Выравнивание
 
-Choose among three alignment options: `align-left` (default), `align-right`, `align-center`.
+Выберите один из трех вариантов выравнивания: `align-left` (по умолчанию), `align-right`, `align-center`.
 
 image::visual-components/components/date-time-picker-alignment.png[align="center", width="396"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -129,13 +130,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Helper Text Position
+=== Положение вспомогательного текста
 
-Setting `helper-above-field` will move the helper text from its default position below the field to above it.
+Установка значения `helper-above-field` переместит вспомогательный текст из его положения по умолчанию (под полем) над ним.
 
 image::visual-components/components/date-time-picker-helper-text-position.png[align="center", width="800"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -144,13 +145,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Size
+=== Размер
 
-Two size options are available: the default size and `small`.
+Доступны два варианта размера: размер по умолчанию и `small` (маленький).
 
 image::visual-components/components/date-time-picker-size.png[align="center", width="750"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -159,7 +160,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -201,15 +202,16 @@ xref:vc/common-attributes.adoc#width[width]
 [[autoOpen]]
 === autoOpen
 
-Defines whether the overlays open when the user starts typing a date.
+Определяет, открываются ли всплывающие панели, когда пользователь начинает вводить дату.
 
-* If set to `true`, the overlays open both on user input and on clicking their respective button or field.
-* If set to `false`, the overlays open only on clicking their respective button.
+* Если установлено значение `true`, всплывающие панели открываются как при вводе данных пользователем, так и при нажатии на соответствующую кнопку или поле.
+
+* Если установлено значение `false`, всплывающие панели открываются только при нажатии на соответствующую кнопку.
 
 [[datePlaceholder]]
 === datePlaceholder
 
-Specifies a text that will be displayed inside the date field when it is empty.
+Указывает текст, который будет отображаться внутри поля даты, когда оно пусто.
 
 [[max]]
 === max
@@ -220,7 +222,7 @@ Specifies a text that will be displayed inside the date field when it is empty.
 </div>
 ++++
 
-Specifies the latest date and time that can be selected. Entered value should be in ISO Local Date and Time format such as '2023-12-31T10:00'.
+Указывает самые поздние дату и время, которые можно выбрать. Введенное значение должно быть в формате ISO Local Date and Time, например, '2023-12-31T10:00'.
 
 [[min]]
 === min
@@ -231,14 +233,14 @@ Specifies the latest date and time that can be selected. Entered value should be
 </div>
 ++++
 
-Specifies the earliest date and time that can be selected. Entered value should be in ISO Local Date and Time format such as '2023-12-24T10:00'.
+Указывает самые ранние дату и время, которые можно выбрать. Введенное значение должно быть в формате ISO Local Date and Time, например, '2023-12-24T10:00'.
 
 [[timePlaceholder]]
 === timePlaceholder
 
-Specifies a text that will be displayed inside the time field when it is empty.
+Указывает текст, который будет отображаться внутри поля времени, когда оно пусто.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -255,23 +257,23 @@ include::../handler-generation-tip.adoc[]
 [[ClientValidatedEvent]]
 === ClientValidatedEvent
 
-`ClientValidatedEvent` is sent by the web component whenever it is validated on the client-side.
+`ClientValidatedEvent` отправляется веб-компонентом всякий раз, когда он проходит валидацию на стороне клиента.
 
 [[validator]]
 === validator
 
-Adds a xref:vc/miscellaneous/validator.adoc[validator] instance to the component. The validator must throw `ValidationException` if the value is not valid. For example:
+Добавляет экземпляр xref:vc/miscellaneous/validator.adoc[валидатора] к компоненту. Валидатор должен выбрасывать исключение `ValidationException`, если значение недействительно. Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datetimepicker/DateTimePickerView.java[tags=validator]
 ----
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip] -
 <<validation,validator>>
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/latest/components/date-time-picker[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/date-time-picker[документацию Vaadin^] для получения дополнительной информации.
