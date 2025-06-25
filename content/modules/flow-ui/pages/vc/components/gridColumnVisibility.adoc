@@ -1,18 +1,18 @@
 = gridColumnVisibility
 
-`gridColumnVisibility` is a component for managing the visibility of columns within a xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] component. It allows you to dynamically show or hide columns.
+`gridColumnVisibility` - это компонент для управления видимостью столбцов внутри компонента xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]. Он позволяет динамически показывать или скрывать столбцы.
 
-* XML element: `gridColumnVisibility`
+* XML-элемент: `gridColumnVisibility`
 
-* Java class: `JmixGridColumnVisibility`
+* Java-класс: `JmixGridColumnVisibility`
 
-== Basics
+== Основы
 
-`gridColumnVisibility` consists of a button and a dropdown menu with the list of columns.
+`gridColumnVisibility` состоит из кнопки и выпадающего меню со списком столбцов.
 
 image::visual-components/components/grid-column-visibility.png[align="center",width="627"]
 
-Below is an example of using `gridColumnVisibility` in a list view:
+Ниже приведен пример использования `gridColumnVisibility` в экране списка:
 
 [source,xml,indent=0]
 ----
@@ -20,38 +20,39 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/step
 ----
 
 [[setting-up-dropdown-menu]]
-== Setting Up Dropdown Menu
+== Настройка выпадающего меню
 
 [[menuItem]]
 === menuItem
-By default, the item text is copied from the column header. You can customize this using the `menuItem` element.
 
-For example, in the previous example, the `menuItem` element is used to set a different localized message for the `name` column than the one specified in the `dataGrid` header.
+По умолчанию текст элемента меню копируется из заголовка столбца. Вы можете изменить это, используя элемент `menuItem`.
+
+Например, в предыдущем примере элемент `menuItem` используется для установки другого локализованного сообщения для столбца `name`, отличного от того, которое указано в заголовке `dataGrid`.
 
 [[include]]
 === include
 
-The `include` attribute is used to specify which columns should be included in a dropdown menu of `gridColumnVisibility`.
+Атрибут `include` используется для указания того, какие столбцы следует включить в выпадающее меню `gridColumnVisibility`.
 
 [[exclude]]
 === exclude
 
-The `exclude` attribute is used to specify which columns should be excluded from a dropdown menu of `gridColumnVisibility`.
+Атрибут `exclude` используется для указания того, какие столбцы следует исключить из выпадающего меню `gridColumnVisibility`.
 
-For example, in the previous example, we excluded the `duration` column from the `gridColumnVisibility` dropdown menu.
+Например, в предыдущем примере мы исключили столбец `duration` из выпадающего меню `gridColumnVisibility`.
 
 [[hideAllEnabled]]
 === hideAllEnabled
 
-The `hideAllEnabled` attribute is used to control the visibility of a *Hide all* item a dropdown menu of `gridColumnVisibility`.
+Атрибут `hideAllEnabled` используется для управления видимостью элемента *Hide all*  в выпадающем меню `gridColumnVisibility`.
 
 [[showAllEnabled]]
 === showAllEnabled
 
-The `showAllEnabled` attribute is used to control the visibility of a *Show all* item a dropdown menu of `gridColumnVisibility`.
+Атрибут `showAllEnabled` используется для управления видимостью элемента *Show all*  в выпадающем меню `gridColumnVisibility`.
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -81,9 +82,9 @@ xref:vc/common-attributes.adoc#width[width]
 [[dataGrid]]
 === dataGrid
 
-Sets a grid which columns will be managed by this component. The grid must be an instance of xref:flow-ui:vc/components/dataGrid.adoc[DataGrid] or xref:flow-ui:vc/components/treeDataGrid.adoc[TreeDataGrid]. The `dataGrid` attribute is required.
+Устанавливает таблицу, столбцы которой будут управляться этим компонентом. Таблица должна быть экземпляром xref:flow-ui:vc/components/dataGrid.adoc[DataGrid] или xref:flow-ui:vc/components/treeDataGrid.adoc[TreeDataGrid]. Атрибут `dataGrid` является обязательным.
 
 [[elements]]
-== Elements
+== Элементы
 
 <<menuItem,menuItem>>
