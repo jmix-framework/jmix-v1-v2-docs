@@ -27,36 +27,28 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> Добавляет заголовок диалога.
 <2> Добавляет текстовое сообщение для отображения в диалоге.
 
-[[text-formatting]]
-=== Форматирование текста
+Следующие методы позволяют вам настроить внешний вид и поведение диалога сообщения:
 
-Форматирование текста доступно с использованием HTML - диалог может отображать HTML-контент с помощью метода `withContent()`. HTML-фрагмент должен быть инкапсулирован в компоненте:
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-html]
-----
-
-[[appearance]]
-=== Внешний вид
-
-Следующие методы позволяют настраивать внешний вид и поведение диалога сообщения:
-
-[[msg-dialog-modal]]
-* `withModal()` - если передано значение `false`, диалоговое окно отображается как немодальное, что позволяет пользователям взаимодействовать с другими частями приложения. По умолчанию диалоги модальные.
-
-[[msg-dialog-close-on-click-outside]]
-* `withCloseOnOutsideClick()` - если диалог модальный и передано значение `true`, то пользователь может закрыть диалог, кликнув в окне приложения за пределами диалога.
-
-[[msg-dialog-width-height]]
-* `withWidth()`, `withHeight()` - устанавливают размер диалога.
-
-Например:
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-custom]
-----
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-modal,withModal>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-closeOnOutsideClick,withCloseOnOutsideClick>> -
+<<with-closeOnEsc,withCloseOnEsc>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
 
 [[option-dialog]]
 == Диалог с вариантами
@@ -75,6 +67,26 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> Если пользователь нажмет "Yes", диалог закроется и вызовется метод `addCustomer()`.
 
 Базовый класс `DialogAction` предназначен для создания действий со стандартными именами и значками. Поддерживаются пять типов действий, определенных перечислением `DialogAction.Type`: `OK`, `CANCEL`, `YES`, `NO`, `CLOSE`. Названия кнопок извлекаются из xref:localization:message-bundles.adoc[пакета сообщений].
+
+Следующие методы позволяют вам настроить внешний вид и поведение диалога с вариантами:
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
 
 [[background-task-dialog]]
 == Диалог фоновой задачи
@@ -96,6 +108,26 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> Установите количество секций в индикаторе прогресса в соответствии с количеством задач.
 <3> Разрешить пользователю прерывать задачу.
 
+Следующие методы позволяют вам настроить внешний вид и поведение диалога фоновой задачи:
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
+
 [[input-dialog]]
 == Диалог ввода
 
@@ -103,7 +135,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 
 image::dialogs/input-dialog.png[align="center", width = 560]
 
-Рассмотрим некоторые примеры.
+Следующие методы позволяют вам настроить внешний вид и поведение диалога ввода:
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-draggable,withDraggable>> -
+<<with-draggedListener,withDraggedListener>>
+
+Рассмотрим несколько примеров.
 
 [[standard-parameters]]
 === Стандартные параметры
@@ -183,3 +226,96 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> Пользовательский валидатор, добавляющий логику для обеспечения ввода хотя бы одного параметра.
 <2> В валидаторе можно получить значения параметров из объекта контекста.
 <3> Валидатор возвращает ошибки валидации, если параметры не введены.
+
+[[dialog-configuration]]
+== Настройка диалогов
+
+Вы можете настроить заголовок, размер и положение всех диалоговых окон, используя следующие методы:
+
+[[with-header]]
+* `withHeader()` - устанавливает текст заголовка.
+
+[[with-width]]
+* `withWidth()` - устанавливает ширину диалогового окна.
+
+[[with-height]]
+* `withHeight()` - устанавливает высоту диалогового окна.
+
+[[with-left]]
+* `withLeft()` - устанавливает отступ диалогового окна слева от его контейнера (значения без единиц измерения интерпретируются как пиксели).
+
+[[with-top]]
+* `withTop()` - устанавливает отступ диалогового окна сверху (значения без единиц измерения интерпретируются как пиксели).
+
+Например:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=basic-config]
+----
+
+Дополнительные настройки внешнего вида и поведения доступны для определенных типов диалоговых окон:
+
+[[with-text]]
+* `withText()` - устанавливает текстовое сообщение, отображаемое в диалоговом окне.
+
+[[with-content]]
+* `withContent()` - устанавливает содержимое диалогового окна. Это текст, отображаемый внутри компонента `Paragraph`. Обратите внимание, что это переопределяет любой текст, ранее установленный с помощью `withText()`.
++
+[NOTE]
+====
+Форматирование текста доступно с использованием HTML - диалоговое окно может отображать HTML-контент с помощью метода `withContent()`. Заданный HTML-фрагмент должен быть заключен в компонент:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-html]
+----
+====
+
+[[with-modal]]
+* `withModal()` - если установлено значение `false`, отображает диалоговое окно как немодальное, позволяя взаимодействовать с другими компонентами приложения. Диалоги по умолчанию модальные.
+
+[[with-themeName]]
+* `withThemeName()` - устанавливает имя (или имена) темы диалога, заменяя любые ранее установленные значения.
+
+[[with-className]]
+* `withClassName()` - устанавливает имя (или имена) CSS-класса для компонента, заменяя все ранее определенные классы.
+
+[[with-draggable]]
+* `withDraggable()` - определяет, может ли пользователь перетаскивать диалог. Диалоги можно перетаскивать по умолчанию.
+
+[[with-resizable]]
+* `withResizable()` - определяет, может ли пользователь изменять размер диалога. По умолчанию размер диалога изменить нельзя.
+
+[[with-min-max-sizes]]
+* `withMinWidth()`, `withMaxWidth()`, `withMaxWidth()`, `withMaxHeight()` - устанавливают минимальную/максимальную ширину и высоту диалога, соответственно.
+
+[[with-closeOnOutsideClick]]
+* `withCloseOnOutsideClick()` - управляет тем, закрывается ли диалог при щелчке за его пределами. По умолчанию диалог закрывается при щелчке снаружи.
+
+[[with-closeOnEsc]]
+* `withCloseOnEsc()` - управляет тем, закрывается ли диалог при нажатии клавиши `ESC`. По умолчанию диалог закрывается клавишей `ESC`.
+
+[[with-draggedListener]]
+* `withDraggedListener()` - регистрирует callback, вызываемый после завершения перетаскивания пользователем. Вызывается только в том случае, если перетаскивание включено.
++
+NOTE: По умолчанию компонент синхронизирует значения top/left после каждого перетаскивания.
++
+Например:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=withDraggedListener]
+----
+
+[[with-resizeListener]]
+* `withResizeListener()` - регистрирует callback, вызываемый после завершения изменения размера пользователем. Вызывается только в том случае, если изменение размера включено.
++
+NOTE: По умолчанию компонент синхронизирует значения ширины/высоты и верхнего/левого отступов после каждого изменения размера.
++
+Например:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=withResizeListener]
+----
