@@ -1,8 +1,8 @@
-= End-to-end UI Testing Automation
+= End-to-end UI Tests
 
-Automated UI tests simulate real user behavior but in automated manner. They run quickly and can be repeated easily, saving time compared to manual testing.
+End-to-end UI tests simulate real user interactions within a web browser, validating the entire application workflow. They run quickly and can be repeated easily, saving time compared to manual testing.
 
-In Jmix, you can use *Masquerade* to automate UI testing for your applications. This end-to-end testing library helps you use the Page Object pattern for all parts of Jmix UI, including views, components, dialogs, notifications, and composites. It is based on https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] and https://github.com/selenide/selenide[Selenide^].
+In Jmix, you can use *Masquerade* to automate end-to-end UI testing for your applications. This testing library helps you use the Page Object pattern for all parts of Jmix UI, including views, components, dialogs, notifications, and composites. It is based on https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] and https://github.com/selenide/selenide[Selenide^].
 
 NOTE: Masquerade is for applications that are built with *Jmix 2.6* or newer.
 

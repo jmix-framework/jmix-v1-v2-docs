@@ -189,9 +189,9 @@ New policy:
 See xref:data-tools:security-roles.adoc[Data Tools: Security Roles] for more information.
 
 [[masquerade]]
-=== Masquerade end-to-end UI Testing Library
+=== Masquerade UI Testing Library
 
-Based on well-known tools like Selenium WebDriver and Selenide, Masquerade is a testing library designed specifically for Jmix applications. Masquerade simplifies testing for all areas of Jmix UI by providing convenient wrappers and streamlining access to key functions of web elements.
+Based on well-known tools like Selenium WebDriver and Selenide, Masquerade is an end-to-end UI testing library designed specifically for Jmix applications. Masquerade simplifies testing for all areas of Jmix UI by providing convenient wrappers and streamlining access to key functions of web elements.
 
 See xref:testing:masquerade.adoc[] for more information.
 
