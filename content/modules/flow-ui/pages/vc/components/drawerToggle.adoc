@@ -1,34 +1,34 @@
 = drawerToggle
 
-A toggle component that controls the visibility a menu drawer.
+Компонент-переключатель, который управляет видимостью выдвижной панели меню (drawer).
 
-* XML element: `drawerToggle`
+* XML-элемент: `drawerToggle`
 
-* Java class: `DrawerToggle`
+* Java-класс: `DrawerToggle`
 
-== Basics
+== Основы
 
-The `drawerToggle` component creates a toggle button that controls the opening and closing of the `drawerLayout` containing xref:menu-config.adoc[main menu] items.
+Компонент `drawerToggle` создает кнопку-переключатель, которая управляет открытием и закрытием компонента `drawerLayout`, содержащего элементы xref:menu-config.adoc[главного меню].
 
 image::visual-components/components/drawer-toggle-basic.png[align="center", width="450"]
 
-To ensure users can access the main menu across the application, `drawerToggle` is usually placed within the `navigationBar` component of the main application view.
+Чтобы пользователи могли получить доступ к главному меню из любой точки приложения, компонент `drawerToggle` обычно размещают внутри компонента `navigationBar` главного экрана приложения.
 
 [[themeNames]]
-== Theme Variants
+== Варианты оформления
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to customize component's color and size.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки цвета и размера компонента.
 
-=== Color
+=== Цвет
 
-Choose among four color variants: default, `success`, `error`, and `contrast`. Combine the color variants with the `primary` theme to add extra emphasis.
+Выберите один из четырех вариантов цвета: default (по умолчанию), `success`, `error` и `contrast`. Комбинируйте варианты цвета с темой `primary`, чтобы добавить дополнительный акцент.
 
-=== Size
+=== Размер
 
-Three size options are available: `small`, default, `large`.
+Доступны три варианта размера: `small`, default, `large`.
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -51,7 +51,7 @@ xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -64,14 +64,14 @@ include::../handler-generation-tip.adoc[]
 [[ClickEvent]]
 === ClickEvent
 
-The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the following three subjects to detect the number of clicks related to the event.
+Событие `com.vaadin.flow.component.ClickEvent` возникает при нажатии на компонент. Чтобы определить количество щелчков, связанных с событием, обработчик должен указать один из следующих трех типов событий:
 
-* click – fires the event whenever the component is clicked.
+* click – событие возникает каждый раз, когда нажимается компонент.
 
-* singleClick – fires the event after a timeout to ensure it is not a double click.
+* singleClick – событие возникает после таймаута, чтобы убедиться, что это не двойной щелчок.
 
-* doubleClick – fires the event when the component is double-clicked.
+* doubleClick – событие возникает при двойном щелчке на компоненте.
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip]
