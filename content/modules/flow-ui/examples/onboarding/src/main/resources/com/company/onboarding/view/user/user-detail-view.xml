@@ -78,7 +78,7 @@
             </actions>
         </dataGrid>
         <hbox id="detailActions">
-            <button id="commitAndCloseBtn" action="saveAction"/>
+            <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>
     </layout>
