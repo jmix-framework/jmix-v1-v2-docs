@@ -7,19 +7,19 @@
 </div>
 ++++
 
-An input field to select an xref:data-model:entities.adoc[entity] instance from a drop-down list and perform relevant actions. These can be both predefined actions such as updating instance details, as well as custom actions to perform more specific tasks.
+Поле ввода для выбора экземпляра xref:data-model:entities.adoc[сущности] из выпадающего списка с возможностью выполнения связанных действий. Поддерживаются как предопределённые действия (например, обновление данных экземпляра), так и пользовательские операции для решения специфических задач.
 
-This component is, in fact, a hybrid of the xref:flow-ui:vc/components/comboBox.adoc[comboBox] and xref:flow-ui:vc/components/entityPicker.adoc[entityPicker] components.
+Этот компонент, по сути, является гибридом компонентов xref:flow-ui:vc/components/comboBox.adoc[comboBox] и xref:flow-ui:vc/components/entityPicker.adoc[entityPicker].
 
-* XML element: `entityComboBox`
+* XML-элемент: `entityComboBox`
 
-* Java class: `EntityComboBox`
+* Java-класс: `EntityComboBox`
 
-== Basics
+== Основы
 
-The `entityComboBox` component is commonly used when the field value must represent a reference to an entity. It enables users to select a particular entity instance with the ability to perform relevant actions.
+Компонент `entityComboBox` обычно используется, когда значение поля должно представлять собой ссылку на сущность. Он позволяет пользователям выбирать конкретный экземпляр сущности с возможностью выполнения соответствующих действий.
 
-Clicking the field or arrow button opens a drop-down list containing all existing instances of the entity:
+Щелчок по полю или кнопке со стрелкой открывает выпадающий список, содержащий все существующие экземпляры сущности:
 
 [cols="a,a" grid=none, frame=none]
 |===
@@ -27,9 +27,9 @@ Clicking the field or arrow button opens a drop-down list containing all existin
 | image::visual-components/components/entity-combobox-basics-2.png[align="center", width="220"]
 |===
 
-Note that unless you have configured <<lazy-loading, lazy loading>>, the component will load a list of all available instances into both the browser's memory and the server's memory. This can consume substantial system resources and may impact performance, especially for large number of items. Furthermore, users may find it challenging to search for a specific instance within a lengthy drop-down list.
+Обратите внимание, что если вы не настроили <<lazy-loading,ленивую загрузку>> (lazy loading), компонент загрузит список всех доступных экземпляров как в память браузера, так и в память сервера. Это может потребить значительные системные ресурсы и повлиять на производительность, особенно при большом количестве элементов. Кроме того, пользователям может быть сложно найти конкретный экземпляр в длинном выпадающем списке.
 
-TIP: If the expected number of items is large, such as thousands or more, or if making a selection requires providing additional context about each item, it is recommended to use xref:flow-ui:vc/components/entityPicker.adoc[entityPicker].
+TIP: Если ожидаемое количество элементов велико, например, тысячи или больше, или если выбор требует предоставления дополнительного контекста о каждом элементе, рекомендуется использовать xref:flow-ui:vc/components/entityPicker.adoc[entityPicker].
 
 // === When to use
 //
@@ -41,46 +41,46 @@ TIP: If the expected number of items is large, such as thousands or more, or if 
 // * Users need to perform actions on the selected entity instance.
 
 [[quick-start]]
-== Quick Start
+== Быстрый старт
 
-The following example demonstrates how to use the `entityCombobox` component to select the department the user belongs to:
+Следующий пример демонстрирует, как использовать компонент `entityCombobox` для выбора отдела, к которому принадлежит пользователь:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitycombobox/entity-combobox-view.xml[tags=data;userDc;departmentsDc;dataLoadCoordinator;layout;basics]
 ----
 
-<1> Data container to hold the `User` instance which is currently being edited.
-<2> Fetch plan extended to retrieve a collection of `Department` instances that will be available for selection.
-<3> Data container to hold a collection of all existing `Department` instances.
-<4> Data load coordinator to automatically supply the component with instances to select from.
-<5> Binding the component to a data container and property. Specifying the container that holds the list of items to be selected.
-<6> Adding a predefined action to clear the selection.
+<1> Контейнер данных для хранения экземпляра `User`, который в данный момент редактируется.
+<2> Фетч-план расширен для получения коллекции экземпляров `Department`, которые будут доступны для выбора.
+<3> Контейнер данных для хранения коллекции всех существующих экземпляров `Department`.
+<4> Координатор загрузки данных для автоматического предоставления компоненту экземпляров для выбора.
+<5> Привязка компонента к контейнеру данных и свойству. Указание контейнера, содержащего список элементов для выбора.
+<6> Добавление предопределенного действия для очистки выбора.
 
-For more interactive examples of the `entityComboBox` and its variations, see:
+Для более интерактивных примеров `entityComboBox` и его вариантов смотрите:
 
-* https://demo.jmix.ru/ui-samples/sample/entity-combobox-simple[entityCombobox with actions]
-* https://demo.jmix.ru/ui-samples/sample/entity-combobox-items-query[entityComboBox with items fetchCallback^]
+* https://demo.jmix.ru/ui-samples/sample/entity-combobox-simple[entityCombobox с действиями]
+* https://demo.jmix.ru/ui-samples/sample/entity-combobox-items-query[entityComboBox с обратным вызовом для получения элементов^]
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных относится к связыванию визуального компонента с контейнером данных. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Подробности смотрите в разделе xref:data/data-examples.adoc[].
 
-=== Select an instance
+=== Выбор экземпляра
 
-If you simply need a way to select an instance of a specific entity, specify that entity using the `metaClass` attribute. To specify a collection of instances for selection use the <<itemsContainer,itemsContainer>> attribute.
+Если вам просто нужно выбрать экземпляр конкретной сущности, укажите эту сущность, используя атрибут `metaClass`. Чтобы указать коллекцию экземпляров для выбора, используйте атрибут <<itemsContainer,itemsContainer>>.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitycombobox/entity-combobox-view.xml[tags=binding-metaclass]
 ----
 
-=== Select an instance to update a related attribute
+=== Выбор экземпляра для обновления связанного атрибута
 
-Selecting an instance is often intended to update an attribute within another instance. In the <<quick-start, example above>>, selecting a `Department` instance updates the `User` instance by associating it with the chosen department.
+Выбор экземпляра часто предназначен для обновления атрибута в другом экземпляре. В <<quick-start, примере выше>>, выбор экземпляра `Department` обновляет экземпляр `User`, связывая его с выбранным отделом.
 
-In such cases you will need to bind the component to the data container holding the instance and specify the attribute to be updated using the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes respectively. To specify a collection of instances for selection use the <<itemsContainer,itemsContainer>> attribute.
+В таких случаях вам нужно будет привязать компонент к контейнеру данных, содержащему экземпляр, и указать атрибут для обновления, используя атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property] соответственно. Чтобы указать коллекцию экземпляров для выбора, используйте атрибут <<itemsContainer,itemsContainer>>.
 
 [source,xml,indent=0]
 ----
@@ -88,9 +88,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[actions]]
-== Actions
+== Действия
 
-Initially `entityComboBox` does not have any actions. You need to add them explicitly, for example:
+Изначально `entityComboBox` не имеет никаких действий. Вам нужно добавить их явно, например:
 
 [source,xml,indent=0]
 ----
@@ -99,38 +99,38 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 [TIP]
 ====
-To add `action` in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#add-picker-action[Add->Action] button in the *Jmix UI* inspector panel.
+Чтобы добавить действие в Jmix Studio, выберите компонент в XML-дескрипторе экрана или в панели структуры *Jmix UI* и нажмите кнопку xref:studio:screen-designer.adoc#add-picker-action[Add->Action] в панели инспектора *Jmix UI*.
 ====
 
-See detailed information on defining custom and predefined actions in the xref:flow-ui:vc/components/entityPicker.adoc#actions[Actions] section for `entityPicker`.
+Подробную информацию об определении пользовательских и предопределенных действий смотрите в разделе xref:flow-ui:vc/components/entityPicker.adoc#actions[Действия] для `entityPicker`.
 
 [[lazy-loading]]
-== Lazy Loading
+== Ленивая загрузка
 
-The component supports loading items in batches in response to user input, rather than loading all items at once. This helps to ensure a smooth user experience, even when dealing with a large number of items.
+Компонент поддерживает загрузку элементов пакетами в ответ на ввод пользователя, а не загрузку всех элементов сразу. Это помогает обеспечить удобство работы пользователя даже при работе с большим количеством элементов.
 
 [[declarative-lazy-loading]]
-=== Declarative Configuration
+=== Декларативная конфигурация
 
-To implement lazy loading in the view descriptor, instead of specifying the `itemsContainer` attribute configure the `itemsQuery` nested element. For example, to load at most 30 items and show them in the list, do the following:
+Чтобы реализовать ленивую загрузку в дескрипторе экрана, вместо указания атрибута `itemsContainer`, настройте вложенный элемент `itemsQuery`. Например, чтобы загружать не более 30 элементов и отображать их в списке, сделайте следующее:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitycombobox/entity-combobox-view.xml[tags=items-query]
 ----
 
-<1> The `pageSize` attribute defines the batch size when loading data from the database. It is 50 by default.
-<2> Attributes in the `itemsQuery` provide control over the fetching process. They are as follows:
-    *  `class` – specifies a full qualified name of the entity class which instances will be fetched.
-    *  `searchStringFormat` – a string that contains a variable placeholder, which is subsequently replaced with an actual value.
-    * `escapeValueForLike` – specifies whether to search for values containing special symbols. By default, this value is `false`.
-    * `fetchPlan` – and optional descriptor of inline fetch plan.
-<3> A JPQL query.
+<1> Атрибут `pageSize` определяет размер пакета при загрузке данных из базы данных. По умолчанию он равен 50.
+<2> Атрибуты в `itemsQuery` обеспечивают контроль над процессом получения данных. Они следующие:
+    * `class` – указывает полное имя класса сущности, экземпляры которого будут получены.
+    * `searchStringFormat` – строка, содержащая заполнитель переменной, который впоследствии заменяется фактическим значением.
+    * `escapeValueForLike` – определяет, следует ли искать значения, содержащие специальные символы. По умолчанию значение равно `false`.
+    * `fetchPlan` – необязательный дескриптор встроенного фетч-плана.
+<3> Запрос JPQL.
 
 [[programmatic-lazy-loading]]
-=== Programmatic Configuration
+=== Программная конфигурация
 
-Items fetching can also be defined programmatically using the `itemsFetchCallback` handler. For example:
+Получение элементов также можно определить программно, используя обработчик `itemsFetchCallback`. Например:
 
 [source,xml,indent=0]
 ----
@@ -142,14 +142,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/entitycombobox/EntityComboBoxView.java[tags=departmentField;itemsFetchCallback]
 ----
 
-In this example, data is fetched using xref:data-access:data-manager.adoc[DataManager], but you can use this approach to load from a custom service as well.
+В этом примере данные извлекаются с использованием xref:data-access:data-manager.adoc[DataManager], но вы можете использовать этот подход для загрузки из пользовательского сервиса.
 
 [[renderer]]
-== Custom Renderer
+== Пользовательский рендерер
 
-By default, instances displayed in a drop-down list are typically rendered as plain text. A custom renderer allows you to define a rendering logic for each item in the drop-down, enabling you to include various components, icons, or even layouts.
+По умолчанию экземпляры, отображаемые в выпадающем списке, обычно отображаются как простой текст. Пользовательский рендерер позволяет задать собственную логику отображения для каждого элемента, включая различные компоненты, значки или даже контейнеры.
 
-For example, define the following renderer to add an icon before a department name:
+Например, определим следующий рендерер, чтобы добавить значок перед названием отдела:
 
 [source,java,indent=0]
 ----
@@ -157,7 +157,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 
 [[fragment-renderer]]
-Alternatively, you can render items using a nested `fragmentRenderer` element. Refer to the xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment Renderer] section for more information.
+В качестве альтернативы вы можете отображать элементы, используя вложенный элемент `fragmentRenderer`. Обратитесь к разделу xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Рендерер фрагментов] для получения дополнительной информации.
 
 // [[filtering]]
 // == Custom Filtering
@@ -169,7 +169,7 @@ Alternatively, you can render items using a nested `fragmentRenderer` element. R
 // include::example$/onboarding/src/main/java/com/company/onboarding/view/component/entitycombobox/EntityComboBoxView.java[tags=departmentsDc;filterEntityComboBox;filter]
 // ----
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -219,25 +219,25 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-If the `allowCustomValue` attribute is `true`, the user can input string values that do not match any existing item labels, which will fire <<CustomValueSetEvent,CustomValueSetEvent>>.
+Если атрибут `allowCustomValue` имеет значение `true`, пользователь может вводить строковые значения, которые не соответствуют ни одной существующей метке элемента, что вызовет событие <<CustomValueSetEvent,CustomValueSetEvent>>.
 
-Note that `entityComboBox` doesn't do anything with the custom value string automatically. Use `CustomValueSetEvent` to determine how the custom value should be handled.
+Обратите внимание, что `entityComboBox` не выполняет никаких действий со строковым пользовательским значением автоматически. Используйте `CustomValueSetEvent`, чтобы определить, как следует обрабатывать пользовательское значение.
 
-Default is `false`.
+По умолчанию установлено значение `false`.
 
 [[itemsContainer]]
 === itemsContainer
 
-Sets the name of a data container which contains a list of items. The component will display the xref:data-model:entities.adoc#instance-name[instance name] of an entity instance.
+Устанавливает имя контейнера данных, который содержит список элементов. Компонент будет отображать xref:data-model:entities.adoc#instance-name[имя экземпляра] сущности.
 
 [[opened]]
 === opened
 
-Sets whether the drop-down list should be opened or not.
+Устанавливает, должен ли быть открыт выпадающий список или нет.
 
-Default is `false`.
+По умолчанию установлено значение `false`.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -255,7 +255,7 @@ include::../handler-generation-tip.adoc[]
 [[CustomValueSetEvent]]
 === CustomValueSetEvent
 
-`com.vaadin.flow.component.combobox.ComboBoxBase.CustomValueSetEvent` is fired when the user enters a non-empty value that does not match any of the existing items. To enable input custom values, set the <<allowCustomValue,allowCustomValue>> attribute to `true`.
+`com.vaadin.flow.component.combobox.ComboBoxBase.CustomValueSetEvent` возникает, когда пользователь вводит непустое значение, которое не соответствует ни одному из существующих элементов. Чтобы разрешить ввод пользовательских значений, установите атрибуту <<allowCustomValue,allowCustomValue>> значение `true`.
 
 [source,xml,indent=0]
 ----
@@ -267,11 +267,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/entitycombobox/EntityComboBoxView.java[tags=departmentsDc;departmentField;dataManager;CustomValueSetEvent]
 ----
 
-<1> Create a new instance and merge it into the context.
-<2> Set the name of the newly created `department` entity.
-<3> Add merged entity.
+<1> Создайте новый экземпляр и объедините его с контекстом.
+<2> Установите имя для вновь созданной сущности `department`.
+<3> Добавьте объединенную сущность.
 
-== Elements
+== Элементы
 
 <<actions,actions>> -
 <<fragment-renderer,fragmentRenderer>> -
