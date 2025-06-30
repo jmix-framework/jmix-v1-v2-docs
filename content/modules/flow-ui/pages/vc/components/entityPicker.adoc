@@ -7,17 +7,17 @@
 </div>
 ++++
 
-An input field to select an xref:data-model:entities.adoc[entity] instance through a dialog and perform various actions on it. These can be both predefined actions such as updating instance details, as well as custom, configurable actions to perform more specific tasks.
+Поле ввода для выбора экземпляра xref:data-model:entities.adoc[сущности] через диалоговое окно и выполнения над ним различных действий. Это могут быть как предопределенные действия, такие как обновление информации об экземпляре, так и пользовательские, настраиваемые действия для выполнения более специфических задач.
 
-* XML element: `entityPicker`
+* XML-элемент: `entityPicker`
 
-* Java class: `EntityPicker`
+* Java-класс: `EntityPicker`
 
-== Basics
+== Основы
 
-The `entityPicker` component is commonly used when the field value must represent a reference to an entity. It combines the ability to select a particular entity instance with the ability to perform relevant actions.
+Компонент `entityPicker` обычно используется, когда значение поля должно представлять собой ссылку на сущность. Он сочетает в себе возможность выбора конкретного экземпляра сущности с возможностью выполнения соответствующих действий.
 
-Clicking the lookup button opens a dialog with a xref:views/views.adoc#standard-list-view[list view] containing entity instances.
+Нажатие на кнопку выбора открывает диалоговое окно с xref:views/view-classes.adoc#standard-list-view[экраном списка], содержащим экземпляры сущности.
 
 [cols="a" grid=none, frame=none]
 |===
@@ -25,52 +25,52 @@ Clicking the lookup button opens a dialog with a xref:views/views.adoc#standard-
 | image::visual-components/components/entity-picker-basic-2.png[align="center", width="806"]
 |===
 
-Like other views in the application, this view is configurable, allowing multiple attributes to help users easily identify the needed instance. It provides more context than the xref:vc/components/entityComboBox.adoc[] which only shows instance names.
+Как и другие экраны в приложении, этот экран является настраиваемым и позволяет отображать несколько атрибутов, чтобы пользователи могли легко идентифицировать нужный экземпляр. Оно предоставляет больше контекста по сравнению с xref:vc/components/entityComboBox.adoc[], который показывает только названия экземпляров.
 
-When the number of instances is large, additional instances are loaded dynamically as you navigate the list.
+Если количество экземпляров велико, дополнительные элементы загружаются динамически при прокрутке списка.
 
 [[quick-start]]
-== Quick Start
+== Быстрый старт
 
-The following example demonstrates how to use the `entityPicker` component to select the department the user belongs to:
+Следующий пример демонстрирует, как использовать компонент `entityPicker` для выбора отдела, к которому принадлежит пользователь:
 
-NOTE: For the example to work correctly, ensure that you define a xref:views/views.adoc#standard-list-view[list view] for the Department entity.
+NOTE: Для корректной работы примера убедитесь, что определили xref:views/view-classes.adoc#standard-list-view[экран списка] для сущности `Department`.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitypicker/entity-picker-view.xml[tags=data;dataLoadCoordinator;userDc;layout;basics]
 ----
 
-<1> Data container to hold the User instance which is currently being edited.
-<2> Fetch plan extended to retrieve a collection of Department instances that will be available for selection.
-<3> Data load coordinator to automatically supply the component with instances to select from.
-<4> Binding the component to a data container and property.
-<5> Adding a predefined action to open the lookup view.
-<6> Adding a predefined action to clear the selection.
+<1> Контейнер данных для хранения экземпляра `User`, который в данный момент редактируется.
+<2> Фетч-план расширен для получения коллекции экземпляров `Department`, которые будут доступны для выбора.
+<3> Координатор загрузки данных для автоматического предоставления компоненту экземпляров для выбора.
+<4> Привязка компонента к контейнеру данных и свойству.
+<5> Добавление предопределенного действия для открытия экрана выбора.
+<6> Добавление предопределенного действия для очистки выбора.
 
-For more interactive example of `entityPicker` and its variations, see:
+Для получения более интерактивных примеров `entityPicker` и его вариаций смотрите:
 
-* https://demo.jmix.ru/ui-samples/sample/entity-picker-actions[entityPicker with actions^]
-* https://demo.jmix.ru/ui-samples/sample/entity-picker-meta-class[entityPicker with metaClass^]
+* https://demo.jmix.ru/ui-samples/sample/entity-picker-actions[Действия EntityPicker^]
+* https://demo.jmix.ru/ui-samples/sample/entity-picker-meta-class[EntityPicker и MetaClass^]
 
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных относится к связыванию визуального компонента с контейнером данных. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Подробности смотрите в разделе xref:data/data-examples.adoc[].
 
-=== Select an instance
+=== Выбор экземпляра
 
-If you simply need a way to select an instance of a specific entity, specify that entity using the <<metaClass,metaClass>> attribute:
+Если вам просто нужен способ выбора экземпляра определенной сущности, укажите эту сущность, используя атрибут <<metaClass,metaClass>>:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitypicker/entity-picker-view.xml[tags=binding-metaclass]
 ----
 
-=== Select an instance to update a related attribute
+=== Выбор экземпляра для обновления связанного атрибута
 
-Selecting an instance is often intended to update an attribute within another instance. In the <<quick-start, example above>>, selecting a `Department` instance updates the `User` instance by associating it with the chosen department.
+Выбор экземпляра часто предназначен для обновления атрибута в другом экземпляре. В <<quick-start, примере выше>> выбор экземпляра `Department` обновляет экземпляр `User`, связывая его с выбранным отделом.
 
-In such cases you will need to bind the component to the data container holding the instance and specify the attribute to be updated using the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes respectively:
+В таких случаях вам нужно будет привязать компонент к контейнеру данных, содержащему экземпляр, и указать атрибут для обновления, используя xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property] соответственно:
 
 [source,xml,indent=0]
 ----
@@ -78,43 +78,42 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[actions]]
-== Actions
+== Действия
 
-You can define custom and predefined actions for `entityPicker` displayed as buttons on the right.
-You can do it either in the XML descriptor using the `actions` nested element or programmatically in the controller using the `addAction()` method.
+Вы можете определить пользовательские и предопределенные действия для `entityPicker`, отображаемые в виде кнопок справа. Это можно сделать либо в XML-дескрипторе, используя вложенный элемент `actions`, либо программно в контроллере, используя метод `addAction()`.
 
 [TIP]
 ====
-To add `action` in Jmix Studio, select the component in the screen descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#add-picker-action[Add] button in the *Jmix UI* inspector panel.
+Чтобы добавить действие в Jmix Studio, выберите компонент в XML-дескрипторе экрана или в панели структуры *Jmix UI* и нажмите кнопку xref:studio:screen-designer.adoc#add-picker-action[Add] в панели инспектора *Jmix UI*.
 ====
 
 [[predefined-action]]
-=== Predefined Action
+=== Предопределенные действия
 
-When Studio generates `entityPicker` in the detail view, it also generates two predefined standard actions: `entity_lookup` and `entity_clear`. There are also the `entity_open` and `entity_openComposition` actions.
+Когда Studio генерирует `entityPicker` в экране деталей, он также генерирует два предопределенных стандартных действия: `entity_lookup` и `entity_clear`. Существуют также действия `entity_open` и `entity_openComposition`.
 
-Use the `type` and `id` attributes for declaring predefined action in XML.
+Используйте атрибуты `type` и `id` для объявления предопределенного действия в XML.
 
-If you create `entityPicker` without actions, the XML loader will define only the `entity_lookup` and `entity_clear` actions. To add another predefined action, for example, the `entity_open`, you should specify the `actions` element as follows:
+Если вы создаете `entityPicker` без действий, загрузчик XML определит только действия `entity_lookup` и `entity_clear`. Чтобы добавить другое предопределенное действие, например, `entity_open`, необходимо указать элемент `actions` следующим образом:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitypicker/entity-picker-view.xml[tags=actions]
 ----
 
-The `actions` element does not extend but overrides a set of standard actions. You should define the identifiers of all required actions explicitly.
+Элемент `actions` не расширяет, а переопределяет набор стандартных действий. Вам следует явно определить идентификаторы всех необходимых действий.
 
 [[custom-actions]]
-=== Custom Actions
+=== Пользовательские действия
 
-To define a custom action in XML, use the `actions` nested element. Specify the `id` and `icon` attributes for the `action`:
+Чтобы определить пользовательское действие в XML, используйте вложенный элемент `actions`. Укажите атрибуты `id` и `icon` для действия:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitypicker/entity-picker-view.xml[tags=custom]
 ----
 
-Then implement custom logic in the view controller by subscribing to `ActionPerformedEvent`:
+Затем реализуйте пользовательскую логику в контроллере экрана, подписавшись на `ActionPerformedEvent`:
 
 [source,java,indent=0]
 ----
@@ -123,33 +122,33 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 [TIP]
 ====
-You can generate the `ActionPerformedEvent` handler implementation stub using Studio.
+Вы можете сгенерировать заглушку обработчика `ActionPerformedEvent` с помощью Jmix Studio.
 ====
 
 [[add-actions-programmatically]]
-=== Adding Actions Programmatically
+=== Добавление действий программно
 
-Use the `addAction()` method to set actions programmatically.
+Используйте метод `addAction()` для установки действий программно.
 
-* *Adding Standard Action*
+* *Добавление стандартного действия*
 +
-For example, if the component is defined in the XML descriptor without the `actions` nested element, it is sufficient to add missing standard actions:
+Например, если компонент определен в XML-дескрипторе без вложенного элемента `actions`, достаточно добавить недостающие стандартные действия:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/entitypicker/EntityPickerView.java[tags=departmentEntityPicker;actions;onInit;addAction]
 ----
 
-* *Adding Custom Action*
+* *Добавление пользовательского действия*
 +
-An example of creating a custom action:
+Пример создания пользовательского действия:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/entitypicker/EntityPickerView.java[tags=departmentEntityPicker;onInit;addCustomAction]
 ----
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -186,16 +185,16 @@ xref:vc/common-attributes.adoc#width[width]
 [[metaClass]]
 === metaClass
 
-You can use `entityPicker` without binding to the data container, that is, without setting `dataContainer` and `property`. In this case, the `metaClass` attribute should be used to specify an entity type for `entityPicker`. For example:
+Вы можете использовать `entityPicker` без привязки к контейнеру данных, то есть без установки `dataContainer` и `property`. В этом случае следует использовать атрибут `metaClass` для указания типа сущности для `entityPicker`. Например:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/entitypicker/entity-picker-view.xml[tags=metaClass]
 ----
 
-You can get an instance of a selected entity by injecting the component into a controller and invoking its `getValue()` method.
+Вы можете получить экземпляр выбранной сущности, инжектировав компонент в контроллер и вызвав его метод `getValue()`.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -209,7 +208,7 @@ xref:vc/components/textField.adoc#validator[validator]
 
 include::../handler-generation-tip.adoc[]
 
-== Elements
+== Элементы
 
 <<actions,actions>> -
 xref:vc/miscellaneous/formatter.adoc[formatter] -
