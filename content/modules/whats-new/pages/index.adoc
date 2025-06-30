@@ -273,9 +273,7 @@ If you have overridden this view, adapt your code accordingly.
 
 * Resolved issues in Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F30%20reason%3Acompleted[2.6.0]
-
-// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
 
 * Resolved issues in Jmix Studio:
 
