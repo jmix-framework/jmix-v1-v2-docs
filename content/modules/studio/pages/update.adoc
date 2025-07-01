@@ -1,8 +1,8 @@
 = Обновление
 
-Выполните следующие действия, чтобы обновить плагин Jmix Studio для IntelliJ IDEA.
+Выполните следующие действия, чтобы обновить плагин Jmix Studio в вашей IDE (IntelliJ IDEA или OpenIDE).
 
-1. Выберите *Help > Check for Updates* на Windows и Linux или *IntelliJ IDEA > Check for Updates* на macOS.
+1. Выберите *Help -> Check for Updates* на Windows и Linux или *IntelliJ IDEA / OpenIDE -> Check for Updates* на macOS.
 +
 image::update-check.png[align="center"]
 +
