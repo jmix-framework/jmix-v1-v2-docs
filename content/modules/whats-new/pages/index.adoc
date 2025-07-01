@@ -251,6 +251,25 @@ Jmix 2.6+:
 
 Подробнее см. https://github.com/jmix-framework/jmix/issues/4364[#4364^].
 
+[[setting-item-to-data-containers-in-kotlin]]
+=== Установка Item в контейнер данных на Kotlin
+
+В проектах на Kotlin может возникнуть ошибка компиляции в коде, устанавливающем `item` в контейнере данных. Например, в экране мастер-деталь:
+
+[source,kotlin]
+----
+someDc.item = entity
+----
+
+Чтобы избежать данной ошибки, замените присвоение вызовом сеттера:
+
+[source,kotlin]
+----
+someDc.setItem(entity)
+----
+
+Подробнее см. https://github.com/jmix-framework/jmix/issues/4576[#4576^].
+
 [[dynamic-attributes-views]]
 === Изменения в экранах Dynamic Attributes
 
