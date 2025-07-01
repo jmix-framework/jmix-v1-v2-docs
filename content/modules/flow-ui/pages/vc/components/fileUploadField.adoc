@@ -7,21 +7,21 @@
 </div>
 ++++
 
-`fileUploadField` allows users to select a file from their local machine and upload it in the Jmix application.
+`fileUploadField` позволяет пользователям выбирать файл со своего локального компьютера и загружать его в приложение Jmix.
 
-* XML element: `fileUploadField`
+* XML-элемент: `fileUploadField`
 
-* Java class: `FileUploadField`
+* Java-класс: `FileUploadField`
 
-== Basics
+== Основы
 
-The component can contain a label, a link to the uploaded file, and an upload button. When the upload button is clicked, a standard file picker dialog pops up, allowing the user to select a file.
+Компонент может содержать надпись, ссылку на загруженный файл и кнопку загрузки. При нажатии на кнопку загрузки появляется стандартное диалоговое окно выбора файла, позволяющее пользователю выбрать файл.
 
 image::visual-components/components/file-upload-field-basics.gif[align="center"]
 
-`fileUploadField` can work both without being bound to an entity attribute and with <<data-binding,data binding>>.
+`fileUploadField` может работать как без привязки к атрибуту сущности, так и с <<data-binding,привязкой данных>>.
 
-Below we will show an example of using the component without data binding. You can use it to handle the uploaded file directly without associating it with any Jmix entity. This is great for situations where you want to process the file, save it to a different location, or perform some other operation without storing it persistently in the database.
+Ниже мы покажем пример использования компонента без привязки данных. Вы можете использовать его для непосредственной обработки загруженного файла, не связывая его ни с какой сущностью Jmix. Это отлично подходит для ситуаций, когда вы хотите обработать файл, сохранить его в другом месте или выполнить другую операцию, не сохраняя его постоянно в базе данных.
 
 [source,xml,indent=0]
 ----
@@ -29,28 +29,28 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[FileUploadSucceededEvent-example]]
-Now you can handle the uploaded file directly within the `FileUploadSucceededEvent`:
+Теперь вы можете обрабатывать загруженный файл непосредственно в обработчике события `FileUploadSucceededEvent`:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/fileuploadfield/FileUploadFieldView.java[tags=FileUploadSucceededEvent]
 ----
 
-NOTE: By default, `fileUploadField` uses a `MemoryBuffer` as its `Receiver`. This means that the uploaded file is stored in memory as a byte array. There is no physical file created on the file system when you use `MemoryBuffer`. This is great for smaller files that don't require persistent storage.
+NOTE: По умолчанию `fileUploadField` использует `MemoryBuffer` в качестве `Receiver`. Это означает, что загруженный файл хранится в памяти в виде массива байтов. При использовании `MemoryBuffer` физический файл в файловой системе не создается. Это отлично подходит для небольших файлов, которые не требуют постоянного хранения.
 
 [TIP]
 ====
-For uploading and saving large files it is recommended to use the xref:flow-ui:vc/components/fileStorageUploadField.adoc[fileStorageUploadField] component.
+Для загрузки и сохранения больших файлов рекомендуется использовать компонент xref:flow-ui:vc/components/fileStorageUploadField.adoc[fileStorageUploadField].
 
-To upload multiple files simultaneously, you should use the xref:flow-ui:vc/components/upload.adoc[upload] component instead of `fileUploadField`.
+Для одновременной загрузки нескольких файлов следует использовать компонент xref:flow-ui:vc/components/upload.adoc[upload] вместо `fileUploadField`.
 ====
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-`fileUploadField` allows users to save the uploaded file to an entity attribute as a byte array.
+`fileUploadField` позволяет пользователям сохранять загруженный файл в атрибуте сущности в виде массива байтов.
 
-In the example below, the `document` attribute of the `User` entity has the byte array type.
+В примере ниже атрибут `document` сущности `User` имеет тип массива байтов.
 
 [source,java,indent=0]
 ----
@@ -62,11 +62,11 @@ include::example$/onboarding/src/main/java/com/company/onboarding/entity/User.ja
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/fileuploadfield/file-upload-field-view.xml[tags=data;layout;basics]
 ----
 
-`fileUploadField` has a link to the container specified in the `dataContainer` attribute; the `property` attribute contains the name of the entity attribute that is displayed in `fileUploadField`.
+`fileUploadField` имеет ссылку на контейнер, указанный в атрибуте `dataContainer`; атрибут `property` содержит имя атрибута сущности, который отображается в `fileUploadField`.
 
-To store the file in the file storage and link to the entity as `FileRef`, use the xref:flow-ui:vc/components/fileStorageUploadField.adoc[fileStorageUploadField] component.
+Чтобы сохранить файл в файловом хранилище и связать его с сущностью как `FileRef`, используйте компонент xref:flow-ui:vc/components/fileStorageUploadField.adoc[fileStorageUploadField].
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:flow-ui:vc/components/fileStorageUploadField.adoc#acceptedFileTypes[acceptedFileTypes] -
@@ -111,11 +111,11 @@ xref:vc/common-attributes.adoc#width[width]
 [[fileName]]
 === fileName
 
-Sets the text that should be shown if the value is set from the data container. When a user uploads the file, the field shows the file name. However, when the value is saved to the database, the field looses information about the file name. The `fileName` attribute is intended to set custom text when there is no information about the file name. If it is not defined, the default value will be shown:
+Устанавливает текст, который должен отображаться, если значение установлено из контейнера данных. Когда пользователь загружает файл, поле показывает имя файла. Однако, когда значение сохраняется в базу данных, поле теряет информацию об имени файла. Атрибут `fileName` предназначен для установки пользовательского текста, когда нет информации об имени файла. Если он не определен, будет показано значение по умолчанию:
 
 image::visual-components/components/file-upload-field-file-name.png[align="center",width="283"]
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
@@ -134,6 +134,6 @@ include::../handler-generation-tip.adoc[]
 [[FileUploadSucceededEvent]]
 === FileUploadSucceededEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` is fired when `SucceededEvent` of `Upload` is occurred.
+`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` возникает, когда происходит `SucceededEvent` компонента `Upload`.
 
-See the usage example <<FileUploadSucceededEvent-example,above>> in the *Basics* section.
+Смотрите пример использования выше <<FileUploadSucceededEvent-example,выше>> в разделе *Основы*.
