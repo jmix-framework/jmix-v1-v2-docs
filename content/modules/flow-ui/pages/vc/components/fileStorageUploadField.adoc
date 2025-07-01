@@ -7,44 +7,44 @@
 </div>
 ++++
 
-`fileStorageUploadField` allows users to upload a file to the Jmix xref:files:file-storage.adoc[file storage].
+`fileStorageUploadField` позволяет пользователям загружать файл в xref:files:file-storage.adoc[файловое хранилище] Jmix.
 
-* XML element: `fileStorageUploadField`
+* XML-элемент: `fileStorageUploadField`
 
-* Java class: `FileStorageUploadField`
+* Java-класс: `FileStorageUploadField`
 
-== Basics
+== Основы
 
-The component can contain a label, a link to the uploaded file, and an upload button. When the upload button is clicked, a standard file picker dialog pops up, allowing the user to select a file.
+Компонент может содержать надпись, ссылку на загруженный файл и кнопку загрузки. При нажатии на кнопку загрузки появляется стандартное диалоговое окно выбора файла, позволяющее пользователю выбрать файл.
 
 image::visual-components/components/file-storage-upload-basics.gif[align="center"]
 
-`fileStorageUploadField` can work both without being bound to an entity attribute and with <<data-binding,data binding>>.
+`fileStorageUploadField` может работать как без привязки к атрибуту сущности, так и с <<data-binding,привязкой данных>>.
 
-Below we will show an example of using the component without data binding. You can use it to handle the uploaded file directly without associating it with any Jmix entity.
+Ниже мы покажем пример использования компонента без привязки данных. Вы можете использовать его для непосредственной обработки загруженного файла, не связывая его ни с какой сущностью Jmix.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/filestorageupload/file-storage-upload-view.xml[tags=FileUploadSucceededEvent]
 ----
 
-Then you can handle the uploaded file directly within the <<FileUploadSucceededEvent,FileUploadSucceededEvent>>.
+Затем вы можете обрабатывать загруженный файл непосредственно в обработчике события <<FileUploadSucceededEvent,FileUploadSucceededEvent>>.
 
 [TIP]
 ====
-To store a file in an entity attribute as a byte array instead of `FileRef`, use the xref:flow-ui:vc/components/fileUploadField.adoc[fileUploadField] component.
+Чтобы хранить файл в атрибуте сущности в виде массива байтов вместо `FileRef`, используйте компонент xref:flow-ui:vc/components/fileUploadField.adoc[fileUploadField].
 
-To upload multiple files simultaneously, you should use the xref:flow-ui:vc/components/upload.adoc[upload] component instead of `fileStorageUploadField`.
+Для одновременной загрузки нескольких файлов следует использовать компонент xref:flow-ui:vc/components/upload.adoc[upload] вместо `fileStorageUploadField`.
 ====
 
-NOTE: The uploaded file will be immediately stored in the default `FileStorage`. To control the saving of the file programmatically, use the <<fileStoragePutMode,fileStoragePutMode>> attribute.
+NOTE: Загруженный файл будет немедленно сохранен в `FileStorage` по умолчанию. Чтобы программно управлять сохранением файла, используйте атрибут <<fileStoragePutMode,fileStoragePutMode>>.
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-`fileStorageUploadField` allows users to upload a file to the xref:files:file-storage.adoc[file storage] and link it to an entity attribute as a `FileRef` object.
+`fileStorageUploadField` позволяет пользователям загружать файл в xref:files:file-storage.adoc[файловое хранилище] и связывать его с атрибутом сущности в виде объекта `FileRef`.
 
-In the example below, the `picture` attribute of the `User` entity has the `FileRef` type.
+В примере ниже атрибут `picture` сущности `User` имеет тип `FileRef`.
 
 [source,java,indent=0]
 ----
@@ -56,40 +56,40 @@ include::example$/onboarding/src/main/java/com/company/onboarding/entity/User.ja
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/filestorageupload/file-storage-upload-view.xml[tags=data;layout;basics]
 ----
 
-`fileStorageUploadField` has a link to the container specified in the `dataContainer` attribute; the `property` attribute contains the name of the entity attribute that is displayed in `fileStorageUploadField`.
+`fileStorageUploadField` имеет ссылку на контейнер, указанный в атрибуте `dataContainer`; атрибут `property` содержит имя атрибута сущности, который отображается в `fileStorageUploadField`.
 
 [[internationalization]]
-== Internationalization
+== Интернационализация
 
-All labels and messages in `fileStorageUploadField` are configurable.
+Все надписи и сообщения в `fileStorageUploadField` можно настроить.
 
 image::visual-components/components/file-storage-upload-text-attrs.png[align="center",width="991"]
 
-. The xref:vc/common-attributes.adoc#label[label] attribute.
-. The <<uploadText,uploadText>> attribute.
-. The xref:vc/common-attributes.adoc#requiredMessage[requiredMessage] attribute.
-. The <<fileNotSelectedText,fileNotSelectedText>> attribute.
-. The xref:vc/common-attributes.adoc#helperText[helperText] attribute.
-. The <<fileTooBigText,fileTooBigText>> attribute.
-. The <<incorrectFileTypeText,incorrectFileTypeText>> attribute.
-. The <<uploadDialogTitle,uploadDialogTitle>> attribute.
-. The <<remainingTimeText,remainingTimeText>> attribute.
-. The <<uploadDialogCancelText,uploadDialogCancelText>> attribute.
-. The <<processingStatusText,processingStatusText>> attribute.
+. Атрибут xref:vc/common-attributes.adoc#label[label].
+. Атрибут <<uploadText,uploadText>>.
+. Атрибут xref:vc/common-attributes.adoc#requiredMessage[requiredMessage].
+. Атрибут <<fileNotSelectedText,fileNotSelectedText>>.
+. Атрибут xref:vc/common-attributes.adoc#helperText[helperText].
+. Атрибут <<fileTooBigText,fileTooBigText>>.
+. Атрибут <<incorrectFileTypeText,incorrectFileTypeText>>.
+. Атрибут <<uploadDialogTitle,uploadDialogTitle>>.
+. Атрибут <<remainingTimeText,remainingTimeText>>.
+. Атрибут <<uploadDialogCancelText,uploadDialogCancelText>>.
+. Атрибут <<processingStatusText,processingStatusText>>.
 
 [[connectingStatusText]]
 === connectingStatusText
 
-Defines the text of status in the upload dialog when connection is set.
+Определяет текст статуса в диалоговом окне загрузки при установлении соединения.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[fileNotSelectedText]]
 === fileNotSelectedText
 
-Sets the text that is shown when <<fileNameVisible,fileNameVisible="true">> and the file is not uploaded. If not set, the default "File is not selected" text is shown.
+Устанавливает текст, который отображается, когда <<fileNameVisible,fileNameVisible="true">> и файл не загружен. Если не установлено, отображается текст по умолчанию `"File is not selected"`.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[fileTooBigText]]
 === fileTooBigText
@@ -100,9 +100,9 @@ The attribute value can either be the text itself or a key in the xref:localizat
 </div>
 ++++
 
-Sets the text of exception when the file size exceeds the <<maxFileSize,maxFileSize>> value.
+Устанавливает текст исключения, когда размер файла превышает значение <<maxFileSize,maxFileSize>>.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[incorrectFileTypeText]]
 === incorrectFileTypeText
@@ -113,53 +113,53 @@ The attribute value can either be the text itself or a key in the xref:localizat
 </div>
 ++++
 
-Sets the text of the message that is shown when the file extension is not included to the <<acceptedFileTypes,acceptedFileTypes>> attribute.
+Устанавливает текст сообщения, которое отображается, когда расширение файла не включено в атрибут <<acceptedFileTypes,acceptedFileTypes>>.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[processingStatusText]]
 === processingStatusText
 
-Sets the text of status in the upload dialog when a file is uploaded and processed.
+Устанавливает текст статуса в диалоговом окне загрузки, когда файл загружен и обработан.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[remainingTimeText]]
 === remainingTimeText
 
-Sets the text in the upload dialog when it shows the remaining time.
+Устанавливает текст в диалоговом окне загрузки, когда отображается оставшееся время.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[remainingTimeUnknownText]]
 === remainingTimeUnknownText
 
-Sets the text in the upload dialog when it cannot calculate the remaining time.
+Устанавливает текст в диалоговом окне загрузки, когда не удается вычислить оставшееся время.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[uploadDialogCancelText]]
 === uploadDialogCancelText
 
-Sets the text to the cancel button in the upload dialog.
+Устанавливает текст для кнопки отмены в диалоговом окне загрузки.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[uploadDialogTitle]]
 === uploadDialogTitle
 
-Sets the title of the upload dialog that is shown while uploading a file.
+Устанавливает заголовок диалогового окна загрузки, которое отображается во время загрузки файла.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
 [[uploadText]]
 === uploadText
 
-Sets the text that should be shown in the upload button.
+Устанавливает текст, который должен отображаться на кнопке загрузки.
 
-The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+Значение атрибута может быть либо самим текстом, либо ключом в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа, значение должно начинаться с префикса `msg://`.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 <<acceptedFileTypes,acceptedFileTypes>> -
@@ -205,16 +205,16 @@ xref:vc/common-attributes.adoc#width[width]
 [[acceptedFileTypes]]
 === acceptedFileTypes
 
-Specifies the types of files that the server accepts. The acceptable file formats are set using https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types[MIME type patterns^] or file extensions.
+Указывает типы файлов, которые принимает сервер. Допустимые форматы файлов устанавливаются с использованием https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types[шаблонов MIME-типов^] или расширений файлов.
 
-NOTE: MIME types are widely supported, while file extensions are only implemented in certain browsers, so it should be avoided.
+NOTE: MIME-типы широко поддерживаются, в то время как расширения файлов реализованы только в определенных браузерах, поэтому их следует избегать.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/filestorageupload/file-storage-upload-view.xml[tags=acceptedFileTypes]
 ----
 
-NOTE: The `acceptedFileTypes` attribute filters the files displayed in the system file chooser dialog, ensuring users only select files with the allowed extensions.
+NOTE: Атрибут `acceptedFileTypes` фильтрует файлы, отображаемые в системном диалоговом окне выбора файлов, гарантируя, что пользователи будут выбирать только файлы с разрешенными расширениями.
 
 [[clearButtonAriaLabel]]
 === clearButtonAriaLabel
@@ -225,14 +225,14 @@ NOTE: The `acceptedFileTypes` attribute filters the files displayed in the syste
 </div>
 ++++
 
-Sets the `aria-label` attribute to the clear button.
+Устанавливает атрибут `aria-label` для кнопки очистки.
 
 [[clearButtonVisible]]
 === clearButtonVisible
 
-Sets whether the clear button should be shown after the file name. Works only if <<fileNameVisible,fileNameVisible="true">>.
+Устанавливает, должна ли отображаться кнопка очистки после имени файла. Работает только если <<fileNameVisible,fileNameVisible="true">>.
 
-The default value is `false`.
+Значение по умолчанию: `false`.
 
 [[dropAllowed]]
 === dropAllowed
@@ -243,44 +243,44 @@ The default value is `false`.
 </div>
 ++++
 
-Sets whether the component supports dropping files for uploading.
+Устанавливает, поддерживает ли компонент перетаскивание файлов для загрузки.
 
-The default value is `true`.
+Значение по умолчанию: `true`.
 
-NOTE: File can only be dropped over the component's *Upload* button.
+NOTE: Файл можно перетащить только на кнопку *Upload* компонента.
 
 [[fileNameVisible]]
 === fileNameVisible
 
-The `fileNameVisible` attribute controls whether the name of the uploaded file is displayed next to the upload button. It is `false` by default.
+Атрибут `fileNameVisible` определяет, отображается ли имя загруженного файла рядом с кнопкой загрузки. По умолчанию установлено значение `false`.
 
 [[fileStorageName]]
 === fileStorageName
 
-Sets the name of xref:files:file-storage.adoc[FileStorage] where the upload file will be placed. If not set, the default `FileStorage` will be used.
+Устанавливает имя xref:files:file-storage.adoc[FileStorage], куда будет помещен загруженный файл. Если не установлено, будет использоваться `FileStorage` по умолчанию.
 
 [[fileStoragePutMode]]
 === fileStoragePutMode
 
-Sets mode which determines when a file will be put into FileStorage. By default, the `fileStoragePutMode` attribute is set to the `IMMEDIATE` value. You can control the saving of the file programmatically if you set the `fileStoragePutMode` attribute to the `MANUAL` value:
+Устанавливает режим, который определяет, когда файл будет помещен в `FileStorage`. По умолчанию атрибуту `fileStoragePutMode` присвоено значение `IMMEDIATE`. Вы можете программно управлять сохранением файла, если установите для атрибута `fileStoragePutMode` значение `MANUAL`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/filestorageupload/file-storage-upload-view.xml[tags=fileStoragePutMode]
 ----
 
-In the view controller, define the component itself, and the `TemporaryStorage` interface. Then subscribe to the event of <<FileUploadSucceededEvent,successful uploads>>:
+В контроллере экрана определите сам компонент и интерфейс `TemporaryStorage`. Затем подпишитесь на событие <<FileUploadSucceededEvent,успешной загрузки>>:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/filestorageupload/FileStorageUploadView.java[tags=autowired;SucceededEvent]
 ----
 
-The component will upload the file to the temporary storage and invoke `FileUploadSucceedEvent`.
+Компонент загрузит файл во временное хранилище и вызовет событие `FileUploadSucceedEvent`.
 
-The `TemporaryStorage.putFileIntoStorage()` method moves the uploaded file from the temporary client storage to the default xref:files:file-storage.adoc[File Storage].
+Метод `TemporaryStorage.putFileIntoStorage()` перемещает загруженный файл из временного клиентского хранилища в xref:files:file-storage.adoc[FileStorage] по умолчанию.
 
-CAUTION: The xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] is not fired automatically after uploading the `fileStorageUploadField` field with `MANUAL` put mode, because the `FileRef` value can be obtained only after uploading a file to the permanent file storage.
+CAUTION: Событие xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] не вызывается автоматически после загрузки поля `fileStorageUploadField` с ручным режимом сохранения (`MANUAL`), поскольку значение `FileRef` можно получить только после загрузки файла в постоянное файловое хранилище.
 
 [[maxFileSize]]
 === maxFileSize
@@ -291,16 +291,16 @@ CAUTION: The xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentVal
 </div>
 ++++
 
-Specifies the maximum file size in bytes allowed to upload. Notice that it is a client-side constraint, which will be checked before sending the request.
+Указывает максимальный размер файла в байтах, разрешенный для загрузки. Обратите внимание, что это ограничение на стороне клиента, которое будет проверено перед отправкой запроса.
 
-NOTE: If `MultipartProperties` is available, the default value will be set from `MultipartProperties#getMaxFileSize()` that is equal to 1Mb. To increase maximum file size for all fields in the application use `MultipartProperties#getMaxFileSize()` property.
+NOTE: Если доступен `MultipartProperties`, значение по умолчанию будет установлено из `MultipartProperties#getMaxFileSize()`, которое равно 1 МБ. Чтобы увеличить максимальный размер файла для всех полей в приложении, используйте свойство `MultipartProperties#getMaxFileSize()`.
 
 [[uploadIcon]]
 === uploadIcon
 
-Sets an icon to the upload button.
+Устанавливает значок для кнопки загрузки.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
@@ -319,7 +319,7 @@ include::../handler-generation-tip.adoc[]
 [[FileUploadFailedEvent]]
 === FileUploadFailedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent` is fired when `FailedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFailedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFailedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent` возникает, когда происходит `FailedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFailedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFailedListener(ComponentEventListener)^].
 
 [source,java,indent=0]
 ----
@@ -329,40 +329,40 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[FileUploadFileRejectedEvent]]
 === FileUploadFileRejectedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` is fired when `FileRejectedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFileRejectedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFileRejectedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` возникает, когда происходит `FileRejectedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFileRejectedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFileRejectedListener(ComponentEventListener)^].
 
 [[FileUploadFinishedEvent]]
 === FileUploadFinishedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` is fired when `FinishedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFinishedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFinishedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` возникает, когда происходит `FinishedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFinishedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFinishedListener(ComponentEventListener)^].
 
 [[FileUploadProgressEvent]]
 === FileUploadProgressEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` is fired when `ProgressUpdateEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addProgressListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addProgressListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` возникает, когда происходит `ProgressUpdateEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addProgressListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addProgressListener(ComponentEventListener)^].
 
 [[FileUploadStartedEvent]]
 === FileUploadStartedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` is fired when `StartedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addStartedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addStartedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` возникает, когда происходит `StartedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addStartedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addStartedListener(ComponentEventListener)^].
 
 [[FileUploadSucceededEvent]]
 === FileUploadSucceededEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` is fired when the `Upload` component's `SucceededEvent` occurs, meaning the upload has been successfully received. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addSucceededListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addSucceededListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` возникает, когда происходит `SucceededEvent` компонента `Upload`, что означает, что загрузка успешно завершена. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addSucceededListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addSucceededListener(ComponentEventListener)^].
 
-Here is an example of using `fileStorageUploadField` for `.xls` и `.xlsx` files, and then processing those files in `FileUploadSucceededEvent`.
+Вот пример использования `fileStorageUploadField` для файлов `.xls` и `.xlsx`, а затем обработки этих файлов в `FileUploadSucceededEvent`.
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/filestorageupload/FileStorageUploadView.java[tags=FileUploadSucceededEvent]
 ----
-<1> Get local file from the xref:jmix:files:uploading-files.adoc#using-temporary-storage[temporary storage] using identifier provided by the upload event.
-<2> Process the file data.
-<3> Remove the uploaded file. In a real-world application you would move the file to xref:jmix:files:file-storage.adoc[FileStorage] here using the `temporaryStorage.putFileIntoStorage()` method.
+<1> Получить локальный файл из xref:jmix:files:uploading-files.adoc#using-temporary-storage[временного хранилища], используя идентификатор, предоставленный событием загрузки.
+<2> Обработать данные файла.
+<3> Удалить загруженный файл. В реальном приложении вы бы переместили файл в xref:jmix:files:file-storage.adoc[FileStorage] здесь, используя метод `temporaryStorage.putFileIntoStorage()`.
 
-You can also find an example of `FileUploadSucceededEvent` in the <<fileStoragePutMode,fileStoragePutMode>> description.
+Вы также можете найти пример использования `FileUploadSucceededEvent` в описании <<fileStoragePutMode,fileStoragePutMode>>.
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip]
