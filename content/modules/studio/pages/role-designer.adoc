@@ -2,7 +2,7 @@
 
 Studio предоставляет визуальные инструменты для редактирования параметров xref:security:resource-roles.adoc[ресурсных ролей] и xref:security:row-level-roles.adoc[ролей уровня строк] во время разработки.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 [[resource-role-designer]]
 == Дизайнер ресурсных ролей

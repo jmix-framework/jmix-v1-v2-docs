@@ -4,4 +4,7 @@ Studio предоставляет Моделер BPMN, который позво
 
 См. описание моделера в разделе xref:bpm:modeler-studio.adoc[].
 
-include::subscription-note-ent.adoc[]
+[NOTE]
+====
+This feature requires a BPM xref:studio:subscription.adoc#enterprise-subscription[subscription]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise+BPM Trial] section for how to get a trial version.
+====

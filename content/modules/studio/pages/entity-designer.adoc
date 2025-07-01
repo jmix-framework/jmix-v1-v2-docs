@@ -2,7 +2,7 @@
 
 Studio предоставляет визуальный дизайнер для упрощенного создания xref:data-model:entities.adoc[сущностей], поэтому вам не нужно запоминать все правила и аннотации.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 [[jpa-entity-designer]]
 == Дизайнер сущностей JPA

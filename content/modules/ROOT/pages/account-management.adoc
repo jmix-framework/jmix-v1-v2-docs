@@ -29,21 +29,21 @@ NOTE: Подтвердите свой адрес электронной почт
 
 Вы можете подписаться на бесплатную пробную xref:studio:subscription.adoc#subscription[подписку] и использовать ее в течение 28 дней.
 
-[[rad-trial]]
-=== Пробная RAD подписка
+[[sprint-trial]]
+=== Пробная Sprint подписка
 
-Чтобы получить пробную xref:studio:subscription.adoc#rad-subscription[RAD] подписку, вам следует войти в учетную запись Jmix через Jmix Studio. При этом активируется пробная подписка на 28 дней.
+Чтобы получить пробную xref:studio:subscription.adoc#sprint-subscription[Sprint] подписку, вам следует войти в учетную запись Jmix через Jmix Studio. При этом активируется пробная подписка на 28 дней.
 
 [[enterprise-trial]]
-=== Пробная Enterprise подписка
+=== Пробная Enterprise+BPM подписка
 
-Чтобы попробовать коммерческие дополнения, предоставляемые  xref:studio:subscription.adoc#enterprise-subscription[Enterprise] подпиской, посетите страницу своего профиля по адресу https://store.jmix.io/account[^] и нажмите на кнопку *Get Enterprise trial* в разделе *Subscription*.
+Чтобы попробовать коммерческие дополнения, предоставляемые  xref:studio:subscription.adoc#enterprise-subscription[Enterprise и BPM] подписками, посетите страницу своего профиля по адресу https://store.jmix.io/account[^] и нажмите на кнопку *Get Enterprise+BPM trial* в разделе *Subscription*.
 
 image::store/get-enterprise-trial.png[align="center", width="1260"]
 
-После этого активируется пробная Enterprise подписка, и появится кнопка *Download Enterprise trial*.
+После этого активируется пробная подписка, и появится кнопка *Download Enterprise+BPM trial*.
 
-image::store/download-trial-project.png[align="center", width="1083"]
+image::store/download-trial-project.png[align="center", width="957"]
 
 Загруженный проект включает в себя пробные версии следующих коммерческих дополнений Jmix:
 
@@ -52,12 +52,13 @@ image::store/download-trial-project.png[align="center", width="1083"]
 * xref:kanban:index.adoc[]
 * xref:maps:index.adoc[]
 * xref:notifications:index.adoc[]
+* xref:tabbed-mode:index.adoc[]
 * xref:uiconstraints:index.adoc[]
 * xref:webdav:index.adoc[]
 
 Распакуйте исходный код пробного проекта и откройте его в Jmix Studio, как описано в разделе xref:studio:project.adoc#opening-existing-project[Открытие существующего проекта].
 
-CAUTION: Пробные версии коммерческих дополнений перестанут работать через 28 дней после запроса пробной Enterprise подписки. Приложение, включающее пробные дополнения с истекшим сроком действия, запускаться не будет.
+CAUTION: Пробные версии коммерческих дополнений перестанут работать через 28 дней после запроса пробной подписки. Приложение, включающее пробные дополнения с истекшим сроком действия, запускаться не будет.
 
 [[subscription-purchase]]
 == Покупка подписки

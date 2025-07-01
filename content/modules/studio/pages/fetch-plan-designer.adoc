@@ -2,7 +2,7 @@
 
 Studio предоставляет визуальный конструктор для управления xref:data-access:fetching.adoc#fetch-plan[фетч-планами].
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 Сначала вам нужно создать файл конфигурации, используя меню в xref:studio:tool-window.adoc[Окне инструментов Jmix].
 

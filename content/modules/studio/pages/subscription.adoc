@@ -34,37 +34,43 @@ NOTE: Введенный вами адрес электронной почты �
 [[subscription]]
 == Подписка
 
-Есть два коммерческих плана подписки: *RAD* и *Enterprise*. Сравнение бесплатного и коммерческих планов можно найти на странице https://www.jmix.ru/subscription-plans-and-prices/[Тарифные планы и стоимость подписки^] веб-сайта Jmix.
+Есть три коммерческих плана подписки: *Sprint*, *Enterprise*  и *BPM*. Сравнение бесплатного и коммерческих планов можно найти на странице https://www.jmix.ru/subscription-plans-and-prices/[Тарифные планы и стоимость подписки^] веб-сайта Jmix.
 
-[[rad-subscription]]
-=== RAD подписка
+[[sprint-subscription]]
+=== Sprint подписка
 
-Подписка RAD (Rapid Application Development) открывает следующие премиальные функции Studio:
+Подписка Sprint открывает следующие премиальные функции Studio:
 
 * xref:studio:entity-designer.adoc[Дизайнеры сущностей и перечислений]
 * xref:studio:data-stores.adoc#data-store-actions[Генерация файлов Liquibase changelog]
-* xref:studio:view-designer.adoc[Дизайнер экранов]
-* xref:studio:menu-designer.adoc[Дизайнер меню]
-* xref:studio:role-designer.adoc[Дизайнер ролей]
-* xref:studio:fetch-plan-designer.adoc[Дизайнер фетч-планов]
-* Дизайнер JPQL-запросов
+* xref:studio:view-designer.adoc[]
+* xref:studio:menu-designer.adoc[]
+* xref:studio:role-designer.adoc[]
+* xref:studio:fetch-plan-designer.adoc[]
+* xref:studio:fetch-plan-designer.adoc[]
+* xref:studio:jpql-designer.adoc[]
+* xref:studio:quick-cloud-deployment.adoc[]
+* Расширенная поддержка xref:studio:data-repository-wizard.adoc[репозиториев данных]
+* Расширенная поддержка генерации клиентов по xref:openapi-integration-guide:index.adoc[OpenAPI]
 
 NOTE: Все премиальные функции Studio, перечисленные выше, доступны без активной подписки в небольших проектах с количеством сущностей и ролей до 10.
 
-При первом входе в Studio вы получите пробную RAD подписку. Она действует 28 дней и позволяет оценить премиум-функции в проектах любого размера.
-
-image::jmix-subscription.png[align="center",width="612"]
+При первом входе в Studio вы получите пробную Sprint подписку. Она действует 28 дней и позволяет оценить премиум-функции в проектах любого размера.
 
 После истечения пробного периода Studio будет продолжать работать без подписки, предоставляя премиум-возможности только для небольших проектов.
 
 [[enterprise-subscription]]
-=== Enterprise подписка
+=== Enterprise и BPM подписки
 
-Подписка *Enterprise* включает в себя все функции плана RAD, а кроме того, предоставляет доступ к коммерческим дополнениям: xref:bpm:index.adoc[], xref:business-calendar:index.adoc[], xref:maps:index.adoc[], xref:notifications:index.adoc[], xref:webdav:index.adoc[] и к xref:studio:bpmn-designer.adoc[дизайнеру BPMN] в Studio.
+Подписки *Enterprise* и *BPM* включают в себя все функции плана Sprint, а кроме того, предоставляют доступ к коммерческим дополнениям.
+
+* Подписка Enterprise включает xref:business-calendar:index.adoc[], xref:kanban:index.adoc[], xref:maps:index.adoc[], xref:notifications:index.adoc[], xref:tabbed-mode:index.adoc[], xref:uiconstraints:index.adoc[] и xref:webdav:index.adoc[].
+
+* Подписка BPM включает все дополнения выше плюс дополнение xref:bpm:index.adoc[] и xref:studio:bpmn-designer.adoc[дизайнер BPMN] в Studio.
 
 Коммерческие дополнения располагаются в отдельном репозитории артефактов, который автоматически добавляется в файл `build.gradle` вашего проекта при установке дополнения из xref:studio:marketplace.adoc[Marketplace]. Кроме того, Studio записывает учетные данные репозитория в файл `.gradle/gradle.properties`, находящийся в вашем домашнем каталоге. Дополнительную информацию о репозитории и его учетных данных можно найти в инструкции по установке конкретного коммерческого дополнения.
 
-Вы можете опробовать коммерческие дополнения, запросив пробную Enterprise подписку, как описано в разделе xref:ROOT:account-management.adoc#enterprise-trial[Управление учетной записью, выставлением счетов и подпиской].
+Вы можете опробовать коммерческие дополнения, запросив пробную Enterprise+BPM подписку, как описано в разделе xref:ROOT:account-management.adoc#enterprise-trial[Управление учетной записью, выставлением счетов и подпиской].
 
 [[subscription-information]]
 === Информация о подписке

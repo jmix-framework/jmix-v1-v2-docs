@@ -16,7 +16,7 @@ image::snippet-example-result.png[align="center",width="784"]
 
 При использовании снипеттов кода, которые загружают данные по запросу, автоматически открывается дизайнер JPQL. Он позволяет определять запросы JPQL для загрузки сущностей и скалярных значений из базы данных.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 В приведенном ниже примере дизайнер JPQL появляется после перетаскивания снипетта *Load list of entities by query*.
 

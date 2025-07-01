@@ -1,4 +1,0 @@
-[NOTE]
-====
-Для этой функции требуется Enterprise xref:studio:subscription.adoc#enterprise-subscription[подписка]. Если у вас нет подписки, вы можете получить xref:studio:subscription.adoc[пробную версию].
-====
