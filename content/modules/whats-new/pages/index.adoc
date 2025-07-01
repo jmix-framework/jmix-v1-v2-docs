@@ -256,6 +256,24 @@ The Reports add-on now has its own list of extensions enabled for viewing in the
 
 See https://github.com/jmix-framework/jmix/issues/4364[#4364^] for more information.
 
+[[setting-item-to-data-containers-in-kotlin]]
+=== Setting Item to Data Containers in Kotlin
+
+In Kotlin projects, the compilation may fail on code that sets `item` to a data container. For example, in a master-detail view:
+
+[source,kotlin]
+----
+someDc.item = entity
+----
+
+To avoid this error, replace the assignment with the setter invocation:
+[source,kotlin]
+----
+someDc.setItem(entity)
+----
+
+See https://github.com/jmix-framework/jmix/issues/4576[#4576^] for more information.
+
 [[dynamic-attributes-views]]
 === Changes in Dynamic Attributes Views
 
