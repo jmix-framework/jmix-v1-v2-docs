@@ -29,21 +29,21 @@ NOTE: You should verify your email address within 3 days. Otherwise, you will no
 
 You can sign up for a free trial xref:studio:subscription.adoc#subscription[subscription] and use it for 28 days.
 
-[[rad-trial]]
-=== RAD Trial
+[[sprint-trial]]
+=== Sprint Trial
 
-To get a xref:studio:subscription.adoc#rad-subscription[RAD] trial subscription, you should log in to the Jmix account via Jmix Studio. After that, a trial subscription for 28 days is activated.
+To get a xref:studio:subscription.adoc#sprint-subscription[Sprint] trial subscription, you should log in to the Jmix account via Jmix Studio. After that, a trial subscription for 28 days is activated.
 
 [[enterprise-trial]]
-=== Enterprise Trial
+=== Enterprise+BPM Trial
 
-To try out the commercial add-ons provided by the xref:studio:subscription.adoc#enterprise-subscription[Enterprise] subscription, visit your profile page at https://store.jmix.io/account[^] and click on the *Get Enterprise trial* button in the *Subscription* section.
+To try out the commercial add-ons provided by the xref:studio:subscription.adoc#enterprise-subscription[Enterprise and BPM] subscriptions, visit your profile page at https://store.jmix.io/account[^] and click on the *Get Enterprise+BPM trial* button in the *Subscription* section.
 
 image::store/get-enterprise-trial.png[align="center", width="1260"]
 
-After that, the Enterprise trial subscription is activated, and the *Download Enterprise trial* button appears.
+After that, the trial subscription is activated, and the *Download Enterprise+BPM trial* button appears.
 
-image::store/download-trial-project.png[align="center", width="1083"]
+image::store/download-trial-project.png[align="center", width="957"]
 
 The downloaded project includes the trial versions of the following Jmix commercial add-ons:
 
@@ -52,12 +52,13 @@ The downloaded project includes the trial versions of the following Jmix commerc
 * xref:kanban:index.adoc[]
 * xref:maps:index.adoc[]
 * xref:notifications:index.adoc[]
+* xref:tabbed-mode:index.adoc[]
 * xref:uiconstraints:index.adoc[]
 * xref:webdav:index.adoc[]
 
 Unpack the source code of the trial project and open it in Jmix Studio as described in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section.
 
-CAUTION: Trial versions of commercial add-ons will stop working in 28 days after requesting the trial Enterprise subscription. An application including expired trial add-ons will not run.
+CAUTION: Trial versions of commercial add-ons will stop working in 28 days after requesting the trial subscription. An application including expired trial add-ons will not run.
 
 [[subscription-purchase]]
 == Subscription Purchase
@@ -75,15 +76,13 @@ image::store/new-subscription-page.png[align="center", width="1260"]
 
 A Company license is the standard licensing option for commercial organizations. A Company license can be used by a single person within the organization. You can find all the details about licensing on the https://www.jmix.io/subscription-plans-and-prices/[Pricing page^].
 
-To buy a RAD or an Enterprise subscription:
+To buy a Sprint, Enterprise, or BPM subscription:
 
 . Select the *Company* in the *License to* field, the https://www.jmix.io/subscription-plans-and-prices/#plan[Subscription Plan^] and the *Period*.
 
 . Specify the number of users that require a subscription purchase.
 
 . Read and accept the *Jmix Studio and Add-ons License Agreement*.
-+
-image::store/buy-company-subscription.png[align="center", width="1260"]
 +
 NOTE: If you have a promo code, click on the *Apply promo code* link and enter the promo code in the dialog.
 
@@ -111,7 +110,7 @@ When using the *Wire transfer*, select the currency. Verify the total sum and cl
 
 An Individual license is an option for private individuals who purchase a license with their own funds and solely for their own use. Individual licenses are not to be purchased, refunded or in any way financed by companies.
 
-To buy a RAD or an Enterprise subscription:
+To buy a Sprint, Enterprise, or BPM subscription:
 
 . Select the *Individual* in the *License to* field, the https://www.jmix.io/subscription-plans-and-prices/#plan[Subscription Plan^] and the *Period*.
 
@@ -135,17 +134,13 @@ image::store/buy-individual-subscription-request.png[align="center", width="1031
 
 . If your request has been confirmed, complete your purchase at the store. Go to the https://store.jmix.io/store[^].
 +
-image::store/buy-individual-subscription-complete.png[align="center", width="1335"]
-+
 Select the *Individual* license, the subscription *Plan* and the *Period*. Accept the *Jmix Studio and Add-ons License Agreement*. Click on the *Proceed to billing info* button.
 
 . On the next step, fill in the billing info:
 +
 image::store/buy-individual-subscription-billing-info.png[align="center", width="1026"]
 
-. In the *Payment* section, add a valid payment card:
-+
-image::store/buy-individual-subscription-add-card.png[align="center", width="1026"]
+. In the *Payment* section, add a valid payment card.
 
 . Verify the total sum and click on the *Complete Purchase* button.
 
@@ -231,11 +226,9 @@ image::store/license-keys.png[align="center", width="1126"]
 [[subscription-editing]]
 === Subscription Editing
 
-To change the https://www.jmix.io/subscription-plans-and-prices/#plan[subscription plan^] or number of users, click *Change number of users or plan* on the <<subscription-management,subscription management page>>. The subscription editing screen opens:
+To change the https://www.jmix.io/subscription-plans-and-prices/#plan[subscription plan^] or number of users, click *Change number of users or plan* on the <<subscription-management,subscription management page>>. The subscription editing screen opens.
 
-image::store/subscription-upgrade-users.png[align="center", width="1391"]
-
-You can upgrade RAD to Enterprise plan and decrease or increase the number of users.
+You can upgrade a plan and decrease or increase the number of users.
 
 NOTE: Pay attention, it is not possible to change the number of users and plan at the same time. You should do this in two steps.
 

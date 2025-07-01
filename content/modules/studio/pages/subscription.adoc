@@ -34,37 +34,42 @@ Find the verification email in your inbox and click the link in the email to fin
 [[subscription]]
 == Subscription
 
-There are two commercial subscription plans: *RAD* and *Enterprise*. You can find the comparison of the free tier and commercial plans on the https://www.jmix.io/subscription-plans-and-prices/[Subscription Plans and Prices^] page of the Jmix website.
+There are three commercial subscription plans: *Sprint*, *Enterprise*, and *BPM*. You can find the comparison of the free tier and commercial plans on the https://www.jmix.io/subscription-plans-and-prices/[Subscription Plans and Prices^] page of the Jmix website.
 
-[[rad-subscription]]
-=== RAD Subscription
+[[sprint-subscription]]
+=== Sprint Subscription
 
-The RAD (Rapid Application Development) subscription plan unlocks the following Studio premium functionality:
+The Sprint subscription plan unlocks the following Studio premium functionality:
 
 * xref:studio:entity-designer.adoc[Entity and Enumeration designers]
 * xref:studio:data-stores.adoc#data-store-actions[Liquibase changelog generation]
-* xref:studio:view-designer.adoc[View designer]
-* xref:studio:menu-designer.adoc[Main menu designer]
-* xref:studio:role-designer.adoc[Role designer]
-* xref:studio:fetch-plan-designer.adoc[Fetch plan designer]
-* JPQL query designer
+* xref:studio:view-designer.adoc[]
+* xref:studio:menu-designer.adoc[]
+* xref:studio:role-designer.adoc[]
+* xref:studio:fetch-plan-designer.adoc[]
+* xref:studio:jpql-designer.adoc[]
+* xref:studio:quick-cloud-deployment.adoc[]
+* Advanced support for xref:studio:data-repository-wizard.adoc[Data Repositories]
+* Advanced support for xref:openapi-integration-guide:index.adoc[OpenAPI] client generation
 
 NOTE: All premium Studio features listed above are available without an active subscription in small projects with up to 10 entities and roles.
 
-When you log in to the Studio for the first time, you get the RAD trial subscription. It is active for 28 days and allows you to evaluate premium features in projects of any size.
-
-image::jmix-subscription.png[align="center",width="612"]
+When you log in to the Studio for the first time, you get the Sprint trial subscription. It is active for 28 days and allows you to evaluate premium features in projects of any size.
 
 After the trial subscription expires, Studio will continue working without subscription, providing premium features only for small projects.
 
 [[enterprise-subscription]]
-=== Enterprise Subscription
+=== Enterprise and BPM Subscriptions
 
-The *Enterprise* subscription plan, in addition to all features of the RAD plan, provides access to commercial add-ons: xref:bpm:index.adoc[], xref:business-calendar:index.adoc[], xref:maps:index.adoc[], xref:notifications:index.adoc[], xref:webdav:index.adoc[], and the xref:studio:bpmn-designer.adoc[] in Studio.
+The *Enterprise* and *BPM* subscription plans, in addition to all features of the Sprint plan, provide access to commercial add-ons.
+
+* Enterprise subscription includes xref:business-calendar:index.adoc[], xref:kanban:index.adoc[], xref:maps:index.adoc[], xref:notifications:index.adoc[], xref:tabbed-mode:index.adoc[], xref:uiconstraints:index.adoc[] and xref:webdav:index.adoc[] add-ons.
+
+* BPM subscription includes all above add-ons plus the xref:bpm:index.adoc[] add-on and the xref:studio:bpmn-designer.adoc[] in Studio.
 
 The commercial add-ons are located in a separate artifact repository, which is automatically added to your project's `build.gradle` when you install the add-on using the xref:studio:marketplace.adoc[Marketplace]. Besides, Studio writes the repository credentials to the `.gradle/gradle.properties` file located in your home folder. For more information about the repository and its credentials see the installation instructions of the particular commercial add-on.
 
-You can try out commercial add-ons by requesting the Enterprise trial as described in the xref:ROOT:account-management.adoc#enterprise-trial[Account, Billing, and Subscription Management] section.
+You can try out commercial add-ons by requesting the Enterprise+BPM trial as described in the xref:ROOT:account-management.adoc#enterprise-trial[Account, Billing, and Subscription Management] section.
 
 [[subscription-information]]
 === Subscription Information

@@ -3,7 +3,7 @@
 
 View Designer represents a number of panels and tool windows that allow you to develop the view layout and set UI components properties in WYSIWYG style. The view XML editor is integrated with the View Designer, so you can edit the XML file directly or use the designer's panels to generate code.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 The *Jmix UI* panel is implemented as independent IDE tool windows and displayed for both view XML descriptors and controllers. It allows you to see the components tree, change component properties or even add new components to the view while working with Java code in the controller. You can also inject components to the controller by dragging and dropping them from the structure to the code editor.
 

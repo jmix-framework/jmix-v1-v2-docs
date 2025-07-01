@@ -104,7 +104,7 @@ The number of actions shown in the menu depends on the data store type and DB sc
 * *Update* - updates database schema for the selected data store. Applicable for the main data store and additional data stores with *Update Only* and *Create and Update* schema management types.
 * *Generate Liquibase Changelog* - generates changelog files for the selected data store by comparing data model with the database schema. Applicable for the main data store and additional data stores with *Update Only* and *Create and Update* schema management types.
 +
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 * *Check Liquibase Changelog Includes* - checks that includes in the root changelog correspond to the add-ons used in the project. If there is a mismatch, Studio shows a notification dialog and suggests adding or removing includes.
 * *Aggregate Liquibase Changelogs* - allows you to combine multiple recent changelogs into a single file, eliminating duplicate actions within changesets.
 +

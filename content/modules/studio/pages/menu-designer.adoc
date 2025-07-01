@@ -2,7 +2,7 @@
 
 When a new project is created, the xref:flow-ui:menu-config.adoc[structure] of its main menu is stored in the `menu.xml` file. Studio provides a visual designer to configure the main menu.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 An easy way to access the structure of the main menu is to double-click the *Main Menu* subsection in xref:studio:tool-window.adoc[Jmix Tool Window].
 

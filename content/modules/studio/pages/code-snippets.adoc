@@ -16,7 +16,7 @@ image::snippet-example-result.png[align="center",width="784"]
 
 When you use code snippets that load data by query, the JPQL designer is automatically opened. The JPQL designer allows you to define JPQL queries for loading entities and scalar values from the database.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 In the example below, the JPQL designer is appeared after dragging the *Load list of entities by query* code snippet.
 

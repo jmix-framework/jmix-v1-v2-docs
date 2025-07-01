@@ -2,7 +2,7 @@
 
 Studio provides a visual designer that simplifies xref:data-model:entities.adoc[entity] creation, so you don't need to remember all the rules and annotations.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 [[jpa-entity-designer]]
 == JPA Entity Designer

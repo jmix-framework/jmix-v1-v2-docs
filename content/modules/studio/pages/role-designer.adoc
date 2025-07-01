@@ -2,7 +2,7 @@
 
 Studio provides visual tools for creating xref:security:resource-roles.adoc[resource] and xref:security:row-level-roles.adoc[row-level] roles at design time.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 [[resource-role-designer]]
 == Resource Role Designer

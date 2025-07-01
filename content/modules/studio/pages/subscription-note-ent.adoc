@@ -1,4 +1,0 @@
-[NOTE]
-====
-This feature requires an Enterprise xref:studio:subscription.adoc#enterprise-subscription[subscription]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
-====

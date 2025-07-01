@@ -1,0 +1,4 @@
+[NOTE]
+====
+This feature is free to use in small projects with up to 10 entities and roles. In a larger project, it requires a Sprint, Enterprise, or BPM xref:studio:subscription.adoc#subscription[subscription].
+====

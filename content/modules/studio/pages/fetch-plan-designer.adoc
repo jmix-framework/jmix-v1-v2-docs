@@ -1,8 +1,8 @@
 = Fetch Plan Designer
 
-Studio provides a visual designer for managing xref:data-access:fetching.adoc#fetch-plan[fetch plans]. 
+Studio provides a visual designer for managing xref:data-access:fetching.adoc#fetch-plan[fetch plans].
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 First, you need to create a configuration file using the menu in xref:studio:tool-window.adoc[Jmix Tool Window].
 

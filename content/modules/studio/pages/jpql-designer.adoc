@@ -4,7 +4,7 @@ JPQL Designer is a visual tool designed to simplify the creation and modificatio
 
 The JPQL Designer provides a visual interface for constructing JPQL queries. You can define the target tables, data selection conditions, sorting, and other parameters without directly writing JPQL code. The tool outputs a properly formatted JPQL query string.
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 The key functionalities include:
 

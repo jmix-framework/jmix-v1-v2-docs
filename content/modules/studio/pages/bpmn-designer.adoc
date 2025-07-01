@@ -4,4 +4,7 @@ Studio provides BPMN Modeler that allows you to model business processes in the 
 The Modeler appears only when the xref:bpm:index.adoc[BPM add-on] is added to the project.
 See the description of the xref:bpm:modeler-studio.adoc[BPMN Modeler] in Studio.
 
-include::subscription-note-ent.adoc[]
+[NOTE]
+====
+This feature requires a BPM xref:studio:subscription.adoc#enterprise-subscription[subscription]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise+BPM Trial] section for how to get a trial version.
+====
