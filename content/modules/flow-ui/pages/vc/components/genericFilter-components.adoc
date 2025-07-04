@@ -1,13 +1,13 @@
-= genericFilter Components
+= Компоненты genericFilter
 :page-aliases: vcl/components/filter-components.adoc
 
-You can set a `genericFilter` configuration at both xref:vc/components/genericFilter.adoc#run-time-configuration[runtime] and xref:vc/components/genericFilter.adoc#design-time-configuration[design time]. This article provides examples of design-time `genericFilter` configurations employing each of three predefined filter components:
+Вы можете установить конфигурацию `genericFilter` как во время xref:vc/components/genericFilter.adoc#run-time-configuration[выполнения], так и во время xref:vc/components/genericFilter.adoc#design-time-configuration[разработки]. В этом разделе приведены примеры конфигураций `genericFilter` времени разработки с использованием каждого из трех предопределенных компонентов фильтра:
 
 * <<property-filter, propertyFilter>>
 * <<jpql-filter, jpqlFilter>>
 * <<group-filter, groupFilter>>
 
-TIP: You can also create a custom filter component and use it as a part of `genericFilter`. See the <<filter-compponent-registration, Filter Component Registration>> section for details.
+TIP: Вы также можете создать собственный компонент фильтра и использовать его как часть `genericFilter`. Подробности смотрите в разделе <<filter-compponent-registration,Регистрация компонента фильтра>>.
 
 [[property-filter]]
 == propertyFilter
@@ -18,41 +18,40 @@ TIP: You can also create a custom filter component and use it as a part of `gene
 </div>
 ++++
 
-`propertyFilter` adds a filtering condition based on a particular property of an entity.
+`propertyFilter` добавляет условие фильтрации на основе конкретного свойства сущности.
 
-NOTE: This component can be also used independently. See the xref:vc/components/propertyFilter.adoc[] article for details.
+NOTE: Этот компонент также можно использовать независимо. Подробности смотрите в разделе xref:vc/components/propertyFilter.adoc[].
 
-Both declarative and programmatic configurations provided in this section create the following filter on the view:
+И декларативная, и программная конфигурации, представленные в этом разделе, создают следующий фильтр в экране:
 
 image::flow-ui:visual-components/components/generic-filter-components-property-filter.png[align="center", width="780"]
 
+=== Декларативная конфигурация
 
-=== Declarative Configuration
-
-A `genericFilter` configuration can be specified declaratively, inside the XML view descriptor. See the following example for configuration with `propertyFilter`:
+Конфигурация `genericFilter` может быть задана декларативно, внутри XML-дескриптора экрана. Смотрите следующий пример конфигурации с `propertyFilter`:
 
 [source, xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/genericfiltercomponents/generic-filter-components-view.xml[tags=layout;generic-filter-property]
 ----
 
-<1> Declaration of `genericFilter` component bound to the data loader.
-<2> `propertyFilter` specifying a condition based on `age` property.
+<1> Объявление компонента `genericFilter`, привязанного к загрузчику данных.
+<2> `propertyFilter`, указывающий условие на основе свойства `age`.
 
-=== Programmatic Configuration
+=== Программная конфигурация
 
-The other way to define the above configuration is programmatically, in the view controller:
+Другой способ определения приведенной выше конфигурации - программно, в контроллере экрана:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/genericfiltercomponents/GenericFilterComponentsView.java[tags=UiComponents;pfdtcGenericFilter;SingleFilterSupport;onInit;programmaticPropertyFilter]
 ----
 
-<1> Adds a design-time configuration. The method takes two parameters: configuration id and configuration name.
-<2> Creates a `PropertyFilter` instance and set its properties.
-<3> Generates a component for this filter based on metaClass, property, and operation.
-<4> Adds the filter to configuration. `LogicalFilterComponent` is the root element of the configuration.
-<5> Sets a current configuration.
+<1> Добавляет конфигурацию времени разработки. Метод принимает два параметра: `id` конфигурации и название конфигурации.
+<2> Создает экземпляр `PropertyFilter` и устанавливает его свойства.
+<3> Генерирует компонент для этого фильтра на основе `metaClass`, `property` и `operation`.
+<4> Добавляет фильтр в конфигурацию. `LogicalFilterComponent` является корневым элементом конфигурации.
+<5> Устанавливает текущую конфигурацию.
 
 [[jpql-filter]]
 == jpqlFilter
@@ -63,41 +62,41 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 </div>
 ++++
 
-`jpqlFilter` enables filtering based on a JPQL query. It modifies the JPQL query of the data loader by adding an optional `join` and mandatory `where` clause and therefore refining search results.
+`jpqlFilter` позволяет выполнять фильтрацию на основе JPQL-запроса. Он изменяет JPQL-запрос загрузчика данных, добавляя необязательное предложение `join` и обязательное предложение `where` и, следовательно, уточняя результаты поиска.
 
-Both declarative and programmatic configurations provided in this section create the following filter on the view:
+И декларативная, и программная конфигурации, представленные в этом разделе, создают следующий фильтр в экране:
 
 image::flow-ui:visual-components/components/generic-filter-jpql-filter.png[align="center", width="780"]
 
-=== Declarative Configuration
+=== Декларативная конфигурация
 
-A `genericFilter` configuration can be specified declaratively, inside the XML view descriptor. See the following example for configuration with `jpqlFilter`:
+Конфигурация `genericFilter` может быть задана декларативно, внутри XML-дескриптора экрана. Смотрите следующий пример конфигурации с `jpqlFilter`:
 
 [source, xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/genericfiltercomponents/generic-filter-components-view.xml[tags=layout;generic-filter-jpql]
 ----
 
-<1> Declaration of `genericFilter` component bound to the data loader.
-<2> Optional `join` clause.
-<3> Mandatory `where` clause. `?` indicates the parameter that is entered by the user.
+<1> Объявление компонента `genericFilter`, привязанного к загрузчику данных.
+<2> Необязательное предложение `join`.
+<3> Обязательное предложение `where`. `?` указывает параметр, который вводится пользователем.
 
 //todo: add example with hasInExpression="true" upon completing jmix ticket #1442
 
-=== Programmatic Configuration
+=== Программная конфигурация
 
-The other way to define the above configuration is programmatically, in the view controller:
+Другой способ определения приведенной выше конфигурации - программно, в контроллере экрана:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/genericfiltercomponents/GenericFilterComponentsView.java[tags=UiComponents;jfdtcGenericFilter;JpqlFilterSupport;SingleFilterSupport;onInit;programmaticJpqlFilter]
 ----
 
-=== No Parameter Filter
+=== Фильтр без параметра
 
-`jpqlFilter` allows creating a condition that only lets the user choose whether it is applied or not. From a user standpoint it takes no parameter as it is set directly in the query.
+`jpqlFilter` позволяет создать условие, которое только позволяет пользователю выбирать, применять его или нет. С точки зрения пользователя, он не принимает параметров, так как задается непосредственно в запросе.
 
-For example, set a city name directly in the `where` clause. Users can then choose to show customers from this city only:
+Например, задайте название города непосредственно в предложении `where`. Затем пользователи смогут выбирать, показывать ли только клиентов из этого города:
 
 image::flow-ui:visual-components/components/generic-filter-jpql-filter-no-parameter.png[align="center", width="780"]
 
@@ -106,10 +105,10 @@ image::flow-ui:visual-components/components/generic-filter-jpql-filter-no-parame
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/genericfiltercomponents/generic-filter-components-view.xml[tags=layout;generic-filter-jpql-no-parameter]
 ----
 
-<1> `parameterClass="java.lang.Void"` specifies that a condition does not expect a parameter value to be entered; `defaultValue=true` means that the condition is applied.
-<2> City name value is fixed as 'London' and cannot be changed at runtime.
+<1> `parameterClass="java.lang.Void"` указывает, что условие не ожидает ввода значения параметра; `defaultValue=true` означает, что условие применяется.
+<2> Значение названия города зафиксировано как `London` и не может быть изменено во время выполнения.
 
-This can be also be done in the view controller:
+Это также можно сделать в контроллере экрана:
 
 [source,java,indent=0]
 ----
@@ -125,46 +124,46 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 </div>
 ++++
 
-The `groupFilter` component combines several conditions into a group. Conditions in the group are applied based on the logical operator (`AND` or `OR`). Both declarative and programmatic configurations provided in this section create the following filter on the view:
+Компонент `groupFilter` объединяет несколько условий в группу. Условия в группе применяются на основе логического оператора (`AND` или `OR`). И декларативная, и программная конфигурации, представленные в этом разделе, создают следующий фильтр в экране:
 
 image::flow-ui:visual-components/components/generic-filter-group-filter.png[align="center", width="770"]
 
-=== Declarative Configuration
+=== Декларативная конфигурация
 
-A `genericFilter` configuration can be specified declaratively, inside the XML view descriptor. See the following example for configuration with `groupFilter` combining two `propertyFilter` components:
+Конфигурация `genericFilter` может быть задана декларативно, внутри XML-дескриптора экрана. Смотрите следующий пример конфигурации с `groupFilter`, объединяющей два компонента `propertyFilter`:
 
 [source, xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/genericfiltercomponents/generic-filter-components-view.xml[tags=generic-filter-group]
 ----
 
-=== Programmatic Configuration
+=== Программная конфигурация
 
-The other way to define the above configuration is programmatically, in the view controller:
+Другой способ определения приведенной выше конфигурации - программно, в контроллере экрана:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/genericfiltercomponents/GenericFilterComponentsView.java[tags=UiComponents;gfdtcGenericFilter;SingleFilterSupport;onInit;programmaticGroupFilter]
 ----
 
-<1> Adds a design-time configuration. The method takes two parameters: configuration id and configuration name.
-<2> Creates the `GroupFilter` component and sets its properties.
-<3> Sets the `OR` logical operation defining how conditions of the group are applied.
-<4> Adds `PropertyFilter` that filters customers by reward points as the first condition of this group.
-<5> Adds `PropertyFilter` that filters customers by their hobby as the second condition of this group.
-<6> Adds the created group of conditions to the configuration.
+<1> Добавляет конфигурацию времени разработки. Метод принимает два параметра: `id` конфигурации и название конфигурации.
+<2> Создает компонент `GroupFilter` и устанавливает его свойства.
+<3> Устанавливает логическую операцию `OR`, определяющую, как применяются условия группы.
+<4> Добавляет `PropertyFilter`, который фильтрует клиентов по бонусным баллам, в качестве первого условия этой группы.
+<5> Добавляет `PropertyFilter`, который фильтрует клиентов по их хобби, в качестве второго условия этой группы.
+<6> Добавляет созданную группу условий в конфигурацию.
 
 [[filter-compponent-registration]]
-== Filter Component Registration
+== Регистрация компонента фильтра
 
-To create and register a UI filter component in the framework, you need the following objects:
+Для создания и регистрации компонента UI-фильтра в фреймворке необходимы следующие объекты:
 
-* A component class representing a UI component that will be displayed inside the `genericFilter` component.
-* A model class to store non-persistent state of that component. This class will be used to save the component's state in the database and reflect this state at runtime. Such class should extend the `FilterCondition` class. As an example of such class, consider the `PropertyFilterCondition` class in the framework.
-* A converter class for converting between a component and a model. Such class should implement the `FilterConverter` interface.
-* A model detail view. Its identifier can be optionally specified using the `withDetailViewId` method. If no identifier is specified then the identifier will be equal to the model name obtained from the `JmixEntity`, with `ViewRegistry.DETAIL_VIEW_SUFFIX`.
+* Класс компонента, представляющий UI-компонент, который будет отображаться внутри компонента `genericFilter`.
+* Класс модели для хранения неперсистентного состояния этого компонента. Этот класс будет использоваться для сохранения состояния компонента в базе данных и отражения этого состояния во время выполнения. Такой класс должен расширять класс `FilterCondition`. В качестве примера такого класса рассмотрите класс `PropertyFilterCondition` во фреймворке.
+* Класс конвертера для преобразования между компонентом и моделью. Такой класс должен реализовывать интерфейс `FilterConverter`.
+* Экран деталей модели. Его идентификатор может быть опционально указан с помощью метода `withDetailViewId`. Если идентификатор не указан, то идентификатор будет равен имени модели, полученному из `JmixEntity`, с `ViewRegistry.DETAIL_VIEW_SUFFIX`.
 
-Consider `PropertyFilter` registration example:
+Рассмотрим пример регистрации `PropertyFilter`:
 
 ```
 @Bean("flowui_PropertyFilterRegistration")
@@ -176,21 +175,19 @@ public FilterComponentRegistration registerPropertyFilter() {
 }
 ```
 
-All registered filter components become available for use as items in the *xref:vc/components/genericFilter.adoc#creating-conditions[Create]* menu of the *Add condition* dialog.
+Все зарегистрированные компоненты фильтра становятся доступными для использования в качестве элементов в меню *xref:vc/components/genericFilter.adoc#creating-conditions[Create]* диалогового окна *Add condition*.
 
-You can replace a filter component registered in the Jmix framework with your own implementation. To prioritize implementations use the `@Order` annotation on the `FilterComponentRegistration` bean.
+Вы можете заменить компонент фильтра, зарегистрированный во фреймворке Jmix, своей собственной реализацией. Чтобы определить приоритет реализации, используйте аннотацию `@Order` на бине `FilterComponentRegistration`.
 
+== Атрибуты
 
+TIP: Просматривайте и редактируйте атрибуты компонента, используя xref:studio:view-designer.adoc#component-inspector[инспектор Jmix UI].
 
-== Attributes
+=== Атрибуты propertyFilter
 
-TIP: View and edit attributes of the component using xref:studio:view-designer.adoc#component-inspector[Jmix UI inspector].
+Смотрите xref:vc/components/propertyFilter.adoc#attributes[Атрибуты propertyFilter].
 
-=== propertyFilter attributes
-
-See xref:vc/components/propertyFilter.adoc#attributes[propertyFilter attributes].
-
-=== jpqlFilter attributes
+=== Атрибуты jpqlFilter
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -217,24 +214,24 @@ xref:vc/common-attributes.adoc#width[width]
 [[defaultValue]]
 ==== defaultValue
 
-Sets a default value.
+Устанавливает значение по умолчанию.
 
 [[hasInExpression]]
 ==== hasInExpression
 
-Determines whether a collection can be accepted and put inside the `IN` clause.
+Определяет, может ли коллекция быть принята и помещена в предложение `IN`.
 
 [[labelVisible]]
 ==== labelVisible
 
-Sets the label visibility.
+Устанавливает видимость надписи.
 
 [[paramterClass]]
 ==== parameterClass
 
-Specifies a class representing the desired parameter type. For example: `java.lang.String`.
+Указывает класс, представляющий желаемый тип параметра. Например: `java.lang.String`.
 
-=== groupFilter attributes
+=== Атрибуты groupFilter
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -247,25 +244,26 @@ xref:vc/common-attributes.adoc#visible[visible]
 
 [[operation]]
 ==== operation
-Specifies a logical operator used to join conditions in a group. Possible values: `AND`, `OR`.
+
+Указывает логический оператор, используемый для объединения условий в группе. Возможные значения: `AND`, `OR`.
 
 [[operationTextVisible]]
 ==== operationTextVisible
 
-Determines whether the name of the operation is displayed.
+Определяет, отображается ли название операции.
 
 [[summaryText]]
 ==== summaryText
 
-Specifies a summary for this filter condition.
+Указывает краткое описание для этого условия фильтра.
 
-== Handlers
+== Обработчики
 
-=== propertyFilter handlers
+=== Обработчики propertyFilter
 
-See xref:vc/components/propertyFilter.adoc#handlers[propertyFilter handlers].
+Смотрите xref:vc/components/propertyFilter.adoc#handlers[Обработчики propertyFilter].
 
-=== jpqlFilter handlers
+=== Обработчики jpqlFilter
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -278,9 +276,10 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 
 [[validator]]
 ==== validator
-Adds a xref:vc/miscellaneous/validator.adoc[validator] instance to the component.
 
-=== groupFilter handlers
+Добавляет экземпляр xref:vc/miscellaneous/validator.adoc[валидатора] к компоненту.
+
+=== Обработчики groupFilter
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
