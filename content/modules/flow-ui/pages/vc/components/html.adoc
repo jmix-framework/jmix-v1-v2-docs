@@ -6,22 +6,22 @@
 </div>
 ++++
 
-Jmix includes a set of xref:vc/html.adoc[HTML components] for standard HTML elements. If no suitable component is included, or you want to include native HTML directly, use the `html` component. It can render HTML provided as a string, CDATA, or file.
+Jmix включает в себя набор xref:vc/html.adoc[HTML-компонентов] для стандартных HTML-элементов. Если подходящий компонент отсутствует, или вы хотите включить нативный HTML напрямую, используйте компонент `html`. Он может отображать HTML, предоставленный в виде строки, CDATA или файла.
 
-* XML element: `html`
+* XML-элемент: `html`
 
-* Java class: `Html`
+* Java-класс: `Html`
 
 [[basics]]
-== Basics
+== Основы
 
-This element is designed for embedding HTML within an XML structure. It allows embedding separate HTML elements or blocks of HTML code. The block must consist of a single root element such as `<header>`, `<footer>`, `<main>`, or `<div>`. Within this root element can be any number of nested `<div>` elements to structure the content effectively.
+Этот элемент предназначен для встраивания HTML в структуру XML. Он позволяет встраивать отдельные HTML-элементы или блоки HTML-кода. Блок должен состоять из одного корневого элемента, такого как `<header>`, `<footer>`, `<main>` или `<div>`. Внутри этого корневого элемента может быть любое количество вложенных элементов `<div>` для эффективной структуризации содержимого.
 
-CAUTION: Note that it is the developer's responsibility to sanitize and remove any dangerous parts of the HTML before sending it to the user through this component. Passing raw input data to the user can possibly lead to cross-site scripting attacks.
+CAUTION: Обратите внимание, что разработчик несет ответственность за очистку и удаление любых опасных частей HTML перед отправкой его пользователю через этот компонент. Передача необработанных входных данных пользователю может привести к межсайтовым скриптовым атакам (XSS).
 
-=== Message Bundle
+=== Пакет сообщений
 
-This example demonstrates how to add HTML content via a string in the xref:localization:message-bundles.adoc[message bundle]:
+Этот пример демонстрирует, как добавить HTML-контент через строку в xref:localization:message-bundles.adoc[пакете сообщений]:
 
 image::visual-components/components/html-basic.png[align="center", width="347"]
 
@@ -36,9 +36,9 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 include::example$onboarding/src/main/resources/com/company/onboarding/messages_en.properties[tags=html-content]
 ----
 
-=== Character Data
+=== Символьные данные
 
-The same HTML block can be added within a CDATA (Character Data) section:
+Тот же HTML-блок можно добавить внутри секции `CDATA` (Character Data):
 
 [source, xml, indent=0]
 ----
@@ -46,29 +46,28 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 
 [[file-content]]
-== File Content
+== Содержимое файла
 
-The code for HTML block can be also obtained from a file using one of the following methods.
+Код для HTML-блока также можно получить из файла, используя один из следующих методов.
 
 [[static-resource]]
-=== Static Resource
+=== Статический ресурс
 
-The file can be served statically by the application. If your file is located
-at `/src/main/resources/META-INF/resources/html/html-file.html`, specify it as follows:
+Файл может обслуживаться приложением статически. Если ваш файл находится по адресу `/src/main/resources/META-INF/resources/html/html-file.html`, укажите его следующим образом:
 
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/html/html-view.xml[tags=static]
 ----
 
-NOTE: By default, static content is served from `/static`, `/public`, `/resources`, or `/META-INF/resources` directories of the classpath. See details in the https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot documentation^].
+NOTE: По умолчанию статическое содержимое обслуживается из каталогов `/static`, `/public`, `/resources` или `/META-INF/resources` в classpath. Подробности смотрите в https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[документации Spring Boot^].
 
 [[stream-resource]]
-=== Stream Resource
+=== Потоковый ресурс
 
-The HTML code can be supplied as a file through the `InputStream`, and then the component can be initialized by passing it in.
+HTML-код может быть предоставлен в виде файла через `InputStream`, а затем компонент может быть инициализирован путем его передачи.
 
-NOTE: The component cannot be created using the `UiComponents` bean, as it does not provide a no-arguments constructor.
+NOTE: Компонент нельзя создать с помощью бина `UiComponents`, так как он не предоставляет конструктор без аргументов.
 
 [source,java,indent=0]
 ----
@@ -76,18 +75,18 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/component/
 ----
 
 [[css-properties]]
-== CSS Properties
+== CSS-свойства
 
-Use the xref:vc/common-attributes.adoc#css[css] attribute to add CSS properties declaratively:
+Используйте атрибут xref:vc/common-attributes.adoc#css[css] для добавления CSS-свойств декларативно:
 
 [source, xml, indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/html/html-view.xml[tags=css-attribute]
 ----
 //todo: link to themes section
-Alternatively, you can add custom CSS styling within the application's theme.
+Альтернативно, вы можете добавить пользовательские CSS-стили в теме приложения.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -101,14 +100,14 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[content]]
 === content
 
-Specifies the HTML content to be rendered by the component, either as a string in a message bundle or within a CDATA section.
+Указывает HTML-контент, который будет отображаться компонентом либо в виде строки в пакете сообщений, либо внутри секции `CDATA`.
 
 [[file]]
 === file
 
-Specifies the file path to retrieve the HTML code from.
+Указывает путь к файлу, из которого следует получить HTML-код.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
