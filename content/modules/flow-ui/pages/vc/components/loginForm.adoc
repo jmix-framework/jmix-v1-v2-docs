@@ -6,35 +6,35 @@
 </div>
 ++++
 
-A form for entering authentication credentials.
+Форма для ввода учетных данных аутентификации.
 
-* XML element: `loginForm`
+* XML-элемент: `loginForm`
 
-* Java class: `JmixLoginForm`
+* Java-класс: `JmixLoginForm`
 
-== Basics
+== Основы
 
-Basic `loginForm` includes username and password fields and a button that the user clicks to attempt logging in. The form can also include optional elements such as a locales combobox, "Remember me" checkbox and "Forgot password" button.
+Базовая форма входа `loginForm` включает поля имени пользователя и пароля, а также кнопку, которую пользователь нажимает для попытки входа в систему. Форма может также включать необязательные элементы, такие как выпадающий список выбора языка, флажок "Запомнить меня" и кнопку "Забыли пароль".
 
 image::visual-components/components/login-form.png[align="center", width="320"]
 
 [[labels-messages]]
-=== Labels and Messages
+=== Надписи и сообщения
 
-Include the `form` element to specify the form's title, input field labels, and button text.
+Добавьте внутренний элемент `form`, чтобы указать заголовок формы, надписи полей ввода и текст кнопок.
 
-TIP: Values in the form can be strings of text or keys in the xref:localization:message-bundles.adoc[message bundle].
+TIP: Значения в форме могут быть текстовыми строками или ключами в xref:localization:message-bundles.adoc[пакете сообщений].
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/loginform/login-form-view.xml[tags=custom]
 ----
 
-The example above also adds an optional `errorMessage` element to display a message when login fails and an `additionalInformation` element to provide relevant details about the login process.
+Приведенный выше пример также добавляет необязательный элемент `errorMessage` для отображения сообщения при неудачной попытке входа в систему и элемент `additionalInformation` для предоставления релевантной информации о процессе входа в систему.
 
-=== Optional Elements
+=== Необязательные элементы
 
-Show or hide optional elements such as a locales combobox, "Remember me" checkbox and "Forgot password" button by using the appropriate attributes:
+Отображайте или скрывайте необязательные элементы, такие как выпадающий список выбора языка, флажок "Запомнить меня" и кнопку "Забыли пароль", используя соответствующие атрибуты:
 
 [source,xml,indent=0]
 ----
@@ -42,45 +42,45 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[authentication]]
-== Authentication
+== Аутентификация
 
-The standard login view will include the necessary logic for authenticating the user with the application:
+Стандартный экран входа в систему будет включать в себя необходимую логику для аутентификации пользователя в приложении:
 
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/login/LoginView.java[tags=login-form;on-login-handler]
 ----
-<1> Inject the `loginForm` to access it by id in the controller class.
-<2> Applies the selected locale for the application.
-<3> Checks whether to remember the user between sessions based on the checkbox value.
+<1> Инжектируйте `loginForm`, чтобы получить доступ к нему по идентификатору в классе контроллера.
+<2> Применяет выбранный язык для приложения.
+<3> Проверяет, следует ли запоминать пользователя между сессиями на основе значения флажка "Запомнить меня".
 
-== Exceptions Handling
+== Обработка исключений
 
-To help users identify login issues, extend the default logic to include informative messages for each exception type:
+Чтобы помочь пользователям выявлять проблемы со входом в систему, расширьте логику по умолчанию, чтобы включить информативные сообщения для каждого типа исключений:
 
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/loginform/LoginFormView.java[tags=exception-handling]
 ----
 
-<1> Displays the error message for a login failure based on the exception, specifically a `LockedException`, which indicates that the account is temporarily locked.
-<2> Logs a warning message indicating that a login attempt failed for a specific user.
+<1> Отображает сообщение об ошибке при неудачной попытке входа в систему на основе исключения, в частности, `LockedException`, которое указывает на то, что учетная запись временно заблокирована.
+<2> Записывает предупреждающее сообщение, указывающее на то, что попытка входа в систему для конкретного пользователя не удалась.
 
 [[locale]]
-== Locale
+== Локаль
 
-The login form can include a combobox that allows the user to select their preferred locale. To make the preferred option available, you need to xref:localization:message-bundles.adoc#setting-locales[set up the locale] in your application. Once an additional locale is set up, it will appear in the list.
+Форма входа может включать выпадающий список, позволяющий пользователю выбрать предпочтительную локаль (язык). Чтобы сделать этот параметр доступным, вам необходимо xref:localization:message-bundles.adoc#setting-locales[настроить локаль] в вашем приложении. Как только будет настроена дополнительная локаль, она появится в списке.
 
 image::visual-components/components/login-form-locales.png[align="center", width="480"]
 
-Whenever the user selects a new locale from the list, the <<LocaleChangedEvent,LocaleChangedEvent>> is fired. By creating a handler for this event, you can ensure that the login form messages will update immediately without requiring a page reload. This is how it is done on the standard login view:
+Всякий раз, когда пользователь выбирает новую локаль из списка, генерируется событие <<LocaleChangedEvent,LocaleChangedEvent>>. Создав обработчик для этого события, вы можете гарантировать, что сообщения формы входа будут обновляться немедленно, без необходимости перезагрузки страницы. Вот как это делается в стандартном экране входа:
 
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/login/LoginView.java[tags=on-locale-changed]
 ----
 
-== Styling the Login View
+== Стилизация экрана входа в систему
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -88,9 +88,9 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/login/Logi
 </div>
 ++++
 
-You can use CSS styles to enhance the appearance and layout of the login view in your application. One way to improve the view is by adding a background image. This image will visually confirm to the user that they are logging into the right app.
+Вы можете использовать CSS-стили для улучшения внешнего вида и компоновки экрана входа в систему в вашем приложении. Один из способов улучшить экран - добавить фоновое изображение. Это изображение визуально подтвердит пользователю, что он входит в правильное приложение.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -106,19 +106,19 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[forgotPasswordButtonVisible]]
 === forgotPasswordButtonVisible
 
-Sets the visibility of the **Forgot password** button.
+Устанавливает видимость кнопки **Forgot password** ("Забыли пароль").
 
 [[localesVisible]]
 === localesVisible
 
-Sets the visibility of the locales combobox.
+Устанавливает видимость выпадающего списка выбора языка.
 
 [[rememberMeVisible]]
 === rememberMeVisible
 
-Sets the visibility of the **Remember me** checkbox.
+Устанавливает видимость флажка **Remember me** ("Запомнить меня").
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
@@ -133,37 +133,37 @@ include::../handler-generation-tip.adoc[]
 [[ForgotPasswordEvent]]
 === ForgotPasswordEvent
 
-`ForgotPasswordEvent` is sent when the **Forgot password** button is clicked. Add a handler to this event to provide users with password recovery instructions.
+Событие `ForgotPasswordEvent` отправляется при нажатии кнопки "Забыли пароль". Добавьте обработчик для этого события, чтобы предоставить пользователям инструкции по восстановлению пароля.
 
 [[LocaleChangedEvent]]
 === LocaleChangedEvent
 
-`LocaleChangedEvent` is sent when a different locale is selected. A handler for this event may be used to update labels and messages in the form to be of selected locale.
+Событие `LocaleChangedEvent` отправляется при выборе другой локали (языка). Обработчик для этого события может быть использован для обновления надписей и сообщений в форме в соответствии с выбранной локалью.
 
 [[LoginEvent]]
 === LoginEvent
 
-`LoginEvent` is sent whe the user attempts to log in.
+Событие `LoginEvent` отправляется, когда пользователь пытается войти в систему.
 
 [[RememberMeChangedEvent]]
 === RememberMeChangedEvent
 
-`RememberMeChangedEvent` is sent when the state of the **Remember me** checkbox changes.
+Событие `RememberMeChangedEvent` отправляется при изменении состояния флажка "Запомнить меня".
 
 [[localeItemLabelGenerator]]
 === localeItemLabelGenerator
 
-Customizes names for locales in the list. For example, instead of using the full language name for each locale, you can use a three-letter uppercase abbreviation.
+Настраивает имена локалей (языков) в списке. Например, вместо использования полного названия языка для каждой локали можно использовать трехбуквенное сокращение в верхнем регистре.
 
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/loginform/LoginFormView.java[tags=localeItemLabelGenerator]
 ----
 
-== Elements
+== Элементы
 
 <<labels-messages, additionalInformation>> - <<labels-messages, form>> - <<labels-messages, errorMessage>>
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/latest/components/login[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/login[документацию Vaadin^] для получения дополнительной информации.
