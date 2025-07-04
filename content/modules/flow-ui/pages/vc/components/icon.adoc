@@ -6,16 +6,16 @@
 </div>
 ++++
 
-`icon` displays an image sourced from an icon set.
+Компонент `icon` отображает изображение из набора иконок.
 
-* XML element: `icon`
+* XML-элемент: `icon`
 
-* Java class: `Icon`
+* Java-класс: `Icon`
 
 [[basics]]
-== Basics
+== Основы
 
-Use `icon` to add a standalone icon anywhere on the view.
+Используйте `icon`, чтобы добавить отдельную иконку в любое место экрана.
 
 [source, xml, indent=0]
 ----
@@ -25,9 +25,9 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 image::visual-components/components/icon-basic.png[align="center", width="125"]
 
 [[icon-sets]]
-== Icon Sets
+== Наборы иконок
 
-There are two built-in icon sets containing frequently used icons: Vaadin and Lumo. To differentiate between sets, add its prefix before the icon name. If no prefix is present, the Vaadin set is used.
+Существуют два встроенных набора, содержащих часто используемые иконки: Vaadin и Lumo. Чтобы различать наборы, добавьте его префикс перед именем иконки. Если префикс отсутствует, используется набор Vaadin.
 
 [source, xml, indent=0]
 ----
@@ -37,11 +37,11 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 image::visual-components/components/icon-sets.png[align="center", width="125"]
 
 [[embedding]]
-== Components with Icons
+== Компоненты с иконками
 
-Icon can be a part of a component. See an example of using an icon with the xref:vc/components/button.adoc[button] component.
+Иконка может быть частью компонента. Смотрите пример использования иконки с компонентом xref:vc/components/button.adoc[button].
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -57,19 +57,19 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[color]]
 === color
 
-Sets the color for icon.
+Устанавливает цвет иконки.
 
 [[icon]]
 === icon
 
-Specifies the icon to be displayed.
+Указывает иконку, которую нужно отобразить.
 
 [[size]]
 === size
 
-Specifies the size of the icon.
+Указывает размер иконки.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
@@ -80,18 +80,18 @@ include::../handler-generation-tip.adoc[]
 [[ClickEvent]]
 === ClickEvent
 
-The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the following three subjects to detect the number of clicks related to the event.
+Событие `com.vaadin.flow.component.ClickEvent` возникает, когда на компонент нажимают. Этот обработчик должен указывать один из следующих трех субъектов, чтобы определить количество кликов, связанных с событием.
 
-* click – fires the event whenever the component is clicked.
+* click - событие возникает при каждом нажатии на компонент.
 
-* singleClick – fires the event after a timeout to ensure it is not a double click.
+* singleClick - событие возникает после таймаута, чтобы убедиться, что это не двойной щелчок.
 
-* doubleClick – fires the event when the component is double-clicked.
+* doubleClick - событие возникает, когда на компонент дважды щелкают.
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip]
 
-== See Also
+== Смотрите также
 
-See {vaadin-docs}/components/icons[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/icons[документацию Vaadin^] для получения дополнительной информации.
