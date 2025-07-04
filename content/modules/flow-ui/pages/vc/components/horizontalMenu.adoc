@@ -1,19 +1,19 @@
 = horizontalMenu
 :page-aliases: vcl/components/app-menu.adoc
 
-The `horizontalMenu` component is used to display a horizontal menu with hierarchical drop-down sub-menus.
+Компонент `horizontalMenu` используется для отображения горизонтального меню с иерархическими выпадающими подменю.
 
-`horizontalMenu` is used in the *Main view with top menu* template in the xref:studio:view-wizard.adoc[View Creation Wizard]. If you want to use the new view instead of the existing main view, select the *Use as default main view* checkbox on the first step of the wizard. Then Studio will replace the `layout` attribute of the `@Route` annotation in all views and set the new view in the xref:flow-ui:ui-properties.adoc#jmix.ui.main-view-id[jmix.ui.main-view-id] application property.
+`horizontalMenu` используется в шаблоне *Main view with top menu* в xref:studio:view-wizard.adoc[Мастере создания экранов]. Если вы хотите использовать новый экран вместо существующего главного экрана, установите флажок *Use as default main view* на первом шаге мастера. Тогда Studio заменит атрибут `layout` аннотации `@Route` во всех экранах и установит новый экран в свойстве приложения xref:flow-ui:ui-properties.adoc#jmix.ui.main-view-id[jmix.ui.main-view-id].
 
-It can also be used on any view as any other visual component.
+`horizontalMenu` также может использоваться в любом экране, как и любой другой визуальный компонент.
 
-* XML element: `horizontalMenu`
+* XML-элемент: `horizontalMenu`
 
-* Java class: `HorizontalMenu`
+* Java-класс: `HorizontalMenu`
 
-== Basics
+== Основы
 
-To add the component on a view, place it in the view descriptor:
+Чтобы добавить компонент в экран, разместите его в дескрипторе экрана:
 
 [source, xml, indent=0]
 ----
@@ -22,14 +22,14 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 
 image::visual-components/components/horizontal-menu.png[align="center", width="1031"]
 
-You can also create and add the component to a view in a Java controller:
+Вы также можете создать и добавить компонент в экран в Java-контроллере:
 
 [source, java, indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/horizontalmenu/HorizontalMenuView.java[tags=horizontalMenu]
 ----
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -48,9 +48,9 @@ xref:vc/common-attributes.adoc#width[width]
 [[loadMenuConfig]]
 === loadMenuConfig
 
-The `loadMenuConfig` attribute is used to control the loading of menu structure from xref:flow-ui:menu-config.adoc[Menu Configuration]. The default value is `true`, which means that the `horizontalMenu` component loads its menu structure from `MenuConfig` by default. If you want to use a different item provider, you should set the `loadMenuConfig` attribute to `false` first.
+Атрибут `loadMenuConfig` используется для управления загрузкой структуры меню из xref:flow-ui:menu-config.adoc[Конфигурации меню]. Значение по умолчанию - `true`, что означает, что компонент `horizontalMenu` по умолчанию загружает свою структуру меню из `MenuConfig`. Если вы хотите использовать другого поставщика элементов, вам сначала следует установить атрибут `loadMenuConfig` в значение `false`.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
