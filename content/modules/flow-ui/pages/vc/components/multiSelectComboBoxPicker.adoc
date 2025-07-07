@@ -6,15 +6,15 @@
 </div>
 ++++
 
-`multiSelectComboBoxPicker` allows users to choose one or more items from a drop-down list or a list of actions. This component supports the all features from the regular xref:vc/components/multiSelectComboBox.adoc[multiSelectComboBox].
+`multiSelectComboBoxPicker` позволяет пользователям выбирать один или несколько элементов из выпадающего списка или списка действий. Этот компонент поддерживает все функции обычного xref:vc/components/multiSelectComboBox.adoc[multiSelectComboBox].
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`multiSelectComboBoxPicker`
-|Java Class
+|Java-класс
 |`JmixMultiSelectComboBoxPicker`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/components/comboBox.adoc#allowCustomValue[allowCustomValue] -
@@ -57,7 +57,7 @@ xref:vc/components/comboBox.adoc#theme-variants[themeNames] -
 xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] -
@@ -70,7 +70,7 @@ xref:vc/components/multiSelectComboBox.adoc#itemLabelGenerator[itemLabelGenerato
 xref:vc/components/multiSelectComboBox.adoc#itemsFetchCallback[itemsFetchCallback] -
 xref:vc/components/multiSelectComboBox.adoc#renderer[renderer] -
 xref:vc/components/textField.adoc#validator[validator]
-|Elements
+|Элементы
 |xref:vc/components/entityPicker.adoc#actions[actions] -
 xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
 xref:vc/components/multiSelectComboBox.adoc#itemsQuery[itemsQuery] -
@@ -78,11 +78,11 @@ xref:vc/components/tooltip.adoc[tooltip] -
 <<validation,validators>>
 |===
 
-== Basics
+== Основы
 
-The drop-down list opens when the user clicks the field using a pointing device. Using the `Up` and `Down` keys or typing a character when the field is focused also opens the drop-down list.
+Выпадающий список открывается, когда пользователь щелкает по полю с помощью указывающего устройства (мышь, тачпад). Использование клавиш `"Вверх"` и `"Вниз"` или ввод символа, когда поле находится в фокусе, также открывает выпадающий список.
 
-For `multiSelectComboBoxPicker`, you can define an arbitrary number of actions, displayed as buttons on the right. It can be done either in the XML descriptor using the `actions` nested element, or programmatically in the controller using `addAction()`.
+Для `multiSelectComboBoxPicker` можно определить произвольное количество действий, отображаемых в виде кнопок справа. Это можно сделать либо в XML-дескрипторе, используя вложенный элемент `actions`, либо программно в контроллере, используя метод `addAction()`.
 
 image::visual-components/components/multi-select-combo-box-picker-basics.png[align="center", width="276"]
 
@@ -92,33 +92,33 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container]. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных - это процесс связывания визуального компонента с xref:data/data-containers.adoc[контейнером данных]. Изменения в визуальном компоненте или в соответствующем контейнере данных могут вызывать обновления друг в друге. Подробности смотрите в разделе xref:data/data-examples.adoc[].
 
-To create `multiSelectComboBoxPicker` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] attribute is used to create a list of items. The following example produces a data-aware `multiSelectComboBoxPicker`.
+Чтобы создать `multiSelectComboBoxPicker`, связанный с данными, используйте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property]. Атрибут xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] используется для создания списка элементов. Следующий пример создает `multiSelectComboBoxPicker`, поддерживающий работу с данными.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectcomboboxpicker/multi-select-combo-box-picker-view.xml[tags=data;userDc;hobbiesDc;facets;layout;data-bind]
 ----
 
-<1> Data container to hold the `User` instance which is currently being edited.
-<2> Fetch plan extended to retrieve a collection of `Hobby` instances that will be available for selection.
-<3> `CollectionContainer` for the `Hobby` entity.
-<4> Data load coordinator to automatically supply the component with instances to select from.
-<5> `multiSelectComboBoxPicker` gets `hobbiesDc` as an items container so that the list of hobbies drop-downs.
-<6> Adding a predefined action to clear the selection.
-<7> Adding a predefined action to open the lookup view.
+<1> Контейнер данных для хранения экземпляра `User`, который в данный момент редактируется.
+<2> Фетч-план расширен для извлечения коллекции экземпляров `Hobby`, которые будут доступны для выбора.
+<3> `CollectionContainer` для сущности `Hobby`.
+<4> Координатор загрузки данных для автоматического предоставления компоненту экземпляров для выбора.
+<5> `multiSelectComboBoxPicker` получает `hobbiesDc` в качестве контейнера элементов, чтобы отобразить список хобби в выпадающем списке.
+<6> Добавление предопределенного действия для очистки выбора.
+<7> Добавление предопределенного действия для открытия экрана поиска.
 
-The component’s value returns the list of selected items.
+Значение компонента возвращает список выбранных элементов.
 
 [[meta-class]]
-== Using MetaClass
+== Использование MetaClass
 
-You can use `multiSelectComboBoxPicker` without directly referencing data, meaning you don't need to specify `dataContainer` or `property` attributes. In this case, use the `metaClass` attribute to specify the entity type for `multiSelectComboBoxPicker`. To specify a collection of instances for selection use the `itemsContainer` attribute.
+Вы можете использовать `multiSelectComboBoxPicker` без прямой ссылки на данные, то есть вам не нужно указывать атрибуты `dataContainer` или `property`. В этом случае используйте атрибут `metaClass`, чтобы указать тип сущности для `multiSelectComboBoxPicker`. Чтобы указать коллекцию экземпляров для выбора, используйте атрибут `itemsContainer`.
 
-For example, the component can work with the `Hobby` entity, which has the metadata class name `Hobby`.
+Например, компонент может работать с сущностью `Hobby`, которая имеет имя класса метаданных `Hobby`.
 
 [source,xml,indent=0]
 ----
@@ -126,29 +126,29 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[basic-features]]
-== Basic Features
+== Основные возможности
 
-The following features, common to `comboBox` or `multiSelectComboBox` components, are supported:
+Поддерживаются следующие возможности, общие для компонентов `comboBox` или `multiSelectComboBox`:
 
-* xref:vc/components/comboBox.adoc#custom-items[Custom Items]
-* xref:vc/components/comboBox.adoc#custom-filtering[Custom Filtering]
-* xref:vc/components/comboBox.adoc#custom-value-entry[Custom Value Entry]
-* xref:vc/components/comboBox.adoc#rendering-items[Rendering Items]
-* xref:vc/components/multiSelectComboBox.adoc#auto-expand[Auto Expand]
-* xref:vc/components/multiSelectComboBox.adoc#selected-items-on-top[Selected Items on Top]
-* xref:vc/components/multiSelectComboBox.adoc#items-fetch-callback[Items Fetch Callback]
+* xref:vc/components/comboBox.adoc#custom-items[Пользовательские элементы]
+* xref:vc/components/comboBox.adoc#custom-filtering[Пользовательская фильтрация]
+* xref:vc/components/comboBox.adoc#custom-value-entry[Обработка пользовательского ввода]
+* xref:vc/components/comboBox.adoc#rendering-items[Рендеринг элементов]
+* xref:vc/components/multiSelectComboBox.adoc#auto-expand[Автоматическое расширение]
+* xref:vc/components/multiSelectComboBox.adoc#selected-items-on-top[Отображение выбранных элементов]
+* xref:vc/components/multiSelectComboBox.adoc#items-fetch-callback[Получение элементов списка]
 
 [[validation]]
-== Validation
+== Валидация
 
-To check values entered into the `multiSelectComboBoxPicker` component, you can use a xref:vc/miscellaneous/validator.adoc[validator] in a nested `validators` element.
+Чтобы проверить значения, введенные в компонент `multiSelectComboBoxPicker`, вы можете использовать xref:vc/miscellaneous/validator.adoc[валидатор] во вложенном элементе `validators`.
 
-The following predefined validators are available for `multiSelectComboBoxPicker`:
+Для `multiSelectComboBoxPicker` доступны следующие предопределенные валидаторы:
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`validators`
-|Predefined validators
+|Предопределенные валидаторы
 |xref:vc/miscellaneous/validator.adoc#custom-validator[custom] - xref:vc/miscellaneous/validator.adoc#NotEmptyValidator[notEmpty] - xref:vc/miscellaneous/validator.adoc#NotNullValidator[notNull] - xref:vc/miscellaneous/validator.adoc#SizeValidator[size]
 |===
