@@ -7,20 +7,20 @@
 </div>
 ++++
 
-A visual indicator to provide feedback about the status and completion of an ongoing task, such as a file transfer, loading data, complex computations, or any other lengthy task. It helps users understand how much time a task will take.
+Визуальный индикатор для отображения статуса и прогресса выполнения текущей задачи, такой как передача файлов, загрузка данных, сложные вычисления или другие длительные операции. Помогает пользователям оценить оставшееся время выполнения.
 
-* XML-element: `progressBar`
+* XML-элемент: `progressBar`
 
-* Java class: `ProgressBar`
+* Java-класс: `ProgressBar`
 
 [[basics]]
-== Basics
+== Основы
 
-A standard progress bar takes values between 0.0 and 1.0, representing the progress of a task from 0% to 100%.
+Стандартный индикатор прогресса принимает значения от 0.0 до 1.0, где 0% соответствует 0.0, а 100% - 1.0.
 
 image::visual-components/components/progress-bar-determinate.png[align="center", width="380"]
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -30,13 +30,13 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ====
 
 [[progress-updates]]
-== Progress Updates
+== Обновление прогресса
 
-The progress value is commonly updated within the context of an ongoing task. This allows the progress bar to accurately reflect the current state of the task.
+Значение прогресса обычно обновляется в контексте выполняемой задачи. Это позволяет индикатору прогресса точно отображать текущее состояние операции.
 
-Consider an example of a simple xref:background-tasks.adoc[background task] that updates the `progressBar` value:
+Рассмотрим пример простой xref:background-tasks.adoc[фоновой задачи], которая обновляет значение `progressBar`:
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -45,7 +45,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
-.Java code
+.Java код
 [%collapsible%open]
 ====
 [source,java,indent=0]
@@ -54,23 +54,23 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 ====
 
-<1> Inject the progress bar to access it in the controller class.
-<2> When this view opens, initiate a task to run in the background.
-<3> Define a method to create a simple background task.
-<4> As the task progresses, update the progress value to reflect its current status.
+<1> Инжектируйте `progressBar` для доступа к нему в классе контроллера.
+<2> При открытии этого экрана инициируйте задачу для выполнения в фоновом режиме.
+<3> Определите метод для создания простой фоновой задачи.
+<4> По мере выполнения задачи обновляйте значение прогресса, чтобы отражать её текущий статус.
 
-== Modes
+== Режимы работы
 
-A progress bar can either be determinate or indeterminate depending on the nature of the task and the availability of progress information.
+Индикатор прогресса может работать в детерминированном или недетерминированном режиме, в зависимости от характера задачи и доступности информации о прогрессе.
 
 [[determinate-mode]]
-=== Determinate
+=== Детерминированный режим
 
-By default, `progressBar` shows progress in the determinate mode. This mode provide users with a visual representation of remaining time to complete the task.
+По умолчанию `progressBar` отображает прогресс в детерминированном режиме. Этот режим предоставляет пользователям визуальное представление оставшегося времени до завершения задачи.
 
 image::visual-components/components/progress-bar-determinate.png[align="center", width="380"]
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -79,16 +79,16 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
-Use a determinate progress bar when the time required for completion is known in advance or the progress can be tracked.
+Используйте детерминированный индикатор прогресса, когда время выполнения задачи известно заранее или можно отслеживать прогресс.
 
 [[indeterminate-mode]]
-=== Indeterminate
+=== Недетерминированный режим
 
-By setting the <<indeterminate,indeterminate>> attribute to `true` you can switch the progress bar to operate in the indeterminate mode. When in indeterminate mode `progressBar` cycles repeatedly along the length of the bar without showing a specific progress value.
+Установив атрибут <<indeterminate,indeterminate>> в значение `true`, вы можете перевести индикатор прогресса в недетерминированный режим. В этом режиме `progressBar` циклически анимируется по всей длине полосы, не отображая конкретного значения прогресса.
 
 image::visual-components/components/progress-bar-indeterminate.gif[align="center", width="380"]
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -97,17 +97,17 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
-Use this mode for tasks which do not share a progress value or to communicate that the task is running continuously.
+Используйте этот режим для задач, которые не предоставляют значение прогресса или для обозначения непрерывно выполняющегося процесса.
 
-== Value Range
+== Диапазон значений
 
-By default, a progress bar takes values from 0.0 to 1.0, representing 0% and 100% respectively. This is the standard behavior that can be changed using the <<min,min>> and <<max,max>> attributes.
+По умолчанию индикатор прогресса принимает значения от 0.0 до 1.0, что соответствует 0% и 100% соответственно. Это стандартное поведение, которое можно изменить с помощью атрибутов <<min,min>> и <<max,max>>.
 
-For instance, if you have a task with 10 steps, you can set `min="1"` and `max="10"` to match the task's progress range. Reaching the 5th step indicates that the progress value has reached 5 as well:
+Например, если ваша задача состоит из 10 шагов, вы можете установить `min="1"` и `max="10"`, чтобы соответствовать диапазону прогресса задачи. Достижение 5-го шага будет означать, что значение прогресса также достигло 5:
 
 image::visual-components/components/progress-bar-determinate.png[align="center", width="380"]
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -116,15 +116,15 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
-== Progress Dialog
+== Диалог прогресса
 
-If it is necessary for the user to wait for the completion of a task, a xref:dialogs.adoc#background-task-dialog[background task dialog] can be used.
+Если требуется, чтобы пользователь дождался завершения задачи, можно использовать xref:dialogs.adoc#background-task-dialog[диалог фоновой задачи].
 
 image::dialogs/backgroundtask-dialog.png[align="center" width="402"]
 
-This dialog blocks user interaction with the rest of the application until the task is either completed or is canceled by the user.
+Этот диалог блокирует взаимодействие пользователя с остальной частью приложения до тех пор, пока задача не будет завершена или отменена пользователем.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -153,7 +153,7 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-Enables or disables the <<indeterminate-mode,indeterminate progress>> mode.
+Активирует или деактивирует <<indeterminate-mode,недетерминированный>> режим отображения прогресса.
 
 [[max]]
 === max
@@ -164,7 +164,7 @@ Enables or disables the <<indeterminate-mode,indeterminate progress>> mode.
 </div>
 ++++
 
-Sets the maximum progress value. Default is `1.0`.
+Задает максимальное значение прогресса. По умолчанию: `1.0`.
 
 [[min]]
 === min
@@ -175,7 +175,7 @@ Sets the maximum progress value. Default is `1.0`.
 </div>
 ++++
 
-Sets the minimum progress value. Default is `0.0`.
+Задает минимальное значение прогресса. По умолчанию: `0.0`.
 
 [[themeNames]]
 === themeNames
@@ -186,13 +186,13 @@ Sets the minimum progress value. Default is `0.0`.
 </div>
 ++++
 
-Sets a different theme to change component's colors and draw user attention.
+Устанавливает тему для изменения цветов компонента и привлечения внимания пользователя.
 
 image::visual-components/components/progress-bar-themenames.png[align="center", width="382"]
 
-* `contrast` – applies more contrasting color scheme.
-* `error` – signals of an error state.
-* `success` – indicates success.
+* `contrast` – применяет более контрастную цветовую схему.
+* `error` – сигнализирует об ошибочном состоянии.
+* `success` – указывает на успешное выполнение.
 
 [[value]]
 === value
@@ -203,16 +203,16 @@ image::visual-components/components/progress-bar-themenames.png[align="center", 
 </div>
 ++++
 
-Defines a value of `progressBar`. The value must be within the default `0.0` and `1.0` range or custom `min` and `max` range, if specified.
+Определяет значение `progressBar`. Значение должно находиться в стандартном диапазоне от `0.0` до `1.0` либо в пользовательском диапазоне `min` и `max`, если он задан.
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 
 include::../handler-generation-tip.adoc[]
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/latest/components/progress-bar[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/progress-bar[документацию Vaadin^] для получения дополнительной информации.
