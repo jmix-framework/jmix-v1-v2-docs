@@ -2,7 +2,10 @@
 
 The Jmix framework subsystems come with `messages.properties` files containing messages in English. It means that even if you set a different locale in your project and translate your own message files, your users will still see parts of the UI in English because they are defined in the framework's message files. This includes standard actions and data management components like filter and pagination, as well as the entire UI views of the security and other subsystems.
 
-With the help of our community, we provide translations of the framework messages for several languages in the form of _translation modules_. A translation module is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation modules created by the Jmix team and community members on the Jmix marketplace: open *Jmix* tool window in Studio, select *Add-ons* item and click *Marketplace* in its context menu. In the opened *Add-ons* window, filter the add-ons by the *Localization* tag.
+[[translation-add-ons]]
+== Translation Add-ons
+
+With the help of our community, we provide translations of the framework messages for several languages in the form of _translation add-ons_. A translation add-on is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation add-ons created by the Jmix team and community members on the Jmix marketplace: open the *Jmix* tool window in Studio, select *Add-ons* item and click *Marketplace* in its context menu. In the opened *Add-ons* window, filter the add-ons by the *Localization* tag.
 
 [[translating-framework]]
 == Translating Framework in Your Project
