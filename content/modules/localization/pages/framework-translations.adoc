@@ -1,14 +1,46 @@
 = Framework Translations
 
-The Jmix framework subsystems come with `messages.properties` files containing messages in English. It means that even if you set a different locale in your project and translate your own message files, your users will still see parts of the UI in English because they are implemented in the framework. This includes standard actions and data management components like filter and pagination, as well as the entire UI views of the security and other subsystems.
+The Jmix framework subsystems come with `messages.properties` files containing messages in English. It means that even if you set a different locale in your project and translate your own message files, your users will still see parts of the UI in English because they are defined in the framework's message files. This includes standard actions and data management components like filter and pagination, as well as the entire UI views of the security and other subsystems.
 
-We provide translations of the framework messages to some languages in the form of _translation modules_. A translation module is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation modules created by the Jmix team and community members on the Jmix marketplace: open *Jmix* tool window -> *Settings* -> *Marketplace* in Studio and filter by the *Localization* tag.
+With the help of our community, we provide translations of the framework messages for several languages in the form of _translation modules_. A translation module is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation modules created by the Jmix team and community members on the Jmix marketplace: open *Jmix* tool window in Studio, select *Add-ons* item and click *Marketplace* in its context menu. In the opened *Add-ons* window, filter the add-ons by the *Localization* tag.
 
-If you need to translate the framework messages to a different language, you can do it right in your project. Below is a recommended way to do it:
+[[translating-framework]]
+== Translating Framework in Your Project
+
+If you need to translate the framework messages to a different language, you can do it right in your project. Below is the recommended way to do it:
 
 * Clone https://github.com/jmix-framework/jmix[https://github.com/jmix-framework/jmix^] repository and checkout a branch corresponding to the Jmix version used in your project.
 
 * Depending on the set of add-ons used in your project, copy all or some of the `messages.properties` files from the `jmix-translations/content` folder to the same paths under your project's `src/main/resources` folder.
-* Rename `messages.properties` files to `messages_<your_language>.properties` and translate the messages.
 
-NOTE: If you like to contribute to the framework translations project, feel free to send us pull requests with new languages or changes in existing translations!
+* Rename `messages.properties` files to `messages_<language>.properties` (e.g., `messages_fr.properties` for French) and translate the messages.
+
+[[contributing-translations]]
+== Contributing Translations
+
+If you wish to contribute to the framework translations project, feel free to submit pull requests with new languages or updates to existing translations.
+
+Follow these steps to create a pull request:
+
+. Fork the https://github.com/jmix-framework/jmix[https://github.com/jmix-framework/jmix^] repository by clicking the *Fork* button on the repository page. Ensure the *Copy the master branch only* checkbox is selected.
+
+. Clone the fork to a local folder, e.g. `/work`:
++
+[source,shell]
+----
+cd /work
+git clone https://github.com/<your-username>/jmix.git
+----
+
+. Create a set of `messages_<language>.properties` files in the `/work/jmix/jmix-translations/content` folder. You can copy the English `messages.properties` files, rename them to `messages_<language>.properties` (e.g., `messages_es.properties` for Spanish), and translate the messages.
+
+. Commit and push your changes to the fork:
++
+[source,shell]
+----
+git add -A
+git commit -m "<your_language> translation"
+git push
+----
+
+. Go to your fork repository page `++https://github.com/<your-username>/jmix++` and click *Contribute* -> *Open pull request*. On the *Comparing changes* page, enter the title and description, then click *Create pull request*.
