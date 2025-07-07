@@ -7,27 +7,27 @@
 </div>
 ++++
 
-`multiSelectListBox` allows users to select multiple values from a scrollable list of items using checkboxes.
+`multiSelectListBox` позволяет пользователям выбирать несколько значений из прокручиваемого списка элементов с помощью флажков.
 
-* XML element: `multiSelectListBox`
+* XML-элемент: `multiSelectListBox`
 
-* Java class: `JmixMultiSelectListBox`
+* Java-класс: `JmixMultiSelectListBox`
 
-== Basics
+== Основы
 
-Use the xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] or xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum] attribute is used to create a list of items:
+Для создания списка элементов используются атрибуты xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] или xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum]:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
 ----
 
-<1> `CollectionContainer` for the `Hobby` entity.
-<2> `multiSelectListBox` gets `hobbiesDc` as an items container so that the list of hobbies displayed.
+<1> `CollectionContainer` для сущности `Hobby`.
+<2> `multiSelectListBox` получает `hobbiesDc` в качестве контейнера элементов, чтобы отобразить список хобби.
 
 image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -46,7 +46,7 @@ xref:vc/common-attributes.adoc#readOnly[readOnly] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
@@ -56,11 +56,11 @@ xref:vc/components/comboBox.adoc#itemLabelGenerator[itemLabelGenerator]
 
 include::../handler-generation-tip.adoc[]
 
-== Elements
+== Элементы
 
 xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
 xref:vc/components/tooltip.adoc[tooltip]
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/list-box#multi[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/list-box#multi[документацию Vaadin^] для получения дополнительной информации.
