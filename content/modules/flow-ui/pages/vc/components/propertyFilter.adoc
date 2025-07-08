@@ -7,17 +7,17 @@
 </div>
 ++++
 
-`propertyFilter` defines a filtering condition based on a particular property of an xref:data-model:entities.adoc[entity].
+`propertyFilter` определяет условие фильтрации на основе определенного свойства xref:data-model:entities.adoc[сущности].
 
-The component can be used independently or as part of the xref:flow-ui:vc/components/genericFilter.adoc[genericFilter] component.
+Компонент может использоваться независимо или как часть компонента xref:flow-ui:vc/components/genericFilter.adoc[genericFilter].
 
-* XML element: `propertyFilter`
+* XML-элемент: `propertyFilter`
 
-* Java class: `PropertyFilter`
+* Java-класс: `PropertyFilter`
 
-== Basics
+== Основы
 
-At its simplest, `propertyFilter` consists of an input field preceded by the name of the property being filtered and the operation being used.
+В простейшем случае `propertyFilter` состоит из поля ввода, перед которым указано имя фильтруемого свойства и применяемая операция.
 
 image::flow-ui:visual-components/components/property-filter-basics.png[align="center", width="315"]
 
@@ -25,13 +25,13 @@ image::flow-ui:visual-components/components/property-filter-basics.png[align="ce
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=basics]
 ----
-<1> <<dataLoader,dataLoader>>, <<operation,operation>>, and <<property,property>> are required attributes.
+<1> Атрибуты <<dataLoader,dataLoader>>, <<operation,operation>> и <<property,property>> являются обязательными.
 
-This component filters data loaded to a data container. It is commonly used in conjunction with xref:vc/components/dataGrid.adoc[] or xref:vc/components/treeDataGrid.adoc[] components, which are bound to the same container. This combination allows for precise control over the rows displayed.
+Этот компонент фильтрует данные, загруженные в контейнер данных. Он часто используется вместе с компонентами xref:vc/components/dataGrid.adoc[] или xref:vc/components/treeDataGrid.adoc[], которые связаны с тем же контейнером. Такая комбинация позволяет точно управлять отображаемыми строками.
 
-== Filtering Operations
+== Фильтрация операций
 
-The component supports numerous filtering <<operation, operations>>. You can limit it to a specific operation or allow users to choose the operation they want at runtime using the <<operationEditable,operationEditable>> attribute.
+Компонент поддерживает множество <<operation, операций>> фильтрации. Вы можете ограничиться конкретной операцией или позволить пользователям выбирать нужную операцию во время выполнения с помощью атрибута <<operationEditable,operationEditable>>.
 
 image::flow-ui:visual-components/components/property-filter-operation-editable.png[align="center", width="340"]
 
@@ -40,35 +40,35 @@ image::flow-ui:visual-components/components/property-filter-operation-editable.p
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=operationEditable]
 ----
 
-The list of available operations depends on the property type.
+Список доступных операций зависит от типа свойства.
 
-== Data Binding
+== Привязка данных
 
-Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных означает связывание визуального компонента с контейнером данных. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Подробнее смотрите в разделе xref:data/data-examples.adoc[].
 
-Property filter can filter data loaded to either xref:data/collection-container.adoc[collection container] or xref:data/key-value-containers.adoc[key-value container].
+Фильтр свойств может фильтровать данные, загруженные как в xref:data/collection-container.adoc[контейнер коллекции], так и в xref:data/key-value-containers.adoc[контейнер Key-Value].
 
-=== Collection Container
+=== Контейнер коллекции
 
-The following example demonstrates setting up `propertyFilter` to work with a collection container:
+В следующем примере показано, как настроить `propertyFilter` для работы с контейнером коллекции:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=data;usersDc;layout;binding-collection]
 ----
 
-=== Key-Value Collection Container
+=== Контейнер Key-Value
 
-The following example demonstrates setting up `propertyFilter` to work with a key-value collection container:
+В следующем примере показано, как настроить `propertyFilter` для работы с контейнером Key-Value:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=data;statusesDc;layout;binding-key-value]
 ----
 
-== Multi-Filtering
+== Множественная фильтрация
 
-Binding multiple `propertyFilter` components to a single data container allows to apply several conditions simultaneously. For example, use two components to support filtering by department and last name:
+Привязка нескольких компонентов `propertyFilter` к одному контейнеру данных позволяет применять несколько условий фильтрации одновременно. Например, можно использовать два компонента для фильтрации по отделу и фамилии:
 
 image::flow-ui:visual-components/components/property-filter-multifiltering.png[align="center", width="666"]
 
@@ -77,9 +77,9 @@ image::flow-ui:visual-components/components/property-filter-multifiltering.png[a
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=multiple-filters]
 ----
 
-== Customization
+== Настройка внешнего вида
 
-You can explicitly specify the component to use as the input field and set its attributes. This enables to change the default `propertyFilter` look and feel and enhance it with additional features. For example:
+Вы можете явно указать компонент, который будет использоваться в качестве поля ввода, и задать его атрибуты. Это позволяет изменить стандартный внешний вид `propertyFilter` и расширить его функциональность дополнительными возможностями. Например:
 
 image::flow-ui:visual-components/components/property-filter-custom-input-field.png[align="center", width="490"]
 
@@ -88,21 +88,21 @@ image::flow-ui:visual-components/components/property-filter-custom-input-field.p
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=custom-input-field]
 ----
 
-== Dynamic Attributes
+== Динамические атрибуты
 
-The component supports filtering by xref:dyn-attr:index.adoc[dynamic attributes]. This does not require having the xref:dyn-attr:dynattr-view.adoc#using-dynamicattributes-facet[dynamicAttributes] facet on that view.
+Компонент поддерживает фильтрацию по xref:dyn-attr:index.adoc[динамическим атрибутам]. Для этого не требуется наличие фасета xref:dyn-attr:dynattr-view.adoc#using-dynamicattributes-facet[dynamicAttributes] на экране.
 
-To specify a dynamic attribute, begin its name with a `+` prefix:
+Чтобы указать динамический атрибут, начните его имя с префикса `+`:
 
 [source, xml,indent=0]
 ----
 include::dyn-attr:example$dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-list-view.xml[tags=property-filter-dynamic-attribute]
 ----
 
-NOTE: If the dynamic attribute is an entity, it cannot be filtered through its attributes.
+NOTE: Если динамический атрибут является сущностью, фильтрация по его атрибутам невозможна.
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -144,87 +144,87 @@ xref:vc/common-attributes.adoc#width[width]
 [[autoApply]]
 === autoApply
 
-Sets whether the property filter should be automatically applied to the `DataLoader` when the condition value is changed. The default value is `true`.
+Определяет, должен ли фильтр свойств автоматически применяться к `DataLoader` при изменении значения условия. Значение по умолчанию: `true`.
 
 [[dataLoader]]
 === dataLoader
 
-`dataLoader` is a required attribute. It sets a xref:flow-ui:data-components.adoc[data loader] related to the current `propertyFilter`.
+`dataLoader` - обязательный атрибут. Задает xref:flow-ui:data-components.adoc[загрузчик данных], связанный с текущим `propertyFilter`.
 
 [[defaultValue]]
 === defaultValue
 
-Sets the default value for the filter condition.
+Устанавливает значение по умолчанию для условия фильтра.
 
 [[label]]
 === label
 
-Sets the custom label of the property filter condition. If not specified, it is generated automatically based on the entity property caption and the operation label.
+Задает пользовательскую надпись для условия фильтра свойств. Если не указано, генерируется автоматически на основе заголовка свойства сущности и названия операции.
 
-NOTE: If you set the `label` attribute, the operation label or selector will not be displayed.
+NOTE: Если вы задаете атрибут `label`, название операции или селектор отображаться не будут.
 
 [[labelPosition]]
 === labelPosition
 
-The `labelPosition` attribute defines the filter label position:
+Атрибут `labelPosition` определяет положение надписи фильтра:
 
-* `TOP` - label is displayed atop the property filter.
-* `ASIDE` - label is displayed on the side of the property filter.
+* `TOP` - надпись отображается над фильтром свойств.
+* `ASIDE` - надпись отображается сбоку от фильтра свойств.
 
-The default value is `ASIDE`.
+Значение по умолчанию: `ASIDE`.
 
 [[labelVisible]]
 === labelVisible
 
-Sets the <<label,label>> visible or not. Default value is `true`.
+Определяет, будет ли <<label,надпись>> видимой. Значение по умолчанию: `true`.
 
 [[labelWidth]]
 === labelWidth
 
-Sets the <<label,label>> width. The width should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
+Задает ширину <<label,надписи>>. Ширина должна быть указана в формате, понятном браузеру, например `"100px"` или `"2.5em"`.
 
 [[operation]]
 === operation
 
-`operation` is a required attribute. It sets a filtering operation. The operation can be of the following types:
+Атрибут `operation` является обязательным и определяет операцию фильтрации. Доступны следующие типы операций:
 
-* `EQUAL` is suitable for string, numeric, boolean, date/time, reference and enum attributes. Results include only entity instances where the data in the property column matches the condition value in the filter.
-* `NOT_EQUAL` is suitable for string, numeric, boolean, date/time, reference and enum attributes. Results include only entity instances where the data in the property column does not match the condition value in the filter.
-* `GREATER` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is greater than the condition value in the filter.
-* `GREATER_OR_EQUAL` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is greater than or the same as the condition value in the filter.
-* `LESS` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is less than the condition value in the filter.
-* `LESS_OR_EQUAL` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is less than or the same as the condition value in the filter.
-* `CONTAINS` is suitable for string attributes. Results include only entity instances where the data in the property column has the condition value in the filter.
-* `NOT_CONTAINS` is suitable for string attributes. Results include only entity instances where the data in the property column does not contain the condition value in the filter.
-* `STARTS_WITH` is suitable for string attributes. Results include only entity instances where the data in the property column begins with the condition value in the filter.
-* `ENDS_WITH` is suitable for string attributes. Results include only entity instances where the data in the property column ends with the condition value in the filter.
-* `IS_SET` is suitable for string, numeric, boolean, date/time, reference and enum attributes. The operator tests only the data in the property column that are not null. The `comboBox` component, generated for this operation, displays two values: `Yes` and `No`. If the user selects `Yes`, results include only entity instances where there is data in the column. Otherwise, results include only entity instances where there is no data in the column.
-* `IS_COLLECTION_EMPTY` is suitable for collection (`@OneToMany`, `@ManyToMany`) attributes. The operator checks if a collection property of an entity is empty or not.
-* `MEMBER_OF_COLLECTION` is suitable for collection (`@OneToMany`, `@ManyToMany`) attributes. The operator is used to filter entities based on whether they are members of a specific collection.
-* `NOT_MEMBER_OF_COLLECTION` is suitable for collection (`@OneToMany`, `@ManyToMany`) attributes
+* `EQUAL` - подходит для строковых, числовых, булевых, дата/время, ссылочных и перечисляемых атрибутов. Возвращает только экземпляры сущностей, где данные в столбце свойства точно соответствуют значению условия.
+* `NOT_EQUAL` - аналогичен `EQUAL`, но возвращает несоответствующие значения.
+* `GREATER` - для числовых и дата/время атрибутов. Возвращает значения больше указанного.
+* `GREATER_OR_EQUAL` - для числовых и дата/время атрибутов. Возвращает значения больше или равные условию.
+* `LESS` - для числовых и дата/время атрибутов. Возвращает значения меньше указанного.
+* `LESS_OR_EQUAL` - для числовых и дата/время атрибутов. Возвращает значения меньше или равные условию.
+* `CONTAINS` - для строковых атрибутов. Возвращает значения, содержащие подстроку.
+* `NOT_CONTAINS` - строки, не содержащие подстроку.
+* `STARTS_WITH` - строки, начинающиеся с подстроки.
+* `ENDS_WITH` - строки, заканчивающиеся подстрокой.
+* `IS_SET` - проверяет наличие значения (не `NULL`). Использует компонент `comboBox` с вариантами `Yes/No`. Если пользователь выбирает `Yes`, результаты включают только экземпляры сущностей, где в столбце есть данные. В противном случае, результаты включают только экземпляры сущностей, где в столбце нет данных.
+* `IS_COLLECTION_EMPTY` - проверяет пустоту коллекций (`@OneToMany`, `@ManyToMany`).
+* `MEMBER_OF_COLLECTION` - фильтрует по принадлежности к коллекции (`@OneToMany`, `@ManyToMany`).
+* `NOT_MEMBER_OF_COLLECTION` - фильтрует по отсутствию в коллекции.
 
 [[operationEditable]]
 === operationEditable
 
-Sets whether an operation selector is visible. Possible values are `true` and `false`. The default value is `false`. If you set `operationEditable = true`, the operation field enables selecting the condition operator in run-time. The list of available operators depends on the attribute type.
+Определяет видимость селектора операций. Возможные значения: `true` и `false`. По умолчанию `false`. При значении `true` позволяет выбирать оператор условия во время выполнения. Доступные операторы зависят от типа атрибута.
 
 [[operationTextVisible]]
 === operationTextVisible
 
-The `operationTextVisible` attribute defines the visibility of the operation label. Possible values are `true` and `false` (`true` by default).
+Определяет видимость надписи операции. Возможные значения: `true` и `false`. По умолчанию `true`.
 
 [[parameterName]]
 === parameterName
 
-The `parameterName` attribute sets the name of the associated query parameter name, used by condition. If not defined, then the parameter name is randomly generated.
+Задает имя связанного параметра запроса для условия. Если не указано, генерируется автоматически.
 
 [[property]]
 === property
 
-Sets the related entity property name or properties path (for example, `name`, `order`, `order.date`).
+Определяет имя свойства сущности или путь к свойству (например, `name`, `order`, `order.date`).
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -239,21 +239,21 @@ include::../handler-generation-tip.adoc[]
 [[OperationChangeEvent]]
 === OperationChangeEvent
 
-The `OperationChangeEvent` is sent when the operation property is changed.
+Событие `OperationChangeEvent` отправляется при изменении свойства операции.
 
 [[validator]]
 === validator
 
-Adds a xref:vc/miscellaneous/validator.adoc[validator] instance to the component. The validator must throw `ValidationException` if the value is not valid.
+Добавляет экземпляр xref:vc/miscellaneous/validator.adoc[валидатора] к компоненту. Валидатор должен выбрасывать `ValidationException`, если значение недопустимо.
 
-If you are not satisfied with the predefined validators, add your own validator instance:
+Если стандартные валидаторы не подходят, можно добавить собственный экземпляр валидатора:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/propertyfilter/PropertyFilterView.java[tags=validator]
 ----
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/validator.adoc[validator]
