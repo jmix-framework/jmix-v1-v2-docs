@@ -7,45 +7,45 @@
 </div>
 ++++
 
-An area to input text with rich formatting. It supports a variety of formatting options such as bold, italics, underlining, text alignment along with adding links, images, code blocks and more, to make text visually appealing and well-structured.
+Текстовое поле с поддержкой форматирования. Поддерживает различные варианты оформления текста, включая полужирный, курсив, подчеркивание, выравнивание, а также добавление ссылок, изображений, блоков кода и других элементов для создания визуально привлекательного и структурированного текста.
 
-* XML element: `richTextEditor`
+* XML-элемент: `richTextEditor`
 
-* Java class: `JmixRichTextEditor`
+* Java-класс: `JmixRichTextEditor`
 
-== Basics
+== Основы
 
-To add the component on a view, place it in the view descriptor:
+Для добавления компонента на экран разместите его в дескрипторе экрана:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/richtexteditor/rich-text-editor-view.xml[tags=basics]
 ----
 
-Users can type and edit text using actions in the toolbar.
+Пользователи могут вводить и редактировать текст с помощью инструментов панели.
 
 image::visual-components/components/rich-text-editor.png[align="center" width="953"]
 
-Unless set to a fixed size, the component will automatically adjust both its height and width to fit the content entered by the user.
+Если не задан фиксированный размер, компонент автоматически подстраивает свою высоту и ширину под вводимое содержимое.
 
-== Toolbar Actions
+== Действия на панели инструментов
 
-The component provides set of text formatting and editing capabilities that are available in the toolbar.
+Компонент предоставляет набор возможностей форматирования и редактирования текста:
 
 image::visual-components/components/rich-text-editor-toolbar.png[align="center" width="950"]
 
-. *Formatting:* apply bold, italic, underscore, or strikethrough to selected text.
-. *Levels of heading.*
-. *Subscript and superscript.*
-. *Ordered or bulleted lists.*
-. *Alignment:* align selected text to the left, center, right, or justified.
-. *Attachment:* insert images or embed links.
-. *Blocks*: add blockquote or code block.
-. *Clean formatting*: click to remove all formatting.
+. *Форматирование:* полужирный, курсив, подчеркивание, зачеркивание
+. *Заголовки разных уровней*
+. *Подстрочные и надстрочные символы*
+. *Нумерованные и маркированные списки*
+. *Выравнивание:* по левому краю, по центру, по правому краю, по ширине
+. *Вставка:* изображений или гиперссылок
+. *Блоки:* цитаты и блоки кода
+. *Очистка форматирования*
 
-== HTML Input
+== HTML-ввод
 
-In addition to user input, text can also be programmatically entered into the component. This can be plain text or text formatted with standard HTML tags.
+Помимо ручного ввода, текст можно программно добавлять в компонент. Это может быть как обычный текст, так и текст с HTML-разметкой.
 
 [source,java,indent=0]
 ----
@@ -54,7 +54,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 image::visual-components/components/rich-text-editor-html.png[align="center" width="953"]
 
-== Data Binding
+== Привязка данных
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -62,14 +62,14 @@ image::visual-components/components/rich-text-editor-html.png[align="center" wid
 </div>
 ++++
 
-The component can display the content of an entity's attribute, which may be plain text or text formatted with standard HTML tags.
+Компонент может отображать содержимое атрибута сущности, которое может быть как обычным текстом, так и текстом с HTML-разметкой.
 
-To bind `richTextEditor` to an entity attribute:
+Для привязки `richTextEditor` к атрибуту сущности:
 
-. Set the name of the data container to as the xref:vc/common-attributes.adoc#dataContainer[dataContainer] attribute value.
-. Set the name of an attribute as the xref:vc/common-attributes.adoc#property[property] attribute value.
+. Укажите имя контейнера данных в атрибуте xref:vc/common-attributes.adoc#dataContainer[dataContainer].
+. Задайте имя атрибута в параметре xref:vc/common-attributes.adoc#property[property].
 
-== Theme Variants
+== Варианты оформления
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -77,7 +77,7 @@ To bind `richTextEditor` to an entity attribute:
 </div>
 ++++
 
-The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select between two different options:
+Внешний вид компонента можно настроить с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который предлагает два варианта оформления:
 
 .`compact`
 [%collapsible%open]
@@ -91,9 +91,9 @@ image::visual-components/components/rich-text-editor-compact.png[align="center" 
 image::visual-components/components/rich-text-editor-no-border.png[align="center" width="953"]
 ====
 
-TIP: Use both themes at once to get a compact editor with no borders.
+TIP: Используйте оба варианта оформления одновременно, чтобы получить компактный редактор без границ.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -118,7 +118,7 @@ xref:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
