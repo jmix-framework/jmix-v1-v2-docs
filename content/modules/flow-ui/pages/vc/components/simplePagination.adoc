@@ -7,51 +7,51 @@
 </div>
 ++++
 
-`simplePagination` is a component used to load data by pages. It is designed to be used together with xref:flow-ui:vc/components/dataGrid.adoc[dataGrid], and xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid] components.
+`simplePagination` - это компонент для постраничной загрузки данных. Он предназначен для совместного использования с компонентами xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] и xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid].
 
-* XML element: `simplePagination`
+* XML-элемент: `simplePagination`
 
-* Java class: `SimplePagination`
+* Java-класс: `SimplePagination`
 
-== Basics
+== Основы
 
-`simplePagination` has a simple view with a count of rows and navigation buttons.
+`simplePagination` имеет простой экран с отображением количества строк и кнопками навигации.
 
-It can also have a <<items-per-page,drop-down list>> for the number of items per page.
+Также может содержать <<items-per-page,выпадающий список>> для выбора количества элементов на странице.
 
 image::visual-components/components/simple-pagination.png[align="center", width="818"]
 
-By default, Jmix Studio generates `simplePagination` when creating xref:flow-ui:views/views.adoc#standard-list-view[StandardListView] for an entity.
+По умолчанию Jmix Studio генерирует `simplePagination` при создании xref:flow-ui:views/view-classes.adoc#standard-list-view[StandardListView] для сущности.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/simplepagination/simple-pagination-view.xml[tags=data;layout;basics]
 ----
-<1> Define a xref:flow-ui:data/data-loaders.adoc[collection loader] to load `User` entities.
-<2> Connect `simplePagination` to data using the `dataLoader` attribute.
+<1> Определяем xref:flow-ui:data/data-loaders.adoc[загрузчик коллекции] для загрузки сущностей `User`.
+<2> Связываем `simplePagination` с данными через атрибут `dataLoader`.
 
 [[items-per-page]]
-== Items per Page
+== Количество элементов на странице
 
 [[itemsPerPageVisible]]
-`simplePagination` has a special `comboBox` with options to limit the number of items for one page. To make it visible, set the `itemsPerPageVisible` attribute to the `true` value. The default value is `false`.
+Компонент `simplePagination` содержит специальный `comboBox` с вариантами ограничения количества элементов на странице. Для его отображения установите атрибут `itemsPerPageVisible` в значение `true`. По умолчанию: `false`.
 
 image::visual-components/components/items-per-page.png[align="center", width="264"]
 
-The default value of this list is specified in the xref:flow-ui:ui-properties.adoc#jmix.ui.component.pagination-items-per-page-items[jmix.ui.component.pagination-items-per-page-items] property.
+Значения по умолчанию для этого списка задаются в свойстве xref:flow-ui:ui-properties.adoc#jmix.ui.component.pagination-items-per-page-items[jmix.ui.component.pagination-items-per-page-items].
 
 [[itemsPerPageItems]]
-You can configure a custom list of options using the `itemsPerPageItems` attribute. The value of the attribute should be a comma-separated list of options:
+Вы можете настроить собственный список вариантов через атрибут `itemsPerPageItems`. Значение должно быть списком чисел, разделенных запятыми:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/simplepagination/simple-pagination-view.xml[tags=itemsPerPageItems]
 ----
 
-Options that are less than or equal to `0` are ignored. Options that are greater than entity’s <<max-fetch-size,maximum fetch size>> are replaced by that maximum value.
+Варианты со значением, меньшим или равным `0`, игнорируются. Варианты, превышающие <<max-fetch-size,максимально допустимый размер выборки>> сущности, заменяются на максимальное значение.
 
 [[itemsPerPageDefaultValue]]
-Use the `itemsPerPageDefaultValue` attribute to set a default value from the list of options:
+Для установки значения по умолчанию используйте атрибут `itemsPerPageDefaultValue`:
 
 [source,xml,indent=0]
 ----
@@ -59,17 +59,17 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[itemsPerPageUnlimitedItemVisible]]
-The `itemsPerPageUnlimitedItemVisible` attribute sets the visibility of unlimited (null) option value in the items per page `comboBox`. The default value is `true`.
+Атрибут `itemsPerPageUnlimitedItemVisible` управляет отображением варианта `null` в `comboBox`. По умолчанию: `true`.
 
-When the null option is selected in the `comboBox`, the component will try to load all data it can with the current maximum fetch size limitation.
+При выборе null-варианта компонент попытается загрузить все данные в пределах ограничения максимально допустимого размера выборки.
 
 [[max-fetch-size]]
 [NOTE]
 ====
-The maximum fetch size for all entities is defined by xref:flow-ui:ui-properties.adoc#jmix.ui.default-max-fetch-size[jmix.ui.default-max-fetch-size] UI property. Its default value is 10000. A particular entity may have different maximum fetch size, set with xref:flow-ui:ui-properties.adoc#jmix.ui.entity-max-fetch-size[jmix.ui.entity-max-fetch-size].
+Максимально допустимый размер выборки для всех сущностей определяется свойством xref:flow-ui:ui-properties.adoc#jmix.ui.default-max-fetch-size[jmix.ui.default-max-fetch-size] (по умолчанию 10000). Для конкретной сущности можно задать отдельное ограничение через xref:flow-ui:ui-properties.adoc#jmix.ui.entity-max-fetch-size[jmix.ui.entity-max-fetch-size].
 ====
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -87,14 +87,14 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[autoLoad]]
 === autoLoad
 
-The `autoLoad` attribute determines whether the item count should be automatically loaded. When `autoLoad` is disabled, the component doesn't know the total item count and shows a button with a question mark `[?]`. When it's enabled, the component makes a query to get the total item count and displays it. The default value is `false`.
+Атрибут `autoLoad` определяет, должно ли количество элементов загружаться автоматически. Когда `autoLoad` отключен, компонент не знает общее количество элементов и отображает кнопку с вопросительным знаком `[?]`. При включении компонент выполняет запрос для получения общего количества элементов и отображает его. Значение по умолчанию: `false`.
 
 [[dataLoader]]
 === dataLoader
 
-To create `simplePagination` connected to data, use the `dataLoader` attribute.
+Для создания `simplePagination`, связанного с данными, используйте атрибут `dataLoader`.
 
-== Handlers
+== Обработчики
 
 <<AfterRefreshEvent,AfterRefreshEvent>> -
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
@@ -107,24 +107,24 @@ include::../handler-generation-tip.adoc[]
 [[AfterRefreshEvent]]
 === AfterRefreshEvent
 
-`io.jmix.flowui.component.PaginationComponent.AfterRefreshEvent` is fired after data refresh.
+Событие `io.jmix.flowui.component.PaginationComponent.AfterRefreshEvent` возникает после обновления данных.
 
 [[BeforeRefreshEvent]]
 === BeforeRefreshEvent
 
-`io.jmix.flowui.component.PaginationComponent.BeforeRefreshEvent` is fired before refreshing the data when the user clicks next, previous, etc. You can prevent the data container refresh by invoking the `preventRefresh()` method, for example:
+Событие `io.jmix.flowui.component.PaginationComponent.BeforeRefreshEvent` возникает перед обновлением данных при нажатии пользователем кнопок "вперед", "назад" и т.д. Вы можете предотвратить обновление контейнера данных, вызвав метод `preventRefresh()`, например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/simplepagination/SimplePaginationView.java[tags=BeforeRefreshEvent]
 ----
-<1> Check the number of instances in the data loader.
-<2> Prevent refreshing the data.
+<1> Проверяем количество экземпляров в загрузчике данных.
+<2> Блокируем обновление данных.
 
 [[totalCountDelegate]]
 === totalCountDelegate
 
-Sets delegate which is used to get the total count of items. For example:
+Устанавливает делегат для получения общего количества элементов. Например:
 
 [source,java,indent=0]
 ----
