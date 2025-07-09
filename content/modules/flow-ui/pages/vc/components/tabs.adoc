@@ -6,21 +6,21 @@
 </div>
 ++++
 
-A set of tabs that can trigger changes in the associated content area. Unlike xref:vc/layouts/tabSheet.adoc[tabSheet], this component cannot hold any content within itself.
+Набор вкладок, которые могут вызывать изменения в связанной области содержимого. В отличие от xref:vc/layouts/tabSheet.adoc[tabSheet], этот компонент не может содержать контент внутри себя.
 
-* XML element: `tabs`
+* XML-элемент: `tabs`
 
-* Java class: `Tabs`
+* Java-класс: `Tabs`
 
-== Basics
+== Основы
 
-By default, tabs are displayed in a horizontal row, with the tab labels arranged one after another. This row of tabs is typically positioned at the top or bottom of the associated content area.
+По умолчанию вкладки отображаются в горизонтальном ряду, с надписями, расположенными одна за другой. Этот ряд вкладок обычно располагается в верхней или нижней части связанной области содержимого.
 
-The following example demonstrates basic `tabs` functionality.
+Следующий пример демонстрирует базовую функциональность `tabs`.
 
 image::visual-components/components/tabs-basic.png[align="center", width="210"]
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -29,32 +29,32 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
-In this example, the component contains two nested <<tab,tab>> elements. To update the content associated with the selected tab, define an event handler that listens for the <<SelectedChangeEvent, SelectedChangeEvent>>. When a tab is selected, this event is fired, allowing you to update the displayed content accordingly.
+В этом примере компонент содержит две вложенные <<tab,вкладки>>. Для обновления контента, связанного с выбранной вкладкой, определите обработчик событий, который отслеживает <<SelectedChangeEvent, SelectedChangeEvent>>. При выборе вкладки это событие срабатывает, позволяя соответствующим образом обновить отображаемое содержимое.
 
-== Orientation
+== Ориентация
 
-While horizontal orientation is default, vertical orientation can be alternative option in certain scenarios. For example, with a larger number of tabs, this orientation may provide additional space for their labels.
+Хотя горизонтальная ориентация используется по умолчанию, вертикальная ориентация может быть альтернативным вариантом в некоторых сценариях. Например, при большом количестве вкладок такая ориентация может предоставить дополнительное пространство для их надписей.
 
 image::visual-components/components/tabs-vertical.png[align="center", width="114"]
 
-Use the <<orientation, orientation>> attribute to change the orientation of `tabs`.
+Используйте атрибут <<orientation, orientation>> для изменения ориентации компонента tabs.
 
-== States
+== Состояния
 
-A `tab` can be selected, unselected, or disabled:
+Вкладка может находиться в одном из состояний: выбрана, не выбрана или отключена:
 
 image::visual-components/components/tabs-states.png[align="center", width="316"]
 
-These states allow users to easily determine which tab is currently active and which tabs may be temporarily unavailable or disabled.
+Эти состояния позволяют пользователям легко определить, какая вкладка активна в данный момент, а какие временно недоступны или отключены.
 
 [[labels]]
-== Labels
+== Надписи
 
-Individual tabs can nest almost any components within them. This allows to compose visually distinctive tab labels:
+Отдельные вкладки могут содержать практически любые компоненты. Это позволяет создавать визуально отличительные надписи для вкладок:
 
 image::visual-components/components/tabs-basic2.png[align="center", width="394"]
 
-.XML code
+.XML код
 [%collapsible%open]
 ====
 [source,xml,indent=0]
@@ -63,19 +63,19 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 ====
 
-== Theme Variants
+== Варианты оформления
 
-The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute. Choose from the following themes and combine them together as needed:
+Внешний вид компонента можно настроить с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames]. Доступны следующие темы, которые можно комбинировать:
 
 === icon-on-top
 
-When a <<labels, tab label>> includes an icon, positions it above the text label instead of displaying them side-by-side:
+Когда <<labels, надпись вкладки>> включает иконку, располагает её над текстом вместо стандартного бокового расположения:
 
 image:visual-components/components/tabs-icon-on-top.png[width=308]
 
-Each <<tab,tab>> element must have this theme applied to it individually.
+Каждый элемент <<tab,вкладки>> должен иметь эту тему применённой индивидуально.
 
-.Show XML
+.Показать XML
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -86,38 +86,38 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 === centered
 
-Positions the tabs at the center of the container or view, instead of their default left-aligned position:
+Выравнивает вкладки по центру контейнера или экрана вместо стандартного выравнивания по левому краю:
 
 image::visual-components/components/tabs-centered.png[width=610]
 
 === small
 
-Makes the tabs smaller:
+Уменьшает размер вкладок:
 
 image:visual-components/components/tabs-small.png[width=366]
 
 === minimal
 
-Reduces visual style to only show tab labels without any additional visual elements:
+Упрощает стиль, оставляя только надписи без дополнительных визуальных элементов:
 
 image:visual-components/components/tabs-minimal.png[width=394]
 
 === hide-scroll-buttons
 
-Hides the scroll buttons that assist in navigating overflown tabs:
+Скрывает кнопки прокрутки для навигации по не помещающимся вкладкам:
 
 image:visual-components/components/tabs-hide-scroll-buttons.png[width=394]
 
-Note that horizontal scrolling may be difficult with these buttons disabled.
+Имейте ввиду, что горизонтальная прокрутка может быть затруднена при отключении этих кнопок.
 
 === equal-width-tabs
 
-Allocates an equal amount of space to each tab and disables the ability to scroll:
+Распределяет равное пространство для каждой вкладки и отключает возможность прокрутки:
 
 image:visual-components/components/tabs-equal-width.png[width=538]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -143,12 +143,12 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-Defines tabs orientation. Possible values:
+Определяет расположение вкладок. Возможные значения:
 
-* `HORIZONTAL` – tabs are placed horizontally. This is the default value.
-* `VERTICAL` –  tabs are placed vertically.
+* `HORIZONTAL` - вкладки располагаются горизонтально (значение по умолчанию).
+* `VERTICAL` - вкладки располагаются вертикально.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
@@ -159,28 +159,32 @@ include::../handler-generation-tip.adoc[]
 [[SelectedChangeEvent]]
 === SelectedChangeEvent
 
-`com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent` is fired when another tab is selected.
+Событие `com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent` возникает при выборе другой вкладки.
 
-The following example adds a label when a tab is selected:
+Пример добавления надписи при выборе вкладки:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/tabs/TabsView.java[tags=content;SelectedChangeEvent;SetTabContent]
 ----
 
-== Elements
+== Элементы
 
 [TIP]
 ====
-To add an element in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:view-designer.adoc#component-inspector-add-button[*Add*] button in the *Component Inspector* panel.
+Для добавления элемента в Jmix Studio:
+
+. Выберите компонент в XML-дескрипторе экрана или панели Jmix UI Structure
+
+. Нажмите кнопку xref:studio:view-designer.adoc#component-inspector-add-button[*Add*] в панели *Component Inspector*
 ====
 
 [[tab]]
 === tab
 
-Individual tabs are defined with nested `tab` elements.
+Отдельные вкладки определяются с помощью вложенных элементов `tab`.
 
-.*`tab` attributes*
+.*Атрибуты `tab`*
 [%collapsible%open]
 ====
 xref:vc/common-attributes.adoc#id[id] -
@@ -196,13 +200,13 @@ xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#visible[visible]
 ====
 
-.*`tab` handlers*
+.*Обработчки `tab`*
 [%collapsible%open]
 ====
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 ====
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/tabs[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/tabs[документацию Vaadin^] для получения дополнительной информации.
