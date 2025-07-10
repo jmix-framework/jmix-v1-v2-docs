@@ -7,15 +7,15 @@
 </div>
 ++++
 
-An area to enter multiple lines of text.
+Область для ввода многострочного текста.
 
-* XML element: `textArea`
+* XML-элемент: `textArea`
 
-* Java class: `JmixTextArea`
+* Java-класс: `JmixTextArea`
 
-== Basics
+== Основы
 
-Use `textArea` when the expected input could span multiple lines such as commentary or descriptions.
+Используйте `textArea`, когда ожидается ввод многострочного текста, такого как комментарии или описания.
 
 image::visual-components/components/text-area-basic.png[align="center", width="200"]
 
@@ -24,9 +24,9 @@ image::visual-components/components/text-area-basic.png[align="center", width="2
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/textarea/text-area-view.xml[tags=basics]
 ----
 
-Unless set to a fixed height, `textArea` adjusts its height automatically based on its content. The default and minimum height is two rows of text.
+Если не задана фиксированная высота, компонент автоматически подстраивает высоту под содержимое. Минимальная и стандартная высота - две строки текста.
 
-== Data Binding
+== Привязка данных
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -34,29 +34,29 @@ Unless set to a fixed height, `textArea` adjusts its height automatically based 
 </div>
 ++++
 
-Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных означает связывание визуального компонента с контейнером данных. Изменения в компоненте или соответствующем контейнере могут вызывать взаимные обновления. Подробнее смотрите в разделе xref:data/data-examples.adoc[].
 
-The following example produces a data-aware `textArea`:
+Пример создания `textArea` с привязкой к данным:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/textarea/text-area-view.xml[tags=data-binding]
 ----
 
-Ensure that the entity attribute you are binding to is of String type. Unlike xref:vc/components/textField.adoc[], `textArea` is specifically designed to work with textual data.
+Убедитесь, что атрибут сущности, к которому выполняется привязка, имеет строковый тип. В отличие от xref:vc/components/textField.adoc[], `textArea` специально предназначен для работы с текстовыми данными.
 
 [[themeVariants]]
-== Theme Variants
+== Варианты оформления
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to adjust text alignment, helper text placement, and component size.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки выравнивания текста, положения вспомогательного текста и размера компонента.
 
-=== Alignment
+=== Выравнивание
 
-Choose among three alignment options: `align-left` (default), `align-right`, `align-center`.
+Доступны три варианта: `align-left` (по умолчанию), `align-right`, `align-center`.
 
 image::visual-components/components/text-area-alignment.png[align="center", width="620"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -65,13 +65,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Helper Text Position
+=== Положение вспомогательного текста
 
-Setting `helper-above-field` will move the helper text from its default position below the field to above it.
+Опция `helper-above-field` перемещает вспомогательный текст из стандартного положения под полем на позицию над ним.
 
 image::visual-components/components/text-area-helper-text-position.png[align="center", width="410"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -80,13 +80,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Size
+=== Размер
 
-Two size options are available: the default size and `small`.
+Доступно два варианта размера: стандартный и уменьшенный (`small`).
 
 image::visual-components/components/text-area-size.png[align="center", width="387"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -95,7 +95,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -136,7 +136,7 @@ xref:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -156,13 +156,13 @@ xref:vc/components/textField.adoc#validator[validator]
 
 include::../handler-generation-tip.adoc[]
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
 xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
 xref:vc/miscellaneous/validator.adoc[validator]
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/text-area[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/text-area[документацию Vaadin^] для получения дополнительной информации.
