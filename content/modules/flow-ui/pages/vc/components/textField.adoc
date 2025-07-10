@@ -7,15 +7,15 @@
 </div>
 ++++
 
-An input field for editing text or values of arbitrary data types.
+Поле ввода для редактирования текста или значений произвольных типов данных.
 
-* XML element: `textField`
+* XML-элемент: `textField`
 
-* Java class: `TypedTextField`
+* Java-класс: `TypedTextField`
 
-== Basics
+== Основы
 
-The `textField` component is a typed component, which means it enables you to work with input of different data types. You can set its type by <<data-binding, binding the component>> to an entity attribute of certain type or by setting type explicitly using the xref:vc/common-attributes.adoc#datatype[datatype] attribute.
+Компонент `textField` является типизированным, что позволяет работать с вводом различных типов данных. Вы можете задать его тип, <<data-binding, привязав компонент>> к атрибуту сущности определённого типа или явно указав тип с помощью атрибута xref:vc/common-attributes.adoc#datatype[datatype].
 
 [source,xml,indent=0]
 ----
@@ -24,34 +24,34 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 image::visual-components/components/text-field-basic.png[align="center", width="211"]
 
-Additional methods to work with typed values include `setTypedValue()` and `getTypedValue()`. These methods are useful when you need to set or retrieve values of specific type, such as `Integer` or `Long`.
+Дополнительные методы для работы с типизированными значениями включают `setTypedValue()` и `getTypedValue()`. Эти методы полезны, когда необходимо установить или получить значения конкретного типа, такие как `Integer` или `Long`.
 
-When processing changes to the component's values, it is recommended to use xref:vc/common-handlers.adoc#TypedValueChangeEvent[TypedValueChangeEvent] instead of xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent]. This approach ensures that the value is of the correct type and avoids the need for additional type conversions or checks.
+При обработке изменений значений компонента рекомендуется использовать xref:vc/common-handlers.adoc#TypedValueChangeEvent[TypedValueChangeEvent] вместо xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent]. Такой подход гарантирует корректность типа значения и исключает необходимость дополнительных преобразований или проверок.
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
-To create `textField` connected to data, use xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:flow-ui:vc/common-attributes.adoc#property[property] attributes.
+Для создания `textField`, связанного с данными, используйте атрибуты xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:flow-ui:vc/common-attributes.adoc#property[property].
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/textfield/text-field-view.xml[tags=data;layout;basics-1]
 ----
 
-In the example above, the view describes the `departmentDc` data container for the `Department` entity, which has the `name` attribute. The `textField` component has a link to the container specified in the `dataContainer` attribute; the `property` attribute contains the name of the entity attribute that is displayed in `textField`.
+В приведённом выше примере экран описывает контейнер данных `departmentDc` для сущности `Department`, которая содержит атрибут `name`. Компонент `textField` связан с контейнером через атрибут `dataContainer`; атрибут `property` содержит имя атрибута сущности, отображаемого в `textField`
 
 [[themeVariants]]
-== Theme Variants
+== Варианты оформления
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to adjust text alignment, helper text placement, and component size.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки выравнивания текста, расположения вспомогательного текста и размера компонента.
 
-=== Alignment
+=== Выравнивание
 
-Choose among three alignment options: `align-left` (default), `align-right`, `align-center`.
+Доступны три варианта выравнивания: `align-left` (по умолчанию), `align-right`, `align-center`.
 
 image::visual-components/components/text-field-alignment.png[align="center", width="625"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -60,13 +60,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Helper Text Position
+=== Положение вспомогательного текста
 
-Setting `helper-above-field` will move the helper text from its default position below the field to above it.
+Установка значения `helper-above-field` перемещает вспомогательный текст из стандартного положения под полем на позицию над ним.
 
 image::visual-components/components/text-field-helper-text-position.png[align="center", width="420"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -75,13 +75,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Size
+=== Размер
 
-Two size options are available: the default size and `small`.
+Доступны два варианта размера: стандартный и `small` (уменьшенный).
 
 image::visual-components/components/text-field-size.png[align="center", width="390"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -91,7 +91,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ====
 
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -145,7 +145,7 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-Set to `true` to always have the field value automatically selected when the field gains focus, `false` otherwise.
+При значении `true` текст в поле будет автоматически выделяться при получении фокуса. При `false` - не будет.
 
 [[clearButtonVisible]]
 === clearButtonVisible
@@ -156,7 +156,7 @@ Set to `true` to always have the field value automatically selected when the fie
 </div>
 ++++
 
-Sets the visibility of the button which clears the field.
+Определяет видимость кнопки очистки поля.
 
 [[trimEnabled]]
 === trimEnabled
@@ -170,11 +170,11 @@ Sets the visibility of the button which clears the field.
 [[value]]
 === value
 
-Defines the value of `textField`.
+Определяет значение `textField`.
 
-If the value cannot be parsed to a required xref:flow-ui:vc/common-attributes.adoc#datatype[data type], the default conversion error message appears.
+При невозможности преобразования значения к указанному xref:flow-ui:vc/common-attributes.adoc#datatype[типу данных] будет показано стандартное сообщение об ошибке конвертации.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -198,20 +198,20 @@ include::../handler-generation-tip.adoc[]
 [[validator]]
 === validator
 
-Adds a xref:vc/miscellaneous/validator.adoc[validator] instance to the component. The validator must throw `ValidationException` if the value is not valid.
+Добавляет экземпляр xref:vc/miscellaneous/validator.adoc[валидатора] к компоненту. Валидатор должен выбрасывать `ValidationException` при недопустимом значении.
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/textfield/TextFieldView.java[tags=validator]
 ----
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/validator.adoc[validator] -
 xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
 xref:vc/miscellaneous/prefix-suffix.adoc[suffix]
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/text-field[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/text-field[документацию Vaadin^] для получения дополнительной информации.
