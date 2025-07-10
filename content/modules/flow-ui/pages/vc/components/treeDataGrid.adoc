@@ -7,15 +7,15 @@
 </div>
 ++++
 
-A table of data that features collapsible sections in one of its columns. It resembles xref:vc/components/dataGrid.adoc[] and supports most of its functionality, but is better suited for datasets that require intuitive navigation through hierarchical data.
+Таблица данных с возможностью сворачивания и разворачивания дочерних записей в одном из столбцов. Похожа на xref:vc/components/dataGrid.adoc[] и поддерживает большую часть его функциональности, но лучше подходит для работы с иерархическими данными, обеспечивая интуитивную навигацию.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`treeDataGrid`
-|Java Class
+|Java-класс
 |`TreeDataGrid`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 <<allRowsVisible, allRowsVisible>> -
@@ -48,7 +48,7 @@ xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
 xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 <<CellFocusEvent, CellFocusEvent>> -
@@ -70,40 +70,43 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<enterPressHandler, enterPressHandler>> -
 <<partNameGenerator, partNameGenerator>> -
 <<tooltipGenerator, tooltipGenerator>>
-|Elements
+|Элементы
 |xref:flow-ui:vc/components/dataGrid.adoc#actions[actions] - <<columns, columns>> - <<column, column>> - <<context-menu-element, contextMenu>> - xref:vc/components/dataGrid.adoc#empty-state-component-element[emptyStateComponent]
 |===
 
-== Basics
+== Основы
 
-`treeDataGrid` primarily replicates the functionality of the xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] component.
+`treeDataGrid` в основном повторяет функциональность компонента xref:flow-ui:vc/components/dataGrid.adoc[dataGrid].
 
-An example of `treeDataGrid` declaration in the XML view descriptor is shown below:
+Пример объявления `treeDataGrid` в XML-дескрипторе экрана:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/treedatagrid/tree-data-grid-view.xml[tags=data;departmentsDc;layout;basics]
 ----
 
-<1> xref:flow-ui:data/collection-container.adoc[Collection container] for the `Department` entity.
-<2> `treeDataGrid` is bound to the `departmentsDc` container using the `dataContainer` attribute.
-<3> The `columns` element defines which entity attributes are shown in the tree data grid columns.
+<1> xref:flow-ui:data/collection-container.adoc[Контейнер коллекции] для сущности `Department`.
+<2> `treeDataGrid` привязан к контейнеру `departmentsDc` через атрибут `dataContainer`.
+<3> Элемент `columns` определяет, какие атрибуты сущности отображаются в столбцах.
 
 image::visual-components/components/tree-data-grid-basics.png[align="center", width="563"]
 
 [[actions]]
-== Actions
+== Действия
 
-The `treeDataGrid` component implements the `HasActions` interface and can contain both standard xref:flow-ui:actions/list-actions.adoc[list actions] and custom actions. Actions are invoked by clicking designated buttons or from the <<context-menu, context menu>> that appears on the right click.
+Компонент `treeDataGrid` реализует интерфейс `HasActions` и может содержать как стандартные xref:flow-ui:actions/list-actions.adoc[действия списка], так и пользовательские действия. Действия вызываются через кнопки или <<context-menu, контекстное меню>> (по правому клику).
 
 image::visual-components/components/tree-data-grid-actions.png[align="center", width="563"]
 
 [TIP]
 ====
-To add `action` in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#add-action[Add->Action] button in the *Jmix UI* inspector panel.
+Для добавления действия в Jmix Studio:
+
+. Выберите компонент в XML-дескрипторе или на панели структуры *Jmix UI*.
+. Нажмите xref:studio:screen-designer.adoc#add-action[Add->Action] в панели инспектора *Jmix UI*.
 ====
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -111,301 +114,301 @@ To add `action` in Jmix Studio, select the component in the view descriptor XML 
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/treedatagrid/tree-data-grid-view.xml[tags=actions]
 ----
 
-<1> Define `hbox` to contain action buttons.
-<2> Define the `list_create` standard action.
-<3> Define the `getInfo` custom action. Value of its xref:flow-ui:vc/common-attributes.adoc#text[text] attribute represents the action in the context menu and is used as the button caption.
+<1> Контейнер `hbox` для кнопок действий.
+<2> Стандартное действие `list_create`.
+<3> Пользовательское действие `getInfo`. Значение атрибута xref:flow-ui:vc/common-attributes.adoc#text[text] используется как подпись в меню и на кнопке.
 ====
 
 [[context-menu]]
-== Context Menu
+== Контекстное меню
 
-The context menu offers an alternative way to access <<actions, actions>> through a right click. Each action is represented by its own menu item.
+Контекстное меню предоставляет альтернативный способ доступа к <<actions, действиям>> через правую кнопку мыши. Каждое действие представлено отдельным пунктом меню.
 
-Use the `contextMenu` element to refine the list of items in the menu, organizing them with separators and a hierarchical structure.
+Используйте элемент `contextMenu` для настройки списка пунктов меню, организуя их с помощью разделителей и иерархической структуры.
 
 image::visual-components/components/tree-data-grid-context-menu.png[align="center", width="563"]
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/treedatagrid/tree-data-grid-view.xml[tags=context-menu]
 ----
-<1> Hide all actions from the menu. Or hide a specific action using its xref:vc/common-attributes.adoc#visible[visible] attribute.
-<2> Add menu items explicitly for necessary actions.
-<3> Nest items within each other to create a hierarchy.
+<1> Скрыть все действия из меню. Или скрыть конкретное действие с помощью атрибута xref:vc/common-attributes.adoc#visible[visible].
+<2> Явно добавить пункты меню для нужных действий.
+<3> Вложенные пункты создают иерархическую структуру.
 
 ====
 
-== Attributes
+== Атрибуты
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `treeDataGrid`:
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые выполняют одинаковые функции для всех компонентов.
+Ниже приведены атрибуты, специфичные для `treeDataGrid`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[allRowsVisible]]allRowsVisible
-|If `true`, all rows are displayed at once with no scroll bars, effectively disabling virtual scrolling. This means that instead of only rendering the visible rows and loading more as the user scrolls, the grid will render all the rows in the DOM simultaneously.
+|Если `true`, все строки отображаются сразу без полос прокрутки, фактически отключая виртуальную прокрутку. Это означает, что вместо рендеринга только видимых строк и подгрузки новых при прокрутке, все строки будут отображены в DOM одновременно.
 
-*Using this feature is discouraged for a large number of items as it may cause performance issues.*
+*Использование этой функции не рекомендуется для большого количества элементов, так как может вызвать проблемы с производительностью.*
 |`false`
 |[[columnReorderingAllowed]]columnReorderingAllowed
-|If `true`, enables users to change the order of columns.
+|Если `true`, позволяет пользователям изменять порядок столбцов.
 |`false`
 |[[detailsVisibleOnClick]]detailsVisibleOnClick
-|If `true`, enables xref:flow-ui:vc/components/dataGrid.adoc#item-details[item details] to be revealed on mouse click.
+|Если `true`, включает отображение xref:flow-ui:vc/components/dataGrid.adoc#item-details[детализации элемента] по клику мыши.
 |`true`
 |[[dropMode]]dropMode
-|Determines rows where a drop can happen. Possible values: `BETWEEN`, `ON_TOP`, `ON_TOP_OR_BETWEEN`, `ON_GRID`. This feature might be used, for example, to reorder rows and to drag rows between grids.
+|Определяет, куда можно перетаскивать строки. Возможные значения: `BETWEEN`, `ON_TOP`, `ON_TOP_OR_BETWEEN`, `ON_GRID`. Может использоваться для изменения порядка строк или перетаскивания между таблицами.
 |–
 |[[editorBuffered]]editorBuffered
-|If `true`, activates buffered mode for xref:flow-ui:vc/components/dataGrid.adoc#inline-editing[inline editing] meaning that the user must confirm making changes by clicking a confirm button. This mode also allows users to cancel their changes. In unbuffered mode changes are applied without the need for confirmation.
+|Если `true`, активирует буферизованный режим для xref:flow-ui:vc/components/dataGrid.adoc#inline-editing[встроенного редактирования], требующий подтверждения изменений кнопкой. В небуферизованном режиме изменения применяются сразу.
 |`false`
 |[[hierarchyProperty]]hierarchyProperty
-|Defines the name of the entity attribute, which refers to the same entity.
+|Определяет имя атрибута сущности, ссылающегося на ту же сущность.
 |-
 |[[multiSort]]multiSort
-|If `true`, enables sorting by multiple columns.
+|Если `true`, включает сортировку по нескольким столбцам.
 |`false`
 |[[multiSortOnShiftClickOnly]]multiSortOnShiftClickOnly
-|If `true`, multi-sorting is activated only when clicking on the column header while holding down the Shift key.
+|Если `true`, множественная сортировка активируется только при клике по заголовку столбца с зажатой `Shift`.
 |`false`
 |[[multiSortPriority]]multiSortPriority
-|Determines whether the clicked column is added to the end or beginning of the sorted columns list. Possible values: `PREPEND`, `APPEND`.
+|Определяет, добавляется ли столбец в начало или конец списка сортировки. Возможные значения: `PREPEND`, `APPEND`.
 |`PREPEND`
 |[[nestedNullBehavior]]nestedNullBehavior
-|Sets the behavior when parsing nested properties which may contain null values in the property chain. Possible values: `THROW`, `ALLOW_NULLS`.
+|Задает поведение при обработке вложенных свойств с null-значениями. Возможные значения: `THROW`, `ALLOW_NULLS`.
 |`THROW`
 |[[pageSize]]pageSize
-|Determines the page size or the number of items that will be fetched from the data provider at a time.
+|Определяет размер страницы (количество элементов, загружаемых за раз).
 |`50`
 |[[rowDraggable]]rowDraggable
-|If `true`, enables users to drag rows in the grid.
+|Если `true`, позволяет перетаскивать строки.
 |`false`
 |[[selectionMode]]selectionMode
-|Sets the selection mode. Possible values: `SINGLE`, `MULTI`.
+|Устанавливает режим выделения. Возможные значения: `SINGLE`, `MULTI`.
 |`SINGLE`
 |[[showOrphans]]showOrphans
-|If `false` orphan records are not shown. If `true`, orphan records will appear at the top level as roots.
+|Если `false`, потерянные записи не отображаются. Если `true`, такие записи отображаются на верхнем уровне как корневые элементы.
 
-An orphan record is a child record that refers to a non-existent parent, often occurring when data is loaded partially due to filtering or paging. While not showing orphans seems logical with filters, it can lead to empty or partially filled pages. It is discouraged to use the `treeDataGrid` component together with `simplePagination`.
+Потерянная запись - это дочерний элемент, ссылающийся на несуществующего родителя (часто возникает при частичной загрузке данных). Хотя скрытие таких записей логично при фильтрации, это может привести к пустым или неполным страницам. Не рекомендуется использовать `treeDataGrid` вместе с `simplePagination`.
 
 |`false`
 |===
 
-== Handlers
+== Обработчики
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `treeDataGrid`:
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов.
+
+Ниже приведены обработчики, специфичные для `treeDataGrid`:
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[CellFocusEvent]]CellFocusEvent
-|`com.vaadin.flow.component.grid.CellFocusEvent` fired when a cell in the data grid is focused. Corresponds to the `grid-cell-focus` DOM event.
+|`com.vaadin.flow.component.grid.CellFocusEvent` возникает при фокусировке на ячейке таблицы. Соответствует DOM-событию `grid-cell-focus`.
 |[[CollapseEvent]]CollapseEvent
-|com.vaadin.flow.component.treegrid.CollapseEvent is fired when an item is collapsed.
+|`com.vaadin.flow.component.treegrid.CollapseEvent` возникает при сворачивании элемента.
 |[[ColumnReorderEvent]]ColumnReorderEvent
-|`com.vaadin.flow.component.grid.ColumnReorderEvent` fired when the columns in the data grid are reordered. Corresponds to the `column-reorder-all-columns` DOM event.
+|`com.vaadin.flow.component.grid.ColumnReorderEvent` возникает при изменении порядка столбцов. Соответствует DOM-событию `column-reorder-all-columns`.
 |[[ColumnResizeEvent]]ColumnResizeEvent
-|`com.vaadin.flow.component.grid.ColumnResizeEvent` fired when a data grid column is resized by the user. Corresponds to the `column-drag-resize` DOM event.
+|`com.vaadin.flow.component.grid.ColumnResizeEvent` возникает при изменении размера столбца пользователем. Соответствует DOM-событию `column-drag-resize`.
 |[[ExpandEvent]]ExpandEvent
-|`com.vaadin.flow.component.treegrid.ExpandEvent` is fired when an item is expanded.
+|`com.vaadin.flow.component.treegrid.ExpandEvent` возникает при разворачивании элемента.
 |[[GridDragEndEvent]]GridDragEndEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - drag end event of dataGrid rows. Corresponds to the `grid-dragend` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - событие окончания перетаскивания строк. Соответствует DOM-событию `grid-dragend`.
 |[[GridDragStartEvent]]GridDragStartEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - drag start event of dataGrid rows. Corresponds to the `grid-dragstart` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - событие начала перетаскивания строк. Соответствует DOM-событию `grid-dragstart`.
 |[[GridDropEvent]]GridDropEvent
-|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - drop event that occurs on the data grid or its rows. Corresponds to the `grid-drop` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - событие сброса на таблицу или её строки. Соответствует DOM-событию `grid-drop`.
 |[[ItemClickEvent]]ItemClickEvent
-|`com.vaadin.flow.component.grid.ItemClickEvent` fired when a data grid item is clicked. Corresponds to the `item-click` DOM event.
+|`com.vaadin.flow.component.grid.ItemClickEvent` возникает при клике на элемент таблицы. Соответствует DOM-событию `item-click`.
 |[[ItemDoubleClickEvent]]ItemDoubleClickEvent
-|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` fired when a data grid item is double-clicked. Corresponds to the `item-double-click` DOM event.
+|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` возникает при двойном клике на элемент. Соответствует DOM-событию `item-double-click`.
 |[[SortEvent]]SortEvent
-|`com.vaadin.flow.data.event.SortEvent` - event describing a change in sorting of a DataProvider. Fired by `SortNotifiers`.
+|`com.vaadin.flow.data.event.SortEvent` - событие изменения сортировки `DataProvider`. Генерируется `SortNotifiers`.
 |[[dataGenerator]]dataGenerator
-|Adds a data generator for the data grid. If the generator was already added, does nothing. See the `com.vaadin.flow.data.provider.HasDataGenerators` interface.
+|Добавляет генератор данных для таблицы. Если генератор уже добавлен, ничего не делает. Смотрите интерфейс `com.vaadin.flow.data.provider.HasDataGenerators`.
 |[[dragFilter]]dragFilter
-|Allows to control which specific rows can be dragged, rather than making all rows draggable with <<rowDraggable, rowDraggable>>.
+|Позволяет контролировать, какие именно строки можно перетаскивать, вместо включения перетаскивания всех строк через <<rowDraggable, rowDraggable>>.
 |[[dropFilter]]dropFilter
-|Allows to control which specific rows are valid drop targets.
+|Позволяет контролировать, на какие строки можно сбрасывать элементы.
 |[[enterPressHandler]]enterPressHandler
-|Handles the event when the user presses the Enter key.
+|Обрабатывает нажатие клавиши Enter.
 |[[partNameGenerator]]partNameGenerator
-|Generates parts of CSS class names for cells based on given conditions. This allows for customizing cell appearance based on the data displayed.
+|Генерирует части CSS-классов для ячеек на основе заданных условий. Позволяет настраивать внешний вид ячеек в зависимости от данных.
 |[[tooltipGenerator]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Генерирует всплывающие подсказки для ячеек столбцов. Смотрите https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[демонстрацию^].
 |===
 
+== Элементы
 
-== Elements
-
-Elements of `dataGrid` provide a wide range of options to control the appearance, behavior, and functionality of columns both collectively and individually.
+Элементы `treeDataGrid` предоставляют широкие возможности для управления внешним видом, поведением и функциональностью столбцов как в целом, так и по отдельности.
 
 [TIP]
 ====
-To add an element to a selected component click the xref:studio:screen-designer.adoc#add-column[Add] button in the *Jmix UI* inspector panel.
+Чтобы добавить элемент к выбранному компоненту, нажмите кнопку xref:studio:screen-designer.adoc#add-column[Add] в панели инспектора *Jmix UI*.
 ====
 
 [[columns]]
 === columns
 
-The `columns` element can specify a set of attributes to display and behaviors for all columns.
+Элемент `columns` позволяет задавать набор отображаемых атрибутов и поведение для всех столбцов.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`columns`
-|Attributes
+|Атрибуты
 |<<exclude,exclude>> - <<includeAll,includeAll>> - <<resizable-columns,resizable>> - <<sortable-columns,sortable>>
-|Elements
+|Элементы
 |<<column,column>>
 |===
 
-.Attributes
+.Атрибуты
 [cols="1h,5,1", grid=rows]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[exclude]]exclude
-|Excludes specific attributes from being shown. Several attributes must be separated with a comma. For example: `exclude = "id, version, sortValue"`.
+|Исключает указанные атрибуты из отображения. Несколько атрибутов разделяются запятыми. Например: `exclude = "id, version, sortValue"`.
 |–
 |[[includeAll]]includeAll
-|If `true` includes all the attributes specified in the corresponding data container's fetch plan.
+|Если `true`, включает все атрибуты, указанные в фетч-плане соответствующего контейнера данных.
 |–
 |[[resizable-columns]]resizable
-|If `true`, all columns are user-resizable.
+|Если `true`, все столбцы можно изменять в ширину.
 |`false`
 |[[sortable-columns]]sortable
-|If `true`, all columns are sortable.
+|Если `true`, все столбцы поддерживают сортировку.
 |`true`
 |===
 
 [[column]]
 === column
 
-The `column` element defines an individual column. Attributes set for an individual column override those set for all columns.
+Элемент `column` определяет отдельный столбец. Атрибуты, заданные для отдельного столбца, имеют приоритет над атрибутами, заданными для всех столбцов.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`column`
-|Attributes
+|Атрибуты
 |<<autowidth,autowidth>> - <<editable,editable>> - <<filterable,filterable>> - <<flexGrow,flexGrow>> - <<footer,footer>> - <<frozen,frozen>> - <<header,header>> - <<key,key>> - <<property,property>> - <<resizable-column,resizable>> - <<sortable-column,sortable>> - <<textAlign,textAlign>> - <<visible,visible>> - <<width,width>>
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] - <<DataGridColumnVisibilityChangedEvent,DataGridColumnVisibilityChangedEvent>> - xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<partNameGenerator-column,partNameGenerator>> - <<renderer,renderer>> - <<tooltipGenerator-column,tooltipGenerator>>
-|Elements
+|Элементы
 |xref:vc/components/dataGrid.adoc#aggregating[Aggregation] -
 xref:vc/components/dataGrid.adoc#fragment-renderer[FragmentRenderer] -
 xref:vc/components/dataGrid.adoc#local-date-renderer[LocalDateRenderer] - xref:vc/components/dataGrid.adoc#local-date-time-renderer[LocalDateTimeRenderer] - xref:vc/components/dataGrid.adoc#number-renderer[NumberRenderer]
 |===
 
-.Attributes
+.Атрибуты
 [cols="1h,5,1", grid=rows]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[autowidth]] autoWidth
-|If `true`, the column width will adjust to its contents.
+|Если `true`, ширина столбца автоматически подстраивается под содержимое.
 |`false`
 |[[editable]]editable
-|If `true`, the column can be edited. See xref:vc/components/dataGrid.adoc#inline-editing[Inline Editing].
+|Если `true`, столбец доступен для редактирования. Смотрите xref:vc/components/dataGrid.adoc#inline-editing[Встроенное редактирование].
 |`false`
 |[[filterable]]filterable
-|If `true` enables filtering for this column. See xref:vc/components/dataGrid.adoc#column-filtering[Filtering].
+|Если `true`, включает фильтрацию для этого столбца. Смотрите xref:vc/components/dataGrid.adoc#column-filtering[Фильтрация по заголовкам столбцов].
 |`false`
 |[[flexGrow]]flexGrow
-|Sets the flex grow ratio for this column. When set to `0`, the column width is fixed.
+|Задает коэффициент растяжения столбца. При значении `0` ширина столбца фиксирована.
 |`0`
 |[[footer]]footer
-|Sets a footer text to the column. The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+|Устанавливает текст в подвале столбца. Значением может быть как сам текст, так и ключ в xref:localization:message-bundles.adoc[пакете сообщений]. Для ключа используйте префикс `msg://`.
 | –
 |[[frozen]]frozen
-|If `true`, freezes (locks in place) the column, so that it remains visible as the user scrolls the table horizontally. It's generally recommended to freeze columns from left to right.
+|Если `true`, фиксирует столбец (закрепляет его), чтобы он оставался видимым при горизонтальной прокрутке. Рекомендуется фиксировать столбцы слева направо.
 |`false`
 |[[header]]header
-|Sets the column header text. The attribute value can either be the text itself or a key in the xref:localization:message-bundles.adoc[message bundle]. In case of a key, the value should begin with the `msg://` prefix.
+|Устанавливает заголовок столбца. Значением может быть как сам текст, так и ключ в xref:localization:message-bundles.adoc[пакете сообщений]. Для ключа используйте префикс `msg://`.
 | –
 |[[key]]key
-|Sets the user-defined identifier to map this column. The key can be used to fetch the column later with the `getColumnByKey(String)` method.
+|Задает пользовательский идентификатор для связи с этим столбцом. Ключ можно использовать для получения столбца методом `getColumnByKey(String)`.
 
-The key has to be unique within the data grid, and it can’t be changed after set once.
+Ключ должен быть уникальным в пределах таблицы и не может быть изменен после установки.
 |–
 |[[property]]property
-|Specifies the name of an entity attribute to be displayed in the column. This can be an attribute of the root entity `property = "user"` or an attribute of its child entity `property = `user.department.name` (use dot notation to traverse the object graph).
+|Указывает имя атрибута сущности для отображения в столбце. Это может быть атрибут корневой сущности `property = "user"` или атрибут дочерней сущности `property = "user.department.name"` (используйте точечную нотацию для навигации по графу объектов).
 |–
 |[[resizable-column]]resizable
-|If `true`, the column is user-resizable.
+|Если `true`, пользователь может изменять ширину столбца.
 |`false`
 |[[sortable-column]]sortable
-|If `true`, the column is sortable.
+|Если `true`, столбец поддерживает сортировку.
 |`false`
 |[[textAlign]]textAlign
-|Specifies the alignment of the text with the following possible values: `START`, `CENTER`, `END`. See Text Alignment.
+|Задает выравнивание текста. Возможные значения: `START`, `CENTER`, `END`.
 |`START`
 |[[visible]]visible
-|If `true`, the column is visible.
+|Если `true`, столбец видим.
 |`true`
 |[[width]]width
-|Sets the width of the column as a CSS string.
+|Устанавливает ширину столбца в CSS-формате.
 |–
 |===
 
-.Handlers
+.Обработчики
 [cols="1h,6", grid=rows]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[DataGridColumnVisibilityChangedEvent]]DataGridColumnVisibilityChangedEvent
-|Fired when the column visibility is changed through the xref:flow-ui:vc/components/gridColumnVisibility.adoc[] component.
+|Возникает при изменении видимости столбца через компонент xref:flow-ui:vc/components/gridColumnVisibility.adoc[].
 |[[partNameGenerator-column]]partNameGenerator
-|Generates parts of CSS class names for this column based on given conditions. This allows for customizing cell appearance based on the data displayed. See https://demo.jmix.ru/ui-samples/sample/data-grid-part-name-generator[live demo^].
+|Генерирует части CSS-классов для этого столбца на основе условий. Позволяет настраивать внешний вид ячеек. Смотрите https://demo.jmix.ru/ui-samples/sample/data-grid-part-name-generator[демонстрацию^].
 |[[renderer]]renderer
-|Renders column content using text or components. See xref:vc/components/dataGrid.adoc#text-renderer[text renderer] and xref:vc/components/dataGrid.adoc#component-renderer[component renderer].
+|Отрисовывает содержимое столбца с использованием текста или компонентов. Смотрите xref:vc/components/dataGrid.adoc#text-renderer[текстовый рендерер] и xref:vc/components/dataGrid.adoc#component-renderer[рендерер компонентов].
 |[[tooltipGenerator-column]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|Генерирует всплывающие подсказки для ячеек столбца. Смотрите https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[демонстрацию^].
 |===
 
 [[context-menu-element]]
 === contextMenu
 
-The `contextMenu` element organizes items the right-click menu in a way that differs from their default arrangement. See the <<context-menu, example>>.
+Элемент `contextMenu` позволяет организовать пункты контекстного меню (по правому клику) в порядке, отличном от стандартного. Смотрите <<context-menu, пример>>.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`contextMenu`
-|Attributes
+|Атрибуты
 
 |xref:vc/common-attributes.adoc#id[id] - xref:vc/common-attributes.adoc#classNames[classNames] - xref:vc/common-attributes.adoc#css[css] - xref:vc/common-attributes.adoc#enabled[enabled] - xref:vc/common-attributes.adoc#visible[visible]
-|Handlers
+|Обработчки
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<GridContextMenuOpenedEvent,GridContextMenuOpenedEvent>> - <<openedChangeEvent,openedChangeEvent>> - <<dynamicContentHandler,dynamicContentHandler>>
-|Elements
+|Элементы
 |item - separator
 |===
 
-.Handlers
+.Обработчики
 [cols="1h,6", grid=rows]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[GridContextMenuOpenedEvent]]GridContextMenuOpenedEvent
-|Fired when the context menu opened state changes. May return the target item or the id of the target column allowing the menu to display items based on the clicked item.
+|Возникает при изменении состояния видимости контекстного меню. Может возвращать целевой элемент или идентификатор столбца, позволяя отображать пункты меню в зависимости от выбранного элемента.
 |[[openedChangeEvent]]openedChangeEvent
-|Fired when the context menu opened state changes.
+|Возникает при изменении состояния видимости контекстного меню.
 |[[dynamicContentHandler]]dynamicContentHandler
-|Handles dynamic updates to the menu when it opens, such as adding menu items or their content. See the relevant `datagrid` xref:vc/components/dataGrid.adoc#context-menu[example].
+|Обрабатывает динамическое обновление содержимого меню при открытии, например добавление пунктов меню или их содержимого. Смотрите соответствующий xref:vc/components/dataGrid.adoc#context-menu[пример] для `datagrid`.
 |===
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/latest/components/tree-grid[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/tree-grid[документацию Vaadin^] для получения дополнительной информации.
