@@ -7,38 +7,39 @@
 </div>
 ++++
 
-`timePicker` lets users enter or select a time.
+`timePicker` позволяет пользователям вводить или выбирать время.
 
-* XML element: `timePicker`
+* XML-элемент: `timePicker`
 
-* Java class: `TypedTimePicker`
+* Java-класс: `TypedTimePicker`
 
-== Basics
+== Основы
 
-Time can be entered directly using a keyboard or selected from an overlay with a list of time values. The overlay appears on clicking the field or the clock button.
+Время можно ввести с клавиатуры или выбрать из выпадающего списка. Список появляется при клике на поле или кнопку с часами.
 
 image::visual-components/components/time-picker-basic.png[align="center", width="200"]
 
-The following example defines a `timePicker` of `localTime` type with a label:
+Пример определения `timePicker` типа `localTime` с надписью:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=basics]
 ----
 
-== Data Types
+== Типы данных
 
-`timePicker` is a typed component which supports common data types for storing a time value:
+`timePicker` поддерживает основные типы данных для хранения времени:
 
 * `localTime`
 * `offsetTime`
 * `time`
 
-To change the type, use the xref:vc/common-attributes.adoc#datatype[datatype] attribute.
+Для изменения типа используйте атрибут xref:vc/common-attributes.adoc#datatype[datatype].
 
-== Step
+[[step]]
+== Шаг интервала
 
-The default interval between the items displayed in the overlay is set to one hour. A custom step value can be set using the xref:vc/common-attributes.adoc#step[step] attribute.
+По умолчанию интервал между значениями в выпадающем списке - 1 час. Для настройки используйте атрибут xref:vc/common-attributes.adoc#step[step] в XML или программно.
 
 image::visual-components/components/time-picker-step.png[align="center", width="230"]
 
@@ -47,26 +48,26 @@ image::visual-components/components/time-picker-step.png[align="center", width="
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=step]
 ----
 
-The step must divide an hour or day evenly. For example, "15 minutes", "30 minutes" and "2 hours" are valid steps, whereas "42 minutes" isn’t.
+Шаг должен равномерно делить час или день. Например, "15 минут", "30 минут" и "2 часа" - допустимые значения, а "42 минуты" - нет.
 
-NOTE: The overlay doesn't appear for steps less than 15 minutes, to avoid showing an impractical number of choices.
+NOTE: Для шагов менее 15 минут выпадающий список не отображается, чтобы избежать непрактичного количества вариантов.
 
 // == Time Format
 // //todo: make changes upon completing jmix#858 ticket
 // The default date and time format in the application is defined by the xref:data-model:data-types.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
 
 [[themeVariants]]
-== Theme Variants
+== Варианты оформления
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to adjust text alignment, helper text placement, and component size.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки выравнивания текста, расположения вспомогательного текста, размера компонента.
 
-=== Alignment
+=== Выравнивание
 
-Choose among three alignment options: `align-left` (default), `align-right`, `align-center`.
+Доступны три варианта: `align-left` (по умолчанию), `align-right`, `align-center`.
 
 image::visual-components/components/time-picker-alignment.png[align="center", width="616"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -75,13 +76,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Helper Text Position
+=== Положение вспомогательного текста
 
-Setting `helper-above-field` will move the helper text from its default position below the field to above it.
+Установка `helper-above-field` перемещает вспомогательный текст из положения под полем на позицию над ним.
 
 image::visual-components/components/time-picker-helper-text-position.png[align="center", width="406"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -90,13 +91,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-=== Size
+=== Размер
 
-Two size options are available: the default size and `small`.
+Доступны два варианта: стандартный и `small` (уменьшенный).
 
 image::visual-components/components/time-picker-size.png[align="center", width="384"]
 
-.XML code
+.XML код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -105,18 +106,18 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 ----
 ====
 
-== Time Range
+== Ограничение временного диапазона
 
-To restrict the input to a specific time range, specify a minimum and maximum value using the <<max, max>> and <<min,min>> attributes.
+Для ограничения ввода временного диапазона укажите: минимальное значение через атрибут <<min,min>> и максимальное значение через атрибут <<max,max>>.
 
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=range]
 ----
 
-Apply a <<validator, validator>> to set a more specific time range.
+Для более точных ограничений используйте <<validator,валидатор>>.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -157,10 +158,10 @@ xref:vc/common-attributes.adoc#width[width]
 [[autoOpen]]
 === autoOpen
 
-Defines whether the overlay opens when the user interacts with the component.
+Определяет, будет ли открываться оверлей при взаимодействии с компонентом:
 
-* If set to `true`, the overlay opens on user input and on clicking the clock button or the field.
-* If set to `false`, the overlay opens only on clicking the clock button.
+* При значении `true` - открывается при вводе и при клике на кнопку часов или на поле.
+* При значении `false` - открывается только при клике на кнопку часов.
 
 [[max]]
 === max
@@ -171,7 +172,7 @@ Defines whether the overlay opens when the user interacts with the component.
 </div>
 ++++
 
-Specifies the latest time that can be selected. Accepted format is `hh:mm`.
+Задает самое позднее доступное для выбора время в формате `чч:мм`.
 
 [[min]]
 === min
@@ -182,9 +183,9 @@ Specifies the latest time that can be selected. Accepted format is `hh:mm`.
 </div>
 ++++
 
-Specifies the earliest time that can be selected. Accepted format is `hh:mm`.
+Задает самое раннее доступное для выбора время в формате `чч:мм`.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -202,29 +203,29 @@ include::../handler-generation-tip.adoc[]
 [[ClientValidatedEvent]]
 === ClientValidatedEvent
 
-`ClientValidatedEvent` is sent by the web component whenever it is validated on the client-side.
+Событие `ClientValidatedEvent` генерируется веб-компонентом при клиентской валидации.
 
 [[InvalidChangeEvent]]
 === InvalidChangeEvent
 
-`com.vaadin.flow.component.timepicker.TimePicker.InvalidChangeEvent` is sent when the value of the xref:vc/common-attributes.adoc#invalid[invalid] attribute of the component changes.
+`com.vaadin.flow.component.timepicker.TimePicker.InvalidChangeEvent` возникает при изменении значения атрибута xref:vc/common-attributes.adoc#invalid[invalid].
 
 [[validator]]
 === validator
 
-Adds a xref:vc/miscellaneous/validator.adoc[validator] instance to the component. The validator must throw `ValidationException` if the value is not valid.
+Добавляет экземпляр xref:vc/miscellaneous/validator.adoc[валидатора]. Валидатор должен выбрасывать `ValidationException` при недопустимом значении.
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/timepicker/TimePickerView.java[tags=validator]
 ----
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/validator.adoc[validator] -
 xref:vc/miscellaneous/prefix-suffix.adoc[prefix]
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/v23/components/time-picker[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/time-picker[документацию Vaadin^] для получения дополнительной информации.
