@@ -13,6 +13,7 @@ A component to intuitively select items from a list or collection by moving them
 
 * Java class: `TwinColumn`
 
+[[basics]]
 == Basics
 
 The component puts two columns side by side. The left column contains items that the user can select from. The right column displays currently selected items. Users can select one or more items and click buttons to move them between columns, adding or removing them from the selection.
@@ -40,7 +41,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container]. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
 
-To create `multiSelectComboBoxPicker` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The `itemsContainer` attribute is used to create a list of items.
+To create `twinColumn` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The `itemsContainer` attribute is used to create a list of items.
 
 [[multi-select]]
 == Multi Select
@@ -129,7 +130,7 @@ xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 xref:vc/common-attributes.adoc#helperText[helperText] -
 <<column-labels, itemsColumnLabel>> -
-<<_basics, itemsContainer>> -
+<<basics, itemsContainer>> -
 xref:vc/common-attributes.adoc#label[label] -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
