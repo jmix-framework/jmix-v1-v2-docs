@@ -4,6 +4,9 @@
 
 Горячая клавиша — это комбинация кодов клавиш и модификаторов, которые определены в классах Vaadin {vaadin-api}/com/vaadin/flow/component/Key.html[Key^] и {vaadin-api}/com/vaadin/flow/component/KeyModifier.html[KeyModifier^].
 
+[[adding-shortcuts]]
+== Задание горячих клавиш
+
 В XML-описании экрана коды клавиш должны быть записаны в верхнем регистре и разделены дефисом (`-`). Модификаторы должны предшествовать кодам клавиш. Например:
 
 [source,xml,indent=0]
@@ -34,6 +37,52 @@ shortcut.close-detail-view=SHIFT-ESCAPE
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/step/StepDetailView.java[tags=keyboard-shortcuts]
 ----
+
+[[submitting-change-events-before-shortcut-activation]]
+== Отправка событий изменения перед активацией горячих клавиш
+
+Чтобы гарантировать, что событие изменения значения для активного компонента будет отправлено до активации горячих клавиш, включите флаг `resetFocusOnActiveElement` с помощью API `KeyCombination` или Vaadin `ShortcutRegistration`. Эта настройка приводит к тому, что активный элемент теряет фокус, а затем снова получает его перед срабатыванием горячих клавиш.
+
+[source,java,indent=0]
+----
+include::example$onboarding/src/main/java/com/company/onboarding/view/user/UserDetailView.java[tags=keyboard-shortcuts-injects;on-init-start;keyboard-shortcuts;on-init-end]
+----
+
+При назначении горячих клавиш для действий в XML можно использовать вложенный элемент `shortcutCombination` для дополнительных настроек. Например:
+
+[source,xml]
+.some-detail-view.xml
+----
+<action id="saveAction" text="msg:///actions.Save" icon="CHECK">
+    <shortcutCombination keyCombination="META-ENTER" resetFocusOnActiveElement="true"/>
+</action>
+----
+
+[[configuring-active-scope]]
+== Настройка активной области
+
+По умолчанию горячие клавиши регистрируются в глобальной области. Это означает, что они срабатывают при нажатии пользователем соответствующих клавиш, независимо от положения курсора или того, какой элемент в фокусе на экране. Доступность горячих клавиш можно настроить (например, только когда пользователь фокусируется на определённом элементе) с помощью API `KeyCombination` или Vaadin `ShortcutRegistration`.
+
+[source,java,indent=0]
+----
+@ViewComponent
+private TypedTextField<String> searchField;
+@ViewComponent
+private JmixButton searchButton;
+
+@Subscribe
+public void onInit(final InitEvent event) {
+    KeyCombination keyCombination = KeyCombination.create("CONTROL-ENTER", searchField, searchButton);
+    searchButton.setShortcutCombination(keyCombination);
+    // -- OR --
+    searchButton.addClickShortcut(Key.ENTER, KeyModifier.CONTROL)
+            .listenOn(searchField, searchButton);                   // <1>
+}
+----
+<1> Слушатель горячих клавиш сработает только если фокус находится на `searchField` или `searchButton`.
+
+[[key-codes]]
+== Key Codes
 
 В таблице ниже приведены наиболее часто используемые коды клавиш. Полный список доступен в классе {vaadin-api}/com/vaadin/flow/component/Key.html[Key^].
 
