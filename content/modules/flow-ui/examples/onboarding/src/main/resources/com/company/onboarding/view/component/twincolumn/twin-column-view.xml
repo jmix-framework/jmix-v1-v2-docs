@@ -34,7 +34,9 @@
         <!-- end::multi-select[] -->
 
         <!-- tag::column-labels[] -->
-        <twinColumn itemsContainer="usersDc" itemsColumnLabel="Users" selectedItemsColumnLabel="Moderators"/>
+        <twinColumn itemsContainer="usersDc"
+                    itemsColumnLabel="Users"
+                    selectedItemsColumnLabel="Moderators"/>
         <!-- end::column-labels[] -->
 
         <!-- tag::items-order[] -->
