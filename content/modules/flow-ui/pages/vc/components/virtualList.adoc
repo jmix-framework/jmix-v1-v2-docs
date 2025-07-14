@@ -6,22 +6,22 @@
 </div>
 ++++
 
-The `virtualList` component is designed for displaying lists of items with a complex content. Only the visible portion of items is rendered at a time.
+Компонент `virtualList` предназначен для отображения списков элементов со сложным содержимым. В каждый момент времени рендерится только видимая часть элементов.
 
-* XML element: `virtualList`
+* XML-элемент: `virtualList`
 
-* Java class: `JmixVirtualList`
+* Java-класс: `JmixVirtualList`
 
-== Basics
+== Основы
 
-`virtualList` is connected to a xref:flow-ui:data/data-containers.adoc[data container]. By default, it shows the xref:data-model:entities.adoc#instance-name[instance name] of the entity in the container. Using the <<Renderer,renderer>> handler, you can display custom content.
+`virtualList` связывается с xref:flow-ui:data/data-containers.adoc[контейнером данных]. По умолчанию отображается xref:data-model:entities.adoc#instance-name[имя экземпляра] сущности из контейнера. С помощью обработчика <<Renderer,renderer>> можно выводить пользовательское содержимое.
 
 image::visual-components/components/virtual-list-basics.png[align="center", width="542"]
 
 [[fragment-renderer]]
-Alternatively, you can render items using a nested `fragmentRenderer` element. Refer to the xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment Renderer] section for more information.
+Альтернативно можно рендерить элементы с помощью вложенного элемента `fragmentRenderer`. Подробнее смотрите раздел xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Рендерер фрагментов].
 
-Below is an example of using `virtualList` in a list view instead of `dataGrid`:
+Ниже приведен пример использования `virtualList` в списке вместо `dataGrid`:
 
 [source,xml,indent=0]
 ----
@@ -33,10 +33,10 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/virtuallist/VirtualListView.java[tags=uiComponents;renderer]
 ----
 
-Note that items in `virtualList` can't be selected or navigated using the keyboard. The standard xref:flow-ui:actions/list-actions.adoc[List Component Actions] will not work with `virtualList`. If needed, define your own actions for CRUD operations.
+Обратите внимание, что элементы в `virtualList` нельзя выделять или перемещаться по ним с помощью клавиатуры. Стандартные xref:flow-ui:actions/list-actions.adoc[действия списка] не работают с `virtualList`. При необходимости определите собственные действия для CRUD-операций.
 
 [[inline-editor]]
-== Inline Editor
+== Встроенный редактор
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -44,9 +44,9 @@ Note that items in `virtualList` can't be selected or navigated using the keyboa
 </div>
 ++++
 
-You can use `virtualList` to build an inline editor. Check out an example in the *UI Samples* application.
+Компонент `virtualList` можно использовать для создания встроенного редактора. Пример реализации доступен в приложении *UI Samples*.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -69,7 +69,7 @@ xref:vc/common-attributes.adoc#width[width]
 [[itemsContainer]]
 === itemsContainer
 
-Sets the name of a data container which contains a list of items. The component will display the entity's instance name.
+Задает имя контейнера данных, содержащего список элементов. Компонент будет отображать имя экземпляра сущности.
 
 [[itemsEnum]]
 === itemsEnum
@@ -80,9 +80,9 @@ Sets the name of a data container which contains a list of items. The component 
 </div>
 ++++
 
-Defines the xref:data-model:enumerations.adoc[enumeration] class for creating a list of items.
+Определяет класс xref:data-model:enumerations.adoc[перечисления] для создания списка элементов.
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -96,18 +96,19 @@ include::../handler-generation-tip.adoc[]
 [[Renderer]]
 === Renderer
 
-A custom renderer for list items can only be set in the view controller using Java code.
+Пользовательский рендерер для элементов списка можно задать только в контроллере экрана с использованием Java-кода.
 
-You can use the `setRenderer()` method or `@Supply` annotation to do this.
+Для этого можно использовать метод `setRenderer()` или аннотацию `@Supply`.
 
-* Example of using `@Supply` annotation:
+
+* Пример использования аннотации `@Supply`:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/virtuallist/VirtualListView.java[tags=supply-renderer]
 ----
 
-* Example of using the `setRenderer()` method:
+* Пример использования метода `setRenderer()`:
 +
 [source,java,indent=0]
 ----
@@ -117,8 +118,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[ValueProvider]]
 === ValueProvider
 
-It's possible to specify a renderer using `ValueProvider` if you want to display plain text.
+Можно указать рендерер с помощью `ValueProvider`, если требуется отображать простой текст.
 
-== See Also
+== Смотрите также
 
-See {vaadin-docs}/components/virtual-list[Vaadin Docs^] for more information.
+Смотрите {vaadin-docs}/components/virtual-list[документацию Vaadin^] для получения дополнительной информации.
