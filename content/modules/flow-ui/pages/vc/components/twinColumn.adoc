@@ -7,30 +7,31 @@
 </div>
 ++++
 
-A component to intuitively select items from a list or collection by moving them between two columns.
+Компонент для интуитивного выбора элементов из списка или коллекции путем перемещения между двумя колонками.
 
-* XML element: `twinColumn`
+* XML-элемент: `twinColumn`
 
-* Java class: `TwinColumn`
+* Java-класс: `TwinColumn`
 
-== Basics
+[[basics]]
+== Основы
 
-The component puts two columns side by side. The left column contains items that the user can select from. The right column displays currently selected items. Users can select one or more items and click buttons to move them between columns, adding or removing them from the selection.
+Компонент отображает две колонки бок о бок. Левая колонка содержит элементы для выбора, правая - уже выбранные элементы. Пользователи могут выбирать один или несколько элементов и перемещать их между колонками с помощью кнопок, добавляя или удаляя из выбора.
 
 image::visual-components/components/twin-column-basics.png[align="center", width="553"]
 
-To create the component, use `twinColumn` XML element and set its `itemsContainer` attribute to a xref:data/collection-container.adoc[collection container]. The items within this container will appear in the columns.
+Для создания компонента используйте XML-элемент `twinColumn` и задайте его атрибут `itemsContainer`, указав xref:data/collection-container.adoc[контейнер коллекции]. Элементы из этого контейнера будут отображаться в колонках.
 
-The following example demonstrates how a basic twin column is created:
+Пример создания базового компонента `twinColumn`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/twincolumn/twin-column-view.xml[tags=data;usersDc;facets;layout;quick-start]
 ----
-<1> Include the xref:facets/dataLoadCoordinator.adoc[] facet to load data automatically.
+<1> Включите xref:facets/dataLoadCoordinator.adoc[] фасет для автоматической загрузки данных.
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -38,14 +39,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 </div>
 ++++
 
-Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container]. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
+Привязка данных означает связывание визуального компонента с xref:data/data-containers.adoc[контейнером данных]. Изменения в компоненте или соответствующем контейнере могут вызывать взаимные обновления. Подробнее смотрите в разделе xref:data/data-examples.adoc[].
 
-To create `multiSelectComboBoxPicker` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The `itemsContainer` attribute is used to create a list of items.
+Для создания `twinColumn` с привязкой к данным используйте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property]. Атрибут `itemsContainer` используется для создания списка элементов.
 
 [[multi-select]]
-== Multi Select
+== Множественный выбор
 
-The `twinColumn` component is always in multi-select mode, allowing users to select and move multiple items. You can also provide the ability to move all items at once by setting the `selectAllButtonsVisible` attribute:
+Компонент `twinColumn` всегда работает в режиме множественного выбора, позволяя пользователям выбирать и перемещать несколько элементов одновременно. Вы также можете добавить возможность перемещения всех элементов сразу, установив атрибут `selectAllButtonsVisible`:
 
 [source,xml,indent=0]
 ----
@@ -55,9 +56,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 image::visual-components/components/twin-column-select-all-buttons.png[align="center", width="553"]
 
 [[column-labels]]
-== Column Labels
+== Надписи колонок
 
-You can provide descriptive labels for each column with the `itemsColumnLabel` and `selectedItemsColumnLabel` attributes:
+Вы можете задать описательные надписи для каждой колонки с помощью атрибутов `itemsColumnLabel` и `selectedItemsColumnLabel`:
 
 [source,xml,indent=0]
 ----
@@ -67,9 +68,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 image::visual-components/components/twin-column-labels.png[align="center", width="553"]
 
 [[items-order]]
-== Items Order
+== Порядок элементов
 
-By default, items do not maintain their original position in the list. Each time an item is moved to another column, it is added to the bottom of the list. You can choose to preserve the original order of items at all times by setting `reorderable = "true"`.
+По умолчанию элементы не сохраняют свою исходную позицию в списке. При каждом перемещении в другую колонку элемент добавляется в конец списка. Вы можете сохранять исходный порядок элементов, установив `reorderable="true"`.
 
 [source,xml,indent=0]
 ----
@@ -77,14 +78,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[theme-variants]]
-== Theme Variants
+== Варианты оформления
 
-The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select between four different options:
+Внешний вид компонента можно настроить с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который предлагает четыре варианта:
 
 .`checkboxes`
 [%collapsible]
 ====
-Use checkmarks to indicate which items are clicked, instead of changing the row background color.
+Использует флажки для обозначения выбранных элементов вместо изменения цвета фона строки.
 
 image::visual-components/components/twin-column-checkboxes.png[align="center", width="553"]
 ====
@@ -92,7 +93,7 @@ image::visual-components/components/twin-column-checkboxes.png[align="center", w
 .`no-border`
 [%collapsible]
 ====
-Removes component's border.
+Убирает границу компонента.
 
 image::visual-components/components/twin-column-no-border.png[align="center", width="553"]
 ====
@@ -100,7 +101,7 @@ image::visual-components/components/twin-column-no-border.png[align="center", wi
 .`no-row-border`
 [%collapsible]
 ====
-Removes row separators.
+Убирает разделители между строками.
 
 image::visual-components/components/twin-column-no-row-border.png[align="center", width="553"]
 ====
@@ -108,14 +109,14 @@ image::visual-components/components/twin-column-no-row-border.png[align="center"
 .`no-space-between-actions`
 [%collapsible]
 ====
-Removes space between action buttons.
+Убирает промежутки между кнопками действий.
 
 image::visual-components/components/twin-column-no-space-between-actions.png[align="center", width="553"]
 ====
 
-TIP: Use a combination of themes separated by comma to change multiple visual aspects at once.
+TIP: Вы можете комбинировать несколько тем, перечисляя их через запятую, чтобы изменить несколько аспектов внешнего вида одновременно.
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -129,7 +130,7 @@ xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 xref:vc/common-attributes.adoc#helperText[helperText] -
 <<column-labels, itemsColumnLabel>> -
-<<_basics, itemsContainer>> -
+<<basics, itemsContainer>> -
 xref:vc/common-attributes.adoc#label[label] -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
@@ -146,13 +147,13 @@ xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 xref:vc/components/textField.adoc#validator[validator]
 
-== Elements
+== Элементы
 
 xref:vc/miscellaneous/validator.adoc[validator]
