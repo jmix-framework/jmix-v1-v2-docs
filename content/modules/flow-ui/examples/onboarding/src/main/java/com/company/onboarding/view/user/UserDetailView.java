@@ -6,6 +6,8 @@ import com.company.onboarding.entity.User;
 import com.company.onboarding.entity.UserStep;
 import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -20,6 +22,8 @@ import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.kit.component.KeyCombination;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionPropertyContainer;
 import io.jmix.flowui.model.DataContext;
@@ -86,8 +90,18 @@ public class UserDetailView extends StandardDetailView<User> {
     }
     // end::filter[]
 
+    // tag::keyboard-shortcuts-injects[]
+    @ViewComponent
+    private JmixButton saveAndCloseBtn;
+    @ViewComponent
+    private JmixButton closeBtn;
+
+    // end::keyboard-shortcuts-injects[]
+
+    // tag::on-init-start[]
     @Subscribe
     public void onInit(InitEvent event) {
+    // end::on-init-start[]
         timeZoneField.setItems(List.of(TimeZone.getAvailableIDs()));
 
         Grid.Column<UserStep> checkboxColumn = stepsDataGrid.addColumn(new ComponentRenderer<>(userStep -> {
@@ -105,7 +119,17 @@ public class UserDetailView extends StandardDetailView<User> {
                 .setWidth("50px"); // width doesn't work
 
         stepsDataGrid.setColumnPosition(checkboxColumn, 0);
+        // tag::keyboard-shortcuts[]
+        saveAndCloseBtn.addClickShortcut(Key.ENTER, KeyModifier.META)
+                .resetFocusOnActiveElement();
+
+        KeyCombination keyCombination = KeyCombination.create(Key.ESCAPE, KeyModifier.SHIFT);
+        keyCombination.setResetFocusOnActiveElement(true);
+        closeBtn.setShortcutCombination(keyCombination);
+        // end::keyboard-shortcuts[]
+    // tag::on-init-end[]
     }
+    // end::on-init-end[]
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<User> event) {
