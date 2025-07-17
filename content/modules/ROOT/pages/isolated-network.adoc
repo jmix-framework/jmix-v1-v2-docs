@@ -98,7 +98,7 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 
 Если вы планируете использовать только фреймворк и бесплатные дополнения, то можете загрузить заранее подготовленный архив зависимостей со страницы https://www.jmix.ru/resources/jmix-dependencies[^].
 
-Если же вам нужны коммерческие дополнения и у вас есть Enterprise подписка, то необходимо подготовить архив зависимостей самостоятельно с помощью утилиты Jmix Dependencies Tool (`deptool`). Выполните следующие шаги:
+Если же вам нужны коммерческие дополнения и у вас есть коммерческая подписка, то необходимо подготовить архив зависимостей самостоятельно с помощью утилиты Jmix Dependencies Tool (`deptool`). Выполните следующие шаги:
 
 . Установите на компьютер с доступом в интернет утилиту `deptool`, скачав архив со страницы https://github.com/jmix-framework/jmix-dependencies-tool/releases[^].
 
@@ -111,7 +111,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
   --jmix-version 2.5.1 \
   --jmix-plugin-version 2.5.1 \
   --resolve-commercial-addons \
-  --jmix-license-key 123456123456-abcdefabcdef
+  --jmix-license-key 123456123456-abcdefabcdef \
+  --commercial-subscription-plan
 ----
 
 где:
@@ -119,7 +120,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 ** `--jmix-version` - версия фреймворка
 ** `--jmix-plugin-version` - версия плагина Gradle, если она отличается от версии фреймворка
 ** `--resolve-commercial-addons` - флаг для загрузки всех коммерческих дополнений и их зависимостей
-** `--jmix-license-key` - ключ вашей Enterprise-подписки
+** `--jmix-license-key` - ключ вашей коммерческой подписки
+** `--commercial-subscription-plan` - тип вашей коммерческой подписки: `enterprise` или `bpm`. По-умолчанию используется `bpm`
 
 После завершения работы команды в подкаталоге `gradle-home` утилиты будет сформирован локальный кэш артефактов в формате Gradle.
 --
@@ -155,7 +157,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
   --jmix-version 2.5.1 \
   --jmix-plugin-version 2.5.1 \
   --resolve-commercial-addons \
-  --jmix-license-key 123456123456-abcdefabcdef
+  --jmix-license-key 123456123456-abcdefabcdef \
+  --commercial-subscription-plan
 ----
 
 где:
@@ -163,7 +166,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 ** `--jmix-version` - версия фреймворка
 ** `--jmix-plugin-version` - версия плагина Gradle, если она отличается от версии фреймворка
 ** `--resolve-commercial-addons` - флаг для загрузки всех npm зависимостей для коммерческих дополнений
-** `--jmix-license-key` - ключ вашей Enterprise-подписки
+** `--jmix-license-key` - ключ вашей коммерческой подписки
+** `--commercial-subscription-plan` - тип вашей коммерческой подписки: `enterprise` или `bpm`. По-умолчанию используется `bpm`
 
 После завершения работы команды в подкаталоге npm-resolver утилиты будет сформирован файл `package-lock.json` с перечнем зависимостей.
 --
