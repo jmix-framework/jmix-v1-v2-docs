@@ -286,6 +286,19 @@ In the `in-app-notification-list-view.xml` descriptor of the xref:notifications:
 
 If you have overridden this view, adapt your code accordingly.
 
+[[security-filter-chain-validation]]
+=== SecurityFilterChain validation
+
+Spring Security 6.5.0 introduced detection of multiple `SecurityFilterChain` with the same `securityMatcher`.
+
+Such chains can be created if both add-ons - `OIDC` and `Authorization Server` - are included in the project.
+Both chains configure the REST API protection within the resource server.
+
+Previously in this case the chain from `Authorization Server` had more priority and the chain from `OIDC` was ignored.
+
+Now if you have both add-ons it's necessary to explicitly disable the chain from `OIDC` to get the previous behavior -
+use application property `jmix.oidc.use-default-jwt-configuration=false`.
+
 [[changelog]]
 == Changelog
 
