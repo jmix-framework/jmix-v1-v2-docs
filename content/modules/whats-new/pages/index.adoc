@@ -282,6 +282,19 @@ someDc.setItem(entity)
 
 Если вы переопределяли этот экран, адаптируйте ваш код соответствующим образом.
 
+[[security-filter-chain-validation]]
+=== Валидация SecurityFilterChain
+
+В Spring Security 6.5.0 появилась проверка на наличие нескольких `SecurityFilterChain` с одинаковыми `securityMatcher`.
+
+Подобные цепи создаются если в проекте присутствуют оба дополнения - `OIDC` и `Authorization Server`.
+Они настраивают защиту REST API в рамках сервера ресурсов.
+
+Ранее в данном случае цепь из `Authorization Server` имела приоритет, а цепь из `OIDC` игнорировалась.
+
+Теперь при наличии в проекте обоих дополнений необходимо явно отключить создание цепи из `OIDC`,
+используя свойство `jmix.oidc.use-default-jwt-configuration=false`.
+
 [[changelog]]
 == Список изменений
 
