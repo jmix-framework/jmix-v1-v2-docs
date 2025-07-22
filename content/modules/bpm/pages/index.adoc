@@ -8,7 +8,7 @@ TIP: Приложение https://demo.jmix.ru/bookstore/[Bookstore^] демон
 == Установка
 [NOTE]
 ====
-Данное дополнение доступно по https://www.jmix.ru/subscription-plans-and-prices/[Enterprise подписке^]. Чтобы ознакомиться с дополнением, воспользуйтесь xref:ROOT:account-management.adoc#enterprise-trial[Пробной Enterprise подпиской].
+Данное дополнение доступно по https://www.jmix.ru/subscription-plans-and-prices/[BPM подписке^]. Чтобы ознакомиться с дополнением, воспользуйтесь xref:ROOT:account-management.adoc#enterprise-trial[Пробной Enterprise+BPM подпиской].
 ====
 
 Для автоматической установки через *Jmix Marketplace*, следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
