@@ -19,7 +19,7 @@ tasks.register('compileAll') {
             'fullcalendar-ex2',
             'gridexport-ex1',
             'kanban-ex1',
-            'kanban-ex1',
+            'kanban-ex2',
             'library',
             'localization_ex1',
             'maps-ex1',

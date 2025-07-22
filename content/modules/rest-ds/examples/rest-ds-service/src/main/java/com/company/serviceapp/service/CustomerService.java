@@ -17,7 +17,8 @@ public class CustomerService {
 
     @RestMethod
     public List<Customer> getCustomersByName(String name) {
-        return dataManager.load(Customer.class).query("e.name = ?1", name).list();
+        return dataManager.load(Customer.class)
+                .query("e.name = ?1", name).list();
     }
 }
 // end::service[]
