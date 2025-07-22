@@ -13,8 +13,8 @@ TIP: Explore the https://demo.jmix.io/bookstore/[Bookstore^] online demo applica
 == Installation
 [NOTE]
 ====
-This add-on requires the Enterprise https://www.jmix.io/subscription-plans-and-prices/[subscription^].
-If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
+This add-on requires the https://www.jmix.io/subscription-plans-and-prices/[BPM subscription^].
+If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise+BPM Trial] section for how to get a trial version.
 ====
 
 For automatic installation through *Jmix Marketplace*, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
