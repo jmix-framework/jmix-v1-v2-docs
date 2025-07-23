@@ -9,7 +9,7 @@ Jmix использует https://www.liquibase.org[Liquibase^] в качест�
 
 Jmix Studio создает скрипты миграции в формате Liquibase changelog, сравнивая текущее состояние xref:entities.adoc[сущностей] JPA с текущей схемой базы данных соответствующего xref:data-stores.adoc[хранилища данных]. Это происходит автоматически при xref:jmix:studio:project.adoc#starting-application[запуске приложения] с использованием конфигурации Run/Debug. Файл changelog сохраняется в исходном коде приложения и собирается в составе бинарного артефакта.
 
-TIP: Генерацию Liquibase changelog можно отключить, открыв на редактирование xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug configuration] и удалив шаг *Check Jmix Database*, выполняющийся перед запуском.
+TIP: Автоматическую генерацию Liquibase changelog можно отключить, открыв на редактирование xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug configuration] и удалив шаг *Check Jmix Database*, выполняющийся перед запуском.
 
 Когда приложение запускается, оно автоматически запускает Liquibase со сгенерированными changelog для обновления подключенной базы данных.
 
@@ -90,6 +90,9 @@ main.liquibase.change-log=com/company/demo/liquibase/changelog.xml
 second.liquibase.change-log=com/company/demo/liquibase/second-changelog.xml
 ----
 ====
+
+[[ignoring-existing-tables]]
+=== Игнорирование существующих таблиц
 
 По умолчанию, Jmix Studio сравнивает с моделью данных все таблицы базы данных, и генерирует скрипты миграции, включающие команды `DROP TABLE` для таблиц, не отображенных на сущности. Если в вашей базе данных есть таблицы, не связанные с сущностями приложения, вы можете проигнорировать их, указав их префиксы или имена целиком через запятую в свойстве `main.datasource.studio.liquibase.exclude-prefixes`. Например:
 [source, properties]
