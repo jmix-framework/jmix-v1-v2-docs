@@ -9,7 +9,7 @@ Jmix uses https://www.liquibase.org[Liquibase^] as a database migration tool.
 
 Jmix Studio creates migration scripts in the Liquibase changelog format by comparing the current state of your JPA xref:entities.adoc[entities] with the current database schema of the corresponding xref:data-stores.adoc[data store]. It happens automatically when you xref:jmix:studio:project.adoc#starting-application[start the application] using a *Run/Debug Configuration*. The changelog is saved in the source code of the application and is built into the binary artifact.
 
-TIP: You can disable creation of migration scripts by editing the xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug configuration] settings.
+TIP: You can disable automatic creation of migration scripts by editing the xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug configuration] settings.
 
 When the application starts, it automatically runs Liquibase with the generated changelogs to update the connected database.
 
@@ -91,6 +91,9 @@ main.liquibase.change-log=com/company/demo/liquibase/changelog.xml
 second.liquibase.change-log=com/company/demo/liquibase/second-changelog.xml
 ----
 ====
+
+[[ignoring-existing-tables]]
+=== Ignoring Existing Tables
 
 By default, Jmix Studio compares all tables of the database with the data model, and generates migration scripts including `DROP TABLE` statements for tables that are not mapped to entities. If your database contains tables not associated with the application entities, you can ignore these tables by listing their prefixes or entire names in the `main.datasource.studio.liquibase.exclude-prefixes` application property. For example:
 

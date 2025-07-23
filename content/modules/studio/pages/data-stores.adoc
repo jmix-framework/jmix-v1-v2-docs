@@ -97,19 +97,27 @@ image::data-actions.png[align="center",width="623"]
 The number of actions shown in the menu depends on the data store type and DB schema management mode.
 
 * *New -> Additional Data Store* - opens the dialog for creating a new data store.
-* *New -> Liquibase Changelog* - generates a new xref:data-model:db-migration.adoc#changelogs[changelog] file with a correct name.
+* *New -> Liquibase Changelog* - creates a new empty xref:data-model:db-migration.adoc#changelogs[changelog] file.
 * *Manage Data Store* - opens the dialog to edit data store settings.
 * *Delete Data Store* - removes the data store along with all associated configuration files and Liquibase changelogs.
 * *Recreate* - recreates database belonging to the selected data store. Applicable for the main data store and additional data stores with *Create and Update* <<db-schema-management,schema management>> type.
 * *Update* - updates database schema for the selected data store. Applicable for the main data store and additional data stores with *Update Only* and *Create and Update* schema management types.
-* *Generate Liquibase Changelog* - generates changelog files for the selected data store by comparing data model with the database schema. Applicable for the main data store and additional data stores with *Update Only* and *Create and Update* schema management types.
+
+* *Generate Liquibase Changelog* - generates changelog files for the selected data store by comparing the data model with the database schema. Applicable for the main data store and additional data stores with *Update Only* and *Create and Update* schema management types.
++
+TIP: Refer to the xref:data-model:db-migration.adoc#ignoring-existing-tables[Database Schema Migration -> Ignoring Existing Tables] section for instructions on how to exclude existing tables from handling by Studio.
 +
 include::partial$subscription-note.adoc[]
+
 * *Check Liquibase Changelog Includes* - checks that includes in the root changelog correspond to the add-ons used in the project. If there is a mismatch, Studio shows a notification dialog and suggests adding or removing includes.
+
 * *Aggregate Liquibase Changelogs* - allows you to combine multiple recent changelogs into a single file, eliminating duplicate actions within changesets.
 +
 This feature can be used by developers before each commit to a shared code repository. It helps to maintain a tidy collection of changelogs and reduces the application startup time due to fewer changesets.
 +
 The *Aggregate Liquibase Changelogs* action launches a wizard that enables the developer to customize the aggregated changelog.
++
+include::partial$subscription-note.adoc[]
+
 * *Generate Model from Database* - xref:studio:reverse-engineering.adoc[generates a data model] from a database.
 * *Jump to Source* - opens a Spring configuration class.
