@@ -4,7 +4,7 @@ Business Process Management (BPM) refers to the systematic approach to improving
 It encompasses the design, execution, monitoring,
 and optimization of business processes to enhance efficiency and effectiveness.
 
-BPM add-on provides functionality for modeling and running business processes.
+In Jmix, the functionality for modeling and running business processes is provided by the BPM add-on.
 
 TIP: Explore the https://demo.jmix.io/bookstore/[Bookstore^] online demo application to see Jmix BPM add-on in action.
 
@@ -13,7 +13,7 @@ TIP: Explore the https://demo.jmix.io/bookstore/[Bookstore^] online demo applica
 == Installation
 [NOTE]
 ====
-This add-on requires the https://www.jmix.io/subscription-plans-and-prices/[BPM subscription^].
+The Jmix BPM add-on requires the https://www.jmix.io/subscription-plans-and-prices/[BPM subscription^].
 If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise+BPM Trial] section for how to get a trial version.
 ====
 
