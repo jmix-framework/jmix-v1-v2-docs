@@ -1,6 +1,8 @@
 = BPM
 
-Нотация Business Process Management (BPM) предлагает систематический подход к улучшению процессов в организациях. Дополнение Jmix BPM предоставляет функциональность для моделирования и выполнения бизнес-процессов в приложениях Jmix.
+Business Process Management (BPM) — это систематический подход к улучшению процессов в организациях. Он включает проектирование, выполнение, мониторинг и оптимизацию бизнес-процессов для повышения эффективности и результативности.
+
+В Jmix функциональность моделирования и запуска бизнес-процессов предоставляется дополнением BPM.
 
 TIP: Приложение https://demo.jmix.ru/bookstore/[Bookstore^] демонстрирует возможности дополнения Jmix BPM.
 
@@ -8,7 +10,7 @@ TIP: Приложение https://demo.jmix.ru/bookstore/[Bookstore^] демон
 == Установка
 [NOTE]
 ====
-Данное дополнение доступно по https://www.jmix.ru/subscription-plans-and-prices/[BPM подписке^]. Чтобы ознакомиться с дополнением, воспользуйтесь xref:ROOT:account-management.adoc#enterprise-trial[Пробной Enterprise+BPM подпиской].
+Дополнение BPM доступно по https://www.jmix.ru/subscription-plans-and-prices/[BPM подписке^]. Чтобы ознакомиться с дополнением, воспользуйтесь xref:ROOT:account-management.adoc#enterprise-trial[Пробной Enterprise+BPM подпиской].
 ====
 
 Для автоматической установки через *Jmix Marketplace*, следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
