@@ -1,17 +1,17 @@
 = Pools and Lanes
 
 In BPMN,
-a *swimming pool* is a graphical element
+a *pool* is a graphical element
 used to represent a participant in a xref:bpm:bpmn/bpmn-collaboration.adoc[collaboration].
 It may contain few lanes.
 
 [[pools]]
 == Pools
-A swimming pool may have *lanes*, which represent different actors within the process.
+A pool may have *lanes*, which represent different actors within the process.
 Each lane contains the activities (task or subprocesses).
 
 Usually, lanes are used in high-level analytical models helping to visualize zones of responsibility for each actor.
-Overall, swimming pools and lanes in BPMN help are aimed to improve communication and collaboration between different stakeholders involved in a business process.
+Overall, pools and lanes in BPMN help are aimed to improve communication and collaboration between different stakeholders involved in a business process.
 
 [TIP]
 ====
