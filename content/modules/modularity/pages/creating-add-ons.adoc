@@ -16,6 +16,8 @@ dependencies {
 
 The functional module will be included transitively through the starter.
 
+TIP: See the xref:studio:composite-projects.adoc[] section for how to develop multiple add-ons and applications in a single IDE project.
+
 [[hierarchy]]
 == Hierarchy of Add-ons
 
