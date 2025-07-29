@@ -1,31 +1,31 @@
-= Default Icons
+= Стандартные иконки
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/icon-all" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/icon-all" class="live-demo-btn" target="_blank">LIVE DEMO</a>
 </div>
 ++++
 
-There are two default icon sets: Vaadin and Lumo. You can view all available icons from these sets by visiting https://demo.jmix.io/ui-samples/sample/icon-all[live demo^].
+Есть два стандартных набора иконок: Vaadin и Lumo. Вы можете увидеть все доступные иконки из этих наборов, посетив https://demo.jmix.ru/ui-samples/sample/icon-all[демо-приложение^].
 
 [[declarative-usage]]
-== Declarative Usage
+== Декларативное использование
 
-Set an icon for a component with the `icon` attribute. Use the `vaadin:` and `lumo:` prefixes for different icon sets.
+Установите иконку для компонента с помощью атрибута `icon`. Используйте префиксы `vaadin:` и `lumo:` для разных наборов иконок. Если префикс отсутствует, используется набор Vaadin.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative]
 ----
 
-When set through the Studio component inspector, the *Choose Icon* dialog appears, displaying icon names and preview for easier selection:
+При установке через инспектор компонентов Studio появляется диалоговое окно *Choose Icon*, которое отображает названия иконок и их превью для удобного выбора:
 
 image::icons/choose-icon-dialog.png[align="center", width="512"]
 
 [[programmatic-usage]]
-== Programmatic Usage
+== Программное использование
 
-An icon can be set programmatically to a component:
+Иконку для компонента можно установить программно:
 
 [source,java,indent=0]
 ----
