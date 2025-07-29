@@ -12,6 +12,8 @@
 
 * Java-класс: `Icon`
 
+TIP: Все доступные иконки можно увидеть в https://demo.jmix.ru/ui-samples/sample/icon-all[демо-приложении^].
+
 [[basics]]
 == Основы
 
