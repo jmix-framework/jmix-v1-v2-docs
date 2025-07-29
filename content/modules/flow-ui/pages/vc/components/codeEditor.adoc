@@ -141,7 +141,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/code-editor-suggestions" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/code-editor-suggestions" class="live-demo-btn" target="_blank">LIVE DEMO</a>
 </div>
 ++++
 
