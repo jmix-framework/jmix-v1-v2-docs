@@ -11,7 +11,7 @@ There are two default icon sets: Vaadin and Lumo. You can view all available ico
 [[declarative-usage]]
 == Declarative Usage
 
-Set an icon for a component with the `icon` attribute. Use the `vaadin:` and `lumo:` prefixes for different icon sets.
+Set an icon for a component with the `icon` attribute. Use the `vaadin:` and `lumo:` prefixes for different icon sets. If no prefix is present, the Vaadin set is used.
 
 [source,xml,indent=0]
 ----

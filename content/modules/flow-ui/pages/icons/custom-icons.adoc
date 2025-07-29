@@ -2,21 +2,23 @@
 
 Additional icons can be added as an SVG sprite or standalone icons and used alongside the built-in sets.
 
+[[icon-set]]
 == Icon Set
 
 An SVG sprite is a collection of SVG images loaded into an application as a single file, providing performance benefits. You can create a sprite manually or using one of many third-party tools.
 
 Follow the steps below to add an icon set:
 
-. Place your SVG sprite in the `/frontend/icons/` directory. The `my-icons.js` is used as an example and contains three icons:
+. Create a JavaScript file for your icon set in the `/frontend/icons/` directory. Use the following code as an example of a creating an icon set with three icons:
+
 +
 .my-icons.js
-[source,java,indent=0]
+[source,javascript,indent=0]
 ----
 include::example$/onboarding/frontend/icons/my-icons.js[tags=my-icons-sprite]
 ----
 +
-. Create an enum that implements `IconFactory`:
+. Create a Java enum that implements `IconFactory` and add the `@JsModule` annotation referring to the JavaScript file:
 +
 .MyIcons.java
 [source,java,indent=0]
@@ -40,6 +42,7 @@ Or set it to a component in the Java code:
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-sprite]
 ----
 
+[[standalone-icon]]
 == Standalone Icon
 
 Standalone icons can be added to the static content directory. By default, Spring Boot serves static resources from the following locations in the classpath: `/static`, `/public`, `/resources`, or `/META-INF/resources`. To help organize icons, you may set a subfolder `META-INF/resources/icons`.
@@ -51,7 +54,7 @@ To serve a static resource, use the `svgIcon` component:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-1]
 ----
 
-To set the icon to a component, use its prefix or suffix elements.  For example, to put the icon before the button text:
+To set the icon to a component, use its xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[prefix or suffix] elements.  For example, to put the icon before the button text:
 
 [source,xml,indent=0]
 ----
