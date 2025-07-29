@@ -6,11 +6,13 @@
 </div>
 ++++
 
-`icon` displays an image sourced from an icon set. There are two built-in icon sets: Vaadin and Lumo. To view all available icons, visit the https://demo.jmix.io/ui-samples/sample/icon-all[live demo].
+`icon` displays an image sourced from an icon set. There are two built-in icon sets: Vaadin and Lumo.
 
 * XML element: `icon`
 
 * Java class: `Icon`
+
+TIP: To view all available icons, visit the https://demo.jmix.io/ui-samples/sample/icon-all[live demo^].
 
 [[basics]]
 == Basics
