@@ -38,6 +38,13 @@ Default value: `false`
 
 Name of the header to check for access token during logout. Found token will be removed.
 
+Header should contain bearer token: `Bearer xxxxx`.
+
+Custom header may be useful in some specific use cases or due to technical limitation.
+In most cases default `Authorization` header will be enough.
+
+For example: `jmix.authserver.logout-access-token-header-name = Custom-Authorization`
+
 Header is the only source of token by default. For additional sources check <<jmix.authserver.logout-access-token-url-parameter-name,jmix.authserver.logout-access-token-url-parameter-name>>
 and <<jmix.authserver.logout-access-token-body-form-parameter-name,jmix.authserver.logout-access-token-body-form-parameter-name>>
 
@@ -48,6 +55,8 @@ Default value: `Authorization`
 
 Name of the URL parameter to check for access token during logout. Found token will be removed.
 
+For example: `jmix.authserver.logout-access-token-url-parameter-name = access_token`
+
 This check is disabled by default. To enable it see <<jmix.authserver.logout-url-parameter-check-for-token-enabled,jmix.authserver.logout-url-parameter-check-for-token-enabled>>
 
 Default value: `token`
@@ -56,6 +65,8 @@ Default value: `token`
 === jmix.authserver.logout-access-token-body-form-parameter-name
 
 Name of the body form parameter to check for access token during logout. Found token will be removed.
+
+For example: `jmix.authserver.logout-access-token-body-form-parameter-name = access_token`
 
 This check is disabled by default. To enable it see <<jmix.authserver.logout-body-form-parameter-check-for-token-enabled,jmix.authserver.logout-body-form-parameter-check-for-token-enabled>>
 
