@@ -309,5 +309,6 @@ use application property `jmix.oidc.use-default-jwt-configuration=false`.
 
 * Resolved issues in Jmix Studio:
 
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.2[2.6.2^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.1[2.6.1^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.0,-2.5.*%20Affected%20versions:%20-SNAPSHOT[2.6.0^]
