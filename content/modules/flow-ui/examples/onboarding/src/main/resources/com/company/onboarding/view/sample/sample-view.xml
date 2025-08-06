@@ -17,6 +17,9 @@
                 <button id="withAfterNavigationHandlerBtn" text="AfterNavigationHandler"/>
                 <button id="queryParametersBtn" text="Query Parameters"/>
             </vbox>
+            <vbox>
+                <button id="openDialogWindow" text="Open DialogWindow"/>
+            </vbox>
         </formLayout>
     </layout>
 </view>

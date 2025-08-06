@@ -239,4 +239,11 @@ public class SampleView extends StandardView {
                 .navigate();
     }
     // end::navigateToViewWithQueryParameters[]
+
+    @Subscribe(id = "openDialogWindow", subject = "clickListener")
+    public void onOpenDialogWindowClick(final ClickEvent<JmixButton> event) {
+        DialogWindow<DepartmentListView> window =
+                dialogWindows.view(this, DepartmentListView.class).build();
+        window.open();
+    }
 }

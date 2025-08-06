@@ -39,6 +39,15 @@ jmix.data.unique-constraint-violation-pattern = ERROR: duplicate key value viola
 
 默认值：`true`
 
+[[jmix.eclipselink.disable-lazy-loading]]
+== jmix.eclipselink.disable-lazy-loading
+
+NOTE: 该功能仍在试验中。可能在将来的发行版中固化或摒弃。如果在使用该功能的过程中遇到问题，请提 https://github.com/jmix-framework/jmix/issues[GitHub issue^]。
+
+这个开关可以关闭整个应用程序的 xref:data-access:fetching.adoc#lazy-loading[延迟加载] 功能。如果设置为 `true`，那么当访问未获取的属性时，会抛出 `IllegalStateException` 异常。
+
+默认值：`false`
+
 [[jmix.eclipselink.query-cache-enabled]]
 == jmix.eclipselink.query-cache-enabled
 

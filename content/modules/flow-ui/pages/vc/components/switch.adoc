@@ -1,0 +1,167 @@
+= switch 开关
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/switch-simple" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
+用户可以通过 `switch` 在两种状态之间切换：on/off 或 true/false。该组件最适合用于启用/禁用设置，首选项或二进制选项。其视觉设计模仿带有滑动手柄的物理切换开关。
+
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`switch`
+|Java 类
+|`Switch`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
+xref:vc/common-attributes.adoc#autofocus[autofocus] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+<<enabled,enabled>> -
+xref:vc/common-attributes.adoc#errorMessage[errorMessage] -
+xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#helperText[helperText] -
+xref:vc/common-attributes.adoc#label[label] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#property[property] -
+<<readOnly,readOnly>> -
+<<required,required>> -
+xref:vc/common-attributes.adoc#requiredMessage[requiredMessage] -
+xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
+xref:vc/components/textField.adoc#value[value] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
+xref:vc/components/checkbox.adoc#ClickEvent[ClickEvent] -
+xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+xref:vc/common-handlers.adoc#FocusEvent[FocusEvent]
+|XML 内部元素
+|xref:vc/components/tooltip.adoc[tooltip]
+|===
+
+== 基本用法
+
+`switch` 与 xref:flow-ui:vc/components/checkbox.adoc[checkbox] 组件类似，但可以更加直观地展示二进制状态。开关适合用于
+
+* 在两个相互排斥的选项（例如on/off）之间切换。
+* 提供即时的视觉反馈。
+* 启用或禁用立即生效的设置。
+
+而 `checkbox` 和 xref:flow-ui:vc/components/checkboxGroup.adoc[checkboxGroup] 组件更适合下面的场景：
+
+* 从列表中选择一个或多个选项。
+* 允许多个非排他性选择。
+* 选择后不会立即生效的场景。
+
+`switch` 的基本示例：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/switchcomponent/switch-view.xml[tags=basics]
+----
+
+image::visual-components/components/switch-basics.png[align="center", width="205"]
+
+== 数据绑定
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/switch-dataaware" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+数据绑定是指将组件与 xref:data/data-containers.adoc[数据容器] 进行关联。可视化组件或相应数据容器中的更改可以触发彼此的更新。有关详细信息，请参阅 xref:data/data-examples.adoc[]。
+
+下面的示例生成了一个数据感知的 `switch`。实体属性必须为 `Boolean` 类型。
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/switchcomponent/switch-view.xml[tags=data;layout;data-aware]
+----
+<1> `User` 实体的 `InstanceContainer` 容器。
+<2> 容器内实体的内联 fetch plan。
+<3> 将组件与数据容器和属性进行关联。`dataContainer` 属性使用 `userDc` 数据容器，`property` 引用 `active` 实体属性。
+
+== 状态
+
+`switch` 有以下几种状态，不同的状态具有不同的外观和功能。
+
+[[enabled-state]]
+*启用*
+
+* 禁用：`switch` 处于非激活状态，无法与用户交互。通常显示为灰色，表示已禁用。
+* 启用：`switch` 可进行交互并响应用户的输入。用户可以通过点击改变组件的状态。
+
+image::visual-components/components/switch-enable-disable.png[align="center", width="206"]
+
+.XML 代码
+[%collapsible]
+====
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/switchcomponent/switch-view.xml[tags=enabled]
+----
+====
+
+[[read-only-state]]
+*只读*
+
+`readOnly` 属性控制用户是否可以更改组件的状态。如果设置为 `true`，则 `checkbox` 为只读状态，用户无法更改状态。
+
+image::visual-components/components/switch-readonly.png[align="center", width="203"]
+
+.XML 代码
+[%collapsible]
+====
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/switchcomponent/switch-view.xml[tags=readOnly]
+----
+====
+
+[[required-state]]
+*必填*
+
+`switch` 也可以通过 <<required,required>> 配置或绑定一个带 `@NotNull` 验证的必需属性设置为必填项。
+
+image::visual-components/components/switch-required.png[align="center", width="209"]
+
+当该组件标记为必填时，组件标签附近会显示一个指示器，提示用户必须选择。如果 `switch` 默认开启（已选择），然后被关闭（取消选择），则该组件会标记为无效，直至满足必填条件。
+
+NOTE: 与输入字段类似，只有当 `switch` 非空（即勾选）时才能通过 `@NotNull` 验证。该行为的默认值可以通过 xref:ui-properties.adoc#jmix.ui.component.checkbox-required-state-initialization-enabled[jmix.ui.component.checkbox-required-state-initialization-enabled] 属性修改，以支持非选择状态为 `false`。
+
+== XML 属性
+
+在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+下面是 `switch` 的特殊属性：
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[enabled]]enabled
+|设置组件启用或禁用。参阅 <<enabled-state,启用状态>>。
+|`true`
+|[[readOnly]]readOnly
+|设置 `switch` 为只读模式。参阅 <<read-only-state,只读状态>>。
+|`false`
+|[[required]]required
+|设置 `switch` 的必填状态。参阅 <<required-state,必填状态>>。
+|`false`
+|===

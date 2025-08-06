@@ -43,7 +43,7 @@ Studio 会解析占位符，并将结果值用于数据库的所有操作：测�
 
 如需创建附加数据存储，可以使用数据存储右键菜单的 <<data-store-actions,操作>>。另一种方式是从 *Advanced* 菜单选取：
 
-image::data-advanced.png[align="center",width="447"]
+image::new.png[align="center",width="427"]
 
 参阅上面的 <<database-properties,数据库属性>> 内容，适用于主/附加数据存储。
 
@@ -97,19 +97,27 @@ image::data-actions.png[align="center",width="623"]
 菜单中操作的数量与数据存储的类型和数据库结构管理类型有关。
 
 * *New -> Additional Data Store* - 打开新建数据存储的对话框。
-* *New -> Liquibase Changelog* - 使用正确的名称生成一个新的 xref:data-model:db-migration.adoc#changelogs[changelog] 文件。
+* *New -> Liquibase Changelog* - 使用正确的名称生成一个新的空 xref:data-model:db-migration.adoc#changelogs[changelog] 文件。
 * *Manage Data Store* - 打开编辑数据存储配置的对话框。
 * *Delete Data Store* - 删除该数据存储以及关联的配置文件和 Liquibase changelog。
 * *Recreate* - 重新创建该数据存储对应的数据库。适用于 *Create and Update* <<db-schema-management,数据库结构管理>> 类型的主/附加数据存储。
 * *Update* - 更新该数据存储对应的数据库。适用于 *Update Only* 和 *Create and Update* <<db-schema-management,数据库结构管理>> 类型的主/附加数据存储。
-* *Generate Liquibase Changelog* - 通过比较数据模型和数据库结构为数据存储生成更改日志文件。适用于 *Update Only* 和 *Create and Update* <<db-schema-management,数据库结构管理>> 类型的主/附加数据存储。
+
+* *Generate Liquibase Changelog* - 通过比较数据模型和数据库结构为所选择的数据存储生成更改日志文件。适用于 *Update Only* 和 *Create and Update* schema 类型的主/附加数据存储。
 +
-include::subscription-note.adoc[]
+TIP: 参阅 xref:data-model:db-migration.adoc#ignoring-existing-tables[数据库结构迁移 -> 忽略已有表格] 部分了解如何在 Studio 中忽略已经存在的数据库表。
++
+include::partial$subscription-note.adoc[]
+
 * *Check Liquibase Changelog Includes* - 检查 root changelog 中的引入是否与项目的扩展组件相匹配。如果有不匹配的地方，Studio 会展示一个通知弹窗，并建议添加或删除某些引入。
+
 * *Aggregate Liquibase Changelogs* - 可以将近期的多个 changelog 合并为一个，避免 changeset 之间的重复操作。
 +
 该功能可以用在每次提交代码前。能帮助维护干净的 changelog，并减少应用程序的启动时间。
 +
 *Aggregate Liquibase Changelogs* 操作会启动一个向导窗口，开发者可以自定义需要合并的 changelog。
++
+include::partial$subscription-note.adoc[]
+
 * *Generate Model from Database* - 为某个数据库逆向生成数据模型。
 * *Jump to Source* - 打开 Spring 配置类。

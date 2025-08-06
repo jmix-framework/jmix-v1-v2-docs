@@ -1,0 +1,8 @@
+= 网页刷新事件
+
+`UiRefreshEvent` 会在每次网页刷新时发出。这是一个 xref:flow-ui:ui-events.adoc[UI 事件]，因此只能通过 UI 组件和视图控制器的事件监听器处理。
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/user/UserListView.java[tags=userListView;!debug]
+----

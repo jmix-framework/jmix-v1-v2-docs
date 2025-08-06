@@ -2,7 +2,7 @@
 
 Studio 提供了用于管理应用程序扩展组件的 UI。从 xref:studio:tool-window.adoc[Jmix 工具窗口] -> *Marketplace* 可以打开 *Add-ons* 对话框。
 
-image::add-ons-open.png[align="center",width="309"]
+image::add-ons-open.png[align="center",width="248"]
 
 *Marketplace* 标签页展示与应用程序兼容的已发布扩展组件。
 
@@ -10,7 +10,7 @@ image::marketplace.png[align="center",width="942"]
 
 点击扩展组件的标题，可以查看组件信息。
 
-image::add-ons-info.png[align="center",width="877"]
+image::add-ons-info.png[align="center",width="942"]
 
 点击 *Install* 按钮然后再点击 *Apply & Close* 可以安装一个或者多个扩展组件。
 
@@ -23,14 +23,14 @@ image::add-ons-install.png[align="center",width="942"]
 
 *Installed* 标签页展示当前项目已经安装的扩展组件。
 
-image::add-ons-installed.png[align="center",width="942"]
+image::add-ons-installed.png[align="center",width="877"]
 
 已安装的扩展组件被分为两组。其中，*Marketplace Add-Ons* 为从市场安装的组件。*Custom Add-Ons* 为由第三方开发并托管在第三方仓库的组件，包括本地 Maven 仓库。
 
 另外，还可以用 *Installed* 旁边的按钮，通过坐标添加扩展组件。
 
-image::add-ons-button.png[align="center", width="928"]
+image::add-ons-button.png[align="center", width="877"]
 
 扩展组件的坐标是 Gradle 依赖字符串，例如，`com.mycompany.addons:myaddon:0.1.5`。组件作者可以将这个字符串发布在 Jmix 网站上。
 
-image::add-ons-coordinates.png[align="center", width="624"]
+image::add-ons-coordinates.png[align="center", width="661"]

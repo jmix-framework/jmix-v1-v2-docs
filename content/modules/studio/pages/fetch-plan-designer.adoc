@@ -2,17 +2,17 @@
 
 Studio 提供可视化设计器用于管理 xref:data-access:fetching.adoc#fetch-plan[fetch plans]。
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 首先，需要使用 xref:studio:tool-window.adoc[Jmix 工具窗口] 的菜单项创建一个配置文件。
 
-image::fetch-menu.png[align="center",width="474"]
+image::fetch-menu.png[align="center",width="408"]
 
 会创建 `fetch-plans.xml` 文件并在设计器打开。*Structure* 标签页展示该配置文件中已经定义的 fetch plan，支持可视化地构建 fetch plan。
 
 如需新建 fetch plan，可以使用 Jmix 工具窗口的 *New ->Advanced* 中的 *Fetch Plan* 菜单，或者使用 *Structure* 标签页的加号按钮。
 
-image::fetch-edit.png[align="center",width="1110"]
+image::fetch-edit.png[align="center",width="733"]
 
 创建 fetch plan 的对话框包括下列字段：
 
@@ -24,7 +24,7 @@ image::fetch-edit.png[align="center",width="1110"]
 
 如果你的 fetch plan 扩展了其他的 fetch plan，所有继承的属性都默认选中并且不可修改。当选中一个引用属性时，右侧面板中会展示下列属性：
 
-image::fetch-extend.png[align="center",width="736"]
+image::fetch-extend.png[align="center",width="733"]
 
 * *Fetch plan* - 用于加载引用实体的可选 fetch plan。我们建议使用命名的 fetch plan，这样更易于管理复杂的 fetch plan。
 * *Fetch* - 引用属性的一个可选参数，指定如何从数据库加载关联实体。

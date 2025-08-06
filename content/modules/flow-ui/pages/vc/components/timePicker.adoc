@@ -36,15 +36,37 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 如需修改类型，使用 xref:vc/common-attributes.adoc#datatype[datatype] 属性。
 
+[[step]]
 == 间隔
 
 弹窗中显示时间的默认间隔为 1 小时。通过 xref:vc/common-attributes.adoc#step[step] 属性可以自定义间隔。
 
-image::visual-components/components/time-picker-step.png[align="center", width="230"]
+在视图 XML 中设置 `step` 属性:
 
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=step]
+----
+<1> 不带 <<suffix,后缀>> 的设置表示“分钟”。
+
+image::visual-components/components/time-picker-step.png[align="center", width="230"]
+
+[[suffix]]
+`step` 属性支持通过不同的时间（chrono）单位设置灵活的间隔。时间值支持通过单位后缀实现便捷设置。
+
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/component/timepicker/time-picker-view.xml[tags=step-unit]
+----
+<1> 2 小时间隔。
+<2> 1600 秒（26 分 40 秒）间隔。
+<3> 20 分钟间隔。
+
+视图控制器中也可以设置：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/timepicker/TimePickerView.java[tags=timePicker;onInit;step]
 ----
 
 设置的时间间隔必须能整除一小时或一天。例如，“15分钟”、“30分钟”、“2小时” 都是有效的间隔；而 “42分钟” 则不是。

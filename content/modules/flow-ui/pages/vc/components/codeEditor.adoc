@@ -7,9 +7,10 @@
 </div>
 ++++
 
-`codeEditor` 是一个用于展示或输入源代码的组件。
+`codeEditor` 是一个用于展示或输入源代码的组件。是一个多行的文本域，具有代码高亮、打印边距和带行号的侧边栏。
 
-`codeEditor` 是一个多行文本域，提供代码高亮显示、打印边距以及带有行号的侧边栏。
+`codeEditor` 基于 JavaScript 编写的 https://ace.c9.io[Ace^] 可嵌入的代码编辑器。
+
 [cols="1h,6", grid=none]
 |===
 |XML 元素
@@ -23,6 +24,7 @@ xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
 xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+<<defaultSuggestionsEnabled,defaultSuggestionsEnabled>> -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#errorMessage[errorMessage] -
 xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
@@ -32,6 +34,7 @@ xref:vc/common-attributes.adoc#helperText[helperText] -
 <<highlightActiveLine,highlightActiveLine>> -
 <<highlightGutterLine,highlightGutterLine>> -
 xref:vc/common-attributes.adoc#label[label] -
+<<liveSuggestionsEnabled,liveSuggestionsEnabled>> -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
@@ -46,6 +49,7 @@ xref:vc/common-attributes.adoc#requiredMessage[requiredMessage] -
 <<showLineNumbers,showLineNumbers>> -
 <<showPrintMargin,showPrintMargin>> -
 xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
+<<suggestOn,suggestOn>> -
 <<textWrap,textWrap>> -
 <<theme,theme>> -
 xref:vc/common-attributes.adoc#title[title] -
@@ -131,6 +135,45 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 支持的主题列表通过 `CodeEditorTheme` 枚举定义。
 
+[[suggestion]]
+== 自动完成
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/code-editor-suggestions" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
+`codeEditor` 组件支持自动完成功能。
+
+如果设置 `defaultSuggestionsEnabled` 属性为 `true`，自动完成功能可以根据语言 <<about-mode,模式>> 建议默认的选项：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/codeeditor/code-editor-view.xml[tags=defaultSuggestionsEnabled]
+----
+
+可以用 `suggester` 提供自定义的选项，示例：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/codeeditor/code-editor-view.xml[tags=code-editor-with-custom-suggestions]
+----
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/codeeditor/CodeEditorView.java[tags=code-editor-with-custom-suggestions]
+----
+
+默认情况下，自动完成的弹窗会在用户按下快捷键时打开：
+
+* Windows 和 Linux：*Ctrl-Space*
+* macOS：*⌥-Space* 或 *⌃-Space*，根据系统设置不同。
+
+如果 `suggestOn` 设置为一个正则表达式，则自动完成的弹窗会在用户输入匹配字符串时打开。例如，当 `suggestOn="\."` 时，用户输入 "." 就会打开自动完成弹窗。
+
+如果 `liveSuggestionsEnabled` 属性设置为 `true`，提示窗会根据用户的输入自动显示，而不需要手动触发或设置 `suggestOn` 属性。一旦用户输入单词字符时，会请求所有的建议选项。请注意，实时自动完成在内容比较多或者有复杂的建议时会非常耗资源，因此 `liveSuggestionsEnabled` 默认为 `false`。
+
 [[validation]]
 == 验证
 
@@ -157,6 +200,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |*名称*
 |*描述*
 |*默认值*
+|[[defaultSuggestionsEnabled]]defaultSuggestionsEnabled
+|根据语言 <<mode,模型>> 使用 <<suggestion,自动完成建议>> 的默认选项。
+|`false`
 |[[fontSize]]fontSize
 |设置编辑器内源代码的字体大小
 |`1rem`
@@ -166,6 +212,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[highlightGutterLine]]highlightGutterLine
 |设置是否高亮侧边栏。如果启用，则当前行的侧边栏将高亮显示。
 |`true`
+|[[liveSuggestionsEnabled]]liveSuggestionsEnabled
+|用户输入时，自动打开 <<suggestion,建议选项>> 弹窗。
+|`false`
 |[[mode]]mode
 |设置特定模式的语法高亮。支持的模式通过 `CodeEditorMode` 枚举定义。参阅 <<about-mode, 模式>>。
 |`CodeEditorMode.PLAIN_TEXT`
@@ -181,6 +230,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[showPrintMargin]]showPrintMargin
 |设置代码宽度垂直线的可见性。
 |`true`
+|[[suggestOn]]suggestOn
+|触发 <<suggestion,自动完成>> 的正则表达式，用于匹配用户输入。
+|
 |[[textWrap]]textWrap
 |设置长代码行是否自动换行。
 |`false`

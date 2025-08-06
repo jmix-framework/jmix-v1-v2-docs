@@ -4,4 +4,8 @@ Studio 提供 BPMN 建模器，支持在 IDE 中对业务流程进行建模。
 仅当项目添加了 xref:bpm:index.adoc[BPM 扩展组件] 才会显示此建模器。
 请参阅：xref:bpm:modeler-studio.adoc[Studio 中的 BPMN 建模器]。
 
-include::subscription-note-ent.adoc[]
+[NOTE]
+====
+使用该功能需要 BPM xref:studio:subscription.adoc#enterprise-subscription[订阅]。如果您还没有订阅，请参阅 xref:ROOT:account-management.adoc#enterprise-trial[企业+BPM 版试用] 部分了解如何试用。
+====
+

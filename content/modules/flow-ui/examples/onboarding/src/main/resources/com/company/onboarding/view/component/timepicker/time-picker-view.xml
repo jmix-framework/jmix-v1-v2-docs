@@ -7,8 +7,16 @@
         <!-- end::basics[] -->
 
         <!-- tag::step[] -->
-        <timePicker step="30" min="10:00" max="12:00"/>
+        <timePicker step="30"
+                    min="10:00"
+                    max="12:00"/> <!--1-->
         <!-- end::step[] -->
+
+        <!-- tag::step-unit[] -->
+        <timePicker step="2h"/> <!--1-->
+        <timePicker step="1600s"/> <!--2-->
+        <timePicker step="20m"/> <!--3-->
+        <!-- end::step-unit[] -->
 
         <hbox>
         <!-- tag::alignment[] -->

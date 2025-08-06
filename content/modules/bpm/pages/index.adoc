@@ -4,7 +4,9 @@
 包括对业务流程的设计、执行、监控、
 优化，以提高组织的效率。
 
-BPM 扩展组件提供对业务流进行建模和运行的功能。
+In Jmix, the functionality for modeling and running business processes is provided by the BPM add-on.
+
+在 Jmix 中，建模和运行业务流程的功能通过 BPM 扩展组件提供。
 
 TIP: 通过 https://demo.jmix.io/bookstore/[Bookstore^] 在线示例了解 BPM 扩展组件的实际应用。
 
@@ -13,8 +15,8 @@ TIP: 通过 https://demo.jmix.io/bookstore/[Bookstore^] 在线示例了解 BPM �
 == 安装
 [NOTE]
 ====
-此扩展组件需要企业版 https://www.jmix.cn/subscription-plans-and-prices/[订阅^]。
-如果没有企业版订阅，可以按照 xref:ROOT:account-management.adoc#enterprise-trial[企业版试用] 介绍的方法试用。
+此扩展组件需要 BPM 版 https://www.jmix.cn/subscription-plans-and-prices/[订阅^]。
+如果没有 BPM 版订阅，可以按照 xref:ROOT:account-management.adoc#enterprise-trial[企业+BPM 版试用] 介绍的方法试用。
 ====
 
 请按照 xref:ROOT:add-ons.adoc#installation[扩展组件] 章节的介绍通过 Jmix 市场自动安装。

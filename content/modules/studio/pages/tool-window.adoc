@@ -2,24 +2,32 @@
 
 Jmix 工具窗口设计用来展示项目中的重要元素。通常在 IDE 的左侧打开，但是可以更改在 IDE 中的布局位置，参阅 https://www.jetbrains.com/help/idea/manipulating-the-tool-windows.html[IntelliJ IDEA 文档^]。
 
-image::tool-window.png[align="center",width="482"]
+image::tool-window.png[align="center",width="336"]
 
 [[sections]]
 == 展示内容
 
-* *Build Scripts* 包含项目的两个主要脚本：
+* *Build Scripts* 包含项目的 3 个主要脚本：
 ** `build.gradle` 构建配置脚本。
 ** `settings.gradle` 定义项目名称和模块。
+** `gradle.properties` 中包含在项目中禁用 Hilla 框架的配置。
 * *Configuration* 包含应用程序的配置文件：
 ** `application.properties` - Spring Boot 应用程序的属性配置文件，包括数据库连接参数、日志级别等。
-** `OnboardingApplication` - 项目的主程序类。
-* *Add-ons* 展示项目中安装的 Jmix xref:ROOT:add-ons.adoc[扩展组件] 列表。
+** `SampleSecurityConfiguration` 为 Jmix 模块提供的标准安全配置提供了补充。可以在该类中定义 `SecurityFilterChain` bean 来配置 xref:security:custom-endpoints.adoc[自定义 API 端点] 的安全性。
+** `SampleApplication` - 应用程序的主类。
+* *Add-ons* 包含项目中安装的 Jmix xref:ROOT:add-ons.adoc[扩展组件] 列表。如果双击 *Add-ons* 节点，Studio 会打开一个管理项目中扩展组件的对话框。
 * *Data Stores* 展示和管理项目连接的 xref:data-model:data-stores.adoc[数据存储] 列表。默认情况只有一个数据存储。
++
+在新项目中，默认使用 HSQL 关系型数据库。数据保存在项目下的 `.jmix/hsqldb` 文件夹。
++
+Liquibase changelogs 是 XML 文件，其中包含对数据库表结构的改动代码。
++
+如果双击 *Main Data Store* 节点，可以在打开的对话框中查看数据库连接参数。这些参数保存在 `application.properties` 文件中。
 * *Data Model* 展示和管理项目的 xref:data-model:index.adoc[数据模型]。包括 xref:data-model:entities.adoc[实体] 以及它们关联的元素，例如 UI 视图和 bean。
 +
 每个实体下有 *Refers to* 和 *Referenced by* 两项内容。这里展示实体间的依赖关系、嵌入属性以及继承关系。
 +
-image::tool-data-model.png[align="center", width="469"]
+image::tool-data-model.png[align="center", width="319"]
 +
 --
 ** *Refers to* 展示对其他实体的引用。
@@ -34,9 +42,11 @@ image::tool-data-model.png[align="center", width="469"]
 ** *Message Bundle* 打开应用程序的 xref:localization:message-bundles.adoc[消息包]。
 ** *Main Menu* 打开 xref:studio:menu-designer.adoc[]。
 * *Beans* 显示项目中定义的 Spring beans。
-* *Security* 包含 xref:security:index.adoc[安全配置] 中的角色。
+* *Security* 包含 xref:security:index.adoc[安全配置] 中的角色。新项目中包含两个默认角色，`FullAccessRole` 已经分配给 `admin` 用户，以及 `UiMinimalRole`，可以为用户分配最小权限。
 * *Deployment* 支持 xref:studio:quick-cloud-deployment.adoc[快速部署] 一个容器化的应用程序至云环境。
-* *Sources* 可以看到 *Project* 树的所有内容。
+* 如果双击 *Sources* 节点，Studio 会打开 *Project* 工具窗口，显示全部的源代码：
++
+image::project-tool-window.png[align="center", width="336"]
 * 双击 *Tests* 可以打开 *Project* 树中的 `src/test/java` 目录。
 
 [[context-menu]]
@@ -44,7 +54,7 @@ image::tool-data-model.png[align="center", width="469"]
 
 通过右键菜单可以创建新的元素。例如，右键点击 *User Interface* 可以调用与视图和视图主题相关的操作。
 
-image::context-menu.png[align="center",width="436"]
+image::context-menu.png[align="center",width="427"]
 
 [[toolbar]]
 == 工具栏
@@ -52,13 +62,11 @@ image::context-menu.png[align="center",width="436"]
 工具栏位于 Jmix 工具窗口的顶部，提供对常用功能和设置的快速访问，有以下几个功能：
 
 [[creating-new-elements]]
-=== 创建新元素
+=== 新建
 
-在 *New* 这一组操作中，可以新建项目元素。
+通过 *New* 操作组可以新建项目中的元素。例如，可以创建新的 xref:studio:entity-designer.adoc#jpa-entity-designer[JPA 实体]，xref:studio:data-stores.adoc#additional-data-store[附加数据存储] 或其他必要组件。
 
-image::new.png[align="center",width="255"]
-
-例如，*JPA Entity* 可以创建新实体。
+image::new.png[align="center",width="427"]
 
 [[settings]]
 === 配置
@@ -72,6 +80,8 @@ image::toolbar-settings.png[align="center",width="257"]
 *Marketplace* 操作打开 xref:studio:marketplace.adoc[扩展组件] 窗口，这里可以管理项目中包含的扩展组件。
 
 image::marketplace.png[align="center",width="942"]
+
+*Jmix Plugin Settings* 打开一个对话框，显示在当前 Studio 实例中打开所有项目的配置信息。
 
 *Account Information* 操作可以打开 xref:studio:subscription.adoc[Jmix Subscription] 窗口，这里可以查看您的账号和订阅的详细信息。
 
@@ -91,8 +101,9 @@ image::gradle.png[align="center",width="313"]
 [[help]]
 === 帮助
 
-image::help.png[align="center", width="321"]
+image::help.png[align="center", width="305"]
 
+* 请使用内置的反馈表单分享您对 Jmix Studio 的意见或建议 - 比如喜欢什么功能，哪些功能还需要改进。可以从菜单项的 *Submit Feedback* 打开。
 * *Jmix Documentation* 在浏览器打开文档网页。
 * *Third-Party Libraries* 打开一个对话框展示第三方库的信息。
 * *Welcome* 打开 xref:studio:welcome.adoc[欢迎视图]。

@@ -16,308 +16,299 @@ IntelliJ IDEA 的最低版本要求是 {minimal-idea-version}。
 
 * 升级 Jmix BOM 的版本，BOM 又定义了所有依赖的版本。
 * 升级 Jmix Gradle 插件的版本。
-* Gradle 包装器版本更新至 8.12.1，见 `gradle/wrapper/gradle-wrapper.properties`。
-* 迁移了对 `NotInstantiatedList` 和 `NotInstantiatedSet` 类的导入。参考 <<core-modules-refactoring,下面内容>>。
-* 如果项目包含了 REST API 扩展组件，则设置 xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] 为 `false`。参考 <<fetch-plans-in-rest-api-and-rest-datastore,下面内容>>。
-* 如果项目包含了 Authorization Server 扩展组件，则设置 xref:authorization-server:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] 为 `true`。参考 <<authorization-server-token-storage,下面内容>>。
+* 如果项目视图中的 `editorActionsColumn` 按钮没有设置值，则为其添加默认值。参阅 <<editor-actions-column-buttons,以下内容>>。
+* 项目视图中如果用到 `settings.component` 元素的 `id`，则改为使用 `componentId`。参阅 <<settings-component-id,以下内容>>。
+* 为 xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] 应用程序属性添加 `html,htm`。参阅 <<downloading-html-content,以下内容>>。
+
 
 请参考破坏性改动的 <<breaking-changes,完整列表>>，并在升级后做相应修复。
-
-[IMPORTANT]
-====
-如果项目升级并启动应用程序后，遇到以下异常：
-
-`com.vaadin.flow.server.ExecutionFailedException: Vite build exited with a non zero status`
-
-需要从项目目录删除这些文件或文件夹：`node_modules`、`package.json`、`pnpm-lock.yaml`、`tsconfig.json`、`types.d.ts`、`vite.config.ts`、`vite.generated.ts`。
-
-另外，如果安装了全局的 Node.js，则需要升级至 https://nodejs.org[^] 列出的最新的 LTS 版本。
-====
 
 [[updated-dependencies]]
 == 依赖更新
 
 下列主要依赖库更新：
 
-* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.4-Release-Notes[3.4^]。
+* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.5-Release-Notes[3.5^]。
 
-* Vaadin https://github.com/vaadin/platform/releases/tag/24.6.0[24.6^]。
+* Vaadin https://github.com/vaadin/platform/releases/tag/24.7.0[24.7^]。
 
 [[new-features]]
 == 新功能和改进
 
-[[studio-improvements]]
+[[studio]]
 === Studio 改进
 
-[[hot-deploy-indication]]
-==== 热部署提示
+[[jmix-ai]]
+==== Jmix AI 助手
 
-Studio 可以在支持热部署的文件（视图控制器和 XML，消息包，角色等）右上角显示一个新的图标，以提示当前文件的热部署状态。
+Jmix AI 助手现在可以通过 Studio 工具窗口访问。
+默认出现在 IDE 右侧的工具栏中，点击 image:jmix_ai_big.svg[] 图标可以打开。
 
-这个指示器的作用是持续为开发人员提示源码中最新更改是否已经发布到运行中的应用程序。
+Studio 中 Jmix AI 助手与 web 版共享聊天会话记录列表，可以无缝切换。
 
-[[application-log-analysis]]
-==== 应用程序日志分析
+[[new-code-snippets]]
+==== 新的代码片段
 
-Studio 可以检测到应用程序控制台输出的常见异常并提供建议的解决方案。
+增加了超过 20 个新的关于 UI 的代码片段，主要分这几类：通知和弹窗，打开视图和 fragment，异步执行，以及 API 示例。
 
-热部署指示器也是通过分析应用程序控制台输出实现的。
+[[moving-views]]
+==== 视图的移动
 
-[[jmix-run-debug-configuration]]
-==== Jmix Run/Debug 配置
+现在可以通过 Jmix 工具窗口右键菜单的 *Move View* 功能轻松移动视图至别的包内。Studio 会帮助移动 Java 控制器、视图 XML 并在消息包中更新相关的消息键值。
 
-我们引进了一个新的 Jmix run/debug 配置，可以替代标准的 Gradle 配置。当在 IDE 中打开 Jmix 项目时自动创建该配置。可以通过 Jmix 图标辨别新的配置。
+另外，如果在项目工具窗口使用 IDE 的通用功能移动 Java 控制器或视图 XML，Studio 还能提醒自动同时移动对应的 XML 或 Java 控制器并更新消息键值。
 
-与 Gradle 配置相比，新的 Jmix 配置可以停止应用程序而不产生任何控制台错误。
+[[scaffolding-renderers]]
+==== 创建渲染器
 
-在 *Run/Debug Configurations* 窗口中可以点击 *Add New Configuration* 然后选择 *Jmix Application* 创建 Jmix run/debug 配置。如果右键点击 Jmix 工具窗口的根节点并选择 *Start Application* 也会创建这个配置。
+当使用 Studio 为 UI 组件生成 xref:flow-ui:vc/miscellaneous/renderers.adoc[渲染器] 时，例如，为 `dataGrid` 生成列渲染器，Studio 会提供一个创建向导，可以创建 `ComponentRenderer`、`TextRenderer` 或一个空的处理方法。
 
-[[class-names-editor-and-autocompletion]]
-==== classNames 编辑器和自动完成
+[[replacing-strings-with-localized-messages]]
+==== 用本地化消息替换字符串常量
 
-Studio 对于 UI 组件 `classNames` 属性值的输入提供了高级支持。当在视图 XML 中编辑时，提供了 CSS 类名的自动完成选项。Jmix UI 组件提供了一个可以选择类名的编辑器窗口。
+新的便捷操作 *Replace with localized message* 支持将字符串文字快速替换为消息包中的本地化消息。适用于 Java 和 XML 代码。
 
-可用的类名从以下来源获取：
+将光标放在字符串文字上并按 `Alt+Enter` 即可访问此操作。
 
-* `com.vaadin.flow.theme.lumo.LumoUtility` 类及其内部类。
-* `io.jmix.flowui.themes.JmixLumoUtility` 类。
-* 任何使用 `@ThemeUtilityClasses` 注解的自定义类。可以在你自己的扩展组件或应用程序中提供共享的类名。
+[[lombok]]
+==== Lombok 支持
 
-[[openapi-client-generation-by-tags]]
-==== 按标签生成 OpenAPI 客户端
+Studio 现在可以识别实体中的 `@Getter` 和 `@Setter` 注解以及 Spring bean 中的 `@RequiredArgConstructor` 注解。如果存在这些注解，Studio 在添加实体属性或 bean 依赖时，不会生成显式的代码了。
 
-当按照 xref:openapi-integration-guide:index.adoc[] 指南通过 OpenAPI 结构生成客户端代码时，可以只选择 API 结构中的部分标签。这样在集成时如果不需要所有的路径，可以减少生成的代码量。
+还有，如果实体带了 `@EqualsAndHashCode` 或 `@Data` 注解，Studio 还会显示警告（参阅 xref:data-model:entities.adoc[]）。
 
-[[message-templates-add-on]]
-=== 消息模板扩展组件
+[[performance-on-large-projects]]
+==== 大项目的性能
 
-xref:message-templates:index.adoc[] 扩展组件支持创建可重用的消息模板，用于发送电子邮件或应用内通知。
+Studio 处理大项目的性能得到了显著的提升。即使项目中具有超过 1000 个实体，Jmix 工具窗口的项目树和资源角色设计器现在也非常快。
 
-[[tabbed-app-mode]]
-=== 多标签应用程序模式（试验）
+[[switch-component]]
+=== 开关组件
 
-xref:tabbed-mode:index.adoc[] 扩展组件支持在应用程序主视图的标签页中打开视图。
+增加了新的 xref:flow-ui:vc/components/switch.adoc[] 组件，支持用户在两种状态之间切换（例如，on/off 或 true/false）。UI 上模仿带有滑动手柄的物理拨动开关。
 
-这个扩展组件通过在主视图标签样打开视图透明地替换了 xref:flow-ui:views/opening-views.adoc#navigation[页面导航] 功能。也可以使用 `ViewBuilders` bean 在当前主视图标签页、新标签页或对话框窗口中打开视图。
+[[tabbed-application-mode]]
+=== 多标签页应用程序模式的改进
 
-CAUTION: 多标签应用程序模式扩展组件目前还处于试验阶段，可能在下一个 Jmix 版本中可能会发生重大改动。
+xref:tabbed-mode:index.adoc[] 组件已经改进完成，可用于生产环境。
 
-[[editing-objects-on-map]]
-=== 编辑地图中的对象
+* 主视图的布局中显式声明了 `mainTabSheet` 组件。该组件能包含通过标签页右键菜单或快捷键调用的操作。
+* 支持标签页的拖拽。
+* `@TabbedModeViewProperties` 注解可以定义视图在标签页打开的参数。
+* 网页刷新时能保留 UI 的状态。
+* 网页刷新是能触发 `UIRefreshEvent` 事件。
 
-xref:maps:index.adoc[] 扩展组件支持对矢量源中的要素进行选择、移动或编辑。
+NOTE: 多标签模式扩展组件的最终版需要使用企业版授权安装。
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/2832[#2832^]。
+[[autocompletion-in-codeeditor]]
+=== CodeEditor 中的自动完成
 
-[[advanced-bpm-task-list-view]]
-=== 高级 BPM 任务列表视图
+`codeEditor` 组件可以为特定的语言提供自动完成功能，也可以使用自定义的自动完成建议提供方法。
 
-现在可以通过视图创建向导的 *BPM: Advanced task list view* 模板生成高级 BPM 任务列表视图。
+参阅 xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor：自动完成] 了解更多。
 
-这个视图比内置的 *My tasks* 多了一些功能并可以在项目中根据需要自定义。
+[[hbox-slot-placement]]
+=== HorizontalLayout 插槽
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3752#issuecomment-2618313306[#3752^]。
+现在 `hbox` 布局组件支持在不同的对齐插槽（`start`、`center`、`end`）内放置组件了。为在 `hbox` 中对组件分组提供了更多的灵活性，提高了对组件位置的控制。
 
-[[substituted-user-in-audit]]
-=== 审计中的替代用户
+参阅 xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox：水平对齐] 了解更多。
 
-xref:audit:index.adoc[] 扩展组件中的 *Entity log* 视图现在可以为每个改动显示登录用户和 xref:security:users.adoc#user-substitution[替代用户]。
+[[header-footer-dialogwindow]]
+=== 自定义 DialogWindow 的 header 和 footer
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4034[#4034^]。
+新增了两个回调方法，可以自定义对话框窗口的 header 和 footer：
 
-[[datagrid-empty-state]]
-=== DataGrid 空状态
+* `configureDialogWindowHeader()`：在视图中重写该方法修改对话框的 header。
+* `configureDialogWindowFooter()`：在视图中重写该方法修改对话框的 footer。
 
-xref:flow-ui:vc/components/dataGrid.adoc[] 组件现在支持 `emptyStateComponent` 和 `emptyStateText` 属性，用于在没有数据的时候显示一些内容。
+参阅 xref:flow-ui:views/view-methods.adoc#methods-of-all-views[视图：所有方法] 了解更多。
 
-参阅 https://vaadin.com/docs/latest/components/grid#empty-state[Vaadin 文档^] 和 GitHub issue  https://github.com/jmix-framework/jmix/issues/3884[#3884^]。
+[[save-without-reload]]
+=== DataManager.saveWithoutReload 方法
 
-[[rest-improvements]]
-=== REST API 和 REST 数据存储改进
+当不需要立即使用保存后的实体时，新的 `DataManager.saveWithoutReload()` 可以提供更好的性能。这个方法可以替代之前复杂的 `save(new SaveContext().saving(entities).setDiscardSaved(true))` 调用。
 
-[[fetch-plans-in-rest-api-and-rest-datastore]]
-==== REST API 和 REST 数据存储中的 Fetch Plans
+参阅 xref:data-access:data-manager.adoc#save[使用 DataManager：保存实体] 了解更多。
 
-在之前的版本中，通用 REST 端点仅能接受定义在共享 fetch plan 存储库中的命名 fetch plan 的名称。现在可以用 JSON 格式传递任意的 fetch plan。参阅 xref:rest:entities-api/load-entities.adoc#inline-fetch-plans[内联 Fetch Plans]。
+[[export-import-of-message-templates]]
+=== 消息模板导入导出
 
-这个功能会影响 xref:rest-ds:index.adoc[] 的使用：现在无需在客户端和服务端应用程序中定义所有的 fetch plan。而是与视图和 Java 代码一样，可以只在客户端使用内联的 fetch plan。
+在 xref:message-templates:index.adoc[] 扩展组件中，通过 *Export* 和 *Import* 操作可以在不同的应用程序直接交换模板。
 
-REST API 开放了一个新的 xref:rest:capabilities-api.adoc[]。可以为客户端提供通用 REST API 功能的相关信息。目前 `/capabilities` 端点返回的 JSON 对象仅包含一个属性：`inlineFetchPlans`。如果这个属性值为 `true`，表示启用了内联 fetch plan。否则，客户端仍然只能传递命名 fetch plan。
+[[refreshing-data-in-calendars]]
+=== 日历中刷新数据
 
-可以通过应用程序属性 xref:rest:app-properties.adoc#jmix.rest.inline-fetch-plan-enabled[jmix.rest.inline-fetch-plan-enabled] 禁用 REST 中的内联 fetch plan。当使用 Studio 从低版本 Jmix 升级至 2.5 时，会设置这个属性为 `false`，避免意外的数据泄露。
+在 xref:calendar:index.adoc[] 扩展组件中，使用 `FullCalendar` 组件的新 `refetchDataProvider()` 方法刷新回调数据 provider。
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4031[#4031^]。
+[[logout-in-authorization-server]]
+=== 认证服务的登出
 
-[[using-filestorage-with-rest-datastore]]
-==== 在 REST 数据存储使用文件存储
+xref:authorization-server:index.adoc[] 扩展组件在导航至 `/logout` URL 时，会执行标准的登出操作（使 HTTP 会话失效、清除安全上下文、删除会话 cookie）。
 
-REST 数据存储现在包含了一个特殊的 `FileStorage` 实现，可以通过 `/files` 端点操作远端应用程序文件存储中的文件。参阅 xref:rest-ds:index.adoc#file-storage[REST 数据存储：文件存储]。
+此外，引入了 xref:authorization-server:configuration.adoc#jmix.authserver.post-logout-url-redirect-parameter-name[jmix.authserver.post-logout-url-redirect-parameter-name] 和 xref:authorization-server:configuration.adoc#jmix.authserver.use-referer-post-logout[jmix.authserver.use-referer-post-logout] 应用程序属性。
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4119[#4119^]。
+[[rest-data-store]]
+=== REST 数据存储改进
 
-[[configurable-paths-of-rest-endpoints]]
-==== REST 端点路径可配置
+[[rest-data-store-remote-service-interfaces]]
+==== @RemoteService 接口
 
-REST API 端点的路径现在可以使用应用程序属性进行配置了，参阅 xref:rest:app-properties.adoc#paths[REST 属性：路径]。
+REST 数据存储扩展组件现在提供了一种调用远程开放的服务 REST API 的简单方法。在客户端，只需要创建一个镜像服务方法的接口，并用 `@RemoteService` 注解即可。
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4052[#4052^]。
+参阅 xref:rest-ds:index.adoc#remote-service-interfaces[REST 数据存储：@RemoteService 接口] 了解更多。
 
-[[sessions-in-rest-api]]
-==== REST API 的会话
+[[rest-data-store-oidc-authentication]]
+==== OIDC 认证
 
-*Jmix Sessions* 子系统提供了在使用相同 token 的 REST 请求之间维护会话的功能。参阅 xref:security:authentication.adoc#sessions-in-rest-api[REST API 中的会话] 了解详情。
+REST 数据存储扩展组件现在包含了 `restds_RestOidcAuthenticator` bean，支持在集成应用程序时使用外部认证供应商（例如 Keycloak）。
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3915[#3915^]。
+参阅 xref:rest-ds:index.adoc#external-authentication[REST 数据存储：外部认证] 了解更多。
 
-[[using-uuidv7-for-entity-identifiers]]
-=== 实体 ID 使用 UUIDv7
+[[turning-off-lazy-loading]]
+=== 关闭延迟加载
 
-现在为带了 `@JmixGeneratedValue` 注解的 `UUID` 属性生成 ID 时使用了 https://www.ietf.org/archive/id/draft-peabody-dispatch-new-uuid-format-04.html#name-uuid-version-7[UUIDv7^]。这个版本的 UUID 是基于时间的，更适合自然排序和数据库主键。
+新增的 xref:data-access:data-properties.adoc#jmix.eclipselink.disable-lazy-loading[jmix.eclipselink.disable-lazy-loading] 应用程序属性可以为整个应用程序关闭延迟加载。
 
-`UuidProvider` 类的 `createUuidV7()` 方法现在默认用在 `EntityUuidGenerator` bean 中。如果仍然需要使用之前版本的 UUID，请设置应用程序属性：
+注意，这个是试验性功能。在将来的发行版中才能最终确认或放弃。如果使用过程中遇到问题，请提交 https://github.com/jmix-framework/jmix/issues[GitHub issue^]。
 
-[source,properties]
-----
-jmix.core.legacy-entity-uuid=true
-----
+[[data-tools-security]]
+=== 数据工具的安全性
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3424[#3424^]。
+数据工具扩展组件现在包含了以下安全角色和策略：
 
-[[copier-interface]]
-=== Copier 接口
+新角色：
 
-新的 `Copier` 接口提供了 `copy(Object)` 方法，可以复制实体。语义上与 `MetadataTools.deepCopy(Object)` 类似，但是不同之处在于，新方法的实现不依赖元数据，仅通过 Java 的序列化复制对象的状态。
+* `datatools-full-access` - 授予数据工具的所有权限。
+* `datatools-minimal-access` - 授予数据工具的只读权限。
 
-可以用 `Copier` 从 UI 中分离实体，并中视图中将分离的实体发送给自定义服务。`DataContext` 在通过 `DataManager` 保存实体时，也使用这个接口复制实体。参阅 xref:flow-ui:data/entities-in-ui.adoc[] 了解更多。
+新策略：
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3937[#3937^]。
+* `datatools.importExportEntity` - 控制数据工具中导入、导出功能的访问。
 
-[[current-locale-query-parameter]]
-=== 当前语言环境查询参数
+参阅 xref:data-tools:security-roles.adoc[数据工具：安全角色] 了解更多。
 
-现在可以在查询语句中与 xref:data-access:jpql-extensions.adoc#session-and-user-attributes[current_user_] 前缀的参数一样使用预定义的 `current_locale` 查询参数。示例：
+[[masquerade]]
+=== Masquerade UI 测试库
 
-[source,jpaql]
-----
-select e from Region e where e.locale = :current_locale
-----
+Masquerade 基于 Selenium WebDriver 和 Selenide 等知名工具，是一个专为 Jmix 应用程序设计的端到端 UI 测试库。Masquerade 通过提供方便的包装器和简化对 Web 元素关键功能的访问，简化了 Jmix UI 所有元素的测试。
 
-参数值是当前用户会话中的语言环境设置，从 xref:security:authentication.adoc#current[CurrentAuthentication] 对象获取。
-
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3958[#3958^]。
-
-[[hot-deploy-folder-cleanup]]
-=== 热部署文件夹清理
-
-在之前的版本中，热部署的文件夹 `.jmix/conf` 仅在执行 Studio 的启动应用程序之前的 `Clean Hot Deploy Conf Directory` 任务中清理。
-
-为了确保清理工作更加可靠，且不依赖 Studio，我们在 Jmix Gradle 插件中添加了 `cleanConf` 任务。这个任务在每次启动程序的 `bootRun` 任务之前执行。
-
-如果该功能出现了任何异常，可以在 `build.gradle` 添加下面的属性禁用 `cleanConf` 任务：
-
-[source,gradle]
-----
-jmix {
-    // ...
-    confDirCleanupEnabled = false
-}
-----
-
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3451[#3451^]。
+参阅 xref:testing:masquerade.adoc[] 了解更多。
 
 [[breaking-changes]]
 == 破坏性改动
 
-[[checkbox-required-state]]
-=== 复选框的必选状态
+[[node-20]]
+=== Node.js v.20
 
-xref:flow-ui:vc/components/checkbox.adoc[] 组件支持对 “required” 状态做验证。如果复选框由于其自身属性 `required` 或由于关联一个必需的实体属性而成为必填的字段，则仅 `true` 值能通过验证，并且包含该复选框的详情视图才能关闭。
+Vaadin 24.7 要求 Node.js 20+。如果使用的是本地安装的 Node，请按需升级。
 
-参阅 https://vaadin.com/docs/latest/components/checkbox#required[Vaadin 文档^] 和 GitHub issue https://github.com/jmix-framework/jmix/issues/4045[#4045^]。
+[[editor-actions-column-buttons]]
+=== 删除了 editorActionsColumn 按钮的默认值
 
-[[core-modules-refactoring]]
-=== 核心模块重构
+在之前的版本中，xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn] 内的按钮的某些属性具有默认值。具体来说，所有的按钮都分配了 `icon`，而 `editButton` 和 `cancelButton` 按钮有 `text` 属性值。
 
-由于重构了核心子系统对数据库相关库的依赖（GitHub issue https://github.com/jmix-framework/jmix/issues/3918[#3918^]），下面这些破坏性改动可能会影响当前项目：
+这个行为其实是不一致的，而且在应用程序项目中无法删除图标或文本。
 
-* `NotInstantiatedList` 和 `NotInstantiatedSet` 类从 `io.jmix.data.impl.lazyloading` 移至 `io.jmix.eclipselink.lazyloading` 包。这些类用来在 Kotlin 项目中初始化实体集合属性。需要更新实体中的依赖。
+现在这些按钮没有默认值了。
 
-* `io.jmix.data.entity.ReferenceToEntity` 可嵌入实体已经移除。如果项目中使用了，请自己创建一个拷贝。
+Studio 自动迁移程序会扫描项目中的所有视图，为没有显式设置值的这些按钮添加之前版本的默认值。
 
-* `io.jmix.flowuidata.accesscontext.UiGenericFilterModifyGlobalConfigurationContext` 类移至 `io.jmix.flowui.accesscontext` 包。
+参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4493[#4493^] 了解更多。
 
-* `io.jmix.flowuidata.action.genericfilter` 包内的所有类移至 `io.jmix.flowui.action.genericfilter` 包。
+[[settings-component-id]]
+=== Renamed settings.component id attribute
 
-* `io.jmix.securityflowui.model` 包内的所有类移至 `io.jmix.security.model` 包。
+The `id` attribute of `component` element in the xref:flow-ui:facets/settings.adoc[settings] facet has been renamed to `componentId` to not confuse with the commonly used `id` attribute. For example:
 
-* `io.jmix.flowuidata.genericfilter.UiDataGenericFilterSupport` 类功能迁移至 `io.jmix.flowui.component.genericfilter.GenericFilterSupport`。
-
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/3982[#3982^]。
-
-[[authorization-server-token-storage]]
-=== 授权服务的 Token 存储
-
-xref:authorization-server:index.adoc[] 扩展组件现在将 token 保存在数据库中，以确保在服务重启时能保留之前的 token。
-
-如果正在使用 xref:authorization-server:obtaining-tokens.adoc#resource-owner-password-credentials-grant[密码授权]，需要定义一个 `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` 类型的 bean，并按如下代码实现：
-
-[source,java]
+Jmix 2.5:
+[source,xml]
 ----
-import io.jmix.authserver.service.mapper.DefaultOAuth2TokenUserMixin;
-import io.jmix.authserver.service.mapper.JdbcOAuth2AuthorizationServiceObjectMapperCustomizer;
-// ...
-@SpringBootApplication
-public class MyApplication implements AppShellConfigurator {
-    // ...
-
-    @Bean
-    JdbcOAuth2AuthorizationServiceObjectMapperCustomizer tokenObjectMapperCustomizer() {
-        return objectMapper ->
-                objectMapper.addMixIn(User.class, DefaultOAuth2TokenUserMixin.class);
-    }
-}
+<facets>
+    <settings>
+        <component id="genericFilter"/>
+    </settings>
+</facets>
 ----
 
-这里的 `User` 是你项目中的用户实体类。
-
-如果在使用 token 时出现 `java.lang.IllegalArgumentException: The class ... is not in the allowlist` 异常，则表示实体包含了某种类型的属性，这个类型在 token 序列化器中默认不支持。需要创建一个 mixin 类，扩展 `DefaultOAuth2TokenUserMixin`，然后在 `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` bean 中使用。示例：
-
-[source,java,indent=0]
+Jmix 2.6+:
+[source,xml]
 ----
-include::separate-tiers-guide:example$backend-app/src/main/java/com/company/backend/security/OAuth2TokenUserMixin.java[]
+<facets>
+    <settings>
+        <component componentId="genericFilter"/>
+    </settings>
+</facets>
 ----
 
-如果仍然希望使用之前的内存 token 存储，设置 xref:authorization-server:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] 应用程序属性为 `true`。在通过 Studio 升级 Jmix 2.5 时，该属性默认设置为 `true`，以保留相应的逻辑。
+The Studio migration procedure scans all views in the project and automatically renames this attribute.
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/pull/4153[#4153^]。
+参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4412[#4412^] 了解更多。
 
-[[filestoragelocator-interface]]
-=== FileStorageLocator 接口
+[[downloading-html-content]]
+=== Downloading HTML Content
 
-为 `io.jmix.core.FileStorageLocator` 接口添加了 `getAll()` 方法。如果你有自己实现这个接口，则需要实现这个方法。参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4119[#4119^]。
+To prevent potential XSS attacks, `Content-Disposition: inline` is no longer used by default when downloading HTML files. As a result, HTML files are downloaded instead of being displayed automatically in the browser.
 
-[[changed-constructors]]
-=== 构造器变化
+To restore the previous behavior, add `html` to the list of extensions in the xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] property. The Studio migration procedure automatically adds this extension.
 
-由于内部的重构（GitHub issue https://github.com/jmix-framework/jmix/issues/4152[#4152]），下列 bean 的构造器发生了变化：
+The Reports add-on now has its own list of extensions enabled for viewing in the browser. It is configured using the xref:reports:configuration.adoc#jmix.reports.view-file-extensions[jmix.reports.view-file-extensions] property. This property includes HTML files by default, as the HTML content generated by reports is considered safe.
 
-* `DetailViewNavigationProcessor`
-* `HtmlContainerReadonlyDataBindingImpl`
-* `MenuItemCommands`
-* `UrlQueryParametersFacetProvider`
-* `ViewNavigationDelegate`
+参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4364[#4364^] 了解更多。
 
-如果你扩展了这些 bean，需要对照修改。
+[[setting-item-to-data-containers-in-kotlin]]
+=== Kotlin 项目中为数据容器赋值
+
+在 Kotlin 项目中，直接通过代码设置数据容器的 `item` 时可能会导致编译失败。例如：
+
+[source,kotlin]
+----
+someDc.item = entity
+----
+
+为了避免这个问题，请将赋值改为 setter 的调用：
+[source,kotlin]
+----
+someDc.setItem(entity)
+----
+
+参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4576[#4576^] 了解更多。
+
+[[dynamic-attributes-views]]
+=== 动态属性视图的改进
+
+xref:dyn-attr:index.adoc[动态属性] 管理页面视图做了大量的重新设计。如果项目中覆盖了这些视图，请按新的视图调整代码。
+
+[[in-app-notification-list-view]]
+=== in-app-notification-list-view.xml 改动
+
+在 xref:notifications:index.adoc[] 扩展组件的 `in-app-notification-list-view.xml` 中，移除了 `inAppNotificationsDataGrid` 的 `create` 操作。这个操作移到了视图的 `actions` 中，并改名为 `createNotificationAction`。
+
+如果项目中覆盖了这些视图，请按新的视图调整代码。
+
+[[security-filter-chain-validation]]
+=== SecurityFilterChain 验证
+
+Spring Security 6.5.0 引入了对多个 `SecurityFilterChain` 使用同一个 `securityMatcher` 的检测。
+
+如果项目中同时包含了 `OIDC` 和 `Authorization Server` 这两个扩展组件，那么会创建这样的 chain。
+这里的两个 chain 都是配置资源服务中 REST API 的安全保护。
+
+在之前的版本中，`Authorization Server` 中的 chain 会有更高的优先级，从而会忽略 `OIDC` 中的 chain。
+
+现在，如果仍然需要这两个扩展组件，那么应该手动禁用 `OIDC` 中的 chain 以恢复之前的行为。
+禁用可以通过设置 `jmix.oidc.use-default-jwt-configuration=false` 实现。
 
 [[changelog]]
 == 变更日志
 
 * Jmix 框架解决的问题：
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.1[2.5.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.5.0[2.5.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.1[2.6.1^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
 
 * Jmix Studio 解决的问题：
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.1[2.5.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.5.0,-2.4.*%20Affected%20versions:%20-SNAPSHOT[2.5.0^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.2[2.6.2^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.1[2.6.1^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.0,-2.5.*%20Affected%20versions:%20-SNAPSHOT[2.6.0^]

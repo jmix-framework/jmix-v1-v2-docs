@@ -1,4 +1,0 @@
-[NOTE]
-====
-此功能可在最多 10 个实体和角色的小项目中免费使用。在大项目中，需要快速开发版或企业版 xref:studio:subscription.adoc#subscription[订阅^]。
-====

@@ -16,6 +16,8 @@ dependencies {
 
 功能模块会通过 starter 传递引入。
 
+TIP: 参阅 xref:studio:composite-projects.adoc[] 部分了解如何在单一的 IDE 项目中开发多个扩展组件和应用程序。
+
 [[hierarchy]]
 == 扩展组件层级关系
 

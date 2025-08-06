@@ -3,7 +3,7 @@
 
 视图设计器有许多面板和工具窗口，为视图布局开发提供支持，以所见即所得的形式设置 UI 组件属性。集成了视图 XML 编辑器，因此，可以直接编辑 XML 文件或使用设计器的面板生成代码。
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 *Jmix UI* 面板作为 IDE 中独立的工具窗口提供，当在编辑器打开页面 XML 或控制器代码时，会自动展示。支持在编写 Java 控制器代码的同时查看组件树、更改组件属性，甚至添加新组件。还可以直接将组件从结构树中拖放到代码编辑器实现组件的注入。
 
@@ -100,10 +100,19 @@ image::components-hierarchy.png[align="center",width="410"]
 
 *Jmix UI* 组件面板展示 *Properties* 和 *Handlers* 标签页。
 
+[[properties-tab]]
+=== Properties 标签页
+
+*Properties* 标签页展示选中界面元素的属性，并支持编辑。
+
+image::component-properties-panel.png[align="center",width="337"]
+
+为了方便访问，所选组件的属性划分了不同的分类。如果需要找到特定的属性，一种方法是展开相应的分类，另一种方法是使用顶部的搜索栏进行查找。可以通过 image:icons/editorConfig.svg[Categories Order] 按钮自定义分类的顺序。image:icons/collapseAll.svg[Collapse All] 和 image:icons/expandAll.svg[Expand All] 按钮可以展开或收起分类中的属性。
+
 [[component-inspector-add-button]]
 对于某些选中的元素，会展示 *+ Add* 按钮，可以用来添加子元素，例如数据网格的操作、列、格式化器、验证器等。
 
-image::component-inspector-add-button.png[align="center", width="410"]
+image::component-inspector-add-button.png[align="center", width="357"]
 
 [[add-picker-action]]
 * 如需添加一个 xref:flow-ui:actions/entity-picker-actions.adoc[实体选择器] 或 xref:flow-ui:actions/value-picker-actions.adoc[值选择器] 操作，在界面 XML 描述或者 *Jmix UI* 结构面板中选择一个合适的组件然后点击 *Add → Action*。此时会显示 *Add Action* 弹窗：
@@ -140,19 +149,11 @@ image::add-column-dialog.png[align="center", width="386"]
 // +
 // Studio 会自动在 XML 中添加生成列，在界面控制器中添加处理器方法。
 
-[[properties-tab]]
-=== Properties 标签页
+现在我们详细看看属性列表。
 
-*Properties* 标签页展示选中界面元素的属性，并支持编辑。
+第一列显示所选组件属性的名称，第二列显示属性的值：
 
-image::component-properties-panel.png[align="center",width="410"]
-
-有些属性具有默认值，以灰色显示。
-
-使用搜索控件查找需要的属性。
-
-属性默认按照名称排序。第一列给出所选组件的所有属性名。第二列展示属性值：
-
+* 某些属性具有默认值，显示为灰色。
 * 当选中某个属性时，值会变为一个可编辑的字段，允许输入新值。
 +
 image::properties-text-value.png[align="center",width="385"]

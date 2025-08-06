@@ -92,6 +92,9 @@ second.liquibase.change-log=com/company/demo/liquibase/second-changelog.xml
 ----
 ====
 
+[[ignoring-existing-tables]]
+=== 忽略已存在的表格
+
 默认情况下，Jmix Studio 会将数据库中的所有表与数据模型进行比较，并生成数据库变更脚本，脚本中对无法找到对应实体类的数据库表还会生成 `DROP TABLE` 语句。如果你的数据库包含无法与实体对应的表，可以将表格前缀或完整名称添加到 `main.datasource.studio.liquibase.exclude-prefixes` 应用程序属性，这样可以忽略这些表，例如：
 
 [source, properties]

@@ -1,18 +1,54 @@
 ext.jmixCompositeProjectRoot = true
 
 tasks.register('compileAll') {
-    dependsOn gradle.includedBuild('onboarding').task(':testClasses')
-    dependsOn gradle.includedBuild('security-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('library').task(':testClasses')
-    dependsOn gradle.includedBuild('rest-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('data-model-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('fullcalendar-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('fullcalendar-ex2').task(':testClasses')
-    dependsOn gradle.includedBuild('maps-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('maps-ex2').task(':testClasses')
-    dependsOn gradle.includedBuild('superset-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('superset-ex2').task(':testClasses')
-    dependsOn gradle.includedBuild('authserver-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('uiconstraints-ex1').task(':testClasses')
-    dependsOn gradle.includedBuild('tabbedmode-ex1').task(':testClasses')
+    
+    def projectNames = [
+            'audit-ex1',
+            'authserver-ex1',
+            'bpm-ex1',
+            'calendars-ex1',
+            'charts-ex1',
+            'charts-ex2',
+            'data-access-ex1',
+            'data-model-ex1',
+            'dyn-attr-ex1',
+            'ext',
+            'features-ex1',
+            'files-ex1',
+            'fullcalendar-ex1',
+            'fullcalendar-ex2',
+            'gridexport-ex1',
+            'kanban-ex1',
+            'kanban-ex2',
+            'library',
+            'localization_ex1',
+            'maps-ex1',
+            'maps-ex2',
+            'masquerade-ex1',
+            'messagetemplates-ex1',
+            'multitenancy-ex1',
+            'notifications-ex1',
+            'oidc-ex1',
+            'onboarding',
+            'pivottable-onboarding',
+            'pivottable-ex1',
+            'pslock-ex1',
+            'rest-ex1',
+            'rest-ds-client',
+            'rest-ds-service',
+            'search-ex1',
+            'security-ex1',
+            'superset-ex1',
+            'superset-ex2',
+            'tabbedmode-ex1',
+            'testing-ex1',
+            'uiconstraints-ex1',
+            'webdav-ex1'
+    ]
+
+    projectNames.each { projectName ->
+        dependsOn gradle.includedBuild(projectName).task(':testClasses')
+    }
+
+    dependsOn gradle.includedBuild('base').task(':base:testClasses')
 }

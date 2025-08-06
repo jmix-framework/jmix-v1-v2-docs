@@ -29,7 +29,7 @@ XML 中可设置的元素：
 
 * `content` - 必需元素，设置 fragment 的布局（是视图的 `layout` 元素类似）。由于 fragment 的根组件可以是任何组件，因此 `content` 没有属性，也不表示任何组件。
 
-* `actions` - 可选元素，设置 fragment 内的操作（与视图的 `actions` 元素类似）。如果操作有快捷键，则将与片段的根组件绑定。也就是说，只有当焦点位于片段布局内时，才能触发快捷键。
+* `actions` - 可选元素，设置 fragment 内的操作（与视图的 `actions` 元素类似）。如果操作有 xref:keyboard-shortcuts.adoc[快捷键]，则将与片段的根组件绑定。也就是说，只有当焦点位于片段布局内时，才能触发快捷键。
 
 * `data` - 可选元素，设置 fragment 内的数据（与视图的 `data` 元素类似）。fragment 可以定义自己的数据容器和加载器，也可以通过 id 从父视图或 fragment 中获取，参阅 xref:flow-ui:fragments/using-fragments.adoc#using-data-components[使用数据组件] 部分。
 

@@ -1,13 +1,49 @@
 = 框架翻译
 
-Jmix 框架子系统带有包含英文消息的 `messages.properties` 文件。也就是说，即使你在项目中设置了不同的语言环境并翻译了自己的消息文件，用户仍将看到部分 UI 为英文，因为它们是在框架中实现的。包括标准操作和数据管理组件，如过滤器和分页，以及安全和其他子系统的全部 UI 界面。
+Jmix 框架子系统带有包含英文消息的 `messages.properties` 文件。也就是说，即使你在项目中设置了不同的语言环境并翻译了自己的消息文件，用户仍将看到部分 UI 为英文，因为它们是在框架中的消息文件定义的。包括标准操作和数据管理组件，如过滤器和分页，以及安全和其他子系统的全部 UI 界面。
 
-我们以 _翻译模块_ 的形式提供框架消息的某些语言翻译。翻译模块是一组打包在 JAR 中的消息文件，可以作为依赖项添加到项目中。可以在 Jmix 市场上找到由 Jmix 团队和社区提供的翻译模块：在 Studio 中打开 *Jmix* 工具窗口 -> *Settings* -> *Marketplace* 按照 *Localization* 标签过滤。
+[[translation-add-ons]]
+== 多语言扩展组件
+
+在我们社区的帮助下，我们以 _翻译扩展组件_ 的形式提供多种语言的框架消息翻译。翻译组件是一组打包在 JAR 中的消息文件，可以作为依赖项添加到项目中。在 Jmix 市场可以找到 Jmix 团队和社区成员创建的翻译组件：在 Studio 中打开 *Jmix* 工具窗口，选择 *Add-ons* 条目，然后单击右键菜单中的 *Marketplace*。在打开的 *Add-ons* 窗口中，按 *Localization* 标记筛选翻译组件。
+
+[[translating-framework]]
+== 在项目中翻译框架
 
 如需将框架消息翻译成不同的语言，也可以在项目中直接完成。按照下列步骤：
 
 * 克隆 https://github.com/jmix-framework/jmix[https://github.com/jmix-framework/jmix^] 仓库，切换到项目使用的 Jmix 版本分支。
-* 根据项目中使用的扩展插件不同，需要从 `jmix-translations/content` 目录复制全部或部分 `messages.properties` 文件至你项目 `src/main/resources` 目录的相同路径。
-* 重命名 `messages.properties` 为 `messages_<your_language>.properties` 然后翻译内容。
 
-NOTE: 如果愿意为框架翻译项目做贡献，欢迎提交新语言或当前翻译修订的 pull request！
+* 根据项目中使用的扩展插件不同，需要从 `jmix-translations/content` 目录复制全部或部分 `messages.properties` 文件至你项目 `src/main/resources` 目录的相同路径。
+
+* 重命名 `messages.properties` 为 `messages_<language>.properties`（例如，中文为 `messages_zh_CN.properties`） 然后翻译内容。
+
+[[contributing-translations]]
+== 社区贡献翻译
+
+如果希望为框架的翻译做贡献，例如添加新语言或更新已有的翻译，请直接提 pull request。
+
+按照下面的步骤：
+
+. Fork https://github.com/jmix-framework/jmix[https://github.com/jmix-framework/jmix^] 仓库：在仓库的主页面点击 *Fork* 按钮。确保勾选了 *Copy the master branch only*。
+
+. 将 fork 克隆至本地，比如 `/work`：
++
+[source,shell]
+----
+cd /work
+git clone https://github.com/<your-username>/jmix.git
+----
+
+. 在 `/work/jmix/jmix-translations/content` 文件夹创建一组 `messages_<language>.properties` 文件。可以直接复制英文的 `messages.properties` 文件并重命名为 `messages_<language>.properties`（例如，中文为 `messages_zh_CN.properties`），然后翻译这个文件内的消息键值。
+
+. 提交并 push 代码至你的 fork：
++
+[source,shell]
+----
+git add -A
+git commit -m "<your_language> translation"
+git push
+----
+
+. 然后打开 fork 项目的网页： `++https://github.com/<your-username>/jmix++`，并点击 *Contribute* -> *Open pull request*。在 *Comparing changes* 网页，输入标题和描述，然后点击 *Create pull request*。

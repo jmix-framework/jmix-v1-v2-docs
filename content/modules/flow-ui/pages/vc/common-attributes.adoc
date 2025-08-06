@@ -129,6 +129,14 @@ NOTE: 仅支持 Safari。
 
 为组件添加 CSS 类名。
 
+可用的 CSS 类名有以下几种来源：
+
+* `com.vaadin.flow.theme.lumo.LumoUtility` 类及其内部类。
+* `io.jmix.flowui.themes.JmixLumoUtility` 类。
+* 任何带 `@ThemeUtilityClasses` 注解的自定义类。可以在自己的扩展组件或应用程序源代码中提供共享类名。
+
+Jmix Studio 提供对输入 `classNames` 属性的增强支持，在 UI 组件属性中输入时，会显示 xref:studio:view-designer.adoc#classNames-editor[ClassNames 向导]。
+
 [[clearButtonVisible]]
 == clearButtonVisible
 
@@ -143,7 +151,7 @@ NOTE: 仅支持 Safari。
 [[clickShortcut]]
 == clickShortcut
 
-定义触发组件点击事件的键盘快捷键。组件必须有处理点击事件的相应方法，否则快捷键不会有任何效果。
+定义触发组件点击事件的 xref:keyboard-shortcuts.adoc[键盘快捷键]。组件必须有处理点击事件的相应方法，否则快捷键不会有任何效果。
 
 [[colspan]]
 == colspan
@@ -246,7 +254,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[focusShortcut]]
 == focusShortcut
 
-定义组件获得焦点的键盘快捷键。
+定义组件获得焦点的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[height]]
 == height

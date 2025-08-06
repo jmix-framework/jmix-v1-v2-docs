@@ -154,6 +154,35 @@ image::run-link.png[align="center", width="1234"]
 
 可以点击主工具栏的按钮或者 *Debug* 窗口的按钮停止应用程序服务。
 
+[[changelog-preview-window]]
+=== Changelog 预览窗口
+
+在运行应用程序之前，Studio 会检查项目数据模型和数据库表结构的差异。只要创建了新的实体，Studio 都会为所需的相应数据库改动创建 Liquibase changelog：
+
+image::changelog-preview-window.png[align="center", width="1036"]
+
+每个 changelog 都由 Studio 生成唯一的文件名。可以在 *File name* 字段自定义文件名。
+
+窗口的左侧可以预览将要创建的 changesets。点击其中任一的 changeset 都可以查看其内容。在预览界面的左上角还有一些可以修改 changelog 的操作：
+
+image::changelog-preview-window-actions.png[align="center", width="429"]
+
+支持下列操作：
+
+* *Remove from Changelog* 提供下列选项：
+
+** *Remove from Changelog*：从当前的 changelog 中移除所选的改动。
+
+** *Remove and Ignore*：移除所选的改动并添加至 "Ignored" 列表中，将来不会再生成同样的改动。
+
+* *Restore from Ignored*：将 "Ignored" 列表中忽略的改动恢复到 changelog 中。
+
+* *Show Other Actions*：可以选择根据危险等级选择改动，以及展开或收起所有改动。
+
+如需保存并启动应用程序，点击 *Save and run* 按钮。
+
+如果不需要保存 changelog，而仅希望启动应用程序，点击 *Discard and run* 按钮。
+
 [[run-debug-configuration-settings]]
 === Run/Debug 运行配置
 

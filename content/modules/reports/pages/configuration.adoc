@@ -127,6 +127,13 @@
 
 默认值：`false`。
 
+[[jmix.reports.view-file-extensions]]
+=== jmix.reports.view-file-extensions
+
+设置需要在 web 浏览器显示而非自动下载的文件类型。
+
+默认值：`htm, html, jpg, png, jpeg, pdf`
+
 [[libre_office]]
 == 安装和配置 LibreOffice
 

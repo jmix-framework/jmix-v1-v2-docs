@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://switchView.title">
+    <!-- tag::data[] -->
+    <data>
+        <instance id="userDc"
+                  class="com.company.onboarding.entity.User"> <!--1-->
+            <fetchPlan extends="_base"/> <!--2-->
+            <loader/>
+        </instance>
+    </data>
+    <!-- end::data[] -->
+    <!-- tag::layout[] -->
+    <layout>
+        <!-- end::layout[] -->
+        <!-- tag::basics[] -->
+        <switch label="Enable Dark Mode"
+                value="true"/>
+        <!-- end::basics[] -->
+        <!-- tag::data-aware[] -->
+        <switch label="Active"
+                dataContainer="userDc"
+                property="active"/> <!--3-->
+        <!-- end::data-aware[] -->
+        <!-- tag::enabled[] -->
+        <switch label="Enable Dark Mode"
+                value="true"
+                enabled="false"/>
+        <switch label="Enable Dark Mode"
+                value="true"
+                enabled="true"/>
+        <!-- end::enabled[] -->
+        <!-- tag::readOnly[] -->
+        <switch label="Enable Dark Mode"
+                value="true"
+                readOnly="false"/>
+        <switch label="Enable Dark Mode"
+                value="true"
+                readOnly="true"/>
+        <!-- end::readOnly[] -->
+        <!-- tag::required[] -->
+        <switch label="Enable Dark Mode"
+                value="true"
+                required="false"/>
+        <switch label="Enable Dark Mode"
+                value="true"
+                required="true"/>
+        <!-- end::required[] -->
+        <!-- tag::layout[] -->
+    </layout>
+    <!-- end::layout[] -->
+</view>

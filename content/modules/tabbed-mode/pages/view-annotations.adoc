@@ -1,0 +1,17 @@
+= 视图注解
+
+本节介绍可以添加在视图控制器的注解以及这些注解带来的附加设置。
+
+[[tabbed-mode-view-properties]]
+== TabbedModeViewProperties
+
+`@TabbedModeViewProperties` 注解定义在多标签模式下视图的特定参数。有以下属性：
+
+* `closeable` - 视图是否可以通过标准的操作进行关闭。例如，标签页的关闭按钮，xref:main-tab-sheet.adoc[关闭标签页操作]，`io.jmix.tabbedmode.Views.OpenedViews` 和 `io.jmix.tabbedmode.Views.ViewStack` 的方法。也就是说，视图仅可以通过调用其 xref:flow-ui:views/view-methods.adoc#methods-of-all-views[close()] 进行关闭。
+
+* `forceDialog` - 如果设置为 `true`，则视图总是在对话框窗口打开，不管 `ViewOpenMode` 如何配置。
+
+[[multiple-open]]
+== MultipleOpen
+
+`@MultipleOpen` 注解表示该视图可以从主菜单打开多次。默认情况下，当用户点击主菜单项时，框架会检查是否已经打开了相同类和 ID 的视图。如果有打开的视图，则会关闭已经打开的视图，然后在一个新标签页打开该视图的一个新实例。当视图带了 `@MultipleOpen` 注解后，不会检查之前是否打开过，只会在新标签页打开一个新实例。

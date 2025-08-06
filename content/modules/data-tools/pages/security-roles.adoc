@@ -1,0 +1,12 @@
+= 安全角色
+
+受限用户必须具有下列至少一个预定义的 xref:security:resource-roles.adoc[资源角色] 才能使用数据工具功能：
+
+* *Data Tools: full access*：该系统角色可以完全访问数据工具的所有功能。具有此角色的用户可以执行数据工具组件中的所有操作。
+* *Data Tools: minimal access*：此系统角色提供对数据工具的只读访问权限。具有此角色的用户可以在数据工具中查看数据和信息，但无法修改或创建数据。
+* *Data Tools: Entity Information view*：该系统角色可为用户提供数据工具中特定的 `InfoValue` 功能，从而使用户可以查看有关实体的详细信息。
+
+可以用下列 xref:security:resource-roles.adoc#specific-policy[特殊策略] 进行自定义安全配置：
+
+* *datatools.importExportEntity*：是否能通过数据工具导入导出实体。
+* *datatools.showEntityInfo*：管理对 `InfoValue` 功能的访问。这个策略可以保证用户仅能在授权后查看实体的详细信息。

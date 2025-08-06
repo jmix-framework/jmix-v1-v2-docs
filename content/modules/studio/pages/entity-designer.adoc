@@ -2,14 +2,14 @@
 
 Studio 提供一个可视化设计器，用于简化 xref:data-model:entities.adoc[实体] 的创建过程，因此，不需要记住实体创建的所有规则和注解。
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 [[jpa-entity-designer]]
 == JPA 实体设计器
 
 使用 xref:studio:tool-window.adoc[Jmix 工具窗口] 中的菜单新建 xref:data-model:entities.adoc#jpa[JPA 实体]。
 
-image::new.png[align="center",width="278"]
+image::new-jpa.png[align="center",width="221"]
 
 JPA 实体创建会弹出 *New JPA Entity* 对话框。
 

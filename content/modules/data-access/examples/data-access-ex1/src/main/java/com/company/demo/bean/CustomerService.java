@@ -6,12 +6,12 @@ import io.jmix.core.*;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.session.SessionData;
+import jakarta.persistence.LockModeType;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import jakarta.persistence.LockModeType;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -182,6 +182,18 @@ public class CustomerService {
         return dataManager.save(entity);
     }
     // end::save[]
+
+    // tag::save-all[]
+    EntitySet saveCustomers(List<Customer> entities) {
+        return dataManager.saveAll(entities);
+    }
+    // end::save-all[]
+
+    // tag::save-without-reload[]
+    void saveCustomerWithoutReload(Customer entity) {
+        dataManager.saveWithoutReload(entity);
+    }
+    // end::save-without-reload[]
 
     // tag::remove[]
     void removeCustomer(Customer entity) {

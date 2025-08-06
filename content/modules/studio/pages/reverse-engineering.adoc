@@ -6,7 +6,7 @@ Studio 支持为已有的数据库创建 xref:data-model:index.adoc[数据模型
 
 在 xref:studio:tool-window.adoc[Jmix 工具窗口] 右键点击数据存储，并选择 *Generate Model from Database*。
 
-image::generate-data-model-item.png[align="center",width="429"]
+image::generate-data-model-item.png[align="center",width="442"]
 
 然后 Studio 会打开  *Generate Model from Database* 向导。
 
@@ -54,11 +54,11 @@ image:icons/refresh.svg[Refresh mapping button] 按钮支持对选择的表进�
 
 image:icons/edit.svg[Edit mapping] 按钮打开展示映射详情的窗口。可以在这里修改实体名称和实体类实现的一组系统接口。修改完会影响为了与 Jmix 实体兼容而创建的系统列数量。
 
-image::table-mapping-editor.png[align="center",width="748"]
+image::table-mapping-editor.png[align="center",width="767"]
 
 当选择一个数据库视图时，会显示 *Choose PK* 按钮而非 *Edit mapping*，这里需要选择实体的标识符列。
 
-通过点击 *Back*，可以返回上一步重新选择数据库表。
+通过点击 *Previous*，可以返回上一步重新选择数据库表。
 
 点击 *Next* 至下一步。
 --
@@ -70,7 +70,7 @@ image::table-mapping-editor.png[align="center",width="748"]
 
 image::generate-data-model-step3.png[align="center",width="936"]
 
-如果未选中 *Create standard view* 复选框，Studio 不会为新实体生成 UI 视图。
+如果未选中 *Create standard views* 复选框，Studio 不会为新实体生成 UI 视图。
 
 使用 *In module*、*Package* 和 *Menu* 字段指定视图源码放置的位置和视图的主菜单项。
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- tag::wainView[] -->
+<!-- tag::mainView[] -->
 <mainView xmlns="http://jmix.io/schema/tabmod/main-view"
           title="msg://MainView.title">
-<!-- end::wainView[] -->
+    <!-- end::mainView[] -->
     <actions>
         <action id="logoutAction" type="logout"/>
     </actions>
@@ -37,7 +37,22 @@
         <!-- tag::workArea[] -->
         <workArea id="workArea"
                   classNames="jmix-work-area">
-            <initialLayout width="100%" height="100%"/>
+            <!-- tag::mainTabSheet[] -->
+            <mainTabSheet id="mainTabSheet"
+                          classNames="jmix-main-tabsheet"
+                          tabsDraggable="true"
+                          width="100%" height="100%">
+                <actions>
+                    <action id="closeThisTabAction" type="tabmod_closeThisTab"/>
+                    <action id="closeOthersTabsAction" type="tabmod_closeOtherTabs"/>
+                    <action id="closeAllTabsAction" type="tabmod_closeAllTabs"/>
+                </actions>
+            </mainTabSheet>
+            <!-- end::mainTabSheet[] -->
+            <initialLayout id="initialLayout"
+                           classNames="jmix-initial-layout"
+                           width="100%" height="100%">
+            </initialLayout>
         </workArea>
         <!-- end::workArea[] -->
     </appLayout>

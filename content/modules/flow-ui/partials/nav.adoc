@@ -24,6 +24,7 @@
 **** xref:flow-ui:vc/components/loginForm.adoc[]
 **** xref:flow-ui:vc/components/progressBar.adoc[]
 **** xref:flow-ui:vc/components/radioButtonGroup.adoc[]
+**** xref:flow-ui:vc/components/switch.adoc[]
 **** xref:flow-ui:vc/components/tabs.adoc[]
 **** xref:flow-ui:vc/components/tooltip.adoc[]
 *** 菜单
@@ -141,4 +142,5 @@
 ** xref:flow-ui:icons.adoc[]
 *** xref:flow-ui:icons/default-icons.adoc[]
 *** xref:flow-ui:icons/custom-icons.adoc[]
+** xref:flow-ui:keyboard-shortcuts.adoc[]
 ** xref:flow-ui:ui-properties.adoc[]

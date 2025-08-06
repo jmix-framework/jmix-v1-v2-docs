@@ -54,13 +54,13 @@
                               hierarchyProperty="parentDepartment"
                               width="100%"
                               minHeight="20em"
-                              dataContainer="departmentsDc"> <!--2-->
+                              dataContainer="departmentsDc">
                     <columns>
                         <column property="name"/>
                         <column property="hrManager"/>
                     </columns>
                     <actions>
-                        <action id="create" type="list_create"/>
+                        <action id="create" type="list_create"/> <!--2-->
                         <action id="edit" type="list_edit"/>
                         <action id="remove" type="list_remove"/>
                         <action id="getInfo" text="Get Info"/> <!--3-->

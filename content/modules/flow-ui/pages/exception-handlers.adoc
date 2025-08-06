@@ -72,6 +72,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 
 框架会自动使用这个 provider 并将其返回的对话框用于处理异常。
 
+NOTE: 默认情况下，`ExceptionDialog` 显示为一个模态窗。该行为可以通过 xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] 应用程序属性在 `application.properties` 文件中配置。
+
 [[navigation-exception-handling]]
 == 导航异常处理
 

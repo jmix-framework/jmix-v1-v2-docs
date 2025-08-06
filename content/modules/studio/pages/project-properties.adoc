@@ -2,7 +2,7 @@
 
 *Project Properties* 编辑器可以修改项目配置，从 *Jmix 工具窗口* 的工具栏打开。
 
-image::prop-open.png[align="center",width="309"]
+image::toolbar-settings.png[align="center",width="257"]
 
 *Jmix* 标签页可以配置项目的仓库。
 

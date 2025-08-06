@@ -13,6 +13,7 @@
 
 * Java 类：`TwinColumn`
 
+[[basics]]
 == 基本用法
 
 该组件中的两列并排放置。左列包含用户可以从中进行选择的条目。右列显示当前已选定的条目。用户可以选择一个或多个条目，然后点击按钮在列之间移动条目进行选择或移除。
@@ -40,7 +41,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 数据绑定是指将组件与 xref:data/data-containers.adoc[数据容器] 进行关联。可视化组件或相应数据容器中的更改可以触发彼此的更新。有关详细信息，请参阅 xref:data/data-examples.adoc[]。
 
-如需创建关联数据的 `multiSelectComboBoxPicker`，请使用 xref:vc/common-attributes.adoc#dataContainer[dataContainer] 和 xref:vc/common-attributes.adoc#property[property] 属性。`itemsContainer` 属性用于创建选项列表。
+如需创建关联数据的 `twinColumn`，请使用 xref:vc/common-attributes.adoc#dataContainer[dataContainer] 和 xref:vc/common-attributes.adoc#property[property] 属性。`itemsContainer` 属性用于创建选项列表。
 
 [[multi-select]]
 == 多选
@@ -129,7 +130,7 @@ xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 xref:vc/common-attributes.adoc#helperText[helperText] -
 <<column-labels, itemsColumnLabel>> -
-<<_basics, itemsContainer>> -
+<<basics, itemsContainer>> -
 xref:vc/common-attributes.adoc#label[label] -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -

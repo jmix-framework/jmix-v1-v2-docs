@@ -1,4 +1,7 @@
 * xref:tabbed-mode:index.adoc[]
 ** xref:tabbed-mode:opening-views.adoc[]
+** xref:tabbed-mode:view-annotations.adoc[]
+** xref:tabbed-mode:main-tab-sheet.adoc[]
+** xref:tabbed-mode:ui-refresh-event.adoc[]
 ** xref:tabbed-mode:migration.adoc[]
 ** xref:tabbed-mode:app-properties.adoc[]

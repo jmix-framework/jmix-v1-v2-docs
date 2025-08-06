@@ -48,7 +48,7 @@ image::actions/declarative-actions-1.png[align="center",width="601"]
 
 * `actionVariant` - 定义操作的不同样式版本并设置连接按钮的 xref:vc/components/button.adoc#variants[样式版本]：`DEFAULT`、`PRIMARY`、`DANGER`、`SUCCESS`。
 
-* `shortcutCombination` - 定义执行该操作的键盘快捷键。由键代码和修饰键组成，中间用 "-" 分隔。键代码和修饰键在 `com.vaadin.flow.component.Key` 类定义。视图 XML 中，需要以大写字母的方式使用。示例：
+* `shortcutCombination` - 定义执行该操作的 xref:keyboard-shortcuts.adoc[键盘快捷键]。示例：
 +
 [source,xml,indent=0]
 ----

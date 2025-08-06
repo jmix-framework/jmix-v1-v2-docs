@@ -1,0 +1,233 @@
+= 端到端 UI 测试
+
+端到端 UI 测试模拟真实用户在 Web 浏览器中的交互，验证整个应用程序工作流程。这种测试的运行速度快，并容易多次执行，与手动测试相比更节省时间。
+
+在 Jmix 中，我们可以使用 *Masquerade* 对应用程序进行端到端 UI 测试。该测试库可对 Jmix UI 的所有部分使用页面对象模式（Page Object pattern），包括视图、组件、对话框、通知以及复合组件。基于 https://www.selenium.dev/documentation/webdriver/[Selenium WebDriver^] 和 https://github.com/selenide/selenide[Selenide^]。
+
+NOTE: Masquerade 仅能用于 *Jmix 2.6+* 的应用程序。
+
+== 安装 Masquerade
+
+请按以下步骤安装 Masquerade：
+
+. 确保项目使用的是 Jmix 2.6+ 版本。如果不是，请参阅 xref:studio:project.adoc#upgrading-project[项目升级] 部分先升级依赖的 Jmix 版本。
+. 在 `build.gradle` 文件中添加 `testImplementation`：
++
+.build.gradle
+----
+testImplementation 'io.jmix.masquerade:jmix-masquerade'
+----
+
+== 使用 Selenide
+Masquerade 是基于 Selenide 的，因此可以使用 Selenide 的任何方法。
+例如在自动化测试时需要登录：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/SelenideTest.java[tags=selenideLogin]
+----
+
+标准的 `Selenide.$` 方法（比如，`byId`）需要传入一个 CSS 选择器作为参数。然后返回一个 `SelenideElement` 对象，这个对象可以进一步操作。
+
+TIP: 关于这些方法，请参阅 https://selenide.org/documentation.html[Selenide API^]。
+
+== 用 Masquerade 创建测试用例
+
+Masquerade 强调对 Jmix 的各种组件使用 <<wrappers,包装器>>，以便更好地组织和管理测试。我们创建一个使用 Masquerade 登录 Jmix 应用程序的用例。有两个步骤：
+
+=== 1. 创建一个视图包装器
+
+一个基本的 Jmix 项目在创建时就带有登录视图。创建一个 <<view_wrapper,视图包装器>> 表示该视图及其被测组件：
+
+* 在 `src/test/java` 目录的 `com.company.testproject` 包内，创建一个新包，名为 `view`。然后，创建一个名为 `LoginView` 的 Java 类：
++
+----
+TestProject/
+└── src/
+    ├── main/
+    └── test/
+        └── java/
+            └── com.company.testproject
+                └── test_support
+                    └── view
+                       └── LoginView.java
+----
+* 为每个需要测试的组件添加 <<component_wrapper,组件包装器>> 及其 get 方法：
++
+[source,java,indent=0]
+.LoginView.java
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/sys/LoginView.java[tags=LoginViewWrapper]
+----
+
+=== 2. 创建测试类
+
+测试类在登录场景中需要调用包装器的方法。请按照下面的步骤创建：
+
+* 在 `src/test/java` 目录的 `com.company.testproject` 包下，创建一个名为 `ui_autotest` 的新包。然后创建一个名为 `LoginUiTest` 的类：
++
+----
+TestProject/
+└── src/
+    ├── main/
+    └── test/
+        └── java/
+            ├── com.company.testproject
+            │   └── test_support
+            │       └── view
+            │          └── LoginView.java
+            └────── ui_autotest
+                    └── LoginUiTest.java
+----
+* 定义测试用例中的操作序列：
++
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/LoginUiTest.java[tags=LoginUiTest]
+----
++
+<1> 使用 Selenide 的标准方法打开登录页。
+<2> 使用 `Masquerade.$j` 方法选择视图包装器并调用其方法。
+
+[[jmix_test_ids]]
+== Jmix 测试 ID
+
+Masquerade 还可以帮助为每个通过 `UiComponents` 工厂创建的组件生成一个特殊的 `j-test-id`（Jmix 测试 id）。
+这种 id 使得在页面中识别元素更加容易。如需启用该功能，请设置 xref:flow-ui:ui-properties.adoc#jmix.ui.ui-test-mode[jmix.ui.ui-test-mode] 为 `true`：
+
+.application.properties
+[source,properties]
+----
+jmix.ui.ui-test-mode = true
+----
+
+WARNING: 生成 ID 过程可能会影响性能。因此，建议只在应用程序的测试 profile 中使用该参数。
+
+默认的测试 id 值与组件的 id 一致：
+
+image::testing:masquerade-j-test-id.png[align="center", width = 848]
+
+如果组件没有 id，则会基于其数据绑定、`action` or `text` 属性生成。
+
+通过 `j-test-id` 操作组件时，可以使用 `Masquerade.$j` 方法：
+
+[source,java,indent=0,opts=novalidate]
+----
+$j("myButton").click();
+----
+
+[[wrappers]]
+== 包装器
+
+包装器是表示 Jmix UI 中不同部分并封装与它们交互的类。可帮助将测试场景与被测 UI 的复杂度进行分离。包装器有五种类型。
+
+[[view_wrapper]]
+=== 视图包装器
+
+视图包装器封装了一个视图，提供简化且一致的接口来与其组件进行交互。视图包装器不必包含相应视图的所有组件 - ，而只需添加测试所需的组件。
+
+视图包装器的一个简单示例：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/MyView.java[tags=MyViewWrapper]
+----
+
+<1> 视图包装器需要带 `io.jmix.masquerade.TestView` 注解。`id` 值为视图 `@ViewController` 注解中指定的 视图 ID：
++
+[source, java, indent=0]
+----
+include::example$/masquerade-ex1/src/main/java/com/company/masqueradeex1/view/mytest/MyView.java[tags=view-controller-id]
+----
++
+如果没有设置 ID，则使用视图的类名作为 id。
+<2> 继承 `io.jmix.masquerade.sys.View` 类，泛型设置为包装器类本身。以便在编写测试用例时提供流式 API。
+
+[[component_wrapper]]
+=== 组件包装器
+
+组件包装器封装了视图包装器中的组件。组件包装器类属性需要使用 `@TestComponent` 或 `@FindBy` 注解。参考以下示例：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/MyView.java[tags=ComponentWrappers]
+----
+
+- `@TestComponent` 表示该字段是一个组件包装器。如果没有指定 `path` 的值，则默认使用对应 web 元素的 <<jmix_test_ids,j-test-id>> 属性值。
+- `@FindBy` 指定该字段使用的 CSS 选择器。
+
+TIP: 所有可用的组件包装器在 `io.jmix.masquerade.component` 包中可查询。
+
+组件包装器提供与组件交互的多种方法。例如，可以打开 `EntityCombobox` 的选项弹窗或对话框窗口：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/MyViewUiTest.java[tags=EntityComboBoxTest]
+----
+
+组件包装器还提供了特殊的条件用于检查组件的状态。这些条件可以在 `io.jmix.masquerade.condition` 包中查询。
+
+=== 对话框窗口包装器
+
+对话框（DialogWindow）窗口包装器与视图包装器类似，但继承自 `io.jmix.masquerade.sys.DialogWindow`。这个类提供对话框的特殊操作，例如关闭对话框或检查标题。示例：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/user/UserListDialog.java[tags=UserListDialog]
+----
+
+=== 通知包装器
+
+通知（Notification）包装器是一个特殊类型的组件包装器。示例：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/NotificationUiTest.java[tags=NotificationTest]
+----
+
+如果打开了多个通知，可以用 xpath 选择所需要的：
+
+[source,java,indent=0,opts=novalidate]
+----
+$j(Notification.class, xpath("{xpath-to-notification}"));
+----
+
+=== 复合包装器
+
+复合（Composite）包装器封装了视图的一部分，也称为 fragment。访问 fragment 的方式依据其是否存在于视图包装器而不同。
+
+假设我们有一个视图，由两个 fragment 组成，但是只有一个添加到了视图包装器中：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/view/FragmentsView.java[tags=FragmentsView]
+----
+
+复合包装器如下：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/fragment/TestFragment1.java[tags=TestFragment1]
+----
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_support/fragment/TestFragment2.java[tags=TestFragment2]
+----
+
+<1> 复合包装器必须继承自 `io.jmix.masquerade.sys.Composite`。
+<2> 复合包装器可以选择性的带上 `@TestComponent` 注解，以提供 `Masquerade.$j` 所需要的路径值。
+
+在视图包装器访问 fragment 时，与组件一样使用：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/FragmentsUiTest.java[tags=openFragmentsView;testChildFragment]
+----
+
+测试第二个 fragment 时，由于不存在于视图控制器中，只能通过 `Masquerade.$j` 选取：
+
+[source,java,indent=0]
+----
+include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/FragmentsUiTest.java[tags=openFragmentsView;testLoneFragment]
+----

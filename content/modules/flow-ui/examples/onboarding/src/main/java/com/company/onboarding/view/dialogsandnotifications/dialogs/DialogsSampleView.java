@@ -1,6 +1,7 @@
 package com.company.onboarding.view.dialogsandnotifications.dialogs;
 
 import com.company.onboarding.entity.OnboardingStatus;
+import com.company.onboarding.entity.User;
 import com.company.onboarding.view.main.MainView;
 import com.google.common.base.Strings;
 import com.vaadin.flow.component.ClickEvent;
@@ -8,19 +9,25 @@ import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
+import io.jmix.core.metamodel.datatype.DatatypeRegistry;
 import io.jmix.flowui.Dialogs;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.action.DialogAction;
 import io.jmix.flowui.app.inputdialog.DialogActions;
 import io.jmix.flowui.app.inputdialog.DialogOutcome;
+import io.jmix.flowui.app.inputdialog.InputParameter;
 import io.jmix.flowui.backgroundtask.BackgroundTask;
 import io.jmix.flowui.backgroundtask.TaskLifeCycle;
 import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.datepicker.TypedDatePicker;
 import io.jmix.flowui.component.validation.ValidationErrors;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.company.onboarding.entity.User;
+
+import java.time.LocalDate;
+
 import static io.jmix.flowui.app.inputdialog.InputParameter.*;
 
 @Route(value = "DialogsSampleView", layout = MainView.class)
@@ -30,6 +37,10 @@ public class DialogsSampleView extends StandardView {
     // tag::inject-dialogs[]
     @Autowired
     private Dialogs dialogs;
+    @Autowired
+    private DatatypeRegistry datatypeRegistry;
+    @Autowired
+    private Notifications notifications;
 
     // end::inject-dialogs[]
 
@@ -88,7 +99,7 @@ public class DialogsSampleView extends StandardView {
 
     }
 
-//     tag::inputDialog-standard-parameters[]
+    //     tag::inputDialog-standard-parameters[]
     @Subscribe("standardParametersButton")
     public void onStandardParametersButtonClick(ClickEvent<Button> event) {
         dialogs.createInputDialog(this)
@@ -193,6 +204,7 @@ public class DialogsSampleView extends StandardView {
 
     protected class SampleTask extends BackgroundTask<Integer, Void> {
         int count;
+
         public SampleTask(long timeoutSeconds, View<?> view, int count) {
             super(timeoutSeconds, view);
             this.count = count;
@@ -208,4 +220,122 @@ public class DialogsSampleView extends StandardView {
         }
     }
     // end::backgroundTaskDialog[]
+
+    @Subscribe(id = "customParameterRequiredButton", subject = "clickListener")
+    public void onCustomParameterRequiredButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createInputDialog(this)
+                .withHeader("Enter values")
+                .withParameters(
+                        // tag::required-custom-parameter[]
+                        parameter("passedDate")
+                                .withLabel("Date")
+                                .withField(() -> {
+                                    TypedDatePicker<LocalDate> datePicker = uiComponents.create(TypedDatePicker.class);
+                                    datePicker.setDatatype(datatypeRegistry.get(LocalDate.class));
+                                    datePicker.setRequired(true);
+                                    return datePicker;
+                                })
+                        // end::required-custom-parameter[]
+                )
+                .withActions(DialogActions.OK_CANCEL)
+                .withCloseListener(closeEvent -> {
+                    if (closeEvent.closedWith(DialogOutcome.OK)) {
+                        LocalDate passedDate = closeEvent.getValue("passedDate");
+                        // process entered values...
+                    }
+                })
+                .open();
+    }
+
+    @Subscribe(id = "customParamRequiredButton", subject = "clickListener")
+    public void onCustomParamRequiredButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createInputDialog(this)
+                .withHeader("Enter values")
+                .withParameters(
+                        // tag::required-custom-parameter-2[]
+                        InputParameter.parameter("passedDate")
+                                .withLabel("Date")
+                                .withRequired(true)
+                                .withDatatype(datatypeRegistry.get(LocalDate.class))
+                        // end::required-custom-parameter-2[]
+                )
+                .withActions(DialogActions.OK_CANCEL)
+                .withCloseListener(closeEvent -> {
+                    if (closeEvent.closedWith(DialogOutcome.OK)) {
+                        LocalDate passedDate = closeEvent.getValue("passedDate");
+                        // process entered values...
+                    }
+                })
+                .open();
+    }
+
+    // tag::basic-config[]
+    @Subscribe(id = "configDialogButton", subject = "clickListener")
+    public void onConfigDialogButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createMessageDialog()
+                .withHeader("Information")
+                .withWidth("600px")
+                .withHeight("200px")
+                .withTop("100px")
+                .open();
+    }
+
+    // end::basic-config[]
+    // tag::withDraggedListener[]
+    @Subscribe(id = "dragDialogButton", subject = "clickListener")
+    public void onDragDialogButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createMessageDialog()
+                .withHeader("Drag this dialog")
+                .withDraggedListener(dialogDraggedEvent -> {
+                    String left = dialogDraggedEvent.getLeft();
+                    String top = dialogDraggedEvent.getTop();
+
+                    try {
+                        int leftValue = Integer.parseInt(left.replace("px", ""));
+                        int topValue = Integer.parseInt(top.replace("px", ""));
+
+                        if (leftValue < 300 && topValue < 200) {
+                            notifications.create("Dialog is in the upper left corner").show();
+                        } else if (leftValue > 800 && topValue > 500) {
+                            notifications.create("Dialog is in the lower right corner").show();
+                        } else {
+                            notifications.create("Dialog is in a neutral area").show();
+                        }
+                    } catch (NumberFormatException e) {
+                        notifications.create("Error: Invalid coordinates")
+                                .withType(Notifications.Type.WARNING)
+                                .show();
+                    }
+                })
+                .open();
+    }
+
+    // end::withDraggedListener[]
+    // tag::withResizeListener[]
+    @Subscribe(id = "resizeDialogButton", subject = "clickListener")
+    public void onResizeDialogButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createMessageDialog()
+                .withHeader("Resize this dialog")
+                .withResizable(true)
+                .withResizeListener(dialogResizeEvent -> {
+                    String width = dialogResizeEvent.getWidth();
+                    String height = dialogResizeEvent.getHeight();
+                    try {
+                        int widthValue = Integer.parseInt(width);
+                        int heightValue = Integer.parseInt(height);
+
+                        if (widthValue < 400 || heightValue < 300) {
+                            notifications.create("Minimum size: 400×300")
+                                    .withType(Notifications.Type.WARNING)
+                                    .show();
+                        }
+                    } catch (NumberFormatException e) {
+                        notifications.create("Error: Invalid coordinates")
+                                .withType(Notifications.Type.WARNING)
+                                .show();
+                    }
+                })
+                .open();
+    }
+// end::withResizeListener[]
 }

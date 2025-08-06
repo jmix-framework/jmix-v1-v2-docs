@@ -1,0 +1,170 @@
+= MainTabSheet 组件
+
+是一个在多标签页中显示视图的容器。一次只能选择并显示一个标签页的内容。
+
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`mainTabSheet`
+|Java 类
+|`MainTabSheet`
+|XML 属性
+|xref:flow-ui:vc/common-attributes.adoc#id[id] -
+xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] -
+xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] -
+xref:flow-ui:vc/common-attributes.adoc#css[css] -
+xref:flow-ui:vc/common-attributes.adoc#height[height] -
+xref:flow-ui:vc/common-attributes.adoc#width[width] -
+xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
+<<theme-variants, themeNames>> -
+<<drag-and-drop, tabsDraggable>>
+|事件和处理器
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+<<selected-change-event, SelectedChangeEvent>> -
+<<tabs-collection-change-event, TabsCollectionChangeEvent>>
+|XML 内部元素
+|<<actions,actions>>
+|===
+
+[[Basics]]
+== 基本用法
+
+在 XML 的 `workArea` 元素中使用 `mainTabSheet` 元素创建该组件。`workArea` 和 `mainTabSheet` 仅能在主视图的 XML 中使用。
+
+下面是一个创建 `mainTabSheet` 的基础示例：
+
+[source,xml,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/main-view.xml[tags=mainTabSheet]
+----
+
+[[actions]]
+== 操作
+
+`mainTabSheet` 组件实现了 `HasActions` 接口，因此可以包含标准和自定义的操作。操作通过标签页的右键菜单调用。
+
+image::main-tab-sheet/tabsheet-context-menu.png[align="center", width="500"]
+
+标准操作包含：
+
+[[tabmod_closeThisTab]]
+=== tabmod_closeThisTab
+
+操作类：`CloseThisTabAction`
+
+关闭所选的标签页。
+
+[[tabmod_closeOtherTabs]]
+=== tabmod_closeOtherTabs
+
+操作类：`CloseOtherTabsAction`
+
+保留所选的标签页，关闭其他标签页。
+
+[[tabmod_closeAllTabs]]
+=== tabmod_closeAllTabs
+
+操作类：`CloseAllTabsAction`
+
+关闭所有打开的标签页。
+
+[[drag-and-drop]]
+== 拖拽
+
+`mainTabSheet` 还支持标签页的拖拽。这个功能可以用来对标签页进行排序。
+
+该功能通过 `tabsDraggable` 属性启用。默认值为 `false`。
+
+image::main-tab-sheet/tabs-reordering.gif[align="center"]
+
+[[handlers]]
+== 事件和处理器
+
+[[selected-change-event]]
+=== SelectedChangeEvent
+
+当用户切换标签页时，会触发 `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.SelectedChangeEvent` 事件。可以创建自定义的处理器，在标签页切换时执行特定逻辑。
+
+下面的代码会在每次切换标签页时发出一个通知：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=notifications;selectedChangeEvent]
+----
+
+TIP: 如需通过 Studio 生成处理器方法的桩代码，请使用视图控制器代码顶部的 *Generate Handler* 按钮。或者可以在视图 XML 中选择该组件，然后在组件属性面板的 *Handlers* tab 生成。
+
+[[tabs-collection-change-event]]
+=== TabsCollectionChangeEvent
+
+当用户打开或关闭视图时，会创建新的标签页或删除已有的标签页，此时触发 `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.TabsCollectionChangeEvent` 事件。可以创建自定义的处理器，在标签页集合发生变化时执行特定逻辑。
+
+下面的代码会在标签页集合发生变化时发出一个通知：
+
+[source,java,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=notifications;tabsCollectionChangeEvent]
+----
+
+TIP: 如需通过 Studio 生成处理器方法的桩代码，请使用视图控制器代码顶部的 *Generate Handler* 按钮。或者可以在视图 XML 中选择该组件，然后在组件属性面板的 *Handlers* tab 生成。
+
+[[theme-variants]]
+== 主题样式
+
+.`centered`
+[%collapsible]
+====
+将标签页放置在主视图的中间位置，而不是默认的靠左排列：
+
+image::main-tab-sheet/tabs-centered.png[align="center", width=700]
+====
+
+.`small`
+[%collapsible]
+====
+使用小的标签页：
+
+image:main-tab-sheet/tabs-small.png[align="center", width=500]
+====
+
+.`minimal`
+[%collapsible]
+====
+减少可视化样式，仅显示标签页的文本，不带任何可视化元素：
+
+image:main-tab-sheet/tabs-minimal.png[align="center", width=500]
+====
+
+.`hide-scroll-buttons`
+[%collapsible]
+====
+隐藏标签的滚动按钮：
+
+image:main-tab-sheet/tabs-hide-scroll-buttons.png[align="center", width=376]
+
+====
+
+.`bordered`
+[%collapsible]
+====
+为标签和内容区域添加边框。
+
+image:main-tab-sheet/tabsheet-bordered.png[align="center", width=832]
+====
+
+== 标签文本最大宽度
+
+标签文本最大宽度可以在应用程序主题中通过 CSS 变量设置：
+
+[source,css,indent=0]
+----
+include::example$/tabbedmode-ex1/src/main/frontend/themes/tabbedmode-ex1/tabbedmode-ex1.css[tags=tab-text-max-width]
+----
+
+image:main-tab-sheet/tab-text-max-width.png[align="center", width=400]

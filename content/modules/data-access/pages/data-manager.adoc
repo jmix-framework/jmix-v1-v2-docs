@@ -218,6 +218,13 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerSe
 
 NOTE: 通常传入和返回的实例并不相同。返回的实例可能会受实体事件监听器、数据库触发器或访问控制权限影响。因此，如果需要保存实体后继续处理该实体，则需要使用 `save()` 方法返回的实例。
 
+如果不需要返回保存的实例，可以使用 `saveWithoutReload()` 方法。这样 `DataManager` 便不会从数据库读取保存后的实体，从而能提高性能。示例：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=save-without-reload]
+----
+
 `save()` 方法可以一次接收多个实例。此时，它返回 `EntitySet` 对象，可以用来获取保存的实例。下面的例子中，我们创建并保存两个相关联的实体，并返回其中一个：
 
 [source,java,indent=0]
@@ -226,6 +233,15 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 ----
 <1> 保存关联实体。`save()` 方法参数的顺序不重要。
 <2> `EntitySet.get()` 方法可以通过源实例获取保存后的实例。
+
+如果需要保存实体集合（`List`，`Set` 等），并获取保存后的实例，那么可以用 `saveAll()` 方法。示例：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=save-all]
+----
+
+使用 `saveWithoutReload()` 也可以保存实体集合，如果不需要获取保存后的实体实例，则推荐使用该方法以提高性能。
 
 `save()` 方法最强大的形式是能接收 `SaveContext` 对象，这个对象能用来添加多个实例并指定额外的保存参数。下面的例子中，我们用 `SaveContext` 保存实体集合：
 
@@ -239,9 +255,9 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 
 在进行保存操作时，有一些技巧可以提高性能。特别是当需要保存大量实体时，这些技巧很有用。
 
-首先，不要一个一个实体调用单独的 `save(entity)` 方法，而是可以将所有实体（数量小于 1000）放在一个事务中保存，如上面所介绍的，将实体添加到 `SaveContext` 后调用 `save(SaveContext)`。
+首先，不要一个一个实体调用单独的 `save(entity)` 方法，而是可以将所有实体（数量小于 1000）的集合放在一个事务中保存。
 
-如果不需要返回保存后的实例，可以使用 `SaveContext.setDiscardSaved(true)`。这可以显著提高性能，因为 `DataManager` 不需要从数据库加载保存后的实体了。示例：
+如果不需要返回保存后的实例，可以使用 `saveWithoutReload()` 方法。在 `SaveContext` 对象中，可以通过 `setDiscardSaved(true)` 实现相同的功能。示例：
 
 [source,java,indent=0]
 ----

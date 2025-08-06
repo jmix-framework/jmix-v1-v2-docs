@@ -27,36 +27,28 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> 添加对话框标题。
 <2> 添加消息内容。
 
-[[text-formatting]]
-=== 文本格式化
-
-文本的格式化可以通过 HTML 实现。对话框可以通过 `withContent()` 方法展示 HTML 内容。给定的 HTML 会封装在组件中：
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-html]
-----
-
-[[appearance]]
-=== 显示设置
-
 使用下列方法可以对消息对话框的外观显示和行为进行设置：
 
-[[msg-dialog-modal]]
-* `withModal()` - 如果该方法设置 `false`，则对话框不以模态框方式展示，也就是说，用户还可以与应用的其他部分进行交互。对话框默认为模态框展示。
-
-[[msg-dialog-close-on-click-outside]]
-* `withCloseOnOutsideClick()` - 当设置为 `true` 时，如果对话框是模态展示，则支持用户通过点击对话框外的区域进行关闭。
-
-[[msg-dialog-width-height]]
-* `withWidth()`、`withHeight()` - 设置对话框的大小。
-
-示例：
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-custom]
-----
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-modal,withModal>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-closeOnOutsideClick,withCloseOnOutsideClick>> -
+<<with-closeOnEsc,withCloseOnEsc>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
 
 [[option-dialog]]
 == 选项对话框
@@ -75,6 +67,26 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> 如果点击 Yes，则对话框关闭并调用 `addCustomer()` 操作方法。
 
 用 `DialogAction` 基类可以创建标准操作。支持 5 种通过 `DialogAction.Type` 枚举类型定义的操作：`OK`、`CANCEL`、`YES`、`NO`、`CLOSE`。按钮的名称从 xref:localization:message-bundles.adoc[消息包] 获取。
+
+使用下列方法可以对选项对话框的外观显示和行为进行设置：
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
 
 [[background-task-dialog]]
 == 后台任务对话框
@@ -96,12 +108,43 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> 根据任务完成的数量设置进度条。
 <3> 支持用户中断操作。
 
+使用下列方法可以对后台任务对话框的外观显示和行为进行设置：
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-content,withContent>> -
+<<with-themeName,withThemeName>> -
+<<with-className,withClassName>> -
+<<with-draggable,withDraggable>> -
+<<with-resizable,withResizable>> -
+<<with-min-max-sizes,withMinWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxWidth>> -
+<<with-min-max-sizes,withMaxHeight>> -
+<<with-draggedListener,withDraggedListener>> -
+<<with-resizeListener,withResizeListener>>
+
 [[input-dialog]]
 == 输入对话框
 
 输入对话框是一个多功能的工具，可以使用 API 构建输入表单，摆脱为琐碎的数据输入创建界面的麻烦。支持不同类型数据的输入、验证输入数据以及为用户提供不同的操作。
 
 image::dialogs/input-dialog.png[align="center", width = 560]
+
+使用下列方法可以对输入对话框的外观显示和行为进行设置：
+
+<<with-header,withHeader>> -
+<<with-width,withWidth>> -
+<<with-height,withHeight>> -
+<<with-left,withLeft>> -
+<<with-top,withTop>> -
+<<with-text,withText>> -
+<<with-draggable,withDraggable>> -
+<<with-draggedListener,withDraggedListener>>
 
 下面我们看几个例子。
 
@@ -138,6 +181,36 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> 为自定义参数创建 combobox。
 <3> 为 combobox 加载选项。
 
+[NOTE]
+====
+当使用 `InputParameter.withField()` 方法时，只有 `InputParameter` 中的 `label` 属性会自动传递给创建的字段。其他在 `InputParameter` 中设置的属性不会 *自动* 应用到通过 `withField()` 创建的字段中。
+
+使用 `withField()` 时，`InputParameter` 属性中的下面这些不会 *自动* 应用：
+
+- `required`
+- `requiredMessage`
+- `datatype`
+- `defaultValue`
+
+这是因为，开发者需要对通过 lambda 方法手动创建的字段全权负责。因此，除了 `label` 外，所有额外的设置必读显式地配置。
+
+下面的示例中，一些重要的属性，例如 `datatype` 和 `required` 需要在创建字段后手动设置：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=required-custom-parameter]
+----
+
+如果不需要对字段进行自定义，则可以在 `InputParameter` 中对属性进行配置：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=required-custom-parameter-2]
+----
+
+此时 Jmix 会自动创建字段组件并应用所有的特定属性。
+====
+
 [[custom-validator]]
 === 自定义校验
 
@@ -153,3 +226,97 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> 自定义验证逻辑，保证至少有一个参数。
 <2> 验证器内，参数可以从 context 对象获取。
 <3> 如果没有输入任何参数，则返回验证错误。
+
+[[dialog-configuration]]
+== 对话框配置
+
+可以通过下面的方法自定义对话框的标题、大小、位置：
+
+[[with-header]]
+* `withHeader()` - 设置标题。
+
+[[with-width]]
+* `withWidth()` - 设置对话框的宽度。
+
+[[with-height]]
+* `withHeight()` - 设置对话框的高度。
+
+[[with-left]]
+* `withLeft()` - 设置对话框与其外部容器的左边距（无单位值按像素处理）
+
+[[with-top]]
+* `withTop()` - 设置对话框与其外部容器的上边距（无单位值按像素处理）
+
+示例：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=basic-config]
+----
+
+特定的对话框类型还有些额外的外观和行为设置：
+
+[[with-text]]
+* `withText()` - 设置对话框显示的文本信息。
+
+[[with-content]]
+* `withContent()` - 设置对话框的内容。这里的文本会通过 `Paragraph` 组件渲染。注意，这个设置会覆盖 `withText()` 的设置。
++
+[NOTE]
+====
+文本格式支持 HTML - 即，调用 `withContent()` 方法可以在对话框显示 HTML 内容。此时，HTML 文本内容需要通过一个组件封装：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;messageDialog-html]
+----
+====
+
+[[with-modal]]
+* `withModal()` - 设置为 `false` 时，对话框以非模态窗展示，此时可以与应用程序的其他 UI 组件交互。对话框默认以模态窗显示。
+
+[[with-themeName]]
+* `withThemeName()` - 设置组件的主题样式名称，覆盖之前设置的任何值。
+
+[[with-className]]
+* `withClassName()` - 设置组件的 CSS 类名称，覆盖之前设置的任何值。
+
+[[with-draggable]]
+* `withDraggable()` - 设置对话框是否可拖动。对话框默认可拖动。
+
+[[with-resizable]]
+* `withResizable()` - 设置对话框是否可手动调节大小。
+对话框大小默认不能调。
+
+[[with-min-max-sizes]]
+* `withMinWidth()`、`withMaxWidth()`、`withMaxWidth()`、`withMaxHeight()` - 分别设置对话框的最小、最大宽度和高度。
+
+[[with-closeOnOutsideClick]]
+* `withCloseOnOutsideClick()` - 是否可以通过点击对话框外部区域关闭对话框。默认支持该行为。
+
+[[with-closeOnEsc]]
+* `withCloseOnEsc()` - 是否可以通过按下 `ESC` 关闭对话框。默认支持该行为。
+
+[[with-draggedListener]]
+* `withDraggedListener()` - 注册一个用户拖拽的监听器，拖拽完成后调用。仅当启用拖拽时有效。
++
+NOTE: 默认情况下，组件会在拖拽后提供所在位置的 top/left 值。
++
+示例：
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=withDraggedListener]
+----
+
+[[with-resizeListener]]
+* `withResizeListener()` - 注册一个改变大小的监听器，大小调节完成后调用。仅当启用大小调节时有效。
++
+NOTE: 默认情况下，组件会在每次改变大小后提供 top/left 和 width/height 值。
++
+示例：
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=withResizeListener]
+----

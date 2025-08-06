@@ -50,6 +50,10 @@
 |高级
 |前后端分离的 Jmix 应用程序示例。
 
+|xref:restds-oidc-guide:index.adoc[]
+|高级
+|如何使用 REST 数据存储和 Keycloak 集成 Jmix 应用。
+
 |xref:openapi-integration-guide:index.adoc[]
 |高级
 |使用 OpenAPI shema 将 Jmix 应用程序与外部 REST 服务集成。
@@ -57,4 +61,8 @@
 |xref:mongodb-integration-guide:index.adoc[]
 |高级
 |在 Jmix 中使用 MongoDB 作为附加数据存储。
+
+|xref:observability-logging-guide:index.adoc[]
+|高级
+|如何使用 OpenTelemetry、Grafana Loki、Grafana 为 Jmix 应用配置统一的日志。
 |===

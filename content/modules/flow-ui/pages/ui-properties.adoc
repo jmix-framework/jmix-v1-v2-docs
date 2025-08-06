@@ -73,6 +73,19 @@ jmix.ui.entity-page-size.Product = 100
 jmix.ui.entity-page-size.Customer = 500
 ----
 
+[[jmix.ui.exception-dialog-modal]]
+=== jmix.ui.exception-dialog-modal
+
+这个应用程序属性控制是否在 Jmix 应用程序中使用模态窗显示 `ExceptionDialog`。
+
+如果启用，则 `ExceptionDialog` 作为模态窗显示，用户只有先关闭该窗口才能与应用程序的其他部分交互。
+
+如果禁用，则 `ExceptionDialog` 不作为模态窗显示，用户可以与应用程序的其他部分交互而无需关闭该窗口。
+
+默认值：`true`。
+
+参阅 xref:flow-ui:exception-handlers.adoc[异常处理]。
+
 [[jmix.ui.main-view-id]]
 === jmix.ui.main-view-id
 
@@ -120,17 +133,17 @@ jmix.ui.menu-config = com/company/onboarding/menu.xml
 
 对于 `Downloader` bean，配置哪些文件后缀类型可以直接展示在浏览器而不下载。
 
-默认值：`[htm, html, jpg, png, jpeg, pdf]`
+默认值：`jpg, png, jpeg, pdf`
 
 [[jmix.ui.view.close-shortcut]]
 === jmix.ui.view.close-shortcut
 
-定义关闭当前视图使用的键盘快捷键。
+定义关闭当前视图使用的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.view.save-shortcut]]
 === jmix.ui.view.save-shortcut
 
-定义保存数据更改的键盘快捷键。
+定义保存数据更改的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.view.create-action-adds-first]]
 === jmix.ui.view.create-action-adds-first
@@ -192,17 +205,22 @@ jmix.ui.menu-config = com/company/onboarding/menu.xml
 
 默认值：`false`
 
+[[jmix.ui.ui-test-mode]]
+=== jmix.ui.ui-test-mode
+
+启用在 Masquerade 测试库中生成特殊测试 ID 的功能。具体请参阅 xref:testing:masquerade.adoc[Masquerade]。
+
 [[components]]
 == 组件配置
 
 [[jmix.ui.component.checkbox-required-state-initialization-enabled]]
 === jmix.ui.component.checkbox-required-state-initialization-enabled
 
-该属性控制当 checkbox 绑定一个带 `@NotNull` 验证的必需布尔属性时的行为。
+该属性控制当 xref:vc/components/checkbox.adoc[checkbox] 和 xref:vc/components/switch.adoc[switch] 绑定一个带 `@NotNull` 验证的必需布尔属性时的行为。
 
-* 如果配置为 `true`，则 checkbox 必需勾选以通过验证。
+* 如果配置为 `true`，则 `checkbox`/`switch` 必需勾选以通过验证。
 
-* 如果配置为 `false`，则 checkbox 可以保留非选择状态而不会导致验证错误。这样可以表示所需的 `true` 或 `false` 值。
+* 如果配置为 `false`，则 `checkbox`/`switch` 可以保留非选择状态而不会导致验证错误。这样可以表示所需的 `true` 或 `false` 值。
 
 默认值：`true`
 
@@ -258,7 +276,7 @@ jmix.ui.component.entity-field-fqn.User = io.jmix.flowui.component.combobox.Enti
 [[jmix.ui.component.filter-apply-shortcut]]
 === jmix.ui.component.filter-apply-shortcut
 
-设置 xref:vc/components/genericFilter.adoc[genericFilter] 组件应用当前过滤条件的快捷键，可用在过滤器不是 <<jmix.ui.component.filter-auto-apply, 自动应用>> 时。
+设置 xref:vc/components/genericFilter.adoc[genericFilter] 组件应用当前过滤条件的 xref:keyboard-shortcuts.adoc[快捷键]，可用在过滤器不是 <<jmix.ui.component.filter-auto-apply, 自动应用>> 时。
 
 例如，可以禁用所有过滤器的自动应用而改用快捷键：
 
@@ -310,31 +328,31 @@ jmix.ui.component.filter-apply-shortcut = ALT-ENTER
 [[jmix.ui.component.grid-add-shortcut]]
 === jmix.ui.component.grid-add-shortcut
 
-定义执行 xref:actions/list-actions.adoc#list_add[list_add] 操作的键盘快捷键。
+定义执行 xref:actions/list-actions.adoc#list_add[list_add] 操作的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.component.grid-create-shortcut]]
 === jmix.ui.component.grid-create-shortcut
 
-定义执行 xref:actions/list-actions.adoc#list_create[list_create] 操作的键盘快捷键。
+定义执行 xref:actions/list-actions.adoc#list_create[list_create] 操作的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.component.grid-edit-shortcut]]
 === jmix.ui.component.grid-edit-shortcut
 
-定义执行 xref:actions/list-actions.adoc#list_edit[list_edit] 操作的键盘快捷键。
+定义执行 xref:actions/list-actions.adoc#list_edit[list_edit] 操作的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 默认值：`ENTER`
 
 [[jmix.ui.component.grid-read-shortcut]]
 === jmix.ui.component.grid-read-shortcut
 
-定义执行 xref:actions/list-actions.adoc#list_read[list_read] 操作的键盘快捷键。
+定义执行 xref:actions/list-actions.adoc#list_read[list_read] 操作的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 默认值：`ENTER`
 
 [[jmix.ui.component.grid-remove-shortcut]]
 === jmix.ui.component.grid-remove-shortcut
 
-定义执行 xref:actions/list-actions.adoc#list_remove[list_remove] 操作的键盘快捷键。
+定义执行 xref:actions/list-actions.adoc#list_remove[list_remove] 操作的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.component.immediate-required-validation-enabled]]
 === jmix.ui.component.immediate-required-validation-enabled
@@ -357,17 +375,17 @@ jmix.ui.component.filter-apply-shortcut = ALT-ENTER
 [[jmix.ui.component.picker-clear-shortcut]]
 === jmix.ui.component.picker-clear-shortcut
 
-定义清空选择器组件输入内容的键盘快捷键。
+定义清空选择器组件输入内容的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.component.picker-lookup-shortcut]]
 === jmix.ui.component.picker-lookup-shortcut
 
-定义选择器组件中打开选择视图的键盘快捷键。
+定义选择器组件中打开选择视图的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.component.picker-open-shortcut]]
 === jmix.ui.component.picker-open-shortcut
 
-定义选择器组件中打开已选实体详情视图的键盘快捷键。
+定义选择器组件中打开已选实体详情视图的 xref:keyboard-shortcuts.adoc[键盘快捷键]。
 
 [[jmix.ui.component.show-error-message-below-field]]
 === jmix.ui.component.show-error-message-below-field

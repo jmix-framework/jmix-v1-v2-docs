@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://fragmentsView.title">
+    <layout>
+        <fragment id="testFragment1"  class="com.company.masqueradeex1.fragment.testfragment.TestFragment"/>
+        <fragment id="testFragment2"  class="com.company.masqueradeex1.fragment.testfragment.TestFragment"/>
+    </layout>
+</view>

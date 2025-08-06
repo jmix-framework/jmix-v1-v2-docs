@@ -58,6 +58,11 @@
             <dateTimePicker themeNames="small"/>
             <!-- end::size[] -->
         </hbox>
-
+        <!-- tag::step[] -->
+        <dateTimePicker step="2h"/> <!--1-->
+        <dateTimePicker step="1600s"/> <!--2-->
+        <dateTimePicker step="20m"/> <!--3-->
+        <dateTimePicker step="30"/> <!--4-->
+        <!-- end::step[] -->
     </layout>
 </view>

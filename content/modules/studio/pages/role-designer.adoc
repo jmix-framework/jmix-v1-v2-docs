@@ -2,24 +2,24 @@
 
 Studio 提供用于创建设计时 xref:security:resource-roles.adoc[资源角色] 和 xref:security:row-level-roles.adoc[行级角色] 的可视化工具。
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 [[resource-role-designer]]
 == 资源角色设计器
 
 如需新建资源角色，通过 xref:studio:tool-window.adoc[Jmix 工具窗口] 的菜单打开：
 
-image::role-open.png[align="center", width="248"]
+image::role-open.png[align="center", width="244"]
 
 在对话框中输入角色名称和编码。
 
-image::role-create.png[align="center", width="662"]
+image::role-create.png[align="center", width="663"]
 
 资源角色设计器的 *Text* 标签页集成了代码编辑器。可以直接编辑代码或通过设计器生成代码。
 
 *Definition* 标签页定义角色的基本属性。
 
-image::role-definition.png[align="center", width="722"]
+image::role-definition.png[align="center", width="724"]
 
 [NOTE]
 ====
@@ -28,7 +28,7 @@ image::role-definition.png[align="center", width="722"]
 
 在 *User Interface* 标签页，可以定义菜单项和视图权限。
 
-image::role-user-interface.png[align="center", width="722"]
+image::role-user-interface.png[align="center", width="724"]
 
 左侧的树显示主菜单的结构，包括项目定义的视图以及从框架和扩展组件继承的视图。*All Views* 组显示无法通过主菜单直接获取的所有其他应用程序视图。可以使用树上方的搜索控件查找需要的视图。
 
@@ -40,7 +40,7 @@ image::role-user-interface.png[align="center", width="722"]
 
 在 *Entities* 标签页，可以为实体和实体属性定义 CRUD 权限。
 
-image::role-entities.png[align="center", width="722"]
+image::role-entities.png[align="center", width="724"]
 
 面板左侧的表格显示项目中定义的实体以及从框架和扩展组件继承的实体。通过位于表上方的搜索控件，可以按名称筛选实体列表。
 
@@ -60,7 +60,7 @@ image::role-entities.png[align="center", width="722"]
 [[specific-tab]]
 在 *Specific* 标签页，可以定义特定权限。
 
-image::role-specific.png[align="center", width="722"]
+image::role-specific.png[align="center", width="724"]
 
 框架使用特定权限来限制对各种机制的访问。在树中，可以看到从框架和扩展组件继承的许可权限。
 
@@ -73,11 +73,11 @@ image::role-specific.png[align="center", width="722"]
 
 如需创建一个新的行级角色，点击 xref:studio:tool-window.adoc[Jmix 工具窗口] 的 *New → Row-level Role*。
 
-image::row-level-role-open.png[align="center", width="248"]
+//image::row-level-role-open.png[align="center", width="248"]
 
 在弹出的窗口内填写角色参数。
 
-image::row-level-role-create.png[align="center", width="635"]
+image::row-level-role-create.png[align="center", width="636"]
 
 [NOTE]
 ====
@@ -86,7 +86,7 @@ image::row-level-role-create.png[align="center", width="635"]
 
 Studio 会创建并打开一个带注解的角色接口。点击顶部操作面板的 *Add Policy → JPQL Policy* 可以添加 xref:security:row-level-roles.adoc#jpql-policy[JPQL 策略]：
 
-image::add-policy-button.png[align="center", width="624"]
+image::add-policy-button.png[align="center", width="724"]
 
 在 *Add JPQL Policy* 对话框中，指定策略参数：
 
@@ -96,4 +96,4 @@ image::add-jpql-policy.png[align="center", width="636"]
 
 类似的，如需添加 xref:security:row-level-roles.adoc#predicate-policy[谓词策略]，可以点击顶部操作面板的 *Add Policy → Predicate Policy*。然后在 *Add Predicate Policy* 弹窗中，指定一个实体并选择需要创建的谓词：
 
-image::add-predicate-policy.png[align="center", width="515"]
+image::add-predicate-policy.png[align="center", width="531"]

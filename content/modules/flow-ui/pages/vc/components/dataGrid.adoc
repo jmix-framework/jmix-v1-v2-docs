@@ -141,7 +141,14 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 该组件支持行内编辑，用户可以在只读和编辑模式之间切换。行内编辑可以通过 <<actions-column, 操作列>> 中的按钮激活，或通过 <<double-click-editing,双击>> 激活。
 
-NOTE: 行内编辑需要通过显式的保存操作将数据提交至数据库。可以给用户提供一个 "保存" 按钮，或实现 <<auto-save,自动保存>>，当用户离开当前单元格时自动保存改动。
+[NOTE]
+====
+行内编辑器仅在内存中更新实体的属性值。如果需要将修改内容保存至数据库，请使用下面的方法：
+
+* 在详情视图中，实体会合并至 xref:data/data-context.adoc[]。当用户点击 *OK* 时，触发 `DataContext.save()`，更改会自动保存。
+
+* 在列表视图中，如果没有使用 `DataContext`，则需实现 <<auto-save,自动保存>>，通过 `DataManager` 保存更改。
+====
 
 [[actions-column]]
 === 操作列
@@ -209,28 +216,37 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[auto-save]]
 === 自动保存改动
 
-通常，当用户触发确认操作时，可视化组件对实体实例的修改会通过 xref:flow-ui:data/data-context.adoc[] 保存至数据库。
+在一个典型的列表视图中，加载的实体不会合并到 `DataContext` 中（因为 XML 中的 `loader` 元素具有 `readOnly="true"` 属性）。而且，列表视图通常不包含确认操作，如 *OK* 或 *Save*。因此，修改后的实体需要显式地保存到数据库。
 
-如果需要在用户离开当前单元格时自动保存行内编辑的修改，可以为数据容器创建一个 `ItemPropertyChangeEvent` 事件的处理器并保存 `DataContext`：
-
-[source,java,indent=0]
-----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-data-context]
-----
-
-如果 `dataGrid` 中的实体没有合并到 `DataContext` 中（例如，`loader` 是 `readOnly="true"`），则可以通过 `DataManager` 保存实体：
+在非缓存模式时，可以在 `EditorCloseEvent` 中通过 `DataManager` 保存：
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-non-buffered]
 ----
+<1> 保存实体并获取保存后的实例。
+<2> 将数据容器中的旧实例替换为保存后的实例，之后会基于最新的数据做修改。
+
+在缓存模式时，可以在 `EditorSaveEvent` 监听器中完成：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridFeaturesView.java[tags=auto-save-buffered]
+----
+
+[TIP]
+====
+如需通过 Jmix Studio 生成监听器注解方法，可以在 *Component Inspector* 的 *Handlers* 标签页中生成，这里的编辑器事件监听器带 `[Editor]` 前缀。
+
+监听器也可以编程式通过类似 `dataGrid.getEditor().addSaveListener()` 的方法添加。
+====
 
 [[DataGridEditor]]
 === DataGridEditor
 
-`io.jmix.flowui.component.grid.editor.DataGridEditor` 接口提供了额外的编辑器功能：配置一个编辑器、打开编辑器、保存或取消行编辑，以及定义列编辑组件的工具方法。
+`io.jmix.flowui.component.grid.editor.DataGridEditor` 接口提供了额外的编辑器功能：配置一个编辑器、打开编辑器、保存或取消行编辑，注册监听器，以及定义列编辑组件的工具方法。
 
-WARNING: 为了支持框架的机制，例如数据容器、值来源等，列编辑器组件必须通过 `DataGridEditor` 的 `DataGridEditor#setColumnEditorComponent()` 方法添加，而不能直接使用列 API `Column#setEditorComponent()`。
+CAUTION: 为了支持框架的机制，例如数据容器、值来源等，列编辑器组件必须通过 `DataGridEditor` 的 `DataGridEditor#setColumnEditorComponent()` 方法添加，而不能直接使用列 API `Column#setEditorComponent()`。
 
 参考示例：
 

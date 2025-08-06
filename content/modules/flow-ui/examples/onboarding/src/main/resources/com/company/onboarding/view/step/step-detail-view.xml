@@ -24,8 +24,12 @@
             <textField property="factor"/>
         </formLayout>
         <hbox id="detailActions">
-            <button id="commitAndCloseBtn" action="commitAction"/>
-            <button id="closeBtn" action="closeAction"/>
+            <!-- tag::keyboard-shortcuts[] -->
+            <button id="commitAndCloseBtn" action="commitAction"
+                    focusShortcut="META-ENTER"/> <!--1-->
+            <button id="closeBtn" action="closeAction"
+                    shortcutCombination="SHIFT-ESCAPE"/> <!--2-->
+            <!-- end::keyboard-shortcuts[] -->
         </hbox>
     </layout>
 </view>

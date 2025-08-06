@@ -1,11 +1,23 @@
 = 组合项目
 
-Jmix 中的组合项目是指项目结构中包含多个相关的 xref:jmix::add-ons.adoc[扩展组件] 以及应用程序的单一 IDE 项目，即使这些项目位于不同的源码仓库。
+Jmix 中的组合项目是指项目结构中包含多个相关的 xref:modularity:creating-add-ons.adoc[扩展组件] 以及应用程序的单一 IDE 项目，不管这些项目是不是在同一个代码仓库都可以。
+
+Jmix 设计该功能的原因和背景请参阅 Jmix 博客 https://www.jmix.cn/blog/add-ons-and-composite-projects/[扩展组件和组合项目^]。
 
 [[creating-composite-project]]
 == 创建组合项目
 
-如需创建空的组合项目，在 xref:studio:project.adoc#creating-new-project[项目向导] 中选择 *Composite Project* 模板。Studio 会自动创建下面结构的项目（假设项目名称为 `sales`）：
+如需创建空的组合项目，在 xref:studio:project.adoc#creating-new-project[项目向导] 中选择 *Composite Project* 模板。
+
+如果选择的是 *Composite Project for Monorepo* 模板，Studio 会创建一个项目并在根目录下有构建脚本：
+
+----
+root-dir/
+    build.gradle
+    settings.gradle
+----
+
+如果选择的是 *Composite Project for Separate Repositories* 模板，Studio 会自动创建下面结构的项目（假设项目名称为 `sales`）：
 
 ----
 root-dir/
@@ -18,20 +30,22 @@ root-dir/
 
 image::studio:new-subprojects.png[align="center",width="360"]
 
-我们建议将子项目放入组合项目的根目录，即与 `<project-name>-all` 聚合项目平级。
-
 Studio 在 Jmix 工具窗口中将组合项目和所有的子项目都作为顶级节点展示：
 
 image::studio:composite-projects-structure.png[align="center",width="1063"]
 
-可以看到，聚合项目的 `settings.gradle` 文件使用了 `includeBuild` 指令。这些指令使用了 Gradle 的 https://docs.gradle.org/current/userguide/composite_builds.html[composite build^] 功能，可以有效地组织项目结构。
+可以看到，聚合项目的 `settings.gradle` 文件使用了 `includeBuild` 指令。这些指令由 Gradle 的 https://docs.gradle.org/current/userguide/composite_builds.html[组合构建^] 功能提供。
 
 在组合项目的构建中，Gradle 会将对制件的依赖替换为项目之间的依赖。也就是说，在扩展组件中做的修改会直接影响到依赖它的其他组件和应用程序。IntelliJ IDEA 可以完美地引入这种项目，并识别 Gradle 定义的项目依赖。因此，在组合项目的开发中，代码的重构是透明的，无需 "publish locally" 操作。
 
 [[opening-composite-project]]
 == 打开组合项目
 
-xref:studio:project.adoc#opening-existing-project[打开] 组合项目时，请确保打开的是聚合主项目 `<project-name>-all` 的 `build.gradle` 文件：
+当 xref:studio:project.adoc#opening-existing-project[打开] 组合项目时，请确保打开的是聚合主项目文件夹下的的 `build.gradle` 文件。
+
+如果组合项目是通过 *Composite Project for Monorepo* 模板创建的，则 `build.gradle` 位于根目录。
+
+如果组合项目是通过 *Composite Project for Separate Repositories* 模板创建的，则 `build.gradle` 位于 `<project-name>-all` 目录：
 
 image::open-composite-project.png[align="center",width="1078"]
 
@@ -53,7 +67,7 @@ image::studio:composite-project-edit-properties.png[align="center",width="436"]
 
 image::studio:composite-project-dependencies.png[align="center",width="787"]
 
-这里的 *customers* 是一个扩展组件，依赖 *users* 组件。根据在这个窗口中做的配置，Jmix Studio 会自动在子项目的 `build.gradle` 文件中添加依赖，并配置扩展组件的 `@JmixModule` 注解。还能放置循环依赖。在下面的截图中可以看到，无法配置 *users* 组件依赖 *customers*，因为 *customers* 已经依赖了 *users*：
+这里的 *customers* 是一个扩展组件，依赖 *users* 组件。根据在这个窗口中做的配置，Jmix Studio 会自动在子项目的 `build.gradle` 文件中添加依赖，并配置扩展组件的 xref:modularity:creating-add-ons.adoc#jmix-module[@JmixModule] 注解。还能防止循环依赖。从下面的截图中可以看到，无法配置 *users* 组件依赖 *customers*，因为 *customers* 已经依赖了 *users*：
 
 image::studio:composite-project-dependencies-2.png[align="center",width="787"]
 
@@ -70,4 +84,4 @@ image::studio:add-on-data-store.png[align="center",width="484"]
 
 然后，可以在数据存储上执行 *Generate Liquibase Changelog* 操作。
 
-在组合项目中，需要为同一个扩展组件再次指定数据存储，因为组合项目有其自有的 `jmix-studio.xml` 文件，位于 `<project-name>-all` 项目中。因此，数据存储配置保存的位置与单独开发一个组件项目时有所不同，但是最后生成的更改日志是一样的。
+在组合项目中，需要为同一个扩展组件再次指定数据存储，因为组合项目有其自有的 `jmix-studio.xml` 文件，位于根目录或 `<project-name>-all` 项目中。因此，数据存储配置保存的位置与单独开发一个组件项目时有所不同，但是最后生成的更改日志是一样的。

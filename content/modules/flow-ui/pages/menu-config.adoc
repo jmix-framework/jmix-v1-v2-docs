@@ -96,7 +96,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 include::example$onboarding/src/main/java/com/company/onboarding/app/MenuBean.java[tags=start;method-with-params;end]
 ----
 
-* `shortcutCombination` -- 菜单项的键盘快捷键。可选的修饰键：`ALT`、`CTRL`、`SHIFT`，由“-”字符分隔。示例：
+* `shortcutCombination` -- 菜单项的 xref:keyboard-shortcuts.adoc[键盘快捷键]。示例：
 +
 [source,xml,indent=0]
 ----

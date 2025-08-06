@@ -8,40 +8,46 @@ content:
       branches: HEAD
       start_path: content
     - url: ./external/jmix-business-logic-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-application-events-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-application-logging-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-mongodb-integration-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-integrated-apps-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-separate-tiers-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-openapi-integration-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-data-modeling-many-to-many-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-data-modeling-entity-inheritance-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-data-modeling-composition-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-initial-entity-values-sample
-      branches: release_2_5
+      branches: HEAD
       start_path: doc
     - url: ./external/jmix-social-login-sample
-      branches: release_2_5
+      branches: HEAD
+      start_path: doc
+    - url: ./external/jmix-restds-oidc-sample
+      branches: HEAD
+      start_path: doc
+    - url: ./external/jmix-observability-logging-sample
+      branches: HEAD
       start_path: doc
 ui:
   bundle:

@@ -306,7 +306,7 @@ xref:vc/common-attributes.adoc#width[width]
 [[applyShortcut]]
 === applyShortcut
 
-定义可以应用过滤器条件的键盘快捷键。仅当过滤器条件不是 <<autoApply,自动应用>> 时有效。
+定义可以应用过滤器条件的 xref:keyboard-shortcuts.adoc[键盘快捷键]。仅当过滤器条件不是 <<autoApply,自动应用>> 时有效。
 
 默认值通过 xref:ui-properties.adoc#jmix.ui.component.filter-apply-shortcut[jmix.ui.component.filter-apply-shortcut] 应用程序属性配置。
 

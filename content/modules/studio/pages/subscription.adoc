@@ -34,37 +34,42 @@ NOTE: 您输入的电子邮件地址将作为登录用户名以及您账号的�
 [[subscription]]
 == 订阅
 
-Jmix 提供两种类型的商业订阅计划：*快速开发版（RAD）* 和 *企业开发版（Enterprise）*。免费计划和商业计划的比较可以参考 Jmix 网站： https://www.jmix.cn/subscription-plans-and-prices/[订阅计划和价格^]。
+Jmix 提供 3 种类型的商业订阅计划：*快速开发版（Sprint）*、*企业开发版（Enterprise）* 和 *BPM 版*。免费计划和商业计划的比较可以参考 Jmix 网站： https://www.jmix.cn/subscription-plans-and-prices/[订阅计划和价格^]。
 
-[[rad-subscription]]
-=== 快速开发版（RAD）
+[[sprint-subscription]]
+=== 快速开发版（Sprint）
 
-快速开发版（Rapid Application Development）订阅可以使用下列 Studio 高级功能：
+快速开发版（Sprint）订阅可以使用下列 Studio 高级功能：
 
 * xref:studio:entity-designer.adoc[实体和枚举设计器]
 * xref:studio:data-stores.adoc#data-store-actions[自动生成 Liquibase 变更日志]
-* xref:studio:view-designer.adoc[视图设计器]
-* xref:studio:menu-designer.adoc[主菜单设计器]
-* xref:studio:role-designer.adoc[角色设计器]
-* xref:studio:fetch-plan-designer.adoc[Fetch plan 设计器]
-* JPQL 查询语句设计器
+* xref:studio:view-designer.adoc[]
+* xref:studio:menu-designer.adoc[]
+* xref:studio:role-designer.adoc[]
+* xref:studio:fetch-plan-designer.adoc[]
+* xref:studio:jpql-designer.adoc[]
+* xref:studio:quick-cloud-deployment.adoc[]
+* 支持 xref:studio:data-repository-wizard.adoc[Data Repositories]
+* 支持 xref:openapi-integration-guide:index.adoc[OpenAPI] 客户端生成
 
 NOTE: 上面列出的所有高级功能都可以在不超过 10 个实体和角色的小项目中免费使用。
 
 当第一次登录 Studio 时，即获得快速开发版的试用订阅。试用订阅的有效期是 28 天，可以在任何大小的项目中使用 Studio 的高级功能。
 
-image::jmix-subscription.png[align="center",width="612"]
-
 试用结束后，Studio 只能在小项目中免费使用高级功能。
 
 [[enterprise-subscription]]
-=== 企业开发版（Enterprise）
+=== 企业（Enterprise）和 BPM 版
 
-企业开发版除了包含上述的快速开发版的所有功能之外，还可以在 Studio 中使用商业扩展组件，包括：xref:bpm:index.adoc[]、xref:business-calendar:index.adoc[]、xref:maps:index.adoc[]、xref:notifications:index.adoc[]、xref:webdav:index.adoc[] 以及 xref:studio:bpmn-designer.adoc[]。
+*企业（Enterprise）和 BPM 版* 除了包含上述的快速开发版的所有功能之外，还提供了商业扩展组件。
+
+* 企业版包括：xref:business-calendar:index.adoc[]、xref:kanban:index.adoc[]、xref:maps:index.adoc[]、xref:notifications:index.adoc[]、xref:tabbed-mode:index.adoc[]、xref:uiconstraints:index.adoc[] 和 xref:webdav:index.adoc[] 扩展组件。
+
+* BPM 版包括上面的所有组件，以及 xref:bpm:index.adoc[] 组件和 Studio 中的 xref:studio:bpmn-designer.adoc[]。
 
 商业扩展组件存储在单独的制件仓库中，当从 xref:studio:marketplace.adoc[市场] 安装商业扩展组件时，Studio 会自动在 `build.gradle` 添加对应的仓库。此外，Studio 也会将登录仓库的凭证写入 `.gradle/gradle.properties` 文件。了解仓库和凭证的更多信息，请参考各个商业组件的安装说明。
 
-可以按照 xref:ROOT:account-management.adoc#enterprise-trial[账号、账单和订阅管理] 的说明获取企业版试用许可。
+可以按照 xref:ROOT:account-management.adoc#enterprise-trial[账号、账单和订阅管理] 的说明获取企业 + BPM 版试用许可。
 
 [[subscription-information]]
 === 订阅信息

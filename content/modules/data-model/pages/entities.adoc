@@ -262,6 +262,7 @@ NOTE: 实体属性的英文术语除了 _Entity Attributes_，还有另一个术
 * `java.util.UUID`
 * `java.net.URI`
 * `byte[]`（字节数组）
+* xref:files:file-storage.adoc[io.jmix.core.FileRef]
 * xref:enumerations.adoc[枚举]
 * 实体或实体集合（引用属性）
 

@@ -19,7 +19,7 @@
 
 image::visual-components/components/date-time-picker-basic.png[align="center", width="420"]
 
-下面的示例定义了带标签的 `datePicker`：
+下面的示例定义了带标签的 `dateTimePicker`：
 
 [source,xml,indent=0]
 ----
@@ -53,9 +53,23 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=userDc]
 ----
 
+[[step]]
 == 间隔
 
-选择弹窗中显示时间的默认间隔为 1 小时。但是也可以使用 xref:vc/common-attributes.adoc#step[step] 属性自定义间隔。支持编程式设置：
+选择弹窗中显示时间的默认间隔为 1 小时。但是也可以使用 xref:vc/common-attributes.adoc#step[step] 属性自定义间隔，支持 XML 和编程式设置。`step` 属性支持通过不同的时间（chrono）单位设置灵活的间隔。时间值支持通过单位后缀实现便捷设置。
+
+在视图 XML 中设置 `step`：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datetimepicker/date-time-picker-view.xml[tags=step]
+----
+<1> 2 小时间隔。
+<2> 1600 秒（26 分 40 秒）间隔。
+<3> 20 分钟间隔。
+<4> 不带后缀表示按“分钟”。
+
+视图控制器中也可以设置：
 
 [source,java,indent=0]
 ----

@@ -20,3 +20,45 @@
 配置当一个视图不带 `@MultipleOpen` 注解时，是否可以在主视图多次打开。
 
 默认值：`false`
+
+[[jmix.tabmod.default-view-closeable]]
+== jmix.tabmod.default-view-closeable
+
+配置 xref:flow-ui:ui-properties.adoc#jmix.ui.default-view-id[jmix.ui.default-view-id] 定义的视图是否可以通过标准操作关闭，例如 tab 的关闭按钮或关闭 tab 操作。
+
+默认值：`true`
+
+[[jmix.tabmod.open-next-tab-shortcut]]
+== jmix.tabmod.open-next-tab-shortcut
+
+定义导航至下一 tab 的 xref:flow-ui:keyboard-shortcuts.adoc[键盘快捷键]。示例：
+
+[source,properties]
+----
+jmix.tabmod.open-next-tab-shortcut=CONTROL-SHIFT-ARROW_RIGHT
+----
+
+[[jmix.tabmod.open-previous-tab-shortcut]]
+== jmix.tabmod.open-previous-tab-shortcut
+
+定义导航至前一 tab 的 xref:flow-ui:keyboard-shortcuts.adoc[键盘快捷键]。示例：
+
+[source,properties]
+----
+jmix.tabmod.open-previous-tab-shortcut=CONTROL-SHIFT-ARROW_LEFT
+----
+
+[[jmix.tabmod.close-this-tab-shortcut]]
+== jmix.tabmod.close-this-tab-shortcut
+
+定义执行 xref:main-tab-sheet.adoc#tabmod_closeThisTab[tabmod_closeThisTab] 操作的 xref:flow-ui:keyboard-shortcuts.adoc[键盘快捷键]。
+
+[[jmix.tabmod.close-other-tabs-shortcut]]
+== jmix.tabmod.close-other-tabs-shortcut
+
+定义执行 xref:main-tab-sheet.adoc#tabmod_closeOtherTabs[tabmod_closeOtherTabs] 操作的 xref:flow-ui:keyboard-shortcuts.adoc[键盘快捷键]。
+
+[[jmix.tabmod.close-all-tabs-shortcut]]
+== jmix.tabmod.close-all-tabs-shortcut
+
+定义执行 xref:main-tab-sheet.adoc#tabmod_closeAllTabs[tabmod_closeAllTabs] 操作的 xref:flow-ui:keyboard-shortcuts.adoc[键盘快捷键]。

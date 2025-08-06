@@ -29,21 +29,21 @@ NOTE: 请在 3 天内完成邮件验证。否则，您将无法管理您的账�
 
 注册之后可以使用一个为期 28 天的免费 xref:studio:subscription.adoc#subscription[许可]。
 
-[[rad-trial]]
-=== 快速开发版试用
+[[sprint-trial]]
+=== 快速开发版（Sprint）试用
 
-如需获取 xref:studio:subscription.adoc#rad-subscription[快速开发版（RAD）] 试用许可，可直接在 Jmix Studio 中登录你的账号。第一次登录的账号自动激活 28 天快速开发版试用许可。
+如需获取 xref:studio:subscription.adoc#sprint-subscription[快速开发版（Sprint）] 试用许可，可直接在 Jmix Studio 中登录你的账号。第一次登录的账号自动激活 28 天快速开发版试用许可。
 
 [[enterprise-trial]]
-=== 企业版试用
+=== 企业版 + BPM 版试用
 
-如需试用 xref:studio:subscription.adoc#enterprise-subscription[企业] 版中提供的商业组件，请通过网页 https://store.jmix.io/account[^] 登录你的账号，然后点击 *Subscription* 中的 *Get Enterprise trial* 按钮。
+如需试用 xref:studio:subscription.adoc#enterprise-subscription[企业和 BPM] 版中提供的商业组件，请通过网页 https://store.jmix.io/account[^] 登录你的账号，然后点击 *Subscription* 中的 *Get Enterprise+BPM trial* 按钮。
 
 image::store/get-enterprise-trial.png[align="center", width="1260"]
 
-激活企业版试用许可后，会显示 *Download Enterprise trial* 按钮。
+激活企业版试用许可后，会显示 *Download Enterprise+BPM trial* 按钮。
 
-image::store/download-trial-project.png[align="center", width="1083"]
+image::store/download-trial-project.png[align="center", width="957"]
 
 通过这个按钮下载的试用版项目会包含下列 Jmix 商用扩展组件：
 
@@ -52,12 +52,13 @@ image::store/download-trial-project.png[align="center", width="1083"]
 * xref:kanban:index.adoc[]
 * xref:maps:index.adoc[]
 * xref:notifications:index.adoc[]
+* xref:tabbed-mode:index.adoc[]
 * xref:uiconstraints:index.adoc[]
 * xref:webdav:index.adoc[]
 
 下载解压后，请按照 xref:studio:project.adoc#opening-existing-project[打开已有项目] 章节的描述在 Jmix Studio 中打开项目。
 
-CAUTION: 商业扩展组件的试用版在申请企业版试用的 28 天之后将停止工作。包含过期试用版组件的项目将不能运行。
+CAUTION: 商业扩展组件的试用版在申请试用的 28 天之后将停止工作。包含过期试用版组件的项目将不能运行。
 
 [[subscription-purchase]]
 == 购买订阅
@@ -77,15 +78,13 @@ image::store/new-subscription-page.png[align="center", width="1260"]
 
 商业组织需要购买标准的企业许可。一个企业许可仅能支持组织内部的一个员工使用。请参阅 https://www.jmix.cn/subscription-plans-and-prices/[许可和价格^] 了解详情。
 
-购买快速开发版或企业开发版订阅：
+购买快速开发版、企业开发版或 BPM 版订阅：
 
 . 在 *License to* 字段选择 *Company*，然后在 *Plan* 选择 https://www.jmix.cn/subscription-plans-and-prices/#plan[订阅计划^]，在 *Period* 选择期限。
 
 . 指定需要购买的用户数。
 
 . 阅读并接受 *Jmix Studio and Add-ons License Agreement*。
-+
-image::store/buy-company-subscription.png[align="center", width="1260"]
 +
 NOTE: 如果有优惠码，点击 *Apply promo code* 链接，并输入优惠码。
 
@@ -113,7 +112,7 @@ image::store/buy-company-subscription-payment.png[align="center", width="1260"]
 
 个人许可是为个人开发者提供的许可，仅支持通过个人自有资金支付并且独立使用。个人许可不能通过公司购买、退款或以任何方式进行资助。
 
-购买个人快速开发版或企业开发版订阅：
+购买个人快速开发版、企业开发版或 BPM 版订阅：
 
 . 在 *License to* 字段选择 *Individual*，然后在 *Plan* 选择 https://www.jmix.cn/subscription-plans-and-prices/#plan[订阅计划^]，在 *Period* 选择期限。
 
@@ -137,17 +136,13 @@ image::store/buy-individual-subscription-request.png[align="center", width="1031
 
 . 如果确认了你的请求，则可以在 Jmix 商店完成购买。地址是： https://store.jmix.io/store[^] 。
 +
-image::store/buy-individual-subscription-complete.png[align="center", width="1335"]
-+
 选择 *Individual* 许可、订阅计划以及期限。然后阅读并接受 *Jmix Studio and Add-ons License Agreement*，点击 *Proceed to billing info* 按钮。
 
 . 下一步，填写付费信息：
 +
 image::store/buy-individual-subscription-billing-info.png[align="center", width="1026"]
 
-. 在 *Payment* 部分，添加一个可用的支付银行卡：
-+
-image::store/buy-individual-subscription-add-card.png[align="center", width="1026"]
+. 在 *Payment* 部分，添加一个可用的支付银行卡。
 
 . 检查总费用无误后，点击 *Complete Purchase* 按钮。
 
@@ -233,11 +228,9 @@ image::store/license-keys.png[align="center", width="1126"]
 [[subscription-editing]]
 === 变更订阅
 
-如需修改 https://www.jmix.io/subscription-plans-and-prices/#plan[订阅计划^] 或用户数量，请在 <<subscription-management,订阅管理页>> 点击 *Change number of users or plan* 打开变更订阅页面：
+如需修改 https://www.jmix.io/subscription-plans-and-prices/#plan[订阅计划^] 或用户数量，请在 <<subscription-management,订阅管理页>> 点击 *Change number of users or plan* 打开变更订阅页面。
 
-image::store/subscription-upgrade-users.png[align="center", width="1391"]
-
-在这里您可以将快速开发版（RAD）升级至企业版（Enterprise），并支持修改用户数。
+在这里您可以升级订阅计划，并支持修改用户数。
 
 NOTE: 请注意，一次无法同时修改用户数和订阅计划。需要分两次进行。
 

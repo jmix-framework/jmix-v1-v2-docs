@@ -2,28 +2,28 @@
 
 Studio 提供代码片段功能，提升了开发者体验。通过 Spring bean 或 UI 控制器编辑窗口顶部的 *Code Snippets* 按钮可以打开代码片段工具箱。
 
-image::snippet-window.png[align="center",width="597"]
+image::snippet-window.png[align="center",width="645"]
 
 可以从工具箱直接拖放代码段至你的代码中。代码段依赖代码中的上下文，因此，可能需要开发者提供某些参数。
 
 下面的示例中，将 *Get localized message* 代码段拖放至代码中，会展示对话框要求提供消息键值。
 
-image::snippet-example.png[align="center",width="783"]
+image::snippet-example.png[align="center",width="784"]
 
 代码段添加完成后如下所示：
 
-image::snippet-example-result.png[align="center",width="783"]
+image::snippet-example-result.png[align="center",width="784"]
 
 当使用通过查询语句加载数据的代码段时，会自动打开 JPQL 设计器。JPQL 设计器支持定义从数据库加载实体和直接值的 JPQL 查询语句。
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 下面的示例中，当拖放 *Load list of entities by query* 代码段后，会打开 JPQL 设计器。
 
-image::snippet-query.png[align="center",width="1132"]
+image::snippet-query.png[align="center",width="952"]
 
 查询语句设计完成后，会添加下列代码：
 
-image::snippet-query-result.png[align="center",width="783"]
+image::snippet-query-result.png[align="center",width="762"]
 
 所有的代码段模板位于相关框架模块的 `jmix-code-snippets.xml` 文件中。你可以在项目或者扩展组件级别定义自己的代码段：只需要按照框架中文件的示例在项目的 resource 目录创建 `jmix-code-snippets.xml` 即可。

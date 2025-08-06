@@ -33,7 +33,7 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainVi
 +
 [source,xml,indent=0]
 ----
-include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/main-view.xml[tags=wainView]
+include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/main-view.xml[tags=mainView]
 ----
 +
 然后将 `initialLayout` 放入一个 `workArea` 中：

@@ -6,11 +6,13 @@
 </div>
 ++++
 
-`icon` 展示图标集的一个图形。
+`icon` 展示图标集的一个图形。有两个内置的图标集：Vaadin 和 Lumo。
 
 * XML 元素：`icon`
 
 * Java 类：`Icon`
+
+TIP: 访问 https://demo.jmix.io/ui-samples/sample/icon-all[在线示例^] 可以查看所有支持的图标。
 
 [[basics]]
 == 基本用法

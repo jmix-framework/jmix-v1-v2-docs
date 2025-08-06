@@ -2,3 +2,47 @@
 :page-aliases: studio-ui.adoc
 
 本章节介绍 Jmix Studio 独有的功能和用户界面。如需了解 IntelliJ IDEA 的所有功能，请参阅 https://www.jetbrains.com/help/idea/discover-intellij-idea.html[文档^]。
+
+The Jmix Studio features can be broadly categorized into the following areas:
+
+== 核心开发工具
+[cols="a,a,a", grid=none, frame=none]
+|===
+| xref:entity-designer.adoc[]
+| xref:view-wizard.adoc[]
+| xref:view-designer.adoc[]
+| xref:fetch-plan-designer.adoc[]
+| xref:menu-designer.adoc[]
+| xref:role-designer.adoc[]
+| xref:coding-assistance.adoc[]
+| xref:code-snippets.adoc[]
+| xref:jpql-designer.adoc[]
+| xref:hot-deploy.adoc[]
+| xref:data-stores.adoc[]
+| xref:bpmn-designer.adoc[]
+| xref:reverse-engineering.adoc[]
+|
+|
+|===
+
+== 项目管理 & 环境
+[cols="a,a,a", grid=none, frame=none]
+|===
+| xref:welcome.adoc[]
+| xref:tool-window.adoc[]
+| xref:project-properties.adoc[]
+| xref:marketplace.adoc[]
+| xref:plugin-settings.adoc[]
+| xref:composite-projects.adoc[]
+| xref:profile-specific-properties.adoc[]
+|
+|
+|===
+
+== 高级功能
+[cols="a,a,a", grid=none, frame=none]
+|===
+| xref:quick-cloud-deployment.adoc[]
+| xref:custom-project-templates.adoc[]
+| xref:data-repository-wizard.adoc[]
+|===

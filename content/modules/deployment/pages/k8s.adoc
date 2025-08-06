@@ -149,7 +149,7 @@ minikube dashboard
 +
 [source,shell script]
 ----
-./gradlew bootBuildImage
+./gradlew -Pvaadin.productionMode=true bootBuildImage
 ----
 
 . 加载镜像至 Minikube：

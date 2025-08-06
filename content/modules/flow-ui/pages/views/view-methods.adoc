@@ -51,6 +51,26 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 ** 当视图以对话框模式打开时不会执行。
 ** 如果不调用 `super()` 方法则不能重写，因为该方法执行了框架相关的代码。
 
+* 当视图以对话框模式显示时，还有两个可以定制 header 和 footer 的回调函数。需要在视图类中重写这两个方法才能使用。
+
+** `configureDialogWindowHeader()` - 这个回调方法可以在视图以 `OpenMode.DIALOG` 模式打开时配置 xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindow] 的 header。该方法提供了对 header 组件的访问，可以添加自定义的组件、文字或样式元素。
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView.java[tags=dialog-header]
+----
+
+** `configureDialogWindowFooter()` - 这个回调方法可以在视图以 `OpenMode.DIALOG` 模式打开时配置 xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindow] 的 footer。该方法提供了对 footer 组件的访问，可以添加自定义的组件、文字或样式元素。
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView.java[tags=dialog-footer]
+----
++
+下面的截图是上面自定义 header 和 footer 代码的运行结果：
++
+image::views/dialog-header-footer.png[align="center",width="802"]
+
 [[methods-of-standard-list]]
 == StandardListView 的方法
 
@@ -94,14 +114,16 @@ dialog.open();
 +
 在 xref:views/view-events.adoc#init-event[InitEvent] 监听器中，此方法返回 `null`。在 xref:views/view-events.adoc#before-show-event[BeforeShowEvent] 监听器中，此方法返回传递给视图进行编辑的实例（之后，视图打开过程中，将重新加载实体，并为数据容器设置不同的实例）。
 
-详情视图可使用下列方法关闭：
-
+* 详情视图可使用下列方法关闭：
++
+--
 [[close-with-save-method]]
 * `closeWithSave()` - 验证并保存更改，然后使用 `StandardOutcome.SAVE` 关闭视图。可以在自定义事件监听器调用此方法，或在视图中添加内置的 `detail_saveClose` 操作。
 
 * `closeWithDiscard()` - 忽略任何未保存的更改，并使用 `StandardOutcome.DISCARD` 关闭视图。可以在自定义事件监听器调用此方法，或在视图中添加内置的 `detail_discard` 操作。
 
 如果使用 `close(StandardOutcome.CLOSE)` 或 `closeWithDefaultAction()` 关闭视图，并且 xref:data/data-context.adoc[DataContext] 中有未保存的更改，则在关闭视图之前将显示一个对话框，其中显示对应的消息。可以使用 xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation] 应用程序属性调整通知的类型。如果使用 `closeWithDiscard()` 或 `close(StandardOutcome.DISCARD)` 方法，则将忽略未保存的更改，而不会显示任何消息。
+--
 
 * `hasUnsavedChanges()` - 如果视图有未保存的更改，则返回 `true`。默认实现会检查 `DataContext` 中是否有已删除或已修改的实体。如果在 `DataContext` 中只有新实体标记为已修改，则检查这些实体自打开视图以来是否已被修改。可以重写此方法以提供额外的检查，或者完全跳过检查并返回 `false`。
 
@@ -119,6 +141,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 当以对话框模式打开视图时，框架会使用 `true` 值调用此方法，可以在打开视图的情况下返回已保存的实体实例。如果不需要在对话框模式中重新加载已保存的实体，可以在 xref:views/view-events.adoc#ready-event[ReadyEvent] 监听器中调用 `setReloadSaved(false)`。
 
 * `setShowSaveNotification(boolean)` - 设置在成功保存的情况下是否显示通知。默认值为 `true`。
+
+* `getSaveNotificationText()` - 返回保存的通知文本。默认实现会基于实体和实例名称生成文本。可以重写该方法返回自定义的通知文本。
 
 * `setShowValidationErrors(boolean)` - 组件验证后，是否使用 xref:views/view-validation.adoc#showValidationErrors[showValidationErrors()] 方法显示错误。默认值为 `true`。
 

@@ -128,7 +128,7 @@ content:
       start_path: doc
 ```
 
-Finally, you have to add the guide to the main navigation Asciidoc file:
+Finally, you have to add the guide to the main navigation Asciidoc file `nav.adoc`:
 
 ```asciidoc
 * xref:ROOT:guides.adoc[]

@@ -2,8 +2,8 @@
 
 新项目创建完成后总是默认在工作区打开欢迎界面。也可以通过 *Jmix 工具窗口* 的工具栏打开。
 
-image::open-welcome.png[align="center",width="334"]
+image::open-welcome.png[align="center",width="283"]
 
 该界面提供了对主项目设置、常用的操作、文档、社区网站的快速访问。这里还展示项目中用到的 Jmix 版本、Studio 版本以及 Studio 订阅信息。
 
-image::welcome.png[align="center",width="1314"]
+image::welcome.png[align="center",width="1552"]

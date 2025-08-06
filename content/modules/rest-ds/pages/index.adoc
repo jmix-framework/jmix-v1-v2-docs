@@ -6,6 +6,7 @@ REST 数据存储（DataStore）的设计目的是为 Jmix 应用程序的集成
 
 * xref:integrated-apps-guide:index.adoc[]
 * xref:separate-tiers-guide:index.adoc[]
+* xref:restds-oidc-guide:index.adoc[]
 
 在本文档中，我们将使用以下术语：
 
@@ -67,6 +68,40 @@ include::example$rest-ds-client/src/main/resources/application.properties[tags=c
 ----
 include::example$rest-ds-client/src/main/resources/application.properties[tags=authenticator]
 ----
+
+* `[datastore-name].authenticator` 属性设置为一个实现了 `RestAuthenticator` 接口的 bean 名称，这个 bean 用来对 REST API 请求进行认证。
++
+在用户登录的时候，`restds_RestPasswordAuthenticator` bean 会从服务端应用获取访问和刷新 token，并将这些 token 保存在用户的会话中，然后在后续对服务端进行 REST API 请求时用来做认证。
+
+* `jmix.restds.authentication-provider-store` 属性是配置 Spring Security `AuthenticationProvider` 的一个必需属性（在用户认证的过程中，`AuthenticationProvider` 会用到 `restds_RestPasswordAuthenticator`）。属性值需要包含对应 REST 数据存储的名称。
+
+[[external-authentication]]
+=== 外部认证
+
+如果需要使用外部认证（例如 Keycloak）替换 Jmix 认证服务，那么需要从项目中删除认证服务扩展组件并添加 xref:oidc:index.adoc[] 组件。
+
+定义下列应用程序属性：
+[source,properties]
+----
+include::restds-oidc-guide:example$integrated-apps/client-app/src/main/resources/application.properties[tags=restds-auth]
+----
+
+* `[datastore-name].authenticator` 属性设置为一个实现了 `RestAuthenticator` 接口的 bean 名称，这个 bean 用来对 REST API 请求进行认证。
++
+`restds_RestOAuth2ClientAuthenticator` bean 使用当前用户的 OAuth2 token。
+
+* `[datastore-name].oauth2-client-registration` 属性定义 Spring Security OAuth2 客户端的注册 ID，这个 ID 在 `spring.security.oauth2.client.registration.[ID]` 属性中使用，以连接 OIDC 供应商。
++
+例如，如果用下面的属性连接至 Keycloak：
++
+[source,properties]
+----
+spring.security.oauth2.client.registration.keycloak.client-id=integrated-apps-client
+----
++
+那么，`[datastore-name].oauth2-client-registration` 属性需要设置为 `keycloak`。
+
+完整示例请参考 xref:restds-oidc-guide:index.adoc[] 指南。
 
 [[ui-user-settings]]
 === UI 用户设置
@@ -252,9 +287,60 @@ include::example$rest-ds-client/src/main/java/com/company/clientapp/RestDsClient
 [[invoking-services]]
 == 调用服务
 
-`RestDataStoreUtils` bean 提供了特定 REST 数据存储的 Spring `RestClient` 的引用。支持使用为 REST 数据存储配置的连接和身份验证参数来调用该服务端应用的任意 API 端点。
+如果服务端应用程序有 xref:rest:business-logic.adoc#exposing-a-service[开放的 Java 服务 REST API]，那么客户端程序可以调用。
+
+[[remote-service-interfaces]]
+=== @RemoteService 接口
+
+调用服务最简单的方法就是创建一个使用 `@RemoteService` 注解的接口，其中包含镜像的服务方法。对于带有这个注解的接口，REST 数据存储扩展组件会生成客户端代理对象。这些对象能自动序列化参数、调用远端 REST 服务并对结果进行反序列化。
+
+下面的示例是服务端 bean 的实现：
+
+[source,java,indent=0]
+.服务端应用的 CustomerService.java
+----
+include::example$rest-ds-service/src/main/java/com/company/serviceapp/service/CustomerService.java[tags=service]
+----
+
+这个服务方法可以通过 `/rest/services/customers/getCustomersByName` 端点访问。
+
+在客户端调用时，创建下面的接口：
+
+[source,java,indent=0]
+.客户端应用的 CustomerService.java
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/service/CustomerService.java[tags=service]
+----
+
+REST 数据存储扩展组件会为这个接口自动创建一个 bean，因此，可以直接在视图或 bean 中注入这个接口作为常规 Spring bean 使用。示例：
+
+[source,java,indent=0]
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/view/customer/CustomerDetailView.java[tags=service]
+----
 
 有关调用服务方法的示例，请参阅 xref:integrated-apps-guide:index.adoc[]。
+
+[IMPORTANT]
+====
+`@RemoteService` 接口的方法参数和返回值必须是下列类型之一：
+
+* 简单类型：基本类型（`int`、`double` 等），或包装类型（`Integer`、`Double` 等），以及 `String`。
+* xref:data-model:entities.adoc[实体]
+* xref:data-model:enumerations.adoc[枚举]
+* 有对应 xref:data-model:data-types.adoc[Datatype] 的类型。包括 xref:data-model:entities.adoc#attributes[实体属性] 支持的类型，以及自定义的数据类型。
+* 任意 POJO 或 Java record 类型，但是属性需要是上面这些类型。
+* 参数化的 `java.util.List` 类型，列表必须包含上面的类型。
+====
+
+[[using-rest-client]]
+=== 使用 RestClient
+
+还可以通过 Spring 的 `RestClient` 调用服务端应用开放的端点。`RestClient` 需要提前配置 REST 数据存储的连接和认证参数：
+
+. 从 `RestDataStoreUtils` bean 调用 `getRestClient(String dataStoreName)` 获取 `RestClient` 实例。
+
+. 使用 `RestClient` API 调用服务端端点。
 
 [[limitations]]
 == 局限性

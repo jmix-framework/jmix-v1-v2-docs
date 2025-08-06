@@ -10,6 +10,8 @@ Jmix OpenID Connect（OIDC）扩展组件提供了预定义 Spring Security 配�
 
 扩展组件会使用 `OidcAutoConfiguration` 配置，可以通过 `jmix.oidc.use-default-configuration=false` 应用程序属性禁用。这个配置为 UI 和 REST API URL 启用 OIDC 认证。
 
+参考 xref:restds-oidc-guide:index.adoc[] 了解实战案例。
+
 [[installation]]
 == 安装
 

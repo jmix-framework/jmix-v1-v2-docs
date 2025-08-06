@@ -1,0 +1,522 @@
+= 键盘快捷键
+
+可以为各种 Jmix UI 组件分配快捷键，包括 xref:actions.adoc[操作]、xref:vc/components/button.adoc[按钮] 以及 xref:menu-config.adoc#item-attributes[主菜单项] 等。
+
+快捷键是键盘按键的代码和修饰符的组合，分别在 Vaadin 的 {vaadin-api}/com/vaadin/flow/component/Key.html[Key^] 和 {vaadin-api}/com/vaadin/flow/component/KeyModifier.html[KeyModifier^] 类中定义。
+
+[[adding-shortcuts]]
+== 添加快捷键
+
+在视图的 XML 中，键代码必须全部大写并且与修饰符以短横（`-`）分隔。修饰符必须在键代码前面。示例：
+
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/step/step-detail-view.xml[tags=keyboard-shortcuts]
+----
+<1> 当按下 Meta（Win 或 ⌘）键 + Enter 时，聚焦这个按钮。
+<2> 按下 Shift + ESC 执行这个操作。
+
+在 XML 中分配快捷键时，还可以用应用程序属性代替键代码，以提供更多的灵活性。示例：
+
+[source,xml]
+.some-detail-view.xml
+----
+<button id="closeBtn" action="closeAction"
+        shortcutCombination="${shortcut.close-detail-view}"/>
+----
+
+[source,properties,indent=0]
+.application.properties
+----
+shortcut.close-detail-view=SHIFT-ESCAPE
+----
+
+如需编程式分配快捷键，在适合的监听器中调用类似 `setShortcutCombination()` 的方法。通过 `io.jmix.flowui.kit.component.KeyCombination` 类可以从字符串或 `Key`/`KeyModifier` 常量创建快捷键。示例：
+
+[source,java,indent=0]
+----
+include::example$onboarding/src/main/java/com/company/onboarding/view/step/StepDetailView.java[tags=keyboard-shortcuts]
+----
+
+[[submitting-change-events-before-shortcut-activation]]
+== 在激活快捷键之前提交变更事件
+
+为了确保已获得焦点的组件能在快捷键激活前先提交输入的值，可以通过 `KeyCombination` API 或 Vaadin 的 `ShortcutRegistration` API 启用 `resetFocusOnActiveElement` 设置。这个设置可以让目前已经获得焦点的元素失去焦点然后在快捷键触发之前再次获得焦点，从而可以保存已输入的内容。
+
+[source,java,indent=0]
+----
+include::example$onboarding/src/main/java/com/company/onboarding/view/user/UserDetailView.java[tags=keyboard-shortcuts-injects;on-init-start;keyboard-shortcuts;on-init-end]
+----
+
+在 XML 中为操作分配快捷键时，可以使用内部的 `shortcutCombination` 元素提供额外的设置。示例：
+
+[source,xml]
+.some-detail-view.xml
+----
+<action id="saveAction" text="msg:///actions.Save" icon="CHECK">
+    <shortcutCombination keyCombination="META-ENTER" resetFocusOnActiveElement="true"/>
+</action>
+----
+
+
+[[configuring-active-scope]]
+== 配置激活范围
+
+默认情况下，快捷键是注册在全局范围的。即，当用户按下正确的键时，无论其光标的位置如何或屏幕上的哪个元素目前正获得焦点，都会触发快捷键。可以通过 `KeyCombination` API 或 Vaadin 的 `ShortcutRegistration` API 配置快捷键的可用性（例如，仅当用户操作某个元素时启用）。
+
+[source,java,indent=0]
+----
+@ViewComponent
+private TypedTextField<String> searchField;
+@ViewComponent
+private JmixButton searchButton;
+
+@Subscribe
+public void onInit(final InitEvent event) {
+    KeyCombination keyCombination = KeyCombination.create("CONTROL-ENTER", searchField, searchButton);
+    searchButton.setShortcutCombination(keyCombination);
+    // -- OR --
+    searchButton.addClickShortcut(Key.ENTER, KeyModifier.CONTROL)
+            .listenOn(searchField, searchButton);                   // <1>
+}
+----
+<1> 仅当 `searchField` 或 `searchButton` 获得焦点时才能触发快捷键的监听器。
+
+[[key-codes]]
+== 键代码
+
+下面的表格展示了一些最常用的键代码。如需查看完整的列表，请访问 {vaadin-api}/com/vaadin/flow/component/Key.html[Key^] 类。
+
+可以用作修饰符的键为：`SHIFT`、`CONTROL`、`ALT`、`ALT_GRAPH`、`META`。
+
+[cols="1,3"]
+|===
+|键代码 |描述
+
+|ALT
+|Alt（Alternative）键。
+
+|ALT_GRAPH
+|AltGr 或 AltGraph（Alternate Graphics）键。启用 ISO 的三级 shift 修饰符（Shift 是二级修饰符）。
+
+|CAPS_LOCK
+|CapsLock 或 ⇪ 键。大小写锁定键
+
+|CONTROL
+|Control、Ctrl 或 Ctl 键。
+
+|FN
+|Fn（Function modifier）键。用于在没有功能键的键盘中产生功能键（例如 F1~F15）字符。通常由硬件处理，因此这个键不会生成事件。
+
+|FN_LOCK
+|FnLock 或 F-Lock（Function Lock）键。是否启用 “Fn” 键模式。通常由硬件处理，因此这个键不会生成事件。微软的 Natural 键盘会有这个键。
+
+|HYPER
+|Hyper 键。
+
+|META
+|Meta 键。用于发出特殊指令的输入。在 Windows 键盘上是 Windows 的图标键。Mac 键盘是 Command 或 ⌘ 键。
+
+|NUM_LOCK
+|NumLock（Number Lock）键。启用数字小键盘的键。在 Mac 上，"NumLock" 代码应该用来做数字键盘（numpad）的 Clear 键。
+
+|SCROLL_LOCK
+|Scroll Lock 键。在滚动和鼠标移动模式之间切换的键。
+
+|SHIFT
+|Shift 键。修饰符键，以允许输入大写字符字母或其他内容，并支持输入标点符号和其他特殊字符。
+
+|SUPER
+|Super 键。
+
+|SYMBOL
+|Symbol 修饰符键。（仅存在于某些特定的虚拟键盘）
+
+|SYMBOL_LOCK
+|Symbol Lock 键。
+
+|ENTER
+|Enter 或 ↵ 键。回车键。
+
+|TAB
+|Tab 或 ⇥
+
+|SPACE
+|空格键。
+
+|ARROW_UP
+|上箭头（↑）键。
+
+|ARROW_DOWN
+|下箭头（↓）键。
+
+|ARROW_LEFT
+|左箭头（←）键。
+
+|ARROW_RIGHT
+|右箭头（→）键。
+
+|END
+|End 键。移动至内容的末尾处。`event.code` 是这个值，而 `event.name` 可能是 Page Down、End 或 ↘。
+
+|HOME
+|Home 或 ↖ 键。移动至内容的开始处。
+
+|PAGE_DOWN
+|下翻页键，Page Down（PgDn）键。向下滚动或显示内容的后一页。
+
+|PAGE_UP
+|上翻页键，Page Up（PgUp）键。向上滚动或显示内容的前一页。
+
+|BACKSPACE
+|退格键，Backspace 或 ⌫。苹果键盘有时也显示 Delete。
+
+|DELETE
+|删除键，Delete、Del 或 ⌦。注意，在苹果键盘上，键盘主键区的 Delete 键代码应该是 “Backspace”。
+
+|INSERT
+|Insert（Ins）键。切换文本输入为插入还是覆盖模式。苹果键盘没有该键。
+
+|CONTEXT_MENU
+|显示上下文菜单。通常位于键盘右侧的 Windows（或系统键）与 Control 键之间。
+
+|ESCAPE
+|Esc（Escape）或 ⎋ 键。通常作为退出、取消或“逃离当前操作”的按钮。在计算机历史中，Escape 字符是用在一串特殊的控制流字符的开始处，这个控制流被称为 "escape sequence"。
+
+|FIND
+|Find 键。打开一个界面（通常是一个对话框窗口），用来执行查找/搜索操作。
+
+|PAUSE
+|Pause 键。暂停当前应用程序或状态（如果适用）。注意：请不要与媒体控制器的“ MediaPause”键值混淆，那个不是用于控制应用程序和进程。
+
+|PLAY
+|Play 键。恢复先前暂停的应用程序（如果适用）。注意：请不要与用于媒体控制器的“媒体播放”键值混淆，那个不是用于控制应用程序和进程。
+
+|PRINT_SCREEN
+|PrintScreen 或 PrtScr 键。有时也标记为 SnapShot。用于截屏并打印或保存至硬盘。
+
+|F1
+|第一个通用功能键 F1。
+
+|F2
+|F2 键。
+
+|F3
+|F3 键。
+
+|F4
+|F4 键。
+
+|F5
+|F5 键。
+
+|F6
+|F6 键。
+
+|F7
+|F7 键。
+
+|F8
+|F8 键。
+
+|F9
+|F9 键。
+
+|F10
+|F10 键。
+
+|F11
+|F11 键。
+
+|F12
+|F12 键。
+
+|F13
+|F13 键。
+
+|F14
+|F14 键。
+
+|F15
+|F15 键。
+
+|F16
+|F16 键。
+
+|F17
+|F17 键。
+
+|F18
+|F18 键。
+
+|F19
+|F19 键。
+
+|F20
+|F20 键。
+
+|DECIMAL
+|小数点键。（根据语言地区的不同，可能是 . 或 ,）
+
+|KEY11
+|11 键。存在于某些媒体数字键盘。
+
+|KEY12
+|12 键。存在于某些媒体数字键盘。
+
+|ADD
+|数字键盘的加法键（+）。
+
+|SUBTRACT
+|数字键盘的减法键（-）。
+
+|MULTIPLY
+|数字键盘的乘法键（*）。
+
+|DIVIDE
+|数字键盘的除法键（/）。
+
+|SEPARATOR
+|数字键盘的空格分隔符键。（在美国是用逗号分隔，但其他地区常用句点）。
+
+|BACKQUOTE
+|`~（美式键盘），在日式键盘是 半角/全角/漢字（hankaku/zenkaku/kanji）键。
+
+|BACKSLASH
+|在 101 布局的键盘中可用于 `\\|`，也可用于 102、104、106 键布局中第三行位于 " 和回车键之间的那个键。在美式 102 键盘中标记为 #~。
+
+|BRACKET_LEFT
+|[{（美式键盘）
+
+|BRACKET_RIGHT
+|]}（美式键盘）
+
+|COMMA
+|,<（美式键盘）
+
+|DIGIT_0
+|0)（美式键盘）
+
+|DIGIT_1
+|1!（美式键盘）
+
+|DIGIT_2
+|2@（美式键盘）
+
+|DIGIT_3
+|3#（美式键盘）
+
+|DIGIT_4
+|4$（美式键盘）
+
+|DIGIT_5
+|5%（美式键盘）
+
+|DIGIT_6
+|6^（美式键盘）
+
+|DIGIT_7
+|7&（美式键盘）
+
+|DIGIT_8
+|8*（美式键盘）
+
+|DIGIT_9
+|9(（美式键盘）
+
+|EQUAL
+|=+（美式键盘）
+
+|INTL_BACKSLASH
+|位于左 Shift 和 Z 之间。在英式键盘上标记为 `\\|`。
+
+|INTL_YEN
+|在 = 和退格键之间。在日式键盘标记为 ¥（yen），在俄式键盘标记为 \/。
+
+|KEY_A
+|a（美式键盘），在 AZERTY（比如法国）键盘中标记为 q。
+
+|KEY_B
+|b（美式键盘）
+
+|KEY_C
+|c（美式键盘）
+
+|KEY_D
+|d（美式键盘）
+
+|KEY_E
+|e（美式键盘）
+
+|KEY_F
+|f（美式键盘）
+
+|KEY_G
+|g（美式键盘）
+
+|KEY_H
+|h（美式键盘）
+
+|KEY_I
+|i（美式键盘）
+
+|KEY_J
+|j（美式键盘）
+
+|KEY_K
+|k（美式键盘）
+
+|KEY_L
+|l（美式键盘）
+
+|KEY_M
+|m（美式键盘）
+
+|KEY_N
+|n（美式键盘）
+
+|KEY_O
+|o（美式键盘）
+
+|KEY_P
+|p（美式键盘）
+
+|KEY_Q
+|q（美式键盘），在 AZERTY（比如法国）键盘中标记为 a。
+
+|KEY_R
+|r（美式键盘）
+
+|KEY_S
+|s（美式键盘）
+
+|KEY_T
+|t（美式键盘）
+
+|KEY_U
+|u（美式键盘）
+
+|KEY_V
+|v（美式键盘）
+
+|KEY_W
+|w（美式键盘），在 AZERTY（比如法国）键盘中标记为 z。
+
+|KEY_X
+|x（美式键盘）
+
+|KEY_Y
+|y（美式键盘），在 QWERTZ（比如德国）键盘中标记为 z。
+
+|KEY_Z
+|z（美式键盘），在 AZERTY（比如法国）键盘中标记为 w。在 QWERTZ（比如德国）键盘中标记为 y。
+
+|MINUS
+|-_（美式键盘）
+
+|PERIOD
+|.>（美式键盘）
+
+|QUOTE
+|'（美式键盘）
+
+|SEMICOLON
+|;:（美式键盘）
+
+|SLASH
+|/?（美式键盘）
+
+|ALT_LEFT
+|左 Alt，Option 或 ⌥。
+
+|ALT_RIGHT
+|右 Alt，Option 或 ⌥。在很多键盘上标记为 AltGr 键。
+
+|CONTROL_LEFT
+|左 Control 或 ⌃
+
+|CONTROL_RIGHT
+|右 Control 或 ⌃
+
+|META_LEFT
+|左 Windows、⌘、Command 或其他操作系统的符号键。
+
+|META_RIGHT
+|右 Windows、⌘、Command 或其他操作系统的符号键。
+
+|SHIFT_LEFT
+|左 Shift 或 ⇧
+
+|SHIFT_RIGHT
+|右 Shift 或 ⇧
+
+|NUMPAD_0
+|小键盘的 0 Ins；手机或远程控制键盘的 0
+
+|NUMPAD_1
+|小键盘的 1 End；手机或远程控制键盘的 1 或 1 QZ。
+
+|NUMPAD_2
+|小键盘的 2 ↓；手机或远程控制键盘的 2 ABC。
+
+|NUMPAD_3
+|小键盘的 3 PgDn；手机或远程控制键盘的 3 DEF。
+
+|NUMPAD_4
+|小键盘的 4 ←；手机或远程控制键盘的 4 GHI。
+
+|NUMPAD_5
+|小键盘的 5；手机或远程控制键盘的 5 JKL。
+
+|NUMPAD_6
+|小键盘的 6 →；手机或远程控制键盘的 6 MNO。
+
+|NUMPAD_7
+|小键盘的 7 Home；手机或远程控制键盘的 7 PQRS or 7 PRS。
+
+|NUMPAD_8
+|小键盘的 8 ↑；手机或远程控制键盘的 8 TUV。
+
+|NUMPAD_9
+|小键盘的 9 PgUp；手机或远程控制键盘的 9 WXYZ 或 9 WXY。
+
+|NUMPAD_ADD
+|+
+
+|NUMPAD_BACKSPACE
+|仅在微软的 Natural 键盘存在。
+
+|NUMPAD_CLEAR
+|C 或 AC（All Clear）键。也可用于数字键盘中独立于 NumLock 而单独存在的 Clear 键。在 Mac 上，数字键盘的 Clear 键代码应该是 "NumLock"。
+
+|NUMPAD_COMMA
+|,（千分符）。对于某些使用 “.” 作为千分符的地区（例如巴西），这个键则会生成 “.”。
+
+|NUMPAD_DECIMAL
+|.（小数点）。对于某些使用 “,” 作为小数点的地区（例如巴西），这个键则会生成 “,”。
+
+|NUMPAD_DIVIDE
+|/
+
+|NUMPAD_ENTER
+|↵
+
+|NUMPAD_EQUAL
+|=
+
+|NUMPAD_MULTIPLY
+|* 可以是键盘或一些用于数学运算（提供 +、-、*、/）的数字键盘。对于手机或远程控制键盘，则需为 * 键使用 "NumpadStar"。
+
+|NUMPAD_PAREN_LEFT
+|( 仅在微软的 Natural 键盘存在。
+
+|NUMPAD_PAREN_RIGHT
+|) 仅在微软的 Natural 键盘存在。
+
+|NUMPAD_STAR
+|* 手机或远程控制键盘。这个键一般位于 7 的下方，0 的左边。对于数字键盘，则需为 * 键使用 "NumpadMultiply"。
+
+|NUMPAD_SUBTRACT
+|-
+
+|===

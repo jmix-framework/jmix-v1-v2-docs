@@ -4,7 +4,7 @@ JPQL 设计器是一种简化 Jmix 中创建和修改 JPQL 查询语句的可视
 
 JPQL 设计器提供了用于构建 JPQL 查询语句的界面。可以在不直接编写 JPQL 代码的情况下定义目标表，数据选择条件，排序和其他参数。该工具输出正确格式的 JPQL 查询字符串。
 
-include::subscription-note.adoc[]
+include::partial$subscription-note.adoc[]
 
 核心功能包括：
 

@@ -3,6 +3,13 @@
 [[application-properties]]
 == 应用程序属性
 
+[[jmix.authserver.post-logout-url-redirect-parameter-name]]
+=== jmix.authserver.post-logout-url-redirect-parameter-name
+
+`/logout` 请求中的 URL 参数。其中包含一个重定向地址 URL，在用户成功登出后跳转到该地址。
+
+默认值：未设置
+
 [[jmix.authserver.use-default-configuration]]
 === jmix.authserver.use-default-configuration
 
@@ -15,4 +22,66 @@
 
 如果设置为 `true`，使用内存存储 token 而非数据库。
 
-默认值为：`false`
+默认值：`false`
+
+[[jmix.authserver.use-referer-post-logout]]
+=== jmix.authserver.use-referer-post-logout
+
+如果设置为 `true`，则使用 `referer` header 的值作为登出后重定向的 URL。
+
+该参数的优先级低于通过 <<jmix.authserver.post-logout-url-redirect-parameter-name,jmix.authserver.post-logout-url-redirect-parameter-name>> 属性设置的 URL。
+
+默认值：`false`
+
+[[jmix.authserver.logout-access-token-header-name]]
+=== jmix.authserver.logout-access-token-header-name
+
+在登出时需要检查的包含访问 token 的请求头名称。找到的 token 会被删除。
+
+请求头需要包含 bearer token：`Bearer xxxxx`。
+
+自定义的请求头在某些特定场景或技术限制时非常有用。
+但大多数情况下使用默认的请求头 `Authorization` 就足够了。
+
+例如：`jmix.authserver.logout-access-token-header-name = Custom-Authorization`
+
+默认情况下，token 仅存在于请求头中。对于其他存放位置，请查看 <<jmix.authserver.logout-access-token-url-parameter-name,jmix.authserver.logout-access-token-url-parameter-name>>
+和 <<jmix.authserver.logout-access-token-body-form-parameter-name,jmix.authserver.logout-access-token-body-form-parameter-name>> 属性。
+
+默认值：`Authorization`
+
+[[jmix.authserver.logout-access-token-url-parameter-name]]
+=== jmix.authserver.logout-access-token-url-parameter-name
+
+在登出时需要检查的包含访问 token 的 URL 参数名称。找到的 token 会被删除。
+
+例如：`jmix.authserver.logout-access-token-url-parameter-name = access_token`
+
+这个检查默认关闭，如需启用，请查看 <<jmix.authserver.logout-url-parameter-check-for-token-enabled,jmix.authserver.logout-url-parameter-check-for-token-enabled>>
+
+默认值：`token`
+
+[[jmix.authserver.logout-access-token-body-form-parameter-name]]
+=== jmix.authserver.logout-access-token-body-form-parameter-name
+
+在登出时需要检查的包含访问 token 的请求体 form 参数名称。找到的 token 会被删除。
+
+例如：`jmix.authserver.logout-access-token-body-form-parameter-name = access_token`
+
+这个检查默认关闭，如需启用，请查看 <<jmix.authserver.logout-body-form-parameter-check-for-token-enabled,jmix.authserver.logout-body-form-parameter-check-for-token-enabled>>
+
+默认值：`token`
+
+[[jmix.authserver.logout-url-parameter-check-for-token-enabled]]
+=== jmix.authserver.logout-url-parameter-check-for-token-enabled
+
+如果设置为 true，在登出时会检查 URL 参数以查找访问 token。
+
+默认值：`false`
+
+[[jmix.authserver.logout-body-form-parameter-check-for-token-enabled]]
+=== jmix.authserver.logout-body-form-parameter-check-for-token-enabled
+
+如果设置为 true，在登出时会检查请求体 form 参数以查找访问 token。
+
+默认值：`false`
