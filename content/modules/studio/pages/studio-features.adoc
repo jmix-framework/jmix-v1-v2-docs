@@ -42,7 +42,10 @@
 == Расширенные
 [cols="a,a,a", grid=none, frame=none]
 |===
+| xref:openapi-client.adoc[]
 | xref:quick-cloud-deployment.adoc[]
 | xref:custom-project-templates.adoc[]
 | xref:data-repository-wizard.adoc[]
+|
+|
 |===
