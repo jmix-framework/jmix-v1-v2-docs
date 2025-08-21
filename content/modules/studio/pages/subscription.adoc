@@ -49,7 +49,7 @@ The Sprint subscription plan unlocks the following Studio premium functionality:
 * xref:studio:fetch-plan-designer.adoc[]
 * xref:studio:jpql-designer.adoc[]
 * xref:studio:data-repository-wizard.adoc#creating-repository-methods[Data Repository methods designer]
-* xref:openapi-integration-guide:index.adoc[OpenAPI client generation]
+* xref:studio:openapi-client.adoc[OpenAPI client generation]
 
 NOTE: All premium Studio features listed above are available without an active subscription in small projects with up to 10 entities and roles.
 
