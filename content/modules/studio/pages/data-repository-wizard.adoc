@@ -5,6 +5,9 @@
 
 Studio предоставляет мастер для создания и управления xref:data-access:data-repositories.adoc[репозиториями данных].
 
+[[creating-repositories]]
+=== Создание репозиториев
+
 Чтобы создать репозиторий, нажмите *New → Data Repository* на панели инструментов окна *Jmix*.
 
 image::data-repository-create.png[align="center",width="241"]
@@ -12,6 +15,11 @@ image::data-repository-create.png[align="center",width="241"]
 В диалоговом окне *New Jmix Data Repository* выберите сущность и нажмите *OK*. Studio создаст интерфейс репозитория, расширяющий xref:data-access:data-repositories.adoc#working-with-data-repositories[JmixDataRepository], и добавит аннотацию `@EnableJmixDataRepositories` в основной класс приложения.
 
 image::data-repository-wizard.png[align="center",width="592"]
+
+[[creating-repository-methods]]
+=== Создание методов репозиториев
+
+include::partial$subscription-note.adoc[]
 
 Когда репозиторий данных открыт в редакторе, Studio отображает панель действий сверху с двумя кнопками. Кнопка *Add Derived Method* позволяет создать метод, запрос которого будет получен из имени метода. Кнопка *Add Query Method* создает метод с явно указанным запросом JPQL.
 
