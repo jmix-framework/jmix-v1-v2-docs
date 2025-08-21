@@ -27,6 +27,7 @@
 **** xref:studio:composite-projects.adoc[]
 **** xref:studio:profile-specific-properties.adoc[]
 *** Расширенные
+**** xref:studio:openapi-client.adoc[]
 **** xref:studio:quick-cloud-deployment.adoc[]
 **** xref:studio:custom-project-templates.adoc[]
 **** xref:studio:data-repository-wizard.adoc[]
