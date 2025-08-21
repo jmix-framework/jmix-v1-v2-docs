@@ -2,9 +2,38 @@
 
 A data store represents a database or any other source of data in your application.
 
-Jmix core subsystem provides `JpaDataStore` which stores xref:entities.adoc#jpa[JPA entities] in a relational database. This is the main persistence mechanism in Jmix applications, and when we mention a data store in this manual, we always mean the JPA data store if not explicitly stated otherwise.
+Jmix core subsystem provides `JpaDataStore` which stores xref:entities.adoc#jpa[JPA entities] in a relational database. This is the main persistence mechanism in Jmix applications, and when we mention a data store in this manual, we mean the JPA data store if not explicitly stated otherwise.
 
 The xref:rest-ds:index.adoc[] add-on provides `RestDataStore` which works with xref:entities.adoc#jpa[DTO entities] mapped to the xref:rest:index.adoc[] exposed by a remote Jmix application. The REST data store has some limitations compared to the JPA data store.
+
+[[supported-databases]]
+== Supported Databases
+
+The following databases are supported in Jmix out-of-the-box:
+
+* HSQLDB (Java in-memory database)
+* PostgreSQL
+* MySQL 5.1+
+* MariaDB
+* Microsoft SQL Server 2008+
+* Oracle
+
+The xref:studio:data-stores.adoc[data store editor] in Studio automatically configures connection properties and adds an appropriate JDBC driver to the list of dependencies in `build.gradle`.
+
+[IMPORTANT]
+====
+When using MariaDB with Jmix 2.4 - 2.6, downgrade Liquibase by adding the following code to your `build.gradle`:
+
+[source,groovy]
+----
+implementation 'org.liquibase:liquibase-core:4.25.0!!'
+----
+See issue https://github.com/jmix-framework/jmix/issues/3888[#3888^] for more information.
+====
+
+If you need to connect a relational database not supported in Jmix out-of-the-box, follow instructions in the xref:studio:data-stores.adoc#unsupported-database[Studio: Connecting to Unsupported Databases] section.
+
+A non-relational database can be used by creating a <<custom, custom data store>> or directly as described in the xref:mongodb-integration-guide:index.adoc[] guide.
 
 [[main]]
 == Main Store
@@ -16,7 +45,7 @@ When you create a new Jmix project in Studio, it has a single data store called 
 include::example$/data-model-ex1/src/main/resources/application.properties[tags=main-data-store]
 ----
 
-TIP: Use Studio interface to define database connection properties for a data store.
+TIP: Use Studio xref:studio:data-stores.adoc[data store management features] to define database connection properties for a data store.
 
 The main application class contains a corresponding JDBC `DataSource` bean declaration:
 
@@ -32,7 +61,7 @@ All JPA entities by default are associated with the main data store.
 
 In order to work with multiple databases, you need additional data stores.
 
-TIP: Use Studio interface to define additional data stores.
+TIP: Use Studio xref:studio:data-stores.adoc[data store management features] to define additional data stores.
 
 Each additional store has a unique name, which is specified in the comma-separated list of the `jmix.core.additional-stores` application property. Parameters of the database connection have the store name as a prefix. In the examples below, the `locations` additional store is configured:
 
