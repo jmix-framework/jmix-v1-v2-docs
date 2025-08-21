@@ -5,6 +5,9 @@
 
 Studio provides a wizard for creating and managing xref:data-access:data-repositories.adoc[data repositories].
 
+[[creating-repositories]]
+=== Creating Repositories
+
 To create a repository, click *New → Data Repository* in *Jmix* tool window toolbar.
 
 image::data-repository-create.png[align="center",width="241"]
@@ -12,6 +15,11 @@ image::data-repository-create.png[align="center",width="241"]
 In the *New Jmix Data Repository* dialog, select an entity and click *OK*. Studio will create the repository interface extending xref:data-access:data-repositories.adoc#working-with-data-repositories[JmixDataRepository] and add `@EnableJmixDataRepositories` to the main application class.
 
 image::data-repository-wizard.png[align="center",width="592"]
+
+[[creating-repository-methods]]
+=== Creating Repository Methods
+
+include::partial$subscription-note.adoc[]
 
 When a data repository is opened in the editor, Studio shows the actions panel on top with two buttons. The *Add Derived Method* button allows you to create a method whose query will be derived from the method name. The *Add Query Method* creates a method with explicitly specified JPQL query.
 
