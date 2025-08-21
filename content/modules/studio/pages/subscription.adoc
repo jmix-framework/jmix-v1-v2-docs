@@ -42,16 +42,14 @@ NOTE: Введенный вами адрес электронной почты �
 Подписка Sprint открывает следующие премиальные функции Studio:
 
 * xref:studio:entity-designer.adoc[Дизайнеры сущностей и перечислений]
-* xref:studio:data-stores.adoc#data-store-actions[Генерация файлов Liquibase changelog]
+* xref:studio:data-stores.adoc#data-store-actions[Генерация и агрегация файлов Liquibase changelog]
 * xref:studio:view-designer.adoc[]
 * xref:studio:menu-designer.adoc[]
 * xref:studio:role-designer.adoc[]
 * xref:studio:fetch-plan-designer.adoc[]
-* xref:studio:fetch-plan-designer.adoc[]
 * xref:studio:jpql-designer.adoc[]
-* xref:studio:quick-cloud-deployment.adoc[]
-* Расширенная поддержка xref:studio:data-repository-wizard.adoc[репозиториев данных]
-* Расширенная поддержка генерации клиентов по xref:openapi-integration-guide:index.adoc[OpenAPI]
+* xref:studio:data-repository-wizard.adoc#creating-repository-methods[Дизайнер методов репозиториев данных]
+* xref:openapi-integration-guide:index.adoc[Генерация клиентов по OpenAPI схеме]
 
 NOTE: Все премиальные функции Studio, перечисленные выше, доступны без активной подписки в небольших проектах с количеством сущностей и ролей до 10.
 
