@@ -9,6 +9,7 @@
 [cols="a,a,a", grid=none, frame=none]
 |===
 | xref:entity-designer.adoc[]
+| xref:data-stores.adoc[]
 | xref:view-wizard.adoc[]
 | xref:view-designer.adoc[]
 | xref:fetch-plan-designer.adoc[]
@@ -18,7 +19,6 @@
 | xref:code-snippets.adoc[]
 | xref:jpql-designer.adoc[]
 | xref:hot-deploy.adoc[]
-| xref:data-stores.adoc[]
 | xref:bpmn-designer.adoc[]
 | xref:reverse-engineering.adoc[]
 |

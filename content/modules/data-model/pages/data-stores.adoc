@@ -6,6 +6,35 @@
 
 Дополнение xref:rest-ds:index.adoc[] предоставляет `RestDataStore`, которое работает с xref:entities.adoc#jpa[DTO сущностями], сопоставленными с xref:rest:index.adoc[] удаленного приложение Jmix. REST хранилище данных имеет некоторые ограничения по сравнению с JPA хранилищем.
 
+[[supported-databases]]
+== Поддерживаемые базы данных
+
+Следующие базы данных поддерживаются в Jmix из коробки:
+
+* HSQLDB (in-memory база данных на Java)
+* PostgreSQL
+* MySQL 5.1+
+* MariaDB
+* Microsoft SQL Server 2008+
+* Oracle
+
+xref:studio:data-stores.adoc[Редактор хранилищ данных] в Studio автоматически настраивает свойства подключения и добавляет соответствующий JDBC-драйвер в список зависимостей в `build.gradle`.
+
+[IMPORTANT]
+====
+При использовании MariaDB с Jmix 2.4 - 2.6 понизьте версию Liquibase, добавив следующий код в ваш `build.gradle`:
+
+[source,groovy]
+----
+implementation 'org.liquibase:liquibase-core:4.25.0!!'
+----
+Подробнее см. в тикете https://github.com/jmix-framework/jmix/issues/3888[#3888^].
+====
+
+Если вам необходимо подключить реляционную базу данных, не поддерживаемую в Jmix из коробки, следуйте инструкциям в разделе xref:studio:data-stores.adoc#unsupported-database[Studio: Подключение к неподдерживаемым базам данных].
+
+Нереляционная база данных может быть использована путем создания <<custom, нестандартного хранилища>> или напрямую, как описано в руководстве xref:mongodb-integration-guide:index.adoc[].
+
 [[main]]
 == Основное хранилище
 
@@ -16,7 +45,7 @@
 include::example$/data-model-ex1/src/main/resources/application.properties[tags=main-data-store]
 ----
 
-TIP: Используйте интерфейс Studio для настройки подключения к базе данных.
+TIP: Используйте xref:studio:data-stores.adoc[возможности управления хранилищами] в Studio для настройки подключения к базе данных.
 
 Основной класс приложения содержит соответствующее объявление бина JDBC `DataSource`:
 
@@ -32,7 +61,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/DataModelEx1Appl
 
 Для работы с несколькими базами данных необходимы дополнительные хранилища данных.
 
-TIP: Определите дополнительные хранилища данных в интерфейсе Studio.
+TIP: Используйте xref:studio:data-stores.adoc[возможности управления хранилищами] в Studio для настройки дополнительных хранилищ данных.
 
 У каждого дополнительного хранилища есть уникальное имя, которое указано в списке свойства приложения `jmix.core.additional-stores`, разделенном запятыми. Параметры подключения к базе данных имеют имя хранилища в качестве префикса. В приведенных ниже примерах настроено дополнительное хранилище `locations`:
 

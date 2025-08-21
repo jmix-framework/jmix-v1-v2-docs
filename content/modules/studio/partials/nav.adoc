@@ -6,6 +6,7 @@
 ** xref:studio:studio-ui.adoc[]
 *** Основные инструменты разработки
 **** xref:studio:entity-designer.adoc[]
+**** xref:studio:data-stores.adoc[]
 **** xref:studio:view-wizard.adoc[]
 **** xref:studio:view-designer.adoc[]
 **** xref:studio:fetch-plan-designer.adoc[]
@@ -15,7 +16,6 @@
 **** xref:studio:code-snippets.adoc[]
 **** xref:studio:jpql-designer.adoc[]
 **** xref:studio:hot-deploy.adoc[]
-**** xref:studio:data-stores.adoc[]
 **** xref:studio:bpmn-designer.adoc[]
 **** xref:studio:reverse-engineering.adoc[]
 *** Управление проектом и окружение
