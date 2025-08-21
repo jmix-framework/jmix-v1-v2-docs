@@ -42,15 +42,14 @@ There are three commercial subscription plans: *Sprint*, *Enterprise*, and *BPM*
 The Sprint subscription plan unlocks the following Studio premium functionality:
 
 * xref:studio:entity-designer.adoc[Entity and Enumeration designers]
-* xref:studio:data-stores.adoc#data-store-actions[Liquibase changelog generation]
+* xref:studio:data-stores.adoc#data-store-actions[Liquibase changelog generation and aggregation]
 * xref:studio:view-designer.adoc[]
 * xref:studio:menu-designer.adoc[]
 * xref:studio:role-designer.adoc[]
 * xref:studio:fetch-plan-designer.adoc[]
 * xref:studio:jpql-designer.adoc[]
-* xref:studio:quick-cloud-deployment.adoc[]
-* Advanced support for xref:studio:data-repository-wizard.adoc[Data Repositories]
-* Advanced support for xref:openapi-integration-guide:index.adoc[OpenAPI] client generation
+* xref:studio:data-repository-wizard.adoc#creating-repository-methods[Data Repository methods designer]
+* xref:openapi-integration-guide:index.adoc[OpenAPI client generation]
 
 NOTE: All premium Studio features listed above are available without an active subscription in small projects with up to 10 entities and roles.
 
