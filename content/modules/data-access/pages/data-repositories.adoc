@@ -18,11 +18,11 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 ----
 --
 
-. Add `@EnableJmixDataRepositories` annotation to the main application class or the add-on configuration:
+. Create a new Spring configuration class in the base package and add the `@EnableJmixDataRepositories` annotation to it:
 +
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/DemoApplication.java[tags=data-repositories]
+include::example$/data-access-ex1/src/main/java/com/company/demo/JmixDataRepositoryConfiguration.java[]
 ----
 +
 Jmix will initialize all data repositories located under the base package of the application or the add-on. If you need more customized control over where to search for repositories, use the `basePackages`, `excludeFilters` and `includeFilters` attributes of the annotation.
@@ -46,10 +46,16 @@ The `JmixDataRepository` interface extends the standard Spring Data https://docs
 * `save()` method persists the provided entity and returns saved instance, loaded with the specified fetch plan. The method accepts the entity to be saved and fetch plan to apply when reloading the saved entity. The entity cannot be null, and fetch plan must be applicable to the entity.
 
 [[JmixDataRepositoryContext]]
-Load methods of repositories inherited from `JmixDataRepository` support an additional argument of the `JmixDataRepositoryContext` type. It allows you to pass the filtering, paging and sorting parameters collected from UI components to the `LoadContext` object. As a result, all the features of `genericFilter`, `simplePagination` and `dataGrid` components will work seamlessly with data repositories.
+=== JmixDataRepositoryContext
+
+Load methods of repositories inherited from `JmixDataRepository` support an additional argument of the `JmixDataRepositoryContext` type. It allows you to pass the filtering, paging and sorting parameters collected from UI components to the `LoadContext` object. As a result, all the features of xref:flow-ui:vc/components/genericFilter.adoc[], xref:flow-ui:vc/components/simplePagination.adoc[] and xref:flow-ui:vc/components/dataGrid.adoc[] components will work seamlessly with data repositories.
+
+Use the `JmixDataRepositoryUtils.buildRepositoryContext()` static method to convert `LoadContext` to `JmixDataRepositoryContext`.
 
 [[ApplyConstraints]]
-You can apply the `io.jmix.core.repository.ApplyConstraints` annotation to your data repository. If the value of the annotation is `false`, the repository uses `UnconstrainedDataManager` instead of `DataManager`. The default annotation value is `true`.
+=== Security Constraints
+
+You can add the `io.jmix.core.repository.ApplyConstraints` annotation to your data repository. If the value of the annotation is `false`, the repository uses `UnconstrainedDataManager` instead of `DataManager`. The default annotation value is `true`.
 
 The `@ApplyConstraints` annotation can be used not only for the entire class, but also for individual methods to either ignore or enable constraints for them only.
 
@@ -68,6 +74,9 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 ----
 
 The `findAll()` and `searchByIdNotNull()` methods will use the regular `DataManager`, while all other methods will use `UnconstrainedDataManager`.
+
+[[annotations]]
+=== Annotations
 
 You can use the following annotations on custom query methods:
 

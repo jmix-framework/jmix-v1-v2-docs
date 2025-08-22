@@ -5,11 +5,7 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
-// tag::data-repositories[]
-import io.jmix.core.repository.EnableJmixDataRepositories;
-// ...
 
-// end::data-repositories[]
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -29,12 +25,8 @@ import javax.sql.DataSource;
 @Push
 @Theme(value = "data-access-ex1")
 @PWA(name = "Demo", shortName = "Demo")
-// tag::data-repositories[]
 @SpringBootApplication
-// TODO uncomment when https://github.com/jmix-framework/jmix/issues/3772 is fixed
-// @EnableJmixDataRepositories
 public class DemoApplication implements AppShellConfigurator {
-// end::data-repositories[]
 
     @Autowired
     private Environment environment;
