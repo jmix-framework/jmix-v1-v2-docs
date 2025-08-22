@@ -4,11 +4,13 @@ import com.company.demo.entity.Customer;
 import com.company.demo.entity.Order;
 import com.company.demo.entity.OrderLine;
 import com.company.demo.entity.Product;
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.*;
 import io.jmix.data.PersistenceHints;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(AuthenticatedAsAdmin.class)
 public class OrderServiceTest {
 
     private static final Logger log = LoggerFactory.getLogger(OrderServiceTest.class);
@@ -95,7 +98,7 @@ public class OrderServiceTest {
     void tearDown() {
         JdbcTemplate jdbc = new JdbcTemplate(dataSource);
         jdbc.execute("delete from ORDER_LINE");
-        jdbc.execute("delete from ORDER");
+        jdbc.execute("delete from ORDER_");
         jdbc.execute("delete from PRODUCT");
         jdbc.execute("delete from CUSTOMER_GRADE_CHANGE");
         jdbc.execute("delete from CUSTOMER");

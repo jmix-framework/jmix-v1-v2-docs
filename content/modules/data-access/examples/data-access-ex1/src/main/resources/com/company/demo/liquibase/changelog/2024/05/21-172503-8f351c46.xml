@@ -32,7 +32,7 @@
         </createTable>
     </changeSet>
     <changeSet id="3" author="data-access-ex1">
-        <createTable tableName="ORDER">
+        <createTable tableName="ORDER_">
             <column name="ID" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ORDER"/>
             </column>
@@ -90,7 +90,7 @@
     <changeSet id="8" author="data-access-ex1">
         <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="ORDER_LINE"
                                  constraintName="FK_ORDER_LINE_ON_ORDER" referencedColumnNames="ID"
-                                 referencedTableName="ORDER"/>
+                                 referencedTableName="ORDER_"/>
     </changeSet>
     <changeSet id="9" author="data-access-ex1">
         <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="ORDER_LINE"
@@ -98,7 +98,7 @@
                                  referencedTableName="PRODUCT"/>
     </changeSet>
     <changeSet id="10" author="data-access-ex1">
-        <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="ORDER"
+        <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="ORDER_"
                                  constraintName="FK_ORDER_ON_CUSTOMER" referencedColumnNames="ID"
                                  referencedTableName="CUSTOMER"/>
     </changeSet>
