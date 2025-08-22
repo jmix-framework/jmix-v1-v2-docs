@@ -23,11 +23,11 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 ----
 --
 
-. Добавьте аннотацию `@EnableJmixDataRepositories` главному классу приложения или классу конфигурации дополнения:
+. Создайте новый класс конфигурации Spring в базовом пакете и добавьте ему аннотацию `@EnableJmixDataRepositories`:
 +
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/DemoApplication.java[tags=data-repositories]
+include::example$/data-access-ex1/src/main/java/com/company/demo/JmixDataRepositoryConfiguration.java[]
 ----
 +
 Jmix проинициализирует все репозитории данных, расположенные внутри и ниже базового пакета приложения или дополнения. Если требуется более тонкая настройка поиска репозиториев, используйте атрибуты аннотации `basePackages`, `excludeFilters` и `includeFilters`.
@@ -51,10 +51,16 @@ include::example$/data-access-ex1/src/test/java/com/company/demo/repository/Cust
 * Метод `save()` сохраняет предоставленную сущность и возвращает сохраненный экземпляр, загруженный с указанным планом выборки. Метод принимает сущность для сохранения и план выборки, который будет применен при перезагрузке сохраненной сущности. Сущность не может быть `null`, а план выборки должен быть применим к сущности.
 
 [[JmixDataRepositoryContext]]
-Методы загрузки репозиториев, унаследованных от `JmixDataRepository`, теперь поддерживают дополнительный аргумент типа `JmixDataRepositoryContext`. Это позволяет передавать параметры фильтрации, пейджинга и сортировки, собранные в объект `LoadContext` из UI-компонентов. В результате все функции компонентов `genericFilter`, `simplePagination` и `dataGrid` будут полноценно работать с репозиториями данных.
+=== JmixDataRepositoryContext
+
+Методы загрузки репозиториев, унаследованных от `JmixDataRepository`, поддерживают дополнительный аргумент типа `JmixDataRepositoryContext`. Это позволяет передавать параметры фильтрации, пейджинга и сортировки, собранные в объект `LoadContext` из UI-компонентов. В результате все функции компонентов xref:flow-ui:vc/components/genericFilter.adoc[], xref:flow-ui:vc/components/simplePagination.adoc[] и xref:flow-ui:vc/components/dataGrid.adoc[] будут полноценно работать с репозиториями данных.
+
+Используйте статический метод `JmixDataRepositoryUtils.buildRepositoryContext()` для конвертации `LoadContext` в `JmixDataRepositoryContext`.
 
 [[ApplyConstraints]]
-Вы можете применить аннотацию `io.jmix.core.repository.ApplyConstraints` к своему репозиторию данных. Если значение аннотации равно `false`, репозиторий использует `UnconstrainedDataManager` вместо `DataManager`. Значение аннотации по умолчанию - `true`.
+=== Security Constraints
+
+Вы можете добавить аннотацию `io.jmix.core.repository.ApplyConstraints` своему репозиторию данных. Если значение аннотации равно `false`, репозиторий использует `UnconstrainedDataManager` вместо `DataManager`. Значение аннотации по умолчанию - `true`.
 
 Аннотация `@ApplyConstraints` может быть использована не только для всего класса, но и для отдельных методов, чтобы игнорировать или, наоборот, включить ограничения только для них.
 
@@ -73,6 +79,9 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 ----
 
 Методы `findAll()` и `searchByIdNotNull()` будут использовать обычный `DataManager`, в то время как все остальные методы будут использовать `UnconstrainedDataManager`.
+
+[[annotations]]
+=== Annotations
 
 Следующие аннотации можно использовать на кастомных методах запросов:
 
