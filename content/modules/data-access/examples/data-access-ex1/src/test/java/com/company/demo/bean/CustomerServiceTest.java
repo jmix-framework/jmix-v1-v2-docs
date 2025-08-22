@@ -1,5 +1,6 @@
 package com.company.demo.bean;
 
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import com.google.common.base.Strings;
 import com.company.demo.entity.Customer;
 import com.company.demo.entity.CustomerGrade;
@@ -8,6 +9,7 @@ import io.jmix.core.Id;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(AuthenticatedAsAdmin.class)
 public class CustomerServiceTest {
 
     @Autowired

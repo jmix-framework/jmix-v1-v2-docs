@@ -1,0 +1,83 @@
+= Использование JDBC
+
+Хотя в Jmix  для доступа к данным в основном используется JPA, существуют некоторые сценарии, в которых может потребоваться прямой доступ через JDBC, например, выполнение сложных SQL-запросов, пакетных операций или вызов хранимых процедур.
+
+TIP: Мы рекомендуем использовать xref:data-manager.adoc[DataManager] и прибегать к JDBC только при необходимости.
+
+Для выполнения запросов на уровне JDBC можно использовать классы `JdbcTemplate` или `JdbcClient`, предоставляемые Spring.
+
+И `JdbcTemplate`, и `JdbcClient` автоматически участвуют в управляемых Spring xref:transactions.adoc[транзакциях], поэтому вы можете использовать их вместе с операциями JPA в рамках одной транзакции.
+
+[[jdbc-template]]
+== Использование JdbcTemplate
+
+`JdbcTemplate` — это классический класс Spring Framework, который упрощает операции с JDBC, обеспечивая управление ресурсами и преобразование исключений.
+
+Чтобы использовать `JdbcTemplate` для доступа к xref:data-model:data-stores.adoc#main[основному хранилищу данных], просто инжектируйте его в ваш бин:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=jdbc-template]
+----
+
+Если вам нужен доступ к xref:data-model:data-stores.adoc#additional[дополнительному хранилищу данных], инжектируйте соответствующий `javax.sql.DataSource` и создайте новый экземпляр `JdbcTemplate`. В следующем примере `JdbcTemplate` создается для хранилища данных `db1`:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcService.java[tags=inject-ds;jdbc-template]
+----
+
+[[jdbc-client]]
+== Использование JdbcClient
+
+`JdbcClient`, представленный в Spring Framework 6.1, предоставляет более современный и удобный API для операций JDBC.
+
+Чтобы использовать `JdbcClient` для доступа к xref:data-model:data-stores.adoc#main[основному хранилищу данных], просто инжектируйте его в ваш бин:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=jdbc-client]
+----
+
+Если вам нужен доступ к xref:data-model:data-stores.adoc#additional[дополнительному хранилищу данных], инжектируйте соответствующий `javax.sql.DataSource` и создайте новый экземпляр `JdbcClient`. В следующем примере `JdbcClient` создается для хранилища данных `db1`:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcService.java[tags=inject-ds;jdbc-client]
+----
+
+[[stored-procedures]]
+== Вызов хранимых процедур
+
+Для выполнения хранимых процедур можно использовать класс `SimpleJdbcCall` из Spring. Он обеспечивает лучшую обработку параметров и поддержку метаданных базы данных по сравнению с `JdbcTemplate`.
+
+Следующий пример показывает, как вызвать хранимую процедуру PostgreSQL, находящуюся в основном хранилище данных.
+
+[source,sql]
+----
+CREATE OR REPLACE FUNCTION get_customer_stats(
+    p_customer_id UUID,
+    OUT total_orders INTEGER,
+    OUT total_amount DECIMAL(19,2)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    SELECT
+        COUNT(*),
+        COALESCE(SUM(AMOUNT), 0)
+    INTO
+        total_orders,
+        total_amount
+    FROM ORDER_
+    WHERE CUSTOMER_ID = p_customer_id;
+END;
+$$;
+----
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=stored-procedure]
+----
+
+Если нужно вызвать процедуру из дополнительного хранилища данных, создайте экземпляр `JdbcTemplate` для соответствующего `javax.sql.DataSource`, как описано <<jdbc-template,выше>>.

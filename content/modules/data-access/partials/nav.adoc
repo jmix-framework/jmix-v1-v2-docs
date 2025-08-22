@@ -1,6 +1,7 @@
 * xref:data-access:index.adoc[]
 ** xref:data-access:data-manager.adoc[]
 ** xref:data-access:entity-manager.adoc[]
+** xref:data-access:jdbc.adoc[]
 ** xref:data-access:data-repositories.adoc[]
 ** xref:data-access:entity-events.adoc[]
 ** xref:data-access:fetching.adoc[]

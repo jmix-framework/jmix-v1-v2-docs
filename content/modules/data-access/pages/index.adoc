@@ -21,3 +21,5 @@ include::example$/data-access-ex1/build.gradle[tags=dependencies]
 ====
 
 Другим вариантом работы с сущностями JPA является использование JPA xref:entity-manager.adoc[EntityManager] напрямую. Некоторые механизмы фреймворка несовместимы с концепцией "managed" сущностей, поэтому `EntityManager` имеет ряд xref:entity-manager.adoc#limitations[ограничений] по сравнению с `DataManager`.
+
+Если вам нужно выполнять сложные SQL запросы, пакетные операции или вызывать хранимые процедуры, используйте классы-обертки xref:jdbc.adoc[JDBC], предоставляемые Spring.
