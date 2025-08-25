@@ -21,7 +21,11 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run tests
-        run: ./gradlew compileAll testAll -PpremiumRepoUser="${{ secrets.PREMIUM_REPO_USER }}" -PpremiumRepoPass="${{ secrets.PREMIUM_REPO_PASS }}"
+        run: >
+          ./gradlew compileAll testAll 
+          -PpremiumRepoUser="${{ secrets.PREMIUM_REPO_USER }}" 
+          -PpremiumRepoPass="${{ secrets.PREMIUM_REPO_PASS }}" 
+          org.gradle.jvmargs=-Xmx2G
 
       - name: Publish test report
         uses: mikepenz/action-junit-report@v2
