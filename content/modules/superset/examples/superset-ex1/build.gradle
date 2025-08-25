@@ -52,6 +52,8 @@ dependencies {
 
     implementation 'io.jmix.superset:jmix-superset-starter'
     implementation 'io.jmix.superset:jmix-superset-flowui-starter'
+
+    testImplementation 'org.hsqldb:hsqldb'
 }
 
 test {

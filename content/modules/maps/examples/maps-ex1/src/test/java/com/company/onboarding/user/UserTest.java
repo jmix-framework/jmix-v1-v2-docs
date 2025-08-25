@@ -1,7 +1,7 @@
-package com.company.onboardingmaps.user;
+package com.company.onboarding.user;
 
 import com.company.onboarding.entity.User;
-import com.company.onboardingmaps.test_support.AuthenticatedAsAdmin;
+import com.company.onboarding.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import io.jmix.core.security.UserRepository;
 import org.junit.jupiter.api.AfterEach;

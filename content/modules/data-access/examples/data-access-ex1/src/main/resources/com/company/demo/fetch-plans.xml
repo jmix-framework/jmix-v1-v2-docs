@@ -3,7 +3,7 @@
     <fetchPlan class="com.company.demo.entity.Order"
                name="full"
                extends="_base">
-        <property name="customer" fetchPlan="_instance_name"/>
+        <property name="customer" fetchPlan="_base"/>
         <property name="lines">
             <property name="product" fetchPlan="_instance_name"/>
             <property name="quantity"/>

@@ -3,10 +3,12 @@ package com.company.demo.listener;
 import com.company.demo.entity.Order;
 import com.company.demo.entity.OrderLine;
 import com.company.demo.entity.Product;
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import io.jmix.core.Id;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(AuthenticatedAsAdmin.class)
 public class OrderLineEventListenerTest {
 
     @Autowired
@@ -32,7 +35,7 @@ public class OrderLineEventListenerTest {
     void tearDown() {
         JdbcTemplate jdbc = new JdbcTemplate(dataSource);
         jdbc.execute("delete from ORDER_LINE");
-        jdbc.execute("delete from ORDER");
+        jdbc.execute("delete from ORDER_");
         jdbc.execute("delete from PRODUCT");
     }
 

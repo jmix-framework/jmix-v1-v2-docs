@@ -2,14 +2,17 @@ package com.company.demo;
 
 import com.company.demo.entity.Customer;
 import com.company.demo.entity.Order;
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import io.jmix.core.security.SystemAuthenticator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -23,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
         "logging.level.io.jmix = debug",
         "logging.level.eclipselink.logging.sql = debug"
 })
+@ExtendWith(AuthenticatedAsAdmin.class)
+@ActiveProfiles("test")
 public class RelatedEntityLoadingTest {
 
     @Autowired

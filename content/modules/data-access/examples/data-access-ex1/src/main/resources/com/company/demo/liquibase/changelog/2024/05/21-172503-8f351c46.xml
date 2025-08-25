@@ -85,7 +85,7 @@
     <changeSet id="7" author="data-access-ex1">
         <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="CUSTOMER_GRADE_CHANGE"
                                  constraintName="FK_CUSTOMER_GRADE_CHANGE_ON_CUSTOMER" referencedColumnNames="ID"
-                                 referencedTableName="CUSTOMER"/>
+                                 referencedTableName="CUSTOMER" onDelete="CASCADE"/>
     </changeSet>
     <changeSet id="8" author="data-access-ex1">
         <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="ORDER_LINE"

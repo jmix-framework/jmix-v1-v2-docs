@@ -61,6 +61,7 @@ dependencies {
     implementation 'io.jmix.bpm:jmix-bpm-flowui-starter'
     implementation 'io.jmix.bpm:jmix-bpm-starter'
     implementation 'org.postgresql:postgresql'
+    testImplementation 'org.hsqldb:hsqldb'
 }
 
 test {

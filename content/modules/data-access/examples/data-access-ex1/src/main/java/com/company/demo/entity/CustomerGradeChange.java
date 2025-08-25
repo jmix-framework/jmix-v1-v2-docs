@@ -1,11 +1,13 @@
 package com.company.demo.entity;
 
+import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.OnDeleteInverse;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
-import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -26,6 +28,7 @@ public class CustomerGradeChange {
     @Column(name = "CREATED_BY")
     private String createdBy;
 
+    @OnDeleteInverse(DeletePolicy.CASCADE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;

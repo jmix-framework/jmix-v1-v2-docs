@@ -1,5 +1,6 @@
 package com.company.demo.repository;
 
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import com.google.common.base.Strings;
 import com.company.demo.entity.Customer;
 import com.company.demo.entity.CustomerGrade;
@@ -10,6 +11,7 @@ import io.jmix.core.FetchPlans;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(AuthenticatedAsAdmin.class)
 public class CustomerRepositoryTest {
 
     // tag::inject[]

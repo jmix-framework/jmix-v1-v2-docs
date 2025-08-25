@@ -113,7 +113,7 @@ public class OrderServiceTest {
     @Test
     void testLoadValues() {
         String str = orderService.getCustomerPurchases(LocalDate.now());
-        assertEquals("Alice : 5000.00", str);
+        assertEquals("Alice : 5000.00\n", str);
     }
 
     @Test

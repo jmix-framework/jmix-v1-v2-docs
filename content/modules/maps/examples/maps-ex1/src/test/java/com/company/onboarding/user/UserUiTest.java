@@ -1,4 +1,4 @@
-package com.company.onboardingmaps.user;
+package com.company.onboarding.user;
 
 import com.company.onboarding.OnboardingMapsApplication;
 import com.company.onboarding.entity.User;
