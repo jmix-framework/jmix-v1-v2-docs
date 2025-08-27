@@ -242,6 +242,9 @@ Jmix UI содержит специальные xref:flow-ui:data/key-value-cont
 
 NOTE: Существует еще один термин для атрибутов сущности: _свойства (properties) сущности_. Он часто используется в кодовой базе Jmix, например, в аннотациях: `@JmixProperty`, `@DependsOnProperties` и т.д.
 
+[[attribute-types]]
+=== Типы атрибутов
+
 Каждый атрибут сущности должен иметь соответствующий тип. Jmix поддерживает следующие типы "из коробки":
 
 * `java.lang.String`
@@ -264,13 +267,22 @@ NOTE: Существует еще один термин для атрибуто�
 * `byte[]` (массив байтов)
 * xref:files:file-storage.adoc[io.jmix.core.FileRef]
 * xref:enumerations.adoc[Перечисление]
-* Сущность или коллекция сущностей (ссылочный атрибут)
+* Сущность (<<references,ссылочный>> атрибут)
+* `List` или `Set` сущностей (ссылочный атрибут-коллекция)
 
 Вы можете использовать тип, не указанный в приведенном выше списке, если создадите соответствующую реализацию xref:data-types.adoc[Datatype] и убедитесь, что ваш тип поддерживается базовым xref:data-stores.adoc[хранилищем данных].
 
-CAUTION: Обратите внимание, что примитивные типы Java (`int`, `boolean`, и т.д.) не могут использоваться для атрибутов сущностей.
+[CAUTION]
+====
+Обратите внимание, что примитивные типы Java (`int`, `boolean`, и т.д.), а также `java.util.Map`, не могут использоваться для атрибутов сущностей.
 
-Для сущностей JPA и DTO существует два типа атрибутов:
+Однако, такие поля могут быть в классах сущностей, при условии, что они не распознаются фреймворком как атрибуты. Это объясняется в разделе <<defining-attributes,определение атрибутов>> ниже.
+====
+
+[[defining-attributes]]
+=== Определение атрибутов
+
+Для JPA и DTO сущностей существует два типа атрибутов:
 
 * _Атрибут на основе поля_ соответствует полю и паре методов доступа accessor (геттер / сеттер) поля. Имя поля становится именем атрибута.
 +
@@ -307,6 +319,22 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/User.java
 --
 
 * Если параметр `annotatedPropertiesOnly` имеет значение `true`, только свойства и методы с аннотацией <<jmix-property,@JmixProperty>> становятся атрибутами сущности.
+
+[[attribute-default-values]]
+=== Начальные значения
+
+Атрибуты сущности могут иметь значения по умолчанию, присвоенные полям или установленные в методе <<post-construct,@PostConstruct>>. Руководство xref:initial-entity-values-guide:index.adoc[] предоставляет исчерпывающую информацию о настройке начальных значений для атрибутов сущности.
+
+[CAUTION]
+====
+Не инициализируйте поля атрибутов-коллекций экземплярами `ArrayList` или `HashSet`. Это нарушит функциональность xref:data-access:fetching.adoc[извлечения данных]. Если вы хотите иметь значения по умолчанию в полях, используйте специальные коллекции, предоставляемые Jmix: `NotInstantiatedList` или `NotInstantiatedSet`. Например:
+
+[source,java]
+----
+@OneToMany(mappedBy = "user")
+private List<UserStep> steps = new NotInstantiatedList<>();
+----
+====
 
 [[references]]
 == Ссылки
@@ -371,6 +399,8 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/bean/OrderServic
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/view/product/ProductDetailView.java[tags=data-context-create]
 ----
+
+См. руководство xref:initial-entity-values-guide:index.adoc[] для получения инструкций по настройке начальных значений для атрибутов сущности.
 
 [[uniqueness]]
 == Уникальность
