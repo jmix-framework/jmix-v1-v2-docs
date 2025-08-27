@@ -29,12 +29,16 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 * `getViewAttributes()` - returns the `ViewAttributes` object that serves as a storage of named values. Uses `VaadinSession` as a store. For example, a detail view uses `ViewAttributes` to store the _read-only state_ and _locked status_ and revert these settings if a view is refreshed.
 
-* `getPageTitle()` - returns the title of a view. By default, returns localized value defined in a view descriptor. Can be overridden to provide the title dynamically, for example:
+* `getPageTitle()` - a callback that returns the title of a view. By default, returns localized value defined in a view descriptor. You can override it to provide the title using your own rules, for example:
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailView.java[tags=page-title]
 ----
+
+* `setPageTitle()` method allows you to set the view title dynamically at any moment of the view lifecycle. For example, you can invoke it from the `ReadyEvent` handler or from a data container event handler.
++
+For consistency, we recommend using either `getPageTitle()` or `setPageTitle()` within a single view.
 
 * `beforeLeave()` - a callback that is executed before the navigation to another view is performed. Part of Vaadin's {vaadin-docs}/flow/routing/lifecycle/[navigation lifecycle^].
 ** The event allows the navigation to be _postponed_, _canceled_, or _changed_ to a different destination.
