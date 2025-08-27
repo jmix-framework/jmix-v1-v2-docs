@@ -269,6 +269,8 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 
 Высота должна быть в формате, понятном браузеру, например, `"100px"` или `"2.5em"`.
 
+Вы можете найти xref:vc/layout-rules.adoc#component-sizes[примеры использования] в разделе Правила Компоновки.
+
 [[helperText]]
 == helperText
 
@@ -325,6 +327,8 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 
 Устанавливает CSS-свойство `max-height` компонента. Высота должна быть в формате, понятном браузеру, например, `"100px"` или `"2.5em"`.
 
+Вы можете найти xref:vc/layout-rules.adoc#component-sizes[примеры использования] в разделе Правила Компоновки.
+
 [[maxLength]]
 == maxLength
 
@@ -359,6 +363,8 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 
 Устанавливает CSS-свойство `max-width` компонента. Ширина должна быть в формате, понятном браузеру, например, `"100px"` или `"2.5em"`.
 
+Вы можете найти xref:vc/layout-rules.adoc#component-sizes[примеры использования] в разделе Правила Компоновки.
+
 [[metaClass]]
 == metaClass
 
@@ -382,6 +388,8 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 ++++
 
 Устанавливает CSS-свойство `min-height` компонента. Высота должна быть в формате, понятном браузеру, например, `"100px"` или `"2.5em"`.
+
+Вы можете найти xref:vc/layout-rules.adoc#component-sizes[примеры использования] в разделе Правила Компоновки.
 
 [[minLength]]
 == minLength
@@ -416,6 +424,8 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 ++++
 
 Устанавливает CSS-свойство `min-width` компонента. Ширина должна быть в формате, понятном браузеру, например, `"100px"` или `"2.5em"`.
+
+Вы можете найти xref:vc/layout-rules.adoc#component-sizes[примеры использования] в разделе Правила Компоновки.
 
 [[overlayClass]]
 == overlayClass
@@ -613,3 +623,5 @@ Sets the value of the component. If the new value is not equal to `getValue()`, 
 ++++
 
 Устанавливает ширину компонента. Ширина должна быть в формате, понятном браузеру, например, `"100px"` или `"2.5em"`.
+
+Вы можете найти xref:vc/layout-rules.adoc#component-sizes[примеры использования] в разделе Правила Компоновки.

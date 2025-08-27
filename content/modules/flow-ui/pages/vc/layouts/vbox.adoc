@@ -94,6 +94,7 @@ Defines how the browser distributes space between and around content items. Poss
 
 * `EVENLY`
 
+For xref:vc/layout-rules.adoc#justify-content-mode[usage examples] visit the Layout Rules section.
 
 [[margin]]
 === margin
