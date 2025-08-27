@@ -221,7 +221,7 @@ POST http://localhost:8080/rest/services/sales_OrderService/validateOrder
 [[service-parameters]]
 ==== Формат параметров
 
-Значения параметров должны передаваться в формате, определенном для соответствующего xref:data-model:data-types.adoc[datatype].
+Значения параметров должны передаваться в формате, определенном для соответствующего xref:data-model:datatype.adoc[datatype].
 
 * Если тип параметра – `java.util.Date`, то значение обрабатывает `DateTimeDatatype`. Эта реализация datatype использует формат https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE_TIME[ISO_DATE_TIME^], в котором части даты и времени разделены `T`, например 2011-12-03T10:15:30.
 * Параметры типа `java.sql.Date` обрабатывает `DateDatatype`, который использует формат https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE[ISO_DATE^], например `2011-12-03`.

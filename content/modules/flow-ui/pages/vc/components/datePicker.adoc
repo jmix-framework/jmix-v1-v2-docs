@@ -55,7 +55,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 == Формат даты
 //todo: make changes upon completing jmix#858 ticket
 
-Формат даты и времени по умолчанию в приложении определяется xref:data-model:data-types.adoc#localized-format-strings[локализованными строками формата]. Чтобы использовать другой формат, добавьте собственные строки формата в пакет сообщений.
+Формат даты и времени по умолчанию в приложении определяется xref:data-model:datatype.adoc#localized-format-strings[локализованными строками формата]. Чтобы использовать другой формат, добавьте собственные строки формата в пакет сообщений.
 
 Чтобы изменить формат для конкретного компонента, используйте его атрибут xref:vc/common-attributes.adoc#dateFormat[dateFormat].
 

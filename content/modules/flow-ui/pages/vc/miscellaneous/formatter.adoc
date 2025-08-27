@@ -3,7 +3,7 @@
 
 `Formatter` предназначен для преобразования некоторого значения в его строковое представление.
 
-NOTE: Форматтер можно использовать только с нередактируемыми компонентами, такими как xref:vc/components/valuePicker.adoc[valuePicker], xref:vc/components/multiValuePicker.adoc[multiValuePicker] и xref:vc/components/entityPicker.adoc[entityPicker]. Значения непосредственно редактируемых компонентов, например xref:vc/components/textField.adoc[textField], форматируются механизмом xref:data-model:data-types.adoc[Datatype].
+NOTE: Форматтер можно использовать только с нередактируемыми компонентами, такими как xref:vc/components/valuePicker.adoc[valuePicker], xref:vc/components/multiValuePicker.adoc[multiValuePicker] и xref:vc/components/entityPicker.adoc[entityPicker]. Значения непосредственно редактируемых компонентов, например xref:vc/components/textField.adoc[textField], форматируются механизмом xref:data-model:datatype.adoc[Datatype].
 
 Фреймворк содержит набор форматтеров, которые можно использовать в проекте.
 

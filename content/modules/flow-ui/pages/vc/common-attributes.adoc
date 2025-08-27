@@ -189,7 +189,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[datatype]]
 == datatype
 
-Устанавливает xref:data-model:data-types.adoc[тип данных] содержимого компонента. Возможные значения:
+Устанавливает xref:data-model:datatype.adoc[тип данных] содержимого компонента. Возможные значения:
 
 * `boolean`
 * `byteArray`

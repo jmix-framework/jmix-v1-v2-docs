@@ -1,7 +1,7 @@
 * xref:data-model:index.adoc[]
 ** xref:data-model:entities.adoc[]
 ** xref:data-model:data-stores.adoc[]
-** xref:data-model:data-types.adoc[]
+** xref:data-model:datatype.adoc[]
 ** xref:data-model:enumerations.adoc[]
 ** xref:data-model:soft-deletion.adoc[]
 ** xref:data-model:bean-validation.adoc[]
