@@ -54,7 +54,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 == Date Format
 //todo: make changes upon completing jmix#858 ticket
-The default date and time format in the application is defined by the xref:data-model:data-types.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
+The default date and time format in the application is defined by the xref:data-model:datatype.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
 
 To change the format for a particular component, use its xref:vc/common-attributes.adoc#dateFormat[dateFormat] attribute.
 

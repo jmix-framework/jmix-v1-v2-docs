@@ -328,7 +328,7 @@ Methods of `@RemoteService` interfaces can have parameters and results of the fo
 * Simple type: primitive (`int`, `double`, etc.), wrapper (`Integer`, `Double`, etc.), `String`.
 * xref:data-model:entities.adoc[Entity]
 * xref:data-model:enumerations.adoc[Enumeration]
-* A type that have a corresponding xref:data-model:data-types.adoc[Datatype]. These include types supported in xref:data-model:entities.adoc#attributes[entity attributes], as well as custom data types.
+* A type that have a corresponding xref:data-model:datatype.adoc[Datatype]. These include types supported in xref:data-model:entities.adoc#attributes[entity attributes], as well as custom data types.
 * Arbitrary POJO or Java record with fields of all above types.
 * `java.util.List` parameterized with all above types.
 ====

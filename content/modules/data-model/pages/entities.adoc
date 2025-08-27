@@ -270,7 +270,7 @@ Each entity attribute should have an appropriate type. Jmix supports the followi
 * Entity (a <<references,reference>> attribute)
 * `List` or `Set` of entities (a reference collection attribute)
 
-You can use a type not from the list above if you create an appropriate xref:data-types.adoc[Datatype] implementation and make sure your type is supported by the underlying xref:data-stores.adoc[data store].
+You can use a type not from the list above if you create an appropriate xref:datatype.adoc[Datatype] implementation and make sure your type is supported by the underlying xref:data-stores.adoc[data store].
 
 [CAUTION]
 ====
@@ -576,7 +576,7 @@ Specifies a format for an attribute of the `Number` type (it can be `BigDecimal`
 
 * `groupingSeparator` - the symbol to use for grouping (thousands) separator (optional).
 
-NOTE: If `decimalSeparator` and/or `groupingSeparator` are not specified, their values are obtained from the xref:data-model:data-types.adoc#localized-format-strings[current user's locale] for locale-dependent formatting, or from server default locale for locale-independent formatting.
+NOTE: If `decimalSeparator` and/or `groupingSeparator` are not specified, their values are obtained from the xref:data-model:datatype.adoc#localized-format-strings[current user's locale] for locale-dependent formatting, or from server default locale for locale-independent formatting.
 
 Examples:
 
@@ -637,7 +637,7 @@ CAUTION: Note that the `@PostConstruct` annotated method is not invoked if you c
 [[property-datatype]]
 === @PropertyDatatype
 
-If you have multiple xref:data-types.adoc[datatypes] for a Java type of an entity attribute, `@PropertyDatatype` annotation lets you specify a `Datatype` implementation explicitly by its id. For example:
+If you have multiple xref:datatype.adoc[datatypes] for a Java type of an entity attribute, `@PropertyDatatype` annotation lets you specify a `Datatype` implementation explicitly by its id. For example:
 
 [source,java,indent=0]
 ----

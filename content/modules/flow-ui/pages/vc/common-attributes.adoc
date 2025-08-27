@@ -189,7 +189,7 @@ If you set an xref:data/instance-container.adoc[] in the `dataContainer` attribu
 [[datatype]]
 == datatype
 
-Sets a xref:data-model:data-types.adoc[data type] of the component's content. Possible values:
+Sets a xref:data-model:datatype.adoc[datatype] of the component's content. Possible values:
 
 * `boolean`
 * `byteArray`

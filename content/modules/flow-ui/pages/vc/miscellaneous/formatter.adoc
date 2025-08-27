@@ -3,7 +3,7 @@
 
 `Formatter` is designed to convert some value to its string representation.
 
-NOTE: Formatters can be used only with non-editable components, such as xref:vc/components/valuePicker.adoc[valuePicker], xref:vc/components/multiValuePicker.adoc[multiValuePicker] and xref:vc/components/entityPicker.adoc[entityPicker]. Values of directly editable components, for example, xref:vc/components/textField.adoc[textField], are formatted using the xref:data-model:data-types.adoc[Datatype] mechanism.
+NOTE: Formatters can be used only with non-editable components, such as xref:vc/components/valuePicker.adoc[valuePicker], xref:vc/components/multiValuePicker.adoc[multiValuePicker] and xref:vc/components/entityPicker.adoc[entityPicker]. Values of directly editable components, for example, xref:vc/components/textField.adoc[textField], are formatted using the xref:data-model:datatype.adoc[Datatype] mechanism.
 
 The framework contains the set of formatters that can be used in your project.
 

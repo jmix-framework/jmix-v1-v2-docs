@@ -30,4 +30,4 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/bean/CustomerSer
 <10> `Range.isEnum()` method returns true if the entity attribute is an enumeration.
 <11> `Range.asEnumeration()` method returns the `Enumeration` object that can be used to iterate over all enum constants.
 <12> `Range.isDatatype()` method returns true if the entity attribute is not a reference or an enumeration.
-<13> `Range.asDatatype()` method returns the xref:data-types.adoc[datatype] of the entity attribute. You can use it to format and parse attribute values.
+<13> `Range.asDatatype()` method returns the xref:datatype.adoc[datatype] of the entity attribute. You can use it to format and parse attribute values.

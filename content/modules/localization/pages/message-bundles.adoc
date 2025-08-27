@@ -2,7 +2,7 @@
 
 The most common task of localization is to provide messages depending on the current user locale. To achieve this, messages must be extracted from code and placed in special property files, one file per language. A collection of such files is called a _message bundle_.
 
-Apart from messages, the message bundle can also contain xref:data-model:data-types.adoc#localized-format-strings[localized data format strings].
+Apart from messages, the message bundle can also contain xref:data-model:datatype.adoc#localized-format-strings[localized data format strings].
 
 The default message bundle of your project is a set of `messages_<language>.properties` files located in the base package under the `src/main/resources` folder.
 

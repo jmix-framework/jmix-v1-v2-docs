@@ -223,7 +223,7 @@ The REST API method returns a serialized `OrderValidationResult` POJO:
 [[service-parameters]]
 ==== Service Parameter Formats
 
-Parameter values must be passed in a format defined for the corresponding xref:data-model:data-types.adoc[datatype].
+Parameter values must be passed in a format defined for the corresponding xref:data-model:datatype.adoc[datatype].
 
 * If the parameter type is `java.util.Date`, then the value is handled by `DateTimeDatatype`. This datatype implementation uses the https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE_TIME[ISO_DATE_TIME^] format where the date and time parts are separated with `T`, for example `2011-12-03T10:15:30`.
 * Parameters of `java.sql.Date` type are handled by `DateDatatype` which uses https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html#ISO_DATE[ISO_DATE^] format, for example `2011-12-03`.
