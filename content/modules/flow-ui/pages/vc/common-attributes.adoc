@@ -269,6 +269,8 @@ Sets the height of the component.
 
 The height should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
 
+For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout Rules section.
+
 [[helperText]]
 == helperText
 
@@ -325,6 +327,8 @@ The attribute value can either be the text itself or a key in the xref:localizat
 
 Sets the `max-height` CSS property of the component. The height should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
 
+For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout Rules section.
+
 [[maxLength]]
 == maxLength
 
@@ -359,6 +363,8 @@ Sets the maximum number of characters a field accepts.
 
 Sets the `max-width` CSS property of the component. The width should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
 
+For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout Rules section.
+
 [[metaClass]]
 == metaClass
 
@@ -382,6 +388,9 @@ Set this attribute if the component is not linked to a xref:data/data-containers
 ++++
 
 Sets the `min-height` CSS property of the component. The height should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
+
+For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout Rules section.
+
 
 [[minLength]]
 == minLength
@@ -416,6 +425,8 @@ Sets the minimum number of characters a field accepts.
 ++++
 
 Sets the `min-width` CSS property of the component. The width should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
+
+For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout Rules section.
 
 [[overlayClass]]
 == overlayClass
@@ -613,3 +624,5 @@ Default value is `NORMAL`.
 ++++
 
 Sets the width of the component. The width should be in a format understood by the browser, for example, `"100px"` or `"2.5em"`.
+
+For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout Rules section.

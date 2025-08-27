@@ -2,3 +2,5 @@
 :page-aliases: vcl/containers.adoc
 
 Layouts are components that can contain other components and layouts. They allow you to arrange components on a view.
+
+See the xref:flow-ui:vc/layout-rules.adoc[] section for practical examples of positioning visual components and layouts in views.
