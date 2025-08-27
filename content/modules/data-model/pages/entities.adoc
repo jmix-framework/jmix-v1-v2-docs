@@ -242,6 +242,9 @@ Jmix UI has special xref:flow-ui:data/key-value-containers.adoc[key-value data c
 
 NOTE: There is another term for entity attributes: _entity properties_. It's often used in the Jmix codebase, for example in annotations: `@JmixProperty`, `@DependsOnProperties`, etc.
 
+[[attribute-types]]
+=== Attribute Types
+
 Each entity attribute should have an appropriate type. Jmix supports the following types out-of-the-box:
 
 * `java.lang.String`
@@ -264,11 +267,20 @@ Each entity attribute should have an appropriate type. Jmix supports the followi
 * `byte[]` (byte array)
 * xref:files:file-storage.adoc[io.jmix.core.FileRef]
 * xref:enumerations.adoc[Enumeration]
-* Entity or a collection of entities (a reference attribute)
+* Entity (a <<references,reference>> attribute)
+* `List` or `Set` of entities (a reference collection attribute)
 
 You can use a type not from the list above if you create an appropriate xref:data-types.adoc[Datatype] implementation and make sure your type is supported by the underlying xref:data-stores.adoc[data store].
 
-CAUTION: Note that Java primitive types (`int`, `boolean`, etc.) cannot be used for entity attributes.
+[CAUTION]
+====
+Note that Java primitive types (`int`, `boolean`, etc.), as well as `java.util.Map`, cannot be used for entity attributes.
+
+However, you still can have fields of these types in entity classes, provided that these fields are not recognized by Jmix as attributes. This is explained in the <<defining-attributes,Defining Attributes>> section below.
+====
+
+[[defining-attributes]]
+=== Defining Attributes
 
 In JPA and DTO entities, there are two types of attributes:
 
@@ -294,7 +306,7 @@ Example of a method-based attribute:
 include::example$/data-model-ex1/src/main/java/com/company/demo/entity/User.java[tags=method-based-attr]
 ----
 
-An entity class can have properties (field + getter/setter) and methods that are not entitiy attributes, that is not included in metadata. So you can use such properties and methods in your application code, but the framework will not recognize them and will not display them in UI or transfer through the REST API.
+An entity class can have properties (field + getter/setter) and methods that are not entity attributes, that is not included in metadata. So you can use such properties and methods in your application code, but the framework will not recognize them and will not display them in UI or transfer through the REST API.
 
 Whether a property or a qualifying method becomes an entity attribute is subject to the following rules:
 
@@ -307,6 +319,22 @@ Whether a property or a qualifying method becomes an entity attribute is subject
 --
 
 * If the `annotatedPropertiesOnly` parameter is set to `true`, only the properties and methods annotated with <<jmix-property,@JmixProperty>> become entity attributes.
+
+[[attribute-default-values]]
+=== Default Values
+
+Entity attributes can have default values assigned to the fields or set in the <<post-construct,@PostConstruct>> method. The xref:initial-entity-values-guide:index.adoc[] guide provides comprehensive information on configuring initial values for entity attributes.
+
+[CAUTION]
+====
+Do not initialize fields of collection attributes with the new `ArrayList` or `HashSet` instances. It will break the xref:data-access:fetching.adoc[data fetching] functionality. If you want to have default values in the fields, use the special collections provided by Jmix: `NotInstantiatedList` or `NotInstantiatedSet`. For example:
+
+[source,java]
+----
+@OneToMany(mappedBy = "user")
+private List<UserStep> steps = new NotInstantiatedList<>();
+----
+====
 
 [[references]]
 == References
@@ -371,6 +399,8 @@ In a UI view, you can use either of two methods described above. But you may als
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/view/product/ProductDetailView.java[tags=data-context-create]
 ----
+
+See xref:initial-entity-values-guide:index.adoc[] guide for instructions on configuring initial values for entity attributes.
 
 [[uniqueness]]
 == Uniqueness
