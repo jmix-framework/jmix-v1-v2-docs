@@ -3,7 +3,7 @@
 [[jmix.data.number-id-cache-size]]
 == jmix.data.number-id-cache-size
 
-When an instance of entity with `Integer` or `Long` identifier annotated with `@JmixGeneratedValue` is created in memory via `Metadata.create()` method, an identifier value is assigned to the entity right away. This value is obtained from the xref:features:sequences.adoc[] mechanism that fetches the next id from a database sequence. In order to reduce the number of database calls, the sequence’s increment is set by default to 100, which means that the framework obtains the range of ids on each invocation. So it "caches" this range and yields the ids without going for the next value to the database until the whole range is used.
+When an instance of entity with `Integer` or `Long` identifier annotated with xref:data-model:entities.adoc#jmix-generated-value[@JmixGeneratedValue] is created in memory via `Metadata.create()` method, an identifier value is assigned to the entity right away. This value is obtained from the xref:features:sequences.adoc[] mechanism that fetches the next id from a database sequence. In order to reduce the number of database calls, the sequence’s increment is set by default to 100, which means that the framework obtains the range of ids on each invocation. So it "caches" this range and yields the ids without going for the next value to the database until the whole range is used.
 
 The property defines the sequence’s increment and the corresponding size of the cached range in memory.
 

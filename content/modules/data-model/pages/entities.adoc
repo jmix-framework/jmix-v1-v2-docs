@@ -496,6 +496,14 @@ The `annotatedPropertiesOnly` parameter specifies what object properties become 
 
 The annotated attribute must be of `Long`, `Integer` or `UUID` type, and the entity should not have more than one `UUID` attribute marked with this annotation.
 
+For `Long` and `Integer` attributes, the value is obtained using the xref:features:sequences.adoc[] feature. You can customize the behavior for a particular entity using the following annotation attributes:
+
+* `sequenceName` enables you to explicitly specify the name of the sequence. If the sequence does not exist, it will be created automatically on the first request for a new value.
+
+* `sequenceCache` is taken into account only when `sequenceName` is set. It allows you to turn on caching of sequence values for this entity. By default, caching is off if the sequence is specified explicitly.
+
+See xref:data-access:data-properties.adoc#jmix.data.number-id-cache-size[jmix.data.number-id-cache-size] for more information on caching sequences.
+
 CAUTION: Note that the `@JmixGeneratedValue` annotation doesn't take any effect if you create an entity instance using the `new` operator. See <<instantiation,instantiating entities>> for proper methods of creating new instances.
 
 [[jmix-id]]
