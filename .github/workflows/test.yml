@@ -1,8 +1,9 @@
 name: Test project
 
 on:
-  push: # No branch filtering - will run on all branches
-  pull_request:
+  push:
+    branches:
+      - release_2_6
 
 jobs:
   test:
