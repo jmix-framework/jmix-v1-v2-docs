@@ -6,6 +6,8 @@ build/
 !**/src/main/**
 !**/src/test/**
 
+src/main/bundles/
+
 ### IntelliJ IDEA ###
 .idea/*
 !.idea/encodings.xml
