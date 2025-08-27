@@ -13,7 +13,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/myonboard
 
 * `@ViewController` annotation indicates that the class is a view. The value of the annotation is the view id which can be used to refer to the view from the xref:menu-config.adoc[main menu] or when opening the view programmatically.
 
-* `@ViewDescriptor` annotation connects the view class to the XML descriptor. The value of the annotation specifies the path to the descriptor file. If the value contains a file name only, it is assumed that the file is located in the same package as the view class.
+* `@ViewDescriptor` annotation connects the view class to the XML descriptor. The value of the annotation specifies the path to the descriptor file. If the value contains a file name only, it is assumed that the file is located in the same package as the view class. Otherwise, the path should start with `/` and contain the full path to the descriptor from the source root, for example `/com/company/demo/view/some-entity-list-view.xml`.
 
 * `@com.vaadin.flow.router.Route` defines a URL path for navigation to this view. As long as the view should be opened inside the main view, the `layout` attribute specifies the main view class.
 
