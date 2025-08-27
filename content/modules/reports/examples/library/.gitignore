@@ -6,7 +6,7 @@ build/
 !**/src/main/**
 !**/src/test/**
 
-src/main/dev-bundle/
+src/main/bundles/
 
 ### IntelliJ IDEA ###
 .idea/*
