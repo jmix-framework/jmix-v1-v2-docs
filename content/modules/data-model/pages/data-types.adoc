@@ -114,7 +114,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/GeoPoin
 <1> A unique identifier of the datatype.
 <2> Java class handled by the datatype.
 <3> `defaultForClass = true` means that the datatype will be automatically applied to all entity attributes of `GeoPoint` type.
-<4> Using `@Ddl` annotation, you can specify what SQL type should be used for entity attributes. Studio considers this annotation when it generates xref:db-migration.adoc[database migration] scripts.
+<4> The `@Ddl` annotation specifies that Studio should generate `varchar(255)` column in the database for attributes of this type. See <<ddl-annotation,below>> for more information.
 <5> Formatting without current user's locale. This method is called for system-level conversion.
 <6> Formatting considering current user's locale. This method is called in the UI.
 <7> Parsing without current user's locale. This method is called for system-level conversion.
@@ -126,6 +126,36 @@ After that, when you define an entity attribute of `GeoPoint` type, the framewor
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Address.java[tags=datatype]
 ----
+
+[[ddl-annotation]]
+=== @Ddl Annotation
+
+The `@Ddl` annotation on a datatype class allows you to specify what SQL type should be used for entity attributes. Studio considers this annotation when it generates xref:db-migration.adoc[database migration] scripts.
+
+The SQL type is specified in the `value` attribute of the annotation, for example:
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/FooDatatype.java[tags=ddl]
+----
+
+If you need to specify different SQL types for different databases, add several `@Ddl` annotations with `dbms` attributes. In the following example, the database column will be of `text` type in PostgreSQL, `varchar2(255)` type in Oracle, and `varchar(255)` type in all other databases:
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/BarDatatype.java[tags=ddl]
+----
+
+Studio recognizes the following values in the `dbms` attribute:
+
+- `hsql`
+- `postgres`
+- `mysql`
+- `mssql`
+- `mssql-2005`
+- `mssql-2008`
+- `mssql-2012`
+- `oracle`
 
 // todo flowui
 // [[conversion-error]]
