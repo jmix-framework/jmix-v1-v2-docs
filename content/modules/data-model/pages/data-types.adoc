@@ -114,7 +114,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/GeoPoin
 <1> Уникальный идентификатор datatype.
 <2> Класс Java, обрабатываемый данным datatype.
 <3> `defaultForClass = true` означает, что datatype будет автоматически применен ко всем атрибутам сущности типа `GeoPoint`.
-<4> Используя аннотацию `@Ddl`, вы можете указать, какой тип SQL следует использовать для атрибутов сущности. Studio учитывает эту аннотацию при создании скриптов xref:db-migration.adoc[миграции базы данных].
+<4> Аннотация `@Ddl` указывает, что Studio должна генерировать для атрибутов сущности в базе данных колонку типа `varchar(255)`. Подробнее см. <<ddl-annotation,ниже>>.
 <5> Форматирование без учета локали текущего пользователя. Этот метод вызывается для преобразования на системном уровне.
 <6> Форматирование с учетом локали текущего пользователя. Этот метод вызывается в UI.
 <7> Парсинг без учета локали текущего пользователя. Этот метод вызывается для преобразования на системном уровне.
@@ -126,6 +126,36 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/GeoPoin
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Address.java[tags=datatype]
 ----
+
+[[ddl-annotation]]
+=== Аннотация @Ddl
+
+Аннотация `@Ddl` на классе datatype позволяет указать, какой SQL-тип должен использоваться для атрибутов сущности. Studio учитывает эту аннотацию при генерации xref:db-migration.adoc[скриптов миграции базы данных].
+
+SQL-тип указывается в атрибуте `value` аннотации, например:
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/FooDatatype.java[tags=ddl]
+----
+
+Если необходимо указать разные SQL-типы для разных СУБД, добавьте несколько аннотаций `@Ddl` с атрибутами `dbms`. В следующем примере столбец базы данных будет иметь тип `text` в PostgreSQL, тип `varchar2(255)` в Oracle и тип `varchar(255)` во всех остальных СУБД:
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/BarDatatype.java[tags=ddl]
+----
+
+Studio распознает следующие значения в атрибуте `dbms`:
+
+- `hsql`
+- `postgres`
+- `mysql`
+- `mssql`
+- `mssql-2005`
+- `mssql-2008`
+- `mssql-2012`
+- `oracle`
 
 // todo flowui
 // [[conversion-error]]
