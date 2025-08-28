@@ -5,7 +5,7 @@ Themes are used to manage the visual presentation of the application.
 
 A theme consists of CSS files and other resources like images and fonts.
 
-Jmix provides *jmix-lumo* theme built on top of Vaadin https://vaadin.com/docs/latest/styling/lumo[Lumo theme^].
+Jmix provides *jmix-lumo* theme built on top of Vaadin's https://vaadin.com/docs/latest/styling/lumo[Lumo^] theme.
 
 [[applying-theme]]
 == Applying a Theme
@@ -35,25 +35,51 @@ NOTE: Themes cannot be switched at runtime. Although a project may have multiple
 [[application-theme]]
 == Application Theme
 
-For use in an application, the theme folder is placed inside the `frontend/themes` folder, with a name of your choosing. Jmix application projects created using Studio have a predefined theme folder with the same name as the project itself.
+Themes, available to the application, are located inside the `src/main/frontend/themes` folder. Jmix application projects created using Studio have a predefined theme folder with the same name as the project itself.
 
-.Theme folder file structure
-image::themes/theme-folder-structure.png[align="center", width="285"]
+For example:
 
-* `my-project` - the theme folder, also used as theme name
-* `styles.css` - the master stylesheet
-* `my-project.css` - an entry point for custom styles and imports
-* `theme.json` - a theme configuration file, which by default defines *jmix-lumo* as the default theme.
+[source]
+----
+src
+└── main
+    └── frontend
+        └── themes
+            └── my-project
+                ├── my-project.css
+                ├── styles.css
+                ├── theme.json
+                └── view
+                    ├── login-view.css
+                    ├── main-view-top-menu.css
+                    └── main-view.css
+----
 
-`styles.css` is the entry point to the theme's styles. All CSS, including *Lumo* style property values and custom component styles, can be added there.
+* `my-project` - the theme folder. Its name is used as the theme name for the <<applying-theme,@Theme>> annotation.
+* `styles.css` - the main stylesheet, which is the entry point to this project's theme styles.
+* `my-project.css` - a stylesheet for custom styles and imports.
+* `theme.json` - the theme configuration file. By default, it defines *jmix-lumo* as the parent theme.
+* `view` - this folder contains CSS files that define styles for the login and main views provided by the project template.
 
-It can be useful to split CSS into multiple files to avoid cluttering the main stylesheet. Additional CSS files are loaded using `@import` directives. By default, the project's master stylesheet contains a single import of `<theme-name>.css` file that defines your styles and any other imports.
+All CSS, including CSS variable values and custom component styles, can be included in the main `styles.css` file. However, by default, this file contains only import directives, with the actual CSS organized into separate files to make it easier to handle:
 
 [source,css,indent=0]
 .styles.css
 ----
-@import url('./my-project.css');
+@import url('my-project.css');
+@import url('view/main-view.css');
+@import url('view/main-view-top-menu.css');
+@import url('view/login-view.css');
 ----
+
+Place your project's CSS in the `<theme_name>.css` file (in this example, it's `my-project.css`).
+
+[TIP]
+====
+Use Vaadin's online https://demo.vaadin.com/lumo-editor/[Lumo theme editor^] to quickly create a customized theme for your application.
+
+To select the desired appearance, use the controls in the right-side panel. Then, click *Download* and insert the provided CSS code, located within the `<style>` tags, into your `<theme_name>.css` file.
+====
 
 [[reusable-theme]]
 == Reusable Theme
@@ -68,11 +94,21 @@ An application theme can be used in multiple applications by packaging it as a J
 
 The theme project's structure looks as follows:
 
-.Theme project structure
-image::themes/theme-addon-structure.png[align="center", width="296"]
+[source]
+----
+src
+└── main
+    └── resources
+        └── META-INF
+            └── resources
+                └── themes
+                    └── cobalt
+                        ├── styles.css
+                        └── theme.json
+----
 
-* `cobalt` - the theme folder, also used as theme name
-* `styles.css` - the master stylesheet. Can contain custom styles and imports, for example:
+* `cobalt` - the theme folder, also used as theme name.
+* `styles.css` - the main stylesheet. Can contain custom styles and imports, for example:
 +
 [source,css]
 ----
