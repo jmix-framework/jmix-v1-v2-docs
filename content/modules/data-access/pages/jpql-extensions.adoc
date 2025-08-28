@@ -39,6 +39,8 @@ select e from Region e where e.locale = :current_locale
 
 The parameter value is derived from the locale of the current user session, which is obtained from the xref:security:authentication.adoc#current[CurrentAuthentication] object.
 
+IMPORTANT: User attributes (`current_user_*`) are retrieved upon user login and stored in memory. Consequently, if the corresponding values are updated in the database, they are not immediately accessible to the application code.
+
 [[case-insensitive-substring-search]]
 == Case-Insensitive Substring Search
 
