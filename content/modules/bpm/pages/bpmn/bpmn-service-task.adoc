@@ -383,7 +383,7 @@ And, if a called object is Java Delegate class, in
 * Delegate expression
 * Expression
 
-Injected field must always be of `org.flowable.engine.delegate.Expression` type.
+Injected field must always be of `org.flowable.common.engine.api.delegate.Expression` type.
 When the injected expression is resolved, it can be cast to the appropriate target type.
 
 [WARNING]
