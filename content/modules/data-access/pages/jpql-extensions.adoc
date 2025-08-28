@@ -39,6 +39,8 @@ select e from Region e where e.locale = :current_locale
 
 Значение этого параметра определяется локалью текущей пользовательской сессии, которая извлекается из объекта xref:security:authentication.adoc#current[CurrentAuthentication].
 
+IMPORTANT: Атрибуты пользователя (`current_user_*`) считываются при логине и хранятся в памяти. Следовательно, если соответствующие значения обновляются в базе данных, они не становятся сразу доступными для кода приложения.
+
 [[case-insensitive-substring-search]]
 == Поиск подстрок без учета регистра
 
