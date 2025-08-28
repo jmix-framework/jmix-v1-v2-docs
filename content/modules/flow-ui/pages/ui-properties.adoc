@@ -76,7 +76,7 @@ jmix.ui.entity-page-size.Customer = 500
 [[jmix.ui.exception-dialog-modal]]
 === jmix.ui.exception-dialog-modal
 
-This application property controls whether `ExceptionDialog` in Jmix applications should be displayed as a modal window.
+This application property controls whether the xref:exception-handlers.adoc#customizing-default-handler[ExceptionDialog] in Jmix applications should be displayed as a modal window.
 
 When enabled, `ExceptionDialog` will act as a modal window, preventing interaction with other parts of the application until the dialog is closed.
 

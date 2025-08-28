@@ -48,7 +48,24 @@ Second, you can provide your own pattern for recognizing unique constraint viola
 [[customizing-default-handler]]
 == Customizing Default Handler
 
-You can customize the dialog shown by the default exception handler. The example below explains how to add a button that allows users to report the exception to a system administrator.
+You can customize the dialog shown by the default exception handler by providing CSS variables and application properties, or by extending the Java class of the dialog and implementing your own logic.
+
+[[using-css-and-properties]]
+=== Using CSS and Properties
+
+Dimensions of the default exception handler dialog can be customized using CSS variables in your xref:flow-ui:themes/themes.adoc#application-theme[application theme] CSS file. For example:
+
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=exception-dialog]
+----
+
+By default, `ExceptionDialog` appears as a modal window. This behavior can be customized by setting the xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] property in the `application.properties` file.
+
+[[extending-exception-dialog-class]]
+=== Extending ExceptionDialog Class
+
+The example below shows how to add a button that allows users to report the exception to a system administrator.
 
 First, create your dialog class based on `ExceptionDialog` and override appropriate methods:
 
@@ -71,8 +88,6 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 <3> - Return new instance of `MyExceptionDialog`.
 
 The framework will pick up your provider and use the returned dialog for unhandled exceptions.
-
-NOTE: By default, `ExceptionDialog` appears as a modal window. This behavior can be customized by setting the xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] property in the `application.properties` file.
 
 [[navigation-exception-handling]]
 == Navigation Exception Handling
