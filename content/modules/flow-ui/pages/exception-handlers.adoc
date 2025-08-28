@@ -48,7 +48,24 @@ databaseUniqueConstraintViolation.IDX_DEPARTMENT_UNQ_NAME=Отдел с таки
 [[customizing-default-handler]]
 == Настройка обработчика по умолчанию
 
-Вы можете настроить диалог, отображаемый обработчиком исключений по умолчанию. В приведенном ниже примере демонстрируется, как добавить кнопку, позволяющую пользователям сообщать об ошибке системному администратору.
+Вы можете настроить диалог, отображаемый обработчиком исключений по умолчанию, настроив специальные CSS-переменные и свойства приложения, или путем расширения Java-класса диалога и реализации собственной логики.
+
+[[using-css-and-properties]]
+=== Использование CSS и свойств
+
+Размеры диалога обработчика исключений по умолчанию можно настроить с помощью CSS-переменных в вашем xref:flow-ui:themes/themes.adoc#application-theme[CSS-файле темы приложения]. Например:
+
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=exception-dialog]
+----
+
+По умолчанию `ExceptionDialog` отображается как модальное окно. Это поведение можно настроить, установив свойство xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] в файле `application.properties`.
+
+[[extending-exception-dialog-class]]
+=== Расширение класса ExceptionDialog
+
+В примере ниже показано, как добавить кнопку, позволяющую пользователям сообщать об исключении системному администратору.
 
 Во-первых, создайте свой класс диалога на базе `ExceptionDialog` и переопределите соответствующие методы:
 
@@ -71,8 +88,6 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 <3> - Верните новый экземпляр `MyExceptionDialog`.
 
 Фреймворк самостоятельно подхватит вашего провайдера и будет использовать возвращенный диалог для необработанных исключений.
-
-NOTE: По умолчанию `ExceptionDialog` отображается как модальное окно. Это поведение можно изменить, настроив свойство xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] в файле `application.properties`.
 
 [[navigation-exception-handling]]
 == Обработка исключений навигации

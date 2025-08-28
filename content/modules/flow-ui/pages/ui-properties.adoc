@@ -76,7 +76,7 @@ jmix.ui.entity-page-size.Customer = 500
 [[jmix.ui.exception-dialog-modal]]
 === jmix.ui.exception-dialog-modal
 
-Это свойство приложения определяет, должен ли `ExceptionDialog` отображаться как модальное окно в Jmix-приложениях.
+Это свойство приложения определяет, должен ли xref:exception-handlers.adoc#customizing-default-handler[ExceptionDialog] отображаться как модальное окно в Jmix-приложениях.
 
 Если свойство включено, `ExceptionDialog` будет вести себя как модальное окно, блокируя взаимодействие с другими частями приложения, пока диалог не будет закрыт.
 
