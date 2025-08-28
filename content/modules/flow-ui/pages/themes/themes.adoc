@@ -56,8 +56,8 @@ src
 ----
 
 * `my-project` - the theme folder. Its name is used as the theme name for the <<applying-theme,@Theme>> annotation.
-* `styles.css` - the main stylesheet, which is the entry point to this project's theme styles.
-* `my-project.css` - a stylesheet for custom styles and imports.
+* `my-project.css` - a stylesheet for custom styles of this theme.
+* `styles.css` - the main stylesheet, which is the entry point to the styles of this theme.
 * `theme.json` - the theme configuration file. By default, it defines *jmix-lumo* as the parent theme.
 * `view` - this folder contains CSS files that define styles for the login and main views provided by the project template.
 
@@ -76,9 +76,9 @@ Place your project's CSS in the `<theme_name>.css` file (in this example, it's `
 
 [TIP]
 ====
-Use Vaadin's online https://demo.vaadin.com/lumo-editor/[Lumo theme editor^] to quickly create a customized theme for your application.
+Use Vaadin's online https://demo.vaadin.com/lumo-editor/[Lumo theme editor^] to quickly customize the theme of your application.
 
-To select the desired appearance, use the controls in the right-side panel. Then, click *Download* and insert the provided CSS code, located within the `<style>` tags, into your `<theme_name>.css` file.
+To select the desired appearance of UI-components, use the controls in the right-side panel. Then, click *Download* and insert the generated CSS code, located within the `<style>` tags, into your `<theme_name>.css` file.
 ====
 
 [[reusable-theme]]
