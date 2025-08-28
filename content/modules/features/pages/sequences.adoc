@@ -22,13 +22,18 @@ The `Sequences` interface provides the following methods:
 +
 Sequences do not require initialization. When `createNextValue()` is called for the first time, the corresponding sequence will be created, and the default value `1` will be returned.
 
-* `getCurrentValue()` – returns the current value of the sequence.
-
-* `setCurrentValue()` – sets the new current value for the sequence. Next time, when you call `createNextValue()` for this sequence, it will return this value + increment.
+* `setCurrentValue()` – sets the new initial value for the sequence.
++
+There is a minor difference in what `createNextValue()` returns first time after calling `setCurrentValue()` across different databases:
++
+** PostgreSQL returns the assigned value plus the increment.
+** Other databases return the assigned value itself.
 
 * `deleteSequence()` – removes the sequence with specified identifier.
 
-The implementation of the sequence generation mechanism depends on the DBMS type. The supported types are HSQL, Microsoft SQL Server, MySQL, Oracle, and PostgreSQL. Sequence parameters can also be managed directly in the database by the rules of the particular DBMS.
+The sequence generation mechanism is implemented for all xref:data-model:data-stores.adoc#supported-databases[supported databases].
+
+Sequence parameters can also be managed directly in the database by the rules of the particular DBMS.
 
 CAUTION: The `Sequences` implementation is based on database sequences or autoincrement fields and does not guarantee a continuous sequence without gaps, it guarantees only the uniqueness of the values. Gaps may happen due to an error or a transaction rollback.
 
