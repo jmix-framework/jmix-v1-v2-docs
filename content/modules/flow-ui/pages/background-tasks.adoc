@@ -22,7 +22,7 @@ Closing the view interrupts the tasks associated with it. Besides, the task is i
 
 . Run the task by invoking the `execute()` method of `BackgroundTaskHandler`.
 
-[WARNING]
+[CAUTION]
 Do not read or update the state of UI components and data containers in `BackgroundTask.run()` method; use `done()`, `progress()`, and `canceled()` callback methods instead. If you try to set a value to a UI component from a background thread, `IllegalConcurrentAccessException` is thrown.
 
 Below is an example of running a background task and tracking its progress using the xref:vc/components/progressBar.adoc[progressBar] component:
@@ -54,7 +54,9 @@ Detailed information about methods is provided in Javadocs for `BackgroundTask`,
 [[run]]
 === run()
 
-This method implements the task. It is invoked in a separate working thread to perform the task.
+This method is executed in a separate background thread to perform the task.
+
+CAUTION: Do not read or update the state of UI components and data containers in this method.
 
 The method should support external interruptions. To ensure this, check the `TaskLifeCycle.isInterrupted()` flag periodically during long processes and stop execution when needed. Additionally, you should not silently discard `InterruptedException` (or any other exception) -- instead, you should either exit the method correctly or not handle the exception at all.
 
@@ -63,27 +65,27 @@ You can also check whether the task was interrupted with `cancel()` using the `i
 [[canceled]]
 === canceled()
 
-This method is invoked in UI thread only during a controlled cancellation of a task, for example, when the `cancel()` method is invoked in the `TaskHandler`.
+This method is invoked in a thread that has access to UI components only during a controlled cancellation of a task, for example, when the `cancel()` method is invoked in the `TaskHandler`.
 
 [[progress]]
 === progress()
 
-This method is invoked in the UI thread when the progress value changes. For example, after calling the `taskLifeCycle.publish()` method.
+This method is invoked in a thread that has access to UI components when the progress value changes. For example, after calling the `taskLifeCycle.publish()` method.
 
 [[done]]
 === done()
 
-This method is invoked in UI thread once the task is complete.
+This method is invoked in a thread that has access to UI components once the task is complete.
 
 [[handle-timeout-exception]]
 === handleTimeoutException()
 
-This method is invoked in UI thread when the task timeout expires. If the window where the task is running closes, the task is stopped without notification.
+This method is invoked in a thread that has access to UI components when the task timeout expires. If the window where the task is running closes, the task is stopped without notification.
 
 [[handle-exception]]
 === handleException()
 
-This method is invoked in UI thread when any exceptions occur.
+This method is invoked in a thread that has access to UI components when any exceptions occur.
 
 [[notes-and-tips]]
 == Notes & Tips
