@@ -630,20 +630,30 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[custom-validator]]
 == Создание собственных валидаторов
 
-Собственный валидатор можно определить в бине-прототипе, реализующем интерфейс `Validator`.
-
-Пример создания валидатора для почтовых индексов:
+Собственный валидатор можно определить в бине Spring, реализующем интерфейс `Validator`. Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/validators/ZipValidator.java[tags=ZipValidator]
 ----
 
-В XML-дескрипторе экрана пользовательский валидатор используется во вложенном элементе `custom`:
+В XML-дескрипторе экрана пользовательский валидатор используется во вложенном элементе `custom`. Атрибут `bean` должен указывать имя бина валидатора. Например:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/validator/validator-view.xml[tags=zipField]
+----
+
+Создать валидатор можно, унаследовав его от базового класса `AbstractValidator`. Тогда в XML можно указать шаблон сообщения и использовать метод `getTemplateErrorMessage()`, чтобы сгенерировать сообщение об ошибке. В этом случае бин будет иметь состояние (сообщение из XML), поэтому он должен быть прототипом. Например:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/validators/PostcodeValidator.java[tags=validator]
+----
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/validator/validator-view.xml[tags=postcodeField]
 ----
 
 Валидатор может быть также задан лямбдой и добавлен программно, например:

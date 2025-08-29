@@ -108,8 +108,8 @@ public class ValidatorView extends StandardView {
     private void addCustomValidator(){
         // tag::addCustomValidator[]
         zipField.addValidator(value -> {
-            if (value != null && value.length() != 6)
-                throw new ValidationException("Zip must be of 6 characters length");
+            if (value != null && value.length() != 5)
+                throw new ValidationException("Zip code must consist of 5 characters");
         });
         // end::addCustomValidator[]
     }
