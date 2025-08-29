@@ -1,16 +1,30 @@
 = View Validation
 :page-aliases: screens/validation.adoc
 
-Data validation in UI views is performed by the `ViewValidation` bean. It contains methods for validating UI components, displaying validation errors and unsaved changes dialogs. It is used by views and dialogs of the framework and add-ons. You can use it in the application views as well.
+[[validation-steps]]
+== Validation Steps
+
+Before the detail view saves data during the execution of `closeWithSave()` and `save()` xref:views/view-methods.adoc#methods-of-standard-detail[methods], it validates the data in the following order:
+
+. The view invokes the `validateUiComponents()` method of the `ViewValidation` bean described <<validateUiComponents,below>>.
+
+. If there were no errors on the first step, the view sends the xref:views/view-events.adoc#validation-event[ValidationEvent] event, that can be handled in the view controller for additional validation.
+
+[[view-validation-bean]]
+== ViewValidation Bean
+
+The `ViewValidation` bean contains methods for validating UI components, displaying validation errors and unsaved changes dialogs. It is used by views and dialogs of the framework and add-ons. You can use it in the application views as well.
 
 Below we describe the main methods of the `ViewValidation` bean.
 
 [[validateUiComponents]]
-== validateUiComponents
+=== validateUiComponents
 
 The `validateUiComponents()` method accepts a collection of components or a component container. It runs validation for all passed components implementing the `SupportsValidation` interface and returns the `ValidationErrors` object which contains validation errors found for the validated components.
 
-You can use this method in a view as follows:
+This method is called by detail views during the execution of `closeWithSave()` and `save()` methods.
+
+You can call it also in response to user actions, for example:
 
 [source,java,indent=0]
 ----
@@ -18,7 +32,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/validatio
 ----
 
 [[showValidationErrors]]
-== showValidationErrors
+=== showValidationErrors
 
 The `showValidationErrors()` method shows a notification with validation errors, if the passed `ValidationErrors` object is not empty. See the usage example above.
 
@@ -31,7 +45,7 @@ validationFail.title = Validation failed
 ----
 
 [[showSaveConfirmationDialog]]
-== showSaveConfirmationDialog
+=== showSaveConfirmationDialog
 
 The `showSaveConfirmationDialog()` shows a confirmation dialog about saving or discarding unsaved changes. It is used by xref:views/views.adoc#standard-detail-view[entity detail views] when the user closes the view with unsaved changes and xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation] property is set to `true` (which is the default).
 
@@ -54,7 +68,7 @@ dialogs.closeUnsaved.discard = Don't save
 ----
 
 [[showUnsavedChangesDialog]]
-== showUnsavedChangesDialog
+=== showUnsavedChangesDialog
 
 The `showUnsavedChangesDialog()` shows a confirmation dialog about discarding unsaved changes. It is used by xref:views/views.adoc#standard-detail-view[entity detail views] when the user closes the view with unsaved changes and xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation] property is set to `false`.
 

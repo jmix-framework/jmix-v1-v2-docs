@@ -131,12 +131,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 [[validation-event]]
 == ValidationEvent
 
-`ValidationEvent` is fired in views inherited from `StandardDetailView` when the view is validated on saving the view xref:data/data-context.adoc[DataContext]. Use this event listener to perform additional validation of the view.
+`ValidationEvent` is fired in views inherited from `StandardDetailView` when the view is saved. You can use this event listener to perform custom validation of the view.
+
+To report validation errors and abort the save process, use the `ValidationErrors` object returned by the `getErrors()` method of the event. For example:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=validation-event]
 ----
+
+If the `ValidationErrors` object is not empty after the validation process, the saving operation will not be executed, and the view will display errors using the `ViewValidation.showValidationErrors()` method.
+
+See xref:views/view-validation.adoc[] for more information.
 
 [[before-save-vent]]
 == BeforeSaveEvent
