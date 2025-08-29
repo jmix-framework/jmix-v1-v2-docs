@@ -623,20 +623,30 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[custom-validator]]
 == Creating Custom Validators
 
-A custom validator can be defined by a prototype bean implementing the `Validator` interface.
-
-Example of creating a validator for zip codes:
+A custom validator can be defined by a Spring bean implementing the `Validator` interface. For example:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/validators/ZipValidator.java[tags=ZipValidator]
 ----
 
-In a view XML descriptor, the custom validator should be defined in the nested `custom` element. For example:
+In a view XML descriptor, the custom validator should be defined in the nested `custom` element. The `bean` attribute should specify the validator bean name. For example:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/validator/validator-view.xml[tags=zipField]
+----
+
+You can extend a validator from the `AbstractValidator` base class. Then you can provide a message in XML and use the `getTemplateErrorMessage()` method to create an error message. In this case the bean will have a state (the message from XML), so it must be a prototype. For example:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/validators/PostcodeValidator.java[tags=validator]
+----
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/validator/validator-view.xml[tags=postcodeField]
 ----
 
 A validator can also be defined by a lambda and added programmatically, for example:

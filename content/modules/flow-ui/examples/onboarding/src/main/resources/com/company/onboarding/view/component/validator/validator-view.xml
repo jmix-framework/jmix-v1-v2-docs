@@ -22,6 +22,17 @@
                 <!-- end::zipField[] -->
             </vbox>
             <vbox>
+                <label text="Custom 2:"/>
+                <!-- tag::postcodeField[] -->
+                <textField id="postcodeField" datatype="string">
+                    <validators>
+                        <custom bean="postcodeValidator"
+                                message="${value} is not a valid UK postcode"/>
+                    </validators>
+                </textField>
+                <!-- end::postcodeField[] -->
+            </vbox>
+            <vbox>
                 <label text="DecimalMax:"/>
                 <!-- tag::decimalMax[] -->
                 <textField id="numberField" datatype="decimal">
