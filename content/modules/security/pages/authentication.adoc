@@ -28,7 +28,10 @@ You can customize the prefix for resource role authorities using the standard Sp
 
 Similarly, you can adjust the prefix for row-level role authorities using the `jmix.security.default-row-level-role-prefix` application property.
 ====
-* `getLocale()` and `getTimeZone()` return the locale and time zone of the current user.
+
+* `getLocale()` returns the locale of the current user.
+
+* `getTimeZone()` returns the time zone of the current user. The <<time-zones,next section>> explains how the user time zone is determined and how it is used by the framework.
 
 * `isSet()` returns `true` if the current execution thread is authenticated, that is contains information about the user. If it's not, `getUser()`, `getLocale()` and `getTimeZone()` methods described above will throw the `IllegalStateException`.
 
@@ -45,6 +48,50 @@ include::example$/security-ex1/src/main/java/com/company/demo/view/authtest/Auth
 
 For example, you can use `DelegatingSecurityContextRunnable` to propagate authentication to new threads as described in {spring-security-doc}/servlet/integrations/concurrency.html[Spring Security documentation^].
 ====
+
+[[time-zones]]
+=== Using Time Zones
+
+Jmix automatically converts values in UI components between server and user time zones for entity attributes of the following types:
+
+* `OffsetDateTime`
+* `java.util.Date` with `@Temporal(TemporalType.TIMESTAMP)`, which corresponds to the `DateTime` attribute type in Studio.
+
+Below we explain how to specify the user and server time zones.
+
+By default, the `User` entity implements the `HasTimeZone` interface with two methods:
+
+* `getTimeZoneId()` is implemented in the `User` entity and returns a time zone set for the user in the database.
+
+* `isAutoTimeZone()` method returns `false` by default for all users. You can implement this method in the `User` entity and return `true` for all users, or map it to a database column as it is done for `getTimeZoneId()` to have different values for different users.
+
+The time zone of the current user returned by `CurrentAuthentication.getTimeZone()` is determined in the following order:
+
+* A non-empty value returned by the `User.getTimeZoneId()` method is used to construct the `TimeZone` object.
+
+* If the `User.isAutoTimeZone()` method returns `true`, the framework tries to obtain the time zone from the user's web browser through a `DeviceTimeZoneProvider` implementation.
+
+* If both previous steps were unsuccessful, the server default time zone is used.
+
+The server time zone is defined by the server operating system. You can set it explicitly using the `user.timezone` Java system property or `TimeZone` class. For example:
+
+[source,java]
+----
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        System.setProperty("user.timezone", "UTC");
+        SpringApplication.run(DemoApplication.class, args);
+    }
+----
+
+We recommend also setting the same time zone for the database. For example, in PostgreSQL you can do it using the following command:
+
+[source,sql]
+----
+ALTER DATABASE demo SET timezone TO 'UTC'
+----
 
 [[client]]
 == Client Authentication
