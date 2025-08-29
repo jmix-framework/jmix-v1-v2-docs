@@ -2,7 +2,9 @@
 
 Jmix does not only provide a platform to build your applications upon. It also contains an ecosystem of add-ons that enrich the core functionality. A lot of add-ons are provided by the Jmix team, while others are contributions from the community.
 
-Jmix add-ons are published on the Jmix https://www.jmix.io/marketplace/[marketplace^]. You can browse and install them directly in Studio as described <<installation,below>>. To publish your own open-source add-on to the marketplace, see xref:publish-add-on.adoc[].
+Jmix add-ons are published on the Jmix https://www.jmix.io/marketplace/[marketplace^]. You can browse and install them directly in Studio as described <<installation,below>>.
+
+xref:modularity:creating-add-ons.adoc[] section describes how to create your own add-ons to modularize your applications and reuse functionality. To publish your open-source add-on to the Jmix marketplace, see xref:publish-add-on.adoc[].
 
 [[installation]]
 == Installation

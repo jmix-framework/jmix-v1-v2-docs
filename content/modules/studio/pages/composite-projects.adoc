@@ -80,8 +80,10 @@ To generate a changelog, you first need to define a xref:studio:data-stores.adoc
 
 image::studio:add-on-data-store.png[align="center",width="484"]
 
-The data store settings will be saved in the `jmix-studio.xml` file instead of the Java configuration.
-
 Now, you can execute the *Generate Liquibase Changelog* action on the Data Store.
 
-In a composite project, you should specify a Data Store for the same add-on again, because the composite project has its own `jmix-studio.xml` file located in the root or `<project-name>-all` aggregator project. So, data store settings will be stored separately for when you are working on the add-on in a standalone project and in a composite project, but the set of generated changelogs will be the same.
+The data store settings will be saved in the `jmix-studio.xml` file instead of the Java configuration. This means that the add-on does not define a data store for an application in which it is included. Instead, it expects the data store with the same name to be defined by the application itself.
+
+For example, if you define `ads1` data store in an add-on, you should also define the `ads1` data store in the application that includes this add-on. And if the add-on provides Liquibase changelogs for this data store, they will be executed by the application.
+
+TIP: When working with an add-on both in a standalone project and in a composite project, you should specify a data store twice, because the composite project has its own `jmix-studio.xml` file located in the root or in the `<project-name>-all` aggregator project. So, the data store settings will be stored separately in the standalone project and in the composite project, but the set of generated changelogs will be the same.
