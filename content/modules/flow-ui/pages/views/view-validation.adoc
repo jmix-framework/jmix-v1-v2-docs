@@ -1,16 +1,30 @@
 = Валидация экранов
 :page-aliases: screens/validation.adoc
 
-Для валидации данных в экранах UI используется бин `ViewValidation`. Он содержит методы для валидации компонентов UI, отображения ошибок валидации и диалоговых окон о несохраненных изменениях. Данный бин используется экранами и диалогами фреймворка и дополнений. Вы также можете использовать его в экранах приложения.
+[[validation-steps]]
+== Шаги валидации
+
+Перед тем как экран деталей сохраняет данные во время выполнения xref:views/view-methods.adoc#methods-of-standard-detail[методов] `closeWithSave()` и `save()`, он валидирует данные в следующем порядке:
+
+. Экран вызывает метод `validateUiComponents()` бина `ViewValidation`, который описан <<validateUiComponents,ниже>>.
+
+. Если на первом шаге не возникло ошибок, экран отправляет событие xref:views/view-events.adoc#validation-event[ValidationEvent], которое может быть обработано в контроллере экрана для дополнительной валидации.
+
+[[view-validation-bean]]
+== Бин ViewValidation
+
+Бин `ViewValidation` содержит методы для валидации компонентов UI, отображения ошибок валидации и диалоговых окон о несохраненных изменениях. Данный бин используется экранами и диалогами фреймворка и дополнений. Вы также можете использовать его в экранах приложения.
 
 Ниже описаны основные методы бина `ViewValidation`.
 
 [[validateUiComponents]]
-== validateUiComponents
+=== validateUiComponents
 
 Метод `validateUiComponents()` принимает коллекцию компонентов или контейнер компонентов. Он выполняет валидацию для всех переданных компонентов, реализующих интерфейс `SupportsValidation`, и возвращает объект `ValidationErrors`, который содержит найденные ошибки валидации для проверенных компонентов.
 
-Вы можете использовать этот метод в экране следующим образом:
+Этот метод вызывается экранами деталей во время выполнения методов `closeWithSave()` и `save()`.
+
+Вы также можете вызывать его в ответ на действия пользователя, например:
 
 [source,java,indent=0]
 ----
@@ -18,7 +32,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/validatio
 ----
 
 [[showValidationErrors]]
-== showValidationErrors
+=== showValidationErrors
 
 Метод `showValidationErrors()` выводит уведомление с ошибками валидации, если переданный объект `ValidationErrors` не пуст. См. пример использования выше.
 
@@ -31,7 +45,7 @@ validationFail.title = Валидация не удалась
 ----
 
 [[showSaveConfirmationDialog]]
-== showSaveConfirmationDialog
+=== showSaveConfirmationDialog
 
 Метод `showSaveConfirmationDialog()` выводит диалоговое окно подтверждения сохранения или отмены несохраненных изменений. Он используется xref:views/views.adoc#standard-detail-view[экранами деталей сущности], когда пользователь закрывает экран с несохраненными изменениями и свойство xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation] установлено в `true` (что является значением по умолчанию).
 
@@ -54,7 +68,7 @@ dialogs.closeUnsaved.discard = Не сохранять
 ----
 
 [[showUnsavedChangesDialog]]
-== showUnsavedChangesDialog
+=== showUnsavedChangesDialog
 
 Метод `showUnsavedChangesDialog()` выводит диалоговое окно подтверждения игнорирования несохраненных изменений. Он используется xref:views/views.adoc#standard-detail-view[экранами деталей сущности], когда пользователь закрывает экран с несохраненными изменениями и свойство xref:ui-properties.adoc#jmix.ui.view.use-save-confirmation[jmix.ui.view.use-save-confirmation] установлено в `false`.
 

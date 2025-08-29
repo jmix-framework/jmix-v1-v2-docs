@@ -137,12 +137,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 [[validation-event]]
 == ValidationEvent
 
-`ValidationEvent` отсылается в экранах, унаследованных от `StandardDetailView`, когда экран проходит валидацию при сохранении xref:data/data-context.adoc[DataContext] экрана. Используйте обработчик этого события для выполнения дополнительной проверки экрана.
+`ValidationEvent` отсылается в экранах, унаследованных от `StandardDetailView`, когда экран проходит валидацию при сохранении данных. Используйте обработчик этого события для выполнения дополнительной проверки экрана.
+
+Для возврата ошибок валидации и прерывания процесса сохранения используйте объект `ValidationErrors`, возвращаемый методом `getErrors()` события. Например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=validation-event]
 ----
+
+Если объект `ValidationErrors` не пуст после окончания процесса валидации, операция сохранения не будет выполнена, и экран отобразит ошибки, используя метод `ViewValidation.showValidationErrors()`.
+
+См. xref:views/view-validation.adoc[] для дополнительной информации.
 
 [[before-save-vent]]
 == BeforeSaveEvent
