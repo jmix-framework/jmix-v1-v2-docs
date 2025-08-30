@@ -18,5 +18,14 @@
         const copyIcons = document.querySelectorAll('.copy-icon')
         copyIcons.forEach(icon => icon.src = 'https://img.icons8.com/material-rounded/24/000000/copy.png')
     })
+    document.addEventListener('keydown', function(event) {
+        if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey) {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput && document.activeElement !== searchInput) {
+                event.preventDefault();
+                searchInput.focus();
+            }
+        }
+    });
 </script>
 
