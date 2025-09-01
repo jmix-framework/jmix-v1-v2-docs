@@ -83,6 +83,13 @@ Activates the xref:exec-history.adoc[report execution history] mechanism.
 
 Default value: `false`.
 
+[[jmix.reports.multilineStringsProcessingEnabled]]
+=== jmix.reports.multilineStringsProcessingEnabled
+
+Enables processing of multi-line strings in parameter values for DOCX report templates. When enabled (`true`), line break characters (`\n`, `\r\n`) present in parameter values are rendered as actual line breaks in the generated DOCX document. This functionality is only applied when using a xref:creation/templates.adoc#template_doc[DOCX template].
+
+Default value: `false`.
+
 [[jmix.reports.office-path]]
 === jmix.reports.office-path
 
