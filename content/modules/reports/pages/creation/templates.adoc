@@ -141,6 +141,15 @@ select cast(e.year as varchar(4)) as "year"
 ----
 ====
 
+[TIP]
+====
+*Processing Multi-line Strings in DOCX Templates*
+
+By default, line breaks in parameter values are ignored when generating a report. To preserve line breaks (e.g., `\n` or `\r\n`) in the final DOCX output, you must enable the xref:configuration.adoc#jmix.reports.multilineStringsProcessingEnabled[jmix.reports.multilineStringsProcessingEnabled] application property.
+
+*This feature is exclusive to the DOCX report output format and has no effect on other formats like XLSX or PDF.*
+====
+
 [[template_html]]
 === HTML Template
 
