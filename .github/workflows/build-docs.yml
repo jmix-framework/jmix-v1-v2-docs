@@ -1,0 +1,35 @@
+name: Build Jmix Docs
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to checkout'
+        required: true
+        default: 'release_2_6'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install Antora
+        run: npm i
+
+      - name: Generate Site
+        run: npx antora antora-playbook.ci.yml
+
+      - name: Archive Site
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmix-docs-${{ github.event.inputs.branch }}
+          path: build/site
+          retention-days: 3
