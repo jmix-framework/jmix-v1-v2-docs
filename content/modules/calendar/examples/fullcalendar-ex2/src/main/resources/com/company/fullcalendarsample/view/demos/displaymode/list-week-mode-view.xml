@@ -3,11 +3,27 @@
       xmlns:calendar="http://jmix.io/schema/fullcalendar/ui"
       title="msg://listWeekModeView.title">
     <layout>
-        <!-- tag::list-week-mode1[] -->
-        <calendar:calendar id="calendar"
-                           initialDisplayMode="LIST_WEEK"
-                           height="100%"
-                           width="100%"/>
-        <!-- end::list-week-mode1[] -->
+        <tabSheet width="100%" height="100%">
+            <tab id="tab">
+                <!-- tag::list-week-mode1[] -->
+                <calendar:calendar id="calendar"
+                                           initialDisplayMode="LIST_WEEK"
+                                           height="100%"
+                                           width="100%"/>
+                <!-- end::list-week-mode1[] -->
+            </tab>
+            <tab id="tab_1">
+                <!-- tag::list-week-mode-format[] -->
+                <calendar:calendar id="calendar_1"
+                                   initialDisplayMode="LIST_WEEK"
+                                   height="100%"
+                                   width="100%">
+                    <calendar:displayModeProperties>
+                        <calendar:listWeek listDayFormat="dd"/>
+                    </calendar:displayModeProperties>
+                </calendar:calendar>
+                <!-- end::list-week-mode-format[] -->
+            </tab>
+        </tabSheet>
     </layout>
 </view>

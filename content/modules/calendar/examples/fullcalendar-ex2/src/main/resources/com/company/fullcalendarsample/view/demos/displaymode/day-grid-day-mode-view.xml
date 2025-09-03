@@ -3,9 +3,15 @@
       xmlns:calendar="http://jmix.io/schema/fullcalendar/ui"
       title="msg://dayGridDayModeView.title">
     <layout>
+        <!-- tag::dayGridDay[] -->
         <calendar:calendar id="calendar"
                            initialDisplayMode="DAY_GRID_DAY"
                            height="100%"
-                           width="100%"/>
+                           width="100%">
+            <calendar:displayModeProperties>
+                <calendar:dayGridDay dayHeaderFormat="dddd, MMMM D, YYYY"/>
+            </calendar:displayModeProperties>
+        </calendar:calendar>
+        <!-- end::dayGridDay[] -->
     </layout>
 </view>
