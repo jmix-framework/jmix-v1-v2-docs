@@ -3,11 +3,29 @@
       xmlns:calendar="http://jmix.io/schema/fullcalendar/ui"
       title="msg://timeGridWeekModeView.title">
     <layout>
-        <!-- tag::time-grid-week-mode1[] -->
-        <calendar:calendar id="calendar"
-                           initialDisplayMode="TIME_GRID_WEEK"
-                           height="100%"
-                           width="100%"/>
-        <!-- end::time-grid-week-mode1[] -->
+        <tabSheet width="100%" height="100%">
+            <tab id="tab" label="Default">
+                <!-- tag::time-grid-week-mode1[] -->
+                <calendar:calendar id="calendar"
+                                   initialDisplayMode="TIME_GRID_WEEK"
+                                   height="100%"
+                                   width="100%">
+                </calendar:calendar>
+                <!-- end::time-grid-week-mode1[] -->
+            </tab>
+            <tab id="tab_1" label="With formatting">
+                <!-- tag::time-grid-week-mode2[] -->
+                <calendar:calendar id="calendar_1"
+                                   initialDisplayMode="TIME_GRID_WEEK"
+                                   height="100%"
+                                   width="100%">
+                    <calendar:displayModeProperties>
+                        <calendar:timeGridWeek slotLabelFormat="HH:mm"
+                                               dayHeaderFormat="dddd, Do MMM"/>
+                    </calendar:displayModeProperties>
+                </calendar:calendar>
+                <!-- end::time-grid-week-mode2[] -->
+            </tab>
+        </tabSheet>
     </layout>
 </view>

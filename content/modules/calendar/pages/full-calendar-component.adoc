@@ -1188,6 +1188,73 @@ image::styling-day-header-class-names-generator1.png[align="center",width="879"]
 
 Refer to the <<Handlers>> section for a complete list of class name generators.
 
+[[formatting]]
+== Formatting
+
+The `FullCalendar` component provides extensive capabilities to customize the appearance of dates, times, and text throughout its interface.
+
+=== Default Format Properties
+
+The component offers a set of global default properties that define formatting for common elements. These are especially useful for establishing a consistent base format across all calendar views.
+
+* xref:defaultDayHeaderFormat[defaultDayHeaderFormat]: Defines the text format for the calendar's column headings.
+
+* xref:defaultDayPopoverFormat[defaultDayPopoverFormat]: Defines the date format for the title of the popover that appears when the "more" link is clicked in a cell.
+
+* xref:defaultEventTimeFormat[defaultEventTimeFormat]: Defines the format for the time text displayed on each calendar event.
+
+* xref:defaultSlotLabelFormat[defaultSlotLabelFormat]: Sets the format of the text that will be displayed within a time slot.
+
+* xref:defaultWeekNumberFormat[defaultWeekNumberFormat]: Defines the display format for the week number, which is shown when the xref:weekNumbersVisible[weekNumbersVisible] property is enabled.
+
+By default, component sets localized format from `messages` when is created.
+
+=== Format Precedence
+
+The default format properties serve as a fallback for all standard display modes (`dayGridDay`, `timeGridWeek`, etc.) and any custom modes (xref:custom-calendar-display-mode[CustomCalendarDisplayMode]) until a more specific format is defined at the display mode level.
+
+However, each display mode's property object explicitly specifies its own formats by default. Consequently, these display-mode-specific settings override the global default properties.
+
+For example, configuring `dayHeaderFormat` within the `dayGridDay` properties will override the global `defaultDayHeaderFormat` for that specific view.
+
+[source,xml,indent=0]
+----
+include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsample/view/demos/displaymode/day-grid-day-mode-view.xml[tags=dayGridDay]
+----
+
+=== Formatting Rules
+
+This component uses the https://fullcalendar.io/docs/moment-plugin[moment plugin^] for `FullCalendar`. Therefore, all format strings must adhere to the formatting rules defined in the https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^].
+
+For example, using the token `dd` will produce a 2-letter weekday value like `"Mo"`, while `dddd` will produce the full name like `"Monday"`.
+
+[NOTE]
+====
+Changes to these properties (for example, updating `defaultDayHeaderFormat` programmatically) will not be applied after the component has been attached to the UI and rendered. To change formats at runtime, you would need to rebuild the calendar's UI or fully re-render the component.
+====
+
+=== Examples
+
+The following examples demonstrate how to configure date and time formatting for different display modes.
+
+*Example 1: TimeGrid Week View*
+
+This example configures a calendar in the weekly time grid view (`TIME_GRID_WEEK`). It defines a 24-hour format for time slot labels and a custom format for the day column headers.
+
+[source,xml,indent=0]
+----
+include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsample/view/demos/displaymode/time-grid-week-mode-view.xml[tags=time-grid-week-mode2]
+----
+
+*Example 2: List Week View*
+
+This example configures a calendar in the list view for a week (`LIST_WEEK`). It customizes the date format for each item in the list.
+
+[source,xml,indent=0]
+----
+include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsample/view/demos/displaymode/list-week-mode-view.xml[tags=list-week-mode-format]
+----
+
 [[localization]]
 == Localization
 
@@ -1303,12 +1370,9 @@ This property only affects events with <<allDay, allDay>> property equals to `tr
 |[[defaultDayHeaderFormat]]defaultDayHeaderFormat
 |Sets the format of the text that will be displayed on the calendar’s column headings.
 
-By default, component sets localized format from `messages` when is created.
-This property act as default format for all display modes and for <<custom-calendar-display-mode, CustomCalendarDisplayMode>> until specific property won't be set for these display modes. However, all display-mode properties objects by default explicitly specify the format, thus they override this property.
+For instance, the `dd` produces the `"Mo"` value.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for `FullCalendar`, you should follow the `moment.js` formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]. For instance, the `dd` produces the `Mo` value.
-
-The property change is not applied after component attached to the UI.
+See <<formatting,Formatting>>.
 |-
 
 |[[defaultDayMaxEventRowsEnabled]]defaultDayMaxEventRowsEnabled
@@ -1330,33 +1394,27 @@ This property is applied for day-grid display modes and in all-day cells.
 |`false`
 
 |[[defaultDayPopoverFormat]]defaultDayPopoverFormat
-|Sets the date format of title of the popover that is shown when "more" link is clicked. By default, component sets localized format from `messages` when is created.
+|Sets the date format of title of the popover that is shown when "more" link is clicked.
 
-This property act as default format for all display modes and for <<custom-calendar-display-mode, CustomCalendarDisplayMode>> until specific property won't be set for these display modes. However, all display-mode properties objects by default explicitly specify the format, thus they override this property.
+For instance, the `MMM D, YY` produces the `Sep 9, 24` value.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for `FullCalendar`, you should follow the `moment.js` formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]. For instance, the `MMM D, YY` produces the `Sep 9, 24` value.
-
-The property change is not applied after component attached to the UI.
+See <<formatting,Formatting>>.
 |-
 
 |[[defaultEventTimeFormat]]defaultEventTimeFormat
-|Sets the format of the time-text that will be displayed on each event. By default, component sets localized format from `messages` when is created.
+|Sets the format of the time-text that will be displayed on each event.
 
-This property act as default format for all display modes and for <<custom-calendar-display-mode, CustomCalendarDisplayMode>> until specific property won't be set for these display modes. However, all display-mode properties objects by default explicitly specify the format, thus they override this property.
+For instance, the `HH:mm` produces the `00:00` (01, 2, ... 23 : 01, 02 ... 59).
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for `FullCalendar`, you should follow the `moment.js` formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]. For instance, the `HH:mm` produces the `00:00` (01, 2, ... 23 : 01, 02 ... 59).
-
-The property change is not applied after component attached to the UI.
+See <<formatting,Formatting>>.
 |-
 
 |[[defaultSlotLabelFormat]]defaultSlotLabelFormat
-|Sets the format of the text that will be displayed within a time slot. By default, component sets localized format from `messages` when is created.
+|Sets the format of the text that will be displayed within a time slot.
 
-This property act as default format for all display modes and for <<custom-calendar-display-mode, CustomCalendarDisplayMode>> until specific property won't be set for these display modes. However, all display-mode properties objects by default explicitly specify the format, thus they override this property.
+For instance, the `ha` produces `1 am` (1, 2, ... 12 am/ pm).
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for `FullCalendar`, you should follow the `moment.js` formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]. For instance, the `ha` produces `1 am` (1, 2, ... 12 am/ pm).
-
-The property change is not applied after component attached to the UI.
+See <<formatting,Formatting>>.
 |-
 
 |[[defaultTimedEventDuration]]defaultTimedEventDuration
@@ -1370,13 +1428,11 @@ This property only affects events with `allDay` property equals to `false`.
 |`PT1h`
 
 |[[defaultWeekNumberFormat]]defaultWeekNumberFormat
-| Sets the format of the week number that will be displayed when <<weekNumbersVisible, weekNumbersVisible>> is `true`. By default, component sets localized format from `messages` when is created.
+| Sets the format of the week number that will be displayed when <<weekNumbersVisible, weekNumbersVisible>> is `true`.
 
-This property act as default format for all display modes and for <<custom-calendar-display-mode, CustomCalendarDisplayMode>> until specific property won't be set for these display modes. However, all display-mode properties objects by default explicitly specify the format, thus they override this property.
+For instance, the `[Week] w` produces the `Week 1` (1, 2, ... 52, 53).
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for `FullCalendar`, you should follow the `moment.js` formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]. For instance, the `[Week] w` produces the `Week 1` (1, 2, ... 52, 53).
-
-The property change is not applied after component attached to the UI.
+See <<formatting,Formatting>>.
 |-
 
 |[[direction]]direction
@@ -2445,10 +2501,14 @@ The properties of the <<dayGridDay, dayGridDay>> display mode.
 
 |dayHeaderFormat
 |Sets the format for a day header specifically for this display mode. The format rules are the same as for <<defaultDayHeaderFormat, defaultDayHeaderFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |dayPopoverFormat
 |Sets the format for a popover specifically for this display mode. The format rules are the same as for <<defaultDayPopoverFormat, defaultDayPopoverFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |displayEventEnd
@@ -2457,10 +2517,14 @@ The properties of the <<dayGridDay, dayGridDay>> display mode.
 
 |eventTimeFormat
 |Sets the format for an event time specifically for this display mode. The format rules are the same as for <<defaultEventTimeFormat, defaultEventTimeFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |weekNumberFormat
 |Sets the format for a week specifically for this display mode. The format rules are the same as for <<defaultWeekNumberFormat, defaultWeekNumberFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 |===
 
@@ -2487,10 +2551,14 @@ The properties of the <<dayGridWeek, dayGridWeek>> display mode.
 
 |dayHeaderFormat
 |Sets the format for a day header specifically for this display mode. The format rules are the same as for <<defaultDayHeaderFormat, defaultDayHeaderFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |dayPopoverFormat
 |Sets the format for a popover specifically for this display mode. The format rules are the same as for <<defaultDayPopoverFormat, defaultDayPopoverFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |displayEventEnd
@@ -2499,10 +2567,14 @@ The properties of the <<dayGridWeek, dayGridWeek>> display mode.
 
 |eventTimeFormat
 |Sets the format for an event time specifically for this display mode. The format rules are the same as for <<defaultEventTimeFormat, defaultEventTimeFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |weekNumberFormat
 |Sets the format for a week specifically for this display mode. The format rules are the same as for <<defaultWeekNumberFormat, defaultWeekNumberFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 |===
 
@@ -2529,10 +2601,14 @@ The properties of the <<dayGridMonth, dayGridMonth>> display mode.
 
 |dayHeaderFormat
 |Sets the format for a day header specifically for this display mode. The format rules are the same as for <<defaultDayHeaderFormat, defaultDayHeaderFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |dayPopoverFormat
 |Sets the format for a popover specifically for this display mode. The format rules are the same as for <<defaultDayPopoverFormat, defaultDayPopoverFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |displayEventEnd
@@ -2541,6 +2617,8 @@ The properties of the <<dayGridMonth, dayGridMonth>> display mode.
 
 |eventTimeFormat
 |Sets the format for an event time specifically for this display mode. The format rules are the same as for <<defaultEventTimeFormat, defaultEventTimeFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |fixedWeekCount
@@ -2553,6 +2631,8 @@ The properties of the <<dayGridMonth, dayGridMonth>> display mode.
 
 |weekNumberFormat
 |Sets the format for a week specifically for this display mode. The format rules are the same as for <<defaultWeekNumberFormat, defaultWeekNumberFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 |===
 
@@ -2579,10 +2659,14 @@ The properties of the <<dayGridYear, dayGridYear>> display mode.
 
 |dayHeaderFormat
 |Sets the format for a day header specifically for this display mode. The format rules are the same as for <<defaultDayHeaderFormat, defaultDayHeaderFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |dayPopoverFormat
 |Sets the format for a popover specifically for this display mode. The format rules are the same as for <<defaultDayPopoverFormat, defaultDayPopoverFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |displayEventEnd
@@ -2591,17 +2675,22 @@ The properties of the <<dayGridYear, dayGridYear>> display mode.
 
 |eventTimeFormat
 |Sets the format for an event time specifically for this display mode. The format rules are the same as for <<defaultEventTimeFormat, defaultEventTimeFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |monthStartFormat
-|Sets the format of the text format for the first cell of each month. By default, component sets localized format from messages when is created.
+|Sets the format of the text format for the first cell of each month.
 
-As the component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^]  for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "MMMM" produces `September` (`November`, `December`, etc.).
+
+See <<formatting,Formatting>>.
 |-
 
 |weekNumberFormat
 |Sets the format for a week specifically for this display mode. The format rules are the same as for <<defaultWeekNumberFormat, defaultWeekNumberFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 |===
 
@@ -2632,10 +2721,14 @@ The properties of the <<timeGridDay, timeGridDay>> display mode.
 
 |dayHeaderFormat
 |Sets the format for a day header specifically for this display mode. The format rules are the same as for <<defaultDayHeaderFormat, defaultDayHeaderFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |dayPopoverFormat
 |Sets the format for a popover specifically for this display mode. The format rules are the same as for <<defaultDayPopoverFormat, defaultDayPopoverFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |displayEventEnd
@@ -2652,6 +2745,8 @@ The properties of the <<timeGridDay, timeGridDay>> display mode.
 
 |eventTimeFormat
 |Sets the format for an event time specifically for this display mode. The format rules are the same as for <<defaultEventTimeFormat, defaultEventTimeFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |slotEventOverlap
@@ -2660,10 +2755,14 @@ The properties of the <<timeGridDay, timeGridDay>> display mode.
 
 |slotLabelFormat
 |Sets the format for slot labels specifically for this display mode. The format rules are the same as for <<defaultSlotLabelFormat, defaultSlotLabelFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |weekNumberFormat
 |Sets the format for a week specifically for this display mode. The format rules are the same as for <<defaultWeekNumberFormat, defaultWeekNumberFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 |===
 
@@ -2694,10 +2793,14 @@ The properties of the <<timeGridWeek, timeGridWeek>> display mode.
 
 |dayHeaderFormat
 |Sets the format for a day header specifically for this display mode. The format rules are the same as for <<defaultDayHeaderFormat, defaultDayHeaderFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |dayPopoverFormat
 |Sets the format for a popover specifically for this display mode. The format rules are the same as for <<defaultDayPopoverFormat, defaultDayPopoverFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |displayEventEnd
@@ -2714,6 +2817,8 @@ The properties of the <<timeGridWeek, timeGridWeek>> display mode.
 
 |eventTimeFormat
 |Sets the format for an event time specifically for this display mode. The format rules are the same as for <<defaultEventTimeFormat, defaultEventTimeFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |slotEventOverlap
@@ -2722,10 +2827,14 @@ The properties of the <<timeGridWeek, timeGridWeek>> display mode.
 
 |slotLabelFormat
 |Sets the format for slot labels specifically for this display mode. The format rules are the same as for <<defaultSlotLabelFormat, defaultSlotLabelFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 
 |weekNumberFormat
 |Sets the format for a week specifically for this display mode. The format rules are the same as for <<defaultWeekNumberFormat, defaultWeekNumberFormat>>.
+
+See <<formatting,Formatting>>.
 |-
 |===
 
@@ -2751,17 +2860,19 @@ The properties of the <<listDay, listDay>> display mode.
 |*Default*
 
 |listDayFormat
-|Sets the format of the text on the left side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the left side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideFormat
-|Sets the format of the text on the right side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the right side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideVisible
@@ -2795,17 +2906,19 @@ The properties of the <<listWeek, listWeek>> display mode.
 |*Default*
 
 |listDayFormat
-|Sets the format of the text on the left side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the left side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideFormat
-|Sets the format of the text on the right side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the right side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideVisible
@@ -2839,17 +2952,19 @@ The properties of the <<listMonth, listMonth>> display mode.
 |*Default*
 
 |listDayFormat
-|Sets the format of the text on the left side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the left side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideFormat
-|Sets the format of the text on the right side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the right side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideVisible
@@ -2883,17 +2998,19 @@ The properties of the <<listYear, listYear>> display mode.
 |*Default*
 
 |listDayFormat
-|Sets the format of the text on the left side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the left side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideFormat
-|Sets the format of the text on the right side of the day headings. By default, component sets localized format from messages when is created.
+|Sets the format of the text on the right side of the day headings.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "dd" produces `Mo` (Monday).
+
+See <<formatting,Formatting>>.
 |-
 
 |listDaySideVisible
@@ -2943,10 +3060,11 @@ If the available width requires each mini-month to become smaller than this pixe
 |`350`
 
 |multiMonthTitleFormat
-|Sets the format of the text above each month. By default, component sets localized format from messages when is created.
+|Sets the format of the text above each month.
 
-As component uses https://fullcalendar.io/docs/moment-plugin[moment plugin^] for FullCalendar, we should follow the moment.js formatting rules: https://momentjs.com/docs/#/displaying/format/[Moment.js Documentation^]
 For instance, the "MMM" produces `Sep` (`Nov`, ...).
+
+See <<formatting,Formatting>>.
 |
 
 |showNonCurrentDates
