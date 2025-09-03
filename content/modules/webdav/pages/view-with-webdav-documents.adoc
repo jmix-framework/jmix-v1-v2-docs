@@ -99,5 +99,5 @@ In this section, you have created the basic feature of the application: a knowle
 
 You have learned that:
 
-* The WebDAV add-on offers the `WebdavDocument` entity, which represents a document within the WebDAV functionality. This entity facilitates editing and viewing documents using external applications such as Microsoft Word and Excel, managing document versions, and controlling access to specific documents.
+* The WebDAV add-on offers the `WebdavDocument` entity, which represents a document within the WebDAV functionality. This entity facilitates editing and viewing documents using external applications, managing document versions, and controlling access to specific documents.
 * The xref:flow-ui:vc/components/entityPicker.adoc[entityPicker] component is used by default to select a reference in a generated detail view. Clicking the ellipsis button for the *WebDAV document* field will open the standard xref:webdav:webdav-documents.adoc[WebDAV documents view] provided by the add-on.

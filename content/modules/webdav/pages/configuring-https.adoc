@@ -1,56 +1,52 @@
-= 3. Configuring to Work with Desktop Applications
+= 3. Working with Desktop Applications
 
 To authenticate desktop applications, the server must have HTTPS enabled. Here are simple instructions for configuring HTTPS in your development environment.
 
-[IMPORTANT]
-====
-Self-signed certificates are suitable solely for testing purposes. When running production applications, it's essential to utilize SSL certificates issued by a trusted authority.
-====
+[[using-libreoffice]]
+== Using LibreOffice
+
+Install LibreOffice and configure the xref:webdav-properties.adoc#jmix.webdav.applications[jmix.webdav.applications] property to open all files in it:
+
+[source,properties]
+----
+jmix.webdav.applications = {"vnd.libreoffice.command":\
+  {"name":"LibreOffice","protocols":\
+  {"writable":"vnd.libreoffice.command:ofe|u|",\
+  "read_only":"vnd.libreoffice.command:ofv|u|"},\
+  "extensions":["odt", "ods", "odp", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]}}
+----
 
 [[keystore-file]]
 == Creating a Keystore File
 
-. Generate a keystore using the https://docs.oracle.com/en/java/javase/11/tools/keytool.html[keytool utility^] provided by JDK:
+. Install `mkcert` utility by following the instructions provided in its repository: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
+
+. Generate and install the root certificate:
 +
-[source,text]
+[source]
 ----
-keytool -genkey -keyalg RSA -alias localhost -keystore localhost.jks -validity 365 -keysize 2048
+mkcert -install
+----
+
+. Create a certificate for localhost:
++
+[source]
+----
+mkcert -pkcs12 localhost 127.0.0.1 ::1
 ----
 +
-You will be asked for the keystore password and then for some names. Remember the password and the names.
+You will see the `localhost+2.p12` file in the current folder.
 
-. Export certificate from the keystore:
+. Create a keystore file with the certificate for your project:
 +
-[source,text]
+[source]
 ----
-keytool -export -keystore localhost.jks -storepass <password> -alias localhost -file localhost.cer
+keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
 ----
 +
-Use the password entered on the first step instead of `<password>`.
-
-. Register the certificate as trusted in your operating system.
+Enter `changeit` as the source keystore password.
 +
-* On Windows operating system:
-+
-1. Press the `Windows` key + `R` to open the *Run* dialog, then type `"certmgr.msc"` and press *Enter*. This will open the *Certificate Manager*.
-
-2. In the left pane of the *Certificate Manager*, expand the *Trusted Root Certification Authorities* folder.
-
-3. Right-click on the folder and select *All Tasks > Import...* from the context menu. This will open the *Certificate Import Wizard*.
-
-4. In the *Certificate Import Wizard*, click *Next* and then browse to the location where your certificate file is stored. Select the certificate file and click *Next*.
-
-5. Choose the option to place the certificate in the *Trusted Root Certification Authorities* store and click *Next*.
-
-6. Review the information and click *Finish* to complete the import process.
-
-7. You should see a message indicating that the import was successful. Click *OK* to close the wizard.
-+
-Once these steps are completed, the certificate should be registered as trusted in the Windows operating system.
-* On macOS:
-1. Double-click on `localhost.cer` file in Finder. The *Keychain Access* application will open.
-2. Find your certificate under the name entered on the first step as "your first and last name" on the *Certificates* tab.
-3. Double-click the certificate and select *Trust -> When using this certificate: Always Trust*.
+You will see the `localhost.jks` file in the current folder.
 
 [[configuring-server]]
 == Configuring Server
@@ -90,12 +86,12 @@ server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 [source,java,indent=0]
 ----
 @EventListener
-    public void printApplicationUrl(final ApplicationStartedEvent event) {
-        LoggerFactory.getLogger(DemoApplication.class).info("Application started at "
-                + "https://localhost:"
-                + environment.getProperty("local.server.port")
-                + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
-    }
+public void printApplicationUrl(final ApplicationStartedEvent event) {
+    LoggerFactory.getLogger(DemoApplication.class).info("Application started at "
+            + "https://localhost:"
+            + environment.getProperty("local.server.port")
+            + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
+}
 ----
 
 [[running-application]]
@@ -107,13 +103,7 @@ Choose the *Knowledge base* item from the *Application* menu. Click on the WebDA
 
 image::open-webdav-doc1.png[align="center", width="1432"]
 
-The browser will display a dialog prompting the user to open the WebDAV file in a desktop office application.
-
-image::open-webdav-doc2.png[align="center", width="1432"]
-
-Agree to open the file and ensure that the WebDAV document opens in desktop office applications.
-
-image::open-office.png[align="center", width="1080"]
+The browser will display a dialog prompting the user to open the WebDAV file in LibreOffice. Agree to open the file.
 
 Once the WebDAV document is edited and saved, a new version of the document will be created, which will be the latest version.
 

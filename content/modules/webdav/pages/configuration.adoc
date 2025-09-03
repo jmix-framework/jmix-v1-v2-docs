@@ -5,77 +5,39 @@
 
 To authenticate desktop applications, the server must have HTTPS enabled. Here are simple instructions for configuring HTTPS in your development environment.
 
-[IMPORTANT]
-====
-Self-signed certificates are suitable solely for testing purposes. When running production applications, it's essential to utilize SSL certificates issued by a trusted authority.
-====
+[[trusted-certificate]]
+=== Generating Trusted Certificate
 
-[[keystore-file]]
-=== Creating a Keystore File
+Trusted  certificates can be obtained from SSL certificate providers or generated with `certbot`. But for the development purposes you can issue your own root certificate and sign development server's certificate with it. To simplify this task, we recommend using the `mkcert` tool.
 
-. Generate a keystore using the https://docs.oracle.com/en/java/javase/11/tools/keytool.html[keytool utility^] provided by JDK:
-+
-[source,text]
-----
-keytool -genkey -keyalg RSA -alias localhost -keystore localhost.jks -validity 365 -keysize 2048
-----
-+
-You will be asked for the keystore password and then for some names. Remember the password and the names.
+. Install `mkcert` by following the instructions provided in its repository: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
 
-. Export certificate from the keystore:
+. Generate and install the root certificate:
 +
-[source,text]
+[source]
 ----
-keytool -export -keystore localhost.jks -storepass <password> -alias localhost -file localhost.cer
+mkcert -install
+----
+
+. Create a certificate for localhost:
++
+[source]
+----
+mkcert -pkcs12 localhost 127.0.0.1 ::1
 ----
 +
-Use the password entered on the first step instead of `<password>`.
+You will see the `localhost+2.p12` file in the current folder.
 
-. Register the certificate as trusted in your operating system.
+. Create a keystore file with the certificate for your project:
 +
-* On Windows operating system:
+[source]
+----
+keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
+----
 +
-1. Press the `Windows` key + `R` to open the *Run* dialog, then type `"certmgr.msc"` and press *Enter*. This will open the *Certificate Manager*.
-
-2. In the left pane of the *Certificate Manager*, expand the *Trusted Root Certification Authorities* folder.
-
-3. Right-click on the folder and select *All Tasks > Import...* from the context menu. This will open the *Certificate Import Wizard*.
-
-4. In the *Certificate Import Wizard*, click *Next* and then browse to the location where your certificate file is stored. Select the certificate file and click *Next*.
-
-5. Choose the option to place the certificate in the *Trusted Root Certification Authorities* store and click *Next*.
-
-6. Review the information and click *Finish* to complete the import process.
-
-7. You should see a message indicating that the import was successful. Click *OK* to close the wizard.
+Enter `changeit` as the source keystore password.
 +
-Once these steps are completed, the certificate should be registered as trusted in the Windows operating system.
-* On macOS:
-1. Double-click on `localhost.cer` file in Finder. The *Keychain Access* application will open.
-2. Find your certificate under the name entered on the first step as "your first and last name" on the *Certificates* tab.
-3. Double-click the certificate and select *Trust -> When using this certificate: Always Trust*.
-
-=== Generate trusted certificate
-
-Some use cases like opening WebDAV files in recent LibreOffice and Firefox versions may not work with self-signed certificates. Trusted
-certificates can be obtained from SSL-providers or generated with `certbot`. But for the development purposes you can issue
-your own root certificate and sign development server's certificate with it. To simplify this task we recommend to use
-`mkcert` generation/maintenance tool. You can skip this section in case you are ok with HTTPS warnings and restrictions.
-
-. Install `mkcert` from the following repo: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert].
-You can build it either from source (requires golang to be installed) and copy binary to `/usr/local/bin` or use binaries provided by vendor.
-
-. Once having `mkcert` in path you can generate and install root certificate:
-
-    mkcert -install
-
-. Navigate to keystore directory and create signed certificates for your development server:
-
-    mkcert -pkcs12 localhost 127.0.0.1 ::1
-
-. Create `.jks` keystore file with certificates for your project:
-
-    keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
+You will see the `localhost.jks` file in the current folder.
 
 [[configuring-server]]
 === Configuring Server
