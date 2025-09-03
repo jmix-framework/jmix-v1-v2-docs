@@ -49,8 +49,10 @@ implementation 'io.jmix.webdav:jmix-webdav-flowui-starter'
 Desktop applications use basic authentication for server connections via WebDAV, so you have to set up HTTPS for your web application. Refer to the xref:configuration.adoc#https[Configuring HTTPS] section for guidance on configuring HTTPS on localhost for development purposes.
 
 [[requirements]]
-== Minimal Requirements
+== Requirements
 
-The minimum version of Microsoft Office needed to access documents via the WebDAV protocol is MS Office 2010 SP2 or higher. For LibreOffice, the minimum required version is 6.3.
+IMPORTANT: Due to recently disabled Basic authentication in Microsoft 365 applications (see https://learn.microsoft.com/en-us/microsoft-365-apps/security/basic-authentication-prompts-blocked[^]), the WebDAV add-on cannot work with the latest versions of Microsoft Office.
+
+The minimum version of Microsoft Office needed to access documents via the WebDAV protocol is MS Office 2010 SP2. For LibreOffice, the minimum required version is 6.3.
 
 To verify the installed versions of Microsoft Office and Service Pack (SP) on your computer, open MS Word and navigate to the *Product Information* section via *File → Help*. Service Pack 2 for MS Office 2010 (and subsequent versions) should display the following number: 14.0.7015.1000 (or higher). To update your Service Pack, click on this https://www.microsoft.com/en-US/download/details.aspx?id=39667[link^].
