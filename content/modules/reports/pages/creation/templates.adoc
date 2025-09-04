@@ -319,7 +319,7 @@ An image can be served statically by the application. For example, the image hos
 
 * by Bitmap
 +
-An image is added as a byte array within the `src` attribute. This approach allows you to use variables for the `FileDescriptor` attributes of the entities. The byte array can even be added directly to the template, even though this approach is not recommended:
+An image is added as a byte array within the `src` attribute. This approach allows you to use variables for the `FileRef` attributes of the entities. The byte array can even be added directly to the template, even though this approach is not recommended:
 +
 [source, html, indent=0]
 ----
@@ -338,16 +338,18 @@ An image is added as a byte array within the `src` attribute. This approach allo
     border="0"
     align="right"/>
 ----
-** `fs://` prefix allows inserting an image by specifying `FileDescriptor` ID. For example:
+** `fs://` prefix allows inserting an image by specifying `FileRef` format. For example:
 +
 [source, html,indent=0]
 ----
-<img src="fs://fede432a-4f5d-3bab-71a0-b98133759b0f"
+<img src="fs://2025/07/08/78c65527-9cb7-ee77-940f-86e31b214f49.jpeg?name=filename.jpeg"
     height="68"
     width="199"
     border="0"
     align="right"/>
 ----
++
+NOTE: The query parameter `?name=\{original_filename}.\{ext}` is mandatory. The system relies on this parameter to correctly parse the string and reconstruct the `FileRef` object.
 --
 
 [[html_to_pdf]]
