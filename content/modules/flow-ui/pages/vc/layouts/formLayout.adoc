@@ -7,15 +7,15 @@
 </div>
 ++++
 
-A responsive layout that arranges components into columns. The number of columns changes depending on the layout width.
+Адаптивный контейнер, который располагает компоненты в колонках. Количество колонок изменяется в зависимости от ширины контейнера.
 
-* XML element: `formLayout`
+* XML-элемент: `formLayout`
 
-* Java class: `FormLayout`
+* Java-класс: `FormLayout`
 
-== Basics
+== Основы
 
-By default, components are arranged into two columns.
+По умолчанию компоненты располагаются в две колонки.
 
 [source,xml,indent=0]
 ----
@@ -24,30 +24,30 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/form-layout-basic-1.png[align="center", width="659"]
 
-When the layout width is smaller, it automatically adjusts to a single column.
+При уменьшении ширины контейнера он автоматически перестраивается в одну колонку.
 
 image::visual-components/layouts/form-layout-basic-2.png[align="center", width="650"]
 
 [[responsive-steps]]
-== Responsive Steps
+== Адаптивные шаги
 
-The `responsiveSteps` element provides a way to determine a number of columns based on the available space.
+Элемент `responsiveSteps` предоставляет способ определения количества колонок на основе доступного пространства.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=responsive-steps]
 ----
 
-When the width is large enough, the layout above will automatically adjust to use all five columns:
+Когда ширина становится достаточно большой, контейнер автоматически перестраивается на использование всех пяти колонок:
 
 image::visual-components/layouts/form-layout-columns.png[align="center", width="780"]
 
 [[label-position]]
-== Label Position
+== Позиция надписи
 
-The layout enables side-positioned labels for nested components. Wrap a component with a `formItem` element, specifying its label, and set the desired position with <<labelsPosition,labelsPosition>> attribute:
+Контейнер позволяет использовать боковое расположение надписей для вложенных компонентов. Оберните компонент элементом `formItem`, указав его надпись, и задайте желаемое положение с помощью атрибута <<labelsPosition,labelsPosition>>:
 
-NOTE: `formItem` can only wrap a single component.
+NOTE: `formItem` может оборачивать только один компонент.
 
 [source,xml,indent=0]
 ----
@@ -56,26 +56,25 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/form-layout-labels-aside.png[align="center", width="468"]
 
-=== Responsive Label Position
+=== Адаптивное положение надписи
 
-Layouts that display labels on the side require more space than those with the default label position on top of the components. Similar to columns, the label position can be adjusted to fit the available space. Instead of adding the <<labelsPosition,labelsPosition>> attribute to the layout, add it to its individual `responsiveSteps` elements:
+Контейнеры, отображающие надписи сбоку, требуют больше места, чем те, у которых надписи расположены по умолчанию сверху над компонентами. Аналогично количеству колонок, положение надписи можно настроить в соответствии с доступным пространством. Вместо добавления атрибута <<labelsPosition,labelsPosition>> к контейнеру, добавьте его к отдельным элементам `responsiveSteps`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=responsive-label-position]
 ----
 
-Changing the layout width will affect both the number of columns and the positioning of labels:
+Изменение ширины контейнера повлияет как на количество колонок, так и на позиционирование надписей:
 
 image::visual-components/layouts/form-layout-responsive-labels-position.gif[align="center", width="986"]
 
-
 [[column-span]]
-== Column Span
+== Объединение колонок
 
-Use the xref:vc/common-attributes.adoc#colspan[colspan] attribute to control the number of columns a nested component should span.
+Используйте атрибут xref:vc/common-attributes.adoc#colspan[colspan], чтобы контролировать, сколько колонок должен занимать вложенный компонент.
 
-For example, you can make a button to always span across two columns even when other components do not:
+Например, можно сделать так, чтобы кнопка всегда занимала две колонки, даже когда другие компоненты этого не делают:
 
 [source,xml,indent=0]
 ----
@@ -85,7 +84,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/form-layout.png[align="center", width="659"]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -106,13 +105,13 @@ xref:vc/common-attributes.adoc#width[width]
 [[labelsPosition]]
 === labelsPosition
 
-Sets the <<label-position, label position>> for components within the layout.
+Задает <<label-position, положение надписи>> для компонентов внутри контейнера.
 
-* `ASIDE` -- labels are positioned to the side of the components.
-* `TOP` -- labels are positioned above the components.
+* `ASIDE` -- надписи располагаются сбоку от компонентов.
+* `TOP` -- надписи располагаются над компонентами.
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
@@ -123,18 +122,18 @@ include::../handler-generation-tip.adoc[]
 [[ClickEvent]]
 === ClickEvent
 
-The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the following three subjects to detect the number of clicks related to the event.
+`com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из следующих трех субъектов для определения количества кликов, связанных с событием.
 
-* click – fires the event whenever the component is clicked.
+* click – событие возникает при любом клике на компонент.
 
-* singleClick – fires the event after a timeout to ensure it is not a double click.
+* singleClick – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
 
-* doubleClick – fires the event when the component is double-clicked.
+* doubleClick – событие возникает при двойном клике на компонент.
 
-== Elements
+== Элементы
 
 <<label-position, formItem>> - <<responsive-steps, responsiveSteps>>
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/latest/components/form-layout[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/form-layout[документации Vaadin^].
