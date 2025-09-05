@@ -7,22 +7,22 @@
 </div>
 ++++
 
-`accordion` creates panels with content that can be collapsed and expanded.
+`accordion` создает панели с контентом, который можно сворачивать и разворачивать.
 
-* XML element: `accordion`
+* XML-элемент: `accordion`
 
-* Java class: `JmixAccordion`
+* Java-класс: `JmixAccordion`
 
-== Basics
+== Основы
 
-Use `accordion` to group or hide similar content. Content is placed in nested `accordionPanel` elements. There can be multiple such panels, but only one can be expanded at a time.
+Используйте `accordion` для группировки или скрытия однотипного содержимого. Контент размещается во вложенных элементах `accordionPanel`. Таких панелей может быть несколько, но одновременно может быть развернута только одна.
 [TIP]
 //todo: link for Add button. xref:studio:screen-designer.adoc#component-inspector-add-button
 ====
-To add `accordionPanel` in Jmix Studio, select the component in the screen descriptor XML or in the *Jmix UI* structure panel and click on the *Add->AccordionPanel* button in the *Component Inspector* panel.
+Чтобы добавить `accordionPanel` в Jmix Studio, выберите компонент в XML-дескрипторе экрана или на панели структуры *Jmix UI* и нажмите кнопку *Add->AccordionPanel* на панели *Component Inspector*.
 ====
 
-The following example demonstrates `accordion` with three panels:
+Следующий пример демонстрирует `accordion` с тремя панелями:
 
 [source,xml,indent=0]
 ----
@@ -31,14 +31,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/accordion-basic.png[align="center", width="555"]
 
-Each `accordionPanel` has a summary and a content area to put other components or layouts. The summary remains visible, even when the panel is collapsed. The component allows to provide longer summaries, as opposed to xref:vc/layouts/tabSheet.adoc[].
+Каждая панель `accordionPanel` имеет область заголовка (summary) и область содержимого, куда можно помещать другие компоненты или контейнеры. Область заголовка остается видимой, даже когда панель свернута. В отличие от xref:vc/layouts/tabSheet.adoc[], этот компонент позволяет использовать более длинные заголовки.
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
-Below are the attributes for `accordion` and its `accordionPanel` element.
+Ниже приведены атрибуты для `accordion` и его элемента `accordionPanel`.
 
-=== `accordion`
+=== accordion
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -53,7 +53,7 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
-=== `accordionPanel`
+=== accordionPanel
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -74,17 +74,17 @@ xref:vc/common-attributes.adoc#width[width]
 [[opened]]
 === opened
 
-Specifies whether the panel is opened.
+Определяет, открыта ли панель.
 
 [[summaryText]]
 === summaryText
 
-Specifies a summary for the content inside the panel.
+Определяет заголовок для содержимого внутри панели.
 
 [[handlers]]
-== Handlers
+== Обработчики
 
-Handlers are the same for `accordion` and `accordionPanel` element.
+Обработчики одинаковы для `accordion` и для элемента `accordionPanel`.
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
@@ -95,8 +95,8 @@ include::../handler-generation-tip.adoc[]
 [[OpenedChangeEvent]]
 === OpenedChangeEvent
 
-`OpenedChangedEvent` is sent every time a panel is expanded or collapsed. Set this handler for `accordion` to listen to all panels, or set it only for a specific `accordionPanel` element.
+`OpenedChangedEvent` отправляется каждый раз, когда панель разворачивается или сворачивается. Установите этот обработчик для `accordion`, чтобы отслеживать все панели, или установите его только для конкретного элемента `accordionPanel`.
 
-== See Also
+== Смотрите также
 
-See {vaadin-docs}/components/accordion[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/accordion[документации Vaadin^].
