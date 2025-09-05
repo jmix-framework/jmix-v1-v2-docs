@@ -7,15 +7,15 @@
 </div>
 ++++
 
-`details` is an expandable panel used to show and hide content.
+`details` - это раскрываемая панель, используемая для отображения и скрытия контента.
 
-* XML element: `details`
+* XML-элемент: `details`
 
-* Java class: `JmixDetails`
+* Java-класс: `JmixDetails`
 
-== Basics
+== Основы
 
-Use `details` to hide additional information or optional controls. `details` can contain any component or layout.
+Используйте `details` для скрытия дополнительной информации или опциональных элементов управления. `details` может содержать любой компонент или контейнер.
 
 [source,xml,indent=0]
 ----
@@ -25,7 +25,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/details-basic.png[align="center", width="437"]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -47,7 +47,7 @@ xref:vc/common-attributes.adoc#width[width]
 [[opened]]
 === opened
 
-Specifies whether the panel is opened.
+Определяет, открыта ли панель.
 
 [[summaryText]]
 === summaryText
@@ -58,7 +58,7 @@ Specifies whether the panel is opened.
 </div>
 ++++
 
-Specifies the text that provides a summary of what is hidden in the component.
+Определяет текст, представляющий собой краткое описание того, что скрыто в компоненте.
 
 [[themeNames]]
 === themeNames
@@ -69,7 +69,7 @@ Specifies the text that provides a summary of what is hidden in the component.
 </div>
 ++++
 
-Sets a different theme to change component's appearance. Possible values:
+Устанавливает тему для изменения внешнего вида компонента. Возможные значения:
 
 * `filled`
 
@@ -77,9 +77,8 @@ Sets a different theme to change component's appearance. Possible values:
 
 * `small`
 
-
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
@@ -90,12 +89,12 @@ include::../handler-generation-tip.adoc[]
 [[OpenedChangeEvent]]
 === OpenedChangeEvent
 
-`OpenedChangeEvent` is sent every time the <<opened, opened>> attribute of the component changes.
+`OpenedChangeEvent` отправляется каждый раз, когда изменяется атрибут <<opened, opened>> компонента.
 
-== Elements
+== Элементы
 
 xref:vc/components/tooltip.adoc[tooltip]
 
-== See Also
+== Смотрите также
 
-See the https://vaadin.com/docs/v23/components/details[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/details[документации Vaadin^].
