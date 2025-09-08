@@ -92,6 +92,7 @@
               title="msg://com.company.onboarding.view.component.twincolumn/twinColumnView.title"/>
         <item view="UploadView" title="msg://com.company.onboarding.view.component.upload/uploadView.title"/>
         <item view="ValuePickerView" title="msg://com.company.onboarding.view.component.valuepicker/valuePickerView.title"/>
+        <item view="UserMenuView" title="msg://com.company.onboarding.view.component.usermenu/userMenuView.title"/>
         <separator/>
         <item view="ValidatorView" title="msg://com.company.onboarding.view.component.validator/validatorView.title"/>
         <item view="FormatterView" title="msg://com.company.onboarding.view.component.formatter/formatterView.title"/>

@@ -1,0 +1,148 @@
+= userMenu
+
+// todo
+
+== Basics
+
+The main button displays a layout that represents a current user. Users click this button to access the dropdown menu.
+
+The dropdown menu contains a list of actions, each represented by a clickable item.
+
+image::visual-components/components/user-menu-basic.png[align="center", width="240"]
+
+Here's an example of defining a `userMenu` with default button renderer and several menu items:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-basic]
+----
+
+== Elements
+
+`userMenu` defined in the XML descriptor can contain nested elements:
+
+[[actionItem]]
+=== actionItem
+
+The `actionItem` element creates a link between a user menu item and a specific xref:actions/declarative-actions.adoc[action] that should be executed when that item is clicked.
+
+You can either define an action declaratively or use the `ref` attribute to point to the `id` of an already defined `action`.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=actions;layout;user-menu-action]
+----
+
+<1> Declaratively defined action.
+<2> Reference to the existing action.
+
+When a user clicks on an `actionItem` in the dropdown, Jmix automatically triggers the `action`.
+You can generate an `ActionPerformedEvent` handler method for an action to implement its logic:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=notifications-bean;user-menu-action]
+----
+
+[[componentItem]]
+=== componentItem
+
+The `componentItem` element allows you to define custom inner content for `userMenu`.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=layout;user-menu-component]
+----
+
+You can generate a `UserMenuItem.HasClickListener.ClickEvent` handler stub for `componentItem` using Jmix Studio.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=notifications-bean;user-menu-component]
+----
+
+[[textItem]]
+=== textItem
+
+The `textItem` element holds text and icon.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=layout;user-menu-text]
+----
+
+You can generate a `UserMenuItem.HasClickListener.ClickEvent` handler stub for `textItem` using Jmix Studio.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=notifications-bean;user-menu-text]
+----
+
+[[viewItem]]
+=== viewItem
+
+The `viewItem` element allows you to open a specific view.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=layout;user-menu-view]
+----
+<1> Opens a view with the specified id.
+<2> Opens a view with the specified class in the `DIALOG` mode.
+
+[[separator]]
+=== separator
+
+The `separator` element is used to visually separate items in the dropdown menu.
+
+Separators automatically hide if they meet the following conditions:
+
+. Several separators go one by one. In this case only one separator remains visible.
+. Separator is the first child and header renderer is not defined.
+. Separator is the last child.
+
+[[nested-items]]
+=== Nested Items
+
+// todo
+
+[[theme-variants]]
+== Theme Variants
+
+// todo
+The xref:vc/common-attributes.adoc#themeNames[themeNames] attribute allows you to assign a specific button style from the set of predefined variants.
+
+* Tertiary - removes button background
++
+image::visual-components/components/user-menu-theme-variant-tertiary.png[align="center", width="448"]
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-theme-variants-tertiary]
+----
+
+
+* Non-checkable - removes area that displays check mark
++
+image::visual-components/components/user-menu-theme-variant-non-checkable.png[align="center", width="472"]
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-theme-variants-non-checkable]
+----
+
+The `non-checkable` theme variant can be defined both for `userMenu` and its items individually.
+
+[[renderers]]
+== Renderers
+
+// todo
+
+[[built-in-actions]]
+== Build-in actions
+
+// todo
+
+== Attributes
+
+// todo
