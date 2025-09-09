@@ -1,54 +1,26 @@
 = Using DMN 1.3
 
+BPMN and DMN (Decision Model and Notation) notations are designed for collaborative work. When modeling a complex decision, a BPMN diagram can become too complicated. In this case, it's better to model the decision-making process in DMN and then return control to BPMN.
 
-If you have a need to model in your process a decision depending on many conditions,
-you can use a xref:bpmn/bpmn-business-rule-task.adoc[Business Rule Task]
-to call the DMN table that returns output values, determined according to your business rules.
-
-****
-*Decision Model and Notation*™ (DMN™) is a modeling language and notation for the precise specification of business decisions and business rules.
-DMN is easily readable by the different types of people involved in decision management.
-These include business professionals who specify the rules and monitor their application; business analysts.
-
-See the original https://www.omg.org/dmn/[the DMN specification^] for details.
-****
-
-BPMN and DMN are designed to collaborate.
-When it is required to model a complex decision, BPMN diagram becomes too complicated.
-In this case, it is better to model making decision in DMN and then return control to BPMN.
+You can invoke a DMN table from a process by adding a xref:bpmn/bpmn-business-rule-task.adoc[Business Rule Task] element. Input values are defined according to the business rules specified in the table. As a result, you will obtain output values in the specified format.
 
 image::dmn/bpmn-dmn-together.png[,900]
 
-Actually, DMN is a graphical notation like BPMN with its own diagrams.
-However, in practice, software vendors don't implement full notation, they take only DMN tables representing business rules.
-So, *Jmix BPM* supports DMN tables only.
-
+NOTE: NOTE: DMN is a graphical notation similar to BPMN, with its own diagrams. However, in practice, software vendors do not implement the full notation and only use DMN tables representing business rules. *Jmix BPM* only supports DMN tables.
 
 [[dmn-engine]]
 == DMN Engine
 
-The Flowable *DMN engine* evaluates decision tables and executes business rules defined in DMN format.
-It allows users to create complex decision logic that can be integrated with BPMN processes,
-enabling dynamic decision-making based on input data.
-
-The DMN engine supports multiple decision models, operates within a specific execution context, and provides flexible output handling.
-See the xref:jmix-bpm-api.adoc#flowable-dmn-api[DMN API] section, how to access it programmatically.
-
-Additionally, it can be accessed via a xref:jmix-bpm-api.adoc#flowable-dmn-rest-api[DMN REST API],
-allowing external systems to evaluate decisions programmatically.
-This functionality enhances the agility and responsiveness of business processes by facilitating informed decision-making.
+Jmix BPM uses the Flowable DMN engine. It supports multiple decision models and provides flexible output processing capabilities. Access to the engine can be obtained programmatically through the xref:jmix-bpm-api.adoc#flowable-dmn-api[DMN API]. Additionally, access can be provided for external systems via the xref:jmix-bpm-api.adoc#flowable-dmn-rest-api[DMN REST API].
 
 [[dmn-defitition]]
-== DMN Definition
+== DMN definition
 
-The root element of the DMN 1.1 schema is a `<definitions>` element.
-Within this element, multiple decision definitions can be defined,
-(although we advise you to have only one decision definition in each file,
-as this simplifies maintenance later in the development process).
-Within each decision, one expression can be defined.
-There are several types of expressions.
-Within Flowable, currently, the expression type decision table is supported.
+The root element of the DMN 1.1 schema is the `<definitions>` element. Within this element, several `<decision>` elements can be defined.
 
+TIP: For readability and ease of maintenance, it is recommended to have only one `<decision>` element in each file.
+
+The `<decision>` element can have one child element `<decisionTable>`.
 [source,xml]
 ----
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101"
@@ -71,166 +43,115 @@ Within Flowable, currently, the expression type decision table is supported.
 
 *Jmix BPM* add-on provides tools for creating and deploying decision tables that are available in web application:
 
-* Decision tables (administration)
-* Decision table modeler
+* xref:bpm:menu-views/decision-tables.adoc[] view
+* View xref:bpm:menu-views/decision-table-modeler.adoc[] view
 
 [[modeling-decision-tables]]
 === Modeling Decision Tables
 
-To create a new decision table, in the web application use *Decision table modeler* from the *BPM* menu.
-
-image::dmn/dmn-modeler-in-menu.png[,250]
-
-The modeler view opens.
+To start creating a decision table, go to the *Decision table modeler* screen from the main menu of the application.
 
 image::dmn/modeler-window.png[,1000]
 
-Now you can configure your DMN table:
+To configure a table, follow these steps:
 
 * Enter table `id` and `name`
 * Define _inputs_ and _outputs_
-* For outputs, set _pre-defined values_ (if it's necessary)
+* For outputs, set _pre-defined values_ (if necessary)
 * Create _business rules_
 * Set _hit policy_ (if there is more than one rule)
 
-When you finish, deploy the decision table or save draft.
+After completing the setup, the table can be deployed or saved as a draft.
 
 [[defining-inputs-outputs]]
 ==== Defining Inputs and Outputs
 
-A decision table uses process variables as  _inputs_ and _outputs_.
-The types of inputs and outputs can be:
+Process variables are used as values for _inputs_ and _outputs_. It is important that the names of these values match the names of the variables. The following types of input and output values are supported:
 
 * String
 * Number
 * Boolean
 * Date
 
-[NOTE]
-====
-If output has type _Number_, it is always _double_.
-====
-
-[WARNING]
-====
-There is no mapping between process variables and decision table inputs and outputs.
-But the names of the table parameters must  match the names of process variables.
-It is on developer's responsibility.
-====
-
-A new decision table has one input and one output.
-You can configure them by setting label, name, and type.
-To do this, click the label:
+A new decision table has one input and one output value. You can configure them by setting the name, process variable name, and type. To do this, click on the name:
 
 image::dmn/input-label.png[,600]
 
-For example, set up the input:
+For example, configure the input:
 
 image::dmn/input-definition.png[,600]
 
-Outputs are configured the similar way. Besides, outputs may have additional property -- _Predefined output values_.
-They are used in some hit policies.
+Output values are configured similarly but can have an additional property – _Predefined output values_. This is used for certain <<hit-policy,Hit Policies>>.
 
 image::dmn/output-with-predefined.png[,600]
 
-The decision table may have many inputs and outputs.
-To create additional input or output, click the _plus_ button in the table header:
+Generally, a decision table contains multiple inputs and outputs. To create an additional one, click the plus sign in the table header:
 
 image::dmn/add-input.png[,900]
 
-The system will create a new column:
-
-image::dmn/new-input.png[,900]
-
-Configure this parameter as you need.
-
 [[creating-business-rules]]
+
 ==== Creating Business Rules
 
-A _business rule_ is one or more logical conditions based on input parameters implicitly joined by 'AND' operand.
+A business rule is one or more logical conditions based on input parameters, connected by the logical operator 'AND'.
 
 image::dmn/business-rule-full.png[,900]
 
-For example, `color == "red" AND size > 10`.
+For example, color == "red" AND size > 10.
 
-One or more conditions can be empty. In this case, there must be a dash symbol ('-') in the field.
-
-
-image::dmn/input-entry.png[,600]
+NOTE: Some conditions may be empty. In this case, a dash ('-') is placed in the field.
 
 [[hit-policy]]
 === Hit Policy
 
-*Hit policy* is a parameter of decision table, defining how rules will be applied to data.
-To set up a hit policy, click the link button in the table header as shown below:
+Hit policies describe ways to evaluate the rules contained in a decision table. If the rules overlap, meaning that multiple rules match a given set of input values, a result is determined by hit policy. Different hit policies lead to different result and suggest different interpreting of the decision table.
+
+To select a policy, click on the symbol in the top left corner of the table. This symbol corresponds to the initial letter of the selected policy (Unique, Any, Priority, First, Collect, Output Order, Rule Order).
 
 image::dmn/set-hit-policy.png[,600]
 
-Then you can select a desired hit policy from the pull-down list.
-Default value is `Unique`.
+Then select the policy from the dropdown list. The default value is Unique.
 
 image::dmn/hit-policy-list.png[,550]
 
-There are seven hit policies available of two sorts:
+Hit policies can be divided into two types: policies that allow a single result and policies that allow multiple results.
 
-* *Single hits*
-This group of hit policies returns only one result for each output.
+==== Single Result Policies
 
-* *Multiple hits*
-For multiple hits DMN engine returns result as JSON.
-It cannot be implicitly cast to String variables.
+*FIRST*:: Returns the first result according to the order of rules from top to bottom, and after that, evaluation can be stopped. The last rule often servers as handler.
 
-There are the following hit policies:
+*UNIQUE*:: Rules cannot overlap; only one rule is applied. Unique is the default selection policy.
 
-*FIRST*:: Multiple (overlapping) rules can match with different output entries.
-The first hit by rule order is returned (and evaluation can halt).
+*ANY*:: Rules can overlap, but in this case, they must return same result. If there are several matching rules, but they lead to different result, this is considered an error, and the result will be empty and marked as failed.
 
-*UNIQUE*:: No overlap is possible, and all rules are disjointed. Only a single rule can be matched.
-+
-In this case, the DMN engine cannot resolve business rule because of HitPolicy UNIQUE is violated.
-If _amount_ = 300, two rules are activated, but this is restricted.
+*PRIORITY*:: Rules can overlap and return different results but only the rule with the highest priority is applied. Priorities are specified in a list, where the most important results come first. It is important that priorities do not depend on the order of the rules.
 
-*ANY*:: There may be overlap, but all the matching rules show equal output entries for each output, so any match can be used.
-If the output entries are non-equal, the hit policy is incorrect, and the result will be empty and marked as failed.
-When strict mode is disabled, the last valid rule be the result.
-(The violation will be present as a validation message.)
+==== Multiple Results Policies
 
-*PRIORITY*:: Multiple rules can match with different output entries.
-This policy returns the matching rule with the highest output priority.
-Output priorities are specified in the ordered list of output values, in decreasing order of priority.
-When strict mode is disabled and there are no output values defined, the first valid rule be the result.
-(The violation will be present as a validation message.)
+For multiple selection policies, the DMN engine returns the result in JSON format. It cannot be implicitly converted to String type variables.
 
-*OUTPUT ORDER*:: Returns all hits in decreasing output priority order.
-Output priorities are specified in the ordered list of output values in decreasing order of priority.
-+
-The result will be returned into process variable with name equals the name of _decision table_.
-For example, 'output-order'. The type of that variable is _JSON_, and you can't work with it like with string.
+*OUTPUT ORDER*:: All matching rules result in list of output values ordered by priority from high to low. The result will be returned to a process variable named after the decision table.
 
-*RULE ORDER*:: Returns all hits in rule order.
-+
-It's like previous, just without priorities from the predefined output values list.
+*RULE ORDER*:: All matching rules result in a list of output values in the order they appear in the decision table.
 
-*COLLECT*:: Returns all hits in arbitrary order.
-An operator (‘+’, ‘<’, ‘>’, ‘#’) can be added to apply a simple function to the outputs.
-If no operator is present, the result is the list of all the output entries.
-+
-If you use _COLLECT_ hit policy without aggregation parameter (Collect none), it works absolutely like _RULE ORDER_.
+*COLLECT*:: All matching rules result in a list of output values in arbitrary order. Operators (‘+’, ‘<’, ‘>’, ‘#’) can be applied to the output values; in this case, the table will have a single output result.
 
-* *`+` (sum)*: the result of the decision table is the sum of all the distinct outputs.
+* *`+` (sum)*: the result of the table will be the sum of all unique output values.
 
-* *`<` (min)*: the result of the decision table is the smallest value of all the outputs.
+* *`<` (min)*: the result of the table will be the smallest of all output values.
 
-* *`>` (max)*: the result of the decision table is the largest value of all the outputs.
+* *`>` (max)*: the result of the table will be the largest of all output values.
 
-* *`#` (count)*: the result of the decision table is the number of outputs.
+* *`#` (count)*: the result of the table will be the count of output values.
 
 [[example]]
 == Example
 
+Below is an example of decision table created in Jmix BPM:
+
 image::dmn/discount-example.png[]
 
-*XML Representation*
+XML representation:
 
 [source,xml]
 ----
@@ -291,10 +212,3 @@ image::dmn/discount-example.png[]
   </decision>
 </definitions>
 ----
-
-[[managing-decision-tables]]
-== Managing Decision Tables
-
-To manage decision tables, use xref:menu-views/decision-tables.adoc[Decision tables] view from the _BPN_ menu:
-
-image::dmn/bpm-decision-tables.png[,250]

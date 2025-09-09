@@ -1,25 +1,19 @@
 = BPM API
 
-
-Jmix BPM uses the <<flowable-api,Flowable API>>, allowing seamless interaction with the xref:bpm:bpm-concepts.adoc#process-engine[process engine] within a Spring Boot environment. This simplifies development and enhances the user experience by offering a cohesive BPM framework.
-
-Additionally, Flowable's standalone <<flowable-rest-api,REST API>> enables external systems to interact with the process engine, promoting interoperability and integration into broader application architectures. Understanding the available APIs and extensions empowers developers to harness the full potential of Flowable within the Jmix BPM ecosystem.
+Jmix BPM uses the <<flowable-api, Flowable API>>, which facilitates easy interaction between the Spring Boot application and the process engine. The <<flowable-rest-api,REST API>> of Flowable offers extensive integration capabilities with external applications.
 
 [[flowable-api]]
 == Flowable API
 
-You can use Flowable API to interact with the process engine. This API allows you to start process instances programmatically, complete tasks, and execute various queries, for example, get a list of tasks for a user or get active instances of a process definition.
+Flowable API allows programmatic interaction with the process engine. This API allows to start process instances, complete tasks, and execute various queries, for example, get a list of tasks for a user or get active instances of a process definition.
 
 image::jmix-bpm-api/api-services.png[,600]
 
-[NOTE]
-====
-Flowable `FormService` and `IdentityService` are not used in Jmix BPM projects.
-====
+NOTE: Jmix BPM does not use Flowable's `FormService` and `IdentityService`. Jmix BPM provides BpmTaskService, which extends Flowable's TaskService. See the example <<using-bpm-task-service, below>>.
 
-Flowable services can be obtained in two ways:
+Flowable services can be accessed in two ways:
 
-* Using `ProcessEngines` as a starting point:
+* Using `ProcessEngines`:
 +
 [source,java,indent=0]
 ----
@@ -33,27 +27,22 @@ include::example$/ex1/src/main/java/bpm/ex1/screen/customer/CustomerEdit.java[ta
 include::example$/ex1/src/main/java/bpm/ex1/service/MyCustomBean.java[tags=bean;runtime-service]
 ----
 
-== Jmix BPM API Extension
-
-The *Jmix BPM add-on* provides `BpmTaskService` that extends `TaskService` of Flowable. See an example of the usage <<using-bpm-task-service,below>>.
-
 [[flowable-rest-api]]
 == Flowable REST API
 
 //todo: check REST API usage
 
-See
-https://www.flowable.com/open-source/docs/bpmn/ch14-REST
+See https://www.flowable.com/open-source/docs/bpmn/ch14-REST
 
 [[flowable-dmn-api]]
 == Flowable DMN API
 
-https://www.flowable.com/open-source/docs/dmn/ch03-API
+See https://www.flowable.com/open-source/docs/dmn/ch03-API
 
 [[flowable-dmn-rest-api]]
 == Flowable DMN REST API
 
-https://www.flowable.com/open-source/docs/dmn/ch07-REST
+See https://www.flowable.com/open-source/docs/dmn/ch07-REST
 
 
 
@@ -125,9 +114,6 @@ or use the `ProcessEngines` class:
 include::example$/ex1/src/main/java/bpm/ex1/screen/customer/CustomerEdit.java[tags=get-service]
 ----
 
-
-
-
 === Working with Process Definitions via the API
 
 Flowable provides a rich API for interacting with process definitions:
@@ -135,7 +121,6 @@ Flowable provides a rich API for interacting with process definitions:
 . *Deployment*: Process definitions are typically deployed as part of a deployment unit, which can include multiple definitions and related resources.
 +
 [source,java]
-.filename.java
 ----
 Deployment deployment = repositoryService.createDeployment()
                         .addClasspathResource("my-process.bpmn20.xml")
@@ -145,7 +130,6 @@ Deployment deployment = repositoryService.createDeployment()
 . *Querying*: The RepositoryService allows querying process definitions based on various criteria:
 +
 [source,java]
-.filename.java
 ----
 ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
                                      .processDefinitionId("myProcessDefinitionId")

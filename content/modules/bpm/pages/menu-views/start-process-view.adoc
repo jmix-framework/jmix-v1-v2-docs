@@ -1,8 +1,7 @@
 = Start Process
 
-This view allows users to start processes where they set xref:bpmn/bpmn-process.adoc#starter-candidates[candidates].
+This view lets users start processes for which they are xref:bpmn/bpmn-process.adoc#starter-candidates[starter candidates].
+
 If the process has a starting form, it will be displayed before the process starts.
 
 image::bpm-menu-views/start-process-view.png[,800]
-
-To have access to this view, the user should be assigned to the role *BPM: process actor*.

@@ -1,61 +1,40 @@
 = Introduction
 
-
-The *BPM add-on* integrates the open-source xref:bpm:introduction.adoc#flowable-bpm[Flowable BPM engine]
-into *Jmix Platform*, bringing to it new tools to design, manage, and automate various complex interactions between people and systems.
+Jmix BPM add-on turns Jmix into a platform for automating business processes. The add-on combines the power of the open-source xref:bpm:introduction.adoc#flowable-bpm[Flowable BPM engine] with intuitive design, monitoring, and management tools, providing a robust solution for process optimization.
 
 [[architecture]]
-== Architecture Overview
+== Add-on Components
 
-*BPM add-on* includes components available in *Studio* and in the *web application* at runtime.
-In Studio, the developer has a xref:bpm:modeler-studio.adoc[*Modeler*] for creating BPMN process models,
-a *Process Form Wizard* (in View Creation Wizard), and a BPM section in the *Jmix Tool Window*.
+Jmix BPM features both web application tools and Jmix Studio tools.
+
+* The xref:bpm:menu-views/modeler-web.adoc[BPMN modeler] view and number of xref:menu-views/bpm-ui.adoc[administrative and user views] become available in the running application.
+* In Studio, developers can use the xref:bpm:modeler-studio.adoc[built-in BPMN modeler], process form wizard, and BPM tools found in the xref:studio:tool-window.adoc[].
 
 image::introduction/bpm-components.png[,800]
-
-In the web application, you have access to the process xref:bpm:menu-views/modeler-web.adoc[*Modeler*],
-which offers functionality similar to that of Studio.
-It includes a set of administrative views as well as user views
-that enable regular users to start processes and manage their tasks.
-
-[[extensions]]
-== Extensions in Process Modeling
-
-When modeling a process, several extensions become available to enhance functionality:
-
-* xref:bpm:bpmn/jmix-entity-data-task.adoc[*Entity Data Task*] - Allows users to create, modify, and load Jmix Entities directly from the data model.
-* xref:bpm:bpmn/jmix-email-task.adoc[*Email Sending Task*] - Enables users to send emails from within the process.
-* xref:bpm:bpmn/bpmn-user-task.adoc#assign-task-by-user-provider[*User Providers*] - Interfaces that allow users to define task performers and candidates programmatically.
-* xref:bpm:listeners.adoc#spring-events-bpm[*Jmix BPM Spring Events*] - Simplifies the implementation of listeners for process events.
-* ... and a number of other improvements.
-
-Additionally, the BPM add-on automatically creates the required tables in the database to support these features.
-
-[[bpmn-20]]
-== BPMN 2.0
-
-Jmix BPM uses BPMN 2.0 that is a widely accepted and supported standard for modeling and executing automated business processes.
-
-[quote, Object Management Group]
-The Business Process Modeling Notation is a graphical notation that depicts the steps in a business process.
-BPMN depicts the end-to-end flow of a business process.
-The notation has been specifically designed to coordinate the sequence of processes and the messages that flow between different process participants in a related set of activities.
-
-You can find the official version of BPMN specification at the OMG website:
-https://www.omg.org/bpmn/
-
 
 [[flowable-bpm]]
 == Flowable BPM Engine
 
-https://flowable.com/open-source/[Flowable] is an open-source Business Process Management (BPM) engine that provides a lightweight, efficient, and highly customizable solution for automating business processes. It is written in Java and supports the BPMN 2.0, CMMN, and DMN standards for modeling and executing processes.
+Jmix BPM is built on the https://flowable.com/open-source/[Flowable^] open-source BPM Engine. Flowable is a Java-based engine that has evolved from of https://www.activiti.org/[Activiti^]. It supports BPMN 2.0, CMMN, and DMN standards, enabling users to create flexible and efficient business processes with ease.
 
-[NOTE]
-====
-Jmix BPM doesn't support case management using CMMN.
-====
+NOTE: Jmix BPM currently does not include functionality for case management with CMMN.
 
-Flowable is a fork of *Activiti* (registered trademark of Alfresco). In all the following sections, you’ll notice that the package names, configuration files, and so on, use flowable.
+[[bpmn-20]]
+== BPMN 2.0
+
+Jmix BPM adheres to BPMN 2.0 that is a widely accepted and supported standard for modeling and executing automated business processes.
+
+The official BPMN specification can be accessed on the Object Management Group website at https://www.omg.org/bpmn/.
+
+[[extensions]]
+== Extensions
+
+Jmix BPM offers several unique tasks and enhances the capabilities of standard tasks:
+
+* xref:bpm:bpmn/jmix-entity-data-task.adoc[*Entity Data Task*] – Allows users to create, modify, and load Jmix Entities directly from the data model.
+* xref:bpm:bpmn/jmix-email-task.adoc[*Email Sending Task*] – Enables users to send emails from within the process.
+* xref:bpm:bpmn/bpmn-user-task.adoc#assign-task-by-user-provider[*User Providers*] – Interfaces that allow users to define task performers and candidates programmatically.
+* xref:bpm:listeners.adoc#spring-events-bpm[*Jmix BPM Spring Events*] – Simplifies the implementation of listeners for process events.
 
 [[databas-configuration]]
 == Database Configuration
@@ -64,31 +43,27 @@ During the installation process, *Jmix* creates required database tables in the 
 
 
 [[database-table-names]]
-== Database Table Names
+=== Database Table Names
 
-The database names of Flowable all start with `ACT_`  (that refers to *Activiti* product name).
-The second part is a two-character identification of the use case.
-This use case will also roughly match the service API.
+The database names of Flowable all start with `ACT_` (this refers to *Activiti* product name). The second part is a two-character code for the use case.
 
-*ACT_RE_*: `RE` stands for repository. Tables with this prefix contain 'static' information such as process definitions and process resources (images, rules, etc.)
+*ACT_RE_*: `RE` stands for repository. Tables with this prefix hold 'static' information such as process definitions and process resources (images, rules, etc.).
 
-*ACT_RU_*: `RU` stands for runtime. These are the runtime tables that contain the runtime data of process instances, user tasks, variables, jobs, and so on. Flowable only stores the runtime data during process instance execution and removes the records when a process instance ends. This keeps the runtime tables small and fast.
+*ACT_RU_*: `RU` stands for runtime. These tables store runtime data for process instances, user tasks, variables, jobs, and more. Flowable keeps the runtime data during process instance execution and removes it when a process instance ends. This keeps the runtime tables small and fast.
 
-*ACT_HI_*: `HI` stands for history. These are the tables that contain historic data, such as past process instances, variables, tasks, and so on.
+*ACT_HI_*: `HI` stands for history. These tables contain historic data, such as past process instances, variables, and tasks.
 
 *ACT_GE_*: `GE` means general data, which is used for various use cases.
-
 
 [[bpm-roles]]
 == BPM Roles
 
 During the installation process, the system creates two distinct roles:
 
-* *BPM: administrator* - for administrative tasks.
-* *BPM: process actor* - for participation in processes.
+* *BPM: administrator* – for administrative tasks.
+* *BPM: process actor* – for participation in processes.
 
-To grant users access to all BPM administrative views, assign them the *BPM: administrator* role. If users only need to participate in processes, assign them the *BPM: process actor* role.
-
+To grant users access to all xref:bpm:menu-views/bpm-ui.adoc[BPM administrative views], assign them the *BPM: administrator* role. If users only need to participate in processes, assign them the *BPM: process actor* role.
 
 [[additionally]]
 == Additionally

@@ -1,5 +1,5 @@
 = Decision Table Modeler
 
+Use the *Decision Table Modeler* to create decision tables. Check the xref:dmn-1-3.adoc#modeling-decision-tables[modeling decision tables] section for guidance.
 
-This view allows to model decision tables.
-See xref:dmn-1-3.adoc#modeling-decision-tables[Modeling decision tables] section.
+image::dmn/modeler-window.png[,1000]

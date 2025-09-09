@@ -1,67 +1,35 @@
-= BPMN Web Modeler
+= Modeler
 
-Jmix BPM enables you to create and modify process models in a web environment at runtime.
-You can access the xref:bpm:menu-views/modeler-web.adoc[Modeler] through the *BPM* section in the main menu.
-
-This feature allows you to:
-
-- Fix minor issues in existing processes
-- Make modifications during production work
-- Create new processes from scratch
-
-[IMPORTANT]
-====
-Those are possible if writing new Java code or alterations to existing code isn't required.
-====
-
-Take advantage of the web modeler to enhance your processes seamlessly while maintaining operational continuity.
-
-== Overview
-
-This view contains a *canvas* for modeling processes and a panel with *BPMN elements palette* on the left.
-To configure process elements, select them on the canvas and set properties in the *properties panel* on the right.
+The modeler view allows users to create and edit process models within the running application.
 
 image::bpm-menu-views/web-modeler.png[,800]
 
-At the top of the properties panel, you can see a *buttons panel*.
-It contains the following buttons:
+* In the center, there is a canvas for modeling processes, with a BPMN element palette on the left. To add a new element, drag it from the palette onto the canvas.
 
-* Deploy process
-* Open draft
-* Save draft
-* Download BPMN XML
-* Upload BPMN XML
+* The properties panel on the right displays the properties of the process or the selected element.
 
-When you click the *Deploy process* button in the buttons panel,
-the process will be deployed to the process engine and will be available for starting.
+* The toolbar contains actions for deploying the process, managing drafts, and importing or exporting models in XML format.
 
 [[model-drafts]]
 == Model Drafts
 
-If you don’t want the process model to be deployed and just want to save it to continue editing later,
-use the *Save draft* button.
+Use the *Save Draft* button to save the model you want to edit later.
 
 image::bpm-menu-views/save-draft.png[,800]
 
-The draft will be saved in the content storage.
-To open a draft, use the *Open draft* button.
+To open a draft, click the *Open Draft* button and select the model.
 
 image::bpm-menu-views/open-draft.png[]
 
-To export a process model, click the *Download* button.
-XML file will be saved in the file system with the name as its _process id_ and extension `.bpmn20.xml`.
+== Importing and Exporting Models
 
-To import a process model, click the *Upload* button and select a file for downloading.
-Then you can deploy it or save draft.
+To export a model, click the *Download* button. The XML model will be saved in a file with the `.bpmn20.xml` extension, using the process id as the file name.
 
-[WARNING]
+To import a model, click the *Upload* button and select the file. The imported model can be edited, deployed, or saved as a draft.
+
+[IMPORTANT]
 ====
-BPMN models created in 3rd party tools can be incompatible with Jmix BPM.
-And vice versa: Jmix models can be unreadable in 3rd party tools.
+BPMN models created in third-party tools may not be compatible with Jmix BPM.
 
-Special Jmix elements (Entity Data task, Email Sending task) will be represented
-as regular service tasks in 3rd party tools.
-But they keep its properties.
+Conversely, models created in Jmix BPM may have limitations in third-party tools: components specific to Jmix, such as the Entity Data task and Email Sending task, will be represented as standard Service Tasks. However, they will retain their properties.
 ====
-
-TIP: To create business processes in the IDE, use xref:bpm:modeler-studio.adoc[Studio BPMN Modeler].

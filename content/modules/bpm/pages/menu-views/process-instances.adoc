@@ -1,50 +1,42 @@
 = Process Instances
 
-This view can display both active and completed process instances.
-To switch between them, change the value of the *State* combo box in the filter and click the *Apply* button.
-By default, the list is empty.
+The *Process Instances* view displays a list of active and completed process instances. Use the *Completion State* field in the filter to switch between statuses.
 
 image::bpm-menu-views/process-instances-list.png[,800]
 
-[TIP]
-====
-If the *End time* field is empty, the process is *Active* otherwise it is *Completed*.
-====
+By selecting an instance from the list, you can navigate to the *Process Instance Detail* view for more information about the instance.
 
-In the *Process instance detail* view,
-you can xref:bpm:instance-migration.adoc[migrate] an instance to a new process definition version,
-suspend an instance or remove it.
+[[process_instance_detail]]
+== Process Instance Detail
+
+The *Process Instance Detail* view provides details about the process instance and allows you to perform various actions.
 
 image::bpm-menu-views/process-instance-detail.png[,800]
 
-The *Runtime* tab is available only for active process instances
-and contains information about the current process state:
-execution tree, variable values, active user tasks, and failed jobs.
+* Click *Migrate* to xref:bpm:instance-migration.adoc[initiate migration] to a newer version of the process definition.
 
-Selecting items in the executions tree will modify the content of the *Variables* and *Tasks* tabs.
-If you select a particular execution, only objects related to this execution will be displayed.
+* Use the *Suspend* and *Delete* buttons to pause or remove the instance, respectively.
 
-Using the *Variables* tab, you can create, modify and remove process variables.
-Note that when an execution is selected in the tree, a new variable will be put to the selected execution.
+* The *Runtime* tab (available only for active processes) contains information about the process state, including the execution tree, variable values, active user tasks, and any tasks that have failed.
 
+* Selecting elements in the execution tree updates the contents of the *Variables* and *Tasks* tabs, displaying only the objects related to the selected element.
+
+* In the *Variables* tab, you can create, modify, or delete process variables.
++
 image::bpm-menu-views/process-variable-editor.png[,900]
-
-In the *Tasks* tab, you can view a list of active tasks and reassign tasks to other users.
-
++
+* The *Tasks* tab allows you to view the list of active tasks and reassign them to other users.
++
 image::bpm-menu-views/task-reassignment.png[,900]
-
-The *Failed jobs* tab displays the list of jobs that failed with an error.
-For example, if some service task method threw an exception, this service task will appear in the failed jobs list.
-In the UI, you can view the exception stacktrace and restore the failed job after the cause of the error is fixed.
-
++
+* The *Failed Jobs* tab contains a list of jobs that have encountered errors. For example, if a service task method throws an exception, that task will appear in the list of failed jobs. The UI allows you to view the exception stack trace and recover the failed job after resolving the issue.
++
 image::bpm-menu-views/failed-job.png[,900]
-
-The *History* tab contains a list of all user tasks (completed and active),
-a full list of completed activities and last values of process variables.
-The *History* tab is available both for active and for completed process instances.
-
++
+* The *History* tab lists all user tasks (both completed and active), a complete record of actions taken, and the latest values of process variables. This tab is available for both active and completed process instances.
++
 image::bpm-menu-views/process-instance-history.png[,900]
-
-The *Diagram* tab displays a process model with the highlighted active node.
-
++
+* The *Diagram* tab displays the process model. The active node is highlighted to indicate the current stage of execution.
++
 image::bpm-menu-views/process-instance-diagram.png[,900]

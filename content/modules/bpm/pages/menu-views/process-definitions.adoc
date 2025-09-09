@@ -1,63 +1,39 @@
 = Process Definitions
 
-This administrative view contains a list of deployed processes (or process definitions) and allows you to open them in modeler,
-view details, upload BPMN XML or start new processes instances.
+The *Process Definitions* screen displays a list of available process definitions.
 
 image::bpm-menu-views/process-definitions-list.png[,800]
 
-You can start a new process instance of the selected process definition by clicking the *Start process* button.
-If the process has a start form, it will be displayed before the new instance to be started.
+By selecting a definition, you can perform the following actions:
 
-image::bpm-menu-views/start-process-from-definitions.png[,800]
+* Proceed to modeling at xref:bpm:menu-views/modeler-web.adoc[] view.
+* Navigate to the <<process_definition_details,Process Definition details>> view for a detailed description of the definition.
+* Start a new process instance.
+* Upload a BPMN XML process file.
 
-Click *View details* button to open *Process definition editor* that displays process definition properties,
-BPMN XML, active process instances of the selected process definition version.
+[[process_definition_details]]
+== Process definition details
+
+Clicking *View details* takes you to the *Process Definition Details* view, showing the properties of the process definition, the BPMN XML, and any active process instances.
 
 image::bpm-menu-views/process-deinition-details.png[,800]
 
-From the detail view, you can suspend the process definition.
-In this case, the process will not be available for starting new instances until you activate it.
-In the suspend process definition dialog, you can suspend running process instances as well.
-In this case, user tasks of suspended instances won’t be displayed in xref:menu-views/my-tasks.adoc[My tasks] view,
-all timers and jobs won’t be executed.
+* Use the *Version* field to switch between versions of the process definition.
 
+* Click *Suspend* to pause the selected process definition. This will prevent new instances from being started based on it. A dialog will appear with a checkbox to also suspend all active instances of the process. Tasks for suspended instances will not appear in xref:menu-views/my-tasks.adoc[My tasks], and all timers and jobs will be halted.
++
 image::bpm-menu-views/process-definition-suspend.png[,800]
-
-You can activate a suspended process definition.
-As well, you can activate all suspended process instances.
-
++
+* Click *Activate* to resume a previously suspended process definition. Use the checkbox to resume the execution of process instances.
++
 image::bpm-menu-views/process-definition-activate.png[,800]
-
-You can initiate xref:bpm:instance-migration.adoc[] from here.
-See the details in the corresponding section.
-
++
+* Click *Migrate all process instances* to initiate the xref:bpm:instance-migration.adoc[process instances migration].
++
 image::bpm-menu-views/process-definition-migrate-all.png[]
-
-To find the required process definition, you can use a search filters by the process name and key.
-Enter a search token and click *Apply* button.
-To see all the process definition versions, uncheck the *Last versions only* checkbox.
-
-[NOTE]
-====
-_Key_ is the _Process id_ in the process model.
-====
-
-image::bpm-menu-views/process-definitions-filter.png[]
-
-You can delete only a certain version of the process definition.
-To do that, open the detail view and click *Delete deployment* button.
-
++
+* If necessary, you can delete a specific version of the process definition. To do this, select the version and click the *Delete deployment* button.
++
 image::bpm-menu-views/process-definitions-delete.png[]
-
-[IMPORTANT]
-====
-Actually, you cannot delete a single process definition.
-In this case, the whole *deployment* will be deleted.
-Be careful: the deployment may contain several processes and resources.
-====
-
-
-
-
-
-
++
+IMPORTANT: Deleting a process definition will also remove any associated process instances, historical information, and tasks.

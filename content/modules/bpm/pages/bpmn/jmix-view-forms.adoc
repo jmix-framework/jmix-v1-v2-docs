@@ -1,85 +1,57 @@
 = Jmix View Process Forms
 
-When you need a process form with a complex layout and behavior,
-use xref:flow-ui:index.adoc[Jmix views] instead of xref:bpm:input-dialog.adoc[input dialog] forms.
+The xref:bpm:input-dialog.adoc[] forms discussed in the previous section are suitable for simple user interactions, such as data entry. However, Jmix allows you to use any views as process forms. This approach allows for process forms with complex layouts and behaviors tailored to your requirements.
 
-[[processform-annotation]]
-== `@ProcessForm` Annotation
+To use a view as a process form, annotate it with `@ProcessForm`.
 
-A view controller should be annotated with the `@ProcessForm` annotation to be used as a process form.
-This annotation has the following attributes:
-
-* allowedProcessKeys
-* outcomes
-* params
-* output variables
-
-Using of these attributes described below.
-
-[WARNING]
-====
-Avoid placing `@ProcessForm` annotation on existing Jmix views that were developed with other purposes.
-Better create new ones from scratch with the help of the wizard or via extending existing views.
-====
-
+TIP: Avoid using `@ProcessForm` on views designed for other purposes. It is better to create a new view or extend an existing one.
 
 [[creating-jmix-view-form]]
 == Creating Jmix View Form
 
-First, set a _Jmix view_ form type for the user task or start event in the *BPMN Inspector* panel:
+Select an element on the canvas. Then, in the *BPMN Inspector* panel, set the form type to _Jmix view_.
 
 image::jmix-view-forms/set-jmix-view-type.png[,400]
 
-Then, you'll be able to select an existing Jmix view process form in a pull-down list.
-To create a new form click image:jmix-view-forms/plus-button.png[,25] _Plus_ button:
+Select an existing view from the dropdown list, or click the  image:jmix-view-forms/plus-button.png[,25] button to create a new view.
 
 image::jmix-view-forms/create-jmix-view.png[,400]
 
-The *View Creation Wizard* will open. Enter the descriptor and controller names and other parameters.
+In the *View Creation Wizard*, enter names for the view descriptor and controller, as well as other parameters:
 
 image::jmix-view-forms/jmix-view-wizard-1.png[,700]
 
-Now, decide about the form template. There are two options available:
-_Process form with process variables_ (default) or _Process form for entity instance_:
+Select a form template. Two options are available:
 
 image::jmix-view-forms/form-template-select.png[,600]
 
-About those options:
 
-* By default, process variables of the _Entity_ type are represented in the form as _EntityPicker_ objects.
-In the case when the user must select an entity instance from the list, it is OK.
+* _Process form with process variables_ (default) – Process variables of type Entity will be represented in the form using the _EntityPicker_ component. The value of the variable can be selected from a dropdown list.
+* _Process form for entity instance_ – Process variables of type Entity will be represented using the standard entity detail view. Users will be able to see all attributes of the entity.
 
-* But if the user wants to have access to all entity's attributes, the _EntityPicker_ component isn't a suitable solution.
-It would be more comfortable to have a form like standard entity detail view.
-The second option allows to generate such a form automatically.
-
-When selecting to create a _Process form for entity instance_, the wizard will ask about the entity class and fetch plan:
+When selecting _Process form for entity instance_, you may need to specify the entity class and configure the fetch plan:
 
 image::jmix-view-forms/form-wizard-entity-variable.png[,700]
 
-However, by default, the checkbox _Use existing variable_ is on and these details will be hidden.
+NOTE: Some settings may be hidden if an existing variable is used (if the _Use existing variable_ checkbox is checked).
 
-After you finish with the entity variable instance setting, the wizard offers to add process variables.
-For example, let's add an `initiator` variable:
+After configuring the entity variable instance, the wizard prompts to add process variables. For example, to add the variable `initiator`:
 
 image::jmix-view-forms/add-variable.png[,900]
 
-When it is added, you can decide whether to show it in the form or not:
+When it is added, decide whether to display it in the form:
 
 image::jmix-view-forms/variable-to-form.png[,670]
 
-Further, the wizard offers to define form outcomes.
-By default, `submit` and `reject` outcomes are created.
-You can edit them or add new ones.
+Next, the wizard prompts to specify the outcomes of the form. By default, two outcomes are created: `submit` and `reject`. You can edit these and add more.
 
 image::jmix-view-forms/outcomes.png[,650]
 
-At last, define messages that will be displayed in the form.
-If there is more than one locale, you'll be able to enter messages for each language.
+Add a message for the form. When localizing the application into multiple languages, you will have the option to add messages for each supported language.
 
 image::jmix-view-forms/wizard-messages.png[,650]
 
-Here the wizard ends its work and opens the form controller window with generated code:
+After completing the wizard, the controller file with the generated code will open:
 
 [source,java]
 ----
@@ -137,47 +109,31 @@ public class OrderApprovalForm extends StandardView {
 }
 ----
 
-
 [[process-variables]]
 == Process Variables
 
-To pass process variables into the Jmix view form, you have to inject them in the controller.
-For this purpose, place `@ProcessVariable` annotation on injected UI components or regular class fields.
-
-It indicates that the value of the process variable will be written to this field when the process form is opened.
-In the case of the UI component, the value of the process variable will be set to the UI component.
-
-Normally, the name of the annotated field in the controller matches the name of the process variable.
-If not, use optional `name` attribute of `@ProcessVariable` annotation.
-The value of this attribute must be the process variable name.
+The `@ProcessVariable` annotation can be used to mark injected UI components or regular class fields. This annotation indicates that the value of the process variable will be written to this field when the process form is opened. In the case of a UI component, the variable's value will be set in that component.
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProcessForm1.java[tags=variables]
 ----
 
-To return process variables updated values back to the process,
-you can invoke the <<process-form-context,ProcessFormContext>> with the `saveInjectedProcessVariables()` method.
-In result, the values of annotated fields will be saved as process variables.
+The `@ProcessVariable` annotation includes an optional `name` attribute, which allows for the explicit specification of the name of the process variable associated with the field. If it is empty, then the process variable name matches the field name.
 
-The wizard implements this behavior by default in click events handlers.
-Or you can do this anywhere in your custom code.
-
+TIP: The `<<process-form-context,ProcessFormContext>>.saveInjectedProcessVariables()` methods enables saving values from annotated fields as process variables when starting the process or completing a user task.
 
 [[process-form-context]]
 == ProcessFormContext
 
-The `ProcessFormContext` object contains information about a process definition to be started
-(when the form is used for starting the process) or a user task to be completed.
+The `ProcessFormContext` object contains information about the definition of the process being started (when the process is started using a form) or the user task that needs to be completed.
 
-You can use `ProcessFormContext` if the process form is opened from the *Start process* and *My tasks* views.
-If you need to open the process form with the injected `ProcessFormContext` programmatically,
-use the <<opening-forms-programmatically,ProcessFormViews>> bean.
+Use `ProcessFormContext` when the process form is opened from the xref:bpm:menu-views/start-process-view.adoc[] and xref:menu-views/my-tasks.adoc[] views. To open a process form with an injected `ProcessFormContext` programmatically, the bean <<opening-forms-programmatically,ProcessFormViews>> should be used.
 
-The `ProcessFormContext` object also contains methods for starting the process and task completion.
+The `ProcessFormContext` object also contains methods for starting and completing the process.
 
 [[start-form-example]]
-An example of how to start a process:
+Consider the following example of starting a process:
 
 [source,java,indent=0]
 ----
@@ -191,7 +147,7 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProce
 <5> Closes the opened window.
 
 [[task-form-example]]
-An example of how to complete the user task:
+An example of completing a user task is provided below:
 
 [source,java,indent=0]
 ----
@@ -222,14 +178,14 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OrderAppro
 == Process Form Parameters
 
 Jmix view process forms can accept external parameters defined in the modeler.
-The form parameters used by the form are defined in the `params` attribute of the `@ProcessForm` annotation:
+The parameters used by the form are defined in the `params` attribute of the `@ProcessForm` annotation:
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=params]
 ----
 
-These parameters are read by the *Bpmn Inspector*, and you can see them after selecting the view.
+These parameters are read by the *BPMN Inspector*, and you can see them after selecting the view.
 
 image::jmix-view-forms/form-params.png[,400]
 
@@ -323,8 +279,6 @@ To create a task form, use the `openTaskProcessForm` method:
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/test/TestScreen.java[tags=task-form]
 ----
-
-The task process form can look like an example in the <<task-form-example,ProcessFormContext>> section.
 
 [[examples]]
 == Examples

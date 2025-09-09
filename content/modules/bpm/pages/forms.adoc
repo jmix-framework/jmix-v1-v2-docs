@@ -1,8 +1,8 @@
 = Process Forms
 
-Process forms are views displayed to users. They may be configured for the `StartEvent` and `User Task` model elements. There are several process form types:
+Process forms are views displayed to users. They can be configured for the `StartEvent` and `User Task` model elements. There are several types of forms:
 
-* *Jmix view* — a user interface view.
-* *Input dialog* — a form is generated in the runtime when a user starts a process or completes a user task. Form fields are defined in the process model.
-* *No form* — a process should be started programmatically.
-* *Custom* — used if you need to render a form in a non-standard way.
+* *Jmix view* — this type of process form is based on a Jmix view.
+* *Input dialog* — this form is created at runtime when a user starts the process or performs a user task. The fields of the form are defined in the process model.
+* *No form* — for processes and tasks that start programmatically.
+* *Custom* — used to render a form in a non-standard way.

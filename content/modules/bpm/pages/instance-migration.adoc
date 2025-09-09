@@ -2,14 +2,19 @@
 
 When you modify a process model and deploy a new process definition version, all existing process instances continue using the previous version of the process definition. If necessary, you can migrate them to the new process definition version.
 
-If you need to migrate all process instances,
-open the xref:bpm:menu-views/process-definitions.adoc[Process Definitions] screen and click *View details*.
-In the editor, select a required version in the combo box field and click the *Migrate all instances* button.
-Before the migration is performed, all instances are validated,
-and if any instance cannot be migrated, an information window will be displayed.
+In order to migrate all process instances,
 
-To migrate a single instance,
-find it in the xref:bpm:menu-views/process-instances.adoc[Process Instances] screen and click *Edit*.
-In the editor, click the *Migrate* button.
+. Go to the xref:bpm:menu-views/process-definitions.adoc[] view.
+. Click *View details*.
+. Select the definition version from the dropdown list.
+. Click the *Migrate all instances* button.
+
+Before migration, all instances are validated, and if any instance cannot be migrated, a window with information will be displayed.
+
+To migrate a single instance:
+
+. Select the instance on the xref:bpm:menu-views/process-instances.adoc[] view.
+. Click *Edit* to open the instance editing screen.
+. On the instance editing screen, click *Migrate*.
 
 For more details about the process instance migration, see https://flowable.com/open-source/docs/bpmn/ch09-ProcessInstanceMigration/#process-instance-migration-experimental[Flowable documentation^].

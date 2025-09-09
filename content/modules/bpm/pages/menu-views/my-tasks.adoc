@@ -3,62 +3,41 @@
 This view provides access to the active tasks of the currently authenticated user.
 It organizes tasks in a tree structure, grouping them by their respective processes.
 
-The task tree features two root nodes: *Assigned Tasks* and *Group Tasks*.
-The *Assigned Tasks* node contains tasks where the user is the assignee,
-while the *Group Tasks* node includes tasks where the user is a candidate.
-
-The user navigates to a certain process and selects a task to open.
-How to work with tasks, see in the xref:bpm:process-forms.adoc[Process Forms] section.
-
 image::my-tasks/my-tasks-view.png[,800]
 
-The *Due Date* shows when the task is expected to be completed.
-However, this field is for informational purposes only.
-If you want to monitor when tasks are overdue and perform any actions based on that, it should be done programmatically.
+* The *Assigned Tasks* node contains tasks where the user is the assignee, while the *Group Tasks* node includes tasks where the user is a candidate.
 
-When designing your processes, use a xref:bpm:bpm-concepts.adoc#business-key[business key].
-A business key makes the task list more informative, allowing users to understand which business object is associated with each process.
-
-For example, see group tasks without the business key:
-
-image::my-tasks/my-group-task.png[,800]
-
-[TIP]
-====
-In most cases, the _entity instance name_ can serve as an effective business key.
-====
+* The *Process instance business key* column displays the xref:bpm:bpm-concepts.adoc#business-key[business key] value. This helps users understand which object the process is associated with.
++
+TIP: When designing processes, aim to specify a business key. The xref:data-model:entities.adoc#instance-name[] can serve as an effective business key.
++
+* The *Due Date* shows when the task is expected to be completed. This field is for reference only. If you want to track overdue tasks and take action based on this information, it should be done programmatically.
 
 [[advanced-task-list-view]]
 == Advanced Task List View
 
-The framework includes a BPM task view with advanced features for task management, including filtering, pagination, and sorting. This view is customizable to fit specific project requirements.
-
-To simplify this task view creation, Jmix Studio provides the *BPM: Advanced Task List View* template in its xref:studio:view-wizard.adoc[view creation wizard]:
-
-image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
-
-Creating an advanced task view involves similar steps as creating a standard blank view.
-
-After all steps are executed, the studio produces the descriptor and controller files. Despite their significant size, these files include extensive inline comments, making the code easier to understand and customize.
-
-The generated view will not extend or override the *My Tasks* view provided by the BPM add-on, and it can be customized to fit the project's needs.
-
-Let's see how the generated view looks in the application.
+The framework allows for the creation and customization of an alternative screen for viewing tasks. This screen is standalone and does not replace the standard *My Tasks* screen. It can also be easily tailored to meet the needs of your project.
 
 image::my-tasks/advanced-my-tasks-view.png[align="center",width="982"]
 
-The left side of the view includes a custom filter component, which offers filtering capabilities based on task name, process, and assignment type.
+* The left side features a filter component that allows filtering by task name, process name, or assignee.
+* The right side displays a table containing the list of user tasks.
 
-The right side of the view contains a data grid, which displays a sortable list of user tasks retrieved from the database.
+=== Creating Advanced Task View
+
+The process of creating an alternative task screen is similar to creating other screens in the Jmix application. The xref:studio:view-wizard.adoc in Jmix Studio provides the *BPM: Advanced Task List View* template.
+
+
+image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
+
+After completing the steps in the wizard, Studio generates descriptor and controller files. These files include detailed comments to facilitate understanding and modification of the view.
 
 [[advanced-task-list-security]]
-=== Security
+=== Access to the View
 
-Because this view is a custom view at the project level, you must manually grant permissions to it and its related entities.
+Similar to other views in you project, users will need access to this new view and the associated entities. Therefore, they have to be granted an appropriate xref:security:resource-roles.adoc[resource role]
 
-Create new `BpmProcessTaskPerformerRole` xref:security:resource-roles.adoc[resource role].
-
-This role grants the user access to view user tasks and work with process forms in the generated *Advanced Task List* view.
+The code below defines the `BpmProcessTaskPerformerRole`, which includes the complete set of necessary permissions.
 
 [source, java, indent=0]
 ----

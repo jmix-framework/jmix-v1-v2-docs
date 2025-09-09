@@ -8,9 +8,6 @@ The job executor operates in a multithreaded environment, allowing it to process
 It retrieves jobs from the database, executes them, and updates their status accordingly.
 This mechanism is essential for implementing features like delayed tasks and scheduled events in business processes.
 
-Overall, the job executor enhances the performance and scalability of the process engine
-by efficiently managing background jobs and ensuring smooth process execution.
-
 [[job-types]]
 == Job Types
 

@@ -1,47 +1,45 @@
 = Input Dialog Forms
 
+*Input dialog form* is a form for entering parameters for `Start Event` or `User Task` elements. The dialog automatically appears when a user starts the process or performs a user task.
 
-*Input dialog form* is a form defined in the BPMN process model.
-When users start processes or open user tasks,
-input dialogs are automatically rendered based on the configuration you provided in the model.
-Modifications of its layout and behavior aren't available.
+image::input-dialog-forms/form-example.png[,600]
 
-You can configure an input dialog for the `StartEvent` of `User Task` model elements.
-To create an input dialog form, set form type _Input dialog_ from the pull-down list in the *BPMN Inspector* panel.
+== Configuration
+
+To configure the dialog, select the `Start Event` or `User Task` element and set its type to `Input dialog`.
 
 image::input-dialog-forms/create-dialog-form.png[,400]
 
-Then additional form properties will appear:
+Additional properties will then appear:
 
 image::input-dialog-forms/form-section.png[,400]
 
-Here you can choose open mode, set parameters, and outcomes.
-
 [[open-mode]]
-== Open Mode
+=== Open mode
 
-This property defines a mode how the form will be open:
+This property defines how the form will open:
 
-* *Dialog* -- means a modal window.
-* *Navigate* -- view will be opened by navigating to its URL (specified in the `@Route` annotation)
+* *Dialog* – The form will open in a dialog window.
+* *Navigate* – The form will open as a new view by navigating to its URL.
 
 image::input-dialog-forms/open-mode.png[,400]
 
-By default, *Dialog* mode is used.
+The default setting is *Dialog*.
 
 [[parameters]]
-== Parameters
-Actually, *parameters* are *form fields* that may show data to the user or expect input from him. You can create parameters from the *BPMN Inspector* panel:
+=== Parameters
+
+Parameters are the fields of the form that can display values or expect input from the user. Click *create* to add a parameter:
 
 image::input-dialog-forms/create-parameters.png[,400]
 
-Next, the parameter editor window will open. Here you can select the process variable from the pull-down list or define a new variable by entering its name.
+An editor window will open. Select a process variable from the list or define a new variable by entering its name.
 
 image::input-dialog-forms/parameter-editor-begin.png[,600]
 
-The parameter may be editable and required according to checkboxes.
+You can make the parameter editable and required by selecting the appropriate checkboxes.
 
-Supported parameter types are:
+The parameter can be one of the following types:
 
 * String
 * Multiline string
@@ -56,35 +54,27 @@ Supported parameter types are:
 * Platform enum
 * Custom enum
 
-For types `Entity` and `Entity list` additional properties are available. Here you have to define an entity class from the pull-down list:
+Parameters of type `Entity` and `Entity list` require supplementary configuration, including the specification of an associated entity class and a corresponding user interface component.
 
 image::input-dialog-forms/parameter-editor-entity.png[,800]
 
-Then, select a UI component that will be used for the entity. There are two options: *ComboBox* or *EntityPicker*
+If you choose *EntityPicker*, you can specify the view for working with the entity. If this field is left empty, the standard list view for that entity will be used.
 
 image::input-dialog-forms/parameter-editor-entity-ui-compontent.png[,800]
 
-By default, the *EntityPicker* option is selected. In this case, you can choose a *Lookup screen* as well. If you leave it empty, the standard list view for this entity will be used.
-
-When a *Combo box* is selected, you have to specify a JPQL query, with 'where' and `order by` clauses if needed.
-You can write the query manually or use *JPQL Wizard*.
+When selecting *ComboBox*, provide a JPQL query to select instances. You can write the query manually or using the xref:studio:jpql-designer.adoc[].
 
 image::input-dialog-forms/parameter-editor-entity-combo-box.png[,800]
 
-After parameters are created, you can edit them directly in the *BPMN Inspector* panel.
+Once the parameter is created, you can edit it directly in the *BPMN Inspector* panel.
 
 image::input-dialog-forms/edit-param-in-panel.png[,400]
 
-After the first parameter is created, a dialog window with a list of parameters appears.
-You can continue creating parameters here and manage its order.
 
-image::input-dialog-forms/parameters-list.png[,600]
+==== XML Representation
 
 
-*XML Representation*
-
-As was said above, the input dialog form is defined directly in the BPMN model.
-So it is represented in the XML by `jmix:formData` attribute:
+The dialog form is defined directly in the BPMN model. In the XML model, it is represented by the `jmix:formData` attribute:
 
 [source,xml]
 ----
@@ -97,30 +87,28 @@ So it is represented in the XML by `jmix:formData` attribute:
     </jmix:formField>
     <jmix:formField id="name" caption="Name" type="string" editable="true" required="false" />
   </jmix:formFields>
+</jmix:formData>
 ----
 
 [[business-key]]
-== Business Key
+=== Business Key
 
 When creating an input dialog form for the start event,
 you can define a xref:bpm-concepts.adoc#business-key[business key].
 
 image::input-dialog-forms/setting-business-key.png[,400]
 
-It is possible to set a value of business key directly or take it from the process variable.
+You can set the business key value directly or derive it from a process variable.
 
 [[outcomes]]
-== Outcomes
+=== Outcomes
 
-Outcomes are pre-defined variants of the user task completion, indicating what decision the performer has made.
+The outcomes attribute contains predefined options for task completion, indicating the decision made by the performer. These options will be presented as buttons in the form. To complete the task, the user must click one of them. For example, in a document approval task, the user can either approve or reject the document, resulting in two buttons: *Approve* and *Reject*. If no options are predefined, the user will see the standard *Complete* button.
 
-For example, in a document approval task, the user can approve a document or reject it. Respectively, there should be created two outcomes: "`*approve*`" and "`*reject*`".
 
-On the process forms, outcomes represented by named buttons. To complete the task, a user must press one of them.
+NOTE: The task completion event will be triggered when any of the options are selected.
 
-Whatever outcome button the user chooses, task complete event will be fired, but the standard *Complete* button wouldn't be shown if outcomes are defined.
-
-You can create outcomes from the *BPMN Inspector* panel:
+To set values for outcomes, click *create* in the BPM Inspector panel:
 
 image::input-dialog-forms/create-outcomes.png[,400]
 
@@ -133,10 +121,9 @@ As well, you can edit outcomes directly in the *BPMN Inspector* panel.
 
 image::input-dialog-forms/outcomes-created.png[,400]
 
+==== XML Representation
 
-*XML Representation*
-
-Outcomes in the XML are defined in `jmix:formOutcomes` section.
+In XML outcomes are defined within the `jmix:formOutcomes` section.
 
 [source,xml]
 ----
@@ -146,14 +133,3 @@ Outcomes in the XML are defined in `jmix:formOutcomes` section.
   </jmix:formOutcomes>
 ----
 
-[[example]]
-== Example
-
-Finally, the input dialog form will look like that:
-
-image::input-dialog-forms/form-example.png[,600]
-
-[NOTE]
-====
-When using entities as form parameters, better use *Jmix view forms*.
-====

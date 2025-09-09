@@ -17,7 +17,3 @@ The Process Engine exposes various services, each serving specific functionaliti
 * **FormService**: Facilitates form handling within processes. (Not used in Jmix BPM.)
 
 You can access process engine via xref:jmix-bpm-api.adoc#flowable-api[Flowable API].
-
-
-
-== Configuration

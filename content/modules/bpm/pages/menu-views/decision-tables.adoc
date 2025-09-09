@@ -1,14 +1,11 @@
 = Decision Tables
 
-This administrative view contains a list of deployed decision tables and allows you to open them in modeler,
-view details, and upload from the XML file.
+The *Decision Tables* view displays a list of deployed decision tables and allows to open them in the modeler, view details, and upload from an XML file.
 
-By default, the list is empty. Click the *Apply* button to see all decision tables or use a filter.
-To see all the decision table versions, uncheck the *Last versions only* checkbox.
+NOTE: By default, the list is empty. Click *Apply* to load all tables. To view specific tables, set the filter condition and click *Apply* again.
 
 image::bpm-menu-views/decision-tables.png[,800]
 
-In the *Decision editor* view, you can inspect the decision table in the XML format.
-Besides, you can delete deployed table.
+By navigating to the *Decision editor* view, you can examine the decision table's XML definition. Besides, you can delete the deployment.
 
 image::bpm-menu-views/decision-table-detail.png[,800]

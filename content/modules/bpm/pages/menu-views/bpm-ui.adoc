@@ -1,13 +1,12 @@
-= BPM User Interface
+= User Interface
 
-When BPM add-on is installed, the BPM section appears in the main menu:
+After installing the add-on, a new *BPM* section appears in the main menu.
 
 image::bpm-menu-views/bpm-main menu.png[,250]
 
-There are the following users' and administrative views:
+See the respective article to learn about each view:
 
 * xref:menu-views/start-process-view.adoc[Start process]
-//todo: report cosmetics -- Start Process -> Start process
 * xref:menu-views/my-tasks.adoc[My tasks]
 * xref:menu-views/modeler-web.adoc[Modeler]
 * xref:menu-views/process-definitions.adoc[Process definitions]
@@ -17,8 +16,10 @@ There are the following users' and administrative views:
 * xref:menu-views/decision-tables.adoc[Decision tables]
 * xref:menu-views/decision-table-modeler.adoc[Decision table modeler]
 
+[NOTE]
+====
+To access these views, users must be granted appropriate roles:
 
-To access those views, users must be assigned to roles:
-
-* *BPM: process actor* -- for _Start process_ and _My tasks_ views.
-* *BPM: administration* -- for the rest views.
+* *BPM: process actor* -- to access the xref:menu-views/start-process-view.adoc[Start process] and xref:menu-views/my-tasks.adoc[My tasks] views.
+* *BPM: administrator* -- to access all views.
+====

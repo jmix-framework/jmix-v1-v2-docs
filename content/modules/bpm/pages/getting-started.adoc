@@ -1,25 +1,7 @@
 = Getting Started with BPM
+:page-aliases: bpm:quick-start.adoc
 
-Jmix BPM enables the creation of BPMN process models, configuration of properties for all elements,
-and development of the code that implements business logic and UI forms.
-These features facilitate the creation of executable process models that can be deployed to the embedded BPM server.
-
-The add-on utilizes a visual modeler based on the https://bpmn.io/[bpmn-js^] rendering toolkit for process modeling.
-It is available in two options:
-
-* As an additional tool in Jmix Studio for use within IntelliJ IDEA.
-* As a functional component of your web application, distributable without any licensing costs.
-
-
-
-[[sample-process]]
-== Sample Process
-
-Modeling processes using the *Studio Modeler* and  *Web Modeler* offer a similar experience,
-as both tools feature intuitive interfaces for creating BPMN diagrams.
-
-Next sections describe how to model and run a simple business process in both tools.
-For that, we will create a process for requesting and approving reimbursement.
+This section describes how to model and run a simple business process. For that, we will create a process for requesting and approving reimbursement.
 
 The process involves three participants:
 
@@ -31,3 +13,380 @@ In terms of BPM, we will be building the following model:
 
 image::quick-start/model.png[align="center"]
 
+[[modeling-process]]
+== Modeling Process
+
+Start the application and open the *BPM -> Modeler* view. The right panel contains a list of properties for the current process.
+
+For our reimbursement process enter the following values:
+
+* *Process id*: `reimbursement`
+* *Name*: `Reimbursement`
+* *Documentation*: Add a short description for the process.
++
+image::quick-start/properties.png[align="center" width="1392"]
+
+[[creating-start-form]]
+=== Creating Start Form
+
+Each element on the canvas has its own properties. At the moment the only element present is `StartEvent`. It represents the <<start-form, Start form>> seen by the user who is initiating the process. Let's configure it:
+
+* Click on the `StartEvent` element to select it.
++
+* Select `Input dialog` in the *Form Type* field. Its *Open mode* is automatically set to *Dialog*.
++
+image::quick-start/start-event.png[align="center" width="1392"]
+
+Next, create input parameters to prompt the user enter values to this form:
+
+* Click image:quick-start/plus-button.png[[align="center", width="32"] and add `requestNumber` parameter with the following properties:
+
+// ** *Process variable*: `requestNumber`
+// ** *Caption* – Request number (this will be generated automatically.)
+// ** *Type* – String
+// ** *Editable* – true
+// ** *Required* – true
+
+image::quick-start/request-number.png[align="center" width="602"]
+
+* Repeat the previous step to create three more input parameters:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`expenseAmount`
+|Expense amount
+|Decimal (double)
+|true
+|true
+
+|`expenseDate`
+|Expense Date
+|Date
+|true
+|true
+
+|`document`
+|Document
+|File
+|true
+|true
+
+|===
+
+* Next, create an input parameter to let users select a manager for approval. This will require a few additional properties:
++
+[cols="1,1,1,1,1,1,1,"]
+|===
+|Process variable | Caption | Type | Editable | Required | Entity name | UI Component | JPQL query
+
+|`manager`
+|Manager
+|Entity
+|true
+|true
+|User
+|ComboBox
+|_leave blank^*^_
+|===
++
+__^*^ If no query is specified, this field defaults to__ `select e from User e`.
++
+*  Set `requestNumber` as the *Business key* field value. A business key is a domain-specific identifier of a process instance.
+
+After adding all the parameters, the *Form* section should look as follows:
+
+image::quick-start/form.png[align="center" width="340"]
+
+// When a process is started, input dialog values will be saved to the corresponding process variables.
+
+[[creating-approval-task]]
+=== Creating Approval Task
+
+Create a task for approval. It will be represented by the <<approval-form,Approval form>> seen by the manager assigned to approve the reimbursement.
+
+First, add a new element on the canvas:
+
+* Click on the `StartEvent` element to select it.
+* Click the *Append task* image:quick-start/append-task-icon.png[width="20"] icon.
+* Click the *Change type* image:quick-start/change-type-icon.png[width="20"] icon and select *User Task* in the drop-down.
++
+image::quick-start/user-task.gif[align="center" width="660"]
++
+* For this User task specify the following *General* properties:
+** *Id*: `approval`
+** *Name*: `Approval`
+** *Assignee source*: `Process variable`
+** *Process variable*: `manager`
++
+image::quick-start/manager.png[align="center" width="280"]
++
+TIP: By default, the built-in `initiator` process variable is available to assign a task.
++
+* Proceed to the *Form* section and specify the following properties:
+** *Form type*: `Input dialog`
+** *Open mode*: `Dialog` (this will be set by default)
+
+* Click image:quick-start/plus-button.png[[align="center", width="36"] and add the following existing parameters making them non-editable:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`requestNumber`
+|Request number
+|String
+|false
+|true
+
+|`expenseAmount`
+|Expense amount
+|Decimal (double)
+|false
+|true
+
+|`expenseDate`
+|Expense Date
+|Date
+|false
+|true
+
+|`document`
+|Document
+|File
+|false
+|true
+|===
++
+* Click image:quick-start/plus-button.png[[align="center", width="36"] and create one additional parameter for this form:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`comment`
+|Comment
+|Multiline string
+|true
+|false
+|===
++
+This parameter will be represented by a text field allowing manager to leave notes during the approval step.
+
+[[creating-outcomes]]
+=== Creating Outcomes
+
+The *Approval* step has two outcomes: approved or rejected. Therefore, the manager making decision should see two buttons on the form.
+
+* Make sure the Approval element is selected. Then go to *Outcomes* properties and click image:quick-start/plus-button.png[[align="center", width="36"].
+* Set properties for the first outcome:
+// +
+// [cols="1,1,1"]
+// |===
+// |Business id | Caption | Icon
+//
+// |`approve`
+// |Approve
+// |CHECK
+// |===
++
+image::quick-start/outcome-approve.png[align="center" width="613"]
++
+* Repeat to create the second outcome:
++
+[cols="1,1,1"]
+|===
+|Business id | Caption | Icon
+
+|`reject`
+|Reject
+|BAN
+|===
+
+Depending on the *Approval* task's outcome, two scenarios are possible. To indicate a point with several alternative paths, add an Exclusive Gateway element:
+
+* Select the *Approval* task element and click *Append Gateway* image:quick-start/append-gateway-icon.png[width="20"].
+* Select the gateway element and create another user task with image:quick-start/append-task-icon.png[width="20"] -> image:quick-start/change-type-icon.png[width="20"] -> *User Task*.
+* Select the gateway and click image:quick-start/append-end-event-icon.png[width="20"] to create `EndEvent` element.
+* Select the new sequence flows between elements and name them: `approved` and `rejected`.
+
+The model should now look like this:
+
+image::quick-start/flows.png[align="center"]
+
+* Select the `approved` sequence flow and specify its *Condition* properties:
+** *Condition source*: `User task outcome`
+** *User task id*: `Approval`
+** *User task outcome*: `approve`
++
+image::quick-start/flow-approved.png[align="center" width="380"]
++
+* Similarly, specify *Condition* properties for the `rejected` sequence flow:
+** *Condition source*: `User task outcome`
+** *User task id*: `Approval`
+** *User task outcome*: `reject`
+
+[[creating-payment-user-task]]
+=== Creating Payment User Task
+
+The other user task in the model is to notify accountants about reimbursement payment approval. It will be represented by the <<payment-form, Payment form>> available only to accountants.
+
+* Select the user task on the canvas then set its *Id* and *Name*:
+** *Id*: `payment`
+** *Name*: Payment
+
+For this task we will implement the following behavior: it is sent to all accountants with any of them being able to claim this task. To achieve this, instead of a particular assignee there is an option to specify *Candidate groups* or *Candidate users*.
+
+Therefore, let's create a *Candidate group* for accountants.
+
+TIP: Before leaving Modeler, save your model as draft with image:quick-start/save-draft-button.png[width="32"] button on the toolbar. You can open it any time later using image:quick-start/open-draft-button.png[width="32"] button.
+
+* Go to the *BPM -> User groups* view and create a new group named `Accountants` and set `accountants` as its code.
+* Set the user type to *Users*.
+* Add users to the group.
++
+image::quick-start/user-group.png[align="center" width="1414"]
+
+NOTE: Users involved in the processes must be granted the `BPM: process actor` role. This role provides access to BPM views and entities required for starting processes and working with user tasks. You can assign roles in the *Application -> Users* view.
+
+* Go back to the modeler and select the `Payment` user task.
+* Find the *Candidate groups* property field and click the edit button image:quick-start/edit-button.png[width="32"] next to it.
+* In the Candidate group editor, add the `Accountants` group.
++
+image::quick-start/groups.png[align="center" width="756"]
+
+* Configure an input dialog for the `Payment` task similarly to `Approval` task. Set the following properties:
+** *Form type*: `Input dialog`
+** *Open mode*: `Dialog` (this will be set by default)
+* Add input parameters. They match the parameters on the Approval form but the comment field should be non-editable too:
++
+[cols="1,1,1,1,1"]
+|===
+|Process variable | Caption | Type | Editable | Required
+
+|`requestNumber`
+|Request number
+|String
+|false
+|true
+
+|`expenseAmount`
+|Expense amount
+|Decimal (double)
+|false
+|true
+
+|`expenseDate`
+|Expense Date
+|Date
+|false
+|true
+
+|`document`
+|Document
+|File
+|false
+|true
+
+|`comment`
+|Comment
+|Multiline string
+|false
+|false
+
+|===
++
+* Go back to the canvas and add the `EndEvent` element image:quick-start/append-end-event-icon.png[width="20"] after the `Payment` task.
+
+[[specifying-users-to-start-process]]
+=== Specifying Users to Start Process
+
+To start a process the user must belong to a special user group. In our case, such group will contain all users.
+
+* Open the *User groups* view and create a new group with the following properties:
+
+** *Name*: All users
+** *Code*: all-users
+** *Type*: All users
++
+image::quick-start/all-users.png[align="center" width="1392"]
+
+* Go back to the *Modeler* view and click anywhere on the canvas to display the process properties.
+* Set *Candidate groups* to `All users` in the *Starter candidates* section.
++
+image::quick-start/users-start.png[align="center" width="385"]
+
+[[starting-process]]
+== Deploying Process
+
+The process model is ready to be deployed to the process engine.
+
+* Go to the *Modeler* view.
+* Click *Deploy process* image:quick-start/deploy-process-button.png[[align="center", width="32"] on the toolbar.
+* Open the *BPM -> Start Process* view.
+
+New *Reimbursement* process should now be available on the list. This list provides all deployed processes that the current user can start.
+
+[[testing-process]]
+== Testing Process
+
+Now that the process is modeled and deployed it can be started. Let's go through it step by step, observing all the forms we have created.
+
+[[start-form]]
+=== Start Form
+
+With the current settings, the process can be started by any user on the *BPM -> Start Process* view.
+
+* Select the *Reimbursement* process and click the *Start process* button.
++
+image::quick-start/start-process.png[align="center" width="1392"]
++
+* Fill in the fields in the form and click the *Start process* button.
++
+image::quick-start/start-form.png[align="center" width="598"]
+
+The assigned manager will then receive an incoming approval task.
+
+[[approval-form]]
+=== Approval Form
+
+Let's see how this process looks from the manager's standpoint. On the previous step, manager *james* was assigned to approve the request.
+
+* Log in on behalf of the manager assigned to approve the request.
+* Navigate to the *BPM -> My Tasks* view.
+* Select the task from the list and click the *Open Task* button.
++
+image::quick-start/approval-step.png[align="center" width="1011"]
++
+* Review the request, and then click the *Approve* button.
++
+image::quick-start/approval-form.png[align="center" width="596"]
+
+Upon approval, the request will be sent to an accountant, who will then take care of payment.
+
+[[payment-form]]
+=== Payment Form
+
+Accountants will see reimbursements to be paid in their *Group* tasks.
+
+* Log in on behalf of any user who is a member of the *Accountants* user group.
+* Open the *BPM -> My Tasks* view. Expand the *Group tasks* node.
++
+image::quick-start/group-task.png[align="center" width="1010"]
++
+* Open the task form.
++
+image::quick-start/payment-task.png[align="center" width="596"]
++
+Fields in this form remain read-only until the task is claimed.
++
+* Claim the task using one of the two options:
+** Click *Claim and resume* button to proceed with this task right away. This will remove the task from the *Group* list and the *Complete button* will appear.
+** Click *Claim and close* to claim the task while postponing its completion. This will close the form and move the task from *Group* tasks to the current user's *Assigned* tasks list. After that the task is no longer visible to other accountants.
++
+* Click the *Complete task* button to finish the process. This button is added by default to any task that does not have outcomes specified.
++
+image::quick-start/complete-task.png[align="center" width="1392"]
+
+The process is now complete.
