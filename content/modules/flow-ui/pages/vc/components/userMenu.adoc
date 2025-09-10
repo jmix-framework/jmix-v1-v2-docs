@@ -1,14 +1,51 @@
 = userMenu
 
-// todo
+`userMenu` presents a main button, which, when clicked, reveals a dropdown menu containing a list of items.
+
+[cols="1h,6",grid=none]
+|===
+|XML Element
+|`userMenu`
+|Java Class
+|`UserMenu`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
+<<openOnHover,openOnHover>> -
+xref:vc/components/comboBox.adoc#overlayClass[overlayClass] -
+xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
+<<theme-variants,themeNames>> -
+xref:vc/common-attributes.adoc#title[title] -
+xref:vc/common-attributes.adoc#visible[visible]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
+<<UserChangedEvent,UserChangedEvent>> -
+<<buttonRenderer,buttonRenderer>> -
+<<headerRenderer,headerRenderer>>
+|Elements
+|<<actionItem,actionItem>> -
+<<componentItem,componentItem>> -
+<<separator,separator>> -
+<<textItem,textItem>> -
+<<viewItem,viewItem>>
+|===
 
 == Basics
 
-The main button displays a layout that represents a current user. Users click this button to access the dropdown menu.
+The main button displays a layout that represents a current user.
+Users click this button to access the dropdown menu.
 
-The dropdown menu contains a list of actions, each represented by a clickable item.
+The dropdown menu contains a list of actions, each represented by a clickable item or sub-menu.
 
-image::visual-components/components/user-menu-basic.png[align="center", width="240"]
+image::visual-components/components/user-menu-basic.png[align="center",width="240"]
 
 Here's an example of defining a `userMenu` with default button renderer and several menu items:
 
@@ -51,7 +88,7 @@ The `componentItem` element allows you to define custom inner content for `userM
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=layout;user-menu-component]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-component]
 ----
 
 You can generate a `UserMenuItem.HasClickListener.ClickEvent` handler stub for `componentItem` using Jmix Studio.
@@ -68,7 +105,7 @@ The `textItem` element holds text and icon.
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=layout;user-menu-text]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-text]
 ----
 
 You can generate a `UserMenuItem.HasClickListener.ClickEvent` handler stub for `textItem` using Jmix Studio.
@@ -85,8 +122,9 @@ The `viewItem` element allows you to open a specific view.
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=layout;user-menu-view]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-view]
 ----
+
 <1> Opens a view with the specified id.
 <2> Opens a view with the specified class in the `DIALOG` mode.
 
@@ -97,24 +135,31 @@ The `separator` element is used to visually separate items in the dropdown menu.
 
 Separators automatically hide if they meet the following conditions:
 
-. Several separators go one by one. In this case only one separator remains visible.
+. Several separators go one by one.
+In this case only one separator remains visible.
 . Separator is the first child and header renderer is not defined.
 . Separator is the last child.
 
 [[nested-items]]
 === Nested Items
 
-// todo
+The `textItem` and `componentItem` elements support nested items, which allows you to define a hierarchical menu.
+
+image::visual-components/components/user-menu-nested.png[align="center",width="330"]
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-nested]
+----
 
 [[theme-variants]]
 == Theme Variants
 
-// todo
 The xref:vc/common-attributes.adoc#themeNames[themeNames] attribute allows you to assign a specific button style from the set of predefined variants.
 
 * Tertiary - removes button background
 +
-image::visual-components/components/user-menu-theme-variant-tertiary.png[align="center", width="448"]
+image::visual-components/components/user-menu-theme-variant-tertiary.png[align="center",width="448"]
 +
 [source,xml,indent=0]
 ----
@@ -124,7 +169,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 * Non-checkable - removes area that displays check mark
 +
-image::visual-components/components/user-menu-theme-variant-non-checkable.png[align="center", width="472"]
+image::visual-components/components/user-menu-theme-variant-non-checkable.png[align="center",width="472"]
 +
 [source,xml,indent=0]
 ----
@@ -133,16 +178,83 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 The `non-checkable` theme variant can be defined both for `userMenu` and its items individually.
 
+NOTE: If you have a sub-menu with checkable items, it's best to define a `non-checkable` theme variant for each item in the first-level menu individually.
+
 [[renderers]]
 == Renderers
 
-// todo
+The framework provides flexibility in customizing the button's content and optional menu header.
+
+[[button-renderer]]
+== Button Renderer
+
+You can set a button renderer either using the `setButtonRenderer()` method or the `@Install` annotation.
+
+image::visual-components/components/user-menu-button-renderer.png[align="center",width="196"]
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=user-menu-renderer-injects;user-menu-button-renderer;user-menu-renderer-helpers]
+----
+<1> Default `HorizontalLayout` padding is too big, we add padding using styles.
+<2> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
+<3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
+
+[[header-renderer]]
+== Header Renderer
+
+Header renderer defines the content displayed at the top of the menu. You can set a header renderer either using the `setButtonRenderer()` method or the `@Install` annotation.
+
+image::visual-components/components/user-menu-header-renderer.png[align="center",width="234"]
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=user-menu-renderer-injects;user-menu-header-renderer;user-menu-renderer-helpers]
+----
+<1> Component positions are defined using styles.
+<2> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
+<3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
+
+[source,css,indent=0]
+----
+include::example$/onboarding/frontend/themes/onboarding/vc/user-menu.css[]
+----
 
 [[built-in-actions]]
-== Build-in actions
+== Build-in Actions
 
 // todo
 
 == Attributes
 
-// todo
+In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+The following are attributes specific to `userMenu`:
+
+[cols="1h,5,1",grid=rows,frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[openOnHover]]openOnHover
+|If the `openOnHover` attribute is `true`, the drop-down list of items is opened automatically when the field is focused using a mouse or touch.
+|`false`
+|===
+
+== Handlers
+
+In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
+The following are handlers specific to `userMenu`:
+
+include::../handler-generation-tip.adoc[]
+
+[cols="1h,6",grid=rows,frame=none]
+|===
+|*Name*
+|*Description*
+|[[UserChangedEvent]]UserChangedEvent
+|`io.jmix.flowui.kit.component.usermenu.JmixUserMenu.UserChangedEvent` is fired when the user associated with the user menu component changes.
+|[[buttonRenderer]]buttonRenderer
+|Sets the `Renderer` responsible to render the button's content based on the current user. See <<button-renderer,Button Renderer>>.
+|[[headerRenderer]]headerRenderer
+|Sets the `Renderer` responsible to render the header's content based on the current user. See <<header-renderer,Header Renderer>>.
+|===

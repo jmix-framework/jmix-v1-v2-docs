@@ -1,40 +1,20 @@
-.user-menu-button-content,
 .user-menu-header-content {
     display: grid;
     grid-template: "avatar text"
                    "avatar subtext";
     grid-template-columns: auto 1fr;
+    column-gap: var(--lumo-space-s);
 
-    width: max-content;
+    width: 100%;
     box-sizing: border-box;
 
     color: var(--lumo-body-text-color);
-    padding: var(--lumo-space-xs) var(--lumo-space-s);
+    padding: var(--lumo-space-xs) var(--lumo-space-l) var(--lumo-space-xs) var(--lumo-space-s);
 }
 
-.user-menu-header-content {
-    width: 100%;
-    padding-inline-end: var(--lumo-space-l);
-}
-
-.user-menu-button-content > .user-menu-avatar,
 .user-menu-header-content > .user-menu-avatar {
     grid-area: avatar;
     align-self: center;
-
-    margin-inline-end: var(--lumo-space-s);
-}
-
-.user-menu-header-content > .user-menu-avatar {
-
-}
-
-.user-menu-button-content > .user-menu-text {
-    grid-row: text / subtext;
-}
-
-vaadin-menu-bar[jmix-role='jmix-user-menu'][theme~='substituted'] .user-menu-button-content > .user-menu-text {
-    grid-row: text;
 }
 
 .user-menu-header-content > .user-menu-text {
@@ -49,7 +29,6 @@ vaadin-menu-bar[jmix-role='jmix-user-menu'][theme~='substituted'] .user-menu-but
     grid-row: text / subtext;
 }
 
-.user-menu-button-content > .user-menu-text,
 .user-menu-header-content > .user-menu-text {
     align-self: center;
     text-align: start;
@@ -59,7 +38,6 @@ vaadin-menu-bar[jmix-role='jmix-user-menu'][theme~='substituted'] .user-menu-but
     text-overflow: ellipsis;
 }
 
-.user-menu-button-content > .user-menu-subtext,
 .user-menu-header-content > .user-menu-subtext {
     grid-area: subtext;
     align-self: center;
@@ -71,8 +49,4 @@ vaadin-menu-bar[jmix-role='jmix-user-menu'][theme~='substituted'] .user-menu-but
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-vaadin-menu-bar[jmix-role='jmix-user-menu']:not([theme~='substituted']) .user-menu-header-content > .user-menu-subtext {
-    display: none;
 }

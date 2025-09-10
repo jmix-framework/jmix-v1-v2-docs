@@ -60,6 +60,7 @@
 **** xref:flow-ui:vc/components/treeDataGrid.adoc[]
 **** xref:flow-ui:vc/components/twinColumn.adoc[]
 **** xref:flow-ui:vc/components/upload.adoc[]
+**** xref:flow-ui:vc/components/userMenu.adoc[]
 **** xref:flow-ui:vc/components/valuePicker.adoc[]
 **** xref:flow-ui:vc/components/virtualList.adoc[]
 *** xref:flow-ui:vc/layouts.adoc[]

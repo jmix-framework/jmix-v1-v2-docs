@@ -9,10 +9,14 @@ import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import io.jmix.core.Messages;
-import io.jmix.core.usersubstitution.CurrentUserSubstitution;
+import com.vaadin.flow.theme.lumo.LumoUtility;
+import io.jmix.core.FileRef;
+import io.jmix.core.FileStorage;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
@@ -21,6 +25,7 @@ import io.jmix.flowui.kit.component.usermenu.TextUserMenuItem;
 import io.jmix.flowui.kit.component.usermenu.UserMenuItem;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Route(value = "user-menu", layout = MainView.class)
@@ -56,66 +61,57 @@ public class UserMenuView extends StandardView {
     }
     // end::user-menu-component[]
 
-    // tag::user-menu-renderers[]
-    @Autowired
-    private Messages messages;
+    // tag::user-menu-renderer-injects[]
     @Autowired
     private UiComponents uiComponents;
     @Autowired
-    private CurrentUserSubstitution currentUserSubstitution;
+    private FileStorage fileStorage;
 
+    // end::user-menu-renderer-injects[]
+
+    // tag::user-menu-button-renderer[]
     @Install(to = "userMenu", subject = "buttonRenderer")
     private Component userMenuButtonRenderer(final UserDetails userDetails) {
-        User user = (User) userDetails;
-
-        if (user == null) {
+        if (!(userDetails instanceof User user)) {
             return null;
         }
 
         String userName = generateUserName(user);
-
-        Div content = uiComponents.create(Div.class);
-        content.setClassName("user-menu-button-content");
-
-        Avatar avatar = createAvatar(userName);
-
+        Avatar avatar = createAvatar(userName, user.getPicture());
         Span name = uiComponents.create(Span.class);
         name.setText(userName);
-        name.setClassName("user-menu-text");
+        name.addClassName(LumoUtility.TextColor.BODY);
 
+        HorizontalLayout content = uiComponents.create(HorizontalLayout.class);
+        content.setAlignItems(FlexComponent.Alignment.CENTER);
         content.add(avatar, name);
-
-        if (isSubstituted(user)) {
-            Span subtext = uiComponents.create(Span.class);
-            subtext.setText(messages.getMessage("userMenu.substituted"));
-            subtext.setClassName("user-menu-subtext");
-
-            content.add(subtext);
-        }
+        content.addClassNames( // <1>
+                LumoUtility.Padding.Horizontal.MEDIUM,
+                LumoUtility.Padding.Vertical.SMALL);
 
         return content;
     }
+    // end::user-menu-button-renderer[]
 
+    // tag::user-menu-header-renderer[]
     @Install(to = "userMenu", subject = "headerRenderer")
     private Component userMenuHeaderRenderer(final UserDetails userDetails) {
-        User user = (User) userDetails;
-
-        if (user == null) {
+        if (!(userDetails instanceof User user)) {
             return null;
         }
 
-        Div content = uiComponents.create(Div.class);
-        content.setClassName("user-menu-header-content");
-
         String name = generateUserName(user);
 
-        Avatar avatar = createAvatar(name);
+        Avatar avatar = createAvatar(name, user.getPicture());
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
+        avatar.addClassName("user-menu-avatar");
 
         Span text = uiComponents.create(Span.class);
         text.setText(name);
         text.setClassName("user-menu-text");
 
+        Div content = uiComponents.create(Div.class);
+        content.setClassName("user-menu-header-content"); // <1>
         content.add(avatar, text);
 
         if (name.equals(user.getUsername())) {
@@ -130,15 +126,9 @@ public class UserMenuView extends StandardView {
 
         return content;
     }
+    // end::user-menu-header-renderer[]
 
-    private Avatar createAvatar(String fullName) {
-        Avatar avatar = uiComponents.create(Avatar.class);
-        avatar.setName(fullName);
-        avatar.getElement().setAttribute("tabindex", "-1");
-        avatar.setClassName("user-menu-avatar");
-
-        return avatar;
-    }
+    // tag::user-menu-renderer-helpers[]
 
     private String generateUserName(User user) {
         String userName = String.format("%s %s",
@@ -149,9 +139,19 @@ public class UserMenuView extends StandardView {
         return userName.isEmpty() ? user.getUsername() : userName;
     }
 
-    private boolean isSubstituted(User user) {
-        UserDetails authenticatedUser = currentUserSubstitution.getAuthenticatedUser();
-        return user != null && !authenticatedUser.getUsername().equals(user.getUsername());
+    private Avatar createAvatar(String fullName, @Nullable FileRef fileRef) {
+        Avatar avatar = uiComponents.create(Avatar.class);
+        avatar.setName(fullName);
+        avatar.getElement().setAttribute("tabindex", "-1"); // <2>
+
+        if (fileRef != null) {
+            StreamResource streamResource = new StreamResource(
+                    fileRef.getFileName(),
+                    () -> fileStorage.openStream(fileRef));
+            avatar.setImageResource(streamResource); // <3>
+        }
+
+        return avatar;
     }
-    // end::user-menu-renderers[]
+    // end::user-menu-renderer-helpers[]
 }

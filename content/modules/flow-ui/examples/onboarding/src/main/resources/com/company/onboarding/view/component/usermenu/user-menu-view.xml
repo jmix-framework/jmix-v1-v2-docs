@@ -67,7 +67,8 @@
                 <viewItem id="profileMenuItem" text="msg://profileMenuItem.text" icon="USER"
                           viewId="ProfileView"/> <!--1-->
                 <viewItem id="settingsMenuItem" text="msg://settingsMenuItem.text" icon="COG"
-                          viewClass="com.company.onboarding.view.settings.SettingsView" openMode="DIALOG"/> <!--2-->
+                          viewClass="com.company.onboarding.view.settings.SettingsView"
+                          openMode="DIALOG"/> <!--2-->
             </items>
         </userMenu>
         <!-- end::user-menu-view[] -->
@@ -123,6 +124,21 @@
             </userMenu>
             <!-- end::user-menu-theme-variants-non-checkable[] -->
         </hbox>
+
+        <!-- tag::user-menu-nested[] -->
+        <userMenu>
+            <items>
+                <textItem id="helpMenuItem"
+                          text="msg://helpMenuItem.text" icon="QUESTION_CIRCLE"
+                          themeNames="non-checkable">
+                    <items>
+                        <textItem id="documentationMenuItem" text="msg://documentationMenuItem.text"/>
+                        <textItem id="aboutMenuItem" text="msg://aboutMenuItem.text"/>
+                    </items>
+                </textItem>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-nested[] -->
 
         <!-- tag::user-menu-renderers[] -->
         <userMenu id="userMenu"
