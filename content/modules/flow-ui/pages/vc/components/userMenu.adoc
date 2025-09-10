@@ -43,7 +43,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 The main button displays a layout that represents a current user.
 Users click this button to access the dropdown menu.
 
-The dropdown menu contains a list of actions, each represented by a clickable item or sub-menu.
+The dropdown menu contains a list of actions, each represented by a clickable item or submenu.
 
 image::visual-components/components/user-menu-basic.png[align="center",width="240"]
 
@@ -80,6 +80,8 @@ You can generate an `ActionPerformedEvent` handler method for an action to imple
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=notifications-bean;user-menu-action]
 ----
+
+Framework provides predefined xref:actions/user-menu-actions.adoc[].
 
 [[componentItem]]
 === componentItem
@@ -178,7 +180,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 The `non-checkable` theme variant can be defined both for `userMenu` and its items individually.
 
-NOTE: If you have a sub-menu with checkable items, it's best to define a `non-checkable` theme variant for each item in the first-level menu individually.
+NOTE: If you have a submenu with checkable items, it's best to define a `non-checkable` theme variant for each item in the first-level menu individually.
 
 [[renderers]]
 == Renderers
@@ -186,7 +188,7 @@ NOTE: If you have a sub-menu with checkable items, it's best to define a `non-ch
 The framework provides flexibility in customizing the button's content and optional menu header.
 
 [[button-renderer]]
-== Button Renderer
+=== Button Renderer
 
 You can set a button renderer either using the `setButtonRenderer()` method or the `@Install` annotation.
 
@@ -201,7 +203,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 <3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
 
 [[header-renderer]]
-== Header Renderer
+=== Header Renderer
 
 Header renderer defines the content displayed at the top of the menu. You can set a header renderer either using the `setButtonRenderer()` method or the `@Install` annotation.
 
@@ -219,11 +221,6 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 include::example$/onboarding/frontend/themes/onboarding/vc/user-menu.css[]
 ----
-
-[[built-in-actions]]
-== Build-in Actions
-
-// todo
 
 == Attributes
 

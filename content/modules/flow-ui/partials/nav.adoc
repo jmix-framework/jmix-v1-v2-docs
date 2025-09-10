@@ -113,6 +113,7 @@
 **** xref:flow-ui:actions/view-actions.adoc[]
 **** xref:flow-ui:actions/list-actions.adoc[]
 **** xref:flow-ui:actions/entity-picker-actions.adoc[]
+**** xref:flow-ui:actions/user-menu-actions.adoc[]
 **** xref:flow-ui:actions/value-picker-actions.adoc[]
 *** xref:flow-ui:actions/custom-action-type.adoc[]
 

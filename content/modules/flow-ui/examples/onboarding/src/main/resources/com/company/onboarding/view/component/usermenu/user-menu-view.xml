@@ -150,11 +150,35 @@
                     <action id="substituteUserAction" type="sec_userMenuSubstituteUser"/>
                 </actionItem>
                 <separator/>
+                <actionItem id="themeSwitchMenuItem">
+                    <action id="themeSwitchAction" type="userMenu_themeSwitch"/>
+                </actionItem>
+                <separator/>
                 <actionItem id="logoutMenuItem" ref="logoutAction"
                             themeNames="non-checkable"/>
             </items>
         </userMenu>
         <!-- end::user-menu-renderers[] -->
+
+        <!-- tag::user-menu-predefined-actions[] -->
+        <userMenu themeNames="tertiary">
+            <items>
+                <separator/>
+                <actionItem id="substituteUserMenuItem"
+                            themeNames="non-checkable">
+                    <action id="substituteUserAction" type="sec_userMenuSubstituteUser"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="themeSwitchMenuItem"
+                            themeNames="non-checkable">
+                    <action id="themeSwitchAction" type="userMenu_themeSwitch"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="logoutMenuItem" ref="logoutAction"
+                            themeNames="non-checkable"/>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-predefined-actions[] -->
         <!-- tag::layout[] -->
     </layout>
     <!-- end::layout[] -->
