@@ -7,15 +7,15 @@
 </div>
 ++++
 
-`hbox` lays out all nested components in a single horizontal row.
+`hbox` располагает все вложенные компоненты в одну горизонтальную строку.
 
-* XML element: `hbox`
+* XML-элемент: `hbox`
 
-* Java class: `HorizontalLayout`
+* Java-класс: `HorizontalLayout`
 
-== Basics
+== Основы
 
-An example of arranging three components in a single row:
+Пример расположения трех компонентов в одной строке:
 
 [source,xml,indent=0]
 ----
@@ -25,63 +25,46 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/hbox-basic.png[align="center", width="385"]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignItems[alignItems] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing, boxSizing>> -
+<<boxSizing,boxSizing>> -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
 xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand, expand>> -
+<<expand,expand>> -
 xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent, justifyContent>> -
-<<margin, margin>> -
+<<justifyContent,justifyContent>> -
+<<margin,margin>> -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding, padding>> -
-<<spacing, spacing>> -
+<<padding,padding>> -
+<<spacing,spacing>> -
+xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
 
 [[boxSizing]]
 === boxSizing
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets how the total width and height of an element is calculated. Possible values are:
-
-* `UNDEFINED`
-
-* `CONTENT_BOX`
-
-* `BORDER_BOX`
+Задает способ вычисления общей ширины и высоты элемента. Возможные значения: `UNDEFINED`, `CONTENT_BOX`, `BORDER_BOX`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[страницу MDN о box-sizing^].
 
 [[expand]]
 === expand
 
-Specifies a component within the layout that should be expanded to use all available space. In the case of hbox, this attribute sets the component's width to 100%.
+Указывает компонент внутри контейнера, который должен быть расширен для использования всего доступного пространства. В случае `hbox` этот атрибут устанавливает ширину компонента на 100%.
 
 //For a container with vertical placement, this attribute sets 100% height to a component; for the containers with horizontal placement - 100% width. Additionally, resizing a container will resize the expanded component.
 
 [[justifyContent]]
 === justifyContent
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines how the browser distributes space between and around content items. Possible values are:
+Определяет, как браузер распределяет пространство между элементами содержимого и вокруг них. Возможные значения:
 
 * `START`
 
@@ -99,32 +82,20 @@ Defines how the browser distributes space between and around content items. Poss
 [[margin]]
 === margin
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines indentation between the outer borders and the container content. Possible values -- `true`, `false`. Default is `false`.
+Определяет отступ между внешними границами и содержимым контейнера. Возможные значения: `true`, `false`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/margin[страницу MDN о margin^]. Значение по умолчанию - `false`.
 
 [[padding]]
 === padding
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets the padding area on all four sides of an element at once. Possible values -- `true`, `false`. Default is `false`.
+Устанавливает внутренние отступы со всех четырех сторон элемента одновременно. Возможные значения: `true`, `false`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/padding[страницу MDN о padding^]. Значение по умолчанию - `false`.
 
 [[spacing]]
 === spacing
 
-Sets spacing between components within a layout. Possible values -- `true`, `false`. Default is `false`.
+Устанавливает промежутки между компонентами внутри контейнера. Возможные значения: `true`, `false`. Значение по умолчанию - `false`.
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
@@ -136,4 +107,4 @@ include::../handler-generation-tip.adoc[]
 [[ClickEvent]]
 === ClickEvent
 
-`com.vaadin.flow.component.ClickEvent` is sent when the user clicks the layout.
+`com.vaadin.flow.component.ClickEvent` отправляется, когда пользователь кликает на контейнер.
