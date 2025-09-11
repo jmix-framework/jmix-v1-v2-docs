@@ -1,16 +1,16 @@
 = initialLayout
 
-The `initialLayout` component is a layout that will be displayed when no views are opened in the xref:flow-ui:views/view-classes.adoc#standard-main-view[main view]. This component can be useful when you need to show some default content, such as a logo or dashboard, before any other views are opened.
+Компонент `initialLayout` - это контейнер, который отображается, когда в xref:flow-ui:views/view-classes.adoc#standard-main-view[главном экране] не открыто никаких экранов. Этот компонент может быть полезен, когда необходимо показать контент по умолчанию, такой как логотип или dashboard, до открытия других экранов.
 
-* XML element: `initialLayout`
+* XML-элемент: `initialLayout`
 
-== Basics
+== Основы
 
-`initialLayout` is a nested element of the `appLayout` component.
+`initialLayout` является вложенным элементом компонента `appLayout`.
 
-TIP: To add a nested `initialLayout` element in Jmix Studio, select the `appLayout` element in the main view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#component-inspector-add-button[Add]*->InitialLayout* button in the *Jmix UI* inspector panel.
+TIP: Чтобы добавить вложенный элемент `initialLayout` в Jmix Studio, выберите элемент `appLayout` в XML-дескрипторе главного экрана или на панели структуры *Jmix UI* и нажмите кнопку xref:studio:screen-designer.adoc#component-inspector-add-button[Add]->InitialLayout на панели инспектора *Jmix UI*.
 
-An example of defining `initialLayout` in `main-view.xml`:
+Пример определения `initialLayout` в `main-view.xml`:
 
 [source,xml,indent=0]
 ----
@@ -29,21 +29,21 @@ An example of defining `initialLayout` in `main-view.xml`:
 </mainView>
 ----
 
-When added in XML, the root `<initialLayout>` element effectively is xref:vc/layouts/vbox.adoc[VerticalLayout].
+При добавлении в XML корневой элемент `<initialLayout>` фактически является xref:vc/layouts/vbox.adoc[VerticalLayout].
 
-Alternatively, the `StandardMainView` Java API can be used to set/get the initial layout:
+Альтернативно, Java API `StandardMainView` может быть использовано для установки/получения начального контейнера:
 
-* `getInitialLayout()` - returns the root component of the initial layout.
-* `setInitialLayout()` - sets a component that will be the initial layout.
+* `getInitialLayout()` - возвращает корневой компонент начального контейнера.
+* `setInitialLayout()` - устанавливает компонент, который будет начальным контейнером.
 
-Components inside `initialLayout` can be injected into the `MainView`, for example:
+Компоненты внутри `initialLayout` могут быть инжектированы в `MainView`, например:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/main/MainView.java[tags=initialLayout;!init-onBoardingStatus;!get-menu-item;!new-menu-item]
 ----
 
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignItems[alignItems] -
@@ -65,7 +65,7 @@ xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#width[width]
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 include::../handler-generation-tip.adoc[]
 
