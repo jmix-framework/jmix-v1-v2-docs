@@ -7,15 +7,15 @@
 </div>
 ++++
 
-`hbox` lays out all nested components in a single horizontal row.
+`hbox` располагает все вложенные компоненты в одну горизонтальную строку.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`hbox`
-|Java Class
+|Java-класс
 |`HorizontalLayout`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignItems[alignItems] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -38,17 +38,17 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent,ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|Элементы
 |<<aligning-individual, endSlot>> - <<aligning-individual, middleSlot>> - <<aligning-individual, startSlot>>
 |===
 
-== Basics
+== Основы
 
-An example of arranging three components in a single row:
+Пример расположения трех компонентов в одной строке:
 
 [source,xml,indent=0]
 ----
@@ -58,20 +58,20 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/hbox-basic.png[align="center", width="385"]
 
 [[horizontal-alignment]]
-== Horizontal Alignment
+== Горизонтальное выравнивание
 
-Horizontal alignment of items can be achieved in two ways: by aligning individual items or by justifying the content.
+Горизонтальное выравнивание элементов может быть достигнуто двумя способами: выравниванием отдельных элементов или выравниванием содержимого (justification).
 
 [[aligning-individual]]
-=== Aligning Individual Items
+=== Выравнивание отдельных элементов
 
-`hbox` allows you to add child components to different designated areas, or slots. These items can then be aligned to the start, center, or end of the layout container.
+`hbox` позволяет добавлять дочерние компоненты в различные слоты. Эти элементы могут быть выровнены по началу, центру или концу контейнера.
 
 image::visual-components/layouts/hbox-slots.png[align="center", width="818"]
 
-Components can be placed in different alignment slots using the following approaches:
+Компоненты могут быть размещены в различных слотах выравнивания с использованием следующих подходов:
 
-* *XML Configuration*
+* *XML конфигурация*
 +
 [source,xml,indent=0]
 ----
@@ -80,10 +80,10 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 +
 [TIP]
 ====
-To add slot in Jmix Studio, select `hbox` in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:view-designer.adoc#add-picker-action[Add] button in the *Jmix UI* inspector panel.
+Чтобы добавить слот в Jmix Studio, выберите `hbox` в XML-дескрипторе экрана или на панели структуры *Jmix UI* и нажмите кнопку xref:studio:view-designer.adoc#add-picker-action[Add] на панели инспектора *Jmix UI*.
 ====
 
-* *Programmatic Setup*
+* *Программная настройка*
 +
 [source,java,indent=0]
 ----
@@ -91,72 +91,72 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/hb
 ----
 
 [[justification]]
-=== Justification
+=== Выравнивание содержимого
 
-Justification modes define how items are distributed within the available horizontal space. The following modes are supported:
+Режимы выравнивания определяют, как элементы распределяются в доступном горизонтальном пространстве. Поддерживаются следующие режимы:
 
-* `START` (default)
+* `START` (по умолчанию)
 +
-Aligns items to the left (for left-to-right languages) or to the right (for right-to-left languages).
+Выравнивает элементы по левому краю (для языков с письмом слева направо) или по правому краю (для языков с письмом справа налево).
 
 * `CENTER`
 +
-Centers all items horizontally within the layout.
+Выравнивает все элементы по центру контейнера по горизонтали.
 
 * `END`
 +
-Aligns items to the right (for left-to-right languages) or to the left (for right-to-left languages).
+Выравнивает элементы по правому краю (для языков с письмом слева направо) или по левому краю (для языков с письмом справа налево).
 
 * `BETWEEN`
 +
-Distributes available space evenly between items. No extra space is added before the first item or after the last.
+Равномерно распределяет доступное пространство между элементами. Дополнительное пространство не добавляется перед первым или после последнего элемента.
 
 * `AROUND`
 +
-Distributes space evenly around items. The space before the first item and after the last is half the space between adjacent items.
+Равномерно распределяет пространство вокруг элементов. Пространство перед первым элементом и после последнего равно половине пространства между соседними элементами.
 
 * `EVENLY`
 +
-Distributes space evenly between all items, including before the first and after the last, ensuring equal spacing throughout.
+Равномерно распределяет пространство между всеми элементами, включая перед первым и после последнего, обеспечивая одинаковые промежутки.
 
-Use the <<justifyContent,justifyContent>> attribute to set the justify content mode of the layout.
+Используйте атрибут <<justifyContent,justifyContent>> для установки режима выравнивания содержимого контейнера.
 
-For xref:vc/layout-rules.adoc#justify-content-mode[usage examples] visit the Layout Rules section.
+Примеры xref:vc/layout-rules.adoc#justify-content-mode[использования] смотрите в разделе Правила компоновки.
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые служат одной цели для всех компонентов.
 
-The following are attributes specific to `hbox`:
+Следующие атрибуты специфичны для `hbox`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[boxSizing]]boxSizing
-|Sets how the total width and height of an element is calculated. Possible values are: `UNDEFINED`, `CONTENT_BOX`, `BORDER_BOX`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[MDN page about box-sizing^].
+|Задает способ вычисления общей ширины и высоты элемента. Возможные значения: `UNDEFINED`, `CONTENT_BOX`, `BORDER_BOX`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[страницу MDN о box-sizing^].
 |-
 |[[expand]]expand
-|Specifies a component within the layout that should be expanded to use all available space. In the case of `hbox`, this attribute sets the component's width to 100%.
+|Указывает компонент внутри контейнера, который должен быть расширен для использования всего доступного пространства. В случае `hbox` этот атрибут устанавливает ширину компонента на 100%.
 |-
 |[[justifyContent]]justifyContent
-|Defines how the browser distributes space between and around content items. See <<justification,Justification>>.
+|Определяет, как браузер распределяет пространство между элементами содержимого и вокруг них. Смотрите <<justification,Выравнивание содержимого>>.
 |`START`
 |[[margin]]margin
-|Defines indentation between the outer borders and the container content. Possible values: `true`, `false`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/margin[MDN page about margin^].
+|Определяет отступ между внешними границами и содержимым контейнера. Возможные значения: `true`, `false`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/margin[страницу MDN о margin^].
 |`false`
 |[[padding]]padding
-|Sets the padding area on all four sides of an element at once. Possible values: `true`, `false`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/padding[MDN page about padding^].
+|Устанавливает внутренние отступы со всех четырех сторон элемента одновременно. Возможные значения: `true`, `false`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/padding[страницу MDN о padding^].
 |`false`
 |[[spacing]]spacing
-|Sets spacing between components within a layout. Possible values: `true`, `false`.
+|Устанавливает промежутки между компонентами внутри контейнера. Возможные значения: `true`, `false`.
 |`false`
 |===
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
@@ -168,8 +168,8 @@ include::../handler-generation-tip.adoc[]
 [[ClickEvent]]
 === ClickEvent
 
-`com.vaadin.flow.component.ClickEvent` is sent when the user clicks the layout.
+`com.vaadin.flow.component.ClickEvent` отправляется, когда пользователь кликает на контейнер.
 
-== See Also
+== Смотрите также
 
-See {vaadin-docs}/components/horizontal-layout[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/horizontal-layout[документации Vaadin^].
