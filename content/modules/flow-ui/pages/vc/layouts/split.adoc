@@ -7,15 +7,15 @@
 </div>
 ++++
 
-`split` is a layout that creates two content areas divided by a draggable splitter. The default split orientation is vertical, but it can be changed to horizontal.
+`split` - это контейнер, который создает две области содержимого, разделенные перемещаемым разделителем. Ориентация разделения по умолчанию вертикальная, но может быть изменена на горизонтальную.
 
-* XML element: `split`
+* XML-элемент: `split`
 
-* Java class: `JmixSplitLayout`
+* Java-класс: `JmixSplitLayout`
 
-== Basics
+== Основы
 
-`split` must contain two components or layouts to be placed on each side of the splitter. Initial splitter position depends on the size of components. Users can drag the splitter to change the split position.
+`split` должен содержать два компонента или контейнера, которые размещаются по обе стороны от разделителя. Начальная позиция разделителя зависит от размеров компонентов. Пользователи могут перетаскивать разделитель для изменения положения разделения.
 
 image::visual-components/layouts/split-basic.png[align="center", width="445"]
 
@@ -25,7 +25,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -50,10 +50,10 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-Defines split orientation. Possible values:
+Определяет ориентацию разделения. Возможные значения:
 
-* `VERTICAL` –  nested components are placed vertically. This is the default value.
-* `HORIZONTAL` – nested components are placed horizontally.
+* `VERTICAL` – вложенные компоненты размещаются вертикально. Это значение по умолчанию.
+* `HORIZONTAL` – вложенные компоненты размещаются горизонтально.
 
 [[splitterPosition]]
 === splitterPosition
@@ -64,7 +64,7 @@ Defines split orientation. Possible values:
 </div>
 ++++
 
-Explicitly sets the initial splitter position as a percentage value.
+Явно задает начальную позицию разделителя в процентном значении.
 
 [[themeNames]]
 === themeNames
@@ -75,12 +75,12 @@ Explicitly sets the initial splitter position as a percentage value.
 </div>
 ++++
 
-Sets a different theme to change component’s appearance. The possible values are:
+Устанавливает другую тему для изменения внешнего вида компонента. Возможные значения:
 
-* `small` -- divides areas with a thin line. The splitter is shown on hover over.
-* `minimal` -- hides any visual indication of split.
-* `splitter-spacing` -- adds margin for the splitter.
+* `small` -- разделяет области тонкой линией. Разделитель показывается при наведении.
+* `minimal` -- скрывает визуальное обозначение разделителя.
+* `splitter-spacing` -- добавляет отступ для разделителя.
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/v23/components/split-layout[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в https://vaadin.com/docs/v23/components/split-layout[документации Vaadin^].
