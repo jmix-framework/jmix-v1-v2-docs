@@ -6,15 +6,15 @@
 </div>
 ++++
 
-`vbox` lays out all nested components in a single vertical column.
+`vbox` располагает все вложенные компоненты в один вертикальный столбец.
 
-* XML element: `vbox`
+* XML-элемент: `vbox`
 
-* Java class: `VerticalLayout`
+* Java-класс: `VerticalLayout`
 
-== Basics
+== Основы
 
-An example of arranging three components in a single column:
+Пример расположения трех компонентов в одном столбце:
 
 [source,xml,indent=0]
 ----
@@ -24,7 +24,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/vbox-basic.png[align="center", width="210"]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignItems[alignItems] -
@@ -56,7 +56,7 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-Sets how the total width and height of an element is calculated. Possible values are:
+Задает способ вычисления общей ширины и высоты элемента. Возможные значения:
 
 * `UNDEFINED`
 
@@ -67,7 +67,7 @@ Sets how the total width and height of an element is calculated. Possible values
 [[expand]]
 === expand
 
-Specifies a component within the layout that should be expanded to use all available space. In the case of vbox, this attribute sets the component's height to 100%.
+Указывает компонент внутри контейнера, который должен быть расширен для использования всего доступного пространства. В случае `vbox` этот атрибут устанавливает высоту компонента на `100%`.
 
 //For a container with vertical placement, this attribute sets 100% height to a component; for the containers with horizontal placement - 100% width. Additionally, resizing a container will resize the expanded component.
 
@@ -80,7 +80,7 @@ Specifies a component within the layout that should be expanded to use all avail
 </div>
 ++++
 
-Defines how the browser distributes space between and around content items. Possible values are:
+Определяет, как браузер распределяет пространство между элементами содержимого и вокруг них. Возможные значения:
 
 * `START`
 
@@ -94,7 +94,7 @@ Defines how the browser distributes space between and around content items. Poss
 
 * `EVENLY`
 
-For xref:vc/layout-rules.adoc#justify-content-mode[usage examples] visit the Layout Rules section.
+Примеры xref:vc/layout-rules.adoc#justify-content-mode[использования] смотрите в разделе Правила компоновки.
 
 [[margin]]
 === margin
@@ -105,7 +105,7 @@ For xref:vc/layout-rules.adoc#justify-content-mode[usage examples] visit the Lay
 </div>
 ++++
 
-Defines indentation between the outer borders and the container content. Possible values -- `true`, `false`. Default is `false`.
+Определяет отступ между внешними границами и содержимым контейнера. Возможные значения - `true`, `false`. По умолчанию `false`.
 
 [[padding]]
 === padding
@@ -116,15 +116,15 @@ Defines indentation between the outer borders and the container content. Possibl
 </div>
 ++++
 
-Sets the padding area on all four sides of an element at once. Possible values -- `true`, `false`. Default is `false`.
+Устанавливает внутренние отступы со всех четырех сторон элемента одновременно. Возможные значения - `true`, `false`. По умолчанию `false`.
 
 [[spacing]]
 === spacing
 
-Sets spacing between components within a layout. Possible values -- `true`, `false`. Default is `false`.
+Устанавливает промежутки между компонентами внутри контейнера. Возможные значения - `true`, `false`. По умолчанию `false`.
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
@@ -132,8 +132,7 @@ xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 
 include::../handler-generation-tip.adoc[]
 
-
 [[ClickEvent]]
 === ClickEvent
 
-`com.vaadin.flow.component.ClickEvent` is sent when the user clicks the layout.
+`com.vaadin.flow.component.ClickEvent` отправляется, когда пользователь кликает на контейнер.
