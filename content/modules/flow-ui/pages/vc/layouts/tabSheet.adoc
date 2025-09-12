@@ -7,15 +7,15 @@
 </div>
 ++++
 
-A layout that creates several tabs with content. Only the content of the selected tab is visible at a time.
+Контейнер, который создает несколько вкладок с содержимым. Одновременно видно только содержимое выбранной вкладки.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`tabSheet`
-|Java Class
+|Java-класс
 |`JmixTabSheet`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -29,19 +29,19 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 <<theme-variants, themeNames>> -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 <<selected-change-event, SelectedChangeEvent>>
-|Elements
+|Элементы
 |<<tab-element, tab>>
 |===
 
-== Basics
+== Основы
 
-To create the component, use `tabSheet` XML element and add several <<tab-element, tab>> elements. Each `tab` can only have one child component. If you need to include multiple components within a tab, you must wrap them with a layout component, such as xref:flow-ui:vc/layouts/vbox.adoc[].
+Для создания компонента используйте XML-элемент `tabSheet` и добавьте несколько элементов <<tab-element, tab>>. Каждый `tab` может иметь только один дочерний компонент. Если необходимо разместить несколько компонентов внутри вкладки, нужно обернуть их контейнером, таким как xref:flow-ui:vc/layouts/vbox.adoc[].
 
-The following example demonstrates how a basic `tabSheet` is created:
+Следующий пример демонстрирует создание базового `tabSheet`:
 
 [source,xml,indent=0]
 ----
@@ -51,19 +51,19 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/tabsheet-basic.png[align="center", width="310"]
 
 [[tab-element]]
-== Tab Element
+== Элемент tab
 
-The contents of an individual tab is described by the `tab` element.
+Содержимое отдельной вкладки описывается элементом `tab`.
 
-TIP: To add `tab` in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#component-inspector-add-button[Add]*->Tab* button in the *Component Inspector* panel.
+TIP: Чтобы добавить `tab` в Jmix Studio, выберите компонент в XML-дескрипторе экрана или на панели структуры *Jmix UI* и нажмите кнопку xref:studio:screen-designer.adoc#component-inspector-add-button[Add]*->Tab* на панели *Component Inspector*.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`tab`
-|Java Class
+|Java-класс
 |`Tab`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
 xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
@@ -73,29 +73,29 @@ xref:vc/common-attributes.adoc#css[css] -
 xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#flexGrow[flexGrow] -
 xref:vc/common-attributes.adoc#label[label] -
-<<lazy-loading, lazy>> -
+<<lazy-tabs, lazy>> -
 <<theme-variants, themeNames>> -
 xref:vc/common-attributes.adoc#visible[visible]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-| Elements
+|Элементы
 |xref:vc/components/tooltip.adoc[tooltip]
 |===
 
-== Number of Tabs
+== Количество вкладок
 
-The `tabSheet` component can have any practical number of tabs. To adapt to the available space the component will add scroll buttons, ensuring that all tabs remain accessible to users.
+Компонент `tabSheet` может иметь любое практическое количество вкладок. Для адаптации к доступному пространству компонент добавит кнопки прокрутки, обеспечивая доступность всех вкладок для пользователей.
 
 image::visual-components/layouts/tabsheet-tabs-number.png[align="center", width="500"]
 
-== States
+== Состояния
 
-Tab state allows users to easily determine which tab is currently active and which tabs may be temporarily unavailable or disabled. A `tab` can be selected, unselected, or disabled.
+Состояние вкладки позволяет пользователям легко определить, какая вкладка активна в данный момент, а какие могут быть временно недоступны или отключены. Вкладка может быть выбрана, не выбрана или отключена.
 
 image::visual-components/components/tabs-states.png[align="center", width="316"]
 
-== Custom Labels
+== Пользовательские надписи
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -103,11 +103,11 @@ image::visual-components/components/tabs-states.png[align="center", width="316"]
 </div>
 ++++
 
-Tab labels are not limited to just text. You can include almost any components through programmatic definition.
+Надписи вкладок не ограничиваются только текстом. Вы можете включать практически любые компоненты через программное определение.
 
 image::visual-components/layouts/tabsheet-labels.png[align="center", width="400"]
 
-== Badges
+== Бейджи
 
 ++++
 <div class="jmix-ui-live-demo-container">
@@ -115,16 +115,16 @@ image::visual-components/layouts/tabsheet-labels.png[align="center", width="400"
 </div>
 ++++
 
-One particularly useful case is adding dynamic badges to tab labels. Such badges can provide an indication of the quantity of items, notifications, or other information related to the tab's contents.
+Особенно полезным случаем является добавление динамических бейджей к надписям вкладок. Такие бейджи могут указывать на количество элементов, уведомлений или другую информацию, связанную с содержимым вкладки.
 
 image::visual-components/layouts/tabsheet-badges.png[align="center", width="400"]
 
 [[selected-change-event]]
-== Detect Tab Switch
+== Обнаружение переключения вкладок
 
-Whenever the user switches between tabs, the `io.jmix.flowui.component.tabsheet.JmixTabSheet.SelectedChangeEvent` is fired. Create an event handler to execute custom code in response to the tab switch.
+При каждом переключении пользователем между вкладками генерируется событие `io.jmix.flowui.component.tabsheet.JmixTabSheet.SelectedChangeEvent`. Создайте обработчик события для выполнения пользовательского кода в ответ на переключение вкладки.
 
-The following code will send a notification on every tab switch:
+Следующий код будет отправлять уведомление при каждом переключении вкладки:
 
 [source,java,indent=0]
 ----
@@ -132,20 +132,20 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/ta
 ----
 
 [[lazy-tabs]]
-== Lazy Tabs
+== Ленивые вкладки
 
-A tab can be configured to load its content lazily, meaning the content is only loaded when a user selects that specific tab. This reduces the number of components in memory.
+Вкладка может быть настроена на ленивую загрузку своего содержимого, что означает, что содержимое загружается только когда пользователь выбирает эту конкретную вкладку. Это уменьшает количество компонентов в памяти.
 
-To enable lazy loading, set the `lazy` attribute of the tab element to `true`:
+Чтобы включить ленивую загрузку, установите атрибут `lazy` элемента `tab` в `true`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/tabsheet/tabsheet-view.xml[tags=lazy-loading]
 ----
 
-Components inside a lazy tab do not exist when the view is opened, so they cannot be injected into a controller or obtained in the view lifecycle event handlers. You can access these components only after the user opens the tab. The <<selected-change-event, SelectedChangeEvent>> handler allows you to detect which tab has been selected and access the components using the `UiComponentUtils.getComponent()` method.
+Компоненты внутри ленивой вкладки не существуют при открытии экрана, поэтому они не могут быть инжектированы в контроллер или получены в обработчиках событий жизненного цикла экрана. Вы можете получить доступ к этим компонентам только после того, как пользователь откроет вкладку. Обработчик <<selected-change-event, SelectedChangeEvent>> позволяет определить, какая вкладка была выбрана, и получить доступ к компонентам с помощью метода `UiComponentUtils.getComponent()`.
 
-In the following example the second tab is set to lazy loading, and its content is loaded only when the user selects it. The current number of components in each tab is displayed using a supplementary `span` element.
+В следующем примере вторая вкладка настроена на ленивую загрузку, и ее содержимое загружается только при выборе пользователем. Текущее количество компонентов в каждой вкладке отображается с помощью дополнительного элемента `span`.
 
 image::visual-components/layouts/tabsheet-lazy.gif[align="center", width="234"]
 
@@ -155,14 +155,14 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/ta
 ----
 
 [[theme-variants]]
-== Theme Variants
+== Варианты тем
 
-The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select among six different options:
+Внешний вид компонента настраивается с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который позволяет выбрать среди шести различных вариантов:
 
 .`centered`
 [%collapsible]
 ====
-Positions the tabs at the center of the container or view, instead of their default left-aligned position:
+Размещает вкладки по центру контейнера или экрана, вместо их позиции по умолчанию с выравниванием по левому краю:
 
 image::visual-components/components/tabs-centered.png[align="center", width=610]
 ====
@@ -170,7 +170,7 @@ image::visual-components/components/tabs-centered.png[align="center", width=610]
 .`small`
 [%collapsible]
 ====
-Makes the tabs smaller:
+Делает вкладки меньшего размера:
 
 image:visual-components/components/tabs-small.png[align="center", width=366]
 ====
@@ -178,7 +178,7 @@ image:visual-components/components/tabs-small.png[align="center", width=366]
 .`minimal`
 [%collapsible]
 ====
-Reduces visual style to only show tab labels without any additional visual elements:
+Упрощает визуальный стиль, показывая только надписи вкладок без дополнительных визуальных элементов:
 
 image:visual-components/components/tabs-minimal.png[align="center", width=394]
 ====
@@ -186,16 +186,15 @@ image:visual-components/components/tabs-minimal.png[align="center", width=394]
 .`hide-scroll-buttons`
 [%collapsible]
 ====
-Hides the scroll buttons that assist in navigating overflown tabs:
+Скрывает кнопки прокрутки, которые помогают в навигации по переполненным вкладкам:
 
 image:visual-components/components/tabs-hide-scroll-buttons.png[align="center", width=394]
-
 ====
 
 .`equal-width-tabs`
 [%collapsible]
 ====
-Allocates an equal amount of space to each tab and disables the ability to scroll:
+Выделяет равное количество пространства для каждой вкладки и отключает возможность прокрутки:
 
 image:visual-components/components/tabs-equal-width.png[align="center", width=538]
 ====
@@ -203,11 +202,11 @@ image:visual-components/components/tabs-equal-width.png[align="center", width=53
 .`bordered`
 [%collapsible]
 ====
-Adds a border around the tabs themselves, as well as the content area.
+Добавляет границу вокруг самих вкладок, а также области содержимого.
 
 image:visual-components/layouts/tabsheet-bordered.png[align="center", width=400]
 ====
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/latest/components/tabs[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в https://vaadin.com/docs/latest/components/tabs[документации Vaadin^].
