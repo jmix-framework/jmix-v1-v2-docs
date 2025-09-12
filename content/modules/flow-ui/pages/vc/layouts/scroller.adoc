@@ -7,15 +7,15 @@
 </div>
 ++++
 
-`scroller` is a layout that creates a scrollable content area.
+`scroller` - это контейнер, который создает область содержимого с возможностью прокрутки.
 
-* XML element: `scroller`
+* XML-элемент: `scroller`
 
-* Java class: `JmixScroller`
+* Java-класс: `JmixScroller`
 
-== Basics
+== Основы
 
-`scroller` allows to display content that takes up a lot of space in a smaller area. Components placed inside the scrollable area must be wrapped with a layout component, such as xref:flow-ui:vc/layouts/vbox.adoc[].
+`scroller` позволяет отображать содержимое, занимающее много пространства, в меньшей области. Компоненты, размещенные внутри прокручиваемой области, должны быть обернуты в контейнер, такой как xref:flow-ui:vc/layouts/vbox.adoc[].
 
 image::visual-components/layouts/scroller-basic.gif[align="center", width="240"]
 
@@ -25,7 +25,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
@@ -50,21 +50,21 @@ xref:vc/common-attributes.adoc#width[width]
 </div>
 ++++
 
-Defines what scroll directions are available when content overflows the area. Possible values are:
+Определяет, в каких направлениях доступна прокрутка при переполнении области содержимым. Возможные значения:
 
-* `VERTICAL` -- enables vertical scrolling.
-* `HORIZONTAL` -- enables horizontal scrolling.
-* `BOTH` -- enables scrolling in both vertical and horizontal directions. This is the default value.
-* `NONE` -- disables scrolling.
+* `VERTICAL` -- включает вертикальную прокрутку.
+* `HORIZONTAL` -- включает горизонтальную прокрутку.
+* `BOTH` -- включает прокрутку в обоих направлениях (вертикальном и горизонтальном). Это значение по умолчанию.
+* `NONE` -- отключает прокрутку.
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 
 include::../handler-generation-tip.adoc[]
 
-== See Also
+== Смотрите также
 
-See https://vaadin.com/docs/v23/components/scroller[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/scroller[документации Vaadin^].
