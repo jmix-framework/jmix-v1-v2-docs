@@ -1,15 +1,15 @@
 = nativeLabel
 :page-aliases: vc/html-components/label.adoc
 
-`nativeLabel` represents the `label` HTML element that creates a caption for a component.
+`nativeLabel` представляет элемент HTML `label`, который создает надпись для компонента.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`nativeLabel`
-|Java Class
+|Java-класс
 |`NativeLabel`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -30,17 +30,17 @@ xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
-== Basics
+== Основы
 
-The `nativeLabel` component can serve as an alternative for the xref:vc/common-attributes.adoc#label[label] attribute that is present in the majority of UI components in Jmix.
+Компонент `nativeLabel` может служить альтернативой атрибуту xref:vc/common-attributes.adoc#label[label], который присутствует в большинстве UI-компонентов Jmix.
 
-To set a label on a component, pass that component's id to the <<setFor, setFor>> attribute of the label. For example, to set the label on a `checkbox` component:
+Чтобы установить надпись для компонента, передайте его идентификатор в атрибут <<setFor, setFor>>. Например, чтобы установить надпись для компонента `checkbox`:
 
 [source, xml, indent=0]
 ----
@@ -49,21 +49,21 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 image::visual-components/html-components/label-basic.png[align="center", width="185"]
 
-Having the label associated with a component makes the label text correctly interpreted by assistive technologies, such as screen readers.
+Связывание надписи с компонентом позволяет вспомогательным технологиям, таким как программы чтения с экрана, правильно интерпретировать текст надписи.
 
-To add text that is not associated with a component, use the `span` or `div` components.
+Для добавления текста, не связанного с компонентом, используйте компоненты `span` или `div`.
 
 [[dynamic-label]]
-== Dynamic Label
+== Динамическая надпись
 
-To dynamically set or update text in `nativeLabel`, first specify its `id` attribute:
+Чтобы динамически установить или обновить текст в `nativeLabel`, сначала укажите его атрибут `id`:
 
 [source, xml, indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/label/label-view.xml[tags=dynamic]
 ----
 
-Use this `id` to reference the label in the view controller and update the text with the `setText()` method:
+Используйте этот `id` для ссылки на надпись в контроллере экрана и обновления текста с помощью метода `setText()`:
 
 [source,java,indent=0]
 ----
@@ -73,17 +73,17 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/htmlcompo
 image::visual-components/html-components/label-dynamic.png[align="center", width="180"]
 
 [[themes]]
-== Themes
+== Темы
 
-Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to customize component's color, size, and shape. Start by transforming the component into a badge using `themeNames = "badge"`. Then, apply supplementary themes to enhance different visual aspects.
+Используйте атрибут xref:vc/common-attributes.adoc#themeNames[themeNames] для настройки цвета, размера и формы компонента. Начните с преобразования компонента в бейдж с помощью `themeNames = "badge"`. Затем примените дополнительные темы для улучшения различных визуальных аспектов.
 
-=== Color
+=== Цвет
 
-Choose among four color variants to convey the component's visual intent: default, `success`, `error`, and `contrast`.
+Выберите среди четырех вариантов цвета для передачи визуального назначения компонента: по умолчанию, `success`, `error` и `contrast`.
 
 image::visual-components/html-components/label-badge-color.png[align="center", width="306"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -92,11 +92,11 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 ----
 ====
 
-Combine the color variants with the `primary` theme to add extra emphasis:
+Сочетайте варианты цвета с темой `primary` для добавления дополнительного акцента:
 
 image::visual-components/html-components/label-badge-color-primary.png[align="center", width="306"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -105,13 +105,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 ----
 ====
 
-=== Shape
+=== Форма
 
-Applying the `pill` theme creates a badge with rounded corners. Use it independently or combine with color themes:
+Применение темы `pill` создает бейдж со скругленными углами. Используйте ее независимо или в сочетании с цветовыми темами:
 
 image::visual-components/html-components/label-badge-pill.png[align="center", width="328"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -120,13 +120,13 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 ----
 ====
 
-=== Size
+=== Размер
 
-Two size options are available: the default `normal` size and `small`.
+Доступны два варианта размера: размер по умолчанию `normal` и `small`.
 
 image::visual-components/html-components/label-badge-size.png[align="center", width="130"]
 
-.XML code
+.XML-код
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -136,49 +136,50 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 ====
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `nativeLabel`:
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые служат одной цели для всех компонентов.
+
+Следующие атрибуты специфичны для `nativeLabel`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[themeNames]]themeNames
-|Adds a theme to the component. Possible values: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. For a theme to take effect, combine `badge` with another value as shown <<themes, above>>.
+|Добавляет тему к компоненту. Возможные значения: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. Чтобы тема вступила в силу, объедините `badge` с другим значением, как показано <<themes, выше>>.
 
-*Predefined themes are sets of CSS classes that may affect other styling options of the component or its nested components.*
+*Предопределенные темы — это наборы CSS-классов, которые могут влиять на другие параметры стилизации компонента или его вложенных компонентов.*
 |-
 |[[setFor]]setFor
-|Associates the label with a specific element by its id, enabling assistive technologies like screen readers to interpret it correctly.
+|Связывает надпись с конкретным элементом по его идентификатору, позволяя вспомогательным технологиям, таким как программы чтения с экрана, правильно ее интерпретировать.
 |-
 |===
 
-
 [[handlers]]
-== Handlers
+== Обработчики
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `nativeLabel`:
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов.
+
+Следующие обработчики специфичны для `nativeLabel`:
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[ClickEvent]]ClickEvent
-|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
+|`com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из трех субъектов для определения количества кликов:
 
-*click* – fires the event whenever the component is clicked.
+*click* – событие возникает при любом клике на компонент.
 
-*singleClick* – fires the event after a timeout to ensure it is not a double click.
+*singleClick* – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
 
-*doubleClick* – fires the event when the component is double-clicked.
+*doubleClick* – событие возникает при двойном клике на компонент.
 |===
 
-== See Also
+== Смотрите также
 
-See https://developer.mozilla.org/ru/docs/Web/HTML/Element/label[MDN Docs^] for more information.
+Дополнительную информацию смотрите в https://developer.mozilla.org/ru/docs/Web/HTML/Element/label[документации MDN^].
