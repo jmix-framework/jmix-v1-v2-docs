@@ -7,14 +7,15 @@
 </div>
 ++++
 
-`div` is a container that groups related components together.
+`div` - это контейнер, который группирует связанные компоненты вместе.
+
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`div`
-|Java Class
+|Java-класс
 |`Div`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -34,28 +35,28 @@ xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
-== Basics
+== Основы
 
-The following example shows `div` with nested components:
+Следующий пример показывает `div` с вложенными компонентами:
 
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/div/div-view.xml[tags=basics]
 ----
 
-TIP: Use the xref:vc/components/html.adoc[html] component to include raw HTML.
+TIP: Используйте компонент xref:vc/components/html.adoc[html] для включения исходного HTML-кода.
 // image::visual-components/html-components/div-basic.png[align="center", width="260"]
 
 [[themes]]
-== Themes
+== Темы
 
-The component can apply a predefined theme to nested components. For that, combine `badge` and another <<themeNames,themeNames>> value:
+Компонент может применять предопределенную тему к вложенным компонентам. Для этого объедините `badge` и другое значение <<themeNames,themeNames>>:
 
 [source,xml,indent=0]
 ----
@@ -65,41 +66,43 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 image::visual-components/html-components/div-success.png[align="center", width="430"]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `div`:
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые служат одной цели для всех компонентов.
+
+Следующие атрибуты специфичны для `div`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[themeNames]]themeNames
-|Adds a theme to the component. Possible values: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. For a theme to take effect, combine `badge` with another value as shown <<themes, above>>.
+|Добавляет тему к компоненту. Возможные значения: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. Чтобы тема вступила в силу, объедините `badge` с другим значением, как показано <<themes, выше>>.
 
-*Predefined themes are sets of CSS classes that may affect other styling options of the component or its nested components.*
+*Предопределенные темы - это наборы CSS-классов, которые могут влиять на другие параметры стилизации компонента или его вложенных компонентов.*
 |-
 |===
 
 [[handlers]]
-== Handlers
+== Обработчики
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `div`:
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов.
+
+Следующие обработчики специфичны для `div`:
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[ClickEvent]]ClickEvent
-|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
+|The `com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из трех субъектов для определения количества кликов:
 
-*click* – fires the event whenever the component is clicked.
+*click* – событие возникает при любом клике на компонент.
 
-*singleClick* – fires the event after a timeout to ensure it is not a double click.
+*singleClick* – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
 
-*doubleClick* – fires the event when the component is double-clicked.
+*doubleClick* – событие возникает при двойном клике на компонент.
 |===
