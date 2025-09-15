@@ -151,7 +151,7 @@ Jmix Studio предоставляет расширенные возможнос
 [[clickShortcut]]
 == clickShortcut
 
-Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] to fire a click event associated with the component. The component must have an appropriate handler to process the click event, otherwise the key combination will not have any effect.
+Определяет xref:keyboard-shortcuts.adoc[сочетание клавиш] для вызова события клика, связанного с компонентом. Компонент должен иметь соответствующий обработчик для обработки события клика, в противном случае комбинация клавиш не будет иметь никакого эффекта.
 
 [[colspan]]
 == colspan
@@ -165,14 +165,14 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] to fire a click even
 
 Позволяет декларативно указывать CSS-свойства для компонентов UI.
 
-In this example, the `css` attribute is used to apply inline styles to the xref:flow-ui:vc/components/textField.adoc[textField] component, including setting the background color, border, padding, and font size:
+В этом примере атрибут `css` используется для применения встроенных стилей к компоненту xref:flow-ui:vc/components/textField.adoc[textField], включая установку цвета фона, границы, отступов и размера шрифта:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/cssattr/css-attr-view.xml[tags=textField]
 ----
 
-In the example below, the `css` attribute is used to provide inline CSS for the xref:flow-ui:vc/components/button.adoc[button] component.
+В примере ниже атрибут `css` используется для предоставления встроенного CSS для компонента xref:flow-ui:vc/components/button.adoc[button].
 
 [source,xml,indent=0]
 ----
@@ -249,12 +249,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 </div>
 ++++
 
-Sets the flex grow factor for this component. When set to `0`, the width is fixed.
+Устанавливает коэффициент расширения flex для этого компонента. Если установлено значение `0`, ширина фиксируется.
 
 [[focusShortcut]]
 == focusShortcut
 
-Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to place focus on this component.
+Определяет xref:keyboard-shortcuts.adoc[сочетание клавиш], которое используется для установки фокуса на этот компонент.
 
 [[height]]
 == height
@@ -420,7 +420,7 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 [[overlayClass]]
 == overlayClass
 
-Specifies a list of CSS class names to set on the overlay element.
+Определяет список имен CSS-классов, которые будут установлены для элемента наложения.
 
 [[pattern]]
 == pattern
@@ -526,7 +526,7 @@ Specifies a list of CSS class names to set on the overlay element.
 
 Значением атрибута может быть либо сам текст, либо ключ в xref:localization:message-bundles.adoc[пакете сообщений]. В случае ключа значение должно начинаться с `msg://` префикса.
 
-Есть два способа заданя ключа:
+Есть два способа задания ключа:
 
 * Короткий ключ - в этом случае сообщение будет искаться в группе сообщений текущего экрана. Например: `msg://infoField.caption`.
 
@@ -545,7 +545,7 @@ Specifies a list of CSS class names to set on the overlay element.
 [[value]]
 == value
 
-Sets the value of the component. If the new value is not equal to `getValue()`, fires a value change event. May throw `IllegalArgumentException` if the value is not acceptable.
+Задает новое значение для компонента. Если новое значение отличается от возвращаемого методом `getValue()`, происходит генерация события изменения значения. В случае неприемлемости значения может быть выброшено исключение `IllegalArgumentException`.
 
 [[valueChangeMode]]
 == valueChangeMode
