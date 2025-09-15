@@ -7,15 +7,15 @@
 </div>
 ++++
 
-`image` is designed to display images from different sources. The component can be bound to a xref:vc/common-attributes.adoc#dataContainer[data container] or configured programmatically.
+`image` предназначен для отображения изображений из различных источников. Компонент может быть привязан к xref:vc/common-attributes.adoc#dataContainer[контейнеру данных] или настроен программно.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`image`
-|Java Class
+|Java-класс
 |`JmixImage`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 <<alternateText, alternateText>> -
@@ -39,23 +39,23 @@ xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
 [[basics]]
-== Basics
+== Основы
 
-An image can be represented as an entity attribute of `FileRef` or `byte[]` type. In the example below, the `picture` attribute of the `User` entity is a reference to a file in xref:files:file-storage.adoc[file storage]:
+Изображение может быть представлено как атрибут сущности типа `FileRef` или `byte[]`. В примере ниже атрибут `picture` сущности `User` является ссылкой на файл в xref:files:file-storage.adoc[файловом хранилище]:
 
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/entity/User.java[tags=user-entity;picture]
 ----
 
-To display the image provided by this attribute, specify it in the component. For that, specify the xref:vc/common-attributes.adoc#dataContainer[data container] and xref:vc/common-attributes.adoc#property[property] attributes.
+Для отображения изображения, предоставляемого этим атрибутом, укажите его в компоненте. Для этого задайте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property].
 
 [source, xml, indent=0]
 ----
@@ -63,28 +63,28 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 ----
 
 [[resources]]
-== Resources
+== Ресурсы
 
-Alternatively, the `image` component can display images from different resources. You can set the resource type declaratively using the nested XML elements described below, or programmatically using the `setSrc()` method.
+Кроме того, компонент `image` может отображать изображения из различных ресурсов. Вы можете задать тип ресурса декларативно с помощью вложенных XML-элементов, описанных ниже, или программно с помощью метода `setSrc()`.
 
 [[static-resource]]
-=== Static Resource
+=== Статический ресурс
 
-An image can be served statically by the application.
+Изображение может быть предоставлено приложением статически.
 
-By default, static content is served from `/static`, `/public`, `/resources`, or `/META-INF/resources` directories of the classpath (see details in the https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot documentation^]).
+По умолчанию статический контент загружается из каталогов `/static`, `/public`, `/resources` или `/META-INF/resources` в classpath (подробности смотрите в https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[документации Spring Boot^]).
 
-* In XML:
+* В XML:
 +
-For example, if your image is located
-under `/src/main/resources/META-INF/resources`, such as `/src/main/resources/META-INF/resources/icons/icon.png`, you can specify the resource as follows:
+Если ваше изображение находится
+в `/src/main/resources/META-INF/resources`, например,  `/src/main/resources/META-INF/resources/icons/icon.png`, вы можете указать ресурс следующим образом:
 +
 [source,xml,indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/image/image-view.xml[tags=static-resource]
 ----
 +
-* In Java:
+* В Java:
 +
 [source,java,indent=0]
 ----
@@ -92,18 +92,18 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 ----
 
 [[url-resource]]
-=== URL Resource
+=== Ресурс URL
 
-Similarly, an image can be loaded from an arbitrary URL.
+Аналогично, изображение может быть загружено из произвольного URL.
 
-* In XML:
+* В XML:
 +
 [source, xml, indent=0]
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/image/image-view.xml[tags=url-resource]
 ----
 
-* In Java:
+* В Java:
 +
 [source,java,indent=0]
 ----
@@ -117,11 +117,11 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // === FileStorageResource
 
 [[stream-resource]]
-=== Stream Resource
+=== Потоковый ресурс
 
-An image can be provided by an `InputStream`.
+Изображение может быть получено из потока `InputStream`.
 
-* In Java: `StreamResource` interface.
+* В Java: интерфейс `StreamResource`.
 +
 [source,java,indent=0]
 ----
@@ -131,44 +131,47 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // [[theme-resource]]
 // === ThemeResource
 
-== Attributes
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `span`:
+== Атрибуты
+
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые служат одной цели для всех компонентов.
+
+Следующие атрибуты специфичны для `image`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[alternateText]]alternateText
-|Sets an alternate text for an image in case the resource is not set or unavailable.
+|Задает альтернативный текст для изображения на случай, если ресурс не задан или недоступен.
 |-
 |[[resource]]resource
-|Specifies the location of the image. See <<resources, resources>>.
+|Указывает расположение изображения. Смотрите <<resources, ресурсы>>.
 |-
 |[[themeNames]]themeNames
-|Adds a theme to the component. Possible values: `fill`, `contain`, `cover`, `scale-down`.
+|Добавляет тему к компоненту. Возможные значения: `fill`, `contain`, `cover`, `scale-down`.
 |-
 |===
 
 [[handlers]]
-== Handlers
+== Обработчики
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `image`:
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов.
+
+Следующие обработчики специфичны для `image`:
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[ClickEvent]]ClickEvent
-|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
+|`com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из трех субъектов для определения количества кликов:
 
-*click* – fires the event whenever the component is clicked.
+*click* – событие возникает при любом клике на компонент.
 
-*singleClick* – fires the event after a timeout to ensure it is not a double click.
+*singleClick* – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
 
-*doubleClick* – fires the event when the component is double-clicked.
+*doubleClick* – событие возникает при двойном клике на компонент.
 |===
