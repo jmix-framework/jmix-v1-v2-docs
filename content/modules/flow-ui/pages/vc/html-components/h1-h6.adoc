@@ -6,15 +6,15 @@
 </div>
 ++++
 
-The `h1` to `h6` HTML elements represent six levels of headings.
+Элементы HTML от `h1` до `h6` представляют шесть уровней заголовков.
 
 [cols="1h,6", grid=none]
 |===
-|XML Elements
+|XML-элементы
 |`h1`, `h2`, `h3`, `h4`, `h5`, `h6`
-|Java Classes
+|Java-классы
 |`H1`, `H2`, `H3`, `H4`, `H5`, `H6`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -34,15 +34,15 @@ xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent, ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
-== Basics
+== Основы
 
-Use headings to convey logical hierarchy of the content.
+Используйте заголовки для передачи логической иерархии содержимого.
 
 [source,xml,indent=0]
 ----
@@ -52,41 +52,43 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 image::visual-components/html-components/h1h6-basic.png[align="center", width="190"]
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to headings:
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые служат одной цели для всех компонентов.
+
+Следующие атрибуты специфичны для заголовков:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[themeNames]]themeNames
-|Adds a theme to the component. Possible values: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. For a theme to take effect, combine `badge` with another value.
+|Добавляет тему к компоненту. Возможные значения: `badge`, `normal`, `success`, `error`, `contrast`, `primary`, `small`, `pill`. Чтобы тема вступила в силу, объедините `badge` с другим значением.
 
-*Predefined themes are sets of CSS classes that may affect other styling options of the component or its nested components.*
+*Предопределенные темы - это наборы CSS-классов, которые могут влиять на другие параметры стилизации компонента или его вложенных компонентов.*
 |-
 |===
 
 [[handlers]]
-== Handlers
+== Обработчики
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to headings:
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов.
+
+Следующие обработчики специфичны для заголовков:
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[ClickEvent]]ClickEvent
-|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
+|`com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из трех субъектов для определения количества кликов:
 
-*click* – fires the event whenever the component is clicked.
+*click* – событие возникает при любом клике на компонент.
 
-*singleClick* – fires the event after a timeout to ensure it is not a double click.
+*singleClick* – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
 
-*doubleClick* – fires the event when the component is double-clicked.
+*doubleClick* – событие возникает при двойном клике на компонент.
 |===
