@@ -7,47 +7,47 @@
 </div>
 ++++
 
-The `settings` facet saves and restores settings of visual components for the current user. The following components are supported:
+Фасет `settings` сохраняет и восстанавливает настройки визуальных компонентов для текущего пользователя. Поддерживаются следующие компоненты:
 
-* xref:flow-ui:vc/components/dataGrid.adoc[dataGrid], xref:vc/components/treeDataGrid.adoc[treeDataGrid] - the facet saves the order and width of columns, as well as sorting parameters.
-* xref:flow-ui:vc/layouts/details.adoc[details], xref:vc/components/genericFilter.adoc[genericFilter] - the facet saves the opened state.
-* xref:vc/components/simplePagination.adoc[simplePagination] - the facet saves the selected page size if `itemsPerPageVisible` is `true`.
+* xref:flow-ui:vc/components/dataGrid.adoc[dataGrid], xref:vc/components/treeDataGrid.adoc[treeDataGrid] - фасет сохраняет порядок и ширину колонок, а также параметры сортировки.
+* xref:flow-ui:vc/layouts/details.adoc[details], xref:vc/components/genericFilter.adoc[genericFilter] - фасет сохраняет состояние открытия.
+* xref:vc/components/simplePagination.adoc[simplePagination] - фасет сохраняет выбранный размер страницы, если `itemsPerPageVisible` имеет значение `true`.
 
 [[basic-usage]]
-== Basic Usage
+== Базовое использование
 
-When added to a view with the `auto="true"` attribute, the facet manages settings of all supported components of the view that have identifiers:
+При добавлении на экран с атрибутом `auto="true"` фасет управляет настройками всех поддерживаемых компонентов экрана, имеющих идентификаторы:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/customer/customer-list-view.xml[tags=facets;settings]
 ----
 
-To manage settings of a particular component, use the nested `component` elements, for example:
+Для управления настройками конкретного компонента используйте вложенные элементы `component`, например:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/city/city-list-view.xml[tags=facets;settings]
 ----
 
-To exclude some component, use `auto="true"` for the facet and `enabled="false"` for the component:
+Чтобы исключить какой-либо компонент, используйте `auto="true"` для фасета и `enabled="false"` для компонента:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/hobby/hobby-list-view.xml[tags=facets;settings]
 ----
 
-The settings are stored in the main data store in the `FLOWUI_USER_SETTINGS` table in JSON format. You can manage the saved settings by opening the `flowui_UserSettingsItem` entity in the xref:data-tools:entity-inspector.adoc[Entity Inspector].
+Настройки хранятся в основном хранилище данных в таблице `FLOWUI_USER_SETTINGS` в формате JSON. Вы можете управлять сохраненными настройками, открыв сущность `flowui_UserSettingsItem` в xref:data-tools:entity-inspector.adoc[Инспекторе сущностей].
 
 [[handlers]]
-== Handlers
+== Обработчики
 
 include::flow-ui:vc/handler-generation-tip.adoc[]
 
 [[applySettingsDelegate]]
 === applySettingsDelegate
 
-`applySettingsDelegate` is invoked before the view `ReadyEvent` handler.
+`applySettingsDelegate` вызывается перед обработчиком события `ReadyEvent` экрана.
 
 [source,java,indent=0]
 ----
@@ -57,12 +57,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/facets/Se
 [[applyDataLoadingSettingsDelegate]]
 === applyDataLoadingSettingsDelegate
 
-`applyDataLoadingSettingsDelegate` is invoked before the view `BeforeShowEvent` handler and allows you to restore settings related to data loading.
+`applyDataLoadingSettingsDelegate` вызывается перед обработчиком события `BeforeShowEvent` экрана и позволяет восстановить настройки, связанные с загрузкой данных.
 
 [[saveSettingsDelegate]]
 === saveSettingsDelegate
 
-The `saveSettingsDelegate` handler is invoked before the view `DetachEvent` handler.
+Обработчик `saveSettingsDelegate` вызывается перед обработчиком события `DetachEvent` экрана.
 
 [source,java,indent=0]
 ----
