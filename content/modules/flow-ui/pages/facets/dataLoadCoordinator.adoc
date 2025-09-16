@@ -86,7 +86,6 @@ include::facet-tip.adoc[]
 [[component-param]]
 * `param` - указывает имя параметра запроса.
 --
-
 [[onContainerItemChanged]]
 . `onContainerItemChanged` - запуск загрузчика, когда меняется текущий элемент в контейнере данных. Он имеет следующие атрибуты:
 +
@@ -97,7 +96,6 @@ include::facet-tip.adoc[]
 [[container-param]]
 * `param` - указывает имя параметра запроса.
 --
-
 [[onViewEvent]]
 . `onViewEvent` - запуска загрузчика на событии жизненного цикла экрана. Он имеет следующий атрибут:
 +
