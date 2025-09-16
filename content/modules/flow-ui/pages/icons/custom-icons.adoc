@@ -1,22 +1,23 @@
-= Custom Icons
+= Пользовательские иконки
 
-Additional icons can be added as an SVG sprite or standalone icons and used alongside the built-in sets.
+Дополнительные иконки можно добавить в виде SVG-спрайта или отдельных иконок и использовать вместе со встроенными наборами.
 
-== Icon Set
+[[icon-set]]
+== Набор иконок
 
-An SVG sprite is a collection of SVG images loaded into an application as a single file, providing performance benefits. You can create a sprite manually or using one of many third-party tools.
+SVG-спрайт — это коллекция SVG-изображений, загружаемых в приложение как единый файл, что обеспечивает лучшую производительности. Вы можете создать спрайт вручную или с помощью сторонних инструментов.
 
-Follow the steps below to add an icon set:
+Чтобы добавить набор иконок, выполните следующие шаги:
 
-. Place your SVG sprite in the `/frontend/icons/` directory. The `my-icons.js` is used as an example and contains three icons:
+. Создайте JavaScript-файл для вашего набора иконок в директории `/frontend/icons/`. Используйте следующий код как пример создания набора, содержащего три иконки:
 +
 .my-icons.js
-[source,java,indent=0]
+[source,javascript,indent=0]
 ----
 include::example$/onboarding/frontend/icons/my-icons.js[tags=my-icons-sprite]
 ----
 +
-. Create an enum that implements `IconFactory`:
+. Создайте Java enum, реализующий `IconFactory` и добавьте ему аннотацию `@JsModule` со ссылкой на JavaScript-файл:
 +
 .MyIcons.java
 [source,java,indent=0]
@@ -24,7 +25,7 @@ include::example$/onboarding/frontend/icons/my-icons.js[tags=my-icons-sprite]
 include::example$/onboarding/src/main/java/com/company/onboarding/icons/MyIcons.java[tags=my-icons-enum]
 ----
 
-Custom icons can now be used in the same way as the default ones:
+Теперь пользовательские иконки можно использовать так же, как стандартные:
 
 [source,xml,indent=0]
 ----
@@ -33,32 +34,33 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/icon
 
 image::icons/sprite-icons.png[align="center", width="125"]
 
-Or set it to a component in the Java code:
+Или установить их для компонента в Java-коде:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-sprite]
 ----
 
-== Standalone Icon
+[[standalone-icon]]
+== Отдельная иконка
 
-Standalone icons can be added to the static content directory. By default, Spring Boot serves static resources from the following locations in the classpath: `/static`, `/public`, `/resources`, or `/META-INF/resources`. To help organize icons, you may set a subfolder `META-INF/resources/icons`.
+Отдельные иконки можно добавить в директорию статического контента. По умолчанию Spring Boot обслуживает статические ресурсы из следующих путей в classpath: `/static`, `/public`, `/resources` или `/META-INF/resources`. Для удобства организации иконок можно создать подкаталог `META-INF/resources/icons`.
 
-To serve a static resource, use the `svgIcon` component:
+Чтобы использовать статический ресурс, воспользуйтесь компонентом `svgIcon`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-1]
 ----
 
-To set the icon to a component, use its prefix or suffix elements.  For example, to put the icon before the button text:
+Чтобы установить иконку для компонента, используйте его xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[префиксные или суффиксные] элементы. Например, чтобы разместить иконку перед текстом кнопки:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-2]
 ----
 
-Or, use the programmatic approach:
+Или воспользуйтесь программным подходом:
 
 [source,java,indent=0]
 ----

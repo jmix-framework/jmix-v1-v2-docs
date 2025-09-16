@@ -1,11 +1,11 @@
-= Icons
+= Иконки
 
-Jmix includes two built-in icon sets and enables adding custom icons. You can use icons in numerous places, such as:
+Jmix включает два встроенных набора иконок и позволяет добавлять пользовательские иконки. Вы можете использовать иконки в различных местах, таких как:
 
-* Dedicated xref:vc/components/icon.adoc[] component
-* Any component with the icon property (xref:vc/components/button.adoc[], xref:vc/layouts/tabSheet.adoc[], etc.)
-* xref:vc/miscellaneous/prefix-suffix.adoc[Prefix and suffix]
+* Специальный компонент xref:vc/components/icon.adoc[]
+* Любой компонент со свойством `icon` (xref:vc/components/button.adoc[], xref:vc/layouts/tabSheet.adoc[] и т. д.)
+* xref:vc/miscellaneous/prefix-suffix.adoc[]
 * xref:actions.adoc[]
-* xref:menu-config.adoc[Main menu]
+* xref:menu-config.adoc[Главное меню]
 
-The following sections cover how to use existing icons and the steps to add new icons.
+В следующих разделах описано, как использовать существующие иконки и шаги для добавления новых иконок.
