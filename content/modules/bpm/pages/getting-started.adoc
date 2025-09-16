@@ -1,7 +1,9 @@
 = Getting Started with BPM
 :page-aliases: bpm:quick-start.adoc
 
-This section describes how to model and run a simple business process. For that, we will create a process for requesting and approving reimbursement.
+This section describes how to model and run a simple business process. For that, we will create a process for requesting and approving reimbursement using the BPM add-on runtime tools.
+
+TIP: You can also create this process using the built-in tools in Jmix Studio. See the xref:bpm:creating-process-in-studio.adoc[] article for instructions.
 
 The process involves three participants:
 
