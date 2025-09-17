@@ -16,9 +16,6 @@ See xref:studio:project.adoc#upgrading-project[Upgrading Project] section for ho
 
 * Updates the version of Jmix BOM which in turn defines versions of all dependencies.
 * Updates the version of Jmix Gradle plugin.
-* Adds default values to `editorActionsColumn` buttons without assigned values in all project views. See details <<editor-actions-column-buttons,below>>.
-* Renames the `id` attribute of the `settings.component` element to `componentId` in all project views. See details <<settings-component-id,below>>.
-* Adds `html,htm` to the list of extensions in the xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] property. See details <<downloading-html-content,below>>.
 
 
 See also the full list of <<breaking-changes,breaking changes>> that can affect your project after the upgrade.
@@ -28,9 +25,7 @@ See also the full list of <<breaking-changes,breaking changes>> that can affect 
 
 The following major dependencies have been updated:
 
-* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.5-Release-Notes[3.5^].
-
-* Vaadin https://github.com/vaadin/platform/releases/tag/24.7.0[24.7^].
+* Vaadin https://github.com/vaadin/platform/releases/tag/24.8.0[24.8^].
 
 [[new-features]]
 == New Features and Improvements
@@ -38,278 +33,20 @@ The following major dependencies have been updated:
 [[studio]]
 === Studio Improvements
 
-[[jmix-ai]]
-==== Jmix AI Assistant
-
-The Jmix AI Assistant is now available in the Studio tool window.
-Open it by clicking image:jmix_ai_big.svg[] icon in the IDE’s right-hand toolbar.
-
-The Jmix AI Assistant in Studio shares the list of chats with the web-based version, allowing seamless switching between them.
-
-[[new-code-snippets]]
-==== New Code Snippets
-
-Added over 20 new UI-related code snippets in the following categories: notifications and dialogs, opening views and fragments, asynchronous execution, and API examples.
-
-[[moving-views]]
-==== Moving Views
-
-You can now easily relocate a view to another package using the *Move View* context menu action in the Jmix tool window. Studio will move the Java controller and the XML descriptor together, updating relevant message keys in the message bundle.
-
-When moving a Java controller or XML descriptor in the Project tool window using the standard move operation, Studio prompts you to relocate the corresponding controller or descriptor and update message keys automatically.
-
-[[scaffolding-renderers]]
-==== Scaffolding Renderers
-
-When generating a xref:flow-ui:vc/miscellaneous/renderers.adoc[renderer] for a UI component (e.g., for a `dataGrid` column), Studio provides a wizard to scaffold a `ComponentRenderer`, `TextRenderer`, or an empty handler method.
-
-[[replacing-strings-with-localized-messages]]
-==== Replacing Strings with Localized Messages
-
-The new intention action *Replace with localized message* allows you to quickly replace a string literal with a localized message from the message bundle. It works in both Java and XML code.
-
-Access this action by placing the cursor on a string literal and pressing `Alt+Enter`.
-
-[[lombok]]
-==== Lombok Support
-
-Studio now recognizes `@Getter` and `@Setter` annotations on entities and `@RequiredArgConstructor` on Spring beans. If these annotations are present, Studio does not generate explicit code when adding attributes to entities and adding dependencies to beans.
-
-Additionally, Studio displays a warning if it detects `@EqualsAndHashCode` or `@Data` annotations on entities (see the caution in the xref:data-model:entities.adoc[] section for explanation).
-
-[[performance-on-large-projects]]
-==== Performance on Large Projects
-
-Studio’s performance on large projects has significantly improved. The project tree in the Jmix tool window and the resource role designer now work quickly, even for projects with over 1000 entities.
-
-[[switch-component]]
-=== Switch Component
-
-The new xref:flow-ui:vc/components/switch.adoc[switch] component allows users to toggle between two states (e.g., on/off or true/false). It mimics a physical toggle switch with a sliding handle.
-
-[[tabbed-application-mode]]
-=== Tabbed Application Mode Improvements
-
-The xref:tabbed-mode:index.adoc[] add-on has been improved and now is ready for production use.
-
-* The `mainTabSheet` component is now explicitly defined in the main view layout. It can contain actions invoked through the tab context menu or using keyboard shortcuts.
-* Drag and drop of tabs is now supported.
-* The `@TabbedModeViewProperties` annotation lets you define parameters of the view opened in a tab.
-* The UI state is preserved when the web page is refreshed.
-* The `UIRefreshEvent` is fired each time a web page is refreshed.
-
-NOTE: The final version of the Tabbed Application Mode add-on requires the Enterprise subscription.
-
-[[autocompletion-in-codeeditor]]
-=== Autocompletion in CodeEditor
-
-The `codeEditor` component now provides autocompletion for a specific language mode or using custom suggestion handlers.
-
-See xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor: Suggestion] for more information.
-
-[[hbox-slot-placement]]
-=== HorizontalLayout Slot Placement
-
-You can now add components to different alignment slots (`start`, `center`, or `end`) in the `hbox` component. This allows flexible grouping of items within the `HorizontalLayout`, improving control over component positioning.
-
-See xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox: Horizontal Alignment] for more information.
-
-[[header-footer-dialogwindow]]
-=== Custom Header and Footer of DialogWindow
-
-You can now easily customize the header and footer of dialog windows using two new callbacks:
-
-* `configureDialogWindowHeader()`: override this method in your view to modify the header of dialogs.
-* `configureDialogWindowFooter()`: override this method in your view to customize the footer of dialogs.
-
-See xref:flow-ui:views/view-methods.adoc#methods-of-all-views[Views: Methods of All Views] for more information.
-
-[[save-without-reload]]
-=== DataManager.saveWithoutReload method
-
-The new `DataManager.saveWithoutReload()` method improves performance when the saved instances are not immediately required for further processing. You can use it instead of the verbose `save(new SaveContext().saving(entities).setDiscardSaved(true))` operation.
-
-See xref:data-access:data-manager.adoc#save[Using DataManager: Saving Entities] for more information.
-
-[[export-import-of-message-templates]]
-=== Export/Import of Message Templates
-
-In the xref:message-templates:index.adoc[] add-on, the *Export* and *Import* actions allow you to transfer templates between applications.
-
-[[refreshing-data-in-calendars]]
-=== Refreshing Data in Calendars
-
-In the xref:calendar:index.adoc[] add-on, you can now refresh callback data providers using the new `refetchDataProvider()` methods of the `FullCalendar` component.
-
-[[logout-in-authorization-server]]
-=== Logout in Authorization Server
-
-The xref:authorization-server:index.adoc[] add-on now performs standard logout actions (invalidates HTTP session, clears security context, removes session cookie) when navigating to the `/logout` URL.
-
-Additionally, the xref:authorization-server:configuration.adoc#jmix.authserver.post-logout-url-redirect-parameter-name[jmix.authserver.post-logout-url-redirect-parameter-name] and xref:authorization-server:configuration.adoc#jmix.authserver.use-referer-post-logout[jmix.authserver.use-referer-post-logout] properties have been introduced.
-
 [[rest-data-store]]
 === REST DataStore Improvements
 
-[[rest-data-store-remote-service-interfaces]]
-==== @RemoteService Interfaces
-
-The REST DataStore add-on now offers a simple way of invoking remote services exposed via REST API. On the client side, you only need to create an interface that mirrors the service methods and annotate it with `@RemoteService`.
-
-See xref:rest-ds:index.adoc#remote-service-interfaces[REST DataStore: @RemoteService Interfaces] for more information.
-
-[[rest-data-store-oidc-authentication]]
-==== OIDC Authentication
-
-The REST DataStore add-on now includes the `restds_RestOidcAuthenticator` bean that allows you to use an external authentication provider (for example Keycloak) when integrating applications.
-
-See xref:rest-ds:index.adoc#external-authentication[REST DataStore: External Authentication] for more information.
-
-[[turning-off-lazy-loading]]
-=== Turning Off Lazy Loading
-
-The xref:data-access:data-properties.adoc#jmix.eclipselink.disable-lazy-loading[jmix.eclipselink.disable-lazy-loading] application property lets you turn off the lazy loading for the whole application.
-
-Note that this is an experimental feature. It can be finalized or abandoned in a future release. If you encounter a problem when using this feature, please file an issue at https://github.com/jmix-framework/jmix/issues[GitHub^].
-
-[[data-tools-security]]
-=== Improved Security for Data Tools
-
-The Data Tools add-on now includes the following new security roles and policies:
-
-New roles:
-
-* `datatools-full-access` - grants full access to all Data Tools features.
-* `datatools-minimal-access` - provides read-only access to Data Tools features.
-
-New policy:
-
-* `datatools.importExportEntity` - controls access to import/export functionality within Data Tools.
-
-See xref:data-tools:security-roles.adoc[Data Tools: Security Roles] for more information.
-
-[[masquerade]]
-=== Masquerade UI Testing Library
-
-Based on well-known tools like Selenium WebDriver and Selenide, Masquerade is an end-to-end UI testing library designed specifically for Jmix applications. Masquerade simplifies testing for all areas of Jmix UI by providing convenient wrappers and streamlining access to key functions of web elements.
-
-See xref:testing:masquerade.adoc[] for more information.
-
 [[breaking-changes]]
 == Breaking Changes
-
-[[node-20]]
-=== Node.js v.20
-
-Vaadin 24.7 requires Node.js 20+. If you are using a locally installed Node, upgrade it if needed.
-
-[[editor-actions-column-buttons]]
-=== Removed defaults of editorActionsColumn buttons
-
-Previously, the nested buttons within the xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn] element had default values for certain attributes. Specifically, all buttons were assigned an `icon`, while both the `editButton` and `cancelButton` had a `text` attribute assigned.
-
-This behavior was inconsistent and prevented from removing an icon or text from the button in an application project.
-
-Now the buttons have no default values at all.
-
-The Studio migration procedure scans all views in the project and automatically adds previous default values to the buttons that don't have explicit values.
-
-See https://github.com/jmix-framework/jmix/issues/4493[#4493^] for more information.
-
-[[settings-component-id]]
-=== Renamed settings.component id attribute
-
-The `id` attribute of `component` element in the xref:flow-ui:facets/settings.adoc[settings] facet has been renamed to `componentId` to not confuse with the commonly used `id` attribute. For example:
-
-Jmix 2.5:
-[source,xml]
-----
-<facets>
-    <settings>
-        <component id="genericFilter"/>
-    </settings>
-</facets>
-----
-
-Jmix 2.6+:
-[source,xml]
-----
-<facets>
-    <settings>
-        <component componentId="genericFilter"/>
-    </settings>
-</facets>
-----
-
-The Studio migration procedure scans all views in the project and automatically renames this attribute.
-
-See https://github.com/jmix-framework/jmix/issues/4412[#4412^] for more information.
-
-[[downloading-html-content]]
-=== Downloading HTML Content
-
-To prevent potential XSS attacks, `Content-Disposition: inline` is no longer used by default when downloading HTML files. As a result, HTML files are downloaded instead of being displayed automatically in the browser.
-
-To restore the previous behavior, add `html` to the list of extensions in the xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] property. The Studio migration procedure automatically adds this extension.
-
-The Reports add-on now has its own list of extensions enabled for viewing in the browser. It is configured using the xref:reports:configuration.adoc#jmix.reports.view-file-extensions[jmix.reports.view-file-extensions] property. This property includes HTML files by default, as the HTML content generated by reports is considered safe.
-
-See https://github.com/jmix-framework/jmix/issues/4364[#4364^] for more information.
-
-[[setting-item-to-data-containers-in-kotlin]]
-=== Setting Item to Data Containers in Kotlin
-
-In Kotlin projects, the compilation may fail on code that sets `item` to a data container. For example, in a master-detail view:
-
-[source,kotlin]
-----
-someDc.item = entity
-----
-
-To avoid this error, replace the assignment with the setter invocation:
-[source,kotlin]
-----
-someDc.setItem(entity)
-----
-
-See https://github.com/jmix-framework/jmix/issues/4576[#4576^] for more information.
-
-[[dynamic-attributes-views]]
-=== Changes in Dynamic Attributes Views
-
-The xref:dyn-attr:index.adoc[Dynamic Attributes] management views were significantly redesigned. If you have overridden these views, adapt your code accordingly.
-
-[[in-app-notification-list-view]]
-=== Changes in in-app-notification-list-view.xml
-
-In the `in-app-notification-list-view.xml` descriptor of the xref:notifications:index.adoc[] add-on, the `create` action has been removed from `inAppNotificationsDataGrid`. This action has been moved to the view's `actions` section and renamed to `createNotificationAction`.
-
-If you have overridden this view, adapt your code accordingly.
-
-[[security-filter-chain-validation]]
-=== SecurityFilterChain validation
-
-Spring Security 6.5.0 introduced detection of multiple `SecurityFilterChain` with the same `securityMatcher`.
-
-Such chains can be created if both add-ons - `OIDC` and `Authorization Server` - are included in the project.
-Both chains configure the REST API protection within the resource server.
-
-Previously in this case the chain from `Authorization Server` had more priority and the chain from `OIDC` was ignored.
-
-Now if you have both add-ons it's necessary to explicitly disable the chain from `OIDC` to get the previous behavior -
-use application property `jmix.oidc.use-default-jwt-configuration=false`.
 
 [[changelog]]
 == Changelog
 
 * Resolved issues in Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.1[2.6.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aissue%20state%3Aclosed%20project%3Ajmix-framework%2F32%20reason%3Acompleted[2.7.0^]
+// ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
 
 * Resolved issues in Jmix Studio:
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.3[2.6.3^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.2[2.6.2^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.1[2.6.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.0,-2.5.*%20Affected%20versions:%20-SNAPSHOT[2.6.0^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.0,-2.6.*%20Affected%20versions:%20-SNAPSHOT[2.7.0^]

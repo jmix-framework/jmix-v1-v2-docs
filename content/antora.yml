@@ -1,13 +1,13 @@
 name: jmix
 title: Jmix Documentation
-version: master
-display_version: "2.6"
+version: "2.7"
+display_version: "2.7"
 start_page: ROOT:intro.adoc
 nav:
   - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    minimal-idea-version: '2024.3'
+    minimal-idea-version: '2025.1'
     idea-download-site: 'https://www.jetbrains.com/idea/download/'
     rest-api-open-api: 'https://docs.jmix.io/openapi/'
     jmix-nightly: 'https://plugins.jetbrains.com/plugins/jmix_nightly/list'
@@ -20,7 +20,7 @@ asciidoc:
     spring-security-doc: 'https://docs.spring.io/spring-security/reference'
     spring-security-api: 'https://docs.spring.io/spring-security/site/docs/6.5.x/api'
     vaadin-docs: 'https://vaadin.com/docs/latest'
-    vaadin-api: 'https://vaadin.com/api/platform/24.7.5'
+    vaadin-api: 'https://vaadin.com/api/platform/24.8'
     oauth-specification-page: 'https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-11'
     oauth-2_0-specification-page: 'https://datatracker.ietf.org/doc/html/rfc6749'
     openid-connect-specification-page: 'https://openid.net/specs/openid-connect-core-1_0-final.html'
