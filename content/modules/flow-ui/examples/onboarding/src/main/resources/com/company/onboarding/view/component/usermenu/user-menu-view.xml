@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://userMenuView.title">
+    <!-- tag::actions[] -->
+    <actions>
+        <action id="logoutAction" text="msg:///actions.logout.text" type="logout"/>
+    </actions>
+    <!-- end::actions[] -->
+    <!-- tag::layout[] -->
+    <layout>
+        <!-- end::layout[] -->
+        <!-- tag::user-menu-basic[] -->
+        <userMenu>
+            <items>
+                <viewItem id="profileMenuItem" text="msg://profileMenuItem.text" icon="USER"
+                          viewId="ProfileView"
+                          themeNames="non-checkable"/>
+                <viewItem id="settingsMenuItem" text="msg://settingsMenuItem.text" icon="COG"
+                          viewClass="com.company.onboarding.view.settings.SettingsView"
+                          themeNames="non-checkable"/>
+                <actionItem id="themeMenuItem"
+                            themeNames="non-checkable">
+                    <action id="themeMenuItem" type="userMenu_themeSwitch"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="logoutMenuItem" ref="logoutAction"
+                            themeNames="non-checkable"/>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-basic[] -->
+
+        <!-- tag::user-menu-action[] -->
+        <userMenu id="userMenuActions">
+            <items>
+                <actionItem id="aboutMenuItem">
+                    <action id="aboutAction" text="msg://aboutAction.text" icon="INFO_CIRCLE_O"/> <!--1-->
+                </actionItem>
+                <actionItem id="logoutMenuItem" ref="logoutAction"/> <!--2-->
+            </items>
+        </userMenu>
+        <!-- end::user-menu-action[] -->
+
+        <!-- tag::user-menu-text[] -->
+        <userMenu id="userMenuText">
+            <items>
+                <textItem id="contactUsMenuItem" text="msg://contactUsItem.text" icon="PHONE"/>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-text[] -->
+
+        <!-- tag::user-menu-component[] -->
+        <userMenu id="userMenuComponent">
+            <items>
+                <componentItem id="emailItMenuItem">
+                    <hbox padding="false">
+                        <icon icon="MAILBOX"/>
+                        <span text="E Mail"/>
+                    </hbox>
+                </componentItem>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-component[] -->
+
+        <!-- tag::user-menu-view[] -->
+        <userMenu id="userMenuView">
+            <items>
+                <viewItem id="profileMenuItem" text="msg://profileMenuItem.text" icon="USER"
+                          viewId="ProfileView"/> <!--1-->
+                <viewItem id="settingsMenuItem" text="msg://settingsMenuItem.text" icon="COG"
+                          viewClass="com.company.onboarding.view.settings.SettingsView"
+                          openMode="DIALOG"/> <!--2-->
+            </items>
+        </userMenu>
+        <!-- end::user-menu-view[] -->
+
+        <hbox>
+            <!-- tag::user-menu-theme-variants-tertiary[] -->
+            <userMenu>
+                <items>
+                    <actionItem id="logoutMenuItem" ref="logoutAction"/>
+                </items>
+            </userMenu>
+
+            <userMenu themeNames="tertiary">
+                <items>
+                    <actionItem id="logoutMenuItem" ref="logoutAction"/>
+                </items>
+            </userMenu>
+            <!-- end::user-menu-theme-variants-tertiary[] -->
+        </hbox>
+
+        <hbox>
+            <!-- tag::user-menu-theme-variants-non-checkable[] -->
+            <userMenu>
+                <items>
+                    <viewItem id="profileMenuItem" text="msg://profileMenuItem.text" icon="USER"
+                              viewId="ProfileView"/>
+                    <viewItem id="settingsMenuItem" text="msg://settingsMenuItem.text" icon="COG"
+                              viewClass="com.company.onboarding.view.settings.SettingsView"/>
+                    <actionItem id="themeMenuItem">
+                        <action id="themeMenuItem" type="userMenu_themeSwitch"/>
+                    </actionItem>
+                    <separator/>
+                    <actionItem id="logoutMenuItem" ref="logoutAction"/>
+                </items>
+            </userMenu>
+
+            <userMenu>
+                <items>
+                    <viewItem id="profileMenuItem" text="msg://profileMenuItem.text" icon="USER"
+                              viewId="ProfileView"
+                              themeNames="non-checkable"/>
+                    <viewItem id="settingsMenuItem" text="msg://settingsMenuItem.text" icon="COG"
+                              viewClass="com.company.onboarding.view.settings.SettingsView"
+                              themeNames="non-checkable"/>
+                    <actionItem id="themeMenuItem"
+                                themeNames="non-checkable">
+                        <action id="themeMenuItem" type="userMenu_themeSwitch"/>
+                    </actionItem>
+                    <separator/>
+                    <actionItem id="logoutMenuItem" ref="logoutAction"
+                                themeNames="non-checkable"/>
+                </items>
+            </userMenu>
+            <!-- end::user-menu-theme-variants-non-checkable[] -->
+        </hbox>
+
+        <!-- tag::user-menu-nested[] -->
+        <userMenu>
+            <items>
+                <textItem id="helpMenuItem"
+                          text="msg://helpMenuItem.text" icon="QUESTION_CIRCLE"
+                          themeNames="non-checkable">
+                    <items>
+                        <textItem id="documentationMenuItem" text="msg://documentationMenuItem.text"/>
+                        <textItem id="aboutMenuItem" text="msg://aboutMenuItem.text"/>
+                    </items>
+                </textItem>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-nested[] -->
+
+        <!-- tag::user-menu-renderers[] -->
+        <userMenu id="userMenu"
+                  themeNames="tertiary">
+            <items>
+                <separator/>
+                <actionItem id="substituteUserMenuItem"
+                            themeNames="non-checkable">
+                    <action id="substituteUserAction" type="sec_userMenuSubstituteUser"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="themeSwitchMenuItem">
+                    <action id="themeSwitchAction" type="userMenu_themeSwitch"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="logoutMenuItem" ref="logoutAction"
+                            themeNames="non-checkable"/>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-renderers[] -->
+
+        <!-- tag::user-menu-predefined-actions[] -->
+        <userMenu themeNames="tertiary">
+            <items>
+                <separator/>
+                <actionItem id="substituteUserMenuItem"
+                            themeNames="non-checkable">
+                    <action id="substituteUserAction" type="sec_userMenuSubstituteUser"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="themeSwitchMenuItem"
+                            themeNames="non-checkable">
+                    <action id="themeSwitchAction" type="userMenu_themeSwitch"/>
+                </actionItem>
+                <separator/>
+                <actionItem id="logoutMenuItem" ref="logoutAction"
+                            themeNames="non-checkable"/>
+            </items>
+        </userMenu>
+        <!-- end::user-menu-predefined-actions[] -->
+        <!-- tag::layout[] -->
+    </layout>
+    <!-- end::layout[] -->
+</view>
