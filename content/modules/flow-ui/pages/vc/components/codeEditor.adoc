@@ -191,9 +191,9 @@ The following predefined validators are available for `codeEditor`:
 
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
 
-The following are attributes specific to `codeEditor`:
+The following attributes are specific to `codeEditor`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===

@@ -137,7 +137,7 @@ NOTE: While `opened` can be set manually, it's typically managed by the framewor
 
 == Attributes
 
-The following are attributes specific to `tooltip`:
+The following attributes are specific to `tooltip`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===

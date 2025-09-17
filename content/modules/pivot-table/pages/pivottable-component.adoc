@@ -333,9 +333,9 @@ include::../examples/pivottable-ex1/src/main/resources/com/company/ex1/view/with
 
 == Attributes
 
-In Jmix there are many xref:flow-ui:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
+xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
 
-The following are attributes specific to `pivotTable`:
+The following attributes are specific to `pivotTable`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
@@ -376,9 +376,9 @@ The following are attributes specific to `pivotTable`:
 
 == Handlers
 
-In Jmix there are many xref:flow-ui:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
+xref:flow-ui:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
 
-The following are handlers specific to `pivotTable`:
+The following handlers are specific to `pivotTable`:
 
 include::../../flow-ui/pages/vc/handler-generation-tip.adoc[]
 

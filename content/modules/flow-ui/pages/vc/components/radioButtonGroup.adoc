@@ -223,8 +223,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `radioButtonGroup`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `radioButtonGroup`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
@@ -241,8 +241,8 @@ The following are attributes specific to `radioButtonGroup`:
 
 == Handlers
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `radioButtonGroup`.
+xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+The following handlers are specific to `radioButtonGroup`.
 
 include::../handler-generation-tip.adoc[]
 

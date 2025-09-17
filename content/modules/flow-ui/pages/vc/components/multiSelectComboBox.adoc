@@ -227,8 +227,8 @@ The following predefined validators are available for `multiSelectComboBox`:
 
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `multiSelectComboBox`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `multiSelectComboBox`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
@@ -252,8 +252,8 @@ Set this attribute if the component is not linked to a data container. Otherwise
 
 == Handlers
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `multiSelectComboBox`.
+xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+The following handlers are specific to `multiSelectComboBox`.
 
 include::../handler-generation-tip.adoc[]
 

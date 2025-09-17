@@ -147,8 +147,8 @@ NOTE: Like input fields, `switch` will only pass `@NotNull` validation if it is 
 
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `switch`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `switch`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===

@@ -138,8 +138,8 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[attributes]]
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `nativeLabel`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `nativeLabel`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
@@ -160,8 +160,8 @@ The following are attributes specific to `nativeLabel`:
 [[handlers]]
 == Handlers
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `nativeLabel`:
+xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+The following handlers are specific to `nativeLabel`:
 
 include::../handler-generation-tip.adoc[]
 

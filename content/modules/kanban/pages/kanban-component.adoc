@@ -417,7 +417,9 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 [[attributes]]
 == Attributes
 
-In Jmix there are many xref:flow-ui:vc/common-attributes.adoc[common attributes] that serve the same propose for all components. The following are attributes specific to `kanban`:
+xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+
+The following attributes are specific to `kanban`:
 
 [TIP]
 ====
@@ -484,7 +486,7 @@ You can view and edit attributes applicable to the component in Jmix Studio usin
 |If `true`, applies the task color to the task card background. The attribute takes precedence over the <<columnColor, column color>>.
 |`false`
 |[[taskDueDateVisible]]taskDueDateVisible
-|If `ture`, displays the task due icon. See <<propertyDueDate, dueDate>>.
+|If `true`, displays the task due icon. See <<propertyDueDate, dueDate>>.
 |`false`
 |[[taskPosition]]taskPosition
 |Specifies the task position for columns with the following possible values: `ALL`, `LEAF`. See <<task-position, Task Position>>.
@@ -512,7 +514,8 @@ You can view and edit attributes applicable to the component in Jmix Studio usin
 </div>
 ++++
 
-In Jmix there are many xref:flow-ui:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components. The following are handlers specific to `kanban`:
+xref:flow-ui:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+The following handlers are specific to `kanban`:
 
 include::flow-ui:vc/handler-generation-tip.adoc[]
 

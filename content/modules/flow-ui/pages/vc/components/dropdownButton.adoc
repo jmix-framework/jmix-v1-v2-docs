@@ -189,8 +189,8 @@ The variant theme names are defined in the `DropdownButtonVariant` class. See al
 
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `dropdownButton`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `dropdownButton`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===

@@ -132,8 +132,8 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // === ThemeResource
 
 == Attributes
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `span`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `span`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
@@ -154,8 +154,8 @@ The following are attributes specific to `span`:
 [[handlers]]
 == Handlers
 
-In Jmix there are many xref:vc/common-handlers.adoc[common handlers] that are configured in the same way for all components.
-The following are handlers specific to `image`:
+xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+The following handlers are specific to `image`:
 
 include::../handler-generation-tip.adoc[]
 

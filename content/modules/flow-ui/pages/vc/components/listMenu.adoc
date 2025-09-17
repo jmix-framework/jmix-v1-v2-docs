@@ -84,8 +84,8 @@ image::visual-components/components/list-menu-toggle-reverse.png[align="center",
 
 == Attributes
 
-In Jmix there are many xref:vc/common-attributes.adoc[common attributes] that serve the same purpose for all components.
-The following are attributes specific to `listMenu`:
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `listMenu`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
