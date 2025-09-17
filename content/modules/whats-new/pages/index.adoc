@@ -33,6 +33,17 @@ The following major dependencies have been updated:
 [[studio]]
 === Studio Improvements
 
+[[usermenu-component]]
+=== UserMenu Component
+
+The new xref:flow-ui:vc/components/userMenu.adoc[userMenu] component allows you to visualize the logged-in user along with related actions such as *Substitute user* and *Log out* in a clear and visually appealing manner. For example:
+
+image::flow-ui:visual-components/components/user-menu-basic.png[align="center",width="240"]
+
+The dropdown menu of the component can contain predefined and custom actions, as well as nested items and other UI components.
+
+The new project template now includes the `userMenu` component in the main view.
+
 [[rest-data-store]]
 === REST DataStore Improvements
 
