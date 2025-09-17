@@ -1,7 +1,7 @@
-= User Sessions
+= Пользовательские сессии
 
-The Audit add-on includes the `UserSessions` bean that provides details on currently active user sessions.
+Дополнение Audit включает бин `UserSessions`, который предоставляет детальную информацию о текущих активных пользовательских сессиях.
 
-Additionally, the add-on features a view that displays active sessions and enables their invalidation. This view is available through the *Audit → User sessions* main menu item.
+Кроме того, дополнение содержит экран, который отображает активные сессии и позволяет их завершать. Этот экран доступен через пункт главного меню *Audit → User sessions*.
 
-See the xref:security:authentication.adoc#user-session[Authentication: User Session] section for more information about sessions.
+Дополнительную информацию о сессиях смотрите в разделе xref:security:authentication.adoc#user-session[Аутентификация: Пользовательская сессия].
