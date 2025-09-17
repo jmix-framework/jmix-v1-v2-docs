@@ -1,49 +1,49 @@
-= Entity Log
+= Журнал сущностей
 
-Entity Log is a mechanism for monitoring changes made to JPA entities within a system. It records changes in entity attributes and provides a user interface for querying and displaying details regarding the changes:
+Журнал сущностей - это механизм для отслеживания изменений, вносимых в JPA-сущности. Он фиксирует изменения атрибутов сущностей и предоставляет пользовательский интерфейс для запроса и отображения деталей изменений:
 
-* What entity instance was changed.
-* Old and new values of changed attributes.
-* When the entity was changed.
-* Which user changed the entity.
+* Какая сущность была изменена.
+* Старые и новые значения измененных атрибутов.
+* Когда сущность была изменена.
+* Какой пользователь изменил сущность.
 
 [[register-changes]]
-== Registering Changes
+== Регистрация изменений
 
-Entity Log automatically monitors changes made to JPA entities upon saving through xref:data-access:data-manager.adoc[DataManager] or xref:data-access:entity-manager.adoc[EntityManager]. It is not operational when native SQL is utilized.
+Журнал сущностей автоматически фиксирует изменения, вносимые в JPA-сущности при коммите транзакции при работе с xref:data-access:data-manager.adoc[DataManager] или xref:data-access:entity-manager.adoc[EntityManager]. Он не функционирует при использовании нативного SQL.
 
-Another approach is utilizing the `EntityLog` bean to log changes in entities directly from your application code. In this case, invoke `registerCreate()`, `registerModify()` and `registerDelete()` methods with the `auto` parameter set to `false`. When the entity log is called automatically by the framework, this parameter is set to `true`.
+Также, если вы загружаете сущности через `EntityManager`, вы можете использовать бин `EntityLog` напрямую для регистрации изменений в сущностях из кода вашего приложения. В этом случае вызывайте методы `registerCreate()`, `registerModify()` и `registerDelete()` с параметром `auto`, установленным в `false`. Когда журнал сущностей вызывается фреймворком автоматически, этот параметр устанавливается в `true`.
 
 [[setup]]
-== Setting Up Entity Log
+== Настройка журнала сущностей
 
-NOTE: To be able to use the administrative UI at runtime, a user must have the `entity-log` resource role provided by the Audit add-on.
+NOTE: Для использования административного интерфейса во время выполнения пользователь должен иметь ресурсную роль `entity-log`, предоставляемую дополнением Audit.
 
-You can configure the entity log in the *Audit -> Entity Log* view. Switch to the *Setup* tab:
+Вы можете настроить журнал сущностей в экране *Audit -> Entity log*. Перейдите на вкладку *Setup*:
 
 image::entity-log-set.png[align="center",width="1300"]
 
-To establish entity log configuration, click the *Create* button.
+Чтобы создать конфигурацию журнала сущностей, нажмите кнопку *Create*.
 
-Choose the entity from the *Name* drop-down list and select the attributes for auditing.
+* Выберите сущность из выпадающего списка *Name* и выберите атрибуты для аудита.
 
-The *Auto* checkbox determines whether the system logs changes when `EntityLog` is invoked with the `auto = true` parameter (triggered by entity listeners).
+* Флажок *Auto* определяет, регистрирует ли система изменения, когда `EntityLog` вызывается подсистемой JPA при коммите транзакции (с параметром `auto = true`).
 
-The *Manual* checkbox determines whether the system logs changes when `EntityLog` is invoked with the `auto = false` parameter.
+* Флажок *Manual* определяет, регистрирует ли система изменения, когда `EntityLog` вызывается кодом приложения (с параметром `auto = false`).
 
-The *Export* and *Import* actions allow you to export and import configurations in JSON or ZIP format.
+* Действия *Export* и *Import* позволяют экспортировать и импортировать конфигурации в формате JSON или ZIP.
 
-Also, you can set up entity log by entering some records in the database if you want to include the configuration to the database initialization.
+Также вы можете настроить журнал сущностей, добавив записи в базу данных, если хотите включить конфигурацию в инициализацию базы данных.
 
-Logging configuration involves the `LoggedEntity` and `LoggedAttribute` entities, which correspond to the `AUDIT_LOGGED_ENTITY` and `AUDIT_LOGGED_ATTR` tables.
+Конфигурация логирования включает сущности `LoggedEntity` и `LoggedAttribute`, которые соответствуют таблицам `AUDIT_LOGGED_ENTITY` и `AUDIT_LOGGED_ATTR`.
 
-`LoggedEntity` specifies the entity types to be logged.
+* `LoggedEntity` определяет типы сущностей, которые должны логироваться.
 
-`LoggedAttribute` defines the entity attribute to be logged and contains a link to the `LoggedEntity` and the attribute name.
+* `LoggedAttribute` определяет атрибут сущности для логирования и содержит ссылку на `LoggedEntity` и имя атрибута.
 
-To configure logging for a specific entity, insert the corresponding entries into the `AUDIT_LOGGED_ENTITY` and `AUDIT_LOGGED_ATTR` tables.
+Чтобы настроить логирование для конкретной сущности, вставьте соответствующие записи в таблицы `AUDIT_LOGGED_ENTITY` и `AUDIT_LOGGED_ATTR`.
 
-For instance, in the following example, logging changes to the `phone` attribute of the `Customer` entity is configured during database initialization:
+В следующем примере настройка логирования изменений атрибута `phone` сущности `Customer` выполняется во время инициализации базы данных:
 
 [source,xml,indent=0]
 ----
@@ -51,33 +51,31 @@ include::example$/audit-ex1/src/main/resources/com/company/demo/liquibase/change
 ----
 
 [[view]]
-== Viewing Entity Log
+== Просмотр журнала сущностей
 
-To access the content of the entity log, navigate to the *View* tab within the *Audit → Entity Log* view. Configure the required filters to locate specific log entries.
+Для доступа к содержимому журнала сущностей перейдите на вкладку *View* в экране *Audit → Entity Log*. Настройте необходимые фильтры для поиска конкретных записей журнала.
 
 image::entity-log-view.png[align="center",width="1417"]
 
-Additionally, you can access the log entries for a particular entity from any application view.
+Дополнительно вы можете получить доступ к записям журнала для конкретной сущности из любого экрана приложения.
 
-Log entries are stored in the `AUDIT_ENTITY_LOG` table corresponding to the `EntityLogItem` entity. Changed attribute values are stored in the `CHANGES` column and are converted to instances of `EntityLogAttr` entity.
+Записи журнала хранятся в таблице `AUDIT_ENTITY_LOG`, соответствующей сущности `EntityLogItem`. Значения измененных атрибутов хранятся в колонке `CHANGES` и конвертируются в экземпляры сущности `EntityLogAttr`.
 
-For instance, in the following example, an `Order` detail view displays data grids containing the entity log information.
-
-Below is an excerpt from the view's XML descriptor:
+В следующем примере экран деталей сущности `Order` отображает таблицы данных, содержащие информацию журнала сущностей. Ниже приведен фрагмент XML-дескриптора экрана:
 
 [source,xml,indent=0]
 ----
 include::example$/audit-ex1/src/main/resources/com/company/demo/view/order/order-detail-view.xml[tags=order-xml]
 ----
-<1> Loading a collection of `EntityLogItem` into the `entityLogItemsDc` data container.
-<2> Loading associated `EntityLogAttr` instances into the `entityLogAttrDc` data container.
-<3> Binding a data grid to the `entityLogItemsDc` container.
-<4> Binding a data grid to the `entityLogAttrDc` container.
+<1> Загрузка коллекции `EntityLogItem` в контейнер данных `entityLogItemsDc`.
+<2> Загрузка связанных экземпляров `EntityLogAttr` в контейнер данных `entityLogAttrDc`.
+<3> Привязка таблицы данных к контейнеру `entityLogItemsDc`.
+<4> Привязка таблицы данных к контейнеру `entityLogAttrDc`.
 
-`Order` view controller looks like this:
+Контроллер экрана `Order` выглядит следующим образом:
 
 [source,java,indent=0]
 ----
 include::example$/audit-ex1/src/main/java/com/company/demo/view/order/OrderDetailView.java[tags=order-java]
 ----
-<1> In the `ItemChangeEvent` handler of the `orderDc` container, a parameter is set to the dependent loader and it is triggered.
+<1> В обработчике события `ItemChangeEvent` контейнера `orderDc` параметр устанавливается в зависимый загрузчик, и он запускается.
