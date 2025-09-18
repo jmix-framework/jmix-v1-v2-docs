@@ -1,34 +1,34 @@
-= Configuration
+= Конфигурация
 
 [[application-properties]]
-== Application Properties
+== Свойства приложения
 
 [[jmix.authserver.post-logout-url-redirect-parameter-name]]
 === jmix.authserver.post-logout-url-redirect-parameter-name
 
-Name of a URL parameter of the `/logout` request containing a URL to which the user will be redirected after successful logout.
+Имя URL-параметра в запросе `/logout`, указывающего URL для перенаправления пользователя после успешного завершения сеанса (выхода из системы).
 
-Default value: not set
+Значение по умолчанию: не установлено.
 
 [[jmix.authserver.use-default-configuration]]
 === jmix.authserver.use-default-configuration
 
-Specifies whether the default auto-configuration that sets up authorization server and resource server should be used. If you need to completely rewrite the default configuration, set this property to `false` and define your own configuration classes.
+Определяет, должна ли использоваться стандартная автоконфигурация, настраивающая сервер авторизации и ресурсный сервер. Если вам необходимо полностью переопределить стандартную конфигурацию, установите это свойство в `false` и определите собственные классы конфигурации.
 
-Default value: `true`
+Значение по умолчанию: `true`.
 
 [[jmix.authserver.use-in-memory-authorization-service]]
 === jmix.authserver.use-in-memory-authorization-service
 
-If set to `true`, uses in-memory storage instead of storing tokens in the database.
+Если установлено в `true`, использует in-memory хранилище вместо хранения токенов в базе данных.
 
-Default value: `false`
+Значение по умолчанию: `false`.
 
 [[jmix.authserver.use-referer-post-logout]]
 === jmix.authserver.use-referer-post-logout
 
-If set to `true`, the `referer` header value is used as the post logout redirect URL.
+Если установлено в `true`, значение заголовка `referer` используется как URL для перенаправления после выхода из системы.
 
-It has lower priority than the URL set by the <<jmix.authserver.post-logout-url-redirect-parameter-name,jmix.authserver.post-logout-url-redirect-parameter-name>> property.
+Имеет более низкий приоритет, чем URL, установленный свойством <<jmix.authserver.post-logout-url-redirect-parameter-name,jmix.authserver.post-logout-url-redirect-parameter-name>>.
 
-Default value: `false`
+Значение по умолчанию: `false`.

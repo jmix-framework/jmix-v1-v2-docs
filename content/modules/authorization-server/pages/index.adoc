@@ -1,15 +1,15 @@
 = Authorization Server
 
-The Authorization Server add-on allows Jmix applications to act as an {oauth-specification-page}#section-1.1[authorization server] role of the OAuth 2.1 framework. The add-on is responsible for issuing access tokens to users and external clients according to the {oauth-specification-page}[OAuth 2.1] specification.
+Дополнение Authorization Server позволяет приложениям Jmix выступать в роли {oauth-specification-page}#section-1.1[сервера авторизации^] в рамках OAuth 2.1. Это дополнение отвечает за выдачу access-токенов пользователям и внешним клиентам в соответствии со спецификацией {oauth-specification-page}[OAuth 2.1^].
 
-The Authorization Server add-on is based on the {spring-authorization-server-docs}/index.html[Spring Authorization Server^] framework.
+Дополнение Authorization Server основано на фреймворке {spring-authorization-server-docs}/index.html[Spring Authorization Server^].
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
