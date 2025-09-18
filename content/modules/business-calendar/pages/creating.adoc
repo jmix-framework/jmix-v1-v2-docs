@@ -1,83 +1,83 @@
-= Creating Business Calendar
+= Создание бизнес-календаря
 
-You can create business calendars both at <<business-calendars-runtime,runtime>> using a special visual editor, or at <<business-calendars-design-time,design time>> with annotated Java interfaces.
+Вы можете создавать бизнес-календари как во <<business-calendars-runtime,время выполнения>> с помощью специального визуального редактора, так и во <<business-calendars-design-time,время разработки>> с использованием аннотированных Java-интерфейсов.
 
 [[business-calendars-runtime]]
-== Creating Business Calendar at Runtime
+== Создание бизнес-календаря во время выполнения
 
-After the add-on is installed, use the main menu to open the *Business calendars* list view.
+После установки дополнения используйте главное меню, чтобы открыть экран списка *Business calendars*.
 
 image::business-calendar-list.png[align="center" width="1392"]
 
-When on this page, click the *Create* button to open the *Business calendar editor*.
+Находясь на этой странице, нажмите кнопку *Create*, чтобы открыть редактор *Business calendar*.
 
 image::business-calendar-editor.png[align="center" width="1392"]
 
-Specify the following parameters:
+Укажите следующие параметры:
 
-* *Name* – human-readable description of the given calendar.
-* *Code* – unique identifier of the given calendar.
+* *Name* – понятное пользователю описание данного календаря.
+* *Code* – уникальный идентификатор данного календаря.
 
-The next step is to define working days and hours while excluding non-working time, such as holidays, vacations, or any other time off work. For this, use the editor's tabs described below.
+Следующий шаг - определение рабочих дней и часов с исключением нерабочего времени, такого как праздники, отпуска или любое другое время вне работы. Для этого используйте вкладки редактора, описанные ниже.
 
-=== Holidays
+=== Праздничные дни
 
-On the *Holidays* tab, click *Create* to add holidays and weekends.
+На вкладке *Holidays* нажмите *Create*, чтобы добавить праздники и выходные дни.
 
 image::business-calendar-holidays.png[align="center" width="1392"]
 
-The add-on supports the following types of holidays:
+Дополнение поддерживает следующие типы праздничных дней:
 
-* *Day of week* – allows to set holidays on certain days of week. For example, for many people, the standard weekend is Saturday and Sunday:
+* *Day of week* (День недели) - позволяет устанавливать праздничные дни на определенные дни недели. Например, для многих людей стандартные выходные - это суббота и воскресенье:
 +
 image::business-calendar-day-of-week.png[align="center" width="484"]
 
-* *Specific date holiday* – allows to set a holiday on an exact date. For example, some holidays fall on a different day every year to allow people a long weekend:
+* *Specific date holiday* (праздник с конкретной датой) - позволяет установить праздник на точную дату. Например, некоторые праздники выпадают на разные дни каждый год, чтобы обеспечить людям длинные выходные:
 +
 image::business-calendar-specific-date-holiday.png[align="center" width="484"]
 
-* *Annual holiday* – allows to schedule recurring holidays that are celebrated on the same day every year, such as _New Year's Day_.
+* *Annual holiday* (ежегодный праздник) - позволяет планировать повторяющиеся праздники, которые отмечаются в один и тот же день каждый год, такие как _Новый год_.
 +
 image::business-calendar-annual-holiday.png[align="center" width="484"]
 
-* *Cron-based holiday* – allows specifying holidays in the quartz CRON format. See http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron trigger tutorial^] for more information.
+* *Cron-based holiday* (праздник на основе Cron) - позволяет указывать праздники в формате quartz CRON. Подробнее смотрите http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[руководство по Cron-триггерам^].
 +
 image::business-calendar-cron-holiday.png[align="center" width="484"]
 +
-It can help adding some nontrivial holidays, like the _Third Friday of every month_ or the _First Monday of July_, etc.
+Это может помочь добавить нетривиальные праздники, такие как _Третья пятница каждого месяца_ или _Первый понедельник июля_ и т.д.
 
-=== Working Schedule
+=== Рабочее расписание
 
-On the *Working schedule* tab, you can specify working hours for each day of the week. There can be several working periods per day, but they should not overlap.
+На вкладке *Working schedule* вы можете указать рабочие часы для каждого дня недели. В день может быть несколько рабочих периодов, но они не должны пересекаться.
 
 image::working-schedule-editor.png[align="center" width="1392"]
 
-=== Additional Business Days
+=== Дополнительные рабочие дни
 
-On the *Additional business days* tab, you can set days that you want to always be treated business days. If such a date coincides with a holiday, it will still be a workday. There is an option to set different working hours.
+На вкладке *Additional business days* вы можете установить дни, которые должны всегда считаться рабочими. Если такая дата совпадает с праздником, она все равно будет рабочим днем. Есть возможность установить различные рабочие часы.
 
 image::additional-business-day-editor.png[align="center" width="1392"]
 
 [[business-calendars-design-time]]
-== Creating Business Calendar at Design Time
+== Создание бизнес-календаря во время разработки
 
-Use annotated Java interface to create a business calendar at design time. For example:
+Используйте аннотированный Java-интерфейс для создания бизнес-календаря во время разработки. Например:
 
 [source,java,indent=0]
 ----
 include::example$/calendars-ex1/src/main/java/com/company/calendarsex1/calendars/SampleBusinessCalendar.java[tags=business-calendar]
 ----
 
-<1> Annotated business calendar is an interface annotated with the `@BusinessCalendar` annotation. You should specify the following parameters for the `@BusinessCalendar` annotation:
-* `name` – a human-readable description of a given calendar;
-* `code` – a unique identifier of a given calendar.
-<2> Specify holiday in the quartz CRON format.
-<3> Specify holiday for days of the week.
-<4> Specify holiday for a specific date.
-<5> Specify holiday for an annually recurring date.
-<6> Specify scheduled business days.
-<7> Specify additional business days.
+<1> Аннотированный бизнес-календарь - это интерфейс, аннотированный аннотацией `@BusinessCalendar`. Вы должны указать следующие параметры для аннотации `@BusinessCalendar`:
+* `name` – понятное пользователю описание данного календаря;
+* `code` – уникальный идентификатор данного календаря.
+<2> Укажите праздник в формате quartz CRON.
+<3> Укажите праздник для дней недели.
+<4> Укажите праздник для конкретной даты.
+<5> Укажите праздник для ежегодно повторяющейся даты.
+<6> Укажите запланированные рабочие дни.
+<7> Укажите дополнительные рабочие дни.
 
-A business calendar created at the design time is displayed in the list of all business calendars and is available only for viewing.
+Бизнес-календарь, созданный во время разработки, отображается в списке всех бизнес-календарей и доступен только для просмотра.
 
 image::business-calendars.gif[align="center" width="1282"]

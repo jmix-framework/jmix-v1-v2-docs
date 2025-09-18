@@ -1,24 +1,21 @@
-= Business Calendars API
+= API бизнес-календаря
 
 == BusinessCalendarRepository
 
-`BusinessCalendarRepository` defines convenient methods to fetch business calendars configured in the system.
+`BusinessCalendarRepository` определяет удобные методы для получения бизнес-календарей, настроенных в системе.
 
-* The `getBusinessCalendarByCode()` method returns the business calendar with provided code.
-* The `getAllBusinessCalendars()` method returns all business calendars configured in the system.
+* Метод `getBusinessCalendarByCode()` возвращает бизнес-календарь с указанным кодом.
+* Метод `getAllBusinessCalendars()` возвращает все бизнес-календари, настроенные в системе.
 
 == BusinessCalendar
 
-`BusinessCalendar` provides methods for checking if a given date and time is within working hours, and for arithmetic operations with date and time considering the business hours defined by the calendar:
+`BusinessCalendar` предоставляет методы для проверки, относится ли указанная дата и время к рабочим часам, а также для арифметических операций с датой и временем с учетом рабочих часов, определенных календарем:
 
-* `isBusinessDay(LocalDate date)` checks if provided date belongs to business days.
-* `isBusinessTime(LocalDateTime dateTime)` method checks if provided date and time belongs to business time.
-* `plus(LocalDate date, int daysToAdd)` returns a copy of provided date with the specified amount of business days added.
-* `minus(LocalDate date, int daysToSubtract)` returns a copy of provided date with the specified amount of business days subtracted.
-* `plus(LocalDateTime dateTime, int hoursToAdd)` returns a copy of provided date and time with the specified amount of business hours added.
-* `minus(LocalDateTime dateTime, int hoursToSubtract)` returns a copy of provided date and time with the specified amount of business hours subtracted.
-* `plus(LocalDateTime dateTime, Duration duration)` returns a copy of provided date-time with the specified duration in terms of working time added.
-* `minus(LocalDateTime dateTime, Duration duration)` returns a copy of provided date-time with the specified duration in terms of working time subtracted.
-
-
-
+* `isBusinessDay(LocalDate date)` проверяет, относится ли указанная дата к рабочим дням.
+* `isBusinessTime(LocalDateTime dateTime)` проверяет, относится ли указанные дата и время к рабочему времени.
+* `plus(LocalDate date, int daysToAdd)` возвращает копию указанной даты с добавлением указанного количества рабочих дней.
+* `minus(LocalDate date, int daysToSubtract)` возвращает копию указанной даты с вычитанием указанного количества рабочих дней.
+* `plus(LocalDateTime dateTime, int hoursToAdd)` возвращает копию указанных даты и времени с добавлением указанного количества рабочих часов.
+* `minus(LocalDateTime dateTime, int hoursToSubtract)` возвращает копию указанных даты и времени с вычитанием указанного количества рабочих часов.
+* `plus(LocalDateTime dateTime, Duration duration)` возвращает копию указанных даты и времени с добавлением указанной продолжительности в терминах рабочего времени.
+* `minus(LocalDateTime dateTime, Duration duration)` возвращает копию указанных дата и времени с вычитанием указанной продолжительности в терминах рабочего времени.
