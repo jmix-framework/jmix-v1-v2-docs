@@ -1,18 +1,18 @@
-= Configuration
+= Конфигурация
 
 [[application-properties]]
-== Application Properties
+== Свойства приложения
 
 [[jmix.authserver.use-default-configuration]]
 === jmix.authserver.use-default-configuration
 
-Specifies whether the default auto-configuration that sets up authorization server and resource server should be used. If you need to completely rewrite the default configuration, set this property to `false` and define your own configuration classes.
+Определяет, должна ли использоваться стандартная автоконфигурация, настраивающая сервер авторизации и ресурсный сервер. Если вам необходимо полностью переопределить стандартную конфигурацию, установите это свойство в `false` и определите собственные классы конфигурации.
 
-Default value: `true`
+Значение по умолчанию: `true`.
 
 [[jmix.authserver.use-in-memory-authorization-service]]
 === jmix.authserver.use-in-memory-authorization-service
 
-If set to `true`, uses in-memory storage instead of storing tokens in the database.
+Если установлено в `true`, использует in-memory хранилище вместо хранения токенов в базе данных.
 
-Default value: `false`
+Значение по умолчанию: `false`.

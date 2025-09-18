@@ -1,54 +1,54 @@
-= Obtaining Tokens
+= Получение токенов
 
-The way the client obtains an access token for accessing a protected resource is called an authorization grant. The authorization server add-on supports grant types that are described in the OAuth 2.1 specification (and enabled in the Spring Authorization Server framework). Additionally, the Jmix Authorization Server add-on adds the https://datatracker.ietf.org/doc/html/rfc6749#section-4.3[Resource Owner Password Credentials] grant type, that existed in OAuth 2.0 specification but was removed in OAuth 2.1.
+Способ, которым клиент получает access-токен для доступа к защищенному ресурсу, называется механизмом авторизации (authorization grant). Дополнение Authorization Server поддерживает типы авторизации (grant types), описанные в спецификации OAuth 2.1 (и реализованные во фреймворке Spring Authorization Server). Дополнительно, дополнение Jmix Authorization Server добавляет тип авторизации https://datatracker.ietf.org/doc/html/rfc6749#section-4.3[Resource Owner Password Credentials^], который существовал в спецификации OAuth 2.0, но был удален в OAuth 2.1.
 
-The list of supported grant types looks as follows:
+Список поддерживаемых типов авторизации выглядит следующим образом:
 
-* Client credentials
-* Authorization code
-* Resource Owner Password Credentials
-* Refresh Token
+* Client credentials (Учетные данные клиента)
+* Authorization code (Код авторизации)
+* Resource Owner Password Credentials (Учетные данные владельца ресурса)
+* Refresh Token (Токен обновления)
 
 [[client-credentials-grant]]
-== Client Credentials Grant
+== Авторизация с использованием учетных данных клиента
 
-The {oauth-specification-page}#name-client-credentials-grant[Client Credentials grant^] enables getting access tokens from the authorization server by providing registered client credentials in the request.
+Механизм авторизации {oauth-specification-page}#name-client-credentials-grant[Client Credentials^] позволяет получать access-токены от сервера авторизации путем предоставления зарегистрированных учетных данных клиента в запросе.
 
-TIP: Use the Client Credentials grant for machine-to-machine applications where no user interaction is involved.
+TIP: Используйте механизм авторизации Client Credentials для приложений типа "машина-машина", где не требуется взаимодействие с пользователем.
 
-The idea is the following:
+Идея заключается в следующем:
 
-* The client with id and secret is registered in Jmix application.
-* Jmix resource and row-level roles are assigned to the client.
-* Client application uses client id and secret to obtain access token by a special HTTP request.
-* Using this token the client application can access protected API endpoints with permissions included to the roles assigned to the client.
+* Клиент с идентификатором и секретом регистрируется в приложении Jmix.
+* Клиенту назначаются ресурсные и row-level роли Jmix.
+* Клиентское приложение использует идентификатор и секрет клиента для получения access-токена через специальный HTTP-запрос.
+* Используя этот токен, клиентское приложение может обращаться к защищенным API-эндпойнтам с разрешениями, включенными в роли, назначенные клиенту.
 
-The simplest way to register a client is to add standard Spring Authorization Server application properties:
+Самый простой способ зарегистрировать клиента - добавить стандартные свойства приложения Spring Authorization Server:
 
 [source,properties,indent=0]
 ----
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=my-client-registration]
 ----
 
-The next set of application properties is Jmix-specific and defines which resource and row-level roles must be assigned to the access token issued to the client. In this example we will assign two resource roles:
+Следующий набор свойств приложения специфичен для Jmix и определяет, какие ресурсные и row-level роли должны быть назначены access-токену, выданному клиенту. В этом примере мы назначим две ресурсные роли:
 
-* `rest-minimal` (REST: minimal access) - to enable REST API endpoints access.
-* `user-management` (User management) - to allow operations with the User entity using REST API.
+* `rest-minimal` (REST: minimal access) - для обеспечения доступа к REST API эндпойнтам.
+* `user-management` (User management) - для разрешения операций с сущностью User через REST API.
 
 [source,properties,indent=0]
 ----
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=my-client-role-assignment]
 ----
 
-The `user-management` role looks as follows:
+Роль `user-management` выглядит следующим образом:
 
 [source,java,indent=0]
 ----
 include::example$/authserver-ex1/src/main/java/com/company/demo/security/UserManagementRole.java[tags=user-management-role]
 ----
-<1> The API scope indicates the role will be applied for REST API requests
+<1> Скоуп API указывает, что роль будет применяться для REST API запросов.
 
-After these properties are defined in the application it should be possible to obtain access tokens. In this example, we will use the `curl` command-line tool to interact with the REST API.
+После определения этих свойств в приложении должно стать возможным получение access-токенов. В этом примере мы будем использовать командную утилиту `curl` для взаимодействия с REST API.
 
 [source, bash]
 ----
@@ -58,9 +58,9 @@ curl -X POST http://localhost:8080/oauth2/token \
    -d "grant_type=client_credentials"
 ----
 
-TIP: On Windows, remove `\` symbols and write the command in a single line.
+TIP: В Windows удалите символы `\` и напишите команду в одной строке.
 
-As a result, you should get something like this:
+В результате вы должны получить что-то вроде этого:
 
 .HTTP/1.1 200
 [source, json]
@@ -72,58 +72,57 @@ As a result, you should get something like this:
 }
 ----
 
-The `access_token` attribute is the token you can use for further requests as part of the `Authorization` Header. It acts as a temporary credential that grants you access to the application.
+Атрибут `access_token` - это токен, который вы можете использовать для последующих запросов в качестве части заголовка `Authorization`. Он действует как временные учетные данные, предоставляющие вам доступ к приложению.
 
+Альтернативно указанию свойств клиента в файле `application.properties`, клиенты могут быть зарегистрированы путем предоставления бина `RegisteredClientRepository`. Подробности смотрите в {spring-authorization-server-docs}/core-model-components.html#registered-client-repository[документации Spring Authorization Server^].
 
-Alternatively to specifying client properties in the `application.properties` file, clients may be registered by providing a `RegisteredClientRepository` bean. See {spring-authorization-server-docs}/core-model-components.html#registered-client-repository[Spring Authorization Server documentation^] for details.
-
-NOTE: If you create a `RegisteredClientRepository` then `application.properties` won't be analyzed.
+NOTE: Если вы создаете `RegisteredClientRepository`, то `application.properties` анализироваться не будет.
 
 [[authorization-code-grant]]
-== Authorization Code Grant
+== Авторизация с использованием кода авторизации
 
-You can read about the Authorization Code grant in the {oauth-specification-page}#name-authorization-code-grant[OAuth 2.1 specification^].
+О механизме авторизации с использованием Authorization Code вы можете прочитать в {oauth-specification-page}#name-authorization-code-grant[спецификации OAuth 2.1^].
 
-This flow allows you to obtain an access token with permissions of a real Jmix application user. You deal with the Authorization Code grant when you authorize using Google or Facebook on any website. A special login form is displayed by Jmix application, Jmix app validates credentials and if they are valid the access token is issued by a series of HTTP requests between the client application and Jmix application. The benefit of this grant is that the client application never deals with user credentials.
+Этот поток позволяет получить access-токен с разрешениями реального пользователя приложения Jmix. Вы сталкиваетесь с предоставлением Authorization Code, когда авторизуетесь через Google или Facebook на каком-либо сайте. Специальная форма входа отображается приложением Jmix, приложение Jmix проверяет учетные данные, и если они действительны, access-токен выдается через серию HTTP-запросов между клиентским приложением и приложением Jmix. Преимущество этого типа предоставления в том, что клиентское приложение никогда не работает с пользовательскими учетными данными.
 
-TIP: Use the Authorization Code grant for modern web and mobile applications where security is a priority and where redirect-based flows are possible.
+TIP: Используйте механизм авторизации с использованием Authorization Code для современных веб- и мобильных приложений, где безопасность является приоритетом и где возможны потоки на основе перенаправлений.
 
-In order to enable the grant type in Jmix application you need to define a client that supports this grant type.
+Чтобы включить этот тип авторизации в приложении Jmix, вам нужно определить клиента, который его поддерживает.
 
 [source,properties,indent=0]
 ----
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=myapp-client-registration]
 ----
 
-Keep in mind that by default Spring Authorization server configures the following endpoint URLs:
+Имейте в виду, что по умолчанию Spring Authorization Server настраивает следующие URL-адреса эндпойнтов:
 
-* authorization endpoint: `/oauth2/authorize`, e.g. `http://localhost:8080/oauth2/authorize`
-* token endpoint: `/oauth2/token`, e.g. `http://localhost:8080/oauth2/token`
+* эндпойнт авторизации: `/oauth2/authorize`, например `http://localhost:8080/oauth2/authorize`
+* эндпойнт токена: `/oauth2/token`, например `http://localhost:8080/oauth2/token`
 
-In this example we will use the https://oauthdebugger.com[^] site for token issuing testing. It will emulate an external application that requires access to Jmix resources and that needs to obtain an access token. In your own application you will need to implement steps described in the OAuth 2.1 protocol specification: send a request to the authorization endpoint, handle the redirect, extract the authorization code from it, make a request for the token endpoint to exchange the authorization code for the access token, etc.
+В этом примере мы будем использовать сайт https://oauthdebugger.com[^] для тестирования выдачи токенов. Он будет эмулировать внешнее приложение, которому требуется доступ к ресурсам Jmix и которое нуждается в получении access-токена. В вашем собственном приложении вам нужно будет реализовать шаги, описанные в спецификации протокола OAuth 2.1: отправить запрос на эндпойнт авторизации, обработать перенаправление, извлечь из него код авторизации, сделать запрос к эндпойнту токена для обмена кода авторизации на access-токен и т.д.
 
-Open https://oauthdebugger.com[^]. Fill in the fields:
+Откройте https://oauthdebugger.com[^]. Заполните поля:
 
 * *Authorize URI*: ++http://localhost:8080/oauth2/authorize++
 * *Client ID*: myapp
-* *Scope*: leave this field empty
-* *Use PKCE?*: enable the checkbox
+* *Scope*: оставьте это поле пустым
+* *Use PKCE?*: включите чекбокс
 
 image::oauthdebugger-website.png[align="center"]
 
-Remember the value of the Code Verifier field. We will need it later.
+Запомните значение поля *Code Verifier*. Оно понадобится нам позже.
 
-Click the *SEND REQUEST* button on the bottom of the page.
+Нажмите кнопку *SEND REQUEST* внизу страницы.
 
-You should see a special login form provided by Jmix application where you should enter credentials of existing Jmix user.
+Вы должны увидеть специальную форму входа, предоставляемую приложением Jmix, где вам нужно ввести учетные данные существующего пользователя Jmix.
 
 image::authserver-login-form.png[align="center"]
 
-The access token you will get later as a result of all steps will be associated with this user and all requests to Jmix REST API will consider this user permissions (resource roles and row-level roles).
+Access-токен, который вы получите в результате всех шагов, будет ассоциирован с этим пользователем, и все запросы к REST API Jmix будут учитывать разрешения этого пользователя (ресурсные роли и row-level роли).
 
-If credentials are valid, you should be redirected to the Redirect URI https://oauthdebugger.com/debug[^] that was defined in `application.properties`. Authorization code must be added as a `code` URL parameter, e.g. `++https://oauthdebugger.com/debug?code=BdgQArzTaj_xna_a0-PoUIQwszMR0xPkToxcktd5wPe4SbO18qBYStqJePOPNaoe9cuIJe0nac0cw0yVC9Iv3SeofEYbMZhMKldoJQQwcBUnBTfp2AyQayDlaE8KPaCf&state=sujodv3j7eh++`
+Если учетные данные действительны, вы должны быть перенаправлены на Redirect URI https://oauthdebugger.com/debug[^], который был определен в `application.properties`. Код авторизации должен быть добавлен как параметр URL `code`, например, `++https://oauthdebugger.com/debug?code=BdgQArzTaj_xna_a0-PoUIQwszMR0xPkToxcktd5wPe4SbO18qBYStqJePOPNaoe9cuIJe0nac0cw0yVC9Iv3SeofEYbMZhMKldoJQQwcBUnBTfp2AyQayDlaE8KPaCf&state=sujodv3j7eh++`
 
-To exchange this authorization code for access token you need to execute another HTTP request to the token endpoint of Jmix application. We will use the `curl` command line tools for this. Use the `code_verifier` value from the initial page of the https://oauthdebugger.com[^].
+Чтобы обменять этот код авторизации на access-токен, вам нужно выполнить другой HTTP-запрос к эндпойнту токена приложения Jmix. Мы будем использовать для этого командную утилиту `curl`. Используйте значение `code_verifier` с начальной страницы https://oauthdebugger.com[^].
 
 [source,bash]
 ----
@@ -137,7 +136,7 @@ curl -X POST http://localhost:8080/oauth2/token \
    -d "code_challenge_method=S256"
 ----
 
-As a result, you should get something like this:
+В результате вы должны получить что-то вроде этого:
 
 [source,json]
 ----
@@ -150,13 +149,13 @@ As a result, you should get something like this:
 ----
 
 [[custom-login-form]]
-=== Custom Login Form
+=== Пользовательская форма входа
 
-This section contains an example of replacing the standard login form provided by the Authorization Server add-on with a custom one.
+Этот раздел содержит пример замены стандартной формы входа, предоставляемой дополнением Authorization Server, на пользовательскую.
 
-First, create a login form template. The Authorization Server add-on includes the https://www.thymeleaf.org[Thymeleaf^] template engine as a dependency, so you can use it for your own login form.
+Сначала создайте шаблон формы входа. Дополнение Authorization Server включает движок шаблонов https://www.thymeleaf.org[Thymeleaf^] в качестве зависимости, поэтому вы можете использовать его для своей собственной формы входа.
 
-Create a new file named `my-as-login.html` and place it in the `src/main/resources/templates` directory. This is a default location where Thymeleaf will search for templates.
+Создайте новый файл с именем `my-as-login.html` и поместите его в директорию `src/main/resources/templates`. Это расположение по умолчанию, где Thymeleaf будет искать шаблоны.
 
 .my-as-login.html
 [source,html]
@@ -164,13 +163,13 @@ Create a new file named `my-as-login.html` and place it in the `src/main/resourc
 include::example$/authserver-ex1/src/main/resources/templates/my-as-login.html[]
 ----
 
-You may notice that the form uses styles and an image located at the `+/my-as-login/styles/**+` and `+/my-as-login/icons/**+` paths, respectively.
+Вы можете заметить, что форма использует стили и изображение, расположенные по путям `+/my-as-login/styles/**+` и `+/my-as-login/icons/**+` соответственно.
 
-Download the compiled https://getbootstrap.com/docs/5.3/getting-started/download/[Bootstrap^] CSS files and copy the `bootstrap.min.css` file into the `src/main/resources/META-INF/resources/my-as-login/styles` directory.
+Скачайте скомпилированные CSS-файлы https://getbootstrap.com/docs/5.3/getting-started/download/[Bootstrap^] и скопируйте файл `bootstrap.min.css` в директорию `src/main/resources/META-INF/resources/my-as-login/styles`.
 
-NOTE: `META-INF/resources` is one of the default places where Spring searches for static resources.
+NOTE: `META-INF/resources` - это одно из мест по умолчанию, где Spring ищет статические ресурсы.
 
-Create the `as-login.css` file in the `src/main/resources/META-INF/resources/my-as-login/styles` directory:
+Создайте файл `as-login.css` в директории `src/main/resources/META-INF/resources/my-as-login/styles`:
 
 .as-login.css
 [source,css]
@@ -178,18 +177,18 @@ Create the `as-login.css` file in the `src/main/resources/META-INF/resources/my-
 include::example$/authserver-ex1/src/main/resources/META-INF/resources/my-as-login/styles/as-login.css[]
 ----
 
-Take any icon (e.g., Jmix logo), rename it to `as-login-icon.png` and place it in the `src/main/resources/META-INF/resources/my-as-login/icons` directory.
+Возьмите любое изображение (например, логотип Jmix), переименуйте его в `as-login-icon.png` и поместите в директорию `src/main/resources/META-INF/resources/my-as-login/icons`.
 
-Next, you need to instruct Spring Security to allow access to files with styles and images. Create a Spring configuration that permits access to URLs where login form resources are located.
+Далее вам нужно указать Spring Security разрешить доступ к файлам со стилями и изображениями. Создайте конфигурацию Spring, которая разрешает доступ к URL-адресам, где расположены ресурсы формы входа.
 
 .MySecurityConfiguration.java
 [source,java]
 ----
 include::example$/authserver-ex1/src/main/java/com/company/demo/config/MySecurityConfiguration.java[tags=whole-class]
 ----
-<1> This bean must have a higher precedence than the security filter chain from the `FlowuiSecurityConfiguration`.
+<1> Этот бин должен иметь более высокий приоритет, чем цепочка фильтров безопасности из `FlowuiSecurityConfiguration`.
 
-Finally, instruct the application that the new login form must be used instead of the one provided by the Authorization Server add-on using the following application property:
+Наконец, укажите приложению, что должна использоваться новая форма входа вместо предоставляемой дополнением Authorization Server, с помощью следующего свойства приложения:
 
 .application.properties
 [source,properties]
@@ -197,51 +196,51 @@ Finally, instruct the application that the new login form must be used instead o
 include::example$/authserver-ex1/src/main/resources/application-custom-login-form.properties[tags=login-page-view-name]
 ----
 
-After completing all the above steps, your authorization server login page should look similar to this one:
+После выполнения всех вышеперечисленных шагов ваша страница входа сервера авторизации должна выглядеть примерно так:
 
 image::custom-login-form.png[align="center"]
 
 [[resource-owner-password-credentials-grant]]
-== Resource Owner Password Credentials Grant
+== Авторизация по паролю пользователя
 
-The Resource Owner Password Credentials grant has been removed from the OAuth 2.1 specification as it is not secure enough (user credentials should be entered directly in the client application). However, it can be useful in some cases, so Jmix framework provides support for it. You can read more about the Resource Owner Password Credentials grant in the {oauth-2_0-specification-page}#section-4.3[OAuth 2.0 specification^].
+Механизм авторизации по паролю пользователя (Resource Owner Password Credentials) был удален из спецификации OAuth 2.1, так как он недостаточно безопасен (учетные данные пользователя должны вводиться непосредственно в клиентском приложении). Однако в некоторых случаях он может быть полезен, поэтому фреймворк Jmix предоставляет его поддержку. Подробнее о предоставлении Resource Owner Password Credentials вы можете прочитать в {oauth-2_0-specification-page}#section-4.3[спецификации OAuth 2.0^].
 
-In short, this flow allows you to obtain an access token with permissions of a real Jmix application user. Jmix user credentials are passed in the request body.
+Короче говоря, этот поток позволяет получить access-токен с разрешениями реального пользователя приложения Jmix. Учетные данные пользователя Jmix передаются в теле запроса.
 
-TIP: Use the Resource Owner Password Credentials grant in trusted, legacy, or highly controlled environments where you have no other practical choice.
+TIP: Используйте механизм авторизации по паролю пользователя в доверенных, унаследованных или высококонтролируемых средах, где у вас нет другого практического выбора.
 
-To enable this flow, the "password" grant type must be registered for the client in the `application.properties` file:
+Чтобы включить этот поток, тип авторизации "password" должен быть зарегистрирован для клиента в файле `application.properties`:
 
 [source,properties]
 ----
 include::example$/authserver-ex1/src/main/resources/application-password-grant.properties[tags=authorization-grant-types]
 ----
 
-A full set of application properties may be as follows:
+Полный набор свойств приложения может выглядеть следующим образом:
 
 [source,properties]
 ----
 include::example$/authserver-ex1/src/main/resources/application-password-grant.properties[tags=password-grant-all-props]
 ----
 
-By default, if xref:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] is `false`, the tokens are serialized and stored in the database. In case of Password grant, the token contains the `User` entity, so you need to define a bean of the `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` type in your application and implement it as follows:
+По умолчанию, если xref:configuration.adoc#jmix.authserver.use-in-memory-authorization-service[jmix.authserver.use-in-memory-authorization-service] имеет значение `false`, токены сериализуются и хранятся в базе данных. В случае авторизации Password, токен содержит сущность `User`, поэтому вам нужно определить бин типа `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` в вашем приложении и реализовать его следующим образом:
 
 [source,java,indent=0]
 ----
 include::example$authserver-ex1/src/main/java/com/company/demo/AuthServerEx1Application.java[tags=tokenObjectMapperCustomizer]
 ----
-Here `User` is your user entity class.
+Здесь `User` - это ваш класс сущности пользователя.
 
-If you get `java.lang.IllegalArgumentException: The class ... is not in the allowlist` when using a token, it means that your user entity contains fields of types not supported by the token serializer by default. Then create a mixin class extending `DefaultOAuth2TokenUserMixin` and use it in the `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer` bean. For example:
+Если вы получаете `java.lang.IllegalArgumentException: The class ... is not in the allowlist` при использовании токена, это означает, что ваша сущность пользователя содержит поля типов, не поддерживаемых сериализатором токенов по умолчанию. Тогда создайте mixin-класс, расширяющий `DefaultOAuth2TokenUserMixin`, и используйте его в бине `JdbcOAuth2AuthorizationServiceObjectMapperCustomizer`. Например:
 
 [source,java,indent=0]
 ----
 include::separate-tiers-guide:example$backend-app/src/main/java/com/company/backend/security/OAuth2TokenUserMixin.java[]
 ----
 
-To obtain an access token, the client must make a request to the token endpoint. The request content type must be `application/x-www-form-urlencoded`. The `grant_type` parameter should have the `password` value. `username` and `password` parameters must contain Jmix user credentials. The `Authorization` header must define the basic authentication using client id and secret registered in `application.properties`. In the example above they are `myapp` and `mysecret`.
+Для получения access-токена клиент должен выполнить запрос к эндпойнту токена. Тип содержимого запроса должен быть `application/x-www-form-urlencoded`. Параметр `grant_type` должен иметь значение `password`. Параметры `username` и `password` должны содержать учетные данные пользователя Jmix. В заголовке `Authorization` должна быть определена базовая аутентификация с использованием идентификатора и секрета клиента, зарегистрированных в `application.properties`. В примере выше это `myapp` и `mysecret`.
 
-The request using the `curl` utility will look as follows:
+Запрос с использованием утилиты `curl` будет выглядеть следующим образом:
 
 [source,bash]
 ----
@@ -253,7 +252,7 @@ curl -X POST http://localhost:8080/oauth2/token \
    -d "password=pass1"
 ----
 
-The following result will be returned:
+Будет возвращен следующий результат:
 
 [source,json]
 ----
@@ -264,29 +263,28 @@ The following result will be returned:
 }
 ----
 
-If you need a refresh token to be returned as well, then register the "refresh_token" grant for the client:
+Если вам также нужен refresh token, то зарегистрируйте тип авторизации "refresh_token" для клиента:
 
 [source,properties]
 ----
 spring.security.oauth2.authorizationserver.client.myclient.registration.authorization-grant-types=password,refresh_token
 ----
 
-
 [[refresh-token-grant]]
-== Refresh Token Grant
+== Авторизация по токену обновления
 
-You can read about Refresh Token grant in {oauth-specification-page}#name-refresh-token-grant[OAuth 2.1 specification^].
+Подробнее об авторизации по токену обновления (Refresh Token) вы можете прочитать в {oauth-specification-page}#name-refresh-token-grant[спецификации OAuth 2.1^].
 
-TIP: Use the Refresh Token grant to obtain a new access token using existing refresh token without requiring user interaction.
+TIP: Механизм авторизации по токену обновления позволяет получить новый токен доступа, используя существующий токен обновления, без участия пользователя.
 
-The `refresh_token` grant type should be registered for the client:
+Механизм авторизации `refresh_token` должен быть зарегистрирован для клиента:
 
 [source,properties]
 ----
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=myapp-client-registration-authorization-grant-type]
 ----
 
-To exchange the refresh token for a new access token you need to execute HTTP request to the token endpoint of Jmix application. We will use the `curl` command line tools for this.
+Для обмена refresh token на новый access token вам необходимо выполнить HTTP-запрос к эндпойнту токена приложения Jmix. Мы будем использовать для этого командную утилиту `curl`.
 
 [source,bash]
 ----

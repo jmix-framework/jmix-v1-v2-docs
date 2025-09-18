@@ -1,11 +1,11 @@
-= Protecting Resources
+= Защита ресурсов
 
-The {oauth-specification-page}#section-1.1[resource server^] security is defined in the auto-configuration of the Authorization Server add-on. This configuration provides extension points that can be used to define any URL pattern as protected. See the xref:security:custom-endpoints.adoc#token-based-authentication[Token Based Authentication] section for details on how to configure protected resources.
+Безопасность {oauth-specification-page}#section-1.1[ресурсного сервера^] определяется в автоконфигурации дополнения Authorization Server. Эта конфигурация предоставляет точки расширения, которые могут быть использованы для определения любого URL-шаблона как защищенного. Подробности о том, как настроить защищенные ресурсы, смотрите в разделе xref:security:custom-endpoints.adoc#token-based-authentication[Аутентификация на основе токенов].
 
 [[sendiong-access-token]]
-== Sending Access Token
+== Отправка Access Token
 
-After the above configuration is defined, all requests to `pass:[/greeting/**]` endpoints will need an access token in the `Authorization` header. The header value must contain the word `Bearer` followed by the access token value. For example:
+После определения вышеуказанной конфигурации все запросы к эндпойнтам `pass:[/greeting/**]` будут требовать access token в заголовке `Authorization`. Значение заголовка должно содержать слово `Bearer`, за которым следует значение access token. Например:
 
 [source]
 ----
@@ -15,18 +15,18 @@ Authorization: Bearer <ACCESS_TOKEN>
 ----
 
 [[protecting-rest-api-endpoints]]
-== Protecting Generic REST API Endpoints
+== Защита общих REST API эндпойнтов
 
-When you simply add the xref:rest:index.adoc[REST API] add-on to your application, REST endpoints will not be protected by default.
+Когда вы просто добавляете дополнение xref:rest:index.adoc[REST API] в ваше приложение, REST эндпойнты по умолчанию не будут защищены.
 
-To configure token-based authentication you need to define the following application property (see its description xref:security:custom-endpoints.adoc#application-properties[here]):
+Для настройки аутентификации на основе токенов вам необходимо определить следующее свойство приложения (смотрите его описание xref:security:custom-endpoints.adoc#application-properties[здесь]):
 
 [source,properties]
 ----
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=rest-authenticated-url-patterns]
 ----
 
-To access REST endpoints you need to obtain an access token and pass it in the `Authorization` header of the HTTP request. The header value must contain the word `Bearer` followed by the access token value. For example:
+Для доступа к REST эндпойнтам вам необходимо получить access token и передать его в заголовке `Authorization` HTTP-запроса. Значение заголовка должно содержать слово `Bearer`, за которым следует значение access token. Например:
 
 [source]
 ----
