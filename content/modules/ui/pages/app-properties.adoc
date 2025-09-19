@@ -101,6 +101,13 @@ jmix.ui.entity-page-size.Product = 100
 jmix.ui.entity-page-size.Customer = 500
 ----
 
+[[jmix.ui.exception-dialog-modal]]
+=== jmix.ui.exception-dialog-modal
+
+Determines whether an xref:ui:dialogs.adoc#exception-dialog[Exception dialog] should be opened as modal by default.
+
+Default value: `false`.
+
 
 [[jmix.ui.icons-config]]
 === jmix.ui.icons-config
