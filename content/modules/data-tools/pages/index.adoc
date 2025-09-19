@@ -1,13 +1,13 @@
 = Data Tools
 
-The Data Tools add-on provides a set of instruments for working with entities in the Jmix UI.
+Дополнение Data Tools предоставляет набор инструментов для работы с сущностями в пользовательском интерфейсе Jmix.
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----

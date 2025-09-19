@@ -1,12 +1,12 @@
-= Entity Information Action
+= Действие просмотра информации о сущности
 
-The Data Tools add-on provides a UI xref:flow-ui:actions.adoc[action] that displays a system information about a selected entity. It includes the entity name, Java class, database table, identifier, and values of system attributes that constitute the entity xref:data-model:entities.adoc#traits[traits].
+Дополнение Data Tools предоставляет xref:flow-ui:actions.adoc[действие] пользовательского интерфейса, которое отображает системную информацию о выбранной сущности. Оно включает название сущности, Java-класс, таблицу базы данных, идентификатор и значения системных атрибутов, составляющих xref:data-model:entities.adoc#traits[черты] (traits) сущности.
 
-For example:
+Например:
 
 image::entity-info-action-2.png[align="center",width="816"]
 
-To add the action to a data grid using Studio, select the data grid in the xref:studio:screen-designer.adoc[View Designer], click *Add -> Actions -> Action* in the inspector panel, and select `datatl_showEntityInfo` in the *Add Action* dialog. The action will be added to the data grid, for example:
+Чтобы добавить действие в таблицу данных с помощью Studio, выберите таблицу данных в xref:studio:screen-designer.adoc[Дизайнере экранов], нажмите *Add -> Actions -> Action* на панели инспектора и выберите `datatl_showEntityInfo` в диалоговом окне *Add Action*. Действие будет добавлено в таблицу данных, например:
 
 [source,xml,indent=0]
 ----
@@ -23,10 +23,8 @@ To add the action to a data grid using Studio, select the data grid in the xref:
 // include::example$/ex1/src/main/resources/datatools/ex1/screen/order/order-browse.xml[tags=entity-info]
 // ----
 
-The action is shown in the data grid context menu as *Entity information* item:
+Действие отображается в контекстном меню таблицы данных как пункт *Entity information*:
 
 image::entity-info-action-1.png[align="center",width="460"]
 
-
-
-NOTE: To be able to use the action, a user must have the `datatools-entity-info` resource role provided by the Data Tools add-on.
+NOTE: Для использования действия пользователь должен иметь ресурсную роль `datatools-entity-info`, предоставляемую дополнением Data Tools.
