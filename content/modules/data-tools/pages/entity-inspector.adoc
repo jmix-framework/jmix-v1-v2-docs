@@ -1,13 +1,13 @@
-= Entity Inspector
+= Инспектор сущностей
 
-Entity Inspector provides auto-generated UI for your data model entities. It allows you to browse, create, update and remove entity instances without creating any specific UI. Also, if your entity is soft-deleted, Entity Inspector lets you browse, restore or wipe out deleted instances.
+Инспектор сущностей предоставляет автоматически сгенерированный пользовательский интерфейс для сущностей вашей модели данных. Он позволяет просматривать, создавать, обновлять и удалять экземпляры сущностей без создания какого-либо специального интерфейса. Также, если ваша сущность использует мягкое удаление (soft-delete), Инспектор сущностей позволяет просматривать, восстанавливать или окончательно удалять удаленные экземпляры.
 
-Entity Inspector respects data access constraints imposed by xref:security:index.adoc[security], so it can be helpful both for administrators and for users with limited permissions.
+Инспектор сущностей учитывает ограничения доступа к данным, наложенные xref:security:index.adoc[системой безопасности], поэтому он может быть полезен как администраторам, так и пользователям с ограниченными правами.
 
-Open the *Data tools -> Entity inspector* view and select an entity from the *Entity type* list.
+Откройте экран *Data tools -> Entity inspector* и выберите сущность из списка *Entity type*.
 
 image::entity-browser.png[algne=centre]
 
-In case the entity is soft-deleted, the *Show mode* dropdown allows you to view removed entities and restore or wipe them out.
+В случае, если сущность использует мягкое удаление, выпадающий список *Show mode* позволяет просматривать удаленные сущности, а также восстанавливать или окончательно удалять их.
 
-The *Export* and *Import* actions allow you to export and import entities to/from JSON. Note that one-to-many and many-to-many references are not exported together with the root entity.
+Действия *Export* и *Import* позволяют экспортировать и импортировать сущности в/из JSON. Обратите внимание, что ссылки один-ко-многим и многие-ко-многим не экспортируются вместе с корневой сущностью.
