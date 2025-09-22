@@ -13,11 +13,11 @@ image::tabbed-mode-overview.png[align="center",width="1214"]
 This add-on requires the Enterprise https://www.jmix.io/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
 ====
 
-For automatic installation, use a dedicated project template:
+For new projects, use a dedicated project template:
 
 image::project-template.png[align="center",width="912"]
 
-For manual installation:
+To transition an existing project to tabbed mode, follow these steps:
 
 . Make sure the premium repository is defined in `build.gradle`:
 +
