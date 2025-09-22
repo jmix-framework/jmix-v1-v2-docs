@@ -1,42 +1,42 @@
-= Dynamic Attributes API
+= API динамических атрибутов
 
 [[model]]
-== Model
+== Модель
 
-Dynamic attributes implement the Entity-Attribute-Value model.
+Динамические атрибуты реализуют модель Entity-Attribute-Value (Сущность-Атрибут-Значение).
 
 image::dynattr-diagram.svg[align="center"]
 
-* `Category` specifies a category of objects and the corresponding set of dynamic attributes. Each category needs to be linked to a specific entity type.
+* `Category` определяет категорию объектов и соответствующий набор динамических атрибутов. Каждая категория должна быть связана с конкретным типом сущности.
 +
-For instance, consider an entity classified as `Car`. In this scenario, we can create two categories: `Truck` and `Passenger`. The `Truck` category may encompass attributes like `Load capacity` and `Body type`, while the `Passenger` could include attributes such as `Number of seats` and `Child seat`.
+Например, рассмотрим сущность `Car` (Автомобиль). В этом случае мы можем создать две категории: `Truck` (Грузовик) и `Passenger` (Легковой). Категория `Truck` может включать атрибуты `Грузоподъемность` и `Тип кузова`, а категория `Passenger` - атрибуты `Количество мест` и `Детское кресло`.
 +
-* `CategoryAttribute` represents a dynamic attribute associated with a specific category. Each attribute defines a single field with a specific data type. The required `code` field holds the system identifier of the attribute, while the `name` field contains the human-readable attribute name.
+* `CategoryAttribute` представляет динамический атрибут, связанный с конкретной категорией. Каждый атрибут определяет одно поле с определенным типом данных. Обязательное поле `code` содержит системный идентификатор атрибута, а поле `name` - понятное пользователю название атрибута.
 
-* `CategoryAttributeValue` signifies the value of a dynamic attribute for a specific entity instance. These values are stored in the dedicated `SYS_ATTR_VALUE` table. Each record in the table is linked to a particular entity through the `ENTITY_ID` column.
+* `CategoryAttributeValue` означает значение динамического атрибута для конкретного экземпляра сущности. Эти значения хранятся в специальной таблице `SYS_ATTR_VALUE`. Каждая запись в таблице связана с конкретной сущностью через колонку `ENTITY_ID`.
 
-An entity instance can possess dynamic attributes from all categories linked to its entity type. For instance, if you establish two categories for the `Car` entity as described earlier, you can assign any dynamic attribute from both categories to a `Car` instance.
+Экземпляр сущности может обладать динамическими атрибутами из всех категорий, связанных с его типом сущности. Например, если вы создадите две категории для сущности `Car`, как описано выше, вы можете назначить любой динамический атрибут из обеих категорий экземпляру `Car`.
 
-If you want to categorize an entity instance under a single category - for instance, a car being classified as either a truck or passenger - the entity must implement the `Categorized` interface. This setup ensures that an entity instance is affiliated with a specific category and possesses dynamic attributes exclusively from that category.
+Если вы хотите категоризировать экземпляр сущности под одну категорию — например, автомобиль классифицируется как грузовик или легковой — сущность должна реализовывать интерфейс `Categorized`. Эта настройка гарантирует, что экземпляр сущности связан с конкретной категорией и обладает динамическими атрибутами исключительно из этой категории.
 
 [[loading-and-saving]]
-== Loading and Saving
+== Загрузка и сохранение
 
-Loading and saving dynamic attribute values is handled by `DataManager`. Use one of these methods to indicate that dynamic attributes should be loaded for entity instances:
+Загрузка и сохранение значений динамических атрибутов обрабатывается `DataManager`. Используйте один из этих методов, чтобы указать, что динамические атрибуты должны быть загружены для экземпляров сущностей:
 
-* `setHint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` method of `LoadContext`.
-* `hint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` method of the fluent API.
+* Метод `setHint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` объекта `LoadContext`.
+* Метод `hint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` fluent API.
 
-By default, dynamic attributes are not loaded. At the same time, `DataManager` always saves dynamic attributes contained in entity instances passed to `save()`.
+По умолчанию динамические атрибуты не загружаются. В то же время `DataManager` всегда сохраняет динамические атрибуты, содержащиеся в экземплярах сущностей, переданных в `save()`.
 
-Dynamic attribute values are available through `getValue()` / `setValue()` methods of `EntityValues`. Pass the attribute code with the `+` prefix to these methods, for example:
+Значения динамических атрибутов доступны через методы `getValue()` / `setValue()` класса `EntityValues`. Передайте код атрибута с префиксом `+` в эти методы, например:
 
 [source,java,indent=0]
 ----
 include::example$/dyn-attr-ex1/src/main/java/com/company/demo/view/car/CarListView.java[tags=get-value]
 ----
 
-In practice, direct access to attribute values in the application code is rarely necessary. Any dynamic attribute can be automatically displayed in any `DataGrid` or `FormLayout` component linked to a data container featuring the entity associated with the dynamic attribute. When setting up dynamic attributes, you can define xref:dyn-attr:dynattr-managing.adoc#visibility[attribute visibility] within views and components.
+На практике прямой доступ к значениям атрибутов в коде приложения редко необходим. Любой динамический атрибут может автоматически отображаться в любом компоненте `DataGrid` или `FormLayout`, связанном с контейнером данных, содержащим сущность, ассоциированную с динамическим атрибутом. При настройке динамических атрибутов вы можете определить xref:dyn-attr:dynattr-managing.adoc#visibility[видимость атрибута] в рамках экранов и компонентов.
 
 //TODO uncomment after fix
 ////

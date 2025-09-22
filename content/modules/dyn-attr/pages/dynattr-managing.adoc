@@ -1,25 +1,25 @@
-= Managing Dynamic Attributes
+= Управление динамическими атрибутами
 
-You can manage dynamic attributes on the *Administration > Dynamic attributes* view. This view features a category list on the left and displays attributes associated with the chosen category on the right.
+Вы можете управлять динамическими атрибутами в экране *Administration > Dynamic attributes*. Этот экран содержит список категорий слева и отображает атрибуты, связанные с выбранной категорией, справа.
 
 image::dyn-attr.png[align="center",width="1035"]
 
-Upon modifying the dynamic attributes setup, remember to click the *Apply changes* button.
+После изменения настроек динамических атрибутов не забудьте нажать кнопку *Apply changes*.
 
-Additionally, the *Dynamic attributes* view provides functionalities for exporting selected categories as ZIP or JSON files and importing them into the system.
+Кроме того, экран *Dynamic attributes* предоставляет функциональность для экспорта выбранных категорий в виде ZIP или JSON файлов и их импорта в систему.
 
 [[create-category]]
-== Creating Category
+== Создание категории
 
-Prior to including a dynamic attribute for an entity, establish a category for it. Specify a name and choose the entity that the category is linked to.
+Перед добавлением динамического атрибута для сущности создайте для нее категорию. Укажите название и выберите сущность, с которой связана категория.
 
 image::create-category.png[align="center",width="722"]
 
-The *Is default* checkbox signifies that this category will be automatically chosen for a new instance if the entity implements the `Categorized` interface.
+Флажок *Is default* означает, что эта категория будет автоматически выбрана для нового экземпляра, если сущность реализует интерфейс `Categorized`.
 
-If the entity does not implement `Categorized`, the checkbox value is irrelevant, and you have the flexibility to create either a single category for the entity or multiple categories. In both cases, the attributes will be showcased based on the <<visibility,visibility>> settings.
+Если сущность не реализует `Categorized`, значение флажка не имеет значения, и вы можете создать как одну категорию для сущности, так и несколько категорий. В обоих случаях атрибуты будут отображаться в соответствии с настройками <<visibility,видимости>>.
 
-The *Localization* tab is displayed within the category editor screen when the application is designed to accommodate multiple languages. This tab allows users to define the category name in different languages for each available locale.
+Вкладка *Localization* отображается в экране редактора категории, когда приложение разработано для поддержки нескольких языков. Эта вкладка позволяет пользователям определять название категории на разных языках для каждой доступной локали.
 
 image::localization-category.png[align="center",width="729"]
 
@@ -31,58 +31,58 @@ image::localization-category.png[align="center",width="729"]
 // Specify the number of columns in the *Columns count* drop-down list. To change the position of an attribute, drag it from the attribute list to the needed column and the needed line. You can add empty cells or change the order of the attributes. After making the changes, click the *Save configuration* button.
 
 [[create-attribute]]
-== Creating Attribute
+== Создание атрибута
 
 [[general-setting]]
-=== General Settings
+=== Общие настройки
 
-On the *General* tab of the *Category attribute details* dialog, you can specify a name, system code, description, value type, default attribute value, and validation script.
+На вкладке *General* диалога *Category attribute details* вы можете указать название, системный код, описание, тип значения, значение атрибута по умолчанию и скрипт валидации.
 
 image::create-attribute.png[align="center",width="962"]
 
-For all value types excluding `Boolean`, you can configure the width of the `formLayout` element in pixels or as a percentage. If the *Width* field is left blank, it is considered to be `100%` by default.
+Для всех типов значений, кроме `Boolean`, вы можете настроить ширину элемента `formLayout` в пикселях или в процентах. Если поле *Width* оставлено пустым, по умолчанию оно считается равным `100%`.
 
-The *Is collection* checkbox, available for all value types except `Boolean`, permits the creation of multi-valued dynamic attributes of the selected value type.
+Флажок *Is collection*, доступный для всех типов значений, кроме `Boolean`, позволяет создавать многозначные динамические атрибуты выбранного типа значения.
 
-For the value types `Double`, `Fixed-point number`, and `Integer`, the following fields are provided:
+Для типов значений `Double`, `Fixed-point number` и `Integer` предусмотрены следующие поля:
 
-* *Minimum value* - ensures that the entered attribute value is equal to or greater than the specified minimum value.
-* *Maximum value* - ensures that the entered attribute value is equal to or less than the specified maximum value.
+* *Minimum value* - гарантирует, что введенное значение атрибута будет равно или больше указанного минимального значения.
+* *Maximum value* - гарантирует, что введенное значение атрибута будет равно или меньше указанного максимального значения.
 
-When dealing with the `Fixed-point number` value type, you can define a format pattern in the *Number format pattern* field. Configure the pattern following the guidelines outlined in https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html[DecimalFormat^].
+При работе с типом значения `Fixed-point number` вы можете определить шаблон формата в поле *Number format pattern*. Настройте шаблон в соответствии с рекомендациями, изложенными в https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html[DecimalFormat^].
 
-For every value type, you have the option to input a Groovy script in the *Validation script* field for validating the entered value. In case the Groovy validation encounters an issue, the script should return an error message. Conversely, if the validation is successful, the script should return nothing or `null`. The value being evaluated is accessible in the script through the `value` variable. Error messages are constructed using a Groovy string format, and you can utilize the `$value` key within the message to produce the outcome.
+Для каждого типа значения у вас есть возможность ввести скрипт Groovy в поле *Validation script* для проверки введенного значения. Если при проверке Groovy возникает проблема, скрипт должен вернуть сообщение об ошибке. И наоборот, если проверка прошла успешно, скрипт не должен возвращать ничего или должен вернуть `null`. Проверяемое значение доступно в скрипте через переменную `value`. Сообщения об ошибках формируются с использованием формата строк Groovy, и вы можете использовать ключ `$value` в сообщении для получения результата.
 
-Here is an example:
+Вот пример:
 
 [source,groovy]
 ----
 if (!value.startsWith("correctValue")) return "the value '\${value}' is incorrect"
 ----
 
-For the `Enumeration` value type, you have the capability to define a collection of named values in the *Enumeration* field using the list editor. Each of these enumeration values can be localized for the languages supported within the application.
+Для типа значения `Enumeration` у вас есть возможность определить коллекцию именованных значений в поле *Enumeration* с помощью редактора списка. Каждое из этих значений перечисления может быть локализовано для языков, поддерживаемых в приложении.
 
 image::enumeration.png[align="center",width="1128"]
 
-For the `String`, `Double`, `Entity`, `Fixed-point number`, and `Integer` data types, there is a *Dropdown list* checkbox provided. Enabling this checkbox allows users to select the attribute value from a dropdown list. The set of permissible values can be customized on the *Calculated values and options* tab.
+Для типов данных `String`, `Double`, `Entity`, `Fixed-point number` и `Integer` предусмотрен флажок *Dropdown list*. Включение этого флажка позволяет пользователям выбирать значение атрибута из выпадающего списка. Набор допустимых значений можно настроить на вкладке *Calculated values and options*.
 
-In the case of the `Entity` data type, the configuration involves setting up *Where* and *Join* clauses.
+В случае типа данных `Entity` конфигурация включает настройку предложений *Where* и *Join*.
 
 [[calculated-values-and-options]]
-=== Calculated Values and Options
+=== Вычисляемые значения и опции
 
-Within the *Calculated values and options* tab, you can specify which attributes the current attribute depends on. Whenever one of these attributes is modified, either the script for computing the attribute value or the script for determining the <<options-type-list,list of valid values>> will be re-evaluated.
+На вкладке *Calculated values and options* вы можете указать, от каких атрибутов зависит текущий атрибут. При изменении любого из этих атрибутов либо скрипт для вычисления значения атрибута, либо скрипт для определения <<options-type-list,списка допустимых значений>> будет пересчитан.
 
-The Groovy script should provide a new parameter value. The script receives the following variables:
+Groovy-скрипт должен предоставить новое значение параметра. Скрипт получает следующие переменные:
 
-* `entity` - the entity being currently edited.
-* `dynamicAttributes` - a map where an attribute code acts as the `key` and the `value` represents the dynamic attribute's value.
+* `entity` - редактируемая в данный момент сущность.
+* `dynamicAttributes` - карта, в которой код атрибута выступает в качестве `key` (ключа), а `value` (значение) представляет значение динамического атрибута.
 
-Here is an illustration of a recalculation script utilizing the `EntityValues` class:
+Вот пример скрипта пересчета с использованием класса `EntityValues`:
 
 image::calculated.png[align=align="center",width="962"]
 
-An example of a recalculation script using the `dynamicAttributes` map:
+Пример скрипта пересчета с использованием карты `dynamicAttributes`:
 
 [source,groovy]
 ----
@@ -90,24 +90,24 @@ if (dynamicAttributes['passengerNumberOfSeats'] > 9)
 return 'Bus' else return 'Passenger'
 ----
 
-Whenever a value within the list of dependent attributes is altered, the script will be triggered for execution.
+При каждом изменении значения в списке зависимых атрибутов скрипт будет запускаться на выполнение.
 
-If the script is specified, the attribute input field will become non-editable.
+Если скрипт указан, поле ввода атрибута станет недоступным для редактирования.
 
-Recalculation functionality is compatible exclusively with the xref:flow-ui:vc/layouts/formLayout.adoc[] and xref:dynattr-view.adoc#dynamic-attributes-panel[DynamicAttributesPanel] UI components.
+Функциональность пересчета совместима исключительно с UI-компонентами xref:flow-ui:vc/layouts/formLayout.adoc[] и xref:dynattr-view.adoc#dynamic-attributes-panel[DynamicAttributesPanel].
 
 [[options-type-list]]
-When the *Dropdown list* checkbox is checked within the *General* tab, you can choose the options loader type from the *Options type* dropdown list.
+Когда на вкладке *General* установлен флажок *Dropdown list*, вы можете выбрать тип загрузчика опций из выпадающего списка *Options type*.
 
-The available option loader types include Groovy, SQL, and JPQL (exclusive to the `Entity` data type).
+Доступные типы загрузчиков опций включают Groovy, SQL и JPQL (эксклюзивно для типа данных `Entity`).
 
-* The Groovy options loader retrieves a list of values through a Groovy script. The script receives the entity variable, allowing access to the entity's attributes, including dynamic attributes.
+* Загрузчик опций Groovy получает список значений через Groovy-скрипт. Скрипт получает переменную `entity`, позволяя получить доступ к атрибутам сущности, включая динамические атрибуты.
 +
-Here is an example script for a String-type attribute:
+Вот пример скрипта для атрибута типа String:
 +
 image::options.png[align="center",width="962"]
 
-* The SQL options loader fetches a set of values utilizing the SQL script. You can access the entity id using the `$\{entity}` variable. To retrieve entity parameters, employ the `${entity.<field>}` syntax, where `field` represents the entity parameter's name. Dynamic attributes of the entity can be accessed using the `\+` prefix, for instance, `${entity.+<field>}`. Below is an example accessing the entity and the dynamic attribute `passengerTypeOfCar`:
+* Загрузчик опций SQL извлекает набор значений с использованием SQL-скрипта. Вы можете получить доступ к идентификатору сущности с помощью переменной `$\{entity}`. Для получения параметров сущности используйте синтаксис `${entity.<field>}`, где поле представляет имя параметра сущности. К динамическим атрибутам сущности можно получить доступ с помощью префикса `\+`, например, `${entity.+<поле>}`. Ниже приведен пример доступа к сущности и динамическому атрибуту `passengerTypeOfCar`:
 +
 [source,sql]
 ----
@@ -115,49 +115,49 @@ select LAST_NAME from DRIVER
 where CAR_TYPE = ${entity.+passengerTypeOfCar}
 ----
 +
-* The JPQL option loader is designed exclusively for a dynamic attribute of the `Entity` type. JPQL conditions are defined in the *Join clause* and *Where clause* fields. When working with JPQL parameters, you have access to `\{entity}` and `{entity.<field>}` variables.
+* Загрузчик опций JPQL предназначен исключительно для динамического атрибута типа `Entity`. Условия JPQL определяются в полях *Join clause* и *Where clause*. При работе с параметрами JPQL у вас есть доступ к переменным `\{entity}` и `{entity.<поле>}`.
 +
-The *Join clause* field's value is incorporated into the `from` query clause, typically commencing with a comma, `join`, or `left join`.
+Значение поля *Join clause* включается в предложение запроса `from`, обычно начиная с запятой, `join` или `left join`.
 +
-When interacting with dynamic attribute values in the script, you can utilize the entity variable as follows: `${entity.+<dynamicAttrCode>}`, where `<dynamicAttrCode>` refers to the code of the relevant dynamic attribute.
+При взаимодействии со значениями динамических атрибутов в скрипте вы можете использовать переменную `entity` следующим образом: `${entity.+<dynamicAttrCode>}`, где `<dynamicAttrCode>` относится к коду соответствующего динамического атрибута.
 +
-The `{++E++}` placeholder should be used as an alias for the extracted entity. During query execution, it will be substituted with the actual alias designated in the query.
+Плейсхолдер `{++E++}` следует использовать в качестве псевдонима для извлеченной сущности. Во время выполнения запроса он будет заменен на фактический псевдоним, назначенный в запросе.
 +
-For instance:
+Например:
 +
 [source,jpql]
 ----
 join {E}.seller s
 ----
 +
-The value of the *Where clause* field is integrated into the `where` query clause using an `and` condition. The `where` keyword is unnecessary as it is automatically included.
+Значение поля *Where clause* интегрируется в предложение запроса `where` с использованием условия `and`. Ключевое слово `where` не требуется, так как оно включается автоматически.
 +
-Dynamic attributes values in the script can also be accessed using the `entity` variable. For example:
+Значения динамических атрибутов в скрипте также можно получить с помощью переменной `entity`. Например:
 +
 image::jpql-and-where-fields.png[align="center",width="962"]
 
 [[localization]]
-=== Localization
+=== Локализация
 
-The *Localization* tab is displayed when the application provides support for multiple languages. Localization is available for all types of dynamic attributes.
+Вкладка *Localization* отображается, когда приложение поддерживает несколько языков. Локализация доступна для всех типов динамических атрибутов.
 
 image::localization-attr.png[align="center",width="962"]
 
 [[visibility]]
-=== Visibility
+=== Видимость
 
-You can determine the views where a dynamic attribute will be visible by configuring its visibility settings. By default, the attribute is hidden.
+Вы можете определить экраны, где динамический атрибут будет видим, настроив его параметры видимости. По умолчанию атрибут скрыт.
 
 image::visibility.png[align="center",width="962"]
 
-To select the view where the attribute should be displayed, the xref:dyn-attr:dynattr-view.adoc#using-dynamicattributes-facet[dynamicAttributes] facet must be added to that view, allowing it to be chosen in the *Visibility* tab.
+Чтобы выбрать экран, на котором атрибут должен отображаться, в этот экран должен быть добавлен фасет xref:dyn-attr:dynattr-view.adoc#using-dynamicattributes-facet[dynamicAttributes], что позволит выбрать его на вкладке *Visibility*.
 
-Beyond specifying the view, you can also designate the component within which the attribute should be visible. For example, views where multiple `FormLayout` components show the fields of the same entity.
+Помимо указания экрана, вы также можете обозначить компонент, внутри которого атрибут должен быть видим. Например, экраны, где несколько компонентов `FormLayout` отображают поля одной и той же сущности.
 
-When an attribute is set as visible on a view, it will automatically be visible in all forms and data grids that present entities of the corresponding type on that view.
+Когда атрибут настроен как видимый на экране, он автоматически будет видим во всех формах и таблицах данных, которые представляют сущности соответствующего типа на этом экране.
 
-If an entity incorporates the `Categorized` interface, the xref:dyn-attr:dynattr-view.adoc#dynamic-attributes-panel[DynamicAttributesPanel] can be utilized.
+Если сущность включает интерфейс `Categorized`, может быть использована панель xref:dyn-attr:dynattr-view.adoc#dynamic-attributes-panel[DynamicAttributesPanel].
 
-Access to dynamic attributes can be restricted by xref:security:resource-roles.adoc[resource roles]. Security settings for dynamic attributes are similar to those for regular attributes.
+Доступ к динамическим атрибутам может быть ограничен xref:security:resource-roles.adoc[ресурсными ролями]. Настройки безопасности для динамических атрибутов аналогичны настройкам для обычных атрибутов.
 
 image::resource-role.png[align="center",width="642"]

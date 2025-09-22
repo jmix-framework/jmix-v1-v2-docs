@@ -2,23 +2,22 @@
 
 //include::ROOT:partial$outdated-ui-warning.adoc[]
 
-Dynamic attributes are extra entity properties that expand the data model without altering the database schema and restarting the application. This feature enables the definition of new entity attributes during deployment or while the application is running in production.
+Динамические атрибуты - это дополнительные свойства сущностей, которые расширяют модель данных без изменения схемы базы данных и перезапуска приложения. Эта функция позволяет определять новые атрибуты сущностей во время развертывания или при работе приложения в продакшене.
 
-Dynamic attributes are stored in the xref:data-model:data-stores.adoc#main[main data store] in an https://en.wikipedia.org/wiki/Entity–attribute–value_model[Entity-Attribute-Value^] structure. The framework automatically loads and saves the values of dynamic attributes along with entity instances.
+Динамические атрибуты хранятся в xref:data-model:data-stores.adoc#main[основном хранилище данных] в структуре https://en.wikipedia.org/wiki/Entity–attribute–value_model[Entity-Attribute-Value^]. Фреймворк автоматически загружает и сохраняет значения динамических атрибутов вместе с экземплярами сущностей.
 
-Users can view and edit dynamic attributes in the data grids and forms of the existing application xref:flow-ui:views/views.adoc[views].
+Пользователи могут просматривать и редактировать динамические атрибуты в таблицах данных и формах существующих xref:flow-ui:views/views.adoc[экранов] приложения.
 
-Jmix provides UI for setting up dynamic attributes. Administrators can define names, data types, validation criteria, and determine which UI views and visual components display dynamic attributes.
+Jmix предоставляет пользовательский интерфейс для настройки динамических атрибутов. Администраторы могут определять названия, типы данных, критерии валидации и определять, в каких UI экранах и визуальных компонентах отображаются динамические атрибуты.
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
 include::example$/dyn-attr-ex1/build.gradle[tags=dependencies]
 ----
-
