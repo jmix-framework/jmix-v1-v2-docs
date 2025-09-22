@@ -1,38 +1,38 @@
-= Displaying Dynamic Attributes
+= Отображение динамических атрибутов
 
-When you create a new detail or list view in the project with the Dynamic Attributes add-on installed, the framework provides the ability to use the <<using-dynamicattributes-facet,dynamicAttributes>> facet in XML descriptors.
+При создании нового экрана деталей или списка в проекте с установленным дополнением Dynamic Attributes фреймворк предоставляет возможность использования фасета <<using-dynamicattributes-facet,dynamicAttributes>> в XML-дескрипторах.
 
-Another method to show dynamic attributes in views is by employing the <<dynamic-attributes-panel,DynamicAttributesPanel>>.
+Другой метод отображения динамических атрибутов на экранах - использование <<dynamic-attributes-panel,DynamicAttributesPanel>>.
 
 [[using-dynamicattributes-facet]]
-== Using dynamicAttributes Facet
+== Использование фасета dynamicAttributes
 
-`dynamicAttributes` facet enables the display of dynamic attributes in `DataGrid` or `FormLayout` associated with a data container containing entities with dynamic attributes.
+Фасет `dynamicAttributes` позволяет отображать динамические атрибуты в `DataGrid` или `FormLayout`, связанных с контейнером данных, содержащим сущности с динамическими атрибутами.
 
-Include the `dynamicAttributes` facet to the `facets` section of the view XML descriptor:
+Добавьте фасет `dynamicAttributes` в раздел `facets` XML-дескриптора экрана:
 
 [source,xml,indent=0]
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=dynamicAttributes]
 ----
 
-Subsequently, you can choose this view within the *Category attribute details* on the xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility] tab.
+Впоследствии вы можете выбрать этот экран в *Category attribute details* на вкладке xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility].
 
 [[dynamic-attributes-panel]]
-== Using DynamicAttributesPanel
+== Использование DynamicAttributesPanel
 
-If an entity implements the `Categorized` interface, you have the option to use the `DynamicAttributesPanel` component to showcase the dynamic attributes associated with the entity. This component facilitates the selection of a category for a specific entity instance and the specification of values for the dynamic attributes within that category.
+Если сущность реализует интерфейс `Categorized`, у вас есть возможность использовать компонент `DynamicAttributesPanel` для отображения динамических атрибутов, связанных с сущностью. Этот компонент упрощает выбор категории для конкретного экземпляра сущности и указание значений для динамических атрибутов в этой категории.
 
-To integrate the `DynamicAttributesPanel` component into a detail view, follow these steps:
+Для интеграции компонента `DynamicAttributesPanel` в экран деталей выполните следующие шаги:
 
-* Make sure the `category` attribute is included into the fetch plan of your categorized entity:
+* Убедитесь, что атрибут `category` включен в фетч-план вашей категоризированной сущности:
 +
 [source,xml,indent=0]
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=fetchPlan]
 ----
 +
-* Add the `dynamicAttributesPanel` visual component to the view:
+* Добавьте визуальный компонент `dynamicAttributesPanel` на экран:
 +
 [source,xml,indent=0]
 ----
