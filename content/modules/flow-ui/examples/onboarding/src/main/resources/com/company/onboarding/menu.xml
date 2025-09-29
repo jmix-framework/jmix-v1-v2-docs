@@ -108,6 +108,7 @@
 
     <menu id="layouts" title ="msg://com.company.onboarding/menu_config.layouts.title" >
         <item view="AccordionView" title="msg://com.company.onboarding.view.layout.accordion/accordionView.title"/>
+        <item view="CardView" title="msg://com.company.onboarding.view.layout.card/cardView.title"/>
         <item view="DetailsView" title="msg://com.company.onboarding.view.layout.details/detailsView.title"/>
         <item view="FlexLayoutView" title="msg://com.company.onboarding.view.layout.flexlayout/flexLayoutView.title"/>
         <item view="FormLayoutView" title="msg://com.company.onboarding.view.layout.formlayout/formLayoutView.title"/>
