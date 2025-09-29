@@ -1,0 +1,287 @@
+= card
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/card-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+The `Card` component is a versatile container used to display content in a card format, offering customization options for layout and appearance to group related content and actions.
+
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`card`
+|Java Class
+|`JmixCard`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<subtitle,subtitle>> -
+<<theme-variants,themeNames>> -
+<<title,title>> -
+<<titleHeadingLevel,titleHeadingLevel>> -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|Elements
+|<<slot-content,content>> - <<slot-footer,footer>> - <<slot-header,header>> - <<slot-headerPrefix,headerPrefix>> - <<slot-headerSuffix,headerSuffix>> - <<slot-media,media>> - <<slot-subtitle,subtitle>> - <<slot-title,title>>
+|===
+
+== Basics
+
+The following example demonstrates how to create a simple `card` displaying product information.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=basics]
+----
+<1> The `elevated` <<theme-variants,theme variant>> applies a shadow effect.
+<2> Defines the primary heading using the <<slot-title,title>> predefined slot.
+<3> Defines the secondary heading using the <<slot-subtitle,subtitle>> predefined slot.
+<4> The <<slot-media,media>> slot contains the product image.
+<5> The <<slot-content,content>> slot holds the main descriptive text.
+<6> The <<slot-footer,footer>> slot groups action buttons, anchoring them to the bottom of the card.
+
+image::visual-components/layouts/card-basic.png[align="center", width="510"]
+
+The `Card` component displays content in a structured, card-based layout. Information within the card can be populated either through component attributes or by using its internal elements, known as <<slots,slots>>.
+
+The card's visual appearance - including shadows, borders, and backgrounds - is customizable. This is achieved by applying different <<theme-variants,theme variants>>.
+
+[[slots]]
+== Slots
+
+The component provides several predefined slots for flexible content organization. A slot is a nested element within the component.
+
+TIP: To add a slot in Jmix Studio, select `card` in the view XML descriptor or in the *Jmix UI* structure panel and click *Add→[Slot Name]* in the *Component Inspector* panel.
+
+NOTE: All slots except <<slot-content,content>> and <<slot-footer,footer>> are limited to containing a single nested component.
+
+[[slot-title]]
+=== Title
+
+Textual content with predefined styling.
+
+You can define the card's title in either of the following ways:
+
+* Using the `title` attribute on the component.
+* Using a nested `title` element.
+
+[IMPORTANT]
+====
+* If a title is specified using both the `title` attribute and a nested `title` element, the value from the nested element takes precedence, and the attribute value is ignored.
+
+* The `title` (and `subtitle`) are not rendered if a <<slot-header,header>> slot is present. The custom header markup replaces them entirely.
+====
+
+Card with the `title` and `subtitle` attributes:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title2]
+----
+
+Card with a nested `title` element:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title]
+----
+
+[[slot-subtitle]]
+=== Subtitle
+
+The subtitle provides secondary textual content with predefined styling, displayed directly below the title. It is designed to be used in conjunction with a title.
+
+You can define the card's subtitle in either of the following ways:
+
+* Using the `subtitle` attribute on the component.
+* Using a nested `subtitle` element.
+
+[IMPORTANT]
+====
+* If a subtitle is specified using both the `subtitle` attribute and a nested `subtitle` element, the value from the nested element takes precedence, and the attribute value is ignored.
+
+* The `subtitle` (and `title`) are not rendered if a <<slot-header,header>> slot is present. The custom header markup replaces them entirely.
+====
+
+Card with the `title` and `subtitle` attributes:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title2]
+----
+
+Card with a nested `subtitle` element:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=subtitle]
+----
+
+[[slot-header]]
+=== Header
+
+Specifies a custom component to be used as the card's header.
+
+[IMPORTANT]
+====
+When a header slot is defined, it takes precedence over the <<slot-title,title>> and <<slot-subtitle,subtitle>> slots. The custom header markup is displayed instead, completely replacing the default title and subtitle.
+====
+
+Card with a nested `header` element:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=header]
+----
+
+[[slot-headerPrefix]]
+=== HeaderPrefix
+
+Specifies a component to be displayed before the main header content.
+
+image:visual-components/layouts/card-header-prefix.png[align="center", width=333]
+
+This slot is typically used for elements like an xref:flow-ui:vc/components/avatar.adoc[avatar], xref:vc/components/icon.adoc[icon], or other visual indicator that precedes the title and subtitle.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=headerPrefix]
+----
+
+[[slot-headerSuffix]]
+=== HeaderSuffix
+
+Specifies a component to be displayed after the main header content.
+
+image:visual-components/layouts/card-header-suffix.png[align="center", width=334]
+
+This slot is commonly used for action buttons, decorative icons, or other interactive elements that are relevant to the header.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=headerSuffix]
+----
+
+[[slot-media]]
+=== Media
+
+Specifies a visual component, such as an xref:flow-ui:vc/html-components/image.adoc[image], xref:flow-ui:vc/components/avatar.adoc[avatar], or xref:flow-ui:vc/components/icon.adoc[icon], to be displayed as the card's media.
+
+To control how the media content is sized, apply the `stretch-media` or `cover-media` <<theme-variants,theme variants>> using the `themeNames` attribute.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=media]
+----
+
+[[slot-content]]
+=== Content
+
+Contains the main content of the card. This slot can hold any number of elements, providing flexibility for rich and complex layouts.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=content]
+----
+
+[[slot-footer]]
+=== Footer
+
+Defines the footer area of the card. This slot supports multiple elements, enabling flexible layouts for actions, status indicators, and supplementary information.
+
+The footer remains positioned at the bottom of the card regardless of the main content's height.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=footer]
+----
+
+[[theme-variants]]
+== Theme Variants
+
+The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select among five different options:
+
+
+.`outlined`
+[%collapsible]
+====
+Applies a border around the card.
+
+image:visual-components/layouts/card-outlined.png[align="center", width=172]
+====
+
+.`elevated`
+[%collapsible]
+====
+Adds a shadow effect to create elevation.
+
+image:visual-components/layouts/card-elevated.png[align="center", width=178]
+====
+
+.`horizontal`
+[%collapsible]
+====
+Arranges the card content horizontally.
+
+image:visual-components/layouts/card-horizontal.png[align="center", width=174]
+====
+
+.`stretch-media`
+[%collapsible]
+====
+Scales the media content to fill its container.
+
+image:visual-components/layouts/card-stretch-media.png[align="center", width=171]
+====
+
+.`cover-media`
+[%collapsible]
+====
+Crops the media content to cover its container.
+
+image:visual-components/layouts/card-cover-media.png[align="center", width=176]
+====
+
+TIP: You can combine all theme variants together.
+
+== Attributes
+
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+
+The following attributes are specific to `card`:
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[subtitle]]subtitle
+|Set the secondary textual content with predefined styling. See <<slot-subtitle,Subtitle>>.
+|
+|[[title]]title
+|Set the textual content with predefined styling. See <<slot-title,Title>>.
+|
+|[[titleHeadingLevel]]titleHeadingLevel
+|Sets the title heading level property for the titles. The value of the attribute is set to the https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-level[aria-level^] HTML attribute. The `titleHeadingLevel` value must be in the range 1-6. *Important*: Values outside the valid range (1-6) can cause significant accessibility issues and should be avoided.
+|2
+|===
+
+== See Also
+
+See {vaadin-docs}/components/card[Vaadin Docs^] for more information.
