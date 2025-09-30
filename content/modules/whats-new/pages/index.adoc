@@ -304,6 +304,7 @@ use application property `jmix.oidc.use-default-jwt-configuration=false`.
 
 * Resolved issues in Jmix Framework:
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.1[2.6.2^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.1[2.6.1^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
 
