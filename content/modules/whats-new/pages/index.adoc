@@ -305,6 +305,7 @@ someDc.setItem(entity)
 
 * Решенные проблемы в Jmix Studio:
 
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.4[2.6.4^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.3[2.6.3^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.2[2.6.2^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.1[2.6.1^]
