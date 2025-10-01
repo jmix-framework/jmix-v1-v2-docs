@@ -77,6 +77,30 @@ image::flow-ui:visual-components/components/property-filter-multifiltering.png[a
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=multiple-filters]
 ----
 
+== Filtering Dates
+
+[[date-equals]]
+=== Omitting Time
+
+An exact match with `=` may not always fit Date/Time properties. Many situations require filtering by just the date, ignoring the time. In such cases, use `date equals` instead:
+
+image::flow-ui:visual-components/components/property-filter-date-equals.png[align="center", width="992"]
+
+[[date-interval]]
+=== Date Interval
+
+The component provides several options to filter by date intervals. Choose the `in interval` operator and enter interval values in the dialog.
+
+image::flow-ui:visual-components/components/property-filter-date-interval.png[align="center", width=""]
+
+Choose from:
+
+* *Last*: intervals like "last 3 months" or "last 12 weeks".
+* *Next*: intervals such as "next 3 years" or "next 48 hours".
+* *Predefined*: quick selections including "today", "tomorrow", "this month", or "this year".
+* *Relative date and time*: for conditions like "by the end of the day", "at the start of the hour", "not the last day of the year".
+* *Custom*: for any start and end date.
+
 == Customization
 
 You can explicitly specify the component to use as the input field and set its attributes. This enables to change the default `propertyFilter` look and feel and enhance it with additional features. For example:
@@ -186,22 +210,66 @@ Sets the <<label,label>> width. The width should be in a format understood by th
 [[operation]]
 === operation
 
-`operation` is a required attribute. It sets a filtering operation. The operation can be of the following types:
+Specifies the filtering operation.
 
-* `EQUAL` is suitable for string, numeric, boolean, date/time, reference and enum attributes. Results include only entity instances where the data in the property column matches the condition value in the filter.
-* `NOT_EQUAL` is suitable for string, numeric, boolean, date/time, reference and enum attributes. Results include only entity instances where the data in the property column does not match the condition value in the filter.
-* `GREATER` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is greater than the condition value in the filter.
-* `GREATER_OR_EQUAL` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is greater than or the same as the condition value in the filter.
-* `LESS` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is less than the condition value in the filter.
-* `LESS_OR_EQUAL` is suitable for numeric and date/time attributes. Results include only entity instances where the data in the property column is less than or the same as the condition value in the filter.
-* `CONTAINS` is suitable for string attributes. Results include only entity instances where the data in the property column has the condition value in the filter.
-* `NOT_CONTAINS` is suitable for string attributes. Results include only entity instances where the data in the property column does not contain the condition value in the filter.
-* `STARTS_WITH` is suitable for string attributes. Results include only entity instances where the data in the property column begins with the condition value in the filter.
-* `ENDS_WITH` is suitable for string attributes. Results include only entity instances where the data in the property column ends with the condition value in the filter.
-* `IS_SET` is suitable for string, numeric, boolean, date/time, reference and enum attributes. The operator tests only the data in the property column that are not null. The `comboBox` component, generated for this operation, displays two values: `Yes` and `No`. If the user selects `Yes`, results include only entity instances where there is data in the column. Otherwise, results include only entity instances where there is no data in the column.
-* `IS_COLLECTION_EMPTY` is suitable for collection (`@OneToMany`, `@ManyToMany`) attributes. The operator checks if a collection property of an entity is empty or not.
-* `MEMBER_OF_COLLECTION` is suitable for collection (`@OneToMany`, `@ManyToMany`) attributes. The operator is used to filter entities based on whether they are members of a specific collection.
-* `NOT_MEMBER_OF_COLLECTION` is suitable for collection (`@OneToMany`, `@ManyToMany`) attributes
+[cols="1,4,5"]
+|===
+| **Operation** | **Description**| **Property Types**
+| EQUAL
+| Equal to. Consider DATE_EQUALS for Date/Time properties.
+| Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
+| NOT_EQUAL
+| Not equal to.
+| Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
+| IS_SET
+| Is null or is not null. Provides options in com
+| Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
+| IN_LIST
+| Checks if the value is in the list.
+| Numeric, String, Date/Time, Time, UUID, URI, Entity, Enum
+| NOT_IN_LIST
+| Checks if the value is not in the list.
+| Numeric, String, Date/Time, Time, UUID, URI, Entity, Enum
+| IS_COLLECTION_EMPTY
+| Checks if the collection is empty.
+| Entity (`@OneToMany`, `@ManyToMany`)
+| MEMBER_OF_COLLECTION
+| Belong to the collection.
+| Entity (`@OneToMany`, `@ManyToMany`)
+| NOT_MEMBER_OF_COLLECTION
+| Do not belong to the collection
+| Entity (`@OneToMany`, `@ManyToMany`)
+| CONTAINS
+| Contain the substring.
+| String
+| NOT_CONTAINS
+| Do not contain the substring.
+| String
+| STARTS_WITH
+| Starts with.
+| String
+| ENDS_WITH
+| Ends with.
+| String
+| GREATER
+| Greater than.
+| Numeric, Date/Time, Time
+| GREATER_OR_EQUAL
+| Greater than or equal to.
+| Numeric, Date/Time, Time
+| LESS
+| Less than.
+| Numeric, Date/Time, Time
+| LESS_OR_EQUAL
+| Less than or equal to.
+| Numeric, Date/Time, Time
+| IN_INTERVAL
+| Belongs to the interval that users can specify through the <<date-interval,date interval>> dialog.
+| Date/Time, Time
+| DATE_EQUALS
+| Equals to date. Compares only the date while excluding time. See <<date-equals,example>>.
+| Date/Time
+|===
 
 [[operationEditable]]
 === operationEditable
