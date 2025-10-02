@@ -112,6 +112,7 @@
         <item view="DetailsView" title="msg://com.company.onboarding.view.layout.details/detailsView.title"/>
         <item view="FlexLayoutView" title="msg://com.company.onboarding.view.layout.flexlayout/flexLayoutView.title"/>
         <item view="FormLayoutView" title="msg://com.company.onboarding.view.layout.formlayout/formLayoutView.title"/>
+        <item view="GridLayoutView" title="msg://com.company.onboarding.view.layout.gridlayout/gridLayoutView.title"/>
         <item view="HboxView" title="msg://com.company.onboarding.view.layout.hbox/hboxView.title"/>
         <item view="ScrollerView" title="msg://com.company.onboarding.view.layout.scroller/scrollerView.title"/>
         <item view="SplitView" title="msg://com.company.onboarding.view.layout.split/splitView.title"/>

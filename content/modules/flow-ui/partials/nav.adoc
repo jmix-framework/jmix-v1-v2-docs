@@ -69,6 +69,7 @@
 **** xref:flow-ui:vc/layouts/details.adoc[]
 **** xref:flow-ui:vc/layouts/flexLayout.adoc[]
 **** xref:flow-ui:vc/layouts/formLayout.adoc[]
+**** xref:flow-ui:vc/layouts/gridLayout.adoc[]
 **** xref:flow-ui:vc/layouts/hbox.adoc[]
 **** xref:flow-ui:vc/layouts/initialLayout.adoc[]
 **** xref:flow-ui:vc/layouts/split.adoc[]
