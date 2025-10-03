@@ -11,62 +11,113 @@ To create a new resource role, use the menu in xref:studio:tool-window.adoc[Jmix
 
 image::role-open.png[align="center", width="244"]
 
-Enter a role name and its code in the appeared dialog.
+Enter a role name and code in the dialog that appears.
 
 image::role-create.png[align="center", width="663"]
 
+[[text-tab]]
+=== Text Tab
+
 Resource Role Designer is integrated with the code editor that is available on the *Text* tab. You can edit the source code directly or use the Designer’s controls to generate the code.
 
-The *Definition* tab defines basic role attributes.
+[[role-definition]]
+=== Role Definition
 
-image::role-definition.png[align="center", width="724"]
+The *Definition* tab allows you to:
 
-[NOTE]
+* Define basic role attributes
+* Manage role hierarchy within the project
+
+image::role-definition.png[align="center", width="851"]
+
+[IMPORTANT]
 ====
-Role code is used when assigning the role to users, therefore it should not be changed after the role has been already assigned to some users.
+The role code is used when assigning the role to users. Do not change it after the role has been assigned to users.
 ====
 
-On the *User Interface* tab, you can define permissions for menu items and views.
+[[role-hierarcy]]
+==== Role Hierarchy
 
-image::role-user-interface.png[align="center", width="724"]
+You can view and manage the role hierarchy using the *Role Hierarchy* panels.
 
-The tree on the left displays the structure of the main menu, both project-defined views and inherited views from the framework and add-ons. The *All Views* group displays all remaining application views that are not directly available through the main menu. You can find the necessary view with the help of the search field located above the tree.
+The upper panel directly displays the role hierarchy. The currently selected role is considered the root.
 
-All menu items and views are denied by default. By choosing the item on the left and selecting *Allow* on the right side of the panel, you will add permission to open the corresponding menu item or view.
+The lower panel contains the toolbar with action buttons and a list of available roles. These include roles defined within the project, as well as roles from linked projects and add-ons.
+
+You can add a role from the available roles list to the hierarchy in the following ways:
+
+. Double-click the role in the *Available Roles* list.
+. Use the context menu actions (accessed by right-clicking the role in the *Available Roles* list).
+. Click the up arrow button located at the top of the *Available Roles* panel.
+
+The role will be added as a parent to the current role.
+
+To remove a role from the hierarchy, select it and click the minus button or use the actions in the context menu.
+
+[[ui-permissions]]
+=== User Interface Permissions
+
+The *User Interface* tab defines permissions for menu items and views.
+
+Permissions are displayed for the selected role:
+
+* *Current role* - editable permissions defined in the role itself
+* *Ancestor role* - read-only display with navigation to role file
+
+image::role-user-interface.png[align="center", width="880"]
+
+The tree on the right displays the structure of the main menu, both project-defined views and inherited views from the framework and add-ons. The *All Views* group displays all remaining application views that are not directly available through the main menu. You can find the necessary view with the help of the search field located above the tree.
+
+All menu items and views are denied by default. By choosing the item on the list and selecting *Allow* on the *View Permissions* panel, you will add permission to open the corresponding menu item or view.
 
 Use the toolbar above the tree to expand or collapse its nodes. The gear button toggles displaying views and menu items that don’t have permissions specified.
 
 The *Allow all views* checkbox is useful when you want to grant access to all views or deny only a few.
 
-On the *Entities* tab, you can define CRUD permissions for entities and entity attributes.
+[[entity-permissions]]
+=== Entity Permissions
 
-image::role-entities.png[align="center", width="724"]
+The *Entities* tab defines CRUD permissions for entities and attributes.
 
-The table on the left side of the panel displays entities defined in the project as well as entities inherited from the framework and add-ons. The entity list can be filtered by name with the help of the search field located above the table.
+Permissions are displayed for the selected role:
+
+* *Current role* - editable CRUD permissions
+* *Ancestor role* - read-only display of CRUD and attribute permissions
+
+image::role-entities.png[align="center", width="881"]
+
+The table in the upper-right displays entities defined in the project, as well as entities inherited from the framework and add-ons. You can filter the entity list by name using the search field above the table.
 
 A toolbar above the entities contains the following actions:
 
-* *Current project only* - toggles displaying inherited entities.
-* *Assigned only* - toggles showing entities that don't have permissions.
+* *Current project only* - toggles inherited entities display.
+* *Assigned only* - toggles entities without permissions.
 
 All entity operations are denied by default. Using checkboxes in the table, you can allow particular operations for the selected entity.
 
-The table on the right displays attribute permissions for the selected entity. All entity attributes are denied to view and modify by default. By selecting the *View* and *Modify* checkboxes, you can set the necessary access level for the selected attribute.
+The table below displays attribute permissions for the selected entity. By default, all entity attributes are denied both view and modify access. Select the *View* and *Modify* checkboxes to grant the necessary access level for each attribute.
 
 The wildcard [***] option in the attributes' table allows you to mark all attributes as available to *View* or *Modify*, including those attributes that will be added to the selected entity in the future. 
 
 The *Allow all* checkbox in the entities' table permits all CRUD operations and allows *Modify* for all attributes, making the selected entity fully accessible for the current role.
 
 [[specific-tab]]
-On the *Specific* tab, you can define specific permissions.
+=== Specific Permissions
 
-image::role-specific.png[align="center", width="724"]
+The *Specific* tab defines permissions for various framework mechanisms.
+
+Permissions are displayed for the selected role:
+
+* *Current role* - editable permissions defined in the role itself
+* *Ancestor role* - read-only display with navigation to role file
+
+image::role-specific.png[align="center", width="880"]
 
 The framework uses specific permissions to restrict access to various mechanisms. In the tree, you can see the permissions inherited from the framework and add-ons. 
 
 To add permission, use the plus button in the toolbar above the tree. In the *Resource* field, you should specify the name of the policy defined in your project. See how to create the specific policy in the xref:security:resource-roles.adoc#specific-policy[Specific policy] section.
 
-All specific policies are denied by default. Select the policy in the tree and allow access in the right panel.
+All specific policies are denied by default. Select the policy in the tree and allow access in the *Specific Permission* panel.
 
 [[row-level-role-wizard]]
 == Row-level Role Wizard
