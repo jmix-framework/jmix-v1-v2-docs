@@ -1,17 +1,17 @@
 = Grid Export Actions
 
-The add-on is a useful feature that enhances the functionality of a grid components within a web application. This add-on typically provides users with the ability to export data displayed in a grid to various file formats such as Excel, or JSON.
+Дополнение представляет собой полезную функцию, расширяющую возможности компонентов таблиц в веб-приложении. Оно обычно предоставляет пользователям возможность экспортировать данные, отображаемые в таблице, в различные форматы файлов, такие как Excel или JSON.
 
-The add-on provides xref:grid-export:actions.adoc[actions], that triggers the export functionality.
+Дополнение предоставляет xref:grid-export:actions.adoc[действия], которые запускают функциональность экспорта.
 
-These actions can be utilized in both xref:flow-ui:vc/components/dataGrid.adoc[] and xref:flow-ui:vc/components/treeDataGrid.adoc[] components.
+Эти действия могут использоваться как в компонентах xref:flow-ui:vc/components/dataGrid.adoc[], так и xref:flow-ui:vc/components/treeDataGrid.adoc[].
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependency to your `build.gradle`:
+Для ручной установки добавьте следующую зависимость в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
@@ -19,19 +19,19 @@ include::example$/gridexport-ex1/build.gradle[tags=grid-export-dep]
 ----
 
 [[usage]]
-== Usage
+== Использование
 
-The add-on provides two types of actions: xref:grid-export:actions.adoc#excel-export-action[grdexp_excelExport] and xref:grid-export:actions.adoc#json-export-action[grdexp_jsonExport]. Both actions are xref:flow-ui:actions/list-actions.adoc[list component actions], so they can be added to xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] and xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid].
+Дополнение предоставляет два типа действий: xref:grid-export:actions.adoc#excel-export-action[grdexp_excelExport] и xref:grid-export:actions.adoc#json-export-action[grdexp_jsonExport]. Оба действия являются xref:flow-ui:actions/list-actions.adoc[действиями компонентов списка], поэтому они могут быть добавлены в xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] и xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid].
 
-After the add-on is installed in the project, these actions become accessible for xref:studio:view-designer.adoc#add-action[addition] through the Jmix Studio.
+После установки дополнения в проекте эти действия становятся доступными для xref:studio:view-designer.adoc#add-action[добавления] через Jmix Studio.
 
 image::export-action-studio.png[align="center",width="492"]
 
-Usage example:
+Пример использования:
 
 [source,xml,indent=0]
 ----
 include::example$/gridexport-ex1/src/main/resources/com/company/demo/view/user/user-list-view.xml[tags=buttonsPanel;export;dataGrid;actions]
 ----
 
-To enable the selection of multiple entities, ensure that `selectionMode="MULTI"` is set for the `dataGrid` component.
+Чтобы включить выбор нескольких сущностей, убедитесь, что для компонента `dataGrid` установлено `selectionMode="MULTI"`.

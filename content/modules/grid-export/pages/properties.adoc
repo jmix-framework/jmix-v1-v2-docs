@@ -1,29 +1,29 @@
-= Grid Export Properties
+= Свойства экспорта таблиц
 
 [[jmix.gridexport.default-columns-to-export]]
 == jmix.gridexport.default-columns-to-export
 
-Specifies the default column selection behavior for the Grid Export functionality. This setting determines which columns are included in the xref:grid-export:actions.adoc#columns-export[export] when no other more specific configuration is provided.
+Определяет поведение выбора колонок по умолчанию для функциональности экспорта таблиц. Эта настройка определяет, какие колонки включаются в xref:grid-export:actions.adoc#columns-export[экспорт], когда не предоставлена другая, более специфичная конфигурация.
 
-Possible values: `ALL_COLUMNS`, `VISIBLE_COLUMNS`.
+Возможные значения: `ALL_COLUMNS`, `VISIBLE_COLUMNS`.
 
-Default value: `VISIBLE_COLUMNS`.
+Значение по умолчанию: `VISIBLE_COLUMNS`.
 
 [[jmix.gridexport.default-export-modes]]
 == jmix.gridexport.default-export-modes
 
-Defines the default set of options for the xref:actions.adoc[ExportAction] dialog.
+Определяет набор опций по умолчанию для диалогового окна xref:actions.adoc[ExportAction].
 
-Default value: `ALL_ROWS,CURRENT_PAGE,SELECTED_ROWS`.
+Значение по умолчанию: `ALL_ROWS,CURRENT_PAGE,SELECTED_ROWS`.
 
 [[jmix.gridexport.export-all-batch-size]]
 == jmix.gridexport.export-all-batch-size
 
-Defines the batch size when exporting all records.
+Определяет размер пакета при экспорте всех записей.
 
-Default value: `1000`.
+Значение по умолчанию: `1000`.
 
-For example:
+Например:
 
 [source,properties]
 ----
@@ -33,18 +33,18 @@ jmix.gridexport.export-all-batch-size = 2000
 [[jmix.gridexport.export-all-pagination-strategy]]
 == jmix.gridexport.export-all-pagination-strategy
 
-Defines the pagination strategy used when xref:grid-export:actions.adoc#export-modes[exporting] all entities.
+Определяет стратегию пагинации, используемую при xref:grid-export:actions.adoc#export-modes[экспорте] всех сущностей.
 
-Possible values:
+Возможные значения:
 
-* `keyset`: Retrieves entities based on primary key sorting. The next page begins after the last entity of the previous page.
-* `limit-offset`: Retrieves entities in the same order as they are stored. Uses two parameters: `offset` (the starting record index) and `limit` (the number of records per page).
+* `keyset`: Извлекает сущности на основе сортировки по первичному ключу. Следующая страница начинается после последней сущности предыдущей страницы.
+* `limit-offset`: Извлекает сущности в том же порядке, в котором они хранятся. Использует два параметра: `offset` (начальный индекс записи) и `limit` (количество записей на странице).
 
-Default value: `keyset`.
+Значение по умолчанию: `keyset`.
 
 [[jmix.gridexport.excel.use-sxssf]]
 == jmix.gridexport.excel.use-sxssf
 
-Defines whether to use streaming POI SXSSF API for building XLSX files.
+Определяет, использовать ли потоковый POI SXSSF API для построения XLSX файлов.
 
-Default value: `true`.
+Значение по умолчанию: `true`.

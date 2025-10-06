@@ -1,62 +1,63 @@
-= Export Actions
+= Действия экспорта
 
 [[export-action]]
 == ExportAction
 
-`ExportAction` is a base xref:flow-ui:actions/list-actions.adoc[list action] designed for exporting data grid contents using a specified exporter. An instance of xref:exporters.adoc[DataGridExporter] is required for this action.
+`ExportAction` - это базовое xref:flow-ui:actions/list-actions.adoc[действие списка], предназначенное для экспорта содержимого таблицы данных с использованием указанного экспортера. Для этого действия требуется экземпляр xref:exporters.adoc[DataGridExporter].
 
-This action can be configured for use with both xref:flow-ui:vc/components/dataGrid.adoc[] and xref:flow-ui:vc/components/treeDataGrid.adoc[] components.
+Это действие можно настроить для использования с компонентами xref:flow-ui:vc/components/dataGrid.adoc[] и xref:flow-ui:vc/components/treeDataGrid.adoc[].
 
-Within `ExportAction`, there are methods available for managing functions that extract values from `DataGrid` columns:
+В `ExportAction` доступны методы для управления функциями, которые извлекают значения из колонок `DataGrid`:
 
-* `addColumnValueProvider()` adds a function to retrieve values from a column.
-* `removeColumnValueProvider()` removes a column value provider function by column `id`.
+* `addColumnValueProvider()` добавляет функцию для получения значений из колонки.
+* `removeColumnValueProvider()` удаляет функцию-провайдер значений колонки по `id` колонки.
 
 [[export-modes]]
-=== Export Modes
+=== Режимы экспорта
 
-`ExportAction` has three export modes: all rows, the current page, and selected rows.
+`ExportAction` имеет три режима экспорта: все строки, текущая страница и выбранные строки.
 
 image::export-action.png[align="center",width="873"]
 
-* The *All rows* option exports all database records matching the applied filter and the initial query used to populate the view's data.
+* Опция *All rows* экспортирует все записи базы данных, соответствующие примененному фильтру и начальному запросу, использованному для заполнения данных экрана.
 +
-Data loading and export happen in *batches* to optimize performance and manage memory usage. The batch size is configurable via the xref:grid-export:properties.adoc#jmix.gridexport.export-all-batch-size[jmix.gridexport.export-all-batch-size] application property. The default batch size is `1000`.
+Загрузка и экспорт данных происходят пакетами для оптимизации производительности и управления использованием памяти. Размер пакета настраивается через свойство приложения xref:grid-export:properties.adoc#jmix.gridexport.export-all-batch-size[jmix.gridexport.export-all-batch-size]. Размер пакета по умолчанию - `1000`.
 +
-When exporting all records, the default *pagination strategy* is `keyset`. To change this, use the xref:grid-export:properties.adoc#jmix.gridexport.export-all-pagination-strategy[jmix.gridexport.export-all-pagination-strategy] application property.
-* The *Current page* option exports only the content displayed on the current page of the data grid.
-* The *Selected rows* option export only records selected in the data grid.
+При экспорте всех записей стратегия пагинации по умолчанию - `keyset`. Чтобы изменить это, используйте свойство приложения xref:grid-export:properties.adoc#jmix.gridexport.export-all-pagination-strategy[jmix.gridexport.export-all-pagination-strategy].
 
-The set of export options can be defined by a particular action using its `setAvailableExportModes()` method and corresponding `availableExportModes` property in XML. The default set of options is defined by the xref:properties.adoc#jmix.gridexport.default-export-modes[jmix.gridexport.default-export-modes] application property.
+* Опция *Current page* экспортирует только содержимое, отображаемое на текущей странице таблицы данных.
+* Опция *Selected rows* экспортирует только записи, выбранные в таблице данных.
 
-You can override the header and message of the dialog by adding messages with `exportConfirmationDialog.header` and `exportConfirmationDialog.message` keys to your xref:localization:message-bundles.adoc[message bundle].
+Набор опций экспорта может быть определен конкретным действием с помощью его метода `setAvailableExportModes()` и соответствующего свойства `availableExportModes` в XML. Набор опций по умолчанию определяется свойством приложения xref:properties.adoc#jmix.gridexport.default-export-modes[jmix.gridexport.default-export-modes].
+
+Вы можете переопределить заголовок и сообщение диалогового окна, добавив сообщения с ключами `exportConfirmationDialog.header` и `exportConfirmationDialog.message` в ваш xref:localization:message-bundles.adoc[пакет сообщений].
 
 [[columns-export]]
-=== Columns Exporting
+=== Экспорт колонок
 
-You can control which columns are included in the export using three different filtering options:
+Вы можете управлять тем, какие колонки включаются в экспорт, используя три различных варианта фильтрации:
 
-. *Predefined Column Filter Predicate (Enumeration)*
+. *Предопределенный предикат фильтрации колонок*
 +
-This option allows you to select from a predefined set of filtering behaviors to determine which columns are exported. Configure this using the xref:grid-export:properties.adoc#jmix.gridexport.default-columns-to-export[jmix.gridexport.default-columns-to-export] application property or the `columnsToExport` xref:flow-ui:actions/standard-actions.adoc#additional-properties[additional property] directly on the export action. The available options are:
+Эта опция позволяет выбрать из предопределенного набора поведений фильтрации, чтобы определить, какие колонки экспортируются. Настройте это с помощью свойства приложения xref:grid-export:properties.adoc#jmix.gridexport.default-columns-to-export[jmix.gridexport.default-columns-to-export] или xref:flow-ui:actions/standard-actions.adoc#additional-properties[дополнительного свойства] `columnsToExport` непосредственно в действии экспорта. Доступные варианты:
 +
-* `ALL_COLUMNS`: Exports all columns, regardless of visibility.
-* `VISIBLE_COLUMNS`: Exports only the columns currently visible in the `DataGrid`. Columns marked as visible using the xref:flow-ui:vc/components/gridColumnVisibility.adoc[gridColumnVisibility] component are included in the list of exported columns. This means that hidden columns will be excluded.
+* `ALL_COLUMNS`: Экспортирует все колонки, независимо от видимости.
+* `VISIBLE_COLUMNS`: Экспортирует только колонки, видимые в данный момент в `DataGrid`. Колонки, отмеченные как видимые с помощью компонента xref:flow-ui:vc/components/gridColumnVisibility.adoc[gridColumnVisibility], включаются в список экспортируемых колонок. Это означает, что скрытые колонки будут исключены.
 +
-The default value for new projects is `VISIBLE_COLUMNS`. Existing projects will have their previous export behavior (likely `ALL_COLUMNS`) migrated to the `application.properties` file.
+Значение по умолчанию для новых проектов - `VISIBLE_COLUMNS`. В существующих проектах предыдущее поведение экспорта (вероятно, `ALL_COLUMNS`) будет перенесено в файл `application.properties`.
 +
-Below is an example showing how to configure the export of all columns for a customer `dataGrid`.
+Ниже приведен пример, показывающий, как настроить экспорт всех колонок для `dataGrid` клиентов.
 +
 [source,xml,indent=0]
 ----
 include::example$/gridexport-ex1/src/main/resources/com/company/demo/view/customers/customers-view.xml[tags=excelExport]
 ----
 +
-NOTE: This method has the lowest priority; more specific methods will override this setting.
+NOTE: Этот метод имеет наименьший приоритет; более специфичные методы переопределят эту настройку.
 
-. *Flexible Filtering Predicate (Extension Point)*
+. *Гибкий предикат фильтрации*
 +
-This provides a mechanism for highly customized column selection logic. Create a method annotated with `@Install`, targeting the export action. This method receives a `Grid.Column` object and returns `true` if the column should be exported, `false` otherwise.
+Этот механизм обеспечивает высоконастраиваемую логику выбора колонок. Создайте метод, аннотированный `@Install`, предназначенный для действия экспорта. Этот метод получает объект `Grid.Column` и возвращает `true`, если колонка должна быть экспортирована, и `false` в противном случае.
 +
 [source,java,indent=0]
 ----
@@ -65,47 +66,47 @@ include::example$/gridexport-ex1/src/main/java/com/company/demo/view/customers/C
 +
 include::flow-ui:vc/handler-generation-tip.adoc[]
 +
-NOTE: This approach has medium priority, meaning it will override the predefined column filter predicate but will be overridden by explicitly specifying column keys.
+NOTE: Этот подход имеет средний приоритет, то есть он переопределит предопределенный предикат фильтрации колонок, но будет переопределен явным указанием ключей колонок.
 
-. *Explicit Column Key Specification (List of Keys)*:
+. *Явное указание ключей колонок*:
 +
-This provides the most direct control over which columns are exported. Use the `columnKeysToExport` xref:flow-ui:actions/standard-actions.adoc#additional-properties[additional property] of the export action to define a comma-separated list of column keys to export within the `<action>` definition:
+Этот вариант обеспечивает самый прямой контроль над тем, какие колонки экспортируются. Используйте xref:flow-ui:actions/standard-actions.adoc#additional-properties[дополнительное свойство] `columnKeysToExport` действия экспорта, чтобы определить разделенный запятыми список ключей колонок для экспорта в определении `<action>`:
 +
 [source,xml,indent=0]
 ----
 include::example$/gridexport-ex1/src/main/resources/com/company/demo/view/customers/customers-view.xml[tags=excel]
 ----
 +
-NOTE: This option has the highest priority and will override any other settings.
+NOTE: Этот вариант имеет наивысший приоритет и переопределит любые другие настройки.
 
-*Priority Order*. So, the filtering options are processed in this order:
+*Порядок приоритета*. Итак, варианты фильтрации обрабатываются в следующем порядке:
 
-1.  Explicit column key specification.
-2.  Flexible filtering predicate.
-3.  Predefined column filter predicate.
+. Явное указание ключей колонок.
+. Гибкий предикат фильтрации.
+. Предопределенный предикат фильтрации колонок.
 
 [[excel-export-action]]
 == ExcelExportAction
 
-`ExcelExportAction` is an action extending `ExportAction` and designed to export the data grid content in XLSX format.
+`ExcelExportAction` - это действие, расширяющее `ExportAction` и предназначенное для экспорта содержимого таблицы данных в формате XLSX.
 
-The action is implemented by the `io.jmix.gridexportflowui.action.ExcelExportAction` class and should be defined in XML using `type="grdexp_excelExport"` action’s attribute for a list component. Common action parameters can be configured through XML attributes within the `action` element. For more information, refer to the xref:flow-ui:actions/declarative-actions.adoc[Declarative Actions] documentation.
+Действие реализовано классом `io.jmix.gridexportflowui.action.ExcelExportAction` и должно быть определено в XML с использованием атрибута действия `type="grdexp_excelExport"` для компонента списка. Общие параметры действия можно настроить через XML-атрибуты внутри элемента `action`. Для получения дополнительной информации обратитесь к документации xref:flow-ui:actions/declarative-actions.adoc[Декларативные действия].
 
-For example:
+Например:
 
 [source,xml,indent=0]
 ----
 include::example$/gridexport-ex1/src/main/resources/com/company/demo/view/customer/customer-list-view.xml[tags=actions;excelExport]
 ----
 
-Alternatively, you can inject the action into the view controller and customize its settings using setter methods:
+Альтернативно, вы можете инжектировать действие в контроллер экрана и настроить его параметры с помощью методов-сеттеров:
 
 [source,java,indent=0]
 ----
 include::example$/gridexport-ex1/src/main/java/com/company/demo/view/customer/CustomerListView.java[tags=excelExport;onInit]
 ----
 
-You can also override localized data format strings. The default format string settings for Excel export are as follows:
+Вы также можете переопределить локализованные строки формата данных. Настройки строк формата по умолчанию для экспорта в Excel выглядят следующим образом:
 
 [source,properties]
 ----
@@ -125,18 +126,18 @@ excelExporter.decimalFormat=#,##0.00
 [[json-export-action]]
 == JsonExportAction
 
-`JsonExportAction` is an action extending `ExportAction` and designed to export the data grid content in JSON format.
+`JsonExportAction` - это действие, расширяющее `ExportAction` и предназначенное для экспорта содержимого таблицы данных в формате JSON.
 
-The action is implemented by the `io.jmix.gridexportflowui.action.JsonExportAction` class and should be defined in XML using `type="grdexp_jsonExport"` action’s attribute for a list component. Common action parameters can be configured through XML attributes within the `action` element. For more information, refer to the xref:flow-ui:actions/declarative-actions.adoc[Declarative Actions] documentation.
+Действие реализовано классом `io.jmix.gridexportflowui.action.JsonExportAction` и должно быть определено в XML с использованием атрибута действия `type="grdexp_jsonExport"` для компонента списка. Общие параметры действия можно настроить через XML-атрибуты внутри элемента `action`. Для получения дополнительной информации обратитесь к документации xref:flow-ui:actions/declarative-actions.adoc[Декларативные действия].
 
-For example:
+Например:
 
 [source,xml,indent=0]
 ----
 include::example$/gridexport-ex1/src/main/resources/com/company/demo/view/customer/customer-list-view.xml[tags=actions;jsonExport]
 ----
 
-Alternatively, you can inject the action into the view controller and customize its settings using setter methods:
+Альтернативно, вы можете инжектировать действие в контроллер экрана и настроить его параметры с помощью методов-сеттеров:
 
 [source,java,indent=0]
 ----
@@ -144,7 +145,7 @@ include::example$/gridexport-ex1/src/main/java/com/company/demo/view/customer/Cu
 ----
 
 [[limatations]]
-== Limitations
+== Ограничения
 
-* When exporting `TreeDataGrid`, the column containing the hierarchy property will not include any padding.
-* Exporting entities with a composite primary key is not supported.
+* При экспорте `TreeDataGrid` колонка, содержащая свойство иерархии, не будет включать никаких отступов.
+* Экспорт сущностей с составным первичным ключом не поддерживается.

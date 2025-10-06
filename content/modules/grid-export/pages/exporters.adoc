@@ -1,15 +1,14 @@
-= Exporters
+= Экспортеры
 
-//Coming soon.
-The `DataGridExporter` interface is designed to export the `DataGrid` content to a particular format and download it. An instance of `DataGridExporter` is passed to the `setDataGridExporter()` method of xref:grid-export:actions.adoc[ExportAction].
+Интерфейс `DataGridExporter` предназначен для экспорта содержимого `DataGrid` в определенный формат и его загрузки. Экземпляр `DataGridExporter` передается в метод `setDataGridExporter()` действия xref:grid-export:actions.adoc[ExportAction].
 
-`DataGridExporter` has two standard implementations:
+`DataGridExporter` имеет две стандартные реализации:
 
-* `ExcelExporter` is used in the xref:grid-export:actions.adoc#excel-export-action[ExcelExportAction] action.
+* `ExcelExporter` используется в действии xref:grid-export:actions.adoc#excel-export-action[ExcelExportAction].
 
-* `JsonExporter` is used in the xref:grid-export:actions.adoc#json-export-action[JsonExportAction] action.
+* `JsonExporter` используется в действии xref:grid-export:actions.adoc#json-export-action[JsonExportAction].
 
-You can create a custom exporter by extending a standard one or by implementing the `DataGridExporter` interface from scratch, for example:
+Вы можете создать пользовательский экспортер, расширив стандартный или реализовав интерфейс `DataGridExporter` с нуля, например:
 
 [source,java,indent=0]
 ----
