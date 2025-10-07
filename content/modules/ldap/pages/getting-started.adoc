@@ -1,48 +1,48 @@
-= Getting Started with LDAP
+= Начало работы с LDAP
 
-Let's consider we will use LDAP authentication and maintain users in the application.
+Давайте рассмотрим сценарий, когда мы будем использовать LDAP-аутентификацию и управлять пользователями в приложении.
 
-First, add the LDAP add-on to your project according to the xref:ldap:index.adoc#installation[installation] section.
+Сначала добавьте дополнение LDAP в ваш проект в соответствии с разделом xref:ldap:index.adoc#installation[установки].
 
 [[configuring-main-properties]]
-== Configuring Main Properties
+== Настройка основных свойств
 
-Now, add the main LDAP properties. We will use a test LDAP server - `\ldap://ldap.forumsys.com:389/` that have some https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/[test users^].
+Теперь добавьте основные свойства LDAP. Мы будем использовать тестовый LDAP-сервер - `\ldap://ldap.forumsys.com:389/`, на котором есть несколько https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/[тестовых пользователей^].
 
 [source,properties,indent=0]
 ----
 include::example$/ex1/src/main/resources/application.properties[tags=properties]
 ----
 
-xref:ldap:properties.adoc#jmix.ldap.default-roles[jmix.ldap.default-roles] contains a list of roles that will be assigned to every user authenticated in LDAP. It is needed since a user without any roles will not be able to log in to the application.
+xref:ldap:properties.adoc#jmix.ldap.default-roles[jmix.ldap.default-roles] содержит список ролей, которые будут назначены каждому пользователю, аутентифицированному через LDAP. Это необходимо, поскольку пользователь без каких-либо ролей не сможет войти в приложение.
 
-Set the `jmix.ldap.default-roles` property to `ui-minimal`.
+Установите свойство `jmix.ldap.default-roles` в значение `ui-minimal`.
 
 [source,properties,indent=0]
 ----
 include::example$/ex1/src/main/resources/application.properties[tags=default-roles]
 ----
 
-You can find out more about the meaning of each property in the xref:ldap:properties.adoc[Properties] section.
+Подробнее о значении каждого свойства вы можете узнать в разделе xref:ldap:properties.adoc[Свойства LDAP].
 
 [[configuring-synchronization]]
-== Configuring Synchronization
+== Настройка синхронизации
 
-Now we need to describe the way we want users to be synchronized.
+Теперь нам нужно описать способ синхронизации пользователей.
 
-We will implement the default scenario when the add-on authenticates users from the application against LDAP. If a user is successfully authenticated in LDAP, but it does not have `UserDetails` in the application, it will be automatically synchronized, and `UserDetails` will be created in accordance with the corresponding LDAP entry.
+Мы реализуем сценарий по умолчанию, когда дополнение аутентифицирует пользователей из приложения через LDAP. Если пользователь успешно аутентифицирован в LDAP, но у него нет `UserDetails` в приложении, он будет автоматически синхронизирован, и `UserDetails` будет создан в соответствии с соответствующей записью LDAP.
 
-Let's declare a bean implementing the `LdapUserDetailsSynchronizationStrategy` interface. The add-on comes with a basic abstract implementation: `AbstractLdapUserDetailsSynchronizationStrategy`, so in a simple case the strategy can be declared by only specifying a concrete `User` class and implementing a simple mapping:
+Объявим бин, реализующий интерфейс `LdapUserDetailsSynchronizationStrategy`. Дополнение поставляется с базовой абстрактной реализацией: `AbstractLdapUserDetailsSynchronizationStrategy`, поэтому в простом случае стратегию можно объявить, просто указав конкретный класс `User` и реализовав простое отображение:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/ldap/ex1/app/CustomUserSynchronizationStrategy.java[tags=strategy]
 ----
 
-Note that `AbstractLdapUserDetailsSynchronizationStrategy` also persists role assignments that were obtained during the role mapping flow. After each synchronization execution, role assignments are rewritten with the new ones. It is done in order not to preserve the obsolete role assignments.
+Обратите внимание, что `AbstractLdapUserDetailsSynchronizationStrategy` также сохраняет назначения ролей, полученные в процессе сопоставления ролей. После каждого выполнения синхронизации назначения ролей перезаписываются новыми. Это делается для того, чтобы не сохранять устаревшие назначения ролей.
 
-So, let's set the xref:ldap:properties.adoc#jmix.ldap.synchronize-role-assignments[jmix.ldap.synchronize-role-assignments] to `false` in order to manage user roles manually in the application.
+Итак, установим свойство xref:ldap:properties.adoc#jmix.ldap.synchronize-role-assignments[jmix.ldap.synchronize-role-assignments] в `false`, чтобы управлять ролями пользователей вручную в приложении.
 
-After the synchronization strategy is declared, users will be synchronized on every login. If you want to disable user synchronization on login, set the xref:ldap:properties.adoc#jmix.ldap.synchronize-user-on-login[jmix.ldap.synchronize-user-on-login] to `false`.
+После объявления стратегии синхронизации пользователи будут синхронизироваться при каждом входе в систему. Если вы хотите отключить синхронизацию пользователей при входе, установите свойство xref:ldap:properties.adoc#jmix.ldap.synchronize-user-on-login[jmix.ldap.synchronize-user-on-login] в `false`.
 
-If you want to manage users fully in LDAP and not maintain them in the application, see the xref:ldap:in-memory-user-management.adoc[In memory user management] section.
+Если вы хотите полностью управлять пользователями в LDAP и не поддерживать их в приложении, смотрите раздел xref:ldap:in-memory-user-management.adoc[Управление пользователями в памяти].

@@ -1,22 +1,21 @@
 = LDAP
 
-The add-on provides an easy way to enable LDAP authentication in Jmix applications. It allows you to synchronize users and map LDAP groups and user attributes to Jmix security roles. You can use the add-on with Active Directory and any other LDAP implementation.
+Дополнение предоставляет простой способ включения LDAP-аутентификации в приложениях Jmix. Оно позволяет синхронизировать пользователей и сопоставлять группы LDAP и атрибуты пользователей с ролями безопасности Jmix. Вы можете использовать дополнение с Active Directory и любой другой реализацией LDAP.
 
-Also, the add-on supports the case when users are managed only in LDAP, and you don't store a user entity in the database.
+Кроме того, дополнение поддерживает случай, когда пользователи управляются только в LDAP, и вы не храните сущность пользователя в базе данных.
 
-The add-on uses the Spring Security LDAP and provides a ready-to-go security configuration that could be easily enabled by including the add-on in the application. The process and main settings of the LDAP authentication are described in the {spring-security-doc}/servlet/authentication/passwords/ldap.html[Spring Security documentation^].
+Дополнение использует Spring Security LDAP и предоставляет готовую конфигурацию безопасности, которую можно легко включить, добавив дополнение в приложение. Процесс и основные настройки LDAP-аутентификации описаны в {spring-security-doc}/servlet/authentication/passwords/ldap.html[документации Spring Security^].
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependency to your `build.gradle`:
+Для ручной установки добавьте следующую зависимость в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
 include::example$/ex1/build.gradle[tags=ldap-dep]
 ----
 
-To start working with the application, you need to configure main LDAP properties. See an example in the xref:ldap:getting-started.adoc#configuring-main-properties[Getting Started] section.
-
+Чтобы начать работу с приложением, вам необходимо настроить основные свойства LDAP. Смотрите пример в разделе xref:ldap:getting-started.adoc#configuring-main-properties[Начало работы].

@@ -1,4 +1,3 @@
-= Global User Synchronization
+= Глобальная синхронизация пользователей
 
-The add-on provides the `LdapUserSynchronizationManager` bean that synchronizes users from the particular LDAP group specified in the xref:ldap:properties.adoc#jmix.ldap.group-for-synchronization[jmix.ldap.group-for-synchronization] property. Typically, this bean would be invoked on schedule task execution, for example, once a day, but also it can be run via JMX bean. The synchronization also relies on `LdapUserDetailsSynchronizationStrategy` declared in the application as well as synchronization on login.
-
+Дополнение предоставляет бин `LdapUserSynchronizationManager`, который синхронизирует пользователей из определенной группы LDAP, указанной в свойстве xref:ldap:properties.adoc#jmix.ldap.group-for-synchronization[jmix.ldap.group-for-synchronization]. Обычно этот бин вызывается при выполнении запланированной задачи, например, раз в день, но также может быть запущен через JMX-бин. Синхронизация также опирается на `LdapUserDetailsSynchronizationStrategy`, объявленную в приложении, а также на синхронизацию при входе в систему.

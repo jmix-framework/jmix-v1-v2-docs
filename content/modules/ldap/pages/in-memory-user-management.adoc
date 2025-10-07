@@ -1,24 +1,23 @@
-= In-memory User Management
+= Управление пользователями в памяти
 
-If you want to manage users fully in LDAP, set the following property:
+Если вы хотите полностью управлять пользователями в LDAP, установите следующее свойство:
 
 [source,properties,indent=0]
 ----
 jmix.ldap.user-details-source = ldap
 ----
+В этом случае стандартные объекты `LdapUserDetails` создаются Spring Security после каждой аутентификации и сохраняются в памяти вместо извлечения из базы данных как сущность `User`. Права пользователей (authorities) получаются в процессе сопоставления ролей, описанном в разделе xref:ldap:obtaining-user-authorities.adoc[Получение прав пользователей].
 
-In this case, standard `LdapUserDetails` objects are created by Spring Security after each authentication and preserved in memory instead of being taken from the database as the `User` entity. User authorities are obtained by the role mapping process described in the xref:ldap:obtaining-user-authorities.adoc[Obtaining User Authorities] section.
-
-The case when maintaining users in the application is described in the xref:ldap:getting-started.adoc[Getting Started] section.
+Сценарий, при котором пользователи поддерживаются в приложении, описан в разделе xref:ldap:getting-started.adoc[Начало работы с LDAP].
 
 [[ldap-user-repository]]
-== LDAP User Repository
+== Репозиторий пользователей LDAP
 
-When users are primarily managed in LDAP, they can be placed in the application where you need to choose a user or find a user in `SuggestionField`. For this purpose, the addon comes with the LDAP implementation of `UserRepository`. This user repository provides access to users from LDAP, but it does not provide `system` or `anonymous` users. Also, you may want users from the database to be searchable as well.
+Когда пользователи в основном управляются в LDAP, они могут быть размещены в приложении там, где вам нужно выбрать пользователя. Для этой цели дополнение поставляется с LDAP-реализацией `UserRepository`. Этот репозиторий пользователей предоставляет доступ к пользователям из LDAP, но он не предоставляет пользователей `system` или `anonymous`. Также вам может понадобиться, чтобы пользователи из базы данных также были доступны для поиска.
 
-To achieve this, declare the `CompositeUserRepository` bean, which comprises all instances of `UserRepository` in the application, for example, `LdapUserRepository` and `DatabaseUserRepository`. 
+Чтобы достичь этого, объявите бин `CompositeUserRepository`, который объединяет все экземпляры `UserRepository` в приложении, например, `LdapUserRepository` и `DatabaseUserRepository`.
 
-Remove the `@Primary` annotation from the `DatabaseUserRepository` not to conflict with the composite repository. Make this `UserRepository` primary in the application:
+Удалите аннотацию `@Primary` из `DatabaseUserRepository`, чтобы не конфликтовать с составным репозиторием. Сделайте этот `UserRepository` основным (primary) в приложении:
 
 [source,java,indent=0]
 ----

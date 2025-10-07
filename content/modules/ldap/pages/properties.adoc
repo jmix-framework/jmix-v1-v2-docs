@@ -1,146 +1,145 @@
-= LDAP Properties
+= Свойства LDAP
 
 [[jmix.ldap.enabled]]
 == jmix.ldap.enabled
 
-Defines if the LDAP authentication is enabled.
+Определяет, включена ли LDAP-аутентификация.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.ldap.default-roles]]
 == jmix.ldap.default-roles
 
-Defines a list of roles that will be assigned to every user after successful authentication.
+Определяет список ролей, которые будут назначены каждому пользователю после успешной аутентификации.
 
-Example: `jmix.ldap.default-roles = ui-minimal, ui-filter`
+Пример: `jmix.ldap.default-roles = ui-minimal, ui-filter`
 
 [[jmix.ldap.user-details-source]]
 == jmix.ldap.user-details-source
 
-Defines a source of the `UserDetails` objects returned after successful authentication.
+Определяет источник объектов `UserDetails`, возвращаемых после успешной аутентификации.
 
-Possible values:
+Возможные значения:
 
-* `app` - `UserDetails` obtained from the primary `UserDetailsService` of the application, typically from the database.
-* `ldap` - standard `LdapUserDetails` objects created by Spring Security.
+* `app` - `UserDetails` получаются из основного `UserDetailsService` приложения, обычно из базы данных.
+* `ldap` - стандартные объекты `LdapUserDetails`, создаваемые Spring Security.
 
-Default value: `app`
+Значение по умолчанию: `app`
 
 [[jmix.ldap.urls]]
 == jmix.ldap.urls
 
-Spesifies LDAP server URLs. LDAP URLs (SSL-secured) may be used as well, considering that Spring Security can connect to the server. Note that these URLs must not include the base DN. Multiple URLs can be specified in the comma-separated list. In this case, a connection will be established to any of the provided LDAP server URLs.
+Указывает URL-адреса LDAP-сервера. Также могут использоваться защищенные SSL URL-адреса LDAP, учитывая, что Spring Security может подключиться к серверу. Обратите внимание, что эти URL-адреса не должны включать базовый DN. Несколько URL-адресов можно указать в списке, разделенном запятыми. В этом случае соединение будет установлено с любым из предоставленных URL-адресов LDAP-сервера.
 
-Example: `ldap://ldap.company.com:389`
+Пример: `ldap://ldap.company.com:389`
 
 [[jmix.ldap.base-dn]]
 == jmix.ldap.base-dn
 
-Defines a base DN. If configured, all LDAP operations on contexts retrieved from this `ContextSource` relate to this DN. The default value is an empty distinguished name, that is, all operations relate to the directory root.
+Определяет базовый DN. Если настроено, все операции LDAP с контекстами, полученными из этого `ContextSource`, относятся к этому DN. Значение по умолчанию - пустое отличаемое имя, то есть все операции относятся к корню каталога.
 
 [[jmix.ldap.manager-dn]]
 == jmix.ldap.manager-dn
 
-Indicates a DN used for authentication. This is normally the distinguished name of the "manager" user.
+Указывает DN, используемый для аутентификации. Обычно это отличаемое имя пользователя "manager".
 
 [[jmix.ldap.manager-password]]
 == jmix.ldap.manager-password
 
-Defines a password for the "manager" user.
-
+Определяет пароль для пользователя "manager".
 
 [[jmix.ldap.user-search-base]]
 == jmix.ldap.user-search-base
 
-Defines search base for user searches. Used with <<jmix.ldap.user-search-filter,jmix.ldap.user-search-filter>>.
+Определяет базу поиска для поиска пользователей. Используется вместе с <<jmix.ldap.user-search-filter,jmix.ldap.user-search-filter>>.
 
 [[jmix.ldap.user-search-filter]]
 == jmix.ldap.user-search-filter
 
-An LDAP filter used to search for users. The substituted parameter is the user's login name.
+Фильтр LDAP, используемый для поиска пользователей. Подставляемым параметром является имя для входа пользователя.
 
-Example: `(uid=\{0})`
+Пример: `(uid=\{0})`
 
 [[jmix.ldap.username-attribute]]
 == jmix.ldap.username-attribute
 
-An LDAP attribute corresponding to the username. It is used during user synchronization to assign the correct username for the user.
+Атрибут LDAP, соответствующий имени пользователя. Используется во время синхронизации пользователей для назначения правильного имени пользователя.
 
-Default value: `uid`
+Значение по умолчанию: `uid`
 
 [[jmix.ldap.group-role-attribute]]
 == jmix.ldap.group-role-attribute
 
-An attribute of the LDAP group corresponding to the authority name.
+Атрибут группы LDAP, соответствующий названию права.
 
-Default value: `cn`
+Значение по умолчанию: `cn`
 
 [[jmix.ldap.group-search-base]]
 == jmix.ldap.group-search-base
 
-Defines a search base for group searches. 
+Определяет базу поиска для поиска групп.
 
-The default value is an empty string.
+Значение по умолчанию: пустая строка.
 
 [[jmix.ldap.group-search-subtree]]
 == jmix.ldap.group-search-subtree
 
-If set to `true`, a subtree scope search will be performed. If `false`, a single-level search is used.
+Если установлено в `true`, будет выполнен поиск в области поддерева. Если `false`, используется одноуровневый поиск.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.ldap.group-search-filter]]
 == jmix.ldap.group-search-filter
 
-An LDAP filter used to search for user's groups (optional). The substituted parameter is the user's login name.
+Фильтр LDAP, используемый для поиска групп пользователя (опционально). Подставляемым параметром является имя для входа пользователя.
 
-Default value: `(uniqueMember=\{0})`
+Значение по умолчанию: `(uniqueMember=\{0})`
 
 [[jmix.ldap.use-active-directory-configuration]]
 == jmix.ldap.use-active-directory-configuration
 
-Defines if Active Directory specific security configuration should be used instead of the default one.
+Определяет, следует ли использовать специфичную для Active Directory конфигурацию безопасности вместо конфигурации по умолчанию.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.ldap.active-directory-domain]]
 == jmix.ldap.active-directory-domain
 
-Used only with the ActiveDirectory configuration. Specifies the Active Directory domain name.
+Используется только с конфигурацией ActiveDirectory. Указывает доменное имя Active Directory.
 
-Example: `mydomain.com`
+Пример: `mydomain.com`
 
 [[jmix.ldap.group-for-synchronization]]
 == jmix.ldap.group-for-synchronization
 
-A DN of the group containing users to be synchronized in the application.
+DN группы, содержащей пользователей для синхронизации в приложении.
 
 [[jmix.ldap.synchronize-role-assignments]]
 == jmix.ldap.synchronize-role-assignments
 
-Defines whether to save role assignments during user synchronization or not.
+Определяет, сохранять ли назначения ролей во время синхронизации пользователей.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.ldap.standard-authentication-users]]
 == jmix.ldap.standard-authentication-users
 
-Defines a list of users that should always be authenticated with the standard authentication.
+Определяет список пользователей, которые всегда должны аутентифицироваться с помощью стандартной аутентификации.
 
-Default value: `admin, system`
+Значение по умолчанию: `admin, system`
 
-Example: `jmix.ldap.standard-authentication-users = admin, operator`
+Пример: `jmix.ldap.standard-authentication-users = admin, operator`
 
 [[jmix.ldap.synchronize-user-on-login]]
 == jmix.ldap.synchronize-user-on-login
 
-Defines whether users are synchronized on every login. For example, if you want to load users from LDAP beforehand and synchronize them once a day on a scheduled task, set the property to `false`.
+Определяет, синхронизируются ли пользователи при каждом входе в систему. Например, если вы хотите заранее загружать пользователей из LDAP и синхронизировать их раз в день по запланированной задаче, установите свойство в `false`.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.ldap.member-attribute]]
 == jmix.ldap.member-attribute
 
-An LDAP group attribute to specify a group member.
+Атрибут группы LDAP для указания участника группы.
 
-Default value: `uniqueMember`
+Значение по умолчанию: `uniqueMember`

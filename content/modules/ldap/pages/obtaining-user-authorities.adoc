@@ -1,16 +1,16 @@
-= Obtaining User Authorities
+= Получение прав пользователей
 
-When roles are synchronized in accordance with LDAP, they are obtained in a few steps:
+Когда роли синхронизируются в соответствии с LDAP, они получаются в несколько шагов:
 
-* **Obtaining roles from groups a user is a member of**
+* **Получение ролей из групп, в которых состоит пользователь**
 +
-The resulting list of authorities consists of group names a user is a member of. By default, the `cn` attribute of the group is used to obtain the authority name. You can change this attribute in the xref:ldap:properties.adoc#jmix.ldap.group-role-attribute[jmix.ldap.group-role-attribute].
+Итоговый список прав состоит из названий групп, в которых состоит пользователь. По умолчанию для получения названия права используется атрибут `cn` группы. Вы можете изменить этот атрибут в свойстве xref:ldap:properties.adoc#jmix.ldap.group-role-attribute[jmix.ldap.group-role-attribute].
 +
-* **Obtaining roles from user attributes**
+* **Получение ролей из атрибутов пользователя**
 +
-Optionally user roles can be added based on their own attributes.
+Дополнительно роли пользователя могут быть добавлены на основе его собственных атрибутов.
 +
-Register a Spring bean, that implements the `LdapUserAdditionalRoleProvider` interface and implement the `getAdditionalRoles()` method within this bean. For example:
+Зарегистрируйте Spring-бин, реализующий интерфейс `LdapUserAdditionalRoleProvider`, и реализуйте метод `getAdditionalRoles()` в этом бине. Например:
 +
 [source,java,indent=0]
 ----
@@ -24,22 +24,22 @@ public class MyLdapUserAdditionalRoleProvider implements LdapUserAdditionalRoleP
 }
 ----
 +
-* **Applying default roles**
+* **Применение ролей по умолчанию**
 +
-The xref:ldap:properties.adoc#jmix.ldap.default-roles[jmix.ldap.default-roles] property contains a comma-separated list of roles that will be assigned to every user authenticated in LDAP.
+Свойство xref:ldap:properties.adoc#jmix.ldap.default-roles[jmix.ldap.default-roles] содержит разделенный запятыми список ролей, которые будут назначены каждому пользователю, аутентифицированному через LDAP.
 
-The resulting list of authorities is passed through `JmixLdapGrantedAuthoritiesMapper` in order to get the final collection of authorities. This mapper is used to map previously obtained authorities to Jmix `GrantedAuthority`.
+Итоговый список прав передается через `JmixLdapGrantedAuthoritiesMapper` для получения окончательной коллекции прав. Этот маппер используется для сопоставления ранее полученных прав с `GrantedAuthority` в Jmix.
 
-For example, consider that the initial list contains a simple authority with the value of `Administrators`. First, the mapper tries to find a resource role with the same role code. If the role hasn't been found, it searches for a row-level role with the same code. If the role isn't found, it won't be added to the final list.
+Например, предположим, что исходный список содержит простое право со значением `Administrators`. Сначала маппер пытается найти ресурсную роль с таким же кодом роли. Если роль не найдена, он ищет роль уровня строк с таким же кодом. Если роль не найдена, она не будет добавлена в итоговый список.
 
-Also, you can implement the `LdapAuthorityToJmixRoleCodesMapper` interface to map LDAP authorities and Jmix role codes. It is available to map several role codes to one LDAP group. Roles can be either resource or low-level.
+Также вы можете реализовать интерфейс `LdapAuthorityToJmixRoleCodesMapper` для сопоставления прав LDAP и кодов ролей Jmix. Это позволяет сопоставить несколько кодов ролей с одной группой LDAP. Роли могут быть как ресурсными, так и ролями уровня строк.
 
-In the example below, the bean implements mapping the `mathematician` and `scientists` LDAP groups to Jmix role codes:
+В примере ниже бин реализует сопоставление групп LDAP `mathematician` и `scientists` с кодами ролей Jmix:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/ldap/ex1/app/CustomAuthorityMapperBean.java[tags=bean]
 ----
-<1> Overrides the method that takes an LDAP authority as input parameter and returns a collection of role codes that matches the given authority.
-<2> In case of the `mathematicians` group, an LDAP user obtains the `system-full-access` role.
-<3> In case of the `scientists` group, an LDAP user obtains two roles: `scientists-resource-role` and `scientists-row-level-role`.
+<1> Переопределяет метод, который принимает право LDAP в качестве входного параметра и возвращает коллекцию кодов ролей, соответствующих данному праву.
+<2> В случае группы `mathematicians` пользователь LDAP получает роль `system-full-access`.
+<3> В случае группы `scientists` пользователь LDAP получает две роли: `scientists-resource-role` и `scientists-row-level-role`.
