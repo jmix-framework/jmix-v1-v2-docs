@@ -50,8 +50,19 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 Помимо вызова собственных сервисов, в делегате можно выполнить пост-обработку загруженных сущностей.
 
-// todo pagination
-// If you declare custom data loading with a delegate, and you display the loaded data in the DataGrid with a pagination component, then you may also need to define the custom logic to count total number of rows. Take a look at xref:vc/components/pagination.adoc#total-count-delegate[TotalCountDelegate] handler for the pagination component associated with the table.
+Если загрузка данных выполняется с помощью делегата и загруженные данные отображаются в `dataGrid` с компонентом постраничной загрузки (пагинации), то может потребоваться определить также и пользовательскую логику для подсчёта общего количества строк. См. обработчик xref:vc/components/simplePagination.adoc#totalCountDelegate[totalCountDelegate] компонента `simplePagination`.
+
+[[load-from-repository-delegate]]
+=== loadFromRepositoryDelegate
+
+Если вы предпочитаете xref:data-access:data-repositories.adoc[репозитории данных] для доступа к базе данных, рассмотрите возможность использования `loadFromRepositoryDelegate` вместо `loadDelegate`, который описан <<load-delegate,выше>>.
+
+Он принимает аргументы, подходящие для прямого вызова репозитория данных:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView3.java[tags=delegate]
+----
 
 [[pre-load-event]]
 === PreLoadEvent

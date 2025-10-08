@@ -130,3 +130,13 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/simplepagination/SimplePaginationView.java[tags=dataManager;totalCountDelegate]
 ----
+
+[[totalCountByRepositoryDelegate]]
+=== totalCountByRepositoryDelegate
+
+Устанавливает делегат для получения общего количества элементов через xref:data-access:data-repositories.adoc[репозиторий данных]. Например:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView3.java[tags=repository;totalCountByRepositoryDelegate]
+----
