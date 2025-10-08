@@ -50,8 +50,19 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 Apart from invoking a custom service, the load delegate allows you to perform any post-processing of the loaded entities.
 
-// todo pagination
-// If you declare custom data loading with a delegate, and you display the loaded data in the DataGrid with a pagination component, then you may also need to define the custom logic to count total number of rows. Take a look at xref:vc/components/pagination.adoc#total-count-delegate[TotalCountDelegate] handler for the pagination component associated with the table.
+If you declare custom data loading with a delegate, and you display the loaded data in the DataGrid with a pagination component, then you may also need to define the custom logic to count total number of rows. Take a look at the xref:vc/components/simplePagination.adoc#totalCountDelegate[totalCountDelegate] handler for the pagination component associated with the table.
+
+[[load-from-repository-delegate]]
+=== loadFromRepositoryDelegate
+
+If you prefer xref:data-access:data-repositories.adoc[data repositories] for accessing the database, consider using the `loadFromRepositoryDelegate` instead of `loadDelegate` described <<load-delegate,above>>.
+
+It accepts arguments suitable for calling a data repository directly:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView3.java[tags=delegate]
+----
 
 [[pre-load-event]]
 === PreLoadEvent

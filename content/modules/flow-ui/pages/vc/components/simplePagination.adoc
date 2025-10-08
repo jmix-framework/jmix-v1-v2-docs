@@ -130,3 +130,13 @@ Sets delegate which is used to get the total count of items. For example:
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/simplepagination/SimplePaginationView.java[tags=dataManager;totalCountDelegate]
 ----
+
+[[totalCountByRepositoryDelegate]]
+=== totalCountByRepositoryDelegate
+
+Sets delegate which is used to get the total count of items from a xref:data-access:data-repositories.adoc[data repository]. For example:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView3.java[tags=repository;totalCountByRepositoryDelegate]
+----

@@ -23,15 +23,23 @@ See also the full list of <<breaking-changes,breaking changes>> that can affect 
 [[updated-dependencies]]
 == Updated Dependencies
 
-The following major dependencies have been updated:
-
-* Vaadin https://github.com/vaadin/platform/releases/tag/24.8.0[24.8^].
+Vaadin has been updated to https://github.com/vaadin/platform/releases/tag/24.9.0[24.9^].
 
 [[new-features]]
 == New Features and Improvements
 
 [[studio]]
 === Studio Improvements
+
+[[card-component]]
+=== Card Component
+
+The xref:flow-ui:vc/layouts/card.adoc[] component is a container designed to present content in a card format. It provides customization options for layout and appearance, allowing for the organization of related content and actions.
+
+[[gridlayout-component]]
+=== GridLayout Component
+
+The xref:flow-ui:vc/layouts/gridLayout.adoc[] component arranges child components in a responsive, two-dimensional grid system based on the CSS Grid Layout. It allows you to render individual components, <<card-component,cards>> or fragments, and can be a viable alternative to data grids.
 
 [[usermenu-component]]
 === UserMenu Component
@@ -44,8 +52,30 @@ The dropdown menu of the component can contain predefined and custom actions, as
 
 The new project template now includes the `userMenu` component in the main view.
 
+[[date-filtering]]
+=== Date Filtering
+
+The `genericFilter` and `propertyFilter` components now provides a new comparison operation: xref:flow-ui:vc/components/propertyFilter.adoc#date-equals[date equals]. It omits time in datetime values and allows users to easily test if a datetime value is within a particular date.
+
+The xref:flow-ui:vc/components/propertyFilter.adoc#date-interval[Date Interval] dialog now supports arbitrary start and end date, and can be used instead of creating two conditions `>=` and `<` when checking if a datetime value is within a range.
+
+[[data-repositories]]
+=== Data Repositories
+
+The `JmixDataRepository` interface now extends `org.springframework.data.repository.ListCrudRepository`, and all its `findAll()` methods that previously returned `Iterable` now return `List`.
+
+The `JmixDataRepository` methods returning `Page` perform additional `count` request to the database to provide total number of items and pages in the `Page` object. If you don't need the number of pages in your logic, use the new `findAllSlice()` methods returning `Slice`. This will reduce the load on the database.
+
+The new xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] and xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] handlers simplify usage of data repositories in views. They allow you to invoke data repositories directly without converting parameters from the `LoadContext` object. If you select the *Use Data Repositories* checkbox in the xref:studio:view-wizard.adoc#creating-entity-based-views[
+View Creation Wizard], the created view will use the new delegates.
+
 [[rest-data-store]]
 === REST DataStore Improvements
+
+[[entity-log]]
+=== Entity Log
+
+The xref:audit:entity-log.adoc[] now can track changes in many-to-many attributes on the xref:data-modeling-many-to-many-guide:index.adoc#owning-side[owning side].
 
 [[breaking-changes]]
 == Breaking Changes
