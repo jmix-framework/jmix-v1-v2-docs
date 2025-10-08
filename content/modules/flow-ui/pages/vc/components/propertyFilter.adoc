@@ -15,6 +15,7 @@ The component can be used independently or as part of the xref:flow-ui:vc/compon
 
 * Java class: `PropertyFilter`
 
+[[basics]]
 == Basics
 
 At its simplest, `propertyFilter` consists of an input field preceded by the name of the property being filtered and the operation being used.
@@ -29,6 +30,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 This component filters data loaded to a data container. It is commonly used in conjunction with xref:vc/components/dataGrid.adoc[] or xref:vc/components/treeDataGrid.adoc[] components, which are bound to the same container. This combination allows for precise control over the rows displayed.
 
+[[filtering-operations]]
 == Filtering Operations
 
 The component supports numerous filtering <<operation, operations>>. You can limit it to a specific operation or allow users to choose the operation they want at runtime using the <<operationEditable,operationEditable>> attribute.
@@ -42,12 +44,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 The list of available operations depends on the property type.
 
+[[data-binding]]
 == Data Binding
 
 Data binding refers to linking a visual component to a data container. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
 
 Property filter can filter data loaded to either xref:data/collection-container.adoc[collection container] or xref:data/key-value-containers.adoc[key-value container].
 
+[[collection-container]]
 === Collection Container
 
 The following example demonstrates setting up `propertyFilter` to work with a collection container:
@@ -57,6 +61,7 @@ The following example demonstrates setting up `propertyFilter` to work with a co
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=data;usersDc;layout;binding-collection]
 ----
 
+[[key-value-collection-container]]
 === Key-Value Collection Container
 
 The following example demonstrates setting up `propertyFilter` to work with a key-value collection container:
@@ -66,6 +71,7 @@ The following example demonstrates setting up `propertyFilter` to work with a ke
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=data;statusesDc;layout;binding-key-value]
 ----
 
+[[multi-filtering]]
 == Multi-Filtering
 
 Binding multiple `propertyFilter` components to a single data container allows to apply several conditions simultaneously. For example, use two components to support filtering by department and last name:
@@ -77,6 +83,7 @@ image::flow-ui:visual-components/components/property-filter-multifiltering.png[a
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=multiple-filters]
 ----
 
+[[filtering-dates]]
 == Filtering Dates
 
 [[date-equals]]
@@ -99,8 +106,9 @@ Choose from:
 * *Next*: intervals such as "next 3 years" or "next 48 hours".
 * *Predefined*: quick selections including "today", "tomorrow", "this month", or "this year".
 * *Relative date and time*: for conditions like "by the end of the day", "at the start of the hour", "not the last day of the year".
-* *Custom*: for any start and end date.
+* *Custom*: for any start and end date. The start date is included in the range, the end date is excluded.
 
+[[customization]]
 == Customization
 
 You can explicitly specify the component to use as the input field and set its attributes. This enables to change the default `propertyFilter` look and feel and enhance it with additional features. For example:
@@ -112,6 +120,7 @@ image::flow-ui:visual-components/components/property-filter-custom-input-field.p
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=custom-input-field]
 ----
 
+[[dynamic-attributes]]
 == Dynamic Attributes
 
 The component supports filtering by xref:dyn-attr:index.adoc[dynamic attributes]. This does not require having the xref:dyn-attr:dynattr-view.adoc#using-dynamicattributes-facet[dynamicAttributes] facet on that view.
@@ -321,6 +330,7 @@ If you are not satisfied with the predefined validators, add your own validator 
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/propertyfilter/PropertyFilterView.java[tags=validator]
 ----
 
+[[elements]]
 == Elements
 
 xref:vc/components/tooltip.adoc[tooltip] -
