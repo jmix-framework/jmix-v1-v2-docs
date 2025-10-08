@@ -63,6 +63,9 @@ includeBuild 'external/jmix-restds-oidc-sample'
 cloneOrPull('https://github.com/jmix-framework/jmix-observability-logging-sample', 'external/jmix-observability-logging-sample')
 includeBuild 'external/jmix-observability-logging-sample'
 
+cloneOrPull('https://github.com/jmix-framework/jmix-reports-sample', 'external/jmix-reports-sample')
+includeBuild 'external/jmix-reports-sample'
+
 includeBuild 'content/modules/audit/examples/audit-ex1'
 
 includeBuild 'content/modules/authorization-server/examples/authserver-ex1'

@@ -13,6 +13,7 @@ include::tutorial:partial$nav.adoc[]
 *** xref:data-modeling-composition-guide:index.adoc[]
 *** xref:application-events-guide:index.adoc[]
 *** xref:application-logging-guide:index.adoc[]
+*** xref:reports-guide:index.adoc[]
 ** Advanced Topics
 *** xref:social-login-guide:index.adoc[]
 *** xref:integrated-apps-guide:index.adoc[]

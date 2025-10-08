@@ -38,6 +38,10 @@ Guides are comprehensive resources that provide step-by-step instructions and ex
 |Intermediate
 |Find out how to leverage Java logging tools to monitor and understand the behavior of a running Jmix application.
 
+|xref:reports-guide:index.adoc[]
+|Intermediate
+|Explore practical examples of reports created using the Jmix Reports add-on.
+
 |xref:social-login-guide:index.adoc[]
 |Advanced
 |Learn how to implement Social Login through Google and GitHub.
