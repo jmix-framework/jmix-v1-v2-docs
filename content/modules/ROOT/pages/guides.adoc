@@ -38,6 +38,10 @@
 |Средний
 |Описывает использование инструментов журналирования Java для мониторинга и понимания поведения работающего приложения Jmix.
 
+|xref:reports-guide:index.adoc[]
+|Intermediate
+|Explore practical examples of reports created using the Jmix Reports add-on.
+
 |xref:social-login-guide:index.adoc[]
 |Продвинутый
 |Показывает, как реализовать Social Login через Google и GitHub.
