@@ -1,0 +1,7 @@
+ext.jmixCompositeProjectRoot = true
+
+tasks.register('test') {
+    dependsOn gradle.includedBuild('customers').task(':test')
+    dependsOn gradle.includedBuild('orders').task(':test')
+    dependsOn gradle.includedBuild('products').task(':test')
+}

@@ -337,6 +337,134 @@ include::example$rest-ds-client/src/main/java/com/company/clientapp/view/custome
 
 2. Используйте API `RestClient` для вызова эндпойнта с соответствующими параметрами.
 
+[[sharing-code]]
+== Выделение общего кода приложений
+
+Вы можете совместно использовать классы сущностей и интерфейсы сервисов в приложениях, интегрированных с помощью REST DataStore. Это приводит к более тесной связи между приложениями, но сокращает дублирование кода и усилия на разработку.
+
+При таком подходе общий код помещается в отдельное дополнение (add-on), которое используется как клиентским, так и серверным приложениями. Общий код может включать JPA-сущности, интерфейсы бизнес-сервисов, роли безопасности, а также любые общие утилитные классы.
+
+Ниже мы опишем необходимые шаги для совместного использования сущностей, интерфейсов сервисов и ролей, используя в качестве примера приложения Products и Orders. Приложение Products предоставляет свои сущности `Product` и `ProductCategory` и сервис `InventoryService` через REST API. Приложение Orders использует эти сущности и вызывает сервис через REST DataStore.
+
+[[shared-add-on]]
+=== Общее дополнение
+
+Общее дополнение было создано с помощью стандартного шаблона `Add-On (Java)` в мастере *New Project* студии. Оно включает модули `shared` и `shared-starter`:
+
+[source]
+----
+shared-addon
+├── shared
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com
+│   │   │   │       └── company
+│   │   │   │           └── shared
+│   │   │   │               ├── entity
+│   │   │   │               │   ├── Product.java
+│   │   │   │               │   └── ProductCategory.java
+│   │   │   │               ├── security
+│   │   │   │               │   └── ProductsRole.java
+│   │   │   │               ├── service
+│   │   │   │               │   └── InventoryService.java
+│   │   │   │               └── SharedConfiguration.java
+│   │   │   └── resources
+│   │   │       └── com
+│   │   │           └── company
+│   │   │               └── shared
+│   │   │                   ├── liquibase
+│   │   │                   │   ├── changelog
+│   │   │                   │   │   └── 010-init-products.xml
+│   │   │                   │   └── changelog.xml
+│   │   │                   ├── messages.properties
+│   │   │                   └── module.properties
+│   │   └── test
+│   │       └── ...
+│   └── shared.gradle
+├── shared-starter
+│   ├── src
+│   │   └── ...
+│   └── shared-starter.gradle
+├── build.gradle
+└── settings.gradle
+----
+
+Скрипт сборки основного модуля `shared` определяет только минимальный набор зависимостей Jmix:
+
+[source,groovy]
+.shared-addon/shared/shared.gradle
+----
+include::example$rest-ds-shared/shared-addon/shared/shared.gradle[tags=dependencies]
+----
+
+Дополнение включает следующий общий код:
+
+* JPA-сущности `Product` и `ProductCategory`.
+* Ресурсная роль  `ProductsRole` определяет политики, разрешающие доступ к сущностям и их атрибутам.
+* `InventoryService` — интерфейс, определяющий некоторый бизнес-метод.
+* `010-init-products.xml` — Liquibase changelog, создающий схему базы данных для сущностей `Product` и `ProductCategory`.
+
+[[sharing-code-service-application]]
+=== Сервисное приложение
+
+Сервисное приложение Products включает общее дополнение стандартным образом без какой-либо специфической конфигурации.
+
+Скрипт сборки приложения Products определяет зависимость от стартера общего дополнения:
+
+[source,groovy]
+.products/build.gradle
+----
+include::example$rest-ds-shared/products/build.gradle[tags=dependencies]
+----
+
+Приложение предоставляет реализацию интерфейса `InventoryService`:
+
+[source,java]
+.products/src/main/java/com/company/products/service/InventoryServiceImpl.java
+----
+include::example$rest-ds-shared/products/src/main/java/com/company/products/service/InventoryServiceImpl.java[tags=service]
+----
+
+[[sharing-code-client-application]]
+=== Клиентское приложение
+
+Клиентское приложение Orders также включает общее дополнение:
+
+[source,groovy]
+.orders/build.gradle
+----
+include::example$rest-ds-shared/orders/build.gradle[tags=dependencies]
+----
+
+Дополнительно, клиентское приложение корректирует конфигурацию сущностей и удаленных сервисов для правильной работы с общим кодом.
+
+. Скрипт сборки исключает пакет общих сущностей из JPA-маппинга в свойстве `jmix.entitiesEnhancing.nonJpaPackages`:
++
+[source,groovy]
+.orders/build.gradle
+----
+include::example$rest-ds-shared/orders/build.gradle[tags=non-jpa-entities]
+----
++
+Другой вариант — исключить отдельные классы в свойстве `jmix.entitiesEnhancing.nonJpaClasses`.
+
+. Бин `SharedEntitiesConfigurer` устанавливает REST DataStore `products` в качестве хранилища данных для сущностей общего дополнения:
++
+[source,java]
+.orders/src/main/java/com/company/orders/SharedEntitiesConfigurer.java
+----
+include::example$rest-ds-shared/orders/src/main/java/com/company/orders/SharedEntitiesConfigurer.java[]
+----
+
+. Бин `SharedServicesConfigurer` добавляет фильтр сканирования для поиска интерфейсов сервисов общего дополнения для создания клиентских прокси. Он также определяет имя хранилища для интерфейсов сервисов:
++
+[source,java]
+.orders/src/main/java/com/company/orders/SharedServicesConfigurer.java
+----
+include::example$rest-ds-shared/orders/src/main/java/com/company/orders/SharedServicesConfigurer.java[]
+----
+
 [[limitations]]
 == Ограничения
 
