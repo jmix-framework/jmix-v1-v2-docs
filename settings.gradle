@@ -120,6 +120,9 @@ includeBuild 'content/modules/rest/examples/rest-ex1'
 
 includeBuild 'content/modules/rest-ds/examples/rest-ds-client'
 includeBuild 'content/modules/rest-ds/examples/rest-ds-service'
+includeBuild 'content/modules/rest-ds/examples/rest-ds-shared/shared-addon'
+includeBuild 'content/modules/rest-ds/examples/rest-ds-shared/products'
+includeBuild 'content/modules/rest-ds/examples/rest-ds-shared/orders'
 
 includeBuild 'content/modules/search/examples/search-ex1'
 

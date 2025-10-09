@@ -70,7 +70,11 @@ The new xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFr
 View Creation Wizard], the created view will use the new delegates.
 
 [[rest-data-store]]
-=== REST DataStore Improvements
+=== REST DataStore
+
+The REST DataStore add-on now lets you share entities and service interfaces between integrated applications. This leads to tighter coupling between the applications, but reduces code duplication and development efforts.
+
+See xref:rest-ds:index.adoc#sharing-code[REST DataStore: Sharing Code Between Applications] for more information.
 
 [[entity-log]]
 === Entity Log

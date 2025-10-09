@@ -342,6 +342,134 @@ You can also invoke any endpoints of the service application using the Spring's 
 
 . Use the `RestClient` API to invoke the endpoint with appropriate parameters.
 
+[[sharing-code]]
+== Sharing Code Between Applications
+
+You can share entity classes and service interfaces between applications integrated using the REST DataStore. This leads to tighter coupling between the applications, but reduces code duplication and development efforts.
+
+With this approach, the shared code is placed to a separate add-on that is used both by the client and service applications. The shared code may include JPA entities, business service interfaces, security roles, as well as any common utility classes.
+
+Below we will describe the necessary steps for sharing entities, service interfaces, and roles, using the Products and Orders applications as an example. The Products application exposes its `Product` and `ProductCategory` entities and `InventoryService` through the REST API. The Orders application uses these entities and invokes the service through the REST DataStore.
+
+[[shared-add-on]]
+=== Shared Add-On
+
+The shared add-on has been created using the standard `Add-On (Java)` template in the Studio's *New Project* wizard. It includes the `shared` and `shared-starter` modules:
+
+[source]
+----
+shared-addon
+├── shared
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com
+│   │   │   │       └── company
+│   │   │   │           └── shared
+│   │   │   │               ├── entity
+│   │   │   │               │   ├── Product.java
+│   │   │   │               │   └── ProductCategory.java
+│   │   │   │               ├── security
+│   │   │   │               │   └── ProductsRole.java
+│   │   │   │               ├── service
+│   │   │   │               │   └── InventoryService.java
+│   │   │   │               └── SharedConfiguration.java
+│   │   │   └── resources
+│   │   │       └── com
+│   │   │           └── company
+│   │   │               └── shared
+│   │   │                   ├── liquibase
+│   │   │                   │   ├── changelog
+│   │   │                   │   │   └── 010-init-products.xml
+│   │   │                   │   └── changelog.xml
+│   │   │                   ├── messages.properties
+│   │   │                   └── module.properties
+│   │   └── test
+│   │       └── ...
+│   └── shared.gradle
+├── shared-starter
+│   ├── src
+│   │   └── ...
+│   └── shared-starter.gradle
+├── build.gradle
+└── settings.gradle
+----
+
+The build script of the main `shared` module defines only minimal set of Jmix dependencies:
+
+[source,groovy]
+.shared-addon/shared/shared.gradle
+----
+include::example$rest-ds-shared/shared-addon/shared/shared.gradle[tags=dependencies]
+----
+
+The add-on includes the following shared code:
+
+* `Product` and `ProductCategory` JPA entities.
+* `ProductsRole` resource role defines policies enabling access to the entities and their attributes.
+* `InventoryService` is an interface defining some business method.
+* `010-init-products.xml` is a Liquibase changelog creating database schema for the `Product` and `ProductCategory` entities.
+
+[[sharing-code-service-application]]
+=== Service Application
+
+The Products service application includes the shared add-on in a standard manner without any specific configuration.
+
+The build script of the Products application defines a dependency on the shared add-on's starter:
+
+[source,groovy]
+.products/build.gradle
+----
+include::example$rest-ds-shared/products/build.gradle[tags=dependencies]
+----
+
+The application provides an implementation of the `InventoryService` interface:
+
+[source,java]
+.products/src/main/java/com/company/products/service/InventoryServiceImpl.java
+----
+include::example$rest-ds-shared/products/src/main/java/com/company/products/service/InventoryServiceImpl.java[tags=service]
+----
+
+[[sharing-code-client-application]]
+=== Client Application
+
+The Orders client application also includes the shared add-on:
+
+[source,groovy]
+.orders/build.gradle
+----
+include::example$rest-ds-shared/orders/build.gradle[tags=dependencies]
+----
+
+Additionally, the client application tweaks the configuration of entities and remote services to handle the shared code properly.
+
+. The build script excludes the shared entities package from JPA mapping in `jmix.entitiesEnhancing.nonJpaPackages` property:
++
+[source,groovy]
+.orders/build.gradle
+----
+include::example$rest-ds-shared/orders/build.gradle[tags=non-jpa-entities]
+----
++
+Another option is to exclude individual classes in `jmix.entitiesEnhancing.nonJpaClasses` property.
+
+. The `SharedEntitiesConfigurer` bean sets the `products` REST DataStore as a data store for the shared add-on's entities:
++
+[source,java]
+.orders/src/main/java/com/company/orders/SharedEntitiesConfigurer.java
+----
+include::example$rest-ds-shared/orders/src/main/java/com/company/orders/SharedEntitiesConfigurer.java[]
+----
+
+. The `SharedServicesConfigurer` bean adds a scanner filter to find the shared add-on's service interfaces for making client proxies. It also defines the store name for the service interfaces:
++
+[source,java]
+.orders/src/main/java/com/company/orders/SharedServicesConfigurer.java
+----
+include::example$rest-ds-shared/orders/src/main/java/com/company/orders/SharedServicesConfigurer.java[]
+----
+
 [[limitations]]
 == Limitations
 
