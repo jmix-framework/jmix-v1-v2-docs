@@ -115,6 +115,7 @@ includeBuild 'content/modules/oidc/examples/oidc-ex1'
 includeBuild 'content/modules/pessimistic-lock/examples/pslock-ex1'
 
 includeBuild 'content/modules/reports/examples/library'
+includeBuild 'content/modules/reports/examples/reports-onboarding'
 
 includeBuild 'content/modules/rest/examples/rest-ex1'
 

@@ -2,259 +2,141 @@
 = Getting Started with Reports
 :page-aliases: reports:quick-start.adoc
 
-This section contains the instructions for using the report wizard and the report detail view for creating and executing reports.
+This section helps you quickly explore the basic functionality of the Reports add-on by creating a couple of reports with minimal effort.
 
-Examples in this section are based on the sample Library application, whose source code is available on https://github.com/jmix-framework/jmix-samples-2/tree/main/reports-sample[GitHub^].
+Examples in this section are based on the Onboarding application created in xref:tutorial:index.adoc[]. You will create two reports:
+
+* *User Profile*: Shows the main details and the list of onboarding steps for a selected user.
+* *List of Users*: Displays the list of users and their roles.
+
+TIP: See also the xref:reports-guide:index.adoc[] guide for practical examples of reports with a complex structure and various output types.
 
 [[project_setup_report]]
 == Project Setup
 
-. Download and unpack the source code of the https://github.com/jmix-framework/jmix-samples-2[Jmix Samples^] project, or clone it using Git:
+. Download and unpack the source code of the https://github.com/jmix-framework/jmix-onboarding-2[Jmix Onboarding^] project, or clone it using Git:
 +
 ----
-git clone https://github.com/jmix-framework/jmix-samples-2
+git clone https://github.com/jmix-framework/jmix-onboarding-2.git
 ----
-. Open the `jmix-samples` project in Studio as described in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section.
-. Select the *Library Jmix Application* configuration and run the application as described in the xref:studio:project.adoc#starting-application[Starting Application] section.
-. Log in to the *Library* application with username and password `admin` / `admin`.
+. Open the `jmix-onboarding-2` project in Studio as described in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section.
+. Add the Reports add-on to the project as described in the xref:index.adoc#installation[Installation] section.
 
-To run the wizard, open the xref:report-view.adoc[Report list view] and click *Create* -> *Using wizard*.
+[[creating-report-at-runtime]]
+== Creating Report at Runtime
 
+In this section, you will create the *User Profile* report using the wizard available in the running application. The report definition and template will be stored in the database.
+
+Launch the application using the `Onboarding Jmix Application` run/debug configuration of your IDE, navigate to http://localhost:8080[^] and log in as `admin` with `admin` password.
+
+. Open the *Reports -> Reports* view and run the report creation wizard by clicking *Create -> Using wizard*.
++
 image::reports_wizard_main.png[align="center", width="606"]
-
-The following types of reports can be created using the wizard:
-
-. Report for single entity.
-. Report for list of entities.
-. Report for list of entities, selected by query.
-
-The process of creating a report using the wizard includes three steps:
-
-. Creating a data structure of a report.
-. Editing of report regions.
-. Saving the report.
-
-The created report can be modified using the report detail view and run through the xref:run-report.adoc#run_common[report list view] or using special xref:run-report.adoc#run_actions[actions] (`RunListEntityReportAction`, `RunSingleEntityReportAction`, etc.).
-
-[[using-wizard]]
-== Using Report Wizard
-
-For an easy start, the reports add-on comes with a report wizard, a visual tool for a quick report creation, including xref:creation/bands.adoc[data structure] and xref:creation/templates.adoc[template design].
-
-In this section, you will create a report with an overview of the book’s main data and authors of that book. The report template will be a document in the DOCX format, and the generated report will be saved as a PDF file.
-
-Open the *Reports -> Reports* item in the main menu of the application and click *Create -> Using wizard*. Enter the following parameters on the first step of the wizard:
-
-* Report Entity: `Book`.
-* Template Type: xref:creation/templates.adoc#template_doc[DOCX].
-* Report Name: `Book Record`.
-* Report Type: `Report for single entity`.
-
-image::single_entity_step_1.png[align="center", width="722"]
-
-[[defining-attributes]]
-=== Defining Attributes
-
-On the next step of the wizard, specify the attributes of the `Book` entity and the linked `LiteratureType` entity that should be reflected in the report: `Book.name`, `Book.summary`, `Book.literatureType.name`. Those attributes form the so-called "simple region".
-
-image::single_entity_attributes.png[align="center", width="642"]
-
-Click *OK* to move to the next step - report regions editing.
-
-The appeared view contains a list of named regions - bands that display related data. The wizard enables adding several plain-text regions to the template in order to display different data sets.
-
-A set of entity attributes loaded to a particular region can be modified by clicking the link represented as the list of the selected attributes. You can also add a new region by clicking *Add simple region*.
-
-If the entity contains collection attributes, the *Add tabulated region* button will appear. It enables adding a region for tabular data display.
-
-So, to display a list of associated authors of this `Book` entity, we’ll create another data band. Click on the *Add tabulated region* button.
-
-image::single_entity_step_2.png[align="center", width="722"]
-
-Select `Book.authors` in the *Select attributes* dialog.
-
-Then select the `authors.firstName` and `authors.lastName` attributes.
-
-image::report-region.png[align="center", width="642"]
-
-When all report regions are configured, you can move on to the final step: saving the report. At this point, you can view the complete report template, or change the name and format of the output file to one of the available types. Select PDF report output type.
-
-After clicking the *Save* button, the standard report detail view comes up. Now you can fine-tune the report.
-
-[[output-document]]
-=== Configuring Output Document
-
-Switch to the *Template* tab in the report detail view.
-
-The output document for this report contains one template defined initially through the report wizard. The output type is set to PDF, while the template file is DOCX.
-
-image::configure-template.png[align="center", width="642"]
-
-Click on the template file name and open it, for example, via LibreOffice. Change the xref:reports:creation/templates.adoc#template_doc[template content] according to the picture:
-
-image::edit-template-for-report1.png[align="center", width="1244"]
-
-[NOTE]
-====
-The templates of the reports can be found in the demo project under https://github.com/jmix-framework/jmix-samples-2/tree/main/reports-sample/src/main/resources/com/company/library/reports/templates[reports/templates^].
-====
-
-Click to the *Upload* button of the *Report template* dialog and select the updated template.
-
-Additionally, it is possible to define the filename of the output document. This can either be a static filename or it can be programmatically configured.
-
-In our case, the filename should look like this for the book with the name "The 20th Century Art Book": `Book Record - The 20th Century Art Book.pdf`.
-
-To achieve this, we can configure a pattern which references a particular band: `${Root.title}.pdf`.
-
-image::output-name-pattern.png[align="center", width="642"]
-
-`Root.title` refers to the `title` value of the `Root` data band.
-
-Switch on the *Bands* tab. Select the `Root` band and check the *Multi Datasets* checkbox.
-
-image::add-title-dataset.png[align="center", width="1386"]
-
-Create a new `title` dataset.
-
-A groovy based data set will define the value for the `title` attribute like this:
-
-[source,groovy,indent=0]
-----
-def bookName = params["entity"]["name"] //<1>
-
-return [
-    ["title" : "Book Record - $bookName"] //<2>
-]
-----
-<1> The `params` variable gives access to different external parameters. `params["entity"]` refers to the selected book instance.
-<2> A List of Maps has to be returned from this groovy script. Under the `title` key, it will put the target filename.
-
-[[running-report]]
-=== Running Report from Books View
-
-Additionally, we can enable the report run on the book list view. To do this, we will declare a standard xref:run-report.adoc#run-list-entity-report-action[RunListEntityReport] in the `book-list-view.xml` view descriptor:
-
-[source, xml,indent=0]
-----
-include::example$/library/src/main/resources/com/company/library/view/book/book-list-view.xml[tags=buttonsPanel;reportPrint;booksDataGrid;actions;reportPrint]
-----
-<1> Add a button with run report action.
-<2> The `type` attribute defines a specific `report_runListEntityReport` action type.
-
-Then we should link our report with the `Book` list view. In the report detail view, switch to the *Roles and views* tab and add the `Book.list` view from the dropdown list to the table below:
-
-image::single_entity_screens.png[align="center", width="1111"]
-
-Save the report.
-
-Now you can run the report for any book by selecting it in the table and simply clicking the *Print details* button.
-
-image::single_entity_running.png[align="center", width="933"]
-
-The output is as follows:
-
-image::single_entity_result.png[align="center", width="1062"]
-
-[[creating-report-manually]]
-== Creating Report Manually
-
-In this section you will create a more complex report without using the wizard.
-
-The report will contain the list of publications grouped by literature types and books.
-
-The upper part of the report will contain an information about the report creator and the date of the report. A table with a sequential grouping by literature type and books will be listed below.
-
-The report will have the following settings:
-
-* Template Type: xref:creation/templates.adoc#template_xls[XLSX].
-* Report Name: `Publications grouped by types and books`.
-
-[[creating-template]]
-=== Creating Template
-
-Create a `Template for publications by type.xlsx` template for our report using Microsoft Office or LibreOffice.
-
-image::template-for-report2.png[align="center", width="1552"]
-
-This report template contains named regions (`type`, `book`, `publisher`) for three datasets of dependent bands and, additionally, named regions for the column header (`tableheader`) and for additional information about the report (`header`).
-
-[NOTE]
-====
-The templates of the reports can be found in the demo project under https://github.com/jmix-framework/jmix-samples-2/tree/main/reports-sample/src/main/resources/com/company/library/reports/templates[reports/templates^].
-====
-
-[[report-structure]]
-=== Defining Report Structure
-
-Open the *Reports -> Reports* view in the main menu of the application and click *Create -> New*.
-
-The xref:creation/details.adoc[Report details] tab of the report detail view is shown.
-
-Define the report name - `Publications grouped by types and books`.
-
-//image::structure-for-report2.png[align="center", width="827"]
-
-Switch to the *Templates* tab and click on the *Create* button.
-
-The *Report template* dialog is opened. Upload the created template and define the output type and output name pattern.
-
-image::upload-template-for-report2.png[align="center", width="642"]
-
-Let's create report bands.
-
-* The *header* band contains the dataset with the Groovy script which outputs the name of the current user and the current date.
 +
-[source, groovy,indent=0]
-----
-import io.jmix.core.security.CurrentAuthentication;
-import io.jmix.core.TimeSource;
-
-def user = currentAuthentication.getUser().getUsername();
-def currentDate = timeSource.currentTimestamp();
-
-return [["generated_by":user, "generated_when":currentDate]]
-----
-
-* The *tableheader* band is blank, it is used to display the table header.
-* The *type* band outputs the list of literature types by running the following JPQL query:
+Enter the following parameters on the first step of the wizard:
 +
-----
-select b.literatureType.id as typeId,
-b.literatureType.name as type
-from Book b
-----
-* The *book* band, which is a child band of the *type*, outputs the books by running the following JPQL query:
+* *Entity*: `User`
+* *Template type*: `DOCX`
+* *Report name*: `User Profile`
+* *Report code*: `user-profile`
+* *Report type*: `Report for single entity`
 +
+image::get-started/wizard-1.png[align="center", width="721"]
+
+. In the next step of the wizard, specify the attributes of the `User` entity and the related `Department` that should be displayed in the report. These attributes will form the "simple region".
++
+image::get-started/wizard-2.png[align="center", width="635"]
++
+Click *OK* to proceed to the next step: editing report regions.
+
+. The appeared view contains a list of named regions, or bands, that display related data. If the entity includes collection attributes, the *Add tabulated region* button is enabled.
++
+Click on the *Add tabulated region* button to create a band for displaying a list of onboarding steps of this `User` instance.
++
+image::get-started/wizard-3.png[align="center", width="711"]
++
+Select `User.Steps` in the *Select attributes* dialog.
++
+Then select the `Steps.Step.Name`, `Due date` and `Completed date` attributes.
++
+image::get-started/wizard-4.png[align="center", width="630"]
++
+Click *OK*, then *Next* to move to the final step where you can adjust the output file name and format. Click *Save*.
+
+. The wizard finishes and the report detail view is opened. You can explore the created report structure and run the report.
+
+. To render the user picture in the report, create a xref:reports:creation/value-formats.adoc[value format] for this field. Switch to the *Value formats* tab and click *Create*. Enter `User1.picture` in the *Name* field and `${imageFileId:200x200}` in the *Format string* field:
++
+image::get-started/value-format-1.png[align="center", width="630"]
++
+Save the value format.
+
+. You can adjust the visual representation of the report by modifying the template on the *Templates* tab. Below we will show the output generated from the default template created by the wizard automatically.
+
+. Click *Run* and select a user in the *Input parameters* dialog window.
++
+The report will be generated and downloaded by your browser as the `User Profile.docx` file.
++
+image::get-started/docx-report-1.png[align="center", width="1129"]
+
+. Now let's configure the application to run the report from the *Users* view.
++
+Switch to the *Roles and views* tab of the report detail view and add `User.list` to the *Views* list:
++
+image::get-started/views-tab-1.png[align="center", width="1018"]
++
+Click *OK* to save the report definition.
++
+Open `user-list-view.xml` in your IDE and add an action of the `report_runListEntityReport` type and a corresponding button to the view layout:
++
+[source,xml,indent=0]
+.src/main/resources/com/company/onboarding/view/user/user-list-view.xml
 ----
-select b.id as bookId,
-b.name as bookName
-from Book b
-where b.literatureType.id = ${type.typeId}
+include::example$reports-onboarding/src/main/resources/com/company/onboarding/view/user/user-list-view.xml[tags=report;runListEntityReport]
 ----
 +
-This query uses the parent band field `typeId` as a parameter. This provides dependency between the parent and child bands.
-* The *publisher* band, which is a child of the *book* band, outputs the book publications by running the following JPQL query:
+Make sure the view is hot-deployed or restart the application. Open the *Users* view, select a user in the data grid and click the *Print reports* button. The report for the selected user will be generated and downloaded.
+
+== Creating Report at Design-Time
+
+In this section, you will create the *List of Users* report in Studio. The report definition and template will be stored in the application sources.
+
+NOTE: The wizard in Studio currently cannot configure the structure and fields of the created report the same as the <<creating-report-at-runtime,runtime wizard>> does. It just creates a working example that displays application users and roles, no matter how you call the report.
+
+. In the *Jmix* tool window, click *New* (+) -> *Report Definition*. In the first step of the *New Report Definition* wizard, enter `ListOfUsers` to the *Class Name* field:
 +
+image::get-started/studio-1.png[align="center",width="860"]
+
+. In the *Additional Parameters* step, leave all fields empty and make sure the *Generate code and template for printing the list of users and their roles* checkbox is selected:
++
+image::get-started/studio-2.png[align="center",width="503"]
+
+. In the *Availability* step of the wizard, add `UserListView` to the *Available in Views* list:
++
+image::get-started/studio-3.png[align="center",width="860"]
+
+. After finishing the wizard, the created report class and template are available in the *Report Definitions* section of the *Jmix* tool window:
++
+image::get-started/studio-4.png[align="center",width="272"]
++
+The report class defines the report structure using annotations and includes a method for loading the list of users. The nested `Roles` band selects user roles using SQL.
++
+[source,java]
+.src/main/java/com/company/onboarding/report/ListOfUsers.java
 ----
-select bp.publisher.name as publisher,
-bp.year as year,
-bp.city as town
-from BookPublication bp
-where bp.book.id = ${book.bookId}
+include::example$reports-onboarding/src/main/java/com/company/onboarding/report/ListOfUsers.java[]
+----
+
+. Now you can run the report from the *Reports* and *Run report* views.
++
+image::get-started/xlsx-report-1.png[align="center",width="1152"]
+
+. To run the report from the *Users* view, open `user-list-view.xml` and add an action of the `report_runReport` type and a corresponding button to the view layout:
++
+[source,xml,indent=0]
+.src/main/resources/com/company/onboarding/view/user/user-list-view.xml
+----
+include::example$reports-onboarding/src/main/resources/com/company/onboarding/view/user/user-list-view.xml[tags=report;runReport]
 ----
 +
-This query uses the parent band field `bookId` as parameter.
-
-The report looks as follows in the report detail view:
-
-image::report-structure-report2.png[align="center", width="1136"]
-
-[[run-report-from-view]]
-=== Running Report from Run Reports View
-
-Once the report is saved, you can run it through the xref:run-report.adoc#run_common[run reports view].
-
-The output is as follows:
-
-image::output-report2.png[align="center", width="1318"]
+Make sure the view is hot-deployed or restart the application. Open the *Users* view and click the *Run report* button. You will see the *Run report* dialog with the list of reports available in the *Users* view.

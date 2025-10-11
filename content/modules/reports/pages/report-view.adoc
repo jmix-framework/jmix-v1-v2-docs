@@ -1,4 +1,4 @@
-= Report List View
+= Reports View
 
 Reports add-on provides administration views for configuring reports.
 
