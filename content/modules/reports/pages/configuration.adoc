@@ -1,4 +1,4 @@
-= Configuration
+= Reports Configuration
 
 [[app_properties]]
 == Application Properties

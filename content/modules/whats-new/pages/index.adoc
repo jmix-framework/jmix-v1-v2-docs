@@ -69,6 +69,19 @@ The `JmixDataRepository` methods returning `Page` perform additional `count` req
 The new xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] and xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] handlers simplify usage of data repositories in views. They allow you to invoke data repositories directly without converting parameters from the `LoadContext` object. If you select the *Use Data Repositories* checkbox in the xref:studio:view-wizard.adoc#creating-entity-based-views[
 View Creation Wizard], the created view will use the new delegates.
 
+[[design-time-reports]]
+=== Design-Time Reports
+
+The xref:reports:index.adoc[] add-on now supports defining report structure in annotated Java classes at design time. This approach brings the following benefits:
+
+* Report definitions are managed by the version control system (Git).
+* Updates to the reports are included in the new version of the application.
+* Developers can use step-by-step debugger and other IDE tools when working on data loading and other report logic.
+
+The downside comparing to runtime reports is that users cannot modify the report in the running application.
+
+See xref:reports-guide:index.adoc[] guide for examples of creating reports at design time.
+
 [[rest-data-store]]
 === REST DataStore
 

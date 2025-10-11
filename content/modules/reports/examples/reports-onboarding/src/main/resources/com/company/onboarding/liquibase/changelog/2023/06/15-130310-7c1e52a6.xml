@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="onboarding">
+        <addColumn tableName="USER_">
+            <column name="DEPARTMENT_ID" type="UUID"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="onboarding">
+        <createIndex indexName="IDX_USER__DEPARTMENT" tableName="USER_">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DEPARTMENT_ID" baseTableName="USER_"
+                                 constraintName="FK_USER__ON_DEPARTMENT" referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"/>
+    </changeSet>
+</databaseChangeLog>

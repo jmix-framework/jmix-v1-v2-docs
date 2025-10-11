@@ -1,4 +1,4 @@
-= REST API
+= Reports REST API
 :page-aliases: reports:api.adoc
 
 The Reports add-on REST API provides the following functions:

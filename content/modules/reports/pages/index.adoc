@@ -1,17 +1,18 @@
 = Reports
 
-The Reports add-on is designed to provide an easy way of report generation in a Jmix application.
+The Reports add-on allows developers and end users to design and generate various reports by formatting data from the Jmix application using templates created in user-friendly office applications or HTML.
 
-Creating a report normally requires 3 steps: defining a data source, creating templates, and running the report. The data source can be defined at runtime using the Jmix data model, SQL, JPQL, or scripts. You can create report templates in most popular editors like Microsoft Office or LibreOffice then import them into a Jmix application. Finally, reports can be executed in any application view.
+The add-on provides the following features:
 
-This add-on supports the following features:
-
-* Building report templates visually at runtime with a step-by-step wizard;
-* Generating reports in DOC/DOCX, ODT, XLS/XLSX, HTML, or in arbitrary text formats;
-* Creating complex XLS(X) reports: multi-tiered reports, reports with data aggregation, crosstab reports;
-* Using diagrams and formulas in XLS(X) reports;
-* Converting reports in office formats or HTML to PDF;
+* Designing reports using annotated Java classes or at runtime using a comprehensive admin UI and a step-by-step wizard.
+* Generating reports in DOCX, ODT, XLSX, HTML and text formats, and converting report output to PDF.
+* Creating XLSX reports with a complex structure, including multi-level organization, data aggregation, and cross-tab features.
+* Using diagrams and formulas in XLSX reports.
 * Report access rights, REST API, and execution history.
+
+This chapter provides reference information about creating and running reports.
+
+Refer to the xref:reports-guide:index.adoc[] guide for practical examples that demonstrate report design.
 
 [[installation]]
 == Installation
@@ -22,18 +23,17 @@ For manual installation, add the following dependencies to your `build.gradle`:
 
 [source,groovy,indent=0]
 ----
-implementation 'io.jmix.reports:jmix-reports-starter'
-implementation 'io.jmix.reports:jmix-reports-flowui-starter'
+include::example$reports-onboarding/build.gradle[tags=dependencies]
 ----
 
-// To access reports through xref:reports:rest-api.adoc[REST API], add also the following dependencies:
-//
-// [source,groovy,indent=0]
-// ----
-// include::example$/ex1/build.gradle[tags=reports-rest-dep]
-// ----
-//
-// Note that the `jmix-security-oauth2-starter` is used also by the xref:rest:index.adoc[] add-on, so it may already exist in your `build.gradle`.
+To access reports through the xref:reports:rest-api.adoc[REST API], add also the following dependencies:
+
+[source,groovy,indent=0]
+----
+include::example$reports-onboarding/build.gradle[tags=rest-dependencies]
+----
+
+//Note that the `jmix-security-oauth2-starter` is used also by the xref:rest:index.adoc[] add-on, so it may already exist in your `build.gradle`.
 
 [TIP]
 ====
