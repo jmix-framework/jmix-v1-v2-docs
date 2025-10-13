@@ -1,27 +1,27 @@
-= Zooming and Centering
+= Масштабирование и центрирование
 
-Zooming and centering are essential xref:maps:map-component.adoc[map] features that allow users to adjust the zoom level and focus on specific geographical locations within the map xref:maps:map-component.adoc#view[view].
+Масштабирование и центрирование - это основные функции xref:maps:map-component.adoc[карты], которые позволяют пользователям регулировать уровень масштаба и фокусироваться на определенных географических местоположениях в пределах xref:maps:map-component.adoc#view[отображения] карты.
 
-The Maps add-on provides methods that developers can use to programmatically control these features.
+Дополнение Maps предоставляет методы, которые разработчики могут использовать для программного управления этими функциями.
 
-Let's explore some methods of the `GeoMap` class:
+Давайте рассмотрим некоторые методы класса `GeoMap`:
 
-* `setCenter()` - sets the central geographic point within the visible area of the map. The coordinates should be provided in the map projection, specifically in `EPSG:4326`. In case the map projection has been altered using `setProjection(CRS)`, the coordinates must then be specified in that adjusted projection. It's important to differentiate the map projection from the view projection configured in the map's `GeoMapView`. The view projection influences how map data is understood and displayed, whereas the map projection sets the coordinate system for all coordinates exchanged with the public API.
-* `setZoom(double zoom)` - adjusts the map to a particular zoom level. The zoom level begins at 0, representing the maximum zoomed-out view, and increases as you zoom in for a closer perspective
-* `zoomToExtent(Extent)` - sets the visible area of the map to encompass the provided geographical boundaries at the highest possible zoom level. `Extent` is a bounding box that defines a specific geographical area on the map. The extent is represented by a set of coordinates: the minimum (left, bottom) and maximum (right, top) coordinates that delineate the boundaries of a rectangular region on the map. For a more advanced method of zooming to a specific extent, use the `fit(FitOptions)` method.
-* `zoomToGeometry(SimpleGeometry)` - sets the visible area of a map to encompass the envelope of the provided geometry at the maximum achievable zoom level.
+* `setCenter()` - задает центральную географическую точку в видимой области карты. Координаты должны быть предоставлены в проекции карты, конкретно в `EPSG:4326`. В случае, если проекция карты была изменена с помощью `setProjection(CRS)`, координаты должны быть указаны в этой скорректированной проекции. Важно различать проекцию карты и проекцию отображения, настроенную в `GeoMapView` карты. Проекция отображения влияет на то, как данные карты понимаются и отображаются, тогда как проекция карты задает систему координат для всех координат, передаваемых через публичный API.
+* `setZoom(double zoom)` - устанавливает карту на определенный уровень масштаба. Уровень масштаба начинается с 0, что представляет вид с максимальным отдалением, и увеличивается по мере приближения для детального просмотра.
+* `zoomToExtent(Extent)` - устанавливает видимую область карты так, чтобы она охватывала предоставленные географические границы с максимально возможным уровнем масштаба. Extent (экстент) - это ограничивающая рамка, которая определяет конкретную географическую область на карте. Экстент представлен набором координат: минимальные (левая, нижняя) и максимальные (правая, верхняя) координаты, которые очерчивают границы прямоугольной области на карте. Для более продвинутого метода масштабирования до определенного экстента используйте метод `fit(FitOptions)`.
+* `zoomToGeometry(SimpleGeometry)` - устанавливает видимую область карты так, чтобы она охватывала оболочку предоставленной геометрии с максимально достижимым уровнем масштаба.
 +
-NOTE: If the provided geometry is a `Point`, the map will be centered on this point at the current zoom level.
+NOTE: Если предоставленная геометрия - это `Point`, карта будет центрирована на этой точке при текущем уровне масштаба.
 +
-A more advanced method for zooming to a specific geometry can be achieved by using the `fit(FitOptions)` method.
-* `zoomToFeature(Feature)` - a utility method that extracts the geometry from the provided feature and delegates to `zoomToGeometry(SimpleGeometry)`.
-* `fit(FitOptions)` - adjusts the provided geometry or extent according to the specified map size, border settings, and specified options. For example, to set a maximum zoom level and enable animation, the following approach can be taken:
+Более продвинутый метод масштабирования до определенной геометрии может быть достигнут с помощью метода `fit(FitOptions)`.
+* `zoomToFeature(Feature)` - служебный метод, который извлекает геометрию из предоставленной сущности и делегирует вызов методу `zoomToGeometry(SimpleGeometry)`.
+* `fit(FitOptions)` - корректирует предоставленную геометрию или экстент в соответствии с указанным размером карты, настройками границ и указанными опциями. Например, чтобы установить максимальный уровень масштаба и включить анимацию, можно использовать следующий подход:
 +
 [source,java,indent=0]
 ----
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/mapbasic/MapBasicView.java[tags=geometryFactory;map;fit]
 ----
 +
-`FitOptions` are used to configure how a map's view should fit or adjust to a specific extent or geometry. These options provide developers with control over aspects such as zoom level, duration of animation, easing functions, and other parameters related to fitting the map view.
+`FitOptions` используются для настройки того, как отображение карты должно подстраиваться под конкретный экстент или геометрию. Эти опции предоставляют разработчикам контроль над такими аспектами, как уровень масштаба, длительность анимации, функции сглаживания и другие параметры, связанные с подгонкой отображения карты.
 +
-For additional information, refer to the documentation for https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#fit[View^].
+Для получения дополнительной информации обратитесь к документации для https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#fit[View^].

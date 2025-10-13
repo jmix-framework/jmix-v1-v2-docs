@@ -1,15 +1,15 @@
-= Events
+= События
 
-The map and features has the following events.
+Карта и объекты имеют следующие события.
 
-== Map Events
+==  События карты
 
 [[MapClickEvent]]
 === MapClickEvent
 
-An event that is fired when the map is clicked. Please note that if the user double-clicks, the event will be triggered twice.
+Событие, которое возникает при щелчке по карте. Обратите внимание, что если пользователь дважды щелкнет, событие будет сработано дважды.
 
-Below is an example of handling a map click event. When a user clicks on the map, a notification is displayed with the event name and the coordinates of the map click location:
+Ниже приведен пример обработки события щелчка по карте. Когда пользователь щелкает на карте, отображается уведомление с названием события и координатами места щелчка на карте:
 
 [source,java,indent=0]
 ----
@@ -19,14 +19,14 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 [[MapSingleClickEvent]]
 === MapSingleClickEvent
 
-A map single event is fired after 250 ms to ensure that it is not a double click.
+Одиночное событие щелчка по карте возникает через 250 мс, чтобы убедиться, что это не двойной щелчок.
 
 [[MapDoubleClickEvent]]
 === MapDoubleClickEvent
 
-An event is fired when user makes double-click on a map.
+Событие возникает, когда пользователь выполняет двойной щелчок на карте.
 
-Below is an example of handling a map double-click event.
+Ниже приведен пример обработки события двойного щелчка по карте.
 
 [source,java,indent=0]
 ----
@@ -36,9 +36,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 [[MapMoveEndEvent]]
 === MapMoveEndEvent
 
-An event is fired after the map is moved (for instance, after zooming, panning, or dragging the map).
+Событие возникает после перемещения карты (например, после масштабирования, панорамирования или перетаскивания карты).
 
-Here's an example of how to handle a map move event.
+Вот пример того, как обработать событие перемещения карты.
 
 [source,java,indent=0]
 ----
@@ -48,9 +48,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 [[MapZoomChangedEvent]]
 === MapZoomChangedEvent
 
-An event is triggered when the resolution of the map view is changed.
+Событие срабатывает при изменении разрешения экрана карты.
 
-Here's an example demonstrating how to handle a map zoom change event.
+Вот пример, демонстрирующий, как обработать событие изменения масштаба карты.
 
 [source,java,indent=0]
 ----
@@ -58,12 +58,12 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 ----
 
 [[source-events]]
-== Source Events
+== События источников
 
 [[SourceFeatureClickEvent]]
 === SourceFeatureClickEvent
 
-An event that is fired when the xref:maps:features-geometries.adoc[feature] is clicked. Note, if the user makes double click, event will be fired twice.
+Событие, которое возникает при щелчке на xref:maps:features-geometries.adoc[объекте]. Обратите внимание: если пользователь выполнит двойной щелчок, событие будет сработано дважды.
 
 [source,java,indent=0]
 ----
@@ -73,17 +73,17 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 [[SourceFeatureSingleClickEvent]]
 === SourceFeatureSingleClickEvent
 
-A feature single click event is fired after 250 ms to ensure that it is not a double click.
+Событие одиночного щелчка по объекту возникает через 250 мс, чтобы убедиться, что это не двойной щелчок.
 
 [[SourceFeatureDoubleClickEvent]]
 === SourceFeatureDoubleClickEvent
 
-An event is fired when user makes double click on a feature.
+Событие возникает, когда пользователь выполняет двойной щелчок на объекте.
 
 [[SourceFeatureSelectEvent]]
 === SourceFeatureSelectEvent
 
-An event is triggered when features are selected or deselected. Keep in mind that the event only includes the features that were just selected or deselected. For example, if one feature is already selected out of a total of two, and the second feature is then selected, the event will only contain the newly selected feature.
+Событие срабатывает при выборе или отмене выбора объектов. Имейте в виду, что событие включает только те объекты, которые были только что выбраны или отменены. Например, если один объект уже выбран из двух, а затем выбирается второй объект, событие будет содержать только новый выбранный объект.
 
 [source,java,indent=0]
 ----
@@ -93,7 +93,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Selec
 [[SourceFeatureDragStartEvent]]
 === SourceFeatureDragStartEvent
 
-An event is fired when the user starts dragging a feature.
+Событие возникает, когда пользователь начинает перетаскивать объект.
 
 [source,java,indent=0]
 ----
@@ -103,7 +103,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 [[SourceFeatureDragEndEvent]]
 === SourceFeatureDragEndEvent
 
-An event is fired when the user finishes dragging a feature.
+Событие возникает, когда пользователь заканчивает перетаскивание объекта.
 
 [source,java,indent=0]
 ----
@@ -113,7 +113,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 [[SourceFeatureModifyStartEvent]]
 === SourceFeatureModifyStartEvent
 
-An event is fired when a feature modification is initiated.
+Событие возникает при начале изменения объекта.
 
 [source,java,indent=0]
 ----
@@ -123,7 +123,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 [[SourceFeatureModifyEndEvent]]
 === SourceFeatureModifyEndEvent
 
-An event is fired when a feature modification is completed.
+Событие возникает при завершении изменения объекта.
 
 [source,java,indent=0]
 ----
@@ -133,7 +133,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 [[SourceFeatureDeleteEvent]]
 === SourceFeatureDeleteEvent
 
-An event is fired when a feature is deleted from a source.
+Событие возникает, когда объект удаляется из источника.
 
 [source,java,indent=0]
 ----
@@ -143,7 +143,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 [[GeoObjectClickEvent]]
 === GeoObjectClickEvent
 
-An event that is fired when the geo-object is clicked. Note, if the user makes double click, event will be fired twice.
+Событие, которое возникает при щелчке на геообъекте. Обратите внимание: если пользователь выполнит двойной щелчок, событие будет сработано дважды.
 
 [source,java,indent=0]
 ----
@@ -153,17 +153,17 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/location/Lo
 [[GeoObjectSingleClickEvent]]
 === GeoObjectSingleClickEvent
 
-A geo-object single click event is fired after 250 ms to ensure that it is not a double click.
+Событие одиночного щелчка по геообъекту возникает через 250 мс, чтобы убедиться, что это не двойной щелчок.
 
 [[GeoObjectDoubleClickEvent]]
 === GeoObjectDoubleClickEvent
 
-An event is fired when user makes double click on a geo-object.
+Событие возникает, когда пользователь выполняет двойной щелчок на геообъекте.
 
 [[GeoObjectSelectEvent]]
 === GeoObjectSelectEvent
 
-A selection event is triggered when geo-objects are selected or deselected. Keep in mind that the event only includes the newly selected or deselected geo-objects. For example, if one geo-object is already selected out of a total of two, and you then select the second geo-object, the event will only contain information about the second geo-object you just selected.
+Событие выбора срабатывает, когда геообъекты выбираются или отменяются. Имейте в виду, что событие включает только что выбранные или отмененные геообъекты. Например, если один геообъект уже выбран из двух, а затем вы выбираете второй геообъект, событие будет содержать информацию только о втором, только что выбранном геообъекте.
 
 [source,java,indent=0]
 ----
@@ -173,7 +173,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Selec
 [[GeoObjectDragStartEvent]]
 === GeoObjectDragStartEvent
 
-An event is fired when the user starts dragging a geo-object.
+Событие возникает, когда пользователь начинает перетаскивать геообъект.
 
 [source,java,indent=0]
 ----
@@ -183,7 +183,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 [[GeoObjectDragEndEvent]]
 === GeoObjectDragEndEvent
 
-An event is fired when the user finishes dragging a geo-object.
+Событие возникает, когда пользователь заканчивает перетаскивание геообъекта.
 
 [source,java,indent=0]
 ----
@@ -193,7 +193,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 [[GeoObjectModifyStartEvent]]
 === GeoObjectModifyStartEvent
 
-An event is fired when a geo-object modification is initiated.
+Событие возникает при начале изменения геообъекта.
 
 [source,java,indent=0]
 ----
@@ -203,26 +203,26 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 [[GeoObjectModifyEndEvent]]
 === GeoObjectModifyEndEvent
 
-An event is fired when a geo-object modification is completed.
+Событие возникает при завершении изменения геообъекта.
 
 [source,java,indent=0]
 ----
 include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyEndEvent]
 ----
 
-== Feature Events
+== События объектов
 
 [[FeatureClickEvent]]
 === FeatureClickEvent
 
-An event that is fired when feature is clicked. Note, if the user makes double click, event will be fired twice.
+Событие, которое возникает при щелчке на объекте. Обратите внимание: если пользователь выполнит двойной щелчок, событие будет сработано дважды.
 
 [[FeatureSingleClickEvent]]
 === FeatureSingleClickEvent
 
-An event is fired after 250 ms to ensure that it is not a double click.
+Событие возникает через 250 мс, чтобы убедиться, что это не двойной щелчок.
 
 [[FeatureDoubleClickEvent]]
 === FeatureDoubleClickEvent
 
-An event is fired when user makes double click on a feature.
+Событие возникает, когда пользователь выполняет двойной щелчок на объекте.

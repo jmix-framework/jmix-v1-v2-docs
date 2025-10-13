@@ -1,18 +1,18 @@
-= 3. Display Features on Map
+= 3. Отображение объектов на карте
 
-Let's go back to the `Location` entity and include the following attributes to it:
+Давайте вернемся к сущности `Location` и добавим в нее следующие атрибуты:
 
-. `buildingEntrance` with `GeoPoint` type. This attribute stores the coordinates of the building's entrance.
-. `pathToBuilding` with `GeoPolyline` type. This attribute stores the path to the building.
-. `buildingArea` with `GeoPolygon` type. This attribute is utilized to depict the building on the map using a geometric shape.
+. `buildingEntrance` типа `GeoPoint`. Этот атрибут хранит координаты входа в здание.
+. `pathToBuilding` типа `GeoPolyline`. Этот атрибут хранит путь к зданию.
+. `buildingArea` типа `GeoPolygon`. Этот атрибут используется для отображения здания на карте с помощью геометрической фигуры.
 
 image::new-geo-location-attr.png[align="center", width="903"]
 
-Include these attributes to the `Location.detail` view.
+Добавьте эти атрибуты в экран `Location.detail`.
 
-To simplify our tutorial, we'll use text fields for the newly added fields. You can add map event handlers to extract coordinates from the map, just like we did in xref:maps:data-binding-map.adoc#saving-coordinates[Saving Coordinates to the Building Attribute]. To achieve this, utilize the methods provided by `GeometryUtils`.
+Для упрощения нашего руководства мы будем использовать текстовые поля для новых полей. Вы можете добавить обработчики событий карты для извлечения координат, как мы это делали в xref:maps:data-binding-map.adoc#saving-coordinates[Сохранение координат в атрибут Building]. Для этого используйте методы, предоставляемые `GeometryUtils`.
 
-Below are examples demonstrating how to fill in the fields:
+Ниже приведены примеры заполнения полей:
 
 * *Building*:
 +
@@ -38,13 +38,13 @@ POLYGON ((13.347878609736783 52.553551482547135,
 ----
 
 [[add-vector-layer]]
-== Add Vector Layers
+== Добавление векторных слоев
 
-A vector layer is utilized to work with geometries. It's possible to add multiple vector layers to a map.
+Векторный слой используется для работы с геометриями. На карту можно добавить несколько векторных слоев.
 
-To showcase polygons, polylines, and points, you need to append vector layers onto a map.
+Чтобы отображать полигоны, полилинии и точки, вам нужно добавить векторные слои на карту.
 
-Open `location-lookup-view.xml` and create a separate vector layer and vector data source for each geo-specific attribute of the xref:maps:geo-objects.adoc[geo-object]. Specify the `dataContainer` and `property` attributes for data vector sources:
+Откройте `location-lookup-view.xml` и создайте отдельный векторный слой и источник векторных данных для каждого гео-специфичного атрибута xref:maps:geo-objects.adoc[геообъекта]. Укажите атрибуты `dataContainer` и `property` для источников векторных данных:
 
 [source,xml,indent=0]
 ----
@@ -79,15 +79,15 @@ Open `location-lookup-view.xml` and create a separate vector layer and vector da
 ----
 
 [[add-point]]
-== Add Point on the Map
+== Добавление точки на карту
 
-Navigate to the `LocationLookupView` view controller and append a new method:
+Перейдите к контроллеру экрана `LocationLookupView` и добавьте новый метод:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=entranceSource;initBuildingEntranceSource]
 ----
-<1> Set up a styleProvider to display `Point` as a point feature with a custom point style.
+<1> Настраивает `styleProvider` для отображения `Point` как точечного объекта с пользовательским стилем точки.
 
 // Now, let's handle the changes in the Locations collection.
 //
@@ -120,15 +120,15 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationloo
 // <3> Adds a point feature to the source.
 
 [[add-polyline]]
-== Add Polyline on Map
+== Добавление полилинии на карту
 
-Add the `initPathToBuildingSource()` method in the `LocationLookupView` view controller:
+Добавьте метод `initPathToBuildingSource()` в контроллер экрана `LocationLookupView`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=pathSource;initPathToBuildingSource]
 ----
-<1> Set up a styleProvider to display `LineString` as a polyline feature with a customized linestring style.
+<1> Настраивает `styleProvider` для отображения `LineString` как объекта-полилинии с настроенным стилем линии.
 
 // Invoke `createPathToBuildingFeature()` from the existing `onLocationsDcCollectionChange` handler:
 //
@@ -152,25 +152,25 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationloo
 // <1> Adds a polyline feature to the source.
 
 [[add-polygon]]
-== Add Polygon on Map
+== Добавление полигона на карту
 
-Add the `initBuildingAreaSource()` method in the `LocationLookupView` view controller:
+Добавьте метод `initBuildingAreaSource()` в контроллер экрана `LocationLookupView`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=areaSource;initBuildingAreaSource]
 ----
-<1> Set up a styleProvider to display `Polygon` as a polygon feature with a customized polygon style. The fill color and the polygon border color are established in variables and are dependent on the location type.
+<1> Настраивает `styleProvider` для отображения `Polygon` как объекта-полигона с настроенным стилем полигона. Цвет заливки и цвет границы полигона задаются в переменных и зависят от типа местоположения.
 
-Invoke the created methods from `onInit()`:
+Вызовите созданные методы из `onInit()`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=onInit;inits]
 ----
 
-Let's launch the application to see the new feature in action. Now, when you choose the location, the map will zoom in and center itself according to the location’s coordinates.
+Давайте запустим приложение, чтобы увидеть новую функцию в действии. Теперь при выборе местоположения карта будет увеличивать масштаб и центрироваться по координатам местоположения.
 
-The building's entrance is exhibited as a black dot on the map. The path to the building is depicted as a dashed line, while the polygon demonstrates the building's boundary.
+Вход в здание отображается как черная точка на карте. Путь к зданию изображен пунктирной линией, а полигон показывает границу здания.
 
 image::map-with-features.png[align="center", width="1090"]

@@ -1,21 +1,21 @@
-= Map Component
+= Компонент карты
 
-The `GeoMap` UI component displays a geographical data provided by xref:maps:layers-sources.adoc[Layers].
+UI-компонент `GeoMap` отображает географические данные, предоставляемые xref:maps:layers-sources.adoc[слоями].
 
-The map is built by superposing layers. Initially, map does not have layers.
+Карта строится путем наложения слоев. Изначально карта не имеет слоев.
 
-You can define the general map parameters along with the layers in the view’s XML descriptor.
+Вы можете определить общие параметры карты вместе со слоями в XML-дескрипторе экрана.
 
 [[map]]
-== Map
+== Карта
 
-To add the component on the view, use Jmix Studio.
+Чтобы добавить компонент на экран, используйте Jmix Studio.
 
-Click *Add Component* in the actions panel, then find the `GeoMap` item and double-click it.
+Нажмите *Add Component* на панели действий, найдите элемент `GeoMap` и дважды щелкните по нему.
 
 image::adding-map.png[align="center", width="1136"]
 
-The new `geoMap` element will be added in both the *Jmix UI* structure panel and in the XML. You can configure attributes like xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc., in the same way as it is done for other xref:flow-ui:vc/components.adoc[UI components].
+Новый элемент `geoMap` будет добавлен как на панели структуры *Jmix UI*, так и в XML. Вы можете настраивать атрибуты, такие как xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width] и т.д., так же, как это делается для других xref:flow-ui:vc/components.adoc[UI-компонентов].
 
 [source,xml,indent=0]
 ----
@@ -24,7 +24,7 @@ The new `geoMap` element will be added in both the *Jmix UI* structure panel and
              width="100%"/>
 ----
 
-If you don’t use the view designer, declare the `maps` namespace in your view’s XML descriptor manually:
+Если вы не используете дизайнер экранов, объявите пространство имен `maps` в XML-дескрипторе вашего экрана вручную:
 
 [source,xml,indent=0]
 ----
@@ -32,17 +32,17 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/mapbas
 ----
 
 [[how-to-inject]]
-You can inject the UI component or a map layer into the controller by utilizing the *Inject to Controller* action in the *Jmix UI* structure panel:
+Вы можете инжектировать UI-компонент или слой карты в контроллер, используя действие *Inject to Controller* на панели структуры *Jmix UI*:
 
 image::inject-map-from-hierarchy.png[align="center", width="368"]
 
-Alternatively, you can employ the *Inject* button available in the actions panel:
+Альтернативно, вы можете использовать кнопку *Inject*, доступную на панели действий:
 
 image::inject-map.png[align="center", width="682"]
 
-NOTE: For the component to be injectable into the controller, it must have the `id` attribute specified.
+NOTE: Чтобы компонент можно было инжектировать в контроллер, у него должен быть указан атрибут `id`.
 
-Now you can interact with the `GeoMap` component programmatically by accessing its methods directly:
+Теперь вы можете взаимодействовать с компонентом `GeoMap` программно, обращаясь к его методам напрямую:
 
 [source,java,indent=0]
 ----
@@ -50,19 +50,19 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/mapbasic/Ma
 ----
 
 [[layer]]
-== Layer
+== Слой
 
-The `GeoMap` component can include multiple xref:maps:layers-sources.adoc[layers] that display different types of geographic information, such as raster layers, and vector layers.
+Компонент `GeoMap` может включать несколько xref:maps:layers-sources.adoc[слоев], которые отображают различные типы географической информации, такие как растровые слои и векторные слои.
 
-Initially, map does not have layers.
+Изначально карта не имеет слоев.
 
-For example, let's add a xref:maps:layers-sources.adoc#tile-layer[TileLayer] to the map.
+Например, давайте добавим xref:maps:layers-sources.adoc#tile-layer[TileLayer] на карту.
 
-Select the `geoMap` element in the *Jmix UI* structure panel or in the view XML descriptor, then click the *Add* button in the inspector panel. From the drop-down list, choose *Layers -> TileLayer*.
+Выберите элемент `geoMap` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *Layers -> TileLayer*.
 
 image::add-tile-layer.png[align="center", width="331"]
 
-You can <<how-to-inject,inject>> a layer into the controller and interact with it programmatically by accessing its methods directly:
+Вы можете <<how-to-inject,инжектировать>> слой в контроллер и взаимодействовать с ним программно, обращаясь к его методам напрямую:
 
 [source,java,indent=0]
 ----
@@ -70,13 +70,13 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/mapbasic/Ma
 ----
 
 [[source]]
-== Source
+== Источник
 
-A xref:maps:layers-sources.adoc[source] represents the data that is used to render map layers on the map component. Sources provide the spatial information that defines the content and appearance of the map layers.
+xref:maps:layers-sources.adoc[Источник] представляет данные, которые используются для отрисовки слоев карты на компоненте карты. Источники предоставляют пространственную информацию, которая определяет содержимое и внешний вид слоев карты.
 
-For example, let's add a xref:maps:layers-sources.adoc#osm-source[OsmSource] for the tile layer.
+Например, давайте добавим xref:maps:layers-sources.adoc#osm-source[OsmSource] для тайлового слоя.
 
-Select `maps:tile` in the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, choose *OsmSource*.
+Выберите `maps:tile` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *OsmSource*.
 
 image::add-osmsource.png[align="center", width="898"]
 
@@ -85,7 +85,7 @@ image::add-osmsource.png[align="center", width="898"]
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/mapbasic/map-basic-view.xml[tags=osmSource]
 ----
 
-You can <<how-to-inject,inject>> a source into the controller and interact with it programmatically by accessing its methods directly:
+Вы можете <<how-to-inject,инжектировать>> источник в контроллер и взаимодействовать с ним программно, обращаясь к его методам напрямую:
 
 [source,java,indent=0]
 ----
@@ -102,13 +102,13 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/mapbasic/Ma
 // * `wrapX` sets whether the source should be looped along the X coordinate. The default value for `Source` is `false`. Note, the `wrapX` attribute is set only at creation time and cannot be changed at runtime. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_source_Source-Source.html[Source^].
 
 [[view]]
-== View
+== Отображение
 
-https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html[View^] defines how the map is displayed in terms of its center, zoom level, rotation, and projection. It essentially sets the initial state of the map when it is loaded in the user interface.
+https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html[Отображение (View)^] определяет, как карта отображается с точки зрения ее центра, уровня масштабирования, поворота и проекции. По сути, отображение задает начальное состояние карты при ее загрузке в пользовательском интерфейсе.
 
-By default, the `geoMap` component displays a world map with an initial geographical center at `(0,0)`.
+По умолчанию компонент `geoMap` отображает карту мира с начальным географическим центром в `(0,0)`.
 
-Choose `geoMap` within the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, opt for *MapView*.
+Выберите `geoMap` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *MapView*.
 
 image::add-map-view.png[align="center", width="372"]
 
@@ -117,26 +117,26 @@ image::add-map-view.png[align="center", width="372"]
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/mapbasic/map-basic-view.xml[tags=mapView]
 ----
 
-You can specify additional parameters:
+Вы можете указать дополнительные параметры:
 
-* `centerX` defines latitude of the initial geographical center of the map. It is passed to the `org.locationtech.jts.geom.Coordinate` object.
-* `centerY` defines longitude of the initial geographical center of the map. It is passed to the `org.locationtech.jts.geom.Coordinate` object.
-* `maxZoom` - sets the maximum zoom level for the view.
+* `centerX` определяет широту начального географического центра карты. Передается в объект `org.locationtech.jts.geom.Coordinate`.
+* `centerY` определяет долготу начального географического центра карты. Передается в объект `org.locationtech.jts.geom.Coordinate`.
+* `maxZoom` - устанавливает максимальный уровень масштабирования для отображения.
 //The default value is 28. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_View-View.html#setMaxZoom[setMaxZoom^].
-* `minZoom` - sets a minimum zoom level for the view.
+* `minZoom` - устанавливает минимальный уровень масштабирования для отображения.
 //The default value is 0. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_View-View.html#setMinZoom[setMinZoom^].
-* `projection` refers to the coordinate reference system in which the map is displayed. Common projections include `EPSG:3857` and `EPSG:4326`. The default projection is https://epsg.io/3857[EPSG:3857^]. You can set a custom projection in the special inner `projection` element. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_proj_Projection-Projection.html[Projection^].
-* `rotation` - sets the rotation for the view in radians (positive rotation clockwise, 0 means North). For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setRotation[setRotation^].
-* `zoom` defines the specific zoom level. The zoom level begins at 0, representing the maximum zoomed-out view, and progressively rises as you zoom in for a closer perspective.
+* `projection` относится к системе координат, в которой отображается карта. Распространенные проекции включают `EPSG:3857` и `EPSG:4326`. Проекция по умолчанию - https://epsg.io/3857[EPSG:3857^]. Вы можете установить пользовательскую проекцию в специальном внутреннем элементе `projection`. Подробнее смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_proj_Projection-Projection.html[Projection^].
+* `rotation` - устанавливает поворот для отображения в радианах (положительный поворот по часовой стрелке, 0 означает Север). Подробнее смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setRotation[setRotation^].
+* `zoom` определяет конкретный уровень масштабирования. Уровень масштабирования начинается с 0, представляя вид с максимальным отдалением, и постепенно увеличивается по мере приближения.
 
 [[extent]]
-== Extent
+== Экстент
 
-The https://openlayers.org/en/v8.2.0/apidoc/module-ol_extent.html#~Extent[extent^] specifies the geographic boundaries of the map <<view,view>> or a specific <<layer,layer>> in terms of coordinates, defining the visible area on the map.
+https://openlayers.org/en/v8.2.0/apidoc/module-ol_extent.html#~Extent[Экстент (extent)^] задает географические границы <<view,отображения>> карты или конкретного <<layer,слоя>> в терминах координат, определяя видимую область на карте.
 
-Extent is typically defined by minimum (top-left corner) and maximum (bottom-right corner) coordinate values in the form of [`minX`, `minY`, `maxX`, `maxY`], representing the bounding box of the area.
+Экстент обычно определяется минимальными (левый верхний угол) и максимальными (правый нижний угол) значениями координат в форме [`minX`, `minY`, `maxX`, `maxY`], представляя ограничивающую рамку области.
 
-Choose a layer or the `mapView` element in the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, select *Extent*, and configure the `minX`, `minY`, `maxX` and `maxY` attributes as indicated below.
+Выберите слой или элемент `mapView` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *Extent* и настройте атрибуты `minX`, `minY`, `maxX` и `maxY`, как указано ниже.
 
 [source,xml,indent=0]
 ----

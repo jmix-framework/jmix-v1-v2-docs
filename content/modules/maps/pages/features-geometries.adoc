@@ -1,16 +1,16 @@
-= Features and Geometries
+= Объекты и геометрии
 
-== Features
+== Объекты
 
-Feature refers to a basic building block that represents some element on a map. Features can include points, lines, polygons, or other geometries that provide spatial information on the map.
+Объект (Feature) относится к базовому строительному блоку, который представляет некоторый элемент на карте. Объекты могут включать точки, линии, полигоны или другие геометрии, которые предоставляют пространственную информацию на карте.
 
 //Each feature typically contains attributes or properties that describe the characteristics of the geographical entity it represents.
 
-Features can be styled, clicked on for interaction. They play a central role in creating dynamic and interactive maps by allowing developers to represent and manipulate geographic data efficiently.
+Объекты могут быть стилизованы, на них можно кликать для взаимодействия. Они играют центральную роль в создании динамических и интерактивных карт, позволяя разработчикам эффективно представлять и манипулировать географическими данными.
 
 // , and used for various spatial operations and analyses
 
-`GeoMap` supports the following features:
+`GeoMap` поддерживает следующие объекты:
 
 * <<marker-feature,MarkerFeature>>
 * <<point-feature,PointFeature>>
@@ -23,9 +23,9 @@ Features can be styled, clicked on for interaction. They play a central role in 
 [[marker-feature]]
 === MarkerFeature
 
-Marker feature represents a marker element with predefined <<point-geometry,PointGeometry>>. It is displayed with marker icon in a map component.
+Объект-маркер представляет элемент маркера с предопределенной <<point-geometry,PointGeometry>>. Он отображается значком маркера в компоненте карты.
 
-The following example demonstrates how to create and place a marker on a map:
+Следующий пример демонстрирует, как создать и разместить маркер на карте:
 
 [source,java,indent=0]
 ----
@@ -35,9 +35,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[point-feature]]
 === PointFeature
 
-Point feature represents a point with predefined <<point-geometry,PointGeometry>>. It is displayed as a point with default style. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[Feature documentation^].
+Точечный объект представляет точку с предопределенной <<point-geometry,PointGeometry>>. Он отображается как точка со стилем по умолчанию. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[документацию Feature^].
 
-The following example demonstrates how to create and place a point on a map:
+Следующий пример демонстрирует, как создать и разместить точку на карте:
 
 [source,java,indent=0]
 ----
@@ -47,9 +47,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[line-string-feature]]
 === LineStringFeature
 
-`LineStringFeature` represents a linear feature on a map, typically drawn as a polyline connecting multiple points. The polyline feature comes with a predefined <<line-string-geometry,LineStringGeometry>>. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[Feature documentation^].
+`LineStringFeature` представляет линейный объект на карте, обычно отображаемый как полилиния, соединяющая несколько точек. Объект-полилиния поставляется с предопределенной <<line-string-geometry,LineStringGeometry>>. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[документацию Feature^].
 
-The following example demonstrates how to create and place a polyline on a map:
+Следующий пример демонстрирует, как создать и разместить полилинию на карте:
 
 [source,java,indent=0]
 ----
@@ -59,9 +59,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[polygon-feature]]
 === PolygonFeature
 
-`PolygonFeature` represents a closed geometric shape on a map that defines an area or region. This feature is used to display and work with polygons, which are defined by a collection of interconnected points forming a closed loop. The polygon feature comes with a predefined <<polygon-geometry,PolygonGeometry>>. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[Feature documentation^].
+`PolygonFeature` представляет замкнутую геометрическую фигуру на карте, определяющую область или регион. Этот объект используется для отображения и работы с полигонами, которые определяются коллекцией взаимосвязанных точек, образующих замкнутый контур. Объект-полигон поставляется с предопределенной <<polygon-geometry,PolygonGeometry>>. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[документацию Feature^].
 
-The following example demonstrates how to create and place a polygon on a map:
+Следующий пример демонстрирует, как создать и разместить полигон на карте:
 
 [source,java,indent=0]
 ----
@@ -71,9 +71,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[multi-marker-feature]]
 === MultiMarkerFeature
 
-Multi marker feature represents a collection of marker elements with predefined <<multi-point-geometry,MultiPointGeometry>>. It is displayed with marker icons in a map component.
+Объект-мультимаркер представляет коллекцию элементов маркеров с предопределенной <<multi-point-geometry,MultiPointGeometry>>. Он отображается значками маркеров в компоненте карты.
 
-The following example demonstrates how to create and place `MultiMarkerFeature` on a map:
+Следующий пример демонстрирует, как создать и разместить `MultiMarkerFeature` на карте:
 
 [source,java,indent=0]
 ----
@@ -83,9 +83,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[multi-point-feature]]
 === MultiPointFeature
 
-Multipoint feature represents a multipoint with predefined <<multi-point-geometry,MultiPointGeometry>>. It is displayed as points with default style. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[Feature documentation^].
+Объект-мультиточка представляет мультиточку с предопределенной <<multi-point-geometry,MultiPointGeometry>>. Он отображается как точки со стилем по умолчанию. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[документацию Feature^].
 
-The following example demonstrates how to create and place a multipoint on a map:
+Следующий пример демонстрирует, как создать и разместить мультиточку на карте:
 
 [source,java,indent=0]
 ----
@@ -95,9 +95,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[multi-line-string-feature]]
 === MultiLineStringFeature
 
-`MultiLineStringFeature` represents linear features on a map, typically drawn as a collection of multiple line strings. `MultiLineStringFeature` comes with a predefined <<multi-line-string-geometry,MultiLineStringGeometry>>. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[Feature documentation^].
+`MultiLineStringFeature` представляет линейные объекты на карте, обычно отображаемые как коллекция нескольких линейных строк. `MultiLineStringFeature` поставляется с предопределенной <<multi-line-string-geometry,MultiLineStringGeometry>>. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[документацию Feature^].
 
-The following example demonstrates how to create and place a multiline on a map:
+Следующий пример демонстрирует, как создать и разместить мультилинию на карте:
 
 [source,java,indent=0]
 ----
@@ -107,43 +107,43 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/Fe
 [[multi-polygon-feature]]
 === MultiPolygonFeature
 
-`MultiPolygonFeature` represents a geometry consisting of multiple polygons grouped together. Each polygon within `MultiPolygonFeature` comprises a closed shape defined by a sequence of points, and comes with a predefined <<multi-polygon-geometry,MultiPolygonGeometry>>. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[Feature documentation^].
+`MultiPolygonFeature` представляет геометрию, состоящую из нескольких сгруппированных вместе полигонов. Каждый полигон в `MultiPolygonFeature` состоит из замкнутой формы, определенной последовательностью точек, и поставляется с предопределенной <<multi-polygon-geometry,MultiPolygonGeometry>>. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_Feature-Feature.html[документацию Feature^].
 
-The following example demonstrates how to create and place `MultiPolygonFeature` on a map:
+Следующий пример демонстрирует, как создать и разместить `MultiPolygonFeature` на карте:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/features/FeaturesView.java[tags=vSource;GeometryFactory;onInit;addMultiPolygon]
 ----
 
-== Geometries
+== Геометрии
 
 [[point-geometry]]
 === PointGeometry
 
-`PointGeometry` is an object that contains `org.locationtech.jts.geom.Point` from the JTS library.
+`PointGeometry` - это объект, содержащий `org.locationtech.jts.geom.Point` из библиотеки JTS.
 
 [[line-string-geometry]]
 === LineStringGeometry
 
-`LineStringGeometry` is an object that contains `org.locationtech.jts.geom.LineString` from the JTS library.
+`LineStringGeometry` - это объект, содержащий `org.locationtech.jts.geom.LineString` из библиотеки JTS.
 
 [[polygon-geometry]]
 === PolygonGeometry
 
-`PolygonGeometry` is an object that contains `org.locationtech.jts.geom.Polygon` from the JTS library.
+`PolygonGeometry` - это объект, содержащий `org.locationtech.jts.geom.Polygon` из библиотеки JTS.
 
 [[multi-point-geometry]]
 === MultiPointGeometry
 
-`MultiPointGeometry` is an object that contains `org.locationtech.jts.geom.MultiPoint` from the JTS library.
+`MultiPointGeometry` - это объект, содержащий `org.locationtech.jts.geom.MultiPoint` из библиотеки JTS.
 
 [[multi-line-string-geometry]]
 === MultiLineStringGeometry
 
-`MultiLineStringGeometry` is an object that contains `org.locationtech.jts.geom.MultiLineString` from the JTS library.
+`MultiLineStringGeometry` - это объект, содержащий `org.locationtech.jts.geom.MultiLineString` из библиотеки JTS.
 
 [[multi-polygon-geometry]]
 === MultiPolygonGeometry
 
-`MultiPolygonGeometry` is an object that contains `org.locationtech.jts.geom.MultiPolygon` from the JTS library.
+`MultiPolygonGeometry` - это объект, содержащий `org.locationtech.jts.geom.MultiPolygon` из библиотеки JTS.

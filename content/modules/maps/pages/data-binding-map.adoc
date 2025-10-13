@@ -1,59 +1,59 @@
-= 1. Bind Map to Data
+= 1. Привязка карты к данным
 
-In this chapter, you will create:
+В этой главе вы создадите:
 
-* The `LocationType` enumeration.
-* The `Location` entity with the `GeoPoint` attribute type.
-* CRUD views with a map on the `Location.detail` view.
+* Перечисление `LocationType`.
+* Сущность `Location` с атрибутом типа `GeoPoint`.
+* CRUD-экраны с картой на экране `Location.detail`.
 
 [[entity-and-views-creation]]
-== Create Location Entity and Views
+== Создание сущности Location и экранов
 
-To start, we'll generate a `LocationType` enumeration consisting of two values: `Office` and `Coworking`. The detailed instructions for creating enumerations can be found in the xref:tutorial:enumerations.adoc[Using Enumerations] section of Tutorial.
+Для начала мы создадим перечисление `LocationType`, состоящее из двух значений: `Office` и `Coworking`. Подробные инструкции по созданию перечислений можно найти в разделе xref:tutorial:enumerations.adoc[Использование перечислений] Руководства.
 
 image::enumeration-location-type.png[align="center", width="591"]
 
-Next, create the `Location` entity. You can find detailed instructions for creating entities in the xref:tutorial:simple-crud.adoc[Simple CRUD] section of the Tutorial.
+Затем создайте сущность `Location`. Подробные инструкции по созданию сущностей можно найти в разделе xref:tutorial:simple-crud.adoc[Простой CRUD] Руководства.
 
-Select the *Traits → Versioned* checkbox in the *New JPA Entity* dialog.
+Установите флажок *Traits → Versioned* в диалоговом окне *New JPA Entity*.
 
 image::new-location-entity-dialog.png[align="center", width="493"]
 
-The `Location` entity has the following attributes:
+Сущность `Location` имеет следующие атрибуты:
 
-* `city` with `String` type. Select the *Mandatory* checkbox.
-* `address` with `String` type. Select the *Mandatory* checkbox.
-* `type` with `LocationType` enumeration type.
-* `building` with `GeoPoint` type. Select the *Mandatory* checkbox:
+* `city` типа `String`. Установите флажок *Mandatory*.
+* `address` типа `String`. Установите флажок *Mandatory*.
+* `type` типа перечисления `LocationType`.
+* `building` типа `GeoPoint`. Установите флажок *Mandatory*:
 +
 image::geo-point-attribute.png[align="center", width="862"]
 
-Define the `address` attribute for generating an xref:studio:entity-designer.adoc#creating-instance-name[instance name].
+Определите атрибут `address` для xref:studio:entity-designer.adoc#creating-instance-name[генерации имени экземпляра].
 
-Create CRUD views for the `Location` entity. You'll find the detailed steps for generating entity list and detail views in the xref:tutorial:simple-crud.adoc#create-views[Creating CRUD Views] section of the Tutorial.
+Создайте CRUD-экраны для сущности `Location`. Подробные шаги по генерации экранов деталей и списка сущности можно найти в разделе xref:tutorial:simple-crud.adoc#create-views[Создание CRUD-экранов] Руководства.
 
-Follow the suggested values at each step of the view creation wizard.
+Следуйте предлагаемым значениям на каждом шаге мастера создания экранов.
 
-Studio will automatically generate two views: `Location.list` and `Location.detail`, and open their corresponding source code.
+Studio автоматически сгенерирует два экрана: `Location.list` и `Location.detail`, и откроет их соответствующий исходный код.
 
 [[adding-map]]
-== Add Map on View
+== Добавление карты на экран
 
-Locate `location-detail-view.xml` in the *Jmix* tool window and double-click it. The view designer will appear:
+Найдите `location-detail-view.xml` в окне Jmix и дважды щелкните по нему. Появится конструктор экранов:
 
 image::location-detail-view.png[align="center", width="1318"]
 
-You'll notice that the `textField` component is being used to show the `building` attribute.
+Вы заметите, что для отображения атрибута `building` используется компонент `textField`.
 
-If you want to display a map on the view, you should include the `geoMap` UI component in the XML descriptor.
+Если вы хотите отобразить карту на экране, вам следует добавить UI-компонент `geoMap` в XML-дескриптор.
 
-Place the cursor after the `formLayout` element.
+Поместите курсор после элемента `formLayout`.
 
-Next, click *Add Component* in the actions panel, then find the `GeoMap` item and double-click it.
+Затем нажмите *Add Component* на панели действий, найдите элемент `GeoMap` и дважды щелкните по нему.
 
 image::adding-map.png[align="center", width="1136"]
 
-The new `geoMap` element will be added beneath the `formLayout` element in both the *Jmix UI* structure panel and in the XML. Configure the `id`, `height` and `width` attributes as shown below.
+Новый элемент `geoMap` будет добавлен под элементом `formLayout` как на панели структуры *Jmix UI*, так и в XML. Настройте атрибуты `id`, `height` и `width`, как показано ниже.
 
 [source,xml,indent=0]
 ----
@@ -61,59 +61,57 @@ The new `geoMap` element will be added beneath the `formLayout` element in both 
 ----
 
 [[adding-tile-layer]]
-=== Add Tile Layer with OsmSource
+=== Добавление тайлового слоя с OsmSource
 
-We're going to utilize a raster layer as the base background layer of the map. For this, we'll use `OsmSource`, a pre-defined source for displaying https://wiki.openstreetmap.org[OpenStreetMap^] tiles.
+Мы собираемся использовать растровый слой в качестве базового фонового слоя карты. Для этого мы будем использовать `OsmSource` - предопределенный источник для отображения xref:layers-sources.adoc#tile-layer[тайлов] https://wiki.openstreetmap.org[OpenStreetMap^].
 
-Select `map` in the *Jmix UI* structure panel or in the view XML descriptor, then click the *Add* button in the inspector panel. From the drop-down list, choose *Layers -> TileLayer*.
+Выберите `map` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *Layers -> TileLayer*.
 
 image::add-tile-layer.png[align="center", width="331"]
 
-Select `maps:tile` in the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, choose *OsmSource*.
+Выберите `maps:tile` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *OsmSource*.
 
 image::add-osmsource.png[align="center", width="898"]
 
-Now, let's run the application to see the new feature in action.
+Теперь давайте запустим приложение, чтобы увидеть новую функцию в действии.
 
-Click the *Debug* button (image:start-debugger.svg[]) in the main toolbar.
+Нажмите кнопку *Debug* (image:start-debugger.svg[]) на главной панели инструментов.
 
-Prior to launching the application, Studio compares the project data model with the database schema. When you've created a new entity, Studio automatically generates a Liquibase changelog to reflect the relevant database modifications (such as creating the `LOCATION` table):
+Перед запуском приложения Studio сравнивает модель данных проекта со схемой базы данных. Когда вы создали новую сущность, Studio автоматически сгенерировала changelog Liquibase для отражения соответствующих изменений в базе данных (таких как создание таблицы `LOCATION`):
 
 image::changelog-location.png[align="center", width="1036"]
 
-Once the application is up and running, navigate to http://localhost:8080 using your web browser and sign in to the application with the credentials admin/admin.
+Нажмите *Save and run*.
 
-Click *Save and run*.
-
-Studio will carry out the changelog on your database, followed by building and running the application:
+Studio выполнит changelog в вашей базе данных, после чего соберет и запустит приложение:
 
 image::run-app.png[align="center", width="1101"]
 
-Once the application is up and running, navigate to `++http://localhost:8080++` using your web browser and sign in to the application with the credentials `admin/admin`.
+После запуска приложения перейдите по адресу ++http://localhost:8080++ в вашем веб-браузере и войдите в приложение с учетными данными `admin/admin`.
 
-Choose the `Locations` item from the `Application` menu. You will see the `Location.list` view. Click *Create*. The `Location.detail` view will open:
+Выберите пункт `Locations` в меню `Application`. Вы увидите экран `Location.list`. Нажмите *Create*. Откроется экран `Location.detail`:
 
 image::location-detail1.png[align="center", width="1134"]
 
 [[setting-map-view]]
-=== Set Map View
+=== Настройка отображения карты
 
-By default, the `geoMap` component displays a world map with an initial geographical center at `(0,0)`.
+По умолчанию компонент `geoMap` отображает карту мира с начальным географическим центром в `(0,0)`.
 
-We will employ the map view to configure the location displayed on the map.
+Мы используем отображение карты (map view) для настройки местоположения, отображаемого на карте.
 
-Choose `map` within the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, opt for *MapView*.
+Выберите `map` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *MapView*.
 
 image::add-map-view.png[align="center", width="372"]
 
-Specify the `centerY` attribute:
+Укажите атрибут `centerY`:
 
 [source,xml,indent=0]
 ----
 <maps:mapView centerY="51.0"/>
 ----
 
-Choose `maps:mapView` in the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, select *Extent*, and configure the `minX`, `minY`, `maxX` and `maxY` attributes as indicated below.
+Выберите `maps:mapView` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *Extent* и настройте атрибуты `minX`, `minY`, `maxX` и `maxY`, как указано ниже.
 
 [source,xml,indent=0]
 ----
@@ -123,20 +121,20 @@ Choose `maps:mapView` in the *Jmix UI* structure panel or in the view XML descri
              maxY="60.0"/>
 ----
 
-The extent limits the view, meaning that nothing beyond this extent will be visible on the map.
+Экстент (extent) ограничивает область просмотра, то есть ничего за пределами этого экстента не будет видно на карте.
 
-Launch the application to see the new feature in action.
+Запустите приложение, чтобы увидеть новую функцию в действии.
 
 [[adding-data-layer]]
-=== Add Vector Layer with DataVectorSource
+=== Добавление векторного слоя с DataVectorSource
 
-To handle geo-objects, we'll incorporate a vector layer.
+Для работы с геообъектами мы добавим векторный слой.
 
-Navigate to `maps:layers` in the *Jmix UI* structure panel or in the view XML descriptor, and click the *Add* button in the inspector panel. From the drop-down list, opt for *VectorLayer*. Specify the `id` attribute as follows: `id="vectorLayer"`.
+Перейдите к `maps:layers` на панели структуры *Jmix UI* или в XML-дескрипторе экрана и нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *VectorLayer*. Укажите атрибут `id` следующим образом: `id="vectorLayer"`.
 
-We'll utilize `DataVectorSource`, which supports data binding with Jmix data containers.
+Мы будем использовать `DataVectorSource`, который поддерживает привязку данных к контейнерам данных Jmix.
 
-Choose `vectorLayer` in the *Jmix UI* structure panel or in the view XML descriptor, and then click the *Add* button in the inspector panel. From the drop-down list, opt for *DataVectorSource*. Configure the `dataContainer` attribute for it:
+Выберите `vectorLayer` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, а затем нажмите кнопку *Add* на панели инспектора. В выпадающем списке выберите *DataVectorSource*. Настройте для него атрибут `dataContainer`:
 
 [source,xml,indent=0]
 ----
@@ -147,7 +145,7 @@ Choose `vectorLayer` in the *Jmix UI* structure panel or in the view XML descrip
 </maps:vector>
 ----
 
-Let's take a look: the complete description of our map is as follows:
+Давайте посмотрим: полное описание нашей карты выглядит следующим образом:
 
 [source,xml,indent=0]
 ----
@@ -155,26 +153,26 @@ include::example$/maps-ex1/src/main/resources/com/company/onboarding/view/locati
 ----
 
 [[saving-coordinates]]
-== Save Coordinates to Building Attribute
+== Сохранение координат в атрибут Building
 
-When HR manager creates a location, they click on a spot on the map, which is then stored in the `Location` entity as a `Point` with coordinates.
+Когда менеджер по персоналу создает местоположение, он щелкает на точке на карте, которая затем сохраняется в сущности `Location` как `Point` с координатами.
 
-Let's proceed to add a `ClickEvent` for our map.
+Давайте добавим `ClickEvent` для нашей карты.
 
-Choose `map` in the *Jmix UI* structure panel or in the view XML descriptor, switch to the *Handlers* tab, and create a `MapClickEvent` handler method:
+Выберите `map` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, перейдите на вкладку *Handlers* и создайте метод-обработчик события `MapClickEvent`:
 
 image::add-click-event.png[align="center", width="1044"]
 
-Add the logic of obtaining and storing the user's selected coordinates to the `map` click handler method:
+Добавьте логику получения и сохранения выбранных пользователем координат в метод-обработчик клика по карте:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/location/LocationDetailView.java[tags=view;geometryFactory;MapClickEvent]
 ----
-<1> To obtain `GeometryFactory` use `GeometryUtils` - a specialized utility class with functions related to the JTS library.
-<2> Convert the coordinates obtained from an `event` into a `Point` object by employing the `GeometryFactory` method.
-<3> Use the `getEditedEntity()` method of the base `StandardDetailView` class to get the `Location` being edited.
+<1> Для получения `GeometryFactory` используйте `GeometryUtils` - специализированный служебный класс с функциями, связанными с библиотекой JTS.
+<2> Преобразуйте координаты, полученные из `event`, в объект `Point`, используя метод `GeometryFactory`.
+<3> Используйте метод `getEditedEntity()` базового класса `StandardDetailView` для получения редактируемой сущности `Location`.
 
-Launch the application. Select the `Locations` item in the `Application` menu to access the `Location.list` view. Click *Create* to open the `Location.detail` view. Fill in the *City*, *Address* and *Type* fields with the relevant information. Click on the map at the specified address location. The value for the *Building* field will be automatically populated based on the coordinates of the selected point on the map. Save the location by clicking *OK*.
+Запустите приложение. Выберите пункт `Locations` в меню `Application`, чтобы перейти к экрану `Location.list`. Нажмите *Create*, чтобы открыть экран `Location.detail`. Заполните поля *City*, *Address* и *Type* соответствующей информацией. Щелкните на карте в указанном месте адреса. Значение для поля *Building* будет автоматически заполнено на основе координат выбранной точки на карте. Сохраните местоположение, нажав *ОК*.
 
 image::location-detail2.png[align="center", width="1134"]
