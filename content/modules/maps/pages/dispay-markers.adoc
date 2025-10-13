@@ -1,89 +1,89 @@
-= 2. Display Markers on Map
+= 2. Отображение маркеров на карте
 
 [[add-attr]]
-== Add Attribute to Entity and UI
+== Добавление атрибута к сущности и UI
 
-Let’s add the `location` attribute to the `User` entity:
+Давайте добавим атрибут `location` к сущности `User`:
 
-Double-click on the `User` entity in *Jmix* tool window and choose its last attribute (to append the new attribute at the end):
+Дважды щелкните на сущности `User` в окне *Jmix* и выберите ее последний атрибут (чтобы добавить новый атрибут в конец):
 
 image::new-attr-for-user.png[align="center", width="1046"]
 
-Click *Add* (image:add.svg[]) in the *Attributes* toolbar. In the *New Attribute* dialog, input `location` in the *Name* field, choose `ASSOCIATION` in the *Attribute type* dropdown, and `Location` in the *Type* dropdown. Select *One to One* cardinality and mark the *Owning Side* checkbox.
+Нажмите *Add* (image:add.svg[]) на панели инструментов *Attributes*. В диалоговом окне *New Attribute* введите `location` в поле *Name*, выберите `ASSOCIATION` в выпадающем списке *Attribute type* и `Location` в выпадающем списке *Type*. Выберите кардинальность *One to One* и установите флажок *Owning Side*.
 
 image::location-attr.png[align="center", width="862"]
 
-To establish a one-to-one xref:data-model:entities.adoc#references[reference], Studio recommends generating an inverse attribute in the `Location` entity.
+Чтобы установить xref:data-model:entities.adoc#references[ссылку] один-к-одному, Studio рекомендует сгенерировать обратный атрибут в сущности `Location`.
 
 image::create-inverse-attr.png[align="center", width="416"]
 
-Click *Yes*, and then *OK* in the next dialog.
+Нажмите *Yes*, а затем *OK* в следующем диалоговом окне.
 
-Choose the `location` attribute and click the *Add to Views* (image:add-attribute-to-screens.svg[]) button in the *Attributes* toolbar:
+Выберите атрибут `location` и нажмите кнопку *Add to Views* (image:add-attribute-to-screens.svg[]) на панели инструментов *Attributes*:
 
 image::add-attr-to-view.png[align="center", width="431"]
 
-The displayed dialog window will present all views that exhibit the `User` entity. Select the `User.detail` view:
+В появившемся диалоговом окне будут представлены все экраны, отображающие сущность `User`. Выберите экран `User.detail`:
 
 image::add-attr-to-detail.png[align="center", width="561"]
 
-Subsequently, Studio will append the `location` property to `fetchPlan` and place the `entityPicker` component within `formLayout` of the `User.detail` view.
+После этого Studio добавит свойство `location` в `fetchPlan` и разместит компонент `entityPicker` внутри `formLayout` экрана `User.detail`.
 
-Click the *Debug* button (image:start-debugger.svg[]) in the main toolbar.
+Нажмите кнопку *Debug* (image:start-debugger.svg[]) на главной панели инструментов.
 
-Prior to application execution, Studio will draft a Liquibase changelog:
+Перед выполнением приложения Studio создаст файл Liquibase changelog:
 
 image::changelog-user.png[align="center", width="1036"]
 
-Click *Save and run*.
+Нажмите *Save and run*.
 
-Studio will execute the changelog, proceed with building and running the application.
+Studio выполнит changelog, затем выполнит сборку и запуск приложения.
 
-Access `++http://localhost:8080++` using your web browser and log into the application using the credentials `admin/admin`.
+Перейдите по адресу `++http://localhost:8080++` в вашем веб-браузере и войдите в приложение с учетными данными `admin/admin`.
 
-Choose the `Users` item in the `Application` menu.
+Выберите пункт `Users` в меню `Application`.
 
-Click *Create*. The UI control for selecting a location will be displayed at the bottom of the form:
+Нажмите *Create*. Элемент управления UI для выбора местоположения будет отображен в нижней части формы:
 
 image::user-with-location-detail.png[align="center", width="790"]
 
 [[create-blank-view]]
-== Create Blank View
+== Создание пустого экрана
 
-If your application is currently running, terminate it by clicking the *Stop* button (image:suspend.svg[]) in the main toolbar.
+Если ваше приложение в данный момент запущено, остановите его, нажав кнопку *Stop* (image:suspend.svg[]) на главной панели инструментов.
 
-In the *Jmix* tool window, select *New* (image:add.svg[]) -> *View*:
+В окне *Jmix* выберите *New* (image:add.svg[]) -> *View*:
 
 image::create-blank-view.png[align="center", width="290"]
 
-In the *Create Jmix View* window, choose the `Blank view` template:
+В окне *Create Jmix View* выберите шаблон `Blank view`:
 
 image::create-view-template.png[align="center", width="776"]
 
-Click *Next*.
+Нажмите *Next*.
 
-On the subsequent step of the wizard, input the following:
+На следующем шаге мастера введите следующее:
 
 * *Descriptor name*: `location-lookup-view`
 * *Controller name*: `LocationLookupView`
 * *Package name*: `com.company.onboarding.view.locationlookup`
 
-Clear *Parent menu item*,  as it is unnecessary for this view.
+Очистите поле *Parent menu item*, так как оно не нужно для этого экрана.
 
 image::create-blank-view-params.png[align="center", width="776"]
 
-Click *Next* and then *Create*.
+Нажмите *Next*, а затем *Create*.
 
-Studio will generate an empty view and display it in the designer:
+Studio сгенерирует пустой экран и отобразит его в дизайнере:
 
 image::create-view-designer.png[align="center", width="1386"]
 
 [[set-up-view-opening]]
-== Set Up View Opening
+== Настройка открытия экрана
 
-Our new view is intended to open from the user's detail view. To achieve this, the *Location* field will be utilized.
+Наш новый экран предназначен для открытия из экрана деталей пользователя. Для этого будет использоваться поле *Location*.
 
-We will need to replace the Studio-generated `entityPicker` component with the `valuePicker` component. Open `user-detail-view.xml` and locate the `entityPicker` component within the `formLayout`:
+Нам нужно заменить сгенерированный Studio компонент `entityPicker` на компонент `valuePicker`. Откройте `user-detail-view.xml` и найдите компонент `entityPicker` внутри `formLayout`:
 
 [source,xml,indent=0]
 ----
@@ -101,29 +101,29 @@ We will need to replace the Studio-generated `entityPicker` component with the `
 </layout>
 ----
 
-Modify the XML element of the component to `valuePicker` and eliminate the nested `actions` element.
+Измените XML-элемент компонента на `valuePicker` и удалите вложенный элемент `actions`.
 
-Choose `valuePicker` within the *Jmix UI* structure panel or in the view XML descriptor, then click the *Add* button in the inspector panel. Opt for *Actions → Action* from the drop-down list.
+Выберите `valuePicker` на панели структуры *Jmix UI* или в XML-дескрипторе экрана, затем нажмите кнопку *Add* на панели инспектора. Выберите *Actions → Action* в выпадающем списке.
 
 image::value-picker-actions.png[align="center", width="1100"]
 
-First, select a `New Base Action` and click *OK*.
+Сначала выберите `New Base Action` и нажмите *ОК*.
 
 image::new-base-action.png[align="center", width="492"]
 
-Set the `id` of the action to `select` and `icon` to `vaadin:search`.
+В качестве идентификатора действия введите `select`, а для атрибута `icon` выберите `vaadin:search`.
 
 image::select-action.png[align="center", width="486"]
 
-Next, add a predefined `value_clear` action for `locationField`:
+Затем добавьте предопределенное действие `value_clear` для `locationField`:
 
 image::add-value-clear-action.png[align="center", width="492"]
 
-Choose the `select` action in the *Jmix UI* structure panel or in the view XML descriptor. Then, navigate to the *Handlers* tab in the *Jmix Inspector* panel to generate an `ActionPerformedEvent` handler method:
+Выберите действие `select` на панели структуры *Jmix UI* или в XML-дескрипторе экрана. Затем перейдите на вкладку *Handlers* на панели *Jmix Inspector*, чтобы сгенерировать метод-обработчик события `ActionPerformedEvent`:
 
 image::action-performed-event.png[align="center", width="939"]
 
-Add the logic of opening `LocationLookupView` to `ActionPerformedEvent` handler method:
+Добавьте логику открытия `LocationLookupView` в метод-обработчик события `ActionPerformedEvent`:
 
 [source,java,indent=0]
 ----
@@ -135,18 +135,18 @@ public void onLocationFieldSelect(final ActionPerformedEvent event) {
     dialogWindows.view(this, LocationLookupView.class).open();
 }
 ----
-<1> The xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindows] bean provides a fluent interface for opening views in dialog windows.
+<1> Бин xref:flow-ui:views/opening-views.adoc#dialog-windows[DialogWindows] предоставляет fluent interface для открытия экранов в диалоговых окнах.
 
-Launch the application. Select the `Users` item from the `Application` menu. Click *Create*. The `User.detail` view will appear. Locate the *Location* field and click on the (image:search-button.png[width="29"]) *Search* button. This action will prompt the `LocationLookupView` to open in a dialog.
+Запустите приложение. Выберите пункт `Users` в меню `Application`. Нажмите *Create*. Появится экран `User.detail`. Найдите поле *Location* и нажмите на кнопку *Search* (image:search-button.png[width="29"]). Это действие приведет к открытию `LocationLookupView` в диалоговом окне.
 
 image::blank-view-as-dialog.png[align="center", width="1112"]
 
-Now you'll have the opportunity to review the alterations occurring in our view.
+Теперь у вас будет возможность просмотреть изменения, происходящие в нашем экране.
 
 [[add-components]]
-== Add Components on LocationLookupView
+== Добавление компонентов на LocationLookupView
 
-First, include a field where the current location selected on the map will be shown. Navigate to the actions panel, click *Add Component*, locate `entityPicker`, and double-click it. Configure the component’s properties as follows:
+Сначала добавьте поле, в котором будет отображаться текущее местоположение, выбранное на карте. Перейдите на панель действий, нажмите *Add Component*, найдите `entityPicker` и дважды щелкните по нему. Настройте свойства компонента следующим образом:
 
 [source,xml,indent=0]
 ----
@@ -157,10 +157,10 @@ First, include a field where the current location selected on the map will be sh
               label="msg://currentLocationField.label"/>
 ----
 
-Next, we'll add two `hbox` containers:
+Затем мы добавим два контейнера `hbox`:
 
-. The first will encompass a list of locations and a map.
-. The second will contain the *Select* and *Cancel* buttons.
+. Первый будет содержать список местоположений и карту.
+. Второй будет содержать кнопки *Select* и *Cancel*.
 
 [source,xml,indent=0]
 ----
@@ -170,14 +170,14 @@ Next, we'll add two `hbox` containers:
 <hbox id="controlLayout"/>
 ----
 
-Click *Add Component* in the actions panel and then drag and drop `Layouts → VBox` (vertical box) to the first `hbox` element within the *Jmix UI* structure panel. Configure the properties of the `vbox` as follows:
+Нажмите *Add Component* на панели действий, а затем перетащите `Layouts → VBox` (вертикальный контейнер) в первый элемент `hbox` на панели структуры *Jmix UI*. Настройте свойства `vbox` следующим образом:
 
 [source,xml,indent=0]
 ----
 <vbox padding="false" width="25em"/>
 ----
 
-Subsequently, incorporate a field for selecting the type of location. Click *Add Component* in the actions panel, locate `select`, and then drag and drop it into the `vbox`. Configure the component’s properties as follows:
+Затем добавьте поле для выбора типа местоположения. Нажмите *Add Component* на панели действий, найдите `select`, а затем перетащите его в `vbox`. Настройте свойства компонента следующим образом:
 
 [source,xml,indent=0]
 ----
@@ -187,11 +187,11 @@ Subsequently, incorporate a field for selecting the type of location. Click *Add
         itemsEnum="com.company.onboarding.entity.LocationType"/>
 ----
 
-To showcase the list of locations, we'll utilize the `listBox` component. Firstly, introduce a data container which will supply a collection of `Location` entities for the virtual list. To achieve this, click *Add Component* in the actions panel, navigate to the `Data components` section, and proceed to double-click the `Collection` item. Within the *Collection Properties Editor* window, select `Location` in the *Entity* field and then click *OK*:
+Для отображения списка местоположений мы будем использовать компонент `listBox`. Сначала добавьте контейнер данных, который будет предоставлять коллекцию сущностей `Location` для виртуального списка. Для этого нажмите *Add Component* на панели действий, перейдите в раздел `Data components` и дважды щелкните элемент `Collection`. В окне *Collection Properties Editor* выберите `Location` в поле *Entity* и нажмите *ОК*:
 
 image::location-collection-container.png[align="center", width="723"]
 
-Studio will generate the collection container:
+Studio сгенерирует контейнер коллекции:
 
 [source,xml,indent=0]
 ----
@@ -208,17 +208,17 @@ Studio will generate the collection container:
 ----
 
 [[load-data]]
-=== Load Data
+=== Загрузка данных
 
-To trigger the created loader, include the xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet.
+Чтобы активировать созданный загрузчик, добавьте фасет xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator].
 
 image::add-data-load-coordinator.png[align="center", width="770"]
 
-The default query retrieves all `Location` instances, but you'll need to filter only the locations selected in the `locationTypeField` component. As a result, we declare xref:flow-ui:data/data-loaders.adoc#query-conditions[query conditions] associated with an input field via `DataLoadCoordinator`.
+Запрос по умолчанию извлекает все экземпляры `Location`, но вам нужно фильтровать только местоположения, выбранные в компоненте `locationTypeField`. В результате мы объявляем xref:flow-ui:data/data-loaders.adoc#query-conditions[условия запроса], связанные с полем ввода через `DataLoadCoordinator`.
 
-We will utilize the `component_` prefix in a query condition to reference the `locationTypeField` component.
+Мы будем использовать префикс `component_` в условии запроса для ссылки на компонент `locationTypeField`.
 
-Let's configure query conditions declaratively in the `<condition>` XML element:
+Давайте настроим условия запроса декларативно в XML-элементе `<condition>`:
 
 [source,xml,indent=0]
 ----
@@ -241,15 +241,15 @@ Let's configure query conditions declaratively in the `<condition>` XML element:
         </collection>
     </data>
 ----
-<1> Adds the JPQL conditions namespace.
-<2> Defines the `condition` element within the query.
-<3> Defines a JPQL condition with an optional `join` element and a mandatory `where` element.
-<4> Includes a `WHERE` clause by `type` attribute with the `:component_locationTypeField` parameter.
+<1> Добавляет пространство имен условий JPQL.
+<2> Определяет элемент `condition` внутри запроса.
+<3> Определяет условие JPQL с необязательным элементом `join` и обязательным элементом `where`.
+<4> Включает предложение `WHERE` по атрибуту `type` с параметром `:component_locationTypeField`.
 
 [[add-list-box]]
-=== Add ListBox
+=== Добавление ListBox
 
-Click *Add Component* in the actions panel, locate `listBox`, and then drag and drop it into the `vbox`. Configure the component’s properties as follows:
+Нажмите *Add Component* на панели действий, найдите `listBox`, а затем перетащите его в `vbox`. Настройте свойства компонента следующим образом:
 
 [source,xml,indent=0]
 ----
@@ -259,7 +259,7 @@ Click *Add Component* in the actions panel, locate `listBox`, and then drag and 
          width="20em"/>
 ----
 
-At this point, the view XML should appear as shown below:
+На этом этапе XML экрана должен выглядеть так, как показано ниже:
 
 [source,xml,indent=0]
 ----
@@ -309,18 +309,18 @@ At this point, the view XML should appear as shown below:
 </view>
 ----
 
-Let's run the application to observe the new feature in action.
+Давайте запустим приложение, чтобы увидеть новую функцию в действии.
 
 image::location-lookup-view.png[align="center", width="1134"]
 
 //We will work on the rendering of the locations list further, but for now, let's focus on adding the map to our view.
 
 [[add-map]]
-=== Add Map
+=== Добавление Map
 
-Position the cursor after the `vbox` element. Click *Add Component* in the actions panel, find the `GeoMap` item, and then double-click it.
+Поместите курсор после элемента `vbox`. Нажмите *Add Component* на панели действий, найдите элемент `GeoMap` и дважды щелкните по нему.
 
-The new `map` element will be generated beneath the `vbox` element in the *Jmix UI* structure panel and in XML. Configure the `id`, `height` and `width` attributes as shown below.
+Новый элемент `map` будет создан под элементом `vbox` на панели структуры *Jmix UI* и в XML. Настройте атрибуты `id`, `height` и `width`, как показано ниже.
 
 [source,xml,indent=0]
 ----
@@ -329,7 +329,7 @@ The new `map` element will be generated beneath the `vbox` element in the *Jmix 
              width="100%"/>
 ----
 
-Next, include a xref:maps:data-binding-map.adoc#adding-tile-layer[tile layer with OsmSource], set a xref:maps:data-binding-map.adoc#setting-map-view[map view], and add a xref:maps:data-binding-map.adoc#adding-data-layer[vector layer with DataVectorSource]. The completed map should appear as shown below:
+Затем добавьте xref:maps:data-binding-map.adoc#adding-tile-layer[тайловый слой с OsmSource], установите xref:maps:data-binding-map.adoc#setting-map-view[отображение карты] и добавьте xref:maps:data-binding-map.adoc#adding-data-layer[векторный слой с DataVectorSource]. Готовая карта должна выглядеть так, как показано ниже:
 
 [source,xml,indent=0]
 ----
@@ -352,11 +352,11 @@ Next, include a xref:maps:data-binding-map.adoc#adding-tile-layer[tile layer wit
                 </maps:geoMap>
 ----
 
-Let's launch the application to see the new feature in action.
+Давайте запустим приложение, чтобы увидеть новую функцию в действии.
 
 image::location-lookup-view-with-map.png[align="center", width="1134"]
 
-As we can see, the map does not fit on the view. Therefore, we'll need to modify the view size. Add the `@DialogMode` annotation to the `LocationLookupView` controller:
+Как мы видим, карта не помещается на экране. Поэтому нам нужно изменить размер экрана. Добавьте аннотацию `@DialogMode` в контроллер `LocationLookupView`:
 
 [source,java,indent=0]
 ----
@@ -368,42 +368,42 @@ public class LocationLookupView extends StandardView {
 }
 ----
 
-Press *Ctrl/Cmd+S* and switch to the running application. Click on the (image:search-button.png[width="29"]) *Search* button located next to the *Location* field. The `LocationLookupView` view will open as a dialog with the width and height we determined earlier.
+Нажмите *Ctrl/Cmd+S* и перейдите в запущенное приложение. Нажмите на кнопку *Search* (image:search-button.png[width="29"]) рядом с полем *Location*. Экран `LocationLookupView` откроется в диалоговом окне с заданными нами шириной и высотой.
 
 image::location-lookup-with-map.png[align="center", width="1134"]
 
-The <<use-markers,following step>> will demonstrate how to utilize distinct markers for offices and coworking spaces.
+<<use-markers,Следующий шаг>> покажет, как использовать различные маркеры для офисов и коворкингов.
 
 [[add-buttons]]
-=== Add Buttons
+=== Добавление кнопок
 
-Let's add the `Select` button to save the current location for the user, and the `Cancel` button to terminate without saving.
+Давайте добавим кнопку `Select` для сохранения текущего местоположения пользователя и кнопку `Cancel` для выхода без сохранения.
 
-Open the `location-lookup-view.xml` XML descriptor and find the `controlLayout` hbox. Click *Add Component* in the actions panel, then drag and drop two buttons into `controlLayout`.
+Откройте XML-дескриптор `location-lookup-view.xml` и найдите `controlLayout` hbox. Нажмите *Add Component* на панели действий, затем перетащите две кнопки в `controlLayout`.
 
-The created buttons should be associated with actions. Define the `actions` element, including nested `action` elements, as illustrated below.
+Созданные кнопки должны быть связаны с действиями. Определите элемент `actions`, включая вложенные элементы `action`, как показано ниже.
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex1/src/main/resources/com/company/onboarding/view/locationlookup/location-lookup-view.xml[tags=actions]
 ----
-<1> `select` custom xref:flow-ui:actions/declarative-actions.adoc#attributes[action properties] are defined in-place.
-<2> The standard xref:flow-ui:actions/view-actions.adoc#view_close[view close] action.
+<1> Пользовательские xref:flow-ui:actions/declarative-actions.adoc#attributes[свойства действия] `select` определены непосредственно в месте использования.
+<2> Стандартное действие xref:flow-ui:actions/view-actions.adoc#view_close[закрытия экрана].
 
-Generate the action performed event using the *Jmix UI* inspector panel → *Handlers* tab.
+Сгенерируйте событие выполнения действия с помощью панели инспектора *Jmix UI* → вкладка *Handlers*.
 
 image::action-select-event.png[align="center", width="815"]
 
 [[select-action-handler]]
-Implement the `select` action handler:
+Реализуйте обработчик действия `select`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=onSelect]
 ----
-<1> The `close()` method closes the view. It accepts a `StandardOutcome.SELECT` object that can be processed by the calling code. We will handle it xref:maps:interaction-views.adoc[later].
+<1> Метод `close()` закрывает экран. Он принимает объект `StandardOutcome.SELECT`, который может быть обработан вызывающим кодом. Мы обработаем его xref:maps:interaction-views.adoc[позже].
 
-Assign the button ids and link each button with the respective action as shown below:
+Назначьте идентификаторы кнопок и свяжите каждую кнопку с соответствующим действием, как показано ниже:
 
 [source,xml,indent=0]
 ----
@@ -411,13 +411,13 @@ include::example$/maps-ex1/src/main/resources/com/company/onboarding/view/locati
 ----
 
 [[use-markers]]
-== Use Custom Markers
+== Использование пользовательских маркеров
 
-Switch to the *Project* tool window and locate various markers for offices and coworking spaces within the `/src/main/resources/META-INF/resources/icons/` directory in the classpath:
+Перейдите в окно *Project* и найдите различные маркеры для офисов и коворкингов в директории `/src/main/resources/META-INF/resources/icons/` в classpath:
 
 image::locate-markers.png[align="center", width="359"]
 
-Open the `LocationLookupView` controller and inject `buildingSource`.
+Откройте контроллер `LocationLookupView` и инжектируйте `buildingSource`.
 
 [source,java,indent=0]
 ----
@@ -426,12 +426,12 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationloo
 
 [TIP]
 ====
-You can inject view components and Spring beans using the *Inject* button in the actions panel:
+Вы можете инжектировать компоненты экрана и Spring-бины с помощью кнопки *Inject* на панели действий:
 
 image::inject-map.png[align="center", width="682"]
 ====
 
-Next, introduce a method to customize the display of markers:
+Затем добавьте метод для настройки отображения маркеров:
 
 [source,java,indent=0]
 ----
@@ -452,36 +452,36 @@ Next, introduce a method to customize the display of markers:
                         .withText(location.getCity())));
     }
 ----
-<1> Establishes a new style that combines an image with a text label for our markers. The image varies based on the location type.
+<1> Устанавливает новый стиль, который объединяет изображение с текстовой меткой для наших маркеров. Изображение варьируется в зависимости от типа местоположения.
 
-Click *Generate Handler* button in the top actions panel and select `Controller handlers → InitEvent`:
+Нажмите кнопку *Generate Handler* на верхней панели действий и выберите `Controller handlers → InitEvent`:
 
 image::init-event-generate.png[align="center", width="896"]
 
-Click *OK*. Studio will generate a handler method stub. Invoke `initBuildingSource()` from the `InitEvent` handler:
+Нажмите *ОК*. Studio сгенерирует заглушку метода-обработчика. Вызовите `initBuildingSource()` из обработчика `InitEvent`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=onInit;initBuildingSource]
 ----
 
-Launch the application and open `LocationLookupView`. Evaluate the appearance of markers for different location types.
+Запустите приложение и откройте `LocationLookupView`. Оцените внешний вид маркеров для различных типов местоположений.
 
 image::different-markers.png[align="center", width="1134"]
 
 [[marker-events]]
-== Handle Marker Events
+== Обработка событий маркеров
 
-Once a user chooses a marker on the map, the selected location is assigned to the *Current location* field. Additionally, the map's zoom level is adjusted, centering the map on the selected location, with the chosen marker placed in the center of the map view.
+Когда пользователь выбирает маркер на карте, выбранное местоположение назначается полю *Current location*. Дополнительно уровень масштабирования карты корректируется, центрируя карту на выбранном местоположении, при этом выбранный маркер размещается в центре области просмотра карты.
 
-Open the `LocationLookupView` controller and add the `setMapCenter()` method:
+Откройте контроллер `LocationLookupView` и добавьте метод `setMapCenter()`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=setMapCenter]
 ----
 
-Next, navigate to the `initBuildingSource()` method and incorporate the following code at the end of the method body:
+Затем перейдите к методу `initBuildingSource()` и добавьте следующий код в конец тела метода:
 
 [source,java,indent=0]
 ----
@@ -495,29 +495,29 @@ Next, navigate to the `initBuildingSource()` method and incorporate the followin
     }
 ----
 
-Let's run the application to observe the new feature in action. Now, when you click on the marker, the map will zoom in and center itself based on the location’s coordinates.
+Давайте запустим приложение, чтобы увидеть новую функцию в действии. Теперь при нажатии на маркер карта будет увеличивать масштаб и центрироваться по координатам местоположения.
 
 image::centered-map.png[align="center", width="1134"]
 
-Now we need to display the selected location in the *Current location* field and make the *Select* button available.
+Теперь нам нужно отобразить выбранное местоположение в поле *Current location* и сделать кнопку *Select* доступной.
 
-Return to the `LocationLookupView` controller. Inject `currentLocationField` and the `select` action. Define the `selected` variable:
+Вернитесь к контроллеру `LocationLookupView`. Инжектируйте `currentLocationField` и действие `select`. Определите переменную `selected`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=components;selected]
 ----
 
-Then add the `onLocationChanged()` method:
+Затем добавьте метод `onLocationChanged()`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=onLocationChanged]
 ----
-<1> Makes the *Select* action available.
-<2> Sets the selected location in the *Current location* field.
+<1> Делает действие *Select* доступным.
+<2> Устанавливает выбранное местоположение в поле *Current location*.
 
-Invoke `onLocationChanged()` from the `initBuildingSource()` method:
+Вызовите `onLocationChanged()` из метода `initBuildingSource()`:
 
 [source,java,indent=0]
 ----

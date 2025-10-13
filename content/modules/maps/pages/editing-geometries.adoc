@@ -1,68 +1,68 @@
-= Editing Geo-object Geometries on a Map
+= Редактирование геометрий геообъектов на карте
 
-The Maps add-on enables users to visually edit geometries of geo-objects. Instead of editing geometry data as text in a field, users can now interact with geometries directly on a map. This intuitive interface allows users to move geometries, modify lines, and perform other edits visually, simplifying the geo-data management process.
+Дополнение Maps позволяет пользователям визуально редактировать геометрии геообъектов. Вместо редактирования данных геометрии в виде текста в поле, пользователи теперь могут взаимодействовать с геометриями непосредственно на карте. Этот интуитивный интерфейс позволяет пользователям перемещать геометрии, изменять линии и выполнять другие правки визуально, упрощая процесс управления геоданными.
 
-Both xref:maps:layers-sources.adoc#vector-source[VectorSource] and xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource] support three feature editing modes:
+И xref:maps:layers-sources.adoc#vector-source[VectorSource], и xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource] поддерживают три режима редактирования сущностей:
 
-* *Select Mode*: allows users to select features on the map.
-* *Drag Mode*: allows users to drag features to new locations on the map.
-* *Modify Mode*: allows users to modify the geometry of features, such as vertices and lines.
+* *Режим выбора*: позволяет пользователям выбирать сущности на карте.
+* *Режим перетаскивания*: позволяет пользователям перетаскивать сущности в новые места на карте.
+* *Режим изменения*: позволяет пользователям изменять геометрию сущностей, например, вершины и линии.
 
 [[select-mode]]
-== Select Mode
+== Режим выбора
 
-To enable feature selection, set the `featureSelectEnabled` attribute of the xref:layers-sources.adoc#vector-source[vector source] to `true`.
+Чтобы включить выбор сущностей, установите атрибут `featureSelectEnabled` для xref:layers-sources.adoc#vector-source[векторного источника] в значение `true`.
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/select-mode-view.xml[tags=select-mode1]
 ----
 
-When enabled, this mode allows users to select features on the map by clicking them. For multi-selection, users can use the `Shift` + click combination.
+Когда режим включен, пользователи могут выбирать сущности на карте, нажимая на них. Для множественного выбора пользователи могут использовать комбинацию `Shift` + щелчок.
 
 image::layers-select-example.gif[width="780"]
 
-NOTE: When the select mode is used in conjunction with drag or modify modes, only the selected features can be dragged or modified.
+NOTE: Когда режим выбора используется вместе с режимами перетаскивания или изменения, только выбранные сущности можно перетаскивать или изменять.
 
-The select mode provides a select event for handling the selection and deselection of features. See the xref:maps:events.adoc#source-events[Source Events] section for more details.
+Режим выбора предоставляет событие выбора для обработки выделения и снятия выделения с сущностей. Для получения более подробной информации смотрите раздел xref:maps:events.adoc#source-events[События источника].
 
-You can also style the selected features to highlight them visually. Refer to the xref:maps:style.adoc#select-mode-styles[Select Mode Styles] section for more information.
+Вы также можете стилизовать выбранные сущности, чтобы визуально их выделить. Для получения дополнительной информации обратитесь к разделу xref:maps:style.adoc#select-mode-styles[Стили режима выбора].
 
 [[drag-mode]]
-== Drag Mode
+== Режим перетаскивания
 
-To enable feature dragging, set the `featureDragEnabled` attribute of the xref:layers-sources.adoc#vector-source[vector source] to `true`. This will activate a control button image:layers-drag-icon.png[width="24"] on the map that enables dragging mode.
+Чтобы включить перетаскивание сущностей, установите атрибут `featureDragEnabled` для xref:layers-sources.adoc#vector-source[векторного источника] в значение `true`. Это активирует кнопку управления image:layers-drag-icon.png[width="24"] на карте, которая включает режим перетаскивания.
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/drag-mode-view.xml[tags=drag-mode1]
 ----
 
-For example, here's how the drag mode looks when enabled:
+Например, вот как выглядит режим перетаскивания, когда он включен:
 
 image::layers-drag-example.gif[width="445"]
 
-This mode provides events to handle the start and end of dragging; see the xref:maps:events.adoc#source-events[Source Events] section for more details.
+Этот режим предоставляет события для обработки начала и окончания перетаскивания; для получения более подробной информации смотрите раздел xref:maps:events.adoc#source-events[События источника].
 
 [[modify-mode]]
-== Modify Mode
+== Режим изменения
 
-To enable feature modification, set the `featureModifyEnabled` attribute of the xref:layers-sources.adoc#vector-source[vector source] to `true`
+Чтобы включить изменение сущностей, установите атрибут `featureModifyEnabled` для xref:layers-sources.adoc#vector-source[векторного источника] в значение `true`.
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/modify-mode-view.xml[tags=modify-mode1]
 ----
 
-This will activate control buttons on the map:
+Это активирует кнопки управления на карте:
 
-* image:layers-modify-icon.png[width="24"] - activates modify mode. In this mode, a vertex is rendered that can be dragged to modify a feature or clicked to remove it.
-* image:layers-delete-icon.png[width="24"] - activates delete mode. When this mode is active, users can click on a feature, and a confirmation dialog will appear before deletion.
+* image:layers-modify-icon.png[width="24"] - активирует режим изменения. В этом режиме отображается вершина, которую можно перетащить для изменения сущности или нажать для ее удаления.
+* image:layers-delete-icon.png[width="24"] - активирует режим удаления. Когда этот режим активен, пользователи могут нажать на сущность, и перед удалением появится диалоговое окно подтверждения.
 
-For example, here's how the modify mode looks when enabled:
+Например, вот как выглядит режим изменения, когда он включен:
 
 image::layers-modify-example.gif[width="545"]
 
-This mode provides events to handle the start and end of modifications. Additionally, the xref:layers-sources.adoc#vector-source[vector source] has a delete event. For more information, see the xref:maps:events.adoc#source-events[Source Events] section.
+Этот режим предоставляет события для обработки начала и окончания изменений. Кроме того, xref:layers-sources.adoc#vector-source[векторный источник] имеет событие удаления. Для получения дополнительной информации смотрите раздел xref:maps:events.adoc#source-events[События источника].
 
-You can also style the generated vertex points. See the xref:maps:style.adoc#modify-mode-styles[Modify Mode Styles] section for more details.
+Вы также можете стилизовать сгенерированные точки вершин. Для получения более подробной информации смотрите раздел xref:maps:style.adoc#modify-mode-styles[Стили режима изменения].

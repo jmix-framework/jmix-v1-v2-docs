@@ -1,17 +1,17 @@
-= Layers and Sources
+= Слои и источники
 
-Layer – is a way to organize data on a map.
+Слой (Layer) - это способ организации данных на карте.
 
-Layers can be raster or vector. Raster layers consist of raster images which is a grid of pixels, while vector layers consist of vector geometries.
+Слои могут быть растровыми или векторными. Растровые слои состоят из растровых изображений, которые представляют собой сетку пикселей, в то время как векторные слои состоят из векторных геометрий.
 
 [[tile-layer]]
 == TileLayer
 
-Layer with sources that provide pre-rendered, tiled images in grids that are organized by zoom levels for specific resolutions.
+Тайловый слой (`TileLayer`) - слой с источниками, которые предоставляют предварительно отрендеренные, разбитые на тайлы (плитки) изображения в сетках, организованных по уровням масштабирования для определенных разрешений.
 
-For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_layer_Tile-TileLayer.html[TileLayer documentation^].
+Для получения более подробной информации см. https://openlayers.org/en/v8.2.0/apidoc/module-ol_layer_Tile-TileLayer.html[документацию TileLayer^].
 
-`TileLayer` supports three sources:
+`TileLayer` поддерживает три источника:
 
 * <<osm-source,OsmSource>>
 * <<xyz-source,XyzSource>>
@@ -20,9 +20,9 @@ For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_layer_Til
 [[osm-source]]
 === OsmSource
 
-Source for the loading tiles from an https://www.openstreetmap.org[OpenStreetMap^] tile server and from xref:maps:map-services.adoc#xyz-tiles[XYZ tile] services. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_OSM-OSM.html[OSM documentation^].
+Источник для загрузки тайлов с сервера https://www.openstreetmap.org[OpenStreetMap^] и из сервисов xref:maps:map-services.adoc#xyz-tiles[XYZ tile]. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_OSM-OSM.html[документацию OSM^].
 
-The following example demonstrates how to display an OpenStreetMap tile layer.
+Следующий пример демонстрирует, как отобразить тайловый слой `OpenStreetMap`.
 
 [source,xml,indent=0]
 ----
@@ -32,9 +32,9 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers
 [[xyz-source]]
 === XyzSource
 
-Source for tile data with URLs in a set XYZ format that are defined in a URL template. By default, this follows the widely-used Google grid where x 0 and y 0 are in the top left. `XyzSource` can load tiles from xref:maps:map-services.adoc#xyz-tiles[XYZ tile] services. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_XYZ-XYZ.html[XYZ documentation^].
+Источник для тайловых данных с URL-адресами в заданном формате XYZ, которые определены в шаблоне URL. По умолчанию используется широко распространенная сетка Google, где x 0 и y 0 находятся в левом верхнем углу. `XyzSource` может загружать тайлы из сервисов xref:maps:map-services.adoc#xyz-tiles[XYZ tile]. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_XYZ-XYZ.html[документацию XYZ^].
 
-The following example demonstrates how to display a Thunderforest tile layer.
+Следующий пример демонстрирует, как отобразить тайловый слой `Thunderforest`.
 
 [source,xml,indent=0]
 ----
@@ -44,9 +44,9 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers
 [[wms-source]]
 === WmsSource
 
-Source for tile data from xref:maps:map-services.adoc#web-map-service[WMS] (Web Map Service) servers. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_TileWMS-TileWMS.html[TileWMS documentation^].
+Источник для тайловых данных с xref:maps:map-services.adoc#web-map-service[WMS] (Web Map Service) серверов. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_TileWMS-TileWMS.html[документацию TileWMS^].
 
-The following example demonstrates how to display a tile layer with `WmsSource`.
+Следующий пример демонстрирует, как отобразить тайловый слой с `WmsSource`.
 
 [source,xml,indent=0]
 ----
@@ -56,30 +56,30 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers
 [[image-layer]]
 == ImageLayer
 
-`ImageLayer` is used to work with static images or WMS images.
+Растровый слой (`ImageLayer`) используется для работы со статическими изображениями или WMS-изображениями.
 
 //Layer with server-rendered images that are available for arbitrary extents and resolutions.
 
 [[image-static-source]]
 === ImageStaticSource
 
-Source for displaying a single, static image. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_ImageStatic-Static.html[Static documentation^].
+Источник для отображения одного статического изображения. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_ImageStatic-Static.html[документацию Static^].
 
-Example of showing image from URL. This example is taken from https://openlayers.org/en/latest/examples/static-image.html[OpenLayers -> Examples -> Static image^].
+Пример показа изображения по URL. Этот пример взят из https://openlayers.org/en/latest/examples/static-image.html[OpenLayers -> Examples -> Static image^].
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/layers-view.xml[tags=imagestatic]
 ----
 
-To display an image from the classpath, define the XML in the same way as shown in the example above:
+Чтобы отобразить изображение из classpath, определите XML таким же образом, как показано в примере выше:
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/layers-view.xml[tags=imagestatic-classpath]
 ----
 
-Additionally, you can achieve this in the Java controller using `StreamResource`:
+Дополнительно этого можно достичь в Java-контроллере с помощью `StreamResource`:
 
 [source,java,indent=0]
 ----
@@ -89,9 +89,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/Laye
 [[image-wms-source]]
 === ImageWmsSource
 
-Source for xref:maps:map-services.adoc#web-map-service[WMS] servers providing single, untiled images. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_ImageWMS-ImageWMS.html[ImageWMS documentation^].
+Источник для xref:maps:map-services.adoc#web-map-service[WMS] серверов, предоставляющих одиночные, не разбитые на тайлы изображения. Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_ImageWMS-ImageWMS.html[документацию ImageWMS^].
 
-The example of using `ImageWmsSource` is taken from https://openlayers.org/en/latest/examples/wms-image.html[OpenLayers -> Examples -> Single Image WMS]:
+Пример использования `ImageWmsSource` взят из https://openlayers.org/en/latest/examples/wms-image.html[OpenLayers -> Examples -> Single Image WMS]:
 
 [source,xml,indent=0]
 ----
@@ -101,32 +101,32 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers
 [[vector-layer]]
 == VectorLayer
 
-A vector layer is utilized to work with geometries. It’s possible to add multiple vector layers to a map.
+Векторный слой (`VectorLayer`) используется для работы с геометриями. На карту можно добавить несколько векторных слоев.
 
 [[vector-source]]
 === VectorSource
 
-Source for working with features. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_Vector-VectorSource.html[VectorSource documentation^].
+Источник для работы с объектами (features). Для получения более подробной информации смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_Vector-VectorSource.html[документацию VectorSource^].
 
-The following example demonstrates how to display a vector layer with `VectorSource`. Initially, define a map in the XML descriptor:
+Следующий пример демонстрирует, как отобразить векторный слой с `VectorSource`. Сначала определите карту в XML-дескрипторе:
 
 [source,xml,indent=0]
 ----
 include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers/layers-view.xml[tags=vectorSource]
 ----
 
-Subsequently, open the view controller and add the created marker to the map:
+Затем откройте контроллер экрана и добавьте созданный маркер на карту:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/LayersView.java[tags=vectorSource;onInit;mapwithvector]
 ----
-<1> Adds a marker feature to the source.
+<1> Добавляет объект-маркер в источник.
 
 [[data-vector-source]]
 === DataVectorSource
 
-`DataVectorSource` allows data binding to Jmix data containers through the `dataContainer` and `property` attributes. The `property` attribute can take both simple property and property path.
+`DataVectorSource` позволяет выполнять привязку данных к контейнерам данных Jmix через атрибуты `dataContainer` и `property`. Атрибут `property` может принимать как простое свойство, так и путь к свойству (property path).
 
 [source,xml,indent=0]
 ----

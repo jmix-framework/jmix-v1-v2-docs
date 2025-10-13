@@ -1,22 +1,22 @@
-= Getting Started with Maps
+= Начало работы с Maps
 :page-aliases: maps:quick-start.adoc
 
-This tutorial provides instructions on getting started with integrating maps into your application.
+Это руководство содержит инструкции по началу интеграции карт в ваше приложение.
 
-We will use the Onboarding application as a starting point.
+Мы будем использовать приложение Onboarding в качестве отправной точки.
 
-If you haven't created this application, you can refer to the xref:tutorial:index.adoc[Tutorial] section, which offers a detailed, step-by-step guide for developing the application.
+Если вы еще не создали это приложение, вы можете обратиться к разделу xref:tutorial:index.adoc[Руководство], который предлагает подробное пошаговое руководство по разработке приложения.
 
-Otherwise, download the complete application source code from the https://github.com/jmix-framework/jmix-onboarding-2[jmix-framework/jmix-onboarding-2^] GitHub repository. Next, follow the instructions in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section to open it in Jmix Studio.
+В противном случае загрузите полный исходный код приложения из репозитория GitHub https://github.com/jmix-framework/jmix-onboarding-2[jmix-framework/jmix-onboarding-2^]. Затем следуйте инструкциям в разделе xref:studio:project.adoc#opening-existing-project[Открытие существующего проекта], чтобы открыть его в Jmix Studio.
 
-Add the Maps add-on according to the xref:index.adoc#installation[installation] section.
+Добавьте дополнение Maps в соответствии с разделом xref:index.adoc#installation[установки].
 
-Let’s look at the model of the sample onboarding application.
+Давайте рассмотрим модель данных приложения onboarding.
 
 image::data-model-diagram.svg[align="center"]
 
-We will add a new entity - `Location`. The application features two types of locations: office and coworking space. When the HR manager creates a user card, they select the base location — the office where the user is assigned to work.
+Мы добавим новую сущность - `Location` (Местоположение). В приложении представлено два типа местоположений: офис и коворкинг. Когда менеджер по персоналу создает карточку пользователя, он выбирает базовое местоположение - офис, в котором пользователь должен работать.
 
-* Users should have the ability to view all available locations marked with map markers.
-* Offices and coworking spaces should be marked by different markers.
-* Users should be able to modify the base location by clicking on the map marker.
+* Пользователи должны иметь возможность просматривать все доступные местоположения, отмеченные маркерами на карте.
+* Офисы и коворкинги должны быть отмечены разными маркерами.
+* Пользователи должны иметь возможность изменять базовое местоположение, щелкая на маркер карты.

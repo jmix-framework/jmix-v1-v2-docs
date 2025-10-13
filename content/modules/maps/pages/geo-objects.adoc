@@ -1,9 +1,9 @@
-= Geo-objects
+= Геообъекты
 
-A geo-object, short for geospatial object, refers to an entity having a property of a geometry type. The add-on supports the following geo-specific types that comes from the JTS Topology Suite (JTS) library:
+Геообъект (сокращение от geospatial object) относится к сущности, имеющей свойство геометрического типа. Дополнение поддерживает следующие гео-специфичные типы из библиотеки JTS Topology Suite (JTS):
 
 |===
-| *Datatype* | *Java type*
+| *Тип данных* | *Java-тип*
 | GeoMultiPoint         | org.locationtech.jts.geom.MultiPoint
 | GeoMultiPolygone      | org.locationtech.jts.geom.MultiPolygon
 | GeoMultiPolyline       | org.locationtech.jts.geom.MultiLineString
@@ -12,34 +12,34 @@ A geo-object, short for geospatial object, refers to an entity having a property
 | GeoPolyline      | org.locationtech.jts.geom.LineString
 |===
 
-To add the property, create a new attribute and select a geo-specific datatype from the list.
+Чтобы добавить свойство, создайте новый атрибут и выберите гео-специфичный тип данных из списка.
 
 image::new-geo-attr.png[align="center", width="862"]
 
-An example of geo-object `Location`:
+Пример геообъекта `Location`:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/entity/Location.java[tags=Location]
 ----
 
-As you can see, `Location` is a simple entity, one of which properties building is of the `org.locationtech.jts.geom.Point` type.
+Как видите, `Location` - это простая сущность, одно из свойств которой (`building`) имеет тип `org.locationtech.jts.geom.Point`.
 
-To bind geo-objects to a vector layer, you need to use xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource].
+Для привязки геообъектов к векторному слою необходимо использовать xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource].
 
 [[coordinates]]
-== Coordinates
+== Координаты
 
-The `Coordinate` class in JTS encapsulates a pair of X and Y coordinates that define a point in 2D space.
+Класс `Coordinate` в JTS инкапсулирует пару координат X и Y, определяющих точку в 2D-пространстве.
 
-Geometry objects - `Point`, `LineString`, `Polygon` - are created using the given `Coordinate`.
+Геометрические объекты - `Point`, `LineString`, `Polygon` - создаются с использованием заданного `Coordinate`.
 
-Let's take a closer look at the examples below.
+Давайте внимательнее рассмотрим примеры ниже.
 
 * `POINT (13.347796079315284 52.55344847222085)`
 +
-The first X-ordinate is longitude.
-The second Y-ordinate is latitude.
+Первая координата X - это долгота.
+Вторая координата Y - это широта.
 * `LINESTRING (13.346886063248354 52.553529790121985, 13.347394863347068 52.5532539371346, 13.347837668453902 52.55355180648286, 13.347860653822895 52.553536712270784)`
 +
-A `LineString` is defined by a sequence of coordinates that delineate the vertices along the line. These coordinates are stored in a specific order to represent the continuous path of the line. The first X-ordinate in each point pair represents the longitude, while the second one represents the latitude.
+`LineString` определяется последовательностью координат, описывающих вершины вдоль линии. Эти координаты хранятся в определенном порядке для представления непрерывного пути линии. Первая координата X в каждой паре точек представляет долготу, а вторая - широту.

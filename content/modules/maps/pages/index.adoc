@@ -8,56 +8,56 @@
 </div>
 ++++
 
-The Map add-on provides the `GeoMap` component and functionalities that enable developers to integrate interactive maps and geospatial features into their web applications.
+Дополнение Maps предоставляет компонент `GeoMap` и функциональные возможности, которые позволяют разработчикам интегрировать интерактивные карты и геопространственные функции в свои веб-приложения.
 
 image::overview-map.png[align="center", width="598"]
 
 [[overview]]
-== Overview
+== Обзор
 
-The add-on helps you to enrich your application with visual representation and intuitive manipulation for spatial data. You can use a preferable map provider that meets your needs.
+Дополнение помогает вам обогатить ваше приложение визуальным представлением и интуитивно понятным управлением пространственными данными. Вы можете использовать предпочтительного поставщика карт, который соответствует вашим потребностям.
 
-The add-on is based on the https://openlayers.org/[OpenLayers^] JavaScript library (8.2.0 version). By default, all API works with CRS - https://epsg.io/4326[EPSG:4326^].
+Дополнение основано на JavaScript-библиотеке https://openlayers.org/[OpenLayers^] (версия 8.2.0). По умолчанию все API работают с CRS - https://epsg.io/4326[EPSG:4326^].
 
-The component integrates spatial types (point, polyline, polygon) from https://locationtech.github.io/jts/[JTS Topology Suite^] (JTS) — the most popular Java library for working with spatial data.
+Компонент интегрирует пространственные типы (точка, полилиния, полигон) из https://locationtech.github.io/jts/[JTS Topology Suite^] (JTS) - самой популярной Java-библиотеки для работы с пространственными данными.
 
-The Maps add-on supports a traditional multi-layer structure commonly used in professional GIS systems. The layers are represented as structural units of maps.
+Дополнение Maps поддерживает традиционную многослойную структуру, обычно используемую в профессиональных ГИС-системах. Слои представлены как структурные единицы карт.
 
 image::map-overview.png[align="center", width="769"]
 
 [[features]]
-== Features
+== Возможности
 
-Browse these sections for core features of the Maps add-on:
+Ознакомьтесь с этими разделами, чтобы узнать об основных функциях дополнения Maps:
 
-* xref:maps:layers-sources.adoc[Layers]. The add-on supports the following types of layers:
-** xref:maps:layers-sources.adoc#tile-layer[Tile layer]
-** xref:maps:layers-sources.adoc#image-layer[Image layer]
-** xref:maps:layers-sources.adoc#vector-layer[Vector layer]
+* xref:maps:layers-sources.adoc[Слои]. Дополнение поддерживает следующие типы слоев:
+** xref:maps:layers-sources.adoc#tile-layer[Тайловый слой]
+** xref:maps:layers-sources.adoc#image-layer[Растровый слой]
+** xref:maps:layers-sources.adoc#vector-layer[Векторный слой]
 +
-These layers are represented as structural units of maps.
-* xref:maps:features-geometries.adoc#marker-feature[Markers] are map elements to visually represent a specific location or point.
-* xref:maps:map-component.adoc#view[Map View]. The Map add-on allows configuration of the map view, including center coordinates, zoom level, rotation angle, and projection definition.
-* xref:maps:events.adoc[Events]. Maps emit events that developers can listen for, enabling the customization of map behavior based on user interactions, such as map click events or feature click events.
-* xref:maps:style.adoc[Style]. The Map add-on provides the capability to customize marker icons and create new styles for various map features such as polygons, points, etc.
+Эти слои представлены как структурные единицы карт.
+* xref:maps:features-geometries.adoc#marker-feature[Маркеры] - это элементы карты для визуального представления конкретного местоположения или точки.
+* xref:maps:map-component.adoc#view[Отображение карты]. Дополнение Maps позволяет настраивать отображение карты, включая координаты центра, уровень масштабирования, угол поворота и определение проекции.
+* xref:maps:events.adoc[События]. Карты генерируют события, на которые разработчики могут подписываться, что позволяет настраивать поведение карты на основе пользовательских взаимодействий, таких как события клика по карте или события клика по объекту.
+* xref:maps:style.adoc[Стили]. Дополнение Maps предоставляет возможность настраивать значки маркеров и создавать новые стили для различных объектов карты, таких как полигоны, точки и т.д.
 
 [[installation]]
-== Installation
+== Установка
 
 [NOTE]
 ====
-This add-on requires the Enterprise https://www.jmix.ru/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get the trial version.
+Для этого дополнения требуется Enterprise https://www.jmix.ru/subscription-plans-and-prices/[подписка^]. Если у вас нет подписки, ознакомьтесь с разделом xref:ROOT:account-management.adoc#enterprise-trial[Пробная Enterprise+BPM подписка], чтобы получить пробную версию.
 ====
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, follow the steps below.
+Для ручной установки выполните следующие шаги.
 
-. Configure access to the premium repository.
+. Настройте доступ к премиум-репозиторию.
 +
 include::ROOT:partial$premium-repo.adoc[]
 
-. Add dependencies to your `build.gradle`:
+. Добавьте зависимости в ваш `build.gradle`:
 +
 [source,groovy,indent=0]
 ----

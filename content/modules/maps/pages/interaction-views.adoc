@@ -1,21 +1,21 @@
-= 4. Set Up Interaction Between Views
+= 4. Настройка взаимодействия между экранами
 
-The user ought to have the capability to modify and save the base location by clicking on the map marker. As of now, our application doesn't offer this functionality.
+Пользователь должен иметь возможность изменять и сохранять базовое местоположение, щелкая на маркере карты. На данный момент наше приложение не предоставляет эту функциональность.
 
-Go to the `LocationLookupView` view controller and produce setter ang getter methods to pass the location we intend to display or save.
+Перейдите к контроллеру экрана `LocationLookupView` и создайте методы setter и getter для передачи местоположения, которое мы хотим отобразить или сохранить.
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationlookup/LocationLookupView.java[tags=location-param]
 ----
 
-Navigate to the `UserDetailView` view controller and locate the `onLocationFieldSelect()` handler. Our goal is not only to open a dialog, but also to pass the previously saved location for the edited user. Additionally, we need to retrieve a result from the dialog once it has been closed. Let’s proceed with the necessary modifications to the handler:
+Перейдите к контроллеру экрана `UserDetailView` и найдите обработчик `onLocationFieldSelect()`. Наша цель - не только открыть диалог, но и передать ранее сохраненное местоположение для редактируемого пользователя. Кроме того, нам нужно получить результат из диалога после его закрытия. Давайте внесем необходимые изменения в обработчик:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/user/UserDetailView.java[tags=locationField;onLocationFieldSelect]
 ----
-<1> The `AfterCloseEvent` object contains `CloseAction` passed to the view’s `close()` method. We analyze the close action using the `closedWith()` method of the event object. Remember: in the previous section, we established a xref:maps:dispay-markers.adoc#select-action-handler[handler] for the `select` action.
-<2> Passes the edited user's location to the setter of `LocationLookupView`.
+<1> Объект `AfterCloseEvent` содержит `CloseAction`, переданный в метод `close()` экрана. Мы анализируем действие закрытия с помощью метода `closedWith()` объекта события. Помните: в предыдущем разделе мы установили xref:maps:dispay-markers.adoc#select-action-handler[обработчик] для действия `select`.
+<2> Передает местоположение редактируемого пользователя в setter `LocationLookupView`.
 
-Launch the application and make sure that the interaction between `UserDetailView` and `LocationLookupView` is correctly configured.
+Запустите приложение и убедитесь, что взаимодействие между `UserDetailView` и `LocationLookupView` настроено правильно.

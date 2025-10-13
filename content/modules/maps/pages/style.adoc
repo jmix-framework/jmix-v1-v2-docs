@@ -1,12 +1,12 @@
-= Style
+= Стиль
 
-The `Style` object enable developers to customize the color, size, font, and other visual properties of map xref:maps:features-geometries.adoc[features].
+Объект `Style` позволяет разработчикам настраивать цвет, размер, шрифт и другие визуальные свойства xref:maps:features-geometries.adoc[объектов] карты.
 
-Styles can also be applied at the xref:maps:layers-sources.adoc[layer] level, defining a consistent appearance for all features within a layer.
+Стили также могут применяться на уровне xref:maps:layers-sources.adoc[слоя], определяя единообразный внешний вид для всех объектов внутри слоя.
 
-== Style for PointFeature
+== Стиль для PointFeature
 
-To change the style for a xref:maps:features-geometries.adoc#point-feature[PointFeature], you typically define a `PointStyle` object with the desired appearance properties like `image`, `fill`, `stroke`, etc. and then apply that style to the `PointFeature`.
+Чтобы изменить стиль для xref:maps:features-geometries.adoc#point-feature[PointFeature], обычно определяют объект `PointStyle` с нужными свойствами внешнего вида, такими как `image`, `fill`, `stroke` и т.д., и затем применяют этот стиль к `PointFeature`.
 
 [source,java,indent=0]
 ----
@@ -15,11 +15,11 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-point.png[align="center", width="480"]
 
-Using text instead of an image for the `PointFeature` allows you to display textual labels directly on the map at specified coordinates, providing clarity and context to the displayed data.
+Использование текста вместо изображения для `PointFeature` позволяет отображать текстовые надписи непосредственно на карте в указанных координатах, обеспечивая ясность и контекст для отображаемых данных.
 
-When utilizing text for `PointFeature`, you can customize the appearance of the text by adjusting properties like `font`, `fill`, `textAlign`, etc.
+При использовании текста для `PointFeature` вы можете настроить внешний вид текста, изменяя свойства, такие как `font`, `fill`, `textAlign` и т.д.
 
-The example below demonstrates using textual label instead of an image for the `PointFeature`:
+В примере ниже демонстрируется использование текстовой надписи вместо изображения для `PointFeature`:
 
 [source,java,indent=0]
 ----
@@ -28,22 +28,22 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-point-text.png[align="center", width="479"]
 
-== Style for MarkerFeature
+== Стиль для MarkerFeature
 
-To change the marker icon, refer the following example:
+Чтобы изменить значок маркера, обратитесь к следующему примеру:
 
 [source,java,indent=0]
 ----
 include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=marker]
 ----
 
-Additionally, an example of customizing marker icons based on the geo-object's attributes is provided in the xref:maps:dispay-markers.adoc#use-markers[Use Custom Markers] section.
+Дополнительно, пример настройки значков маркеров на основе атрибутов геообъекта приведен в разделе xref:maps:dispay-markers.adoc#use-markers[Использование пользовательских маркеров].
 
 image::style-marker.png[align="center", width="491"]
 
-== Style for LineStringFeature
+== Стиль для LineStringFeature
 
-To change the style for a `LineStringFeature`, you typically define a `LineStringStyle` object with the desired appearance properties like `stroke`, `fill`, etc., and then apply that style to the `LineStringFeature`.
+Чтобы изменить стиль для `LineStringFeature`, обычно определяют объект `LineStringStyle` с нужными свойствами внешнего вида, такими как `stroke`, `fill` и т.д., и затем применяют этот стиль к `LineStringFeature`.
 
 [source,java,indent=0]
 ----
@@ -52,9 +52,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-line-string.png[align="center", width="476"]
 
-== Style for PolygonFeature
+== Стиль для PolygonFeature
 
-Changing the style for a `PolygonFeature` involves defining a new `PolygonStyle` with desired properties like `fill`, `stroke`, etc., and applying this style to the `PolygonFeature`.
+Изменение стиля для `PolygonFeature` включает определение нового `PolygonStyle` с нужными свойствами, такими как `fill`, `stroke` и т.д., и применение этого стиля к `PolygonFeature`.
 
 [source,java,indent=0]
 ----
@@ -64,11 +64,11 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 image::style-polygon.png[align="center", width="476"]
 
 [[select-mode-styles]]
-== Select Mode Styles
+== Стили режима выбора
 
-Every feature type in the vector source has default styles for the xref:editing-geometries.adoc#select-mode[select mode]. These styles are automatically applied when a user selects a feature on the map. To customize the selection styles, each feature provides methods for adding your own styles.
+Каждый тип объекта в векторном источнике имеет стили по умолчанию для xref:editing-geometries.adoc#select-mode[режима выбора]. Эти стили автоматически применяются, когда пользователь выбирает объект на карте. Чтобы настроить стили выделения, каждый объект предоставляет методы для добавления собственных стилей.
 
-For instance, here’s how you can add custom selection styles to a `PolygonFeature`:
+Например, вот как можно добавить пользовательские стили выделения для `PolygonFeature`:
 
 [source,java,indent=0]
 ----
@@ -77,14 +77,14 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Selec
 
 image::styles-select.gif[align="center",width="455"]
 
-NOTE: To apply the same selection style to all features in the source, set the select styles on the vector layer.
+NOTE: Чтобы применить одинаковый стиль выделения ко всем объектам в источнике, установите стили выделения на векторном слое.
 
 [[modify-mode-styles]]
-== Modify Mode Styles
+== Стили режима изменения
 
-Vector sources provide the xref:editing-geometries.adoc#modify-mode[modify mode]. When activated, this mode generates points at the geometry's vertices, allowing for modifications such as adding new vertices and changing existing vertex positions. This mode also defines the styles for these generated vertices, which are displayed on the map to represent the geometry.
+Векторные источники предоставляют xref:editing-geometries.adoc#modify-mode[режим изменения]. При активации этот режим генерирует точки в вершинах геометрии, позволяя выполнять такие изменения, как добавление новых вершин и изменение позиций существующих вершин. Этот режим также определяет стили для этих сгенерированных вершин, которые отображаются на карте для представления геометрии.
 
-For example, here's how to set custom styles for polygon vertex points:
+Например, вот как установить пользовательские стили для точек вершин полигона:
 
 [source,java,indent=0]
 ----
@@ -93,4 +93,4 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Modif
 
 image::styles-modify.gif[align="center",width="290"]
 
-NOTE: To apply the same modify styles to all features in the source, set the modify styles on the vector layer.
+NOTE: Чтобы применить одинаковые стили изменения ко всем объектам в источнике, установите стили изменения на векторном слое.
