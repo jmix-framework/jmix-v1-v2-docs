@@ -29,7 +29,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Этот компонент фильтрует данные, загруженные в контейнер данных. Он часто используется вместе с компонентами xref:vc/components/dataGrid.adoc[] или xref:vc/components/treeDataGrid.adoc[], которые связаны с тем же контейнером. Такая комбинация позволяет точно управлять отображаемыми строками.
 
-== Фильтрация операций
+== Операции фильтрации
 
 Компонент поддерживает множество <<operation, операций>> фильтрации. Вы можете ограничиться конкретной операцией или позволить пользователям выбирать нужную операцию во время выполнения с помощью атрибута <<operationEditable,operationEditable>>.
 
@@ -76,6 +76,30 @@ image::flow-ui:visual-components/components/property-filter-multifiltering.png[a
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=multiple-filters]
 ----
+
+== Фильтрация по дате
+
+[[date-equals]]
+=== Фильтрация по дате без учета времени
+
+Операция сравнения `=` не всегда подходит для свойств с типом Date/Time. Для сравнения только по дате (без учета времени), вместо `=` используйте `date equals`:
+
+image::flow-ui:visual-components/components/property-filter-date-equals.png[align="center", width="992"]
+
+[[date-interval]]
+=== Фильтрация по временному интервалу
+
+Компонент позволяет задать временной интервал несколькими способами. Выберите оператор `in interval` и укажите интервал в диалоге.
+
+image::flow-ui:visual-components/components/property-filter-date-interval.png[align="center", width=""]
+
+Доступные опции:
+
+* *Last*: интервалы вида "последние 3 месяца" или "последние 12 недель".
+* *Next*: интервалы вида "следующие 3 года" или "следующие 48 часов".
+* *Predefined*: предустановленные значения, такие как "сегодня", "завтра", "в этом месяце" или "в этом году".
+* *Relative date and time*: условия такие как "к концу дня", "в начале часа", "не в последний день года".
+* *Custom*: для указания произвольного интервала.
 
 == Настройка внешнего вида
 
@@ -186,22 +210,66 @@ NOTE: Если вы задаете атрибут `label`, название оп
 [[operation]]
 === operation
 
-Атрибут `operation` является обязательным и определяет операцию фильтрации. Доступны следующие типы операций:
+Задает операцию фильтрации.
 
-* `EQUAL` - подходит для строковых, числовых, булевых, дата/время, ссылочных и перечисляемых атрибутов. Возвращает только экземпляры сущностей, где данные в столбце свойства точно соответствуют значению условия.
-* `NOT_EQUAL` - аналогичен `EQUAL`, но возвращает несоответствующие значения.
-* `GREATER` - для числовых и дата/время атрибутов. Возвращает значения больше указанного.
-* `GREATER_OR_EQUAL` - для числовых и дата/время атрибутов. Возвращает значения больше или равные условию.
-* `LESS` - для числовых и дата/время атрибутов. Возвращает значения меньше указанного.
-* `LESS_OR_EQUAL` - для числовых и дата/время атрибутов. Возвращает значения меньше или равные условию.
-* `CONTAINS` - для строковых атрибутов. Возвращает значения, содержащие подстроку.
-* `NOT_CONTAINS` - строки, не содержащие подстроку.
-* `STARTS_WITH` - строки, начинающиеся с подстроки.
-* `ENDS_WITH` - строки, заканчивающиеся подстрокой.
-* `IS_SET` - проверяет наличие значения (не `NULL`). Использует компонент `comboBox` с вариантами `Yes/No`. Если пользователь выбирает `Yes`, результаты включают только экземпляры сущностей, где в столбце есть данные. В противном случае, результаты включают только экземпляры сущностей, где в столбце нет данных.
-* `IS_COLLECTION_EMPTY` - проверяет пустоту коллекций (`@OneToMany`, `@ManyToMany`).
-* `MEMBER_OF_COLLECTION` - фильтрует по принадлежности к коллекции (`@OneToMany`, `@ManyToMany`).
-* `NOT_MEMBER_OF_COLLECTION` - фильтрует по отсутствию в коллекции.
+[cols="1,4,5"]
+|===
+| **Операция** | **Описание**| **Тип Свойства**
+| EQUAL
+| Равно. Для сравнения значений типа Date/Time только по дате (без учета времени) используйте DATE_EQUALS.
+| Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
+| NOT_EQUAL
+| Не равно.
+| Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
+| IS_SET
+| Является null или не null.
+| Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
+| IN_LIST
+| Проверяет, что значение находится в списке.
+| Numeric, String, Date/Time, Time, UUID, URI, Entity, Enum
+| NOT_IN_LIST
+| Проверяет, что значение не находится в списке.
+| Numeric, String, Date/Time, Time, UUID, URI, Entity, Enum
+| IS_COLLECTION_EMPTY
+| Проверяет, пуста ли коллекция.
+| Entity (`@OneToMany`, `@ManyToMany`)
+| MEMBER_OF_COLLECTION
+| Является ли значение членом коллекции.
+| Entity (`@OneToMany`, `@ManyToMany`)
+| NOT_MEMBER_OF_COLLECTION
+| Не является членом коллекции.
+| Entity (`@OneToMany`, `@ManyToMany`)
+| CONTAINS
+| Содержит подстроку.
+| String
+| NOT_CONTAINS
+| Не содержит подстроку.
+| String
+| STARTS_WITH
+| Начинается с.
+| String
+| ENDS_WITH
+| Заканчивается на.
+| String
+| GREATER
+| Больше чем.
+| Numeric, Date/Time, Time
+| GREATER_OR_EQUAL
+| Больше или равно.
+| Numeric, Date/Time, Time
+| LESS
+| Меньше чем.
+| Numeric, Date/Time, Time
+| LESS_OR_EQUAL
+| Меньше или равно.
+| Numeric, Date/Time, Time
+| IN_INTERVAL
+| Принадлежит интервалу, который пользователи могут задать через диалог <<date-interval, Date interval>>.
+| Date/Time, Time
+| DATE_EQUALS
+| Равно дате. Сравнивает только дату, игнорирует время. См. <<date-equals, пример>>.
+| Date/Time
+|===
 
 [[operationEditable]]
 === operationEditable
