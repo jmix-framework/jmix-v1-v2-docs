@@ -13,11 +13,11 @@ import java.util.UUID;
 // tag::ApplyConstraints[]
 public interface OrderRepository extends JmixDataRepository<Order, UUID> {
     @Override
-    Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
+    List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
 
     @Override
     @ApplyConstraints(false)
-    Iterable<Order> findAll(FetchPlan fetchPlan);
+    List<Order> findAll(FetchPlan fetchPlan);
 
     @ApplyConstraints(false)
     List<Order> findByIdNotNull();

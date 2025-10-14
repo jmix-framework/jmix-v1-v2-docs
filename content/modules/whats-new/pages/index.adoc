@@ -27,6 +27,52 @@ Vaadin обновлен до версии https://github.com/vaadin/platform/rel
 [[studio]]
 === Улучшения в Studio
 
+* xref:studio:role-designer.adoc#resource-role-designer[Дизайнер ресурсных ролей] теперь отбражает иерархию наследования ролей и позволяет выбирать базовые роли. Разрешения, унаследованные от базовых ролей, отображаются в виде элементов только для чтения. На вкладке разрешений *Entities* теперь доступные и недоступные элементы выделяются разными цветами.
+
+* Действие *Add attribute from DB* в xref:studio:entity-designer.adoc[дизайнере сущностей] позволяет использовать подход «database-first» при разработке модели данных. Вы можете сначала создать колонку в таблице базы данных, а затем импортировать ее в модель данных в качестве атрибута, отображенного на колонку.
+
+[[groupdatagrid-component]]
+=== Компонент GroupDataGrid
+
+Компонент `groupDataGrid` — это таблица данных, которая позволяет группировать строки по значениям в одном или нескольких колонках.
+
+Компонент предоставляется дополнением GroupDataGrid, для которого требуется подписка Enterprise или BPM.
+
+Чтобы включить дополнение в ваш проект, убедитесь, что ваш `build.gradle` определяет доступ к премиум-репозиторию и добавьте следующую зависимость:
+
+[source,groovy]
+----
+implementation 'io.jmix.groupgrid:jmix-groupgrid-flowui-starter'
+----
+
+Компонент `groupDataGrid` может быть использован в экране следующим образом:
+
+[source,xml]
+----
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
+    ...
+    <layout>
+        <groupg:groupDataGrid id="ordersDataGrid" width="100%" minHeight="20em"
+                  dataContainer="ordersDc" columnReorderingAllowed="true">
+            <groupg:actions>
+                <groupg:action id="createAction" type="list_create"/>
+                <groupg:action id="editAction" type="list_edit"/>
+                ...
+            </groupg:actions>
+            <groupg:groupBy>
+                <groupg:columnRef key="client"/>
+            </groupg:groupBy>
+            <groupg:columns resizable="true">
+                <groupg:groupColumn header="Groups"/>
+                <groupg:column property="client"/>
+                <groupg:column property="date"/>
+                ...
+            </groupg:columns>
+        </groupg:groupDataGrid>
+        ...
+----
+
 [[card-component]]
 === Компонент Card
 
@@ -40,9 +86,7 @@ Vaadin обновлен до версии https://github.com/vaadin/platform/rel
 [[usermenu-component]]
 === Компонент UserMenu
 
-Новый компонент xref:flow-ui:vc/components/userMenu.adoc[userMenu] позволяет наглядно и визуально привлекательно отображать данные вошедшего в систему пользователя вместе с такими связанными действиями, как *Замещение пользователя* и *Выход*. Например:
-
-image::flow-ui:visual-components/components/user-menu-basic.png[align="center",width="240"]
+Новый компонент xref:flow-ui:vc/components/userMenu.adoc[userMenu] позволяет наглядно и визуально привлекательно отображать данные вошедшего в систему пользователя вместе с такими связанными действиями, как *Замещение пользователя* и *Выход*.
 
 Раскрывающееся меню компонента может содержать предопределенные и пользовательские действия, а также вложенные элементы и другие UI-компоненты.
 
@@ -58,11 +102,11 @@ image::flow-ui:visual-components/components/user-menu-basic.png[align="center",w
 [[data-repositories]]
 === Репозитории данных
 
-Интерфейс `JmixDataRepository` теперь расширяет `org.springframework.data.repository.ListCrudRepository`, и все его методы `findAll()`, которые ранее возвращали `Iterable`, теперь возвращают `List`.
+* Интерфейс `JmixDataRepository` теперь расширяет `org.springframework.data.repository.ListCrudRepository`, и все его методы `findAll()`, которые ранее возвращали `Iterable`, теперь возвращают `List`.
 
-Методы `JmixDataRepository`, возвращающие `Page`, выполняют дополнительный `count` запрос к базе данных, чтобы предоставить общее количество элементов и страниц в объекте `Page`. Если количество страниц не требуется в вашей логике, используйте новые методы `findAllSlice()`, возвращающие `Slice`. Это снизит нагрузку на базу данных.
+* Методы `JmixDataRepository`, возвращающие `Page`, выполняют дополнительный `count` запрос к базе данных, чтобы предоставить общее количество элементов и страниц в объекте `Page`. Если количество страниц не требуется в вашей логике, используйте новые методы `findAllSlice()`, возвращающие `Slice`. Это снизит нагрузку на базу данных.
 
-Новые обработчики xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] и xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] упрощают использование репозиториев данных в экранах. Они позволяют вызывать репозитории данных напрямую без преобразования параметров из объекта `LoadContext`. Если вы установите флажок *Use Data Repositories* в xref:studio:view-wizard.adoc#creating-entity-based-views[Мастере создания экранов], созданный экран будет использовать новые делегаты.
+* Новые обработчики xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] и xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] упрощают использование репозиториев данных в экранах. Они позволяют вызывать репозитории данных напрямую без преобразования параметров из объекта `LoadContext`. Если вы установите флажок *Use Data Repositories* в xref:studio:view-wizard.adoc#creating-entity-based-views[Мастере создания экранов], созданный экран будет использовать новые делегаты.
 
 [[design-time-reports]]
 === Отчеты времени разработки
@@ -91,6 +135,36 @@ xref:audit:entity-log.adoc[] теперь может отслеживать из
 
 [[breaking-changes]]
 == Критические изменения
+
+[[jmixdatarepository-method-overriding]]
+=== Переопределенные методы JmixDataRepository
+
+Если вы переопределили методы `findAll` из `JmixDataRepository`, которые ранее возвращали `Iterable`, вам следует изменить тип результата на `List`. Например:
+
+До:
+[source,java]
+----
+public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+    @Override
+    Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
+}
+----
+
+После:
+[source,java]
+----
+public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+    @Override
+    List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
+}
+----
+
+Причина в том, что теперь `JmixDataRepository` реализует `ListCrudRepository`, как упоминалось <<data-repositories,выше>>.
+
+[[required-report-code]]
+=== Обязательный код отчета
+
+Код отчета стал обязательным полем. Если вы редактируете отчет без кода, вам придется ввести значение, которое уникально для всех отчетов времени выполнения и времени разработки.
 
 [[changelog]]
 == Список изменений
