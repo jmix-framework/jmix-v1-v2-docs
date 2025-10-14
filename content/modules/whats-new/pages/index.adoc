@@ -31,6 +31,52 @@ Vaadin has been updated to https://github.com/vaadin/platform/releases/tag/24.9.
 [[studio]]
 === Studio Improvements
 
+* The xref:studio:role-designer.adoc[] now visualizes and manages the role inheritance hierarchy. It shows permissions inherited from base roles as read-only elements. The *Entity* permissions tab now highlights enabled and disabled elements using different colors.
+
+* The *Add attribute from DB* action in the xref:studio:entity-designer.adoc[] allows you to use the "database-first" approach when developing your data model. You can first create a column in a database table, and then import it to the data model as an attribute mapped to the column.
+
+[[groupdatagrid-component]]
+=== GroupDataGrid Component
+
+The `groupDataGrid` component is a data grid that enables the grouping of rows based on the values in one or more columns.
+
+The component is provided by the GroupDataGrid add-on which requires an Enterprise or BPM subscription.
+
+To include the add-on in your project, make sure your `build.gradle` defines access to the premium repository and add the following dependency:
+
+[source,groovy]
+----
+implementation 'io.jmix.groupgrid:jmix-groupgrid-flowui-starter'
+----
+
+The `groupDataGrid` component can be used in a view as follows:
+
+[source,xml]
+----
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
+    ...
+    <layout>
+        <groupg:groupDataGrid id="ordersDataGrid" width="100%" minHeight="20em"
+                  dataContainer="ordersDc" columnReorderingAllowed="true">
+            <groupg:actions>
+                <groupg:action id="createAction" type="list_create"/>
+                <groupg:action id="editAction" type="list_edit"/>
+                ...
+            </groupg:actions>
+            <groupg:groupBy>
+                <groupg:columnRef key="client"/>
+            </groupg:groupBy>
+            <groupg:columns resizable="true">
+                <groupg:groupColumn header="Groups"/>
+                <groupg:column property="client"/>
+                <groupg:column property="date"/>
+                ...
+            </groupg:columns>
+        </groupg:groupDataGrid>
+        ...
+----
+
 [[card-component]]
 === Card Component
 
@@ -44,9 +90,7 @@ The xref:flow-ui:vc/layouts/gridLayout.adoc[] component arranges child component
 [[usermenu-component]]
 === UserMenu Component
 
-The new xref:flow-ui:vc/components/userMenu.adoc[userMenu] component allows you to visualize the logged-in user along with related actions such as *Substitute user* and *Log out* in a clear and visually appealing manner. For example:
-
-image::flow-ui:visual-components/components/user-menu-basic.png[align="center",width="240"]
+The new xref:flow-ui:vc/components/userMenu.adoc[userMenu] component allows you to visualize the logged-in user along with related actions such as *Substitute user* and *Log out* in a clear and visually appealing manner.
 
 The dropdown menu of the component can contain predefined and custom actions, as well as nested items and other UI components.
 
@@ -62,11 +106,11 @@ The xref:flow-ui:vc/components/propertyFilter.adoc#date-interval[Date Interval] 
 [[data-repositories]]
 === Data Repositories
 
-The `JmixDataRepository` interface now extends `org.springframework.data.repository.ListCrudRepository`, and all its `findAll()` methods that previously returned `Iterable` now return `List`.
+* The `JmixDataRepository` interface now extends `org.springframework.data.repository.ListCrudRepository`, and all its `findAll()` methods that previously returned `Iterable` now return `List`.
 
-The `JmixDataRepository` methods returning `Page` perform additional `count` request to the database to provide total number of items and pages in the `Page` object. If you don't need the number of pages in your logic, use the new `findAllSlice()` methods returning `Slice`. This will reduce the load on the database.
+* The `JmixDataRepository` methods returning `Page` perform additional `count` request to the database to provide total number of items and pages in the `Page` object. If you don't need the number of pages in your logic, use the new `findAllSlice()` methods returning `Slice`. This will reduce the load on the database.
 
-The new xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] and xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] handlers simplify usage of data repositories in views. They allow you to invoke data repositories directly without converting parameters from the `LoadContext` object. If you select the *Use Data Repositories* checkbox in the xref:studio:view-wizard.adoc#creating-entity-based-views[
+* The new xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] and xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] handlers simplify usage of data repositories in views. They allow you to invoke data repositories directly without converting parameters from the `LoadContext` object. If you select the *Use Data Repositories* checkbox in the xref:studio:view-wizard.adoc#creating-entity-based-views[
 View Creation Wizard], the created view will use the new delegates.
 
 [[design-time-reports]]
@@ -96,6 +140,36 @@ The xref:audit:entity-log.adoc[] now can track changes in many-to-many attribute
 
 [[breaking-changes]]
 == Breaking Changes
+
+[[jmixdatarepository-method-overriding]]
+=== JmixDataRepository Method Overriding
+
+If you have overridden `findAll` methods of `JmixDataRepository` that previously returned `Iterable`, you should change the result type to `List`. For example:
+
+Before:
+[source,java]
+----
+public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+    @Override
+    Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
+}
+----
+
+After:
+[source,java]
+----
+public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+    @Override
+    List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
+}
+----
+
+The reason is that now `JmixDataRepository` implements `ListCrudRepository` as mentioned <<data-repositories,above>>.
+
+[[required-report-code]]
+=== Required Report Code
+
+The report code has become a mandatory field. If you edit a report without a code, you will have to enter a value that is unique across all runtime and design-time reports.
 
 [[changelog]]
 == Changelog
