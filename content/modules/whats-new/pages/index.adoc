@@ -35,6 +35,8 @@ Vaadin has been updated to https://github.com/vaadin/platform/releases/tag/24.9.
 
 * The *Add attribute from DB* action in the xref:studio:entity-designer.adoc[] allows you to use the "database-first" approach when developing your data model. You can first create a column in a database table, and then import it to the data model as an attribute mapped to the column.
 
+* If you select the new *Create Data Repository* checkbox in the *New JPA Entity* dialog, Studio creates a data repository for the new entity automatically, and remembers the state of the checkbox for the next entity creation. When creating views for an entity using the *Create Jmix View* wizard, Studio now automatically selects the *Use Data Repositories* checkbox if a data repository for this entity exists.
+
 [[groupdatagrid-component]]
 === GroupDataGrid Component
 
@@ -107,6 +109,8 @@ The xref:flow-ui:vc/components/propertyFilter.adoc#date-interval[Date Interval] 
 === Data Repositories
 
 * The `JmixDataRepository` interface now extends `org.springframework.data.repository.ListCrudRepository`, and all its `findAll()` methods that previously returned `Iterable` now return `List`.
+
+* Jmix data repositories now support queries returning scalar values and aggregates. See the xref:data-access:data-repositories.adoc#query-annotation[@Query] annotation usage examples.
 
 * The `JmixDataRepository` methods returning `Page` perform additional `count` request to the database to provide total number of items and pages in the `Page` object. If you don't need the number of pages in your logic, use the new `findAllSlice()` methods returning `Slice`. This will reduce the load on the database.
 

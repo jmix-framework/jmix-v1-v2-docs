@@ -105,18 +105,14 @@ For hints with the same key, the value from the higher priority source will over
 [[query-method-examples]]
 == Query Method Examples
 
+[[derived-methods]]
+=== Derived Methods
+
 Jmix data repositories support the standard Spring Data feature of deriving the query from the method name, for example:
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=name-based-method]
-----
-
-Similar to Spring Data JPA, a JPQL query can be defined explicitly using the `@io.jmix.core.repository.Query` annotation:
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=query]
 ----
 
 Query methods can accept `Pageable` for pagination and sorting:
@@ -126,7 +122,41 @@ Query methods can accept `Pageable` for pagination and sorting:
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=paging]
 ----
 
-Another special parameter that can be passed to query methods is a xref:data-access:fetching.adoc#fetch-plan[fetch plan]:
+[[query-annotation]]
+=== @Query Annotation
+
+Similar to Spring Data JPA, a JPQL query can be defined explicitly using the `@io.jmix.core.repository.Query` annotation:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=query]
+----
+
+If the query returns multiple scalar values and/or aggregates, you should provide property names in the `properties` attribute of the `@Query` annotation. The method should return a list of `KeyValueEntity`. Each entity instance will have the properties defined for the query. For example:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-multiple-fields]
+----
+
+If the query returns a list with a single scalar value, define the method return type as a list of that value:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-single-field]
+----
+
+If the query returns a single scalar value, define the method return type as that value:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-single-value]
+----
+
+[[jmix-specific-parameters]]
+=== Jmix-Specific Parameters
+
+Jmix data repositories accept xref:data-access:fetching.adoc#fetch-plan[fetch plan] as a parameter of query methods:
 
 [source,java,indent=0]
 ----
@@ -140,7 +170,7 @@ A shared fetch plan can be defined in the `@io.jmix.core.repository.FetchPlan` a
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=fetch-plan]
 ----
 
-A xref:cache.adoc#query-cache[cacheable] query:
+A xref:cache.adoc#query-cache[cacheable] query can be specified using the `@io.jmix.core.repository.QueryHints` and `@jakarta.persistence.QueryHint` annotations:
 
 [source,java,indent=0]
 ----

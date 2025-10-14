@@ -8,6 +8,7 @@ import io.jmix.core.DataManager;
 import io.jmix.core.EntityStates;
 import io.jmix.core.FetchPlan;
 import io.jmix.core.FetchPlans;
+import io.jmix.core.entity.KeyValueEntity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -140,5 +141,34 @@ public class CustomerRepositoryTest {
     void testLoad_ExplicitQuery() {
         List<Customer> customers = customerRepository.findCustomersByEmail("(?i)%@company.COM");
         assertThat(customers).size().isEqualTo(2);
+    }
+
+    @Test
+    void testQueryWithScalars_ListOfKeyValueEntities() {
+        List<KeyValueEntity> keyValueEntities = customerRepository2.getCountGroupByGrade();
+        assertThat(keyValueEntities).isNotEmpty();
+        KeyValueEntity keyValueEntity = keyValueEntities.get(0);
+        assertThat((Object) keyValueEntity.getValue("grade")).isInstanceOf(CustomerGrade.class);
+        assertThat((Object) keyValueEntity.getValue("count")).isInstanceOf(Long.class);
+    }
+
+    @Test
+    void testQueryWithScalars_Long() {
+        Long count = customerRepository2.getCountByGrade(CustomerGrade.GOLD);
+        assertThat(count).isGreaterThan(0L);
+    }
+
+    @Test
+    void testQueryWithScalars_ListOfString() {
+        List<String> names = customerRepository2.getAllNames();
+        assertThat(names).isNotEmpty();
+        assertThat(names.get(0)).isInstanceOf(String.class);
+    }
+
+    @Test
+    void testQueryWithScalars_ListOfEnum() {
+        List<CustomerGrade> grades = customerRepository2.getAllGrades();
+        assertThat(grades).isNotEmpty();
+        assertThat(grades.get(0)).isInstanceOf(CustomerGrade.class);
     }
 }
