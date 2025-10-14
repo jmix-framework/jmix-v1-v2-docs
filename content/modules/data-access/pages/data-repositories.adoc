@@ -58,7 +58,7 @@ include::example$/data-access-ex1/src/test/java/com/company/demo/repository/Cust
 Используйте статический метод `JmixDataRepositoryUtils.buildRepositoryContext()` для конвертации `LoadContext` в `JmixDataRepositoryContext`.
 
 [[ApplyConstraints]]
-=== Security Constraints
+=== Ограничения безопасности
 
 Вы можете добавить аннотацию `io.jmix.core.repository.ApplyConstraints` своему репозиторию данных. Если значение аннотации равно `false`, репозиторий использует `UnconstrainedDataManager` вместо `DataManager`. Значение аннотации по умолчанию - `true`.
 
@@ -81,7 +81,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 Методы `findAll()` и `searchByIdNotNull()` будут использовать обычный `DataManager`, в то время как все остальные методы будут использовать `UnconstrainedDataManager`.
 
 [[annotations]]
-=== Annotations
+=== Аннотации
 
 Следующие аннотации можно использовать на кастомных методах запросов:
 
@@ -110,18 +110,14 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 [[query-method-examples]]
 == Примеры методов запросов
 
+[[derived-methods]]
+=== Производные методы
+
 Репозитории данных Jmix поддерживают стандартную возможность Spring Data выводить запрос из имени метода, например:
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=name-based-method]
-----
-
-Аналогично Spring Data JPA, JPQL-запрос можно явно задать с помощью аннотации `@io.jmix.core.repository.Query`:
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=query]
 ----
 
 Методы запросов могут принимать объект `Pageable` для постраничной загрузки и сортировки:
@@ -131,7 +127,41 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=paging]
 ----
 
-Другой специально обрабатываемый параметр, который можно использовать в методах запросов - xref:data-access:fetching.adoc#fetch-plan[фетч-план]:
+[[query-annotation]]
+=== Аннотация @Query
+
+Аналогично Spring Data JPA, JPQL-запрос можно явно задать с помощью аннотации `@io.jmix.core.repository.Query`:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=query]
+----
+
+Если запрос возвращает несколько скалярных значений и/или агрегатов, нужно предоставить имена свойств в атрибуте `properties` аннотации `@Query`. Метод должен возвращать список `KeyValueEntity`. Каждый экземпляр сущности будет иметь свойства, определенные для запроса. Например:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-multiple-fields]
+----
+
+Если запрос возвращает список с единственным скалярным значением, определите тип возвращаемого значения метода как список этого значения:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-single-field]
+----
+
+Если запрос возвращает одно скалярное значение, определите тип возвращаемого значения метода как это значение:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-single-value]
+----
+
+[[jmix-specific-parameters]]
+=== Параметры, специфичные для Jmix
+
+Репозитории данных Jmix могут принимать xref:data-access:fetching.adoc#fetch-plan[фетч-план] как параметр методов запросов:
 
 [source,java,indent=0]
 ----
@@ -145,7 +175,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=fetch-plan]
 ----
 
-xref:cache.adoc#query-cache[Кэшируемый] запрос:
+xref:cache.adoc#query-cache[Кэшируемый] запрос можно задать с помощью аннотаций `@io.jmix.core.repository.QueryHints` и `@jakarta.persistence.QueryHint`:
 
 [source,java,indent=0]
 ----
