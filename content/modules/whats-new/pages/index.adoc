@@ -42,7 +42,7 @@ Vaadin has been updated to https://github.com/vaadin/platform/releases/tag/24.9.
 
 The `groupDataGrid` component is a data grid that enables the grouping of rows based on the values in one or more columns.
 
-The component is provided by the GroupDataGrid add-on which requires an Enterprise or BPM subscription.
+The component is provided by the xref:groupdatagrid:index.adoc[] add-on which requires an Enterprise or BPM subscription.
 
 To include the add-on in your project, make sure your `build.gradle` defines access to the premium repository and add the following dependency:
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
+      title="msg://disableGroupingView.title">
+    <!-- tag::data[] -->
+    <data>
+        <!-- end::data[] -->
+        <!-- tag::customersDc[] -->
+        <collection id="customersDc" class="com.company.groupdatagridex1.entity.Customer">
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Customer e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+        <!-- end::customersDc[] -->
+        <!-- tag::data[] -->
+    </data>
+    <!-- end::data[] -->
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <!-- tag::layout[] -->
+    <layout>
+        <!-- end::layout[] -->
+        <!-- tag::disable-grouping[] -->
+        <groupg:groupDataGrid id="customersGroupDataGrid"
+                              dataContainer="customersDc"
+                              minWidth="100px"
+                              width="100%">
+            <groupg:groupBy>
+                <groupg:columnRef key="grade"/>
+            </groupg:groupBy>
+            <groupg:columns>
+                <groupg:groupColumn header="Grade"/>
+                <groupg:column property="firstName"/>
+                <groupg:column property="lastName"/>
+                <groupg:column property="email"/>
+                <groupg:column property="country" groupAllowed="false"/>
+                <groupg:column property="grade"/>
+            </groupg:columns>
+        </groupg:groupDataGrid>
+        <!-- end::disable-grouping[] -->
+        <!-- tag::layout[] -->
+    </layout>
+    <!-- end::layout[] -->
+</view>

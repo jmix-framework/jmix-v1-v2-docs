@@ -1,0 +1,11 @@
+/* Define your styles here */
+
+vaadin-grid-tree-toggle.jmix-group-toggle {
+    &::part(toggle)::before {
+        content: "\e7c1";
+    }
+
+    &[expanded]::part(toggle)::before {
+        content: "\e7bf";
+    }
+}

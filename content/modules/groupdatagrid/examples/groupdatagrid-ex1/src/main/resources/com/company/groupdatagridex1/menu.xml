@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="application" title="msg://com.company.groupdatagridex1/menu.application.title" opened="true">
+        <item view="User.list" title="msg://com.company.groupdatagridex1.view.user/UserListView.title"/>
+        <item view="BasicGroupGridView"
+              title="msg://com.company.groupdatagridex1.view.basicgroupgrid/basicGroupGridView.title"/>
+        <item view="Customer.list" title="msg://com.company.groupdatagridex1.view.customer/customerListView.title"/>
+        <item view="DisableGroupingView"
+              title="msg://com.company.groupdatagridex1.view.disablegrouping/disableGroupingView.title"/>
+        <item view="CustomGroupingView"
+              title="msg://com.company.groupdatagridex1.view.customgrouping/customGroupingView.title"/>
+    </menu>
+
+</menu-config>

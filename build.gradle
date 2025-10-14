@@ -16,6 +16,7 @@ def projectNames = [
         'fullcalendar-ex1',
         'fullcalendar-ex2',
         'gridexport-ex1',
+        'groupdatagrid-ex1',
         'kanban-ex1',
         'kanban-ex2',
         'library',
