@@ -6,6 +6,7 @@ content:
   sources: 
   - url: https://github.com/jmix-framework/jmix-docs.git
     branches:
+    - release_2_7_ru
     - release_2_6_ru
     - release_2_5_ru
     - release_2_4_ru
@@ -16,85 +17,103 @@ content:
     start_path: content
   - url: https://github.com/jmix-framework/jmix-business-logic-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-application-events-sample
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-application-logging-sample
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-mongodb-integration-sample
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-integrated-apps-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-separate-tiers-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-openapi-integration-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-data-modeling-many-to-many-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-data-modeling-entity-inheritance-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-data-modeling-composition-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-initial-entity-values-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-social-login-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
       - release_2_4
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-restds-oidc-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
     start_path: doc
   - url: https://github.com/jmix-framework/jmix-observability-logging-sample.git
     branches:
+      - release_2_7
       - release_2_6
       - release_2_5
+    start_path: doc
+  - url: https://github.com/jmix-framework/jmix-reports-sample.git
+    branches:
+      - release_2_7
     start_path: doc
 ui:
   bundle:
