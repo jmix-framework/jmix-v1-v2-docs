@@ -150,19 +150,15 @@ The xref:audit:entity-log.adoc[] now can track changes in many-to-many attribute
 
 If you have overridden `findAll` methods of `JmixDataRepository` that previously returned `Iterable`, you should change the result type to `List`. For example:
 
-Before:
 [source,java]
 ----
 public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+
+    // before
     @Override
     Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
-}
-----
 
-After:
-[source,java]
-----
-public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+    // after
     @Override
     List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
 }
