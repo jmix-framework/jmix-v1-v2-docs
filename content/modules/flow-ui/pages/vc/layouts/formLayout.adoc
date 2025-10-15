@@ -9,9 +9,50 @@
 
 Адаптивный контейнер, который располагает компоненты в колонках. Количество колонок изменяется в зависимости от ширины контейнера.
 
-* XML-элемент: `formLayout`
-
-* Java-класс: `FormLayout`
+[cols="1h,6", grid=none]
+|===
+|XML-элемент
+|`formLayout`
+|Java-класс
+|`FormLayout`
+|Атрибуты
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<autoResponsive,autoResponsive>> -
+<<autoRows,autoRows>> -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+<<columnSpacing,columnSpacing>> -
+<<columnWidth,columnWidth>> -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+<<expandColumns,expandColumns>> -
+<<expandFields,expandFields>> -
+xref:vc/common-attributes.adoc#height[height] -
+<<labelsAside,labelsAside>> -
+<<labelSpacing,labelSpacing>> -
+<<labelsPosition,labelsPosition>> -
+<<labelWidth,labelWidth>> -
+<<maxColumns,maxColumns>> -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+<<minColumns,minColumns>> -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<rowSpacing,rowSpacing>> -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|Обработчики
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/layouts/flexLayout.adoc#clickListener[clickListener] -
+xref:vc/layouts/flexLayout.adoc#doubleClickListener[doubleClickListener] -
+xref:vc/layouts/flexLayout.adoc#singleClickListener[singleClickListener] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|Элементы
+|<<label-position,formItem>> - <<form-rows,formRow>> - <<responsive-steps,responsiveSteps>>
+|===
 
 == Основы
 
@@ -28,8 +69,102 @@ image::visual-components/layouts/form-layout-basic-1.png[align="center", width="
 
 image::visual-components/layouts/form-layout-basic-2.png[align="center", width="650"]
 
+[[data-binding]]
+== Привязка данных
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/form-layout-dataaware" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
+Привязка данных означает связывание визуального компонента с xref:data/data-containers.adoc[контейнером данных].
+
+В компоненте `formLayout` это достигается путем установки атрибута `dataContainer`, который ссылается на контейнер данных.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=data;layout;dataContainer]
+----
+<1> Контейнер экземпляра для сущности `User`.
+<2> Привязка компонента к контейнеру данных. Атрибут `dataContainer` содержит ссылку на контейнер данных `userDc`.
+<3> Вложенные элементы `formLayout` определяют визуальные компоненты, привязанные к атрибутам сущности с помощью XML-атрибута `property`. Надписи будут созданы автоматически на основе локализованных имен атрибутов сущности.
+
+[[auto-responsive-mode]]
+== Автоматический адаптивный режим
+
+При включении данного режима `formLayout` автоматически определяет оптимальное количество столбцов. При этом учитываются ширина столбцов, расстояние между ними и доступное горизонтальное пространство.
+
+Чтобы включить этот режим, установите атрибут `autoResponsive` в значение `true`.
+
+IMPORTANT: При включении автоматического адаптивного режима <<responsive-steps,адаптивные шаги>> игнорируются.
+
+[[form-rows]]
+=== Строки формы
+
+В автоматическом адаптивном режиме по умолчанию все поля отображаются в одном столбце.
+
+Чтобы организовать поля в несколько столбцов, используйте один из следующих подходов:
+
+. *Сгруппируйте поля вручную*: поместите связанные поля в элемент `formRow`, чтобы создать явную многоколоночную группу.
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=formRow]
+----
++
+[NOTE]
+====
+Каждый элемент `formRow` всегда начинается с новой строки. Поля, которые не помещаются в доступные столбцы, переносятся на новую строку, которая затем остается зарезервированной исключительно для полей этого `formRow`.
+====
+
+. *Включите автоматическое распределение*: установите атрибут <<autoRows,autoRows>> в значение `true`, чтобы контейнер автоматически размещал поля в доступных столбцах, перенося их на новую строку при заполнении текущей.
+
+Атрибут <<rowSpacing,rowSpacing>> управляет вертикальным промежутком между строками. Эта настройка применяется к промежутку между всеми строками, независимо от того, созданы они вручную через `formRow` или автоматически через `autoRows`.
+
+[[label-positioning]]
+=== Позиционирование надписей
+
+По умолчанию надписи отображаются над соответствующими полями. Чтобы расположить надписи рядом с полями, оберните поля в элементы `formItem` и активируйте атрибут `labelsAside="true"` в `formLayout`.
+
+[IMPORTANT]
+====
+При использовании режима "надписи сбоку", применяйте надпись к элементу `formItem`, а не к самому полю.
+====
+
+В примере ниже показано, как расположить надписи рядом с полями:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=labelsAside]
+----
+
+Если ширина `formLayout` недостаточна для отображения надписей рядом с полями, он автоматически возвращается к поведению по умолчанию, отображая надписи над полями.
+
+Атрибут `labelSpacing` определяет расстояние между надписью и полем, когда надписи расположены сбоку. Используйте этот атрибут для настройки горизонтального интервала с целью достижения оптимального макета.
+
+[[column-management]]
+=== Управление столбцами
+
+В автоматическом адаптивном режиме столбцы имеют фиксированную ширину, задаваемую атрибутом <<columnWidth,columnWidth>>. Макет автоматически создает столбцы в пределах указанных ограничений на основе доступной ширины контейнера.
+
+Макет динамически регулирует количество столбцов в зависимости от доступного пространства, соблюдая границы <<minColumns,minColumns>> и <<maxColumns,maxColumns>>. Атрибут `minColumns` гарантирует создание минимального количества столбцов, в то время как `maxColumns` устанавливает верхний предел, предотвращая чрезмерное увеличение их числа. Визуальное расстояние между этими столбцами регулируется атрибутом <<columnSpacing,columnSpacing>> с использованием единиц измерения CSS.
+
+Для оптимального использования пространства доступно два режима расширения. Когда включен параметр <<expandFields,expandFields>>, поля - включая те, что находятся внутри элементов `formItem` - растягиваются по горизонтали, заполняя свои столбцы. Альтернативно, параметр <<expandColumns,expandColumns>> позволяет всем столбцам пропорционально расширяться и совместно заполнять любое оставшееся доступное пространство в макете после первоначального расчета столбцов.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=columns]
+----
+
 [[responsive-steps]]
-== Адаптивные шаги
+== Режим адаптивных шагов
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/form-layout-responsive-steps" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
 
 Элемент `responsiveSteps` предоставляет способ определения количества колонок на основе доступного пространства.
 
@@ -83,56 +218,61 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/form-layout.png[align="center", width="659"]
 
-[[attributes]]
 == Атрибуты
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-<<labelsPosition,labelsPosition>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+В Jmix есть множество xref:vc/common-attributes.adoc[общих атрибутов], которые выполняют одну и ту же функцию для всех компонентов.
 
-[[labelsPosition]]
-=== labelsPosition
+Ниже приведены атрибуты, специфичные для `formLayout`.
 
-Задает <<label-position, положение надписи>> для компонентов внутри контейнера.
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
+|[[autoResponsive]]autoResponsive
+|Включает автоматический расчет и адаптацию количества столбцов на основе доступной ширины контейнера. Смотрите <<auto-responsive-mode,Автоматический адаптивный режим>>.
+|`false`
+|[[autoRows]]autoRows
+|Настраивает автоматическое распределение полей по столбцам, с последовательным заполнением строк перед переносом на следующую. Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<auto-responsive-mode,Автоматический адаптивный режим>>.
+|`false`
+|[[columnWidth]]columnWidth
+|Задает фиксированную ширину для всех столбцов в допустимых CSS-единицах измерения (например, `"100px"`, `"10em"`). Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<column-management,Управление столбцами>>.
+|`13em`
+|[[columnSpacing]]columnSpacing
+|Определяет расстояние между столбцами в CSS-единицах. Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<column-management,Управление столбцами>>.
+|
+|[[expandColumns]]expandColumns
+|При включении столбцы равномерно распределяются для заполнения оставшегося горизонтального пространства. Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<column-management,Управление столбцами>>.
+|`false`
+|[[expandFields]]expandFields
+|При включении поля растягиваются на всю доступную ширину столбца (включая поля в `formItem`). Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<column-management,Управление столбцами>>.
+|`false`
+|[[labelsAside]]labelsAside
+|Размещает надписи `formItem` рядом с полями, а не над ними. Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<label-positioning,Позиционирование надписей>>.
+|`false` (надписи располагаются над полями)
+|[[labelSpacing]]labelSpacing
+|Задает расстояние между надписью и полем в боковом расположении (в CSS-единицах, например, `1em`). Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<label-positioning,Позиционирование надписей>>.
+|
+|[[labelsPosition]]labelsPosition
+|Определяет <<label-position,позицию надписей>> для компонентов:
 
-* `ASIDE` -- надписи располагаются сбоку от компонентов.
-* `TOP` -- надписи располагаются над компонентами.
+- `ASIDE` - сбоку от компонентов.
 
-[[handlers]]
-== Обработчики
-
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-
-include::../handler-generation-tip.adoc[]
-
-[[ClickEvent]]
-=== ClickEvent
-
-`com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из следующих трех субъектов для определения количества кликов, связанных с событием.
-
-* click – событие возникает при любом клике на компонент.
-
-* singleClick – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
-
-* doubleClick – событие возникает при двойном клике на компонент.
-
-== Элементы
-
-<<label-position, formItem>> - <<responsive-steps, responsiveSteps>>
+- `TOP` - над компонентами.
+|`TOP`
+|[[labelWidth]]labelWidth
+|Задает ширину боковых надписей (в CSS-единицах, например, `1em`). Смотрите <<label-positioning,Позиционирование надписей>> и <<label-position,Позиция надписи>>.
+|
+|[[maxColumns]]maxColumns
+|Максимальное количество столбцов (не превышается даже при наличии места). Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<column-management,Управление столбцами>>.
+|10
+|[[minColumns]]minColumns
+|Минимальное количество столбцов (создается даже при недостатке места). Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<column-management,Управление столбцами>>.
+|1
+|[[rowSpacing]]rowSpacing
+|Определяет расстояние между строками в CSS-единицах. Работает только при включенном <<autoResponsive,autoResponsive>>. Смотрите <<form-rows,Строки формы>>.
+|
+|===
 
 == Смотрите также
 
