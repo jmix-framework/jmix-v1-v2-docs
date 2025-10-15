@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       title="msg://formLayoutView.title">
+    <!-- tag::data[] -->
+    <data>
+        <instance id="userDc"
+                  class="com.company.onboarding.entity.User"/> <!--1-->
+    </data>
+    <!-- end::data[] -->
+    <!-- tag::layout[] -->
     <layout>
+        <!-- end::layout[] -->
         <!-- tag::basics[] -->
         <formLayout>
             <textField placeholder="City" label="Where from?"/>
@@ -84,5 +92,70 @@
             <button text="Search tickets" colspan="2"/>
         </formLayout>
         <!-- end::colspan[] -->
+        <!-- tag::formRow[] -->
+        <formLayout autoResponsive="true">
+            <formRow>
+                <textField label="Where from?" placeholder="City"/>
+                <textField placeholder="City" label="Where to?"/>
+                <datePicker label="Depart"/>
+            </formRow>
+            <formRow>
+                <datePicker label="Return"/>
+                <button text="Search tickets"/>
+            </formRow>
+        </formLayout>
+        <!-- end::formRow[] -->
+        <!-- tag::labelsAside[] -->
+        <formLayout autoResponsive="true" labelsAside="true">
+            <formRow>
+                <formItem label="Where from?">
+                    <textField placeholder="City"/>
+                </formItem>
+                <formItem label="Where to?">
+                    <textField placeholder="City"/>
+                </formItem>
+                <formItem label="Depart">
+                    <datePicker/>
+                </formItem>
+            </formRow>
+            <formRow>
+                <formItem label="Return">
+                    <datePicker/>
+                </formItem>
+                <button text="Search tickets"/>
+            </formRow>
+        </formLayout>
+        <!-- end::labelsAside[] -->
+        <!-- tag::columns[] -->
+        <formLayout autoResponsive="true"
+                    columnWidth="150px"
+                    minColumns="2"
+                    maxColumns="4"
+                    columnSpacing="3em"
+                    expandColumns="true"
+                    expandFields="true">
+            <formRow>
+                <textField placeholder="City" label="Where to?"/>
+                <textField placeholder="City" label="Where from?"/>
+            </formRow>
+            <formRow>
+                <datePicker label="Return"/>
+                <datePicker label="Depart"/>
+            </formRow>
+            <formRow>
+                <button text="Search tickets"/>
+            </formRow>
+        </formLayout>
+        <!-- end::columns[] -->
+        <!-- tag::dataContainer[] -->
+        <formLayout dataContainer="userDc"> <!--2-->
+            <textField property="firstName"/> <!--3-->
+            <textField property="lastName"/>
+            <textField property="username"/>
+            <textField property="email"/>
+        </formLayout>
+        <!-- end::dataContainer[] -->
+        <!-- tag::layout[] -->
     </layout>
+    <!-- end::layout[] -->
 </view>

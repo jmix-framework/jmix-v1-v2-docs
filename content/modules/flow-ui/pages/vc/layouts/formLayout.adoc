@@ -9,9 +9,50 @@
 
 A responsive layout that arranges components into columns. The number of columns changes depending on the layout width.
 
-* XML element: `formLayout`
-
-* Java class: `FormLayout`
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`formLayout`
+|Java Class
+|`FormLayout`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<autoResponsive,autoResponsive>> -
+<<autoRows,autoRows>> -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+<<columnSpacing,columnSpacing>> -
+<<columnWidth,columnWidth>> -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+<<expandColumns,expandColumns>> -
+<<expandFields,expandFields>> -
+xref:vc/common-attributes.adoc#height[height] -
+<<labelsAside,labelsAside>> -
+<<labelSpacing,labelSpacing>> -
+<<labelsPosition,labelsPosition>> -
+<<labelWidth,labelWidth>> -
+<<maxColumns,maxColumns>> -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+<<minColumns,minColumns>> -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<rowSpacing,rowSpacing>> -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/layouts/flexLayout.adoc#clickListener[clickListener] -
+xref:vc/layouts/flexLayout.adoc#doubleClickListener[doubleClickListener] -
+xref:vc/layouts/flexLayout.adoc#singleClickListener[singleClickListener] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|Elements
+|<<label-position,formItem>> - <<form-rows,formRow>> - <<responsive-steps,responsiveSteps>>
+|===
 
 == Basics
 
@@ -28,8 +69,102 @@ When the layout width is smaller, it automatically adjusts to a single column.
 
 image::visual-components/layouts/form-layout-basic-2.png[align="center", width="650"]
 
+[[data-binding]]
+== Data Binding
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/form-layout-dataaware" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container].
+
+In the `formLayout` component, this is achieved by setting the `dataContainer` attribute to reference a data container.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=data;layout;dataContainer]
+----
+<1> Instance container for the `User` entity.
+<2> Binding the component to a data container. The `dataContainer` attribute contains a link to the `userDc` data container.
+<3> Nested `formLayout` elements define visual components bound to entity attributes using the `property` XML attribute. Labels will be created automatically based on the localized names of entity attributes.
+
+[[auto-responsive-mode]]
+== Auto-Responsive Mode
+
+When enabled, `formLayout` automatically determines the appropriate number of columns. This calculation considers column width, spacing, and the available horizontal space.
+
+Enable this mode by setting the `autoResponsive` attribute to `true`.
+
+IMPORTANT: When auto-responsive mode is enabled, <<responsive-steps,responsive steps>> are ignored.
+
+[[form-rows]]
+=== Form Rows
+
+In auto-responsive mode, all fields are displayed in a single column by default.
+
+To organize fields into multiple columns, use one of the following approaches:
+
+. *Group fields manually*: place related fields into a `formRow` element to create a deliberate multi-column group.
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=formRow]
+----
++
+[NOTE]
+====
+Each `formRow` always starts on a new row. Fields that exceed the available columns wrap to a new row, which then remains reserved exclusively for the fields of that `formRow`.
+====
+
+. *Enable automatic distribution*: set the <<autoRows,autoRows>> attribute to `true` to let the layout automatically place fields into the available columns, wrapping to a new row when the current one is full.
+
+The <<rowSpacing,rowSpacing>> attribute controls the vertical gap between rows. This setting applies to the space between all rows, whether they are created manually via `formRow` or automatically via `autoRows`.
+
+[[label-positioning]]
+=== Label Positioning
+
+By default, labels are rendered above their corresponding fields. To position labels beside fields, wrap the fields in `formItem` elements and enable the `labelsAside="true"` attribute on the `formLayout`.
+
+[IMPORTANT]
+====
+When using labels-aside mode, apply the label to the `formItem` element, not to the field itself.
+====
+
+The example below demonstrates how to position labels next to fields:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=labelsAside]
+----
+
+If the formLayout's width is insufficient to display labels beside fields, it automatically reverts to the default behavior of rendering labels above fields.
+
+The `labelSpacing` attribute defines the gap between the label and the field when labels are positioned aside. Use this attribute to adjust the horizontal spacing for optimal layout.
+
+[[column-management]]
+=== Column Management
+
+In auto-responsive mode, columns have a fixed width defined by the <<columnWidth,columnWidth>> attribute. The layout automatically creates columns up to the specified limits based on the available container width.
+
+The layout dynamically adjusts the number of columns based on available space, constrained by the <<minColumns,minColumns>> and <<maxColumns,maxColumns>> boundaries. The `minColumns` attribute ensures a minimum number of columns are always created, while `maxColumns` sets an upper limit to prevent excessive column proliferation. Between these columns, the <<columnSpacing,columnSpacing>> attribute controls the visual separation using CSS length units.
+
+For optimal space utilization, two expansion behaviors are available. When <<expandFields,expandFields>> is enabled, fields — including those within `formItem` elements — stretch horizontally to fill their containing columns. Alternatively, <<expandColumns,expandColumns>> enables all columns to proportionally expand and collectively occupy any remaining available width in the layout after the initial column calculation.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=columns]
+----
+
 [[responsive-steps]]
-== Responsive Steps
+== Responsive Steps Mode
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/form-layout-responsive-steps" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
 
 The `responsiveSteps` element provides a way to determine a number of columns based on the available space.
 
@@ -69,7 +204,6 @@ Changing the layout width will affect both the number of columns and the positio
 
 image::visual-components/layouts/form-layout-responsive-labels-position.gif[align="center", width="986"]
 
-
 [[column-span]]
 == Column Span
 
@@ -84,57 +218,61 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/form-layout.png[align="center", width="659"]
 
-[[attributes]]
 == Attributes
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-<<labelsPosition,labelsPosition>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `formLayout`.
 
-[[labelsPosition]]
-=== labelsPosition
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[autoResponsive]]autoResponsive
+|Enables the layout to automatically calculate and adjust the number of columns based on the available width of its container. See <<auto-responsive-mode,Auto-Responsive Mode>>.
+|`false`
+|[[autoRows]]autoRows
+|Configures whether the layout should automatically distribute fields across columns, filling each row sequentially before wrapping to the next line. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<auto-responsive-mode,Auto-Responsive Mode>>.
+|`false`
+|[[columnWidth]]columnWidth
+|Defines the fixed width for all columns. Value must be a valid CSS length unit (for example, `"100px"`, `"10em"`). This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|`13em`
+|[[columnSpacing]]columnSpacing
+|Defines the gap between columns using CSS length units. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|
+|[[expandColumns]]expandColumns
+|When enabled, columns evenly distribute to fill any remaining horizontal space after the initial column calculation. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|`false`
+|[[expandFields]]expandFields
+|When enabled, fields stretch to fill all available width within their containing column. This also applies to fields wrapped in `formItem` elements. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|`false`
+|[[labelsAside]]labelsAside
+|Specifies whether `formItem` elements within the layout should position their labels beside the associated fields instead of above them. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<label-positioning,Label Positioning>>.
+|`false` (labels are positioned above fields)
+|[[labelSpacing]]labelSpacing
+|Defines the spacing between the label and the corresponding field when labels are placed aside the field. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<label-positioning,Label Positioning>>. The value must be provided in CSS length units, for example, `1em`.
+|
+|[[labelsPosition]]labelsPosition
+|Sets the <<label-position, label position>> for components within the layout.
 
-Sets the <<label-position, label position>> for components within the layout.
+- `ASIDE` - labels are positioned to the side of the components.
 
-* `ASIDE` -- labels are positioned to the side of the components.
-* `TOP` -- labels are positioned above the components.
-
-[[handlers]]
-== Handlers
-
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-
-include::../handler-generation-tip.adoc[]
-
-[[ClickEvent]]
-=== ClickEvent
-
-The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the following three subjects to detect the number of clicks related to the event.
-
-* click – fires the event whenever the component is clicked.
-
-* singleClick – fires the event after a timeout to ensure it is not a double click.
-
-* doubleClick – fires the event when the component is double-clicked.
-
-== Elements
-
-<<label-position, formItem>> - <<responsive-steps, responsiveSteps>>
+- `TOP` - labels are positioned above the components.
+|`TOP`
+|[[labelWidth]]labelWidth
+|Sets the width of side-positioned label. See <<label-positioning,Label Positioning>> and <<label-position,Label Position>>. The value must be provided in CSS length units, for example, `1em`.
+|
+|[[maxColumns]]maxColumns
+|Sets the maximum number of columns the layout can create. The actual number will not exceed this limit, even if there is sufficient space. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|10
+|[[minColumns]]minColumns
+|Sets the minimum number of columns the layout will create, regardless of container width. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|1
+|[[rowSpacing]]rowSpacing
+|Defines the gap between rows using CSS length units. This attribute works only when <<autoResponsive,autoResponsive>> is enabled. See <<column-management,Column Management>>.
+|
+|===
 
 == See Also
 
-See https://vaadin.com/docs/latest/components/form-layout[Vaadin Docs^] for more information.
+See {vaadin-docs}/components/form-layout[Vaadin Docs^] for more information.
