@@ -145,19 +145,15 @@ xref:audit:entity-log.adoc[] теперь может отслеживать из
 
 Если вы переопределили методы `findAll` из `JmixDataRepository`, которые ранее возвращали `Iterable`, вам следует изменить тип результата на `List`. Например:
 
-До:
 [source,java]
 ----
 public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+
+    // before
     @Override
     Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
-}
-----
 
-После:
-[source,java]
-----
-public interface OrderRepository extends JmixDataRepository<Order, UUID> {
+    // after
     @Override
     List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
 }
