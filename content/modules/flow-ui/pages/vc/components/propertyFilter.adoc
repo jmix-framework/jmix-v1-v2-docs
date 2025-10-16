@@ -231,7 +231,7 @@ Specifies the filtering operation.
 | Not equal to.
 | Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
 | IS_SET
-| Is null or is not null. Provides options in com
+| Is null or is not null.
 | Numeric, Boolean, String, Date/Time, Time, UUID, URI, Entity, Enum
 | IN_LIST
 | Checks if the value is in the list.
