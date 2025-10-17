@@ -1,0 +1,69 @@
+= markdown
+
+`markdown` is a component for rendering Markdown content.
+
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`markdown`
+|Java Class
+|`Markdown`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+<<content,content>> -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#height[height] -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|Elements
+|<<content,content>>
+|===
+
+== Basics
+
+The `markdown` component renders content written in Markdown syntax as formatted HTML. It supports basic text formatting, lists, links, and other common Markdown features. All content is automatically sanitized to prevent rendering of potentially dangerous HTML.
+
+For detailed information about Markdown syntax, see the https://www.markdownguide.org/basic-syntax/[Markdown Guide^].
+
+[[content]]
+You can provide content to the component using either the `content` attribute or a nested `content` element.
+
+* This example demonstrates how to add Markdown content via the `content` attribute and a string in the xref:localization:message-bundles.adoc[message bundle]:
++
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/component/markdown/markdown-view.xml[tags=content]
+----
++
+.messages.properties
+[source,properties,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/messages_en.properties[tags=markdown-content]
+----
++
+image::visual-components/components/markdown-content-attr.png[align="center", width="360"]
+
+* Example of using the nested `content` element:
++
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/component/markdown/markdown-view.xml[tags=content-element]
+----
++
+image::visual-components/components/markdown-content-element.png[align="center", width="371"]
++
+IMPORTANT: When using the nested `content` element, avoid leading spaces at the beginning of each line. Markdown syntax is sensitive to indentation, and unexpected spaces may affect the rendering of formatted elements like headers, lists, and code blocks.
+
+== See Also
+
+See the {vaadin-docs}/components/markdown[Vaadin Docs^] for more information.
