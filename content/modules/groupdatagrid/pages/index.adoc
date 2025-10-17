@@ -1,4 +1,4 @@
-= GroupDataGrid
+= Grouping Data Grid
 
 ++++
 <div class="jmix-ui-live-demo-container">

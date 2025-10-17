@@ -38,42 +38,7 @@ Vaadin обновлен до версии https://github.com/vaadin/platform/rel
 
 Компонент `groupDataGrid` — это таблица данных, которая позволяет группировать строки по значениям в одном или нескольких колонках.
 
-Компонент предоставляется дополнением xref:groupdatagrid:index.adoc[], для которого требуется подписка Enterprise или BPM.
-
-Чтобы включить дополнение в ваш проект, убедитесь, что ваш `build.gradle` определяет доступ к премиум-репозиторию и добавьте следующую зависимость:
-
-[source,groovy]
-----
-implementation 'io.jmix.groupgrid:jmix-groupgrid-flowui-starter'
-----
-
-Компонент `groupDataGrid` может быть использован в экране следующим образом:
-
-[source,xml]
-----
-<view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
-    ...
-    <layout>
-        <groupg:groupDataGrid id="ordersDataGrid" width="100%" minHeight="20em"
-                  dataContainer="ordersDc" columnReorderingAllowed="true">
-            <groupg:actions>
-                <groupg:action id="createAction" type="list_create"/>
-                <groupg:action id="editAction" type="list_edit"/>
-                ...
-            </groupg:actions>
-            <groupg:groupBy>
-                <groupg:columnRef key="client"/>
-            </groupg:groupBy>
-            <groupg:columns resizable="true">
-                <groupg:groupColumn header="Groups"/>
-                <groupg:column property="client"/>
-                <groupg:column property="date"/>
-                ...
-            </groupg:columns>
-        </groupg:groupDataGrid>
-        ...
-----
+Документация по дополнению xref:groupdatagrid:index.adoc[] содержит полную информацию об установке и использовании компонента.
 
 [[card-component]]
 === Компонент Card
