@@ -38,6 +38,7 @@
 **** xref:flow-ui:vc/components/listBox.adoc[]
 **** xref:flow-ui:vc/components/listMenu.adoc[]
 **** xref:flow-ui:vc/components/loginForm.adoc[]
+**** xref:flow-ui:vc/components/markdown.adoc[]
 **** xref:flow-ui:vc/components/menuFilterField.adoc[]
 **** xref:flow-ui:vc/components/multiSelectComboBox.adoc[]
 **** xref:flow-ui:vc/components/multiSelectComboBoxPicker.adoc[]

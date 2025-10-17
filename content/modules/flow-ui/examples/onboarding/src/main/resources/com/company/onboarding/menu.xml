@@ -60,6 +60,7 @@
         <item view="ListBoxView" title="msg://com.company.onboarding.view.component.listbox/listBoxView.title"/>
         <item view="ListMenuView" title="msg://com.company.onboarding.view.component.listmenu/listMenuView.title"/>
         <item view="LoginFormView" title="msg://com.company.onboarding.view.component.loginform/loginFormView.title"/>
+        <item view="MarkdownView" title="msg://com.company.onboarding.view.component.markdown/markdownView.title"/>
         <item view="MultiSelectComboBoxView"
               title="msg://com.company.onboarding.view.component.multiselectcombobox/multiSelectComboBoxView.title"/>
         <item view="MultiSelectComboBoxPickerView"
