@@ -29,10 +29,13 @@ public class UserDetailEventsView extends StandardDetailView<User> {
 
     // end::notifications-bean[]
 
-    // tag::init-event[]
+    // tag::timeZoneField[]
     @ViewComponent
     private JmixComboBox<String> timeZoneField;
 
+    // end::timeZoneField[]
+
+    // tag::init-event[]
     @Subscribe
     public void onInit(final InitEvent event) {
         timeZoneField.setItems(List.of(TimeZone.getAvailableIDs()));
@@ -92,4 +95,10 @@ public class UserDetailEventsView extends StandardDetailView<User> {
                 .show();
     }
     // end::after-save-event[]
+    // tag::read-only-change-event[]
+    @Subscribe
+    public void onReadOnlyChange(final ReadOnlyChangeEvent event) {
+        timeZoneField.setReadOnly(event.isReadOnly());
+    }
+    // end::read-only-change-event[]
 }
