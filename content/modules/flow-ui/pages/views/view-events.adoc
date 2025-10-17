@@ -178,6 +178,8 @@ Subscribe to this event to synchronize the read-only state of custom components 
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=timeZoneField;read-only-change-event]
 ----
 
+NOTE: If you are creating a custom view that needs to track and respond to read-only state changes, your view class must implement the `ReadOnlyTracker` interface.
+
 [[diagrams]]
 == Diagrams
 
