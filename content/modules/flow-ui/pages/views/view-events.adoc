@@ -17,7 +17,7 @@ Alternatively, execute the *Generate Handler* action available in the top panel 
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=init-event]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=timeZoneField;init-event]
 ----
 
 NOTE: The event is triggered only once after the view is created. This means that if the navigation to the view occurs for the first time, the event triggers. However, if navigation is performed to a view that is currently open, for example, by clicking on the same menu item multiple times, the event will not be triggered because the view instance has already been created.
@@ -164,6 +164,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=notifications-bean;after-save-event]
+----
+
+[[read-only-change-event]]
+== ReadOnlyChangeEvent
+
+`ReadOnlyChangeEvent` is fired by views that inherit from `StandardDetailView` when their read-only state changes. This typically occurs when a user switches between viewing and editing modes.
+
+Subscribe to this event to synchronize the read-only state of custom components with the view's overall mode. This ensures consistent user interaction patterns throughout the interface.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=timeZoneField;read-only-change-event]
 ----
 
 [[diagrams]]

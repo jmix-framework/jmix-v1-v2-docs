@@ -38,6 +38,7 @@
             <button id="createBtn" action="usersDataGrid.create"/>
             <button id="editBtn" action="usersDataGrid.edit"/>
             <button id="removeBtn" action="usersDataGrid.remove"/>
+            <button id="viewBtn" action="usersDataGrid.readAction"/>
             <simplePagination id="pagination" dataLoader="usersDl"/>
         </hbox>
         <dataGrid id="usersDataGrid"
@@ -57,6 +58,11 @@
                     </properties>
                 </action>
                 <action id="remove" type="list_remove"/>
+                <action id="readAction" type="list_read">
+                    <properties>
+                        <property name="viewId" value="UserDetailEventsView"/>
+                    </properties>
+                </action>
             </actions>
             <columns resizable="true">
                 <column property="username"/>
