@@ -184,6 +184,8 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=timeZoneField;read-only-change-event]
 ----
 
+NOTE: Если вы создаете пользовательский экран, которому необходимо отслеживать и реагировать на изменения состояния «только для чтения», ваш класс экрана должен реализовать интерфейс `ReadOnlyTracker`.
+
 [[diagrams]]
 == Диаграммы
 
