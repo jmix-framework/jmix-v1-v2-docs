@@ -42,42 +42,7 @@ Vaadin has been updated to https://github.com/vaadin/platform/releases/tag/24.9.
 
 The `groupDataGrid` component is a data grid that enables the grouping of rows based on the values in one or more columns.
 
-The component is provided by the xref:groupdatagrid:index.adoc[] add-on which requires an Enterprise or BPM subscription.
-
-To include the add-on in your project, make sure your `build.gradle` defines access to the premium repository and add the following dependency:
-
-[source,groovy]
-----
-implementation 'io.jmix.groupgrid:jmix-groupgrid-flowui-starter'
-----
-
-The `groupDataGrid` component can be used in a view as follows:
-
-[source,xml]
-----
-<view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
-    ...
-    <layout>
-        <groupg:groupDataGrid id="ordersDataGrid" width="100%" minHeight="20em"
-                  dataContainer="ordersDc" columnReorderingAllowed="true">
-            <groupg:actions>
-                <groupg:action id="createAction" type="list_create"/>
-                <groupg:action id="editAction" type="list_edit"/>
-                ...
-            </groupg:actions>
-            <groupg:groupBy>
-                <groupg:columnRef key="client"/>
-            </groupg:groupBy>
-            <groupg:columns resizable="true">
-                <groupg:groupColumn header="Groups"/>
-                <groupg:column property="client"/>
-                <groupg:column property="date"/>
-                ...
-            </groupg:columns>
-        </groupg:groupDataGrid>
-        ...
-----
+See the xref:groupdatagrid:index.adoc[] add-on section for information on how to install and use the component.
 
 [[card-component]]
 === Card Component
