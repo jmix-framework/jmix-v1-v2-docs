@@ -29,7 +29,7 @@ The `groupDataGrid` component enhances the base data grid with robust row groupi
 |Handlers
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - <<CellFocusEvent,CellFocusEvent>> - <<CollapseEvent,CollapseEvent>> - <<ColumnReorderEvent,ColumnReorderEvent>> - <<ColumnResizeEvent,ColumnResizeEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<ExpandEvent,ExpandEvent>> - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - <<GridDragEndEvent,GridDragEndEvent>> - <<GridDragStartEvent,GridDragStartEvent>> - <<GridDragDropEvent,GridDragDropEvent>> - <<GroupDataGridGroupItemClickEvent,GroupDataGridGroupItemClickEvent>> - <<GroupDataGridGroupItemDoubleClickEvent,GroupDataGridGroupItemDoubleClickEvent>> - <<GroupDataGridGrouipingChangedEvent,GroupDataGridGrouipingChangedEvent>> - <<ItemClickEvent,ItemClickEvent>> - <<ItemDoubleClickEvent,ItemDoubleClickEvent>> - <<SelectionEvent,SelectionEvent>> - <<SortEvent,SortEvent>> - <<dataGenerator,dataGenerator>> - <<dragFilter,dragFilter>> - <<dropFilter,dropFilter>> - <<enterPressHandler,enterPressHandler>> - <<groupPartNameGenerator,groupPartNameGenerator>> - <<itemSelectableProvider,itemSelectableProvider>> - <<partNameGenerator,partNameGenerator>> - <<tooltipGenerator,tooltipGenerator>>
 |Elements
-|<<groupBy, groupBy>> - <<columns,columns>> - <<column,column>> - <<groupColumn,groupColumn>> - xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn]
+|<<groupBy, groupBy>> - <<columnRef,columnRef>> - <<columns,columns>> - <<column,column>> - <<groupColumn,groupColumn>> - xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn]
 |===
 
 [[Basics]]
@@ -142,7 +142,7 @@ The add-on provides two export options. For `groupDataGrid` it affects both the 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-theme-variant?tab=Description[https://demo.jmix.io/ui-samples/sample/data-grid-inline-editor]" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-theme-variant" class="live-demo-btn" target="_blank">LIVE DEMO</a>
 </div>
 ++++
 
@@ -234,7 +234,15 @@ xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose
 |If `true`, enables users to drag rows in the grid.
 |`false`
 |[[sortByGroupEnabled]]sortByGroupEnabled
-|If `true`, enables sorting by group.
+a|If `true`:
+
+* sorting is enabled for the group column.
+* sorting by other columns rearranges rows within each group but initial group order remains fixed.
+
+If `false`:
+
+- sorting is disabled for the group column.
+- sorting by other columns reorders the groups accordingly.
 | `true`
 |===
 
@@ -306,7 +314,12 @@ To add an element to a selected component click the xref:studio:screen-designer.
 [[groupBy]]
 === groupBy
 
-The `groupBy` element contains one or more `columnRef` elements that reference the columns used for default grouping.
+The `groupBy` element contains one or more <<columnRef,columnRef>> elements specifying which columns to group by.
+
+[[columnRef]]
+=== columnRef
+
+The `columnRef` element identifies a column to use for grouping.
 
 [[columns]]
 === columns
