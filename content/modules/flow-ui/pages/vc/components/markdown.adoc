@@ -1,14 +1,14 @@
 = markdown
 
-`markdown` is a component for rendering Markdown content.
+`markdown` - это компонент для отображения контента в формате Markdown.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`markdown`
-|Java Class
+|Java-класс
 |`Markdown`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -22,23 +22,23 @@ xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|Элементы
 |<<content,content>>
 |===
 
-== Basics
+== Основы
 
-The `markdown` component renders content written in Markdown syntax as formatted HTML. It supports basic text formatting, lists, links, and other common Markdown features. All content is automatically sanitized to prevent rendering of potentially dangerous HTML.
+Компонент `markdown` преобразует контент, написанный в синтаксисе Markdown, в форматированный HTML. Он поддерживает базовое форматирование текста, списки, ссылки и другие распространенные возможности Markdown. Весь контент автоматически санируется для предотвращения отображения потенциально опасного HTML.
 
-For detailed information about Markdown syntax, see the https://www.markdownguide.org/basic-syntax/[Markdown Guide^].
+Подробную информацию о синтаксисе Markdown смотрите в https://www.markdownguide.org/basic-syntax/[Руководстве Markdown^].
 
 [[content]]
-You can provide content to the component using either the `content` attribute or a nested `content` element.
+Вы можете предоставить контент компоненту, используя либо атрибут `content`, либо вложенный элемент `content`.
 
-* This example demonstrates how to add Markdown content via the `content` attribute and a string in the xref:localization:message-bundles.adoc[message bundle]:
+* В этом примере показано, как добавить контент Markdown через атрибут `content` и строку в xref:localization:message-bundles.adoc[пакете сообщений]:
 +
 [source,xml,indent=0]
 ----
@@ -53,7 +53,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/messages_e
 +
 image::visual-components/components/markdown-content-attr.png[align="center", width="360"]
 
-* Example of using the nested `content` element:
+* Пример использования вложенного элемента `content`:
 +
 [source,xml,indent=0]
 ----
@@ -62,8 +62,8 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 +
 image::visual-components/components/markdown-content-element.png[align="center", width="371"]
 +
-IMPORTANT: When using the nested `content` element, avoid leading spaces at the beginning of each line. Markdown syntax is sensitive to indentation, and unexpected spaces may affect the rendering of formatted elements like headers, lists, and code blocks.
+IMPORTANT: При использовании вложенного элемента `content` избегайте пробелов в начале каждой строки. Синтаксис Markdown чувствителен к отступам, и неожиданные пробелы могут повлиять на отображение форматированных элементов, таких как заголовки, списки и блоки кода.
 
-== See Also
+== Смотрите также
 
-See the {vaadin-docs}/components/markdown[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/markdown[Документации Vaadin^].
