@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://newsItemListView.title"
+      focusComponent="newsItemsDataGrid">
+    <data>
+        <collection id="newsItemsDc"
+                    class="com.company.emailex1.entity.NewsItem">
+            <fetchPlan extends="_base"/>
+            <loader id="newsItemsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from NewsItem e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="newsItemsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <!-- tag::news-item-datagrid[] -->
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="newsItemsDataGrid.createAction"/>
+            <button id="editButton" action="newsItemsDataGrid.editAction"/>
+            <button id="removeButton" action="newsItemsDataGrid.removeAction"/>
+            <button id="sendEmailButton" action="newsItemsDataGrid.sendEmailAction"/> <!--1-->
+            <simplePagination id="pagination" dataLoader="newsItemsDl"/>
+        </hbox>
+        <dataGrid id="newsItemsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="newsItemsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+                <action id="sendEmailAction" type="list_itemTracking" icon="vaadin:envelope" text="Send Email"/> <!--2-->
+            </actions>
+            <columns resizable="true">
+                <column property="date"/>
+                <column property="subject"/>
+                <column property="content"/>
+            </columns>
+        </dataGrid>
+        <!-- end::news-item-datagrid[] -->
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

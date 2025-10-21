@@ -11,7 +11,7 @@ Here is an example of sending email using `EmailInfo` object:
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=emailer;email-info1;email-info2]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=emailer;email-info1;email-info2]
 ----
 +
 During synchronous sending, the framework can throw `EmailException` with the information about failed recipient addresses and corresponding error messages.
@@ -27,7 +27,7 @@ The `EmailAttachment` object is a wrapper that holds the attachment as a byte ar
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=create-attachment]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=create-attachment]
 ----
 
 The attachment identifier is an optional but useful field when you want to insert images in the message body. For this, specify a unique `contentId` when creating `EmailAttachment`, as `logoId` in the example above. To insert the image in the message body, use an expression like `cid:logoId` as a path to attachment, for example:
@@ -41,5 +41,5 @@ Also, you can create a text attachment from the string and specify an encoding a
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=text-attachment]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=text-attachment]
 ----

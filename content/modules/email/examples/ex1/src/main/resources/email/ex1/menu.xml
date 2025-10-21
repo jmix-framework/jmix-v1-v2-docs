@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<menu-config xmlns="http://jmix.io/schema/ui/menu">
-
-    <menu id="application" caption="msg://email.ex1/menu.application">
-        <item screen="sample_NewsItem.browse" caption="msg://email.ex1.screen.newsitem/newsItemBrowse.caption"/>
-    </menu>
-
-</menu-config>
