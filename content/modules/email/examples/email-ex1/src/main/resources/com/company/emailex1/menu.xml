@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="application" title="msg://com.company.emailex1/menu.application.title" opened="true">
+        <item view="User.list" title="msg://com.company.emailex1.view.user/UserListView.title"/>
+        <item view="NewsItem.list" title="msg://com.company.emailex1.view.newsitem/newsItemListView.title"/>
+    </menu>
+
+</menu-config>

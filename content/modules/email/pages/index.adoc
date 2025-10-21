@@ -1,14 +1,14 @@
 = Email Sending
 
-include::ROOT:partial$outdated-ui-warning.adoc[]
-
 Jmix provides the following email sending functionality:
 
-* Synchronous or asynchronous sending. In case of synchronous sending, the calling code waits till the message is sent to the SMTP server. In case of asynchronous sending, the message is saved to the database, and the control is returned immediately to the calling code. Later, a scheduled task sends the message using a preconfigured number of attempts.
+* *Synchronous and asynchronous sending:* In synchronous mode the calling code waits until the message is sent to the SMTP server; in asynchronous mode the message is persisted to the database for later sending and control is returned immediately to the calling code.
 
-* Reliable tracking of message sending timestamp or errors in the database for both synchronous and asynchronous modes.
+* *Scheduled sending via xref:jmix:quartz:index.adoc[]:* Defer sends, create recurring messages, or align sending with specific time zones using Quartz jobs.
 
-* User interface to search and view information about sent messages, including all message attributes and content, sending status and the number of attempts.
+* *Reliable tracking:* Send timestamps and error details are saved in the database for both synchronous and asynchronous modes.
+
+* *User interface:* A user interface to search and view sent emails, including full message content, attributes, sending status, and attempt count.
 
 [[installation]]
 == Installation

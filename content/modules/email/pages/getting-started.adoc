@@ -1,99 +1,70 @@
 = Getting Started with Email
 :page-aliases: email:quick-start.adoc
 
-This section contains a practical guide on sending emails.
+This section introduces a minimal example of using the xref:index.adoc[] add-on. The goal is to create a newsfeed for application users. Such feed can be used to send announcements, updates, notifications, usage statistics, and other related information via email.
 
-Let’s consider that we want to send emails to some addresses every time a new instance of an entity is created through the entity browse screen.
+To follow along, create a new Jmix project and xref:index.adoc#installation[install the add-on] .
 
-First of all, add Email Sending to your project according to the xref:index.adoc#installation[installation] section.
+== Creating Entity and Views
 
-== Creating Entity and Screens
+First, create an entity to store news items along with simple CRUD views for managing them. Follow the steps below:
 
-//some explanation what we are going to do
+. Create `NewsItem` entity with the following attributes:
 
-1. Create `NewsItem` entity containing the following fields:
+* `date` of type `LocalDate`.
+* `subject` of type `String`.
+* `content` of type `String` with unlimited length.
 
-* `date` with `LocalDate` type.
-* `caption` with `String` type.
-* `content` with `String` type and unlimited length.
+. Create entity list and detail views for this entity.
+. Open to the list view and add a new button and bind it to the email sending action:
++
+.news-item-list-view.xml
+[source,xml,indent=0]
+----
+include::example$/email-ex1/src/main/resources/com/company/emailex1/view/newsitem/news-item-list-view.xml[tags=news-item-datagrid]
+----
++
+<1> Add a new button.
+<2> Add a new action.
 
-2. Create `NewsItemBrowse` and `NewsItemEdit` screens.
+== Sending Email Logic
 
-== Adding Confirmation Dialog
+With the UI ready, add logic to make it functional. This logic will use the xref:api.adoc[add-on's API].
 
-First, let's check if the editor is opened to create a new entity.
-
-Add the boolean attribute `justCreated` and subscribe to the `InitEntity` event.
-
+. Set up a handler for the `sendEmailAction` action. In the handler, show a dialog asking if the news can be queued for sending:
++
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=just-created-1;just-created-2]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=send-email-handler]
 ----
-
-`justCreated` is set to `true` every time editor is opened for a new entity.
-
-Then, subscribe to the `PostCommit` event and add the following code:
-
++
+. Implement the `sendNewsByEmail()` method.
++
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=inject;post-commit-event]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=send-news-by-mail]
 ----
+<1> To demonstrate adding an attachment, an application icon file will be used.
+<2> The *from* address will be taken from the xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address].
 
-<1> This method is invoked after commit of data context.
-<2> If a new entity was saved to the database, ask a user about sending an email.
-<3> Invokes a method that sends an email.
+== Configuring SMTP Server parameters
 
-== Adding Sending Email Method
+Use Spring Boot xref:configuration.adoc#spring-boot-mail-properties[mail properties] to define basic email sending parameters, such as protocol, host, port, and others in the `application.properties` file.
 
-Let's add the `sendbyEmail` method that is invoked in the `postCommit` handler and sends an email asynchronously. To demonstrate how to add attachments, we will add a company's logo image as an attachment.
-
-Here is our method:
-
-[source,java,indent=0]
-----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=resources;emailer;send-by-email]
-----
-
-<1> Gets a file as a byte array.
-<2> Creates `EmailAttachment` object.
-<3> Recipients.
-<4> Email subject.
-<5> The `from` address will be taken from the xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address] application property.
-<6> Attachments.
-
-== Setting Sending Parameters
-
-Set up the SMTP server xref:configuration.adoc#spring-boot-mail-properties[parameters]. You can set the parameters in the `application.properties` file of your application. Add the required parameters:
-
-[source,properties,indent=0]
-----
-spring.mail.host = mail.company.com
-jmix.email.from-address = info@company.com
-----
-
-Here is an example of connecting to the Google SMTP server:
-
-[source,properties,indent=0]
-----
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.protocol=smtp
-spring.mail.username=username
-spring.mail.password=password
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-----
+NOTE: You may need to obtain SMTP server configuration parameters from your system administrator or service provider. See the xref:oauth-providers.adoc[] for steps to configure email sending with these providers.
 
 == Working with User Interface
 
-Launch the application, open the `NewsItem` entity browser and click *Create*. The editor screen will be opened. Fill in the fields and press *OK*. The confirmation dialog with the question about sending emails will be shown. Click *Yes*.
+Run the application, open the *News items* view. Click *Create* to compose a news item. After saving and returning to the previous view, select your item and click *Send Email*. The confirmation dialog will appear – click *Yes* to proceed.
 
 image::confirmation.png[align="center"]
 
-Go to the *Email -> Email history* view of your application. You will see a record with the `Queue` status. It means that the email is in the queue and not yet sent. Email information is displayed on the right.
+Go to the *Email -> xref:menu-views/email-history.adoc[]* view. A record with the `Queue` status indicates that the email is waiting to be sent. The email details will be displayed on the right as you click it.
 
-To send all queued email periodically, configure the xref:configuration.adoc#email-sending-scheduler[Quartz Scheduler].
+image::email-history.png[align="center"]
 
-To send an email from the UI, choose it in the *Email -> Email history* view and click *Resend email*. You can change or add recipients before sending. After successful sending, you will see a new line in the table with the `Sent` status.
+To send an email from the UI, select it from the list and click *Resend email*. You can change or add recipients before sending. Once the email is sent, the status will change to `Sent`.
+
+TIP: To send queued emails regularly or on a specific schedule, set up the xref:configuration.adoc#email-sending-scheduler[Quartz Scheduler].
 
 image::resend.png[align="center"]

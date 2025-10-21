@@ -1,4 +1,4 @@
-= Configuration
+= Email Properties
 
 [[spring-boot-mail-properties]]
 == Spring Boot Mail Properties
@@ -9,14 +9,14 @@ For example:
 
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=spring-boot-properties]
+include::example$/email-ex1/src/main/resources/application.properties[tags=spring-boot-properties]
 ----
 
 Also, you can specify `JavaMail` properties in the format `spring.mail.properties.*`. For example, the `mail.smtp.auth` property can be provided as follows:
 
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=java-mail-properties]
+include::example$/email-ex1/src/main/resources/application.properties[tags=java-mail-properties]
 ----
 
 [[email-properties]]
@@ -136,6 +136,36 @@ Defines whether the file storage cleaning should be performed while the cleaning
 
 Default value: `false`
 
+[[jmix.email.oauth2.enabled]]
+=== jmix.email.oauth2.enabled
+
+If `true` enables using OAuth 2.0 token-based authorization to connect to email server.
+
+[[jmix.email.oauth2.provider]]
+=== jmix.email.oauth2.provider
+
+Specifies email OAuth provider.
+
+[[jmix.email.oauth2.client-id]]
+=== jmix.email.oauth2.client-id
+
+Specifies OAuth client id.
+
+[[jmix.email.oauth2.secret]]
+=== jmix.email.oauth2.secret
+
+Specifies OAuth client secret.
+
+[[jmix.email.oauth2.tenant-id]]
+=== jmix.email.oauth2.tenant-id
+
+Specifies OAuth tenant id.
+
+[[jmix.email.oauth2.refresh-token]]
+=== jmix.email.oauth2.refresh-token
+
+Specifies OAuth refresh token.
+
 [[email-sending-scheduler]]
 == Email Sending Scheduler
 
@@ -154,7 +184,7 @@ The Email Sending add-on provides the default configuration of the Quartz job th
 +
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=email-sending-cron]
+include::example$/email-ex1/src/main/resources/application.properties[tags=email-sending-cron]
 ----
 
 [[sending-custom-quartz-configuration]]
@@ -175,7 +205,7 @@ jmix.email.use-default-quartz-configuration = false
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailSendingJob.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
 ----
 
 . In the running application, open the *Quartz -> Quartz jobs* view, and configure a job for the `MyCustomEmailSendingJob` class.
@@ -184,7 +214,7 @@ include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailSendingJob.ja
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/SampleEmailApplication.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz]
 ----
 
 [[email-cleaning-scheduler]]
@@ -236,16 +266,16 @@ If you want to use a custom Quartz job configuration, do the following:
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
 ----
 
-. In the running application, open the *Quartz -> Quartz jobs* screen, and configure a job for the `MyCustomEmailCleaningJob` class.
+. In the running application, open the *Quartz -> Quartz jobs* view, and configure a job for the `MyCustomEmailCleaningJob` class.
 
 . Alternatively, if you want to configure the email cleaning job at development time, add the following beans to the main application class:
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/SampleEmailApplication.java[tags=quartz-clean]
+include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz-clean]
 ----
 
 . Set the age for important and non-important emails using the <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> and <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>> properties, for example:
@@ -265,18 +295,18 @@ You can store email body text and attachments in file storage instead of BLOB co
 
 To use file storage:
 
-. Add the following line to the `dependencies` section of your `build.gradle` file:
+. Ensure the following line is present in the `dependencies` section of your `build.gradle` file:
 +
 [source,groovy,indent=0]
 ----
-include::example$/ex1/build.gradle[tags=fs-dependency]
+include::example$/email-ex1/build.gradle[tags=fs-dependency]
 ----
 +
 . Enable file storage usage. Set in the `application.properties` file:
 +
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=fs-enable]
+include::example$/email-ex1/src/main/resources/application.properties[tags=fs-enable]
 ----
 
 By default, the local file storage is located in the application work directory at `${user.dir}/.jmix/work/filestorage`.
