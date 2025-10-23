@@ -45,9 +45,26 @@ def projectNames = [
         'webdav-ex1'
 ]
 
+tasks.register('compileAll') {
+
     projectNames.each { projectName ->
         dependsOn gradle.includedBuild(projectName).task(':testClasses')
     }
 
     dependsOn gradle.includedBuild('base').task(':base:testClasses')
+}
+
+tasks.register('testAll') {
+
+    def doNotRunTests = [
+            'masquerade-ex1',
+    ]
+
+    projectNames.each { projectName ->
+        if (!doNotRunTests.contains(projectName)) {
+            dependsOn gradle.includedBuild(projectName).task(':test')
+        }
+    }
+
+    dependsOn gradle.includedBuild('base').task(':base:test')
 }
