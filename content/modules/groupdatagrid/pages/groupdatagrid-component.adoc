@@ -96,6 +96,8 @@ include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagrid
 
 NOTE: Columns with `groupAllowed = false` may be used for default grouping through the <<groupBy,groupBy>> element. They can also be grouped programmatically using the `groupBy()` method.
 
+You can completely disable grouping by users if you set the `displayColumnsGrouperOnIconClick="false"` attribute in the <<groupColumn>> element.
+
 [[custom-grouping-column]]
 == Custom Grouping Column
 
