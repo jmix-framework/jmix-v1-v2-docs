@@ -1,30 +1,72 @@
-= Bands
+= Bands and Datasets
 
-The *Bands* tab contains the important element of the report data structure - band hierarchy.
+The internal report structure is composed of _bands_. A band represents a section of the report that may appear zero or more times in the final document.
+
+A band is populated with data provided by one or multiple _datasets_ associated with the band.
+
+In the report template, the bands are marked up in a way that depends on the file format. The report definition includes the hierarchical structure of bands, corresponding to the template bands.
+
+The picture below shows an example of bands used in a report:
+
+.Sample report bands
+image::create/bands-1.svg[align="center", width="611"]
+
+The `Root` band in the report definition is predefined, however, it may not be used in a template.
+
+TIP: You can find examples of various bands and datasets in the xref:reports-guide:index.adoc[] guide.
+
+[[bands]]
+== Bands
+
+[[bands-tab]]
+=== Bands Tab
+
+The *Bands* tab of the runtime report editor allows you to define the band hierarchy and datasets for each band.
 
 image::bands.png[align="center",width="1079"]
 
 A report band has the following parameters:
 
-* *Name* - unique band name within the report. It must contain only Latin letters, numbers, and underscores. Moreover, if the band name starts with *header*, its data will not be printed in the xref:creation/templates.adoc#table_output[table output].
-* *Orientation* - band orientation: *Horizontal*, *Vertical* or xref:sample-reports.adoc#crosstab_xls[Crosstab].
-** Horizontal - bands are copied downwards, may contain sub-bands
-** Vertical - bands are copied to the right
-** Crosstab - bands are copied to the right and downwards as a matrix.
-* *Parent* - parent band.
-* *Multiple Datasets* - select this checkbox if you need more than one dataset.
-* *Dataset type* - <<dataset_types,the type>> of dataset.
+* *Name* -- band name, unique within the report. It must contain only Latin letters, numbers, and underscores.
++
+NOTE: If the band name starts with *header*, its data will not be printed when using the xref:creation/templates.adoc#table_output[table formatter].
+
+* *Orientation* -- band orientation: *Horizontal*, *Vertical* or *Crosstab*.
+** *Horizontal* bands are copied downwards. They may contain sub-bands.
+** *Vertical* bands are copied to the right.
+** *Crosstab* bands are copied to the right and downwards as a matrix.
+
+* *Parent* -- parent band.
+
+* *Multiple Datasets* -- select this checkbox if you want to define more than one dataset for the band.
+
+* *Dataset type* -- <<datasets,the type>> of dataset.
 
 Each band includes one or more datasets. When running a report, datasets are transformed into lists of rows, where each row contains a map of name-value pairs. A band appears in the report as many times as the number of rows in its longest dataset.
 
-Field names can be used in the report template and will be replaced with corresponding values from the dataset when the report is produced. When describing datasets, you can use xref:creation/parameters.adoc[report external parameters] and fields from other bands - this allows creation of linked bands.
+Fields defined in the report template are replaced with corresponding values from the dataset when the report is executed. When defining datasets, you can use xref:creation/parameters.adoc[report external parameters] and fields from other bands, which lets you link bands.
 
-Each report has the *Root* band. You can create datasets in it and refer to their fields from other bands, but you cannot use the *Root* band in the report template.
+Each report has the *Root* band. You can create datasets in it and refer to their fields from other bands.
 
-The *Dataset name* column value is used for user convenience only.
+Note that the *Dataset name* column, available when working with multiple datasets, is for user convenience only.
 
-[[dataset_types]]
-== Dataset Types
+[[band-def]]
+=== @BandDef Annotation
+
+The `@BandDef` allows you to define bands when creating a report at design time. It has the following attributes:
+
+* `name` -- band name, unique within the report. It must contain only Latin letters, numbers, and underscores.
+* `parent` -- name of the parent band. Can be omitted only for the `Root` band.
+* `root` -- must be set to `true` only for the `Root` band. `false` by default.
+* `orientation` -- band's orientation defined by the `Orientation` enum: `HORIZONTAL`, `VERTICAL`, `CROSS`. It's `HORIZONTAL` by default.
+* `dataSets` -- datasets defined by the array of `@DataSetDef` annotations.
+
+The report must include the definition of the `Root` band with `name = "Root"` and `root = true` attributes.
+
+IMPORTANT: The order of `@BandDef` annotations in the report definition Java class is important. It affects the printing order of bands on the same level of the hierarchy.
+
+[[datasets]]
+== Datasets
 
 [[structure_sql]]
 === SQL Dataset
@@ -296,3 +338,27 @@ To do this, switch to the **Value formats** tab of the report detail view and op
 include::example$/library/src/main/resources/com/company/library/reports/bands/formatter_for_dates.groovy[]
 ----
 ====
+
+[[data-set-def]]
+=== @DataSetDef Annotation
+
+The `@DataSetDef` annotation allows you to define datasets when creating a report at design time. It has the following attributes:
+
+* `name` -- dataset name. It is used in datasets of the `DELEGATE` type to link the dataset definition with the method that returns the delegate.
++
+In a cross-tab band (`@BandDef.orientation = Orientation.CROSS`), the datasets must have the following names:
+
+** Column headers: `$\{band_name}_dynamic_header`
+** Row headers: `$\{band_name}_master_data`
+** Main content: `$\{band_name}`
+
+* `type` -- dataset type defined by the `DataSetType` enum. Values of this enum correspond to the types of runtime datasets described above.
++
+Usually, design-time reports use datasets of the `DELEGATE` type. In this case, they are linked by name with methods annotated with `@DataSetDelegate` annotation.
+
+[[data-set-delegate]]
+=== @DataSetDelegate Annotation
+
+The `@DataSetDelegate` annotation allows you to define a method that returns a delegate for executing a dataset logic. It has the `name` attributes, which should be equal to the name of the corresponding dataset.
+
+The annotated method must not have any parameters and should return the `ReportDataLoader` functional interface.

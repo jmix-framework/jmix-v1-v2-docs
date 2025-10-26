@@ -1,98 +1,105 @@
 = Running Reports
 
-[[run_common]]
-== Running from Reports List View
+Users can run reports through the admin UI or from relevant application views using the actions provided by the Reports add-on. The report engine loads the report definition and the template from the application code or from the database and generates the output document:
 
-The easiest way to run reports is from the report run view, which is available in the *Reports* -> *Run report* view. The user must have the right to access this view. The list will contain all reports that are xref:creation/permissions.adoc[available to the user] in accordance with their role. If the report has external parameters, they will be requested in a special form when running the report.
+.Running a report
+image::run/run-1.svg[align="center", width="552"]
 
-[[run_actions]]
+[[run-from-list]]
+== Running from Reports List
+
+The easiest way to run reports is from the xref:reports-ui.adoc#run-report-view[Run report] view. The user must have the permission to access this view. The list will contain all reports that are xref:creation/permissions.adoc[available to the user] in accordance with their role. If the report has external parameters, they will be requested in a special form when running the report.
+
+[[run-actions]]
 == Running from Views
 
-You can run reports from arbitrary views using special actions and associated buttons or component context menu items. In this case, the xref:creation/permissions.adoc[availability] of the report directly in this view is checked in addition to a user role.
+Users can run reports from arbitrary views using special actions and associated buttons or component context menu items. In this case, the xref:creation/permissions.adoc[availability] of the report in this view is checked in addition to the user role.
 
-Action types and examples of their use are provided below.
+Action types and examples of their use are described below.
 
-[[run_report_action]]
-* `io.jmix.reportsflowui.action.RunReportAction` - a xref:flow-ui:actions/standard-actions.adoc[standard action] for running the reports associated with the current view or list component. It should be defined for a `Button` or a list component (`DataGrid`, `TreeDataGrid`).
-+
+[[run-report-action]]
+=== RunReportAction
+
+`io.jmix.reportsflowui.action.RunReportAction` is a xref:flow-ui:actions/standard-actions.adoc[standard action] for running the reports associated with the current view or list component. It should be defined for a `Button` or a list component (xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]).
+
 Below is an example of using the declarative action for the `DataGrid`:
-+
+
 [source,xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/book/book-list-view.xml[tags=buttonsPanel;reportRun;booksDataGrid;actions;report_runReport]
 ----
 <1> Add a button with run report action.
-<2> The `type` attribute defines a specific `report_runReport` action type, provided by the framework.
-+
+<2> The `type` attribute defines a specific `report_runReport` action type, provided by the Reports add-on.
+
 Example of programmatically creating the action together with a button declared in the view XML descriptor:
-+
+
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/book/BookListView.java[tags=runBtn;actions;onInit;create]
 ----
-+
-When the action is performed, a modal **Report Run** dialog will open where reports related to the current view will be displayed. When a user selects a report from the list, the parameters input form is displayed (if any were defined) and the report is run.
+
+When the action is performed, a modal **Run report** dialog will appear, displaying reports related to the current view. When the user selects a report from the list, the parameters input form is displayed (if any have been defined) and the report will be generated.
 
 [[run-list-entity-report-action]]
-* `io.jmix.reportsflowui.action.RunListEntityReportAction` - a xref:flow-ui:actions/standard-actions.adoc[standard action] for printing reports for entity instances associated with a list component (`DataGrid`, `TreeDataGrid`).
-+
+=== RunListEntityReportAction
+
+`io.jmix.reportsflowui.action.RunListEntityReportAction` is a xref:flow-ui:actions/standard-actions.adoc[standard action] for printing reports for entity instances associated with a list component (xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]).
+
 The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the entity type displayed by the list component. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to the user for selection.
-+
+
 The external parameter value is passed to the report using the following rules:
 
-** If the parameter has the *List of entities* type, the list of instances currently selected in the list component is passed into it.
+* If the parameter has the *List of entities* type, the list of instances currently selected in the list component is passed into it.
 
-** If the parameter has the *Entity* type, and the list component has a single instance selected (one row is highlighted), then this instance is passed into the report.
+* If the parameter has the *Entity* type, and the list component has a single instance selected (one row is highlighted), then this instance is passed into the report.
 
-** If the parameter is of the *Entity* type, and the list component has several rows selected, then the report runs several times according to the number of selected instances. After execution, the user gets a single ZIP archive containing all generated reports.
-+
+* If the parameter is of the *Entity* type, and the list component has several rows selected, then the report runs several times according to the number of selected instances. After execution, the user gets a single ZIP archive containing all generated reports.
+
 Below is an example of using the declarative action for the `DataGrid`:
-+
+
 [source, xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/author/author-list-view.xml[tags=buttonsPanel;runList;authorsDataGrid;actions]
 ----
 <1> Add a button with run list entity report action.
 <2> The `type` attribute defines a specific `report_runListEntityReport` action type, provided by the framework.
-+
+
 Example of programmatically creating the action together with a button declared in the view XML descriptor:
-+
+
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/author/AuthorListView.java[tags=runBtn;actions;onInit;runList]
 ----
-+
+
 When the action is performed, if no entities were selected from the list component, a confirmation window will be displayed.
-+
+
 image::run-list-entity-report-action-confirmation.png[align="center",width="402"]
-+
-After that, the modal **Report Run** dialog will open where reports related to the current view will be displayed. From this modal view, the user can run some report for the selected entity.
+
+After that, the modal **Run report** dialog will open where reports related to the current view will be displayed. From this modal view, the user can run some report for the selected entity.
 
 [[run-single-entity-report-action]]
-* `io.jmix.reportsflowui.action.RunSingleEntityReportAction` - an action associated with an entity detail view. The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the edited entity type. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to user for selection.
-+
+=== RunSingleEntityReportAction
+
+`io.jmix.reportsflowui.action.RunSingleEntityReportAction` is an action associated with an entity detail view. The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the edited entity type. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to user for selection.
+
 The external parameter value - edited entity instance - is passed into the report. If the parameter has the *List of entities* type, then a list containing a single item is passed.
-+
+
 Below is an example of using the action in a button located near the standard *OK* and *Cancel* buttons:
-+
---
-** XML descriptor
-+
+
 [source, xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/book/book-detail-view.xml[tags=detailActions]
 ----
 
-** Controller
-+
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/book/BookDetailView.java[tags=actions;reportButton;onInitEntity;RunSingleEntityReportAction]
 ----
---
 
 [[reports-api]]
 == Reports API
+
+TIP: Use xref:jmix:studio:code-snippets.adoc[] to generate code for running reports using the API.
 
 [[report-runner]]
 === ReportRunner
@@ -119,8 +126,6 @@ include::example$/library/src/main/java/com/company/library/view/runreport/RunRe
 <2> Adds an input parameter to the parameter map.
 <3> Sets a code of template that will be used to run a report.
 <4> Builds a `ReportRunContext` instance and runs a report using this run context.
-+
-TIP: Click *Code Snippets* in the actions panel to xref:jmix:studio:code-snippets.adoc[generate code] for running a report using the `ReportRunner` interface.
 
 . Running a report by the report entity and additional information specified using the fluent interface:
 +
@@ -175,8 +180,6 @@ include::example$/library/src/main/java/com/company/library/view/runreport/RunRe
 ----
 +
 The `runMultipleReports()` method runs a report for each object from the specified collection. Objects in the collection should have the same type as an input parameter with specified alias.
-
-TIP: Click *Code Snippets* in the actions panel to xref:jmix:studio:code-snippets.adoc[generate code] for running a report using the `UiReportRunner` interface.
 
 [[report-run-context]]
 === ReportRunContext
