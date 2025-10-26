@@ -1,18 +1,19 @@
 = Creating Reports
 
-Creating a report in the system involves two dependent elements: report visual presentation template and report data description. The template is created in XLS(X), DOC(X), HTML formats using external tools, and the report data description is created in the report designer view or programmed in a Java class that implements a special interface.
+A report in Jmix consists of two separate but related elements:
 
-The Reports add-on uses the item `band` to describe data zone in templates and datasets in the report data structure. When populating data from the application to templates, the band of data structure will be applied to the band of the same name in the templates.
+* _Report Template_ -- a file in an office format (XLSX, DOCX), HTML or JRXML, that defines the visual representation of the report.
+* _Report Definition_ -- a program artifact that defines the report structure and data, as well as input parameters, output value formats and access parameters. The report definition contains a reference to the template.
 
-The report can take parameters from the user or the calling code. You can specify users who will have access to the report and the views where the report should appear.
+Reports can be created by users in the running application. In this case, the report definition is created using the xref:reports-ui.adoc[reports admin UI]. The template is uploaded through the admin UI to the application and stored in the database together with the report definition:
 
-Depending on the template and report parameters, the generated report can be in PDF, XLS(X), CSV, DOC(X), HTML, or Table format.
+.Creating a report at runtime
+image::create/create-runtime-1.svg[align="center", width="605"]
 
-The main components of the Reports add-on are shown in the following diagram:
+When creating reports at design time, the developer creates a report definition in an annotated Java class. The report template is usually created using an external office application (LibreOffice, Microsoft Excel/Word) and then saved in the application resources:
 
-image::reporting.svg[align="center"]
+.Creating a report at design-time
+image::create/create-design-time-1.svg[align="center", width="468"]
 
-* `Report Engine` provides output report generation and additional functionality such as UI integration and reports access rights.
-* `Report Designer` is a tool for defining and storing reports. It includes the infrastructure for storing report descriptions and templates, as well as views to create and manage reports.
-* `Report` - report data structure descriptor, including _Bands_ (report bands) and _Datasets_ (datasets which are being output in the bands).
-* `Report Template` - the report visualization template.
+
+// This section provides reference information about report definitions and templates, along with examples of solving typical problems encountered when creating various types of reports.

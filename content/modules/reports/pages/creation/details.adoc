@@ -1,14 +1,37 @@
 = Report Details
 
-When creating or editing a report, the *Report details* tab is shown by default:
+[[report-details-tab]]
+== Report Details Tab
+
+When creating or editing a report at runtime, the *Report details* tab is shown by default:
 
 image::report-details.png[align="center",width="882"]
 
 This tab contains fields to enter general report properties:
 
-* *Name* - report name. The name can be localized in the *Name localization* field.
-* *Group* - report group, which is used for grouping in the standard report list view.
-//* *Default template* - report output xref:creation/templates.adoc[template].
-* *System code* - optional code, which you may use to identify the report in the application code.
-* The *System* flag designates a report for internal system use. These reports can be executed programmatically through xref:run-report.adoc#run_actions[actions] or directly in the xref:run-report.adoc#run_common[Run Report View].
-* *Available through REST API* - select this checkbox to make a report available through the xref:reports:rest-api.adoc[REST API].
+* *Name* -- report name. The name can be localized in the *Name localization* field.
+* *Group* -- report group, which is used for grouping in the standard report list view.
+* *System code* -- mandatory code, which you may use to identify the report in the application code.
+* The *System* flag designates a report for internal system use. System reports can be executed only through the xref:run-report.adoc#reports-api[API]. They are hidden in UI of the xref:run-report.adoc#run-actions[report actions] and in the xref:run-report.adoc#run-from-list[Run report] view.
+* *Available through REST API* -- select this checkbox to make a report available through the xref:reports:rest-api.adoc[REST API].
+* *Description* -- report description.
+* *Name localization* -- this field allows you to localize the report name shown when users run the report. Enter `locale_name=report_name` pairs on separate lines. For example:
++
+[source]
+----
+en=Client Profile
+zh_CN=客户资料
+----
+
+[[report-def]]
+== @ReportDef Annotation
+
+The `@ReportDef` annotation allows you to specify report details when creating a report at design time. It has the following attributes:
+
+* `name` -- report name. You can use the `msg://` prefix to refer to a xref:localization:message-bundles.adoc[localized message].
+* `group` -- report group, defined by a class annotated with `@ReportGroupDef`.
+* `code` -- report code.
+* `description` -- report description.
+* `uuid` -- optional unique ID of the report. Specify this attribute to have a stable runtime object identifier, for example, to find and run the report by ID.
+* `restAccessible` -- whether the report can be executed through the REST API.
+* `system` -- sets the system flag for the report. System reports can be executed only through the xref:run-report.adoc#reports-api[API]. They are hidden in UI of the xref:run-report.adoc#run-actions[report actions] and in the xref:run-report.adoc#run-from-list[Run report] view.
