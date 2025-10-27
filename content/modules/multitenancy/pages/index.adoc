@@ -1,27 +1,27 @@
 = Multitenancy
 
-The add-on allows you to build multitenant Jmix applications where data from multiple tenants is stored in a single database. A single instance of the application can cater to multiple tenants, defined as groups of users who are isolated from each other and have access only to specific (often read-only) data.
+Дополнение позволяет создавать мультитенантные приложения Jmix, в которых данные нескольких тенантов хранятся в одной базе данных. Один экземпляр приложения может обслуживать несколько тенантов, определяемых как группы пользователей, изолированные друг от друга и имеющие доступ только к определенным (часто только для чтения) данным.
 
-In a multitenant Jmix application, there are two main categories of data:
+В мультитенантном приложении Jmix существует две основные категории данных:
 
-* *Common Data*:
-** Data that is shared among all tenants in the application.
-** Tenants have read-only access to this common data, which is universally accessible but cannot be modified by individual tenants.
+* *Общие данные*:
+** Данные, которые используются совместно всеми тенантами в приложении.
+** Тенанты имеют доступ только для чтения к этим общим данным, которые являются общедоступными, но не могут изменяться отдельными тенантами.
 
-* *Tenant-Specific Data*:
-** Data specific to each tenant and not visible or accessible to other tenants.
-** Tenants have full access to their own tenant-specific data, allowing them to interact with and modify this data as needed without affecting data belonging to other tenants.
+* *Данные конкретного тенанта*:
+** Данные, специфичные для каждого тенанта, которые не видны и недоступны другим тенантам.
+** Тенанты имеют полный доступ к своим собственным данным, позволяя им взаимодействовать и изменять эти данные по мере необходимости, не затрагивая данные, принадлежащие другим тенантам.
 
-By implementing multitenancy in Jmix applications, developers can efficiently manage and deliver services to multiple clients or user groups, ensuring data isolation, security, and personalized access controls based on the specific needs of each tenant. This approach optimizes data organization and access while maintaining data privacy and integrity across different user groups.
+Реализуя мультитенантность в приложениях Jmix, разработчики могут эффективно управлять сервисами и предоставлять их множеству клиентов или групп пользователей, обеспечивая изоляцию данных, безопасность и персонализированный контроль доступа в соответствии с конкретными потребностями каждого тенанта. Этот подход оптимизирует организацию данных и доступ к ним, сохраняя конфиденциальность и целостность данных в различных группах пользователей.
 
-CAUTION: The xref:rest:index.adoc[Generic REST] add-on does not fully support multitenancy. It doesn't separate entity instances by tenants.
+CAUTION: Дополнение xref:rest:index.adoc[Generic REST] не полностью поддерживает мультитенантность. Оно не разделяет экземпляры сущностей по тенантам.
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
@@ -29,15 +29,15 @@ include::example$/multitenancy-ex1/build.gradle[tags=dependency]
 ----
 
 [[how-it-works]]
-== How it Works
+== Как это работает
 
-In your project, tenant-specific entities should include a String attribute annotated with `@TenantId`. When a tenant user loads these entities, the framework applies a `WHERE` condition based on the tenant-id attribute to the JPQL query to fetch only the data relevant to the user’s tenant. Additionally, the tenant-id attribute gets automatically assigned to the current user's tenant when saving new entities.
+В вашем проекте специфичные для тенанта сущности должны включать строковый атрибут, аннотированный `@TenantId`. Когда пользователь тенанта загружает эти сущности, фреймворк применяет условие `WHERE` на основе атрибута `tenant-id` к JPQL-запросу, чтобы выбрать только данные, относящиеся к тенанту пользователя. Кроме того, атрибут `tenant-id` автоматически присваивается тенанту текущего пользователя при сохранении новых сущностей.
 
-CAUTION: There is no automatic filtering for native SQL, so tenant users should not have access to any functionality that provides access to native SQL or Groovy code (xref:jmx-console:index.adoc[JMX Console], creating xref:reports:index.adoc[reports], etc.).
+CAUTION: Автоматическая фильтрация для нативного SQL отсутствует, поэтому пользователи тенанта не должны иметь доступ к любым функциям, предоставляющим доступ к нативному SQL или коду Groovy (xref:jmx-console:index.adoc[JMX Console], создание xref:reports:index.adoc[отчетов] и т.д.).
 
-In your project, the `User` entity should include a tenant-id attribute. This attribute must be assigned a specific value for all tenant users. Users without a value in this attribute (those not linked to any specific tenant) can access data from all tenants. This setup is suitable for __global administrators__ who are responsible for configuring tenants and overseeing the entire system.
+В вашем проекте сущность `User` должна включать атрибут `tenant-id`. Этому атрибуту должно быть присвоено определенное значение для всех пользователей тенанта. Пользователи без значения в этом атрибуте (те, кто не связан с каким-либо конкретным тенантом) могут получать доступ к данным всех тенантов. Такая настройка подходит для __глобальных администраторов__, которые отвечают за настройку тенантов и наблюдение за всей системой.
 
-The following entities of Jmix modules have `sysTenantId` attribute and support multitenancy:
+Следующие сущности модулей Jmix имеют атрибут `sysTenantId` и поддерживают мультитенантность:
 
 * `EntityLogItem`
 * `SendingMessage`
@@ -48,26 +48,24 @@ The following entities of Jmix modules have `sysTenantId` attribute and support 
 * `RowLevelRoleEntity`
 * `FilterConfiguration`
 
-
-
 [[managing-tenants]]
-== Managing Tenants
+== Управление тенантами
 
-The add-on provides the *Multitenancy -> Tenants* view that enables global administrators to create and modify tenants.
+Дополнение предоставляет экран *Multitenancy -> Tenants*, который позволяет глобальным администраторам создавать и изменять тенанты.
 
-The tenant registration entity has two attributes:
+Сущность регистрации тенанта имеет два атрибута:
 
-* *Tenant id* - an identifier utilized in tenant-specific entities. It cannot be changed after creation.
-* *Tenant name* - a descriptive name of the tenant.
+* *Tenant id* - идентификатор, используемый в специфичных для тенанта сущностях. Не может быть изменен после создания.
+* *Tenant name* - описательное имя тенанта.
 
 image::tenants-view.png[align="center", width="1070"]
 
 [[tenant-users]]
-== Tenant Users
+== Пользователи тенанта
 
-In multitenant applications, users within different tenants can have the same login names. To ensure that each `username` attribute is unique across the entire application, tenant users should register with a username that includes tenant-id prefix. For instance, if there are two different users named Alice in `t1` and `t2` tenants, their usernames should be `t1|alice` and `t2|alice`, respectively.
+В мультитенантных приложениях пользователи в разных тенантах могут иметь одинаковые логины. Чтобы гарантировать уникальность атрибута `username` во всем приложении, пользователям тенанта следует регистрироваться с логином, включающим префикс `tenant-id`. Например, если есть два разных пользователя с именем `Alice` в тенантах `t1` и `t2`, их логины должны быть `t1|alice` и `t2|alice` соответственно.
 
-Tenant users can log in to the application by providing the complete username, including the tenant-id, such as `t1|alice`.
+Пользователи тенанта могут входить в приложение, указывая полный логин, включающий `tenant-id`, например, `t1|alice`.
 
 // It's suitable for 2.2:
 // There are two ways to log in tenant users to the application:
@@ -78,53 +76,53 @@ Tenant users can log in to the application by providing the complete username, i
 //
 // . Users can provide the full username including the tenant-id, for example `t1|alice`.
 
-NOTE: You can implement your own scheme of unique usernames instead of the method described above.
+NOTE: Вы можете реализовать собственную схему уникальных логинов вместо описанного выше метода.
 
 [[configuring-users]]
-== Configuring Users
+== Настройка пользователей
 
-In this section, we will explain the process of setting up user management and authentication in your project to support multitenancy.
+В этом разделе мы объясним процесс настройки управления пользователями и аутентификации в вашем проекте для поддержки мультитенантности.
 
-. Add a string attribute to your `User` entity and annotate it with the `@TenantId` annotation:
+. Добавьте строковый атрибут в вашу сущность `User` и аннотируйте его аннотацией `@TenantId`:
 +
 [source,java,indent=0]
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/entity/User.java[tags=tenantId]
 ----
 
-. Add the `tenant` column to the data grid in `user-list-view.xml`:
+. Добавьте колонку `tenant` в таблицу данных в `user-list-view.xml`:
 +
 [source,xml,indent=0]
 ----
 include::example$/multitenancy-ex1/src/main/resources/com/company/demo/view/user/user-list-view.xml[tags=tenant]
 ----
 
-. Add field for selecting tenant in `user-detail-view.xml`:
+. Добавьте поле для выбора тенанта в `user-detail-view.xml`:
 +
 [source,xml,indent=0]
 ----
 include::example$/multitenancy-ex1/src/main/resources/com/company/demo/view/user/user-detail-view.xml[tags=tenant]
 ----
 
-. Add the following to the `UserDetailView` class:
+. Добавьте следующее в класс `UserDetailView`:
 +
 [source,java,indent=0]
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/view/user/UserDetailView.java[tags=tenant]
 ----
 
-. To enable the usage of identical login names across various tenants as <<tenant-users,previously explained>>, include the following code snippet in your `LoginView` class:
+. Чтобы разрешить использование идентичных логинов в различных тенантах, как <<tenant-users,было объяснено ранее>>, включите следующий фрагмент кода в ваш класс `LoginView`:
 +
 [source,java,indent=0]
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/view/login/LoginView.java[tags=tenant]
 ----
-<1> Use the `com.vaadin.flow.router.Location` object to work with the current URL.
+<1> Используйте объект `com.vaadin.flow.router.Location` для работы с текущим URL.
 
 [[configuring-security]]
-== Configuring Security
+== Настройка безопасности
 
-When setting up roles for tenant users, do not include the tenant-id attributes in entity attribute policies to hide them from users. For instance, if the `Customer` entity is specific to a certain tenant and includes a `tenant` attribute annotated with `@TenantId`, the role granting access to this entity should explicitly specify the attributes and exclude the `tenant` attribute:
+При настройке ролей для пользователей тенанта не включайте атрибуты `tenant-id` в политики атрибутов сущностей, чтобы скрыть их от пользователей. Например, если сущность `Customer` специфична для определенного тенанта и включает атрибут `tenant`, аннотированный `@TenantId`, роль, предоставляющая доступ к этой сущности, должна явно указывать атрибуты и исключать атрибут `tenant`:
 
 [source,java,indent=0]
 ----
