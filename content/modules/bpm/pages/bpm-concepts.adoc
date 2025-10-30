@@ -102,9 +102,8 @@ tasks, and events rather than exposing tokens as a separate entity.
 
 [[business-key]]
 == Business Key
-A business key is a way to identify a process instance based on business-specific criteria,
-rather than relying solely on the system-generated process instance ID.
-The business key allows you to associate a process instance with a specific business entity or context.
+
+A business key is a business-specific identifier of a process instance. It associates the instance with the relevant business entity or context, providing a more descriptive alternative to the system-generated process instance ID.
 
 For example, a business key can be:
 
@@ -114,15 +113,11 @@ For example, a business key can be:
 * Address
 * ... and so on
 
-When the process instance is provided with the business key, it helps users to understand business context.
+Adding a business key helps users identify which context the process belongs to. It can be added in three ways:
 
-You can define a business key in the *input dialog form* for the start event,
-see details xref:bpm:input-dialog.adoc#business-key[here].
-In the *Jmix view form*, you can define a business key using `ProcessFormContext`,
-see xref:bpm:bpmn/jmix-view-forms.adoc#business-key[here].
-
-As well, it is possible to set or update a business key programmatically via API,
-see example xref:bpm:jmix-bpm-api.adoc#business-key[here].
+. *Input dialog form* for the start event. See the xref:bpm:input-dialog.adoc#business-key[example].
+. *Jmix view form* using `ProcessFormContext`. See the xref:bpm:bpmn/jmix-view-forms.adoc#business-key[example].
+. Programmatically using API. See the xref:bpm:jmix-bpm-api.adoc#business-key[example].
 
 [[process-context]]
 == Process Context

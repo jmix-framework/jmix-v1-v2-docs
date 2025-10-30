@@ -98,7 +98,9 @@ you can define a xref:bpm-concepts.adoc#business-key[business key].
 
 image::input-dialog-forms/setting-business-key.png[,400]
 
-You can set the business key value directly or derive it from a process variable.
+Studio modeler lets the business key be set directly or sourced from a process variable.
+
+NOTE: xref:jmix:bpm:menu-views/modeler-web.adoc[Web Modeler] supports four sources for the business key: a process variable, an Entity attribute (e.g., `${entity.attribute}`), a Spring bean method call, or Flowable https://www.flowable.com/open-source/docs/bpmn/ch04-API/#expressions[expression^].
 
 [[outcomes]]
 === Outcomes
