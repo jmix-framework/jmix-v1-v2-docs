@@ -94,7 +94,9 @@ image::input-dialog-forms/edit-param-in-panel.png[,400]
 
 image::input-dialog-forms/setting-business-key.png[,400]
 
-Значение бизнес ключа можно установить напрямую или взять его из переменной процесса.
+Моделер в Studio позволяет задать бизнес-ключ напрямую или получить его из переменной процесса.
+
+NOTE: xref:jmix:bpm:menu-views/modeler-web.adoc[Веб‑моделер] поддерживает четыре источника для бизнес‑ключа: переменная процесса, атрибут сущности (например, ${entity.attribute}), вызов метода Spring‑бина или Flowable https://www.flowable.com/open-source/docs/bpmn/ch04-API/#expressions[expression^].
 
 [[outcomes]]
 === Outcomes
