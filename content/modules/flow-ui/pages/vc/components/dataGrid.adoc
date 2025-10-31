@@ -67,6 +67,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<dragFilter,dragFilter>> -
 <<dropFilter,dropFilter>>
 <<enterPressHandler,enterPressHandler>> -
+<<itemSelectableProvider,itemSelectableProvider>> -
 <<tooltipGenerator,tooltipGenerator>>
 |Элементы
 |<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>> - <<empty-state-component-element,emptyStateComponent>>
@@ -765,6 +766,8 @@ include::../handler-generation-tip.adoc[]
 |Позволяет задавать, какие именно строки могут быть целями для операции перетаскивания (drop targets).
 |[[enterPressHandler]]enterPressHandler
 |Обрабатывает событие нажатия пользователем клавиши Enter.
+|[[itemSelectableProvider]]itemSelectableProvider
+|Устанавливает предикат, проверяющий, можно ли пользователю выбрать или снять выбор для конкретного элемента в таблице. Предикат получает экземпляр элемента и возвращает `true`, если пользователю разрешено изменить выбор для этого элемента, либо `false` в противном случае.
 |[[tooltipGenerator]]tooltipGenerator
 // Flow UI sample uses different approach.
 |Функция создает всплывающие подсказки (tooltip) для ячеек столбца на основе заданных условий. Смотрите рабочий пример в https://demo.jmix.ru/ui-samples/sample/data-grid-tooltip-generator[живой демонстрации^].
