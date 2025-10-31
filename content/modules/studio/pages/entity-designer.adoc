@@ -54,7 +54,7 @@ Studio отображает в редакторе три вкладки. Вме�
 
 * *Views* - переходит к существующим экранам или создает xref:studio:screen-wizard.adoc[новые экраны] для текущей сущности.
 +
-image::entity-designer-create-screen.png[align="center",width="720"]
+image::entity-designer-create-screen.png[align="center",width="886"]
 * *Event Listeners* - переходит к существующим xref:data-access:entity-events.adoc[слушателям событий] или создает новый для текущей сущности:
 +
 image::entity-designer-create-listener.png[align="center",width="703"]
@@ -67,7 +67,7 @@ image::entity-designer-lifecycle-callbacks.png[align="center",width="163"]
 
 Вкладка *Designer* показывает структуру сущности:
 
-image::entity-designer-designer.png[align="center",width="969"]
+image::entity-designer-designer.png[align="center",width="925"]
 
 В дополнение к полям, описанным в диалоговом окне <<jpa-entity-designer,Дизайнера сущностей JPA>>, вкладка *Designer* содержит следующие поля:
 
@@ -89,8 +89,10 @@ image::traits.png[align="center",width="319"]
 * Кнопка *Add to Views* (image:icons/add-attribute-to-screens.svg[]) открывает диалоговое окно со всеми экранами, отображающими текущую сущность. Выберите экраны, на которых будет отображаться выбранный атрибут.
 +
 image::attributes-collection-modified.png[align="center",width="561"]
+* Кнопка *Add Attribute from DB* (image:icons/attr-from-db.svg[]) позволяет использовать подход "database-first" при разработке вашей модели данных. Вы можете сначала создать колонку в таблице базы данных, а затем импортировать её в модель данных в качестве атрибута, сопоставленного с этой колонкой. Смотрите xref:studio:reverse-engineering.adoc#partial-reverse-engineering[Частичный реверс-инжиниринг].
 * Нажмите кнопку *Remove* (image:icons/remove.svg[]), чтобы удалить выбранный атрибут.
 * Используйте кнопки *Up* (image:icons/move-up.svg[]) / *Down* (image:icons/move-down.svg[]), чтобы изменить порядок атрибутов.
+* Используйте кнопку *Hide Traits Attributes* (image:icons/show.svg[]), чтобы переключать отображение черт (trait attributes).
 
 На правой панели дизайнера сущностей отображаются свойства выбранного атрибута:
 
@@ -107,7 +109,7 @@ image::email-validation.png[align="center",width="691"]
 
 На вкладке *Text* вы можете увидеть результирующий класс сущностей, созданный дизайнером.
 
-image::entity-designer-text.png[align="center",width="840"]
+image::entity-designer-text.png[align="center",width="925"]
 
 Если у вас есть опыт работы с JPA, вы увидите знакомые аннотации: `@Entity`, `@Table`, `@Column` и т.д. Есть также несколько аннотаций, специфичных для Jmix. Наиболее важной из них является xref:data-model:entities.adoc#jmix-entity[@JmixEntity] в заголовке класса. В целом, любой POJO может быть сущностью в Jmix, если аннотирован `@JmixEntity`.
 
@@ -116,6 +118,7 @@ image::entity-designer-text.png[align="center",width="840"]
 Панель действий расположена в верхней части редактора исходного кода. Следующие действия добавляются к <<actions-panel,описанным выше>>:
 
 * *Add Attribute* - открывает диалоговое окно <<adding-attributes,New Attribute>>.
+* Действие *Add Attribute from DB* поддерживает подход "database-first" для разработки вашей модели данных. С помощью этого метода вы можете сначала создать колонку в таблице базы данных, а затем импортировать её в вашу JPA-сущность в качестве правильно сопоставленного атрибута. Подробнее смотрите xref:studio:reverse-engineering.adoc#partial-reverse-engineering[Частичный реверс-инжиниринг].
 * *Add Attributes to Views* - открывает диалоговое окно *Add Attributes to Views* со всеми экранами, отображающими текущую сущность. Выберите атрибуты, которые должны быть добавлены к экранам.
 +
 image::add-attribute-to-views.png[align="center",width="559"]
@@ -147,7 +150,7 @@ image::entity-message.png[align="center",width="818"]
 
 Кроме того, вы можете вызвать диалоговое окно создания атрибута на вкладке *Text*, нажав кнопку *Add Attribute* на верхней панели или во всплывающем окне *Generate*.
 
-image::entity-generate.png[align="center",width="840"]
+image::entity-generate.png[align="center",width="925"]
 
 [[creating-instance-name]]
 == Создание имени экземпляра
@@ -158,9 +161,9 @@ Studio автоматически задает xref:data-model:entities.adoc#ins
 
 image::entity-instance-editor.png[align="center",width="814"]
 
-Имя экземпляра также можно создать на вкладке *Text*. Наведите курсор на имя класса, нажмите *Alt+Enter* (⌥↩) и выберите *Add instance name*.
+Имя экземпляра также можно создать на вкладке *Text*. Наведите курсор на имя класса, нажмите *Alt+Enter* (⌥↩) и выберите *Jmix: Add instance name*.
 
-image::entity-instance-text.png[align="center",width="814"]
+image::entity-instance-text.png[align="center",width="925"]
 
 [[dto-designer]]
 == Дизайнер сущностей DTO
