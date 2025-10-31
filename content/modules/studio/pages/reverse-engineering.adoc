@@ -10,6 +10,9 @@ image::generate-data-model-item.png[align="center",width="442"]
 
 Then Studio opens the *Generate Model from Database* wizard.
 
+[[wizard]]
+== Generate Model from Database Wizard
+
 Step 1::
 +
 --
@@ -85,3 +88,34 @@ When Studio creates entities based on their table definitions, it marks entities
 It means that xref:data-model:db-migration.adoc#configuration[Liquibase changelogs] won’t be generated for such entities.
 To enable Liquibase script generation for imported entities, you can just remove this annotation (or change the corresponding setting in the entity designer).
 --
+
+[[partial-reverse-engineering]]
+== Partial Reverse Engineering
+
+This feature enables you to generate entity attributes from the database schema for already mapped entities. This is particularly useful when developers make changes to the database schema first and need to subsequently synchronize the data model and user interface.
+
+Jmix Studio can track database changes and assist in propagating these changes to your code, while preserving all existing custom code.
+
+After making changes to database tables, you can generate the missing attributes in your JPA entity model. Use either of the following methods:
+
+. Click image:icons/attr-from-db.svg[] in the *Attributes* panel within the *Entity Designer*.
++
+image::add-attr-from-db-2.png[align="center",width="468"]
+
+. Click the *Add attribute from DB* button in the toolbar of the entity's text editor.
++
+image::add-attr-from-db.png[align="center",width="885"]
+
+Clicking either button will open the *Add Entity Attribute(s) from DB* dialog.
+
+image::add-attr-from-db-dialog.png[align="center",width="1136"]
+
+The `address` table is already selected in the *Table/View* dropdown field.
+
+In the *Columns* section, select the new attributes you want to create. The cells in the table are editable, allowing you to:
+
+* Modify the attribute name.
+* Change the mapping type (for example, specify an enumeration type).
+* Select a different data type if the one suggested by Studio does not meet your requirements.
+
+Click *OK*. The new attributes will be added to the existing `Address` entity without modifying any previously written code.
