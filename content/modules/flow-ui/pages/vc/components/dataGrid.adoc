@@ -66,6 +66,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<dragFilter,dragFilter>> -
 <<dropFilter,dropFilter>>
 <<enterPressHandler,enterPressHandler>> -
+<<itemSelectableProvider,itemSelectableProvider>> -
 <<tooltipGenerator,tooltipGenerator>>
 |Elements
 |<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>> - <<empty-state-component-element,emptyStateComponent>>
@@ -741,6 +742,8 @@ include::../handler-generation-tip.adoc[]
 |Allows to control which specific rows are valid drop targets.
 |[[enterPressHandler]]enterPressHandler
 |Handles the event when the user presses the Enter key.
+|[[itemSelectableProvider]]itemSelectableProvider
+|Sets a predicate to check whether a specific item in the grid may be selected or deselected by the user. The predicate receives an item instance and should return `true` if a user may change the selection state of that item, or `false` otherwise.
 |[[tooltipGenerator]]tooltipGenerator
 // Flow UI sample uses different approach.
 |Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
