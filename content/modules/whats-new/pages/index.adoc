@@ -71,7 +71,7 @@ Vaadin обновлен до версии https://github.com/vaadin/platform/rel
 
 * Интерфейс `JmixDataRepository` теперь расширяет `org.springframework.data.repository.ListCrudRepository`, и все его методы `findAll()`, которые ранее возвращали `Iterable`, теперь возвращают `List`.
 
-* Репозитории даннх Jmix теперь поддерживают запросы, возвращающие скалярные значения и агрегаты. См. примеры использования аннотации xref:data-access:data-repositories.adoc#query-annotation[@Query].
+* Репозитории данных Jmix теперь поддерживают запросы, возвращающие скалярные значения и агрегаты. См. примеры использования аннотации xref:data-access:data-repositories.adoc#query-annotation[@Query].
 
 * Методы `JmixDataRepository`, возвращающие `Page`, выполняют дополнительный `count` запрос к базе данных, чтобы предоставить общее количество элементов и страниц в объекте `Page`. Если количество страниц не требуется в вашей логике, используйте новые методы `findAllSlice()`, возвращающие `Slice`. Это снизит нагрузку на базу данных.
 
