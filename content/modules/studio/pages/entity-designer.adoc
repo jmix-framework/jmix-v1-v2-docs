@@ -13,7 +13,7 @@ image::new-jpa.png[align="center",width="221"]
 
 The *New JPA Entity* dialog appears.
 
-image::entity-create.png[align="center",width="503"]
+image::entity-create.png[align="center",width="580"]
 
 Fill in the fields:
 
@@ -37,6 +37,7 @@ Fill in the fields:
 * *Id length* appears if the `String` id type is selected. Specify the maximum number of characters. The default value is `255`.
 * *Composite id type* appears if the `Embedded` id type is selected. Select the embeddable entity representing a composite key.
 * In the *Traits* checkbox group, select the necessary xref:data-model:entities.adoc#traits[traits].
+* Selecting the *Create Data Repository* checkbox enables Studio to generate a xref:studio:data-repository-wizard.adoc[data repository] for the new entity automatically. Studio remembers the state of the checkbox for the next entity creation.
 
 Then click *OK*.
 
