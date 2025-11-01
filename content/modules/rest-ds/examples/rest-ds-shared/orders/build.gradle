@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.7.0-RC1'
+    id 'io.jmix' version '2.7.0'
     id 'java'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
 }
@@ -10,7 +10,7 @@ apply plugin: 'org.springframework.boot'
 jmix {
     // ...
     // end::non-jpa-entities[]
-    bomVersion = '2.7.0-RC1'
+    bomVersion = '2.7.0'
     // tag::non-jpa-entities[]
     entitiesEnhancing {
         nonJpaPackages = ['com.company.shared.entity']
@@ -40,6 +40,10 @@ dependencies {
     implementation 'io.jmix.data:jmix-eclipselink-starter'
     implementation 'io.jmix.security:jmix-security-starter'
     implementation 'io.jmix.security:jmix-security-data-starter'
+    implementation 'io.jmix.security:jmix-security-flowui-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-data-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-themes'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
