@@ -13,7 +13,7 @@ image::new-jpa.png[align="center",width="221"]
 
 Появится диалог *New JPA Entity*.
 
-image::entity-create.png[align="center",width="503"]
+image::entity-create.png[align="center",width="580"]
 
 Заполните следующие поля:
 
@@ -37,6 +37,7 @@ image::entity-create.png[align="center",width="503"]
 * *Id length* отображается, если выбран тип идентификатора `String`. Укажите максимальное количество символов. Значение по умолчанию – `255`.
 * *Composite id type* отображается, если выбран тип идентификатора `Embedded` Выберите встраиваемую сущность, представляющую собой составной ключ.
 * В группе флажков *Traits* выберите необходимые xref:data-model:entities.adoc#traits[черты].
+* При выборе флажка *Create Data Repository* Studio автоматически генерирует xref:studio:data-repository-wizard.adoc[репозиторий данных] для новой сущности. Studio запоминает состояние этого флажка для следующего создания сущности.
 
 Затем нажмите *OK*.
 
