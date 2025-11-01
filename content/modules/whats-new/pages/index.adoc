@@ -136,6 +136,11 @@ The reason is that now `JmixDataRepository` implements `ListCrudRepository` as m
 
 The report code has become a mandatory field. If you edit a report without a code, you will have to enter a value that is unique across all runtime and design-time reports.
 
+[[entity-values-comparator]]
+=== Moved EntityValuesComparator
+
+The `io.jmix.flowui.model.impl.EntityValuesComparator` class has been moved to the `io.jmix.core.comparator` package. If you are using this class in your code, update the import statements.
+
 [[changelog]]
 == Changelog
 
