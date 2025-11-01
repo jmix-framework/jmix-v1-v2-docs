@@ -143,7 +143,7 @@ public interface OrderRepository extends JmixDataRepository<Order, UUID> {
 
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
 +
-Версия 2.7.0 имеет регрессию в REST DataStore: https://github.com/jmix-framework/jmix/issues/4850[#4850^]. Если ваш проект затронут, воспользуйтесь обходным решением, описанным в https://github.com/jmix-framework/jmix/issues/4850#issuecomment-3476294739[комментарии^] тикета.
+В версии 2.7.0 есть регрессии https://github.com/jmix-framework/jmix/issues/4850[#4850^] и https://github.com/jmix-framework/jmix/issues/4852[#4852^], затрагивающие проекты, в которых используется только фронтенд. См. комментарии в тикетах для временных обходных решений.
 
 * Решенные проблемы в Jmix Studio:
 
