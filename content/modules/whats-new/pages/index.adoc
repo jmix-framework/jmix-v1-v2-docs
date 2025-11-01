@@ -131,6 +131,11 @@ public interface OrderRepository extends JmixDataRepository<Order, UUID> {
 
 Код отчета стал обязательным полем. Если вы редактируете отчет без кода, вам придется ввести значение, которое уникально для всех отчетов времени выполнения и времени разработки.
 
+[[entity-values-comparator]]
+=== EntityValuesComparator перемещен
+
+Класс `io.jmix.flowui.model.impl.EntityValuesComparator` перемещен в пакет `io.jmix.core.comparator`. Если вы используете этот класс в своем коде, обновите инструкции импорта.
+
 [[changelog]]
 == Список изменений
 
