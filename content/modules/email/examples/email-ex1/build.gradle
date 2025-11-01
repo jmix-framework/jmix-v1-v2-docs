@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '2.7.0-RC2'
+    id 'io.jmix' version '2.7.0'
     id 'java'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
 }
@@ -8,7 +8,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.7.0-RC2'
+    bomVersion = '2.7.0'
 }
 
 group = 'com.company'
