@@ -142,6 +142,8 @@ The report code has become a mandatory field. If you edit a report without a cod
 * Resolved issues in Jmix Framework:
 
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
++
+Version 2.7.0 has a regression in REST DataStore: https://github.com/jmix-framework/jmix/issues/4850[#4850^]. If your project is affected, see the https://github.com/jmix-framework/jmix/issues/4850#issuecomment-3476294739[comment^] in the issue for a workaround.
 
 * Resolved issues in Jmix Studio:
 
