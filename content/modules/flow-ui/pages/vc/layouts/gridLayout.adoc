@@ -2,19 +2,19 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/grid-layout-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
-The `gridLayout` component arranges child components in a responsive, two-dimensional grid system based on the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout[Grid Layout].
+Компонент `gridLayout` располагает дочерние компоненты в адаптивной, двумерной системе сетки, основанной на CSS https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout[Grid Layout^].
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`gridLayout`
-|Java Class
+|Java-класс
 |`GridLayout`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -31,16 +31,16 @@ xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<itemLabelGenerator,itemLabelGenerator>> -
 <<renderer,renderer>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|Элементы
 |<<fragment-renderer,fragmentRenderer>>
 |===
 
-== Basics
+== Основы
 
 // `gridLayout` displays data in a grid-based format. Provides integration with data sources to support data binding, items enumeration, and other features.
 //
@@ -49,16 +49,16 @@ xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 // To customize the gap between elements and the minimum column width, you can use the `gap` and
 // `minColumnWidth` properties. Properties accept CSS values and variables, such as `150px`, `2em` or `var(--lumo-space-m)`.
 
-You can populate `gridLayout` with components either declaratively in the XML descriptor or programmatically in a controller using the `gridLayout.add()` method.
+Вы можете заполнить `gridLayout` компонентами либо декларативно в XML-дескрипторе, либо программно в контроллере с помощью метода `gridLayout.add()`.
 
-Example of declarative addition:
+Пример декларативного добавления:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=basics]
 ----
 
-Example of adding in a view controller:
+Пример добавления в контроллере экрана:
 
 [source,java,indent=0]
 ----
@@ -68,33 +68,33 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gr
 image::visual-components/layouts/grid-layout-basic.png[align="center", width="803"]
 
 [[data-binding]]
-== Data Binding
+== Привязка данных
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-dataaware" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/grid-layout-dataaware" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
-Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container].
+Привязка данных означает связывание визуального компонента с xref:data/data-containers.adoc[контейнером данных].
 
-In the `gridLayout` component, this is achieved by setting the `itemsContainer` attribute to reference a data container.
+В компоненте `gridLayout` это достигается путем установки атрибута `itemsContainer`, который ссылается на контейнер данных.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=data;layout;itemsContainer]
 ----
-<1> Data container to hold a collection of all existing `User` instances.
-<2> Data load coordinator to automatically supply the component with instances to display from.
-<3> Specifying the container that holds the list of items to be displayed.
+<1> Контейнер данных для хранения коллекции всех существующих экземпляров `User`.
+<2> Координатор загрузки данных для автоматического предоставления компоненту экземпляров для отображения.
+<3> Указание контейнера, который содержит список элементов для отображения.
 
-By default, the component displays the xref:data-model:entities.adoc#instance-name[instance name] of the entity.
+По умолчанию компонент отображает xref:data-model:entities.adoc#instance-name[имя экземпляра] сущности.
 
 image::visual-components/layouts/grid-layout-items.png[align="center", width="514"]
 
-TIP: You can override the default display by configuring a <<rendering-items,custom renderer>>.
+TIP: Вы можете переопределить отображение по умолчанию, настроив <<rendering-items,пользовательский рендерер>>.
 
-The component also supports displaying enumeration values using the `itemsEnum` property.
+Компонент также поддерживает отображение значений перечислений с помощью свойства `itemsEnum`.
 
 [source,xml,indent=0]
 ----
@@ -102,60 +102,60 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[rendering-items]]
-== Rendering Items
+== Рендеринг элементов
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-renderer" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/grid-layout-renderer" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
-It is possible to customize the render of items. The renderer is applied to each item to create a component which represents the item.
+Существует возможность настройки рендеринга элементов. Рендерер применяется к каждому элементу для создания компонента, который его представляет.
 
-This customization can be achieved using two distinct methods.
+Это можно выполнить двумя различными методами.
 
 [[programmatically]]
-=== Programmatic Approach
+=== Программный подход
 
-In the view controller, use either:
+В контроллере экрана используйте либо:
 
-* The `setRenderer()` method;
-* The `@Supply` annotation.
+* Метод `setRenderer()`;
+* Аннотацию `@Supply`.
 
-Building on the <<data-binding,previous example>>, we can generate a `renderer` to display each user as a custom xref:flow-ui:vc/layouts/card.adoc[Card] component.
+Основываясь на <<data-binding,предыдущем примере>>, мы можем создать `renderer` для отображения каждого пользователя в виде пользовательского компонента xref:flow-ui:vc/layouts/card.adoc[Card].
 
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gridlayout/GridLayoutView.java[tags=renderer]
 ----
-<1> Supplies a custom renderer to display each `User` as a `Card`.
-<2> Creates a base `Card` component with common styling.
-<3> Initializes card content with user-specific data. Called for each card instance with the corresponding `User` entity.
-<4> Creates an avatar xref:flow-ui:vc/html-components/image.adoc[image] component from the user's picture.
+<1> Предоставляет пользовательский рендерер для отображения каждого `User` в виде карточки.
+<2> Создает базовый компонент `Card` с общим стилем.
+<3> Инициализирует содержимое карточки данными конкретного пользователя. Вызывается для каждого экземпляра карточки с соответствующей сущностью `User`.
+<4> Создает компонент xref:flow-ui:vc/html-components/image.adoc[image] из изображения пользователя.
 ====
 
 image::visual-components/layouts/grid-layout-renderer.png[align="center", width="658"]
 
 [[fragment-renderer]]
-=== Declarative Approach
+=== Декларативный подход
 
-Alternatively, you can render items using a nested xref:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] element.
+Альтернативно, вы можете отображать элементы, используя вложенный элемент xref:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer].
 
-. Create `FragmentRenderer` XML-descriptor:
+. Создайте XML-дескриптор `FragmentRenderer`:
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/card-fragment.xml[]
 ----
 
-. Create `FragmentRenderer` Java Controller
+. Создайте Java-контроллер `FragmentRenderer`
 +
-The fragment renderer class should extend the `FragmentRenderer` base class with type parameters indicating the root component and rendered entity, for example:
+Класс фрагментного рендерера должен расширять базовый класс `FragmentRenderer` с параметрами типа, указывающими на корневой компонент и отображаемую сущность, например:
 +
-.Show code
+.Показать код
 [%collapsible]
 ====
 [source,java,indent=0]
@@ -164,47 +164,47 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gr
 ----
 ====
 
-. Use `fragmentRenderer` for a `gridLayout` component:
+. Используйте `fragmentRenderer` для компонента `gridLayout`:
 +
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=data;layout;fragmentRenderer]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=fragmentRenderer]
 ----
 
-== Attributes
+== Атрибуты
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+xref:vc/common-attributes.adoc[Общие атрибуты] служат одной и той же цели для всех компонентов.
 
-The following attributes are specific to `gridLayout`:
+Следующие атрибуты специфичны для `gridLayout`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[columnMinWidth]]columnMinWidth
-|Sets the minimum width for the grid columns in `gridLayout`. This ensures columns don't become too narrow when the container resizes.
-This value represented as a CSS length value (for example, `"50px"`, `"10rem"`)
+|Задает минимальную ширину для столбцов сетки в `gridLayout`. Это гарантирует, что столбцы не станут слишком узкими при изменении размера контейнера.
+Значение представляется в виде CSS-значения длины (например, `"50px"`, `"10rem"`).
 |`19rem`
 |[[gap]]gap
-|Controls the spacing between grid cells (both row and column gaps). This creates visual separation between components. The value represented as a CSS length value (for example, `"10px"`, `"1rem"`)
+|Управляет промежутком между ячейками сетки (как между строками, так и между столбцами). Создает визуальное разделение между компонентами. Значение представляется в виде CSS-значения длины (например, `"10px"`, `"1rem"`).
 |`var(--lumo-space-s)`
 |===
 
-== Handlers
+== Обработчики
 
-xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+xref:vc/common-handlers.adoc[Общие обработчики] настраиваются одинаково для всех компонентов.
 
-The following handlers are specific to `gridLayout`.
+Следующие обработчики специфичны для `gridLayout`.
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*Название*
+|*Описание*
 |[[itemLabelGenerator]]itemLabelGenerator
-|Allows you to customize the labels displayed for each item. See xref:vc/components/select.adoc#customizing-item-labels[Customizing Item Labels].
+|Позволяет настроить надписи, отображаемые для каждого элемента. Смотрите xref:vc/components/select.adoc#customizing-item-labels[Настройка отображения элементов].
 |[[renderer]]renderer
-|Sets the item renderer for `gridLayout`. The renderer is applied to each item to create a component which represents the item option. See <<rendering-items,Rendering Items>>.
+|Устанавливает рендерер элементов для `gridLayout`. Рендерер применяется к каждому элементу для создания компонента, который представляет данный вариант элемента. Смотрите <<rendering-items,Рендеринг элементов>>.
 |===
