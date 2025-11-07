@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <data>
+        <instance id="userDc" class="com.company.onboarding.entity.User">
+            <loader id="userDl"/>
+            <fetchPlan extends="_base"/>
+        </instance>
+    </data>
+    <content>
+        <vbox id="root" padding="false"/>
+    </content>
+</fragment>

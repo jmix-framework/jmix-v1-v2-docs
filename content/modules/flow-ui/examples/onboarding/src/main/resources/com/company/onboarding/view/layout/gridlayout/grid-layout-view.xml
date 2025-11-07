@@ -4,12 +4,14 @@
     <!-- tag::data[] -->
     <data>
         <collection id="usersDc" class="com.company.onboarding.entity.User"> <!--1-->
+            <fetchPlan extends="_base">
+                <property name="department" fetchPlan="_base"/>
+            </fetchPlan>
             <loader id="usersDl" readOnly="true">
                 <query>
                     <![CDATA[select e from User e]]>
                 </query>
             </loader>
-            <fetchPlan extends="_base"/>
         </collection>
     </data>
     <facets>
@@ -42,6 +44,14 @@
         <gridLayout id="gridLtUsers"
                     width="100%"
                     itemsContainer="usersDc"/>
+        <!-- tag::fragmentRenderer[] -->
+        <gridLayout id="gridUsers"
+                    width="100%"
+                    itemsContainer="usersDc"
+                    gap="var(--lumo-space-m)">
+            <fragmentRenderer class="com.company.onboarding.view.layout.gridlayout.CardFragment"/>
+        </gridLayout>
+        <!-- end::fragmentRenderer[] -->
         <!-- tag::layout[] -->
     </layout>
     <!-- end::layout[] -->
