@@ -168,7 +168,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gr
 +
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=data;layout;fragmentRenderer]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=fragmentRenderer]
 ----
 
 == Attributes
