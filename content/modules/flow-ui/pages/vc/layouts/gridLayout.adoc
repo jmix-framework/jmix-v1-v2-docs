@@ -112,23 +112,64 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 It is possible to customize the render of items. The renderer is applied to each item to create a component which represents the item.
 
-You can use the `setRenderer()` method or the `@Supply` annotation for it.
+This customization can be achieved using two distinct methods.
 
-Building on the <<data-binding,previous example>>, we can generate a `renderer` to display each user.
+[[programmatically]]
+=== Programmatic Approach
 
+In the view controller, use either:
+
+* The `setRenderer()` method;
+* The `@Supply` annotation.
+
+Building on the <<data-binding,previous example>>, we can generate a `renderer` to display each user as a custom xref:flow-ui:vc/layouts/card.adoc[Card] component.
+
+.Show code
+[%collapsible]
+====
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gridlayout/GridLayoutView.java[tags=renderer]
 ----
-<1> Supplies a custom renderer to display each `User` as a xref:flow-ui:vc/layouts/card.adoc[Card].
+<1> Supplies a custom renderer to display each `User` as a `Card`.
 <2> Creates a base `Card` component with common styling.
 <3> Initializes card content with user-specific data. Called for each card instance with the corresponding `User` entity.
 <4> Creates an avatar xref:flow-ui:vc/html-components/image.adoc[image] component from the user's picture.
+====
 
-image::visual-components/layouts/grid-layout-renderer.png[align="center", width="796"]
+image::visual-components/layouts/grid-layout-renderer.png[align="center", width="658"]
 
 [[fragment-renderer]]
-Alternatively, you can render items using a nested `fragmentRenderer` element. Refer to the xref:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment Renderer] section for more information.
+=== Declarative Approach
+
+Alternatively, you can render items using a nested xref:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] element.
+
+. Create `FragmentRenderer` XML-descriptor:
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/card-fragment.xml[]
+----
+
+. Create `FragmentRenderer` Java Controller
++
+The fragment renderer class should extend the `FragmentRenderer` base class with type parameters indicating the root component and rendered entity, for example:
++
+.Show code
+[%collapsible]
+====
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gridlayout/CardFragment.java[tags=cardFragment]
+----
+====
+
+. Use `fragmentRenderer` for a `gridLayout` component:
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=data;layout;fragmentRenderer]
+----
 
 == Attributes
 
