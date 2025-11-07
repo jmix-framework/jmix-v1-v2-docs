@@ -2,19 +2,19 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/card-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.ru/ui-samples/sample/card-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
 </div>
 ++++
 
-The `Card` component is a versatile container used to display content in a card format, offering customization options for layout and appearance to group related content and actions.
+Компонент `Card` - это универсальный контейнер для отображения контента в виде карточки, предлагающий варианты настройки макета и внешнего вида для группировки связанного контента и действий.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`card`
-|Java Class
+|Java-класс
 |`JmixCard`
-|Attributes
+|Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -34,68 +34,68 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 <<titleHeadingLevel,titleHeadingLevel>> -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|Элементы
 |<<slot-content,content>> - <<slot-footer,footer>> - <<slot-header,header>> - <<slot-headerPrefix,headerPrefix>> - <<slot-headerSuffix,headerSuffix>> - <<slot-media,media>> - <<slot-subtitle,subtitle>> - <<slot-title,title>>
 |===
 
-== Basics
+== Основы
 
-The following example demonstrates how to create a simple `card` displaying product information.
+Следующий пример демонстрирует создание простой карточки с информацией о товаре.
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=basics]
 ----
-<1> The `elevated` <<theme-variants,theme variant>> applies a shadow effect.
-<2> Defines the primary heading using the <<slot-title,title>> predefined slot.
-<3> Defines the secondary heading using the <<slot-subtitle,subtitle>> predefined slot.
-<4> The <<slot-media,media>> slot contains the product image.
-<5> The <<slot-content,content>> slot holds the main descriptive text.
-<6> The <<slot-footer,footer>> slot groups action buttons, anchoring them to the bottom of the card.
+<1> <<theme-variants,Вариант темы>> `elevated` применяет эффект тени.
+<2> Определяет основной заголовок с помощью предопределенного слота <<slot-title,title>>.
+<3> Определяет дополнительный заголовок с помощью предопределенного слота <<slot-subtitle,subtitle>>.
+<4> Слот <<slot-media,media>> содержит изображение товара.
+<5> Слот <<slot-content,content>> содержит основной описательный текст.
+<6> Слот <<slot-footer,footer>> группирует кнопки действий, фиксируя их в нижней части карточки.
 
 image::visual-components/layouts/card-basic.png[align="center", width="510"]
 
-The `Card` component displays content in a structured, card-based layout. Information within the card can be populated either through component attributes or by using its internal elements, known as <<slots,slots>>.
+Компонент `Card` отображает контент в структурированном, карточном макете. Информация внутри карточки может быть заполнена либо через атрибуты компонента, либо с использованием его внутренних элементов, известных как <<slots,слоты>>.
 
-The card's visual appearance - including shadows, borders, and backgrounds - is customizable. This is achieved by applying different <<theme-variants,theme variants>>.
+Визуальный вид карточки - включая тени, границы и фон - настраивается. Это достигается применением различных <<theme-variants,вариантов темы>>.
 
 [[slots]]
-== Slots
+== Слоты
 
-The component provides several predefined slots for flexible content organization. A slot is a nested element within the component.
+Компонент предоставляет несколько предопределенных слотов для гибкой организации контента. Слот - это вложенный элемент внутри компонента.
 
-TIP: To add a slot in Jmix Studio, select `card` in the view XML descriptor or in the *Jmix UI* structure panel and click *Add→[Slot Name]* in the *Component Inspector* panel.
+TIP: Чтобы добавить слот в Jmix Studio, выберите `card` в XML-дескрипторе экрана или на панели структуры *Jmix UI* и нажмите *Add→[Slot Name]* на панели *Component Inspector*.
 
-NOTE: All slots except <<slot-content,content>> and <<slot-footer,footer>> are limited to containing a single nested component.
+NOTE: Все слоты, кроме <<slot-content,content>> и <<slot-footer,footer>>, ограничены содержанием одного вложенного компонента.
 
 [[slot-title]]
 === Title
 
-Textual content with predefined styling.
+Title (заголовок) - текстовое содержимое с предопределенным стилем.
 
-You can define the card's title in either of the following ways:
+Определить заголовок карточки можно одним из следующих способов:
 
-* Using the `title` attribute on the component.
-* Using a nested `title` element.
+* Используя атрибут `title` на компоненте.
+* Используя вложенный элемент `title`.
 
 [IMPORTANT]
 ====
-* If a title is specified using both the `title` attribute and a nested `title` element, the value from the nested element takes precedence, and the attribute value is ignored.
+* Если заголовок указан и с помощью атрибута `title`, и с помощью вложенного элемента `title`, используется значение из вложенного элемента, а значение атрибута игнорируется.
 
-* The `title` (and `subtitle`) are not rendered if a <<slot-header,header>> slot is present. The custom header markup replaces them entirely.
+* `title` (и `subtitle`) не отображаются, если присутствует слот <<slot-header,header>>. Пользовательская разметка заголовка полностью их заменяет.
 ====
 
-Card with the `title` and `subtitle` attributes:
+Карточка с атрибутами `title` и `subtitle`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title2]
 ----
 
-Card with a nested `title` element:
+Карточка с вложенным элементом `title`:
 
 [source,xml,indent=0]
 ----
@@ -105,28 +105,28 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-subtitle]]
 === Subtitle
 
-The subtitle provides secondary textual content with predefined styling, displayed directly below the title. It is designed to be used in conjunction with a title.
+Subtitle (подзаголовок) предоставляет дополнительный текстовый контент с предопределенным стилем, отображаемым непосредственно под основным заголовком. Он предназначен для использования вместе с заголовком.
 
-You can define the card's subtitle in either of the following ways:
+Определить подзаголовок карточки можно одним из следующих способов:
 
-* Using the `subtitle` attribute on the component.
-* Using a nested `subtitle` element.
+* Используя атрибут `subtitle` на компоненте.
+* Используя вложенный элемент `subtitle`.
 
 [IMPORTANT]
 ====
-* If a subtitle is specified using both the `subtitle` attribute and a nested `subtitle` element, the value from the nested element takes precedence, and the attribute value is ignored.
+* Если подзаголовок указан и с помощью атрибута `subtitle`, и с помощью вложенного элемента `subtitle`, используется значение из вложенного элемента, а значение атрибута игнорируется.
 
-* The `subtitle` (and `title`) are not rendered if a <<slot-header,header>> slot is present. The custom header markup replaces them entirely.
+* `subtitle` (и `title`) не отображаются, если присутствует слот <<slot-header,header>>. Пользовательская разметка заголовка полностью их заменяет.
 ====
 
-Card with the `title` and `subtitle` attributes:
+Карточка с атрибутами `title` и `subtitle`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title2]
 ----
 
-Card with a nested `subtitle` element:
+Карточка с вложенным элементом `subtitle`:
 
 [source,xml,indent=0]
 ----
@@ -136,14 +136,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-header]]
 === Header
 
-Specifies a custom component to be used as the card's header.
+Header (заголовок) определяет пользовательский компонент, используемый в качестве заголовка карточки.
 
 [IMPORTANT]
 ====
-When a header slot is defined, it takes precedence over the <<slot-title,title>> and <<slot-subtitle,subtitle>> slots. The custom header markup is displayed instead, completely replacing the default title and subtitle.
+Когда определен слот заголовка, он имеет приоритет над слотами <<slot-title,title>> и <<slot-subtitle,subtitle>>. Пользовательская разметка заголовка отображается вместо них, полностью заменяя заголовок и подзаголовок по умолчанию.
 ====
 
-Card with a nested `header` element:
+Карточка с вложенным элементом `header`:
 
 [source,xml,indent=0]
 ----
@@ -153,11 +153,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-headerPrefix]]
 === HeaderPrefix
 
-Specifies a component to be displayed before the main header content.
+HeaderPrefix (префикс заголовка) определяет компонент для отображения перед основным содержимым заголовка.
 
 image:visual-components/layouts/card-header-prefix.png[align="center", width=333]
 
-This slot is typically used for elements like an xref:flow-ui:vc/components/avatar.adoc[avatar], xref:vc/components/icon.adoc[icon], or other visual indicator that precedes the title and subtitle.
+Этот слот обычно используется для таких элементов, как xref:flow-ui:vc/components/avatar.adoc[аватар], xref:vc/components/icon.adoc[иконка] или другой визуальный индикатор, предшествующий заголовку и подзаголовку.
 
 [source,xml,indent=0]
 ----
@@ -167,11 +167,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-headerSuffix]]
 === HeaderSuffix
 
-Specifies a component to be displayed after the main header content.
+HeaderSuffix (суффикс заголовка) определяет компонент для отображения после основного содержимого заголовка.
 
 image:visual-components/layouts/card-header-suffix.png[align="center", width=334]
 
-This slot is commonly used for action buttons, decorative icons, or other interactive elements that are relevant to the header.
+Этот слот обычно используется для кнопок действий, декоративных иконок или других интерактивных элементов, относящихся к заголовку.
 
 [source,xml,indent=0]
 ----
@@ -181,9 +181,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-media]]
 === Media
 
-Specifies a visual component, such as an xref:flow-ui:vc/html-components/image.adoc[image], xref:flow-ui:vc/components/avatar.adoc[avatar], or xref:flow-ui:vc/components/icon.adoc[icon], to be displayed as the card's media.
+Media (медиа) определяет визуальный компонент, такой как xref:flow-ui:vc/html-components/image.adoc[изображение], xref:flow-ui:vc/components/avatar.adoc[аватар] или xref:flow-ui:vc/components/icon.adoc[иконка], для отображения в качестве медиа-контента карточки.
 
-To control how the media content is sized, apply the `stretch-media` or `cover-media` <<theme-variants,theme variants>> using the `themeNames` attribute.
+Чтобы управлять размером медиа-контента, примените <<theme-variants,варианты темы>> `stretch-media` или `cover-media` с помощью атрибута `themeNames`.
 
 [source,xml,indent=0]
 ----
@@ -193,7 +193,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-content]]
 === Content
 
-Contains the main content of the card. This slot can hold any number of elements, providing flexibility for rich and complex layouts.
+Content (содержимое) содержит основной контент карточки. Этот слот может содержать любое количество элементов, обеспечивая гибкость для создания сложных макетов.
 
 [source,xml,indent=0]
 ----
@@ -203,9 +203,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-footer]]
 === Footer
 
-Defines the footer area of the card. This slot supports multiple elements, enabling flexible layouts for actions, status indicators, and supplementary information.
+Footer (нижний колонтитул) определяет область нижнего колонтитула карточки. Этот слот поддерживает несколько элементов, обеспечивая гибкие макеты для действий, индикаторов статуса и дополнительной информации.
 
-The footer remains positioned at the bottom of the card regardless of the main content's height.
+Нижний колонтитул остается расположенным внизу карточки независимо от высоты основного контента.
 
 [source,xml,indent=0]
 ----
@@ -213,15 +213,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[theme-variants]]
-== Theme Variants
+== Варианты темы
 
-The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select among five different options:
-
+Внешний вид компонента настраивается с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который позволяет выбрать один из пяти различных вариантов:
 
 .`outlined`
 [%collapsible]
 ====
-Applies a border around the card.
+Применяет границу (рамку) вокруг карточки.
 
 image:visual-components/layouts/card-outlined.png[align="center", width=172]
 ====
@@ -229,7 +228,7 @@ image:visual-components/layouts/card-outlined.png[align="center", width=172]
 .`elevated`
 [%collapsible]
 ====
-Adds a shadow effect to create elevation.
+Добавляет эффект тени для создания ощущения глубины.
 
 image:visual-components/layouts/card-elevated.png[align="center", width=178]
 ====
@@ -237,7 +236,7 @@ image:visual-components/layouts/card-elevated.png[align="center", width=178]
 .`horizontal`
 [%collapsible]
 ====
-Arranges the card content horizontally.
+Располагает содержимое карточки горизонтально.
 
 image:visual-components/layouts/card-horizontal.png[align="center", width=174]
 ====
@@ -245,7 +244,7 @@ image:visual-components/layouts/card-horizontal.png[align="center", width=174]
 .`stretch-media`
 [%collapsible]
 ====
-Scales the media content to fill its container.
+Масштабирует медиа-контент, чтобы заполнить его контейнер.
 
 image:visual-components/layouts/card-stretch-media.png[align="center", width=171]
 ====
@@ -253,35 +252,35 @@ image:visual-components/layouts/card-stretch-media.png[align="center", width=171
 .`cover-media`
 [%collapsible]
 ====
-Crops the media content to cover its container.
+Обрезает медиа-контент для заполнения его контейнера.
 
 image:visual-components/layouts/card-cover-media.png[align="center", width=176]
 ====
 
-TIP: You can combine all theme variants together.
+TIP: Все варианты темы можно комбинировать вместе.
 
-== Attributes
+== Атрибуты
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+xref:vc/common-attributes.adoc[Общие атрибуты] служат одной и той же цели для всех компонентов.
 
-The following attributes are specific to `card`:
+Следующие атрибуты специфичны для `card`:
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
 |[[subtitle]]subtitle
-|Set the secondary textual content with predefined styling. See <<slot-subtitle,Subtitle>>.
+|Задает дополнительное текстовое содержимое с предопределенным стилем. Смотрите <<slot-subtitle,Subtitle>>.
 |
 |[[title]]title
-|Set the textual content with predefined styling. See <<slot-title,Title>>.
+|Задает текстовое содержимое с предопределенным стилем. Смотрите <<slot-title,Title>>.
 |
 |[[titleHeadingLevel]]titleHeadingLevel
-|Sets the title heading level property for the titles. The value of the attribute is set to the https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-level[aria-level^] HTML attribute. The `titleHeadingLevel` value must be in the range 1-6. *Important*: Values outside the valid range (1-6) can cause significant accessibility issues and should be avoided.
+|Этот параметр определяет уровень HTML-заголовка для текста заголовков. Его значение присваивается https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-level[HTML-атрибуту aria-level^]. Значение `titleHeadingLevel` должно быть в пределах от 1 до 6. *Важно*: Значения вне допустимого диапазона (1-6) могут вызвать серьезные проблемы с доступностью, и их следует избегать.
 |2
 |===
 
-== See Also
+== Смотрите также
 
-See {vaadin-docs}/components/card[Vaadin Docs^] for more information.
+Дополнительную информацию смотрите в {vaadin-docs}/components/card[документации Vaadin^].
