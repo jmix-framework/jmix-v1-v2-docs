@@ -6,7 +6,7 @@
 </div>
 ++++
 
-The `groupDataGrid` component enhances the base data grid with robust row grouping features. It groups rows by repeated column values into collapsible group blocks with support for multi-level grouping and drag-to-reorder controls.
+The `groupDataGrid` component is a more capable version of the base data grid with powerful features for grouping rows. It can group rows by repeated column values into collapsible group blocks with support for multi-level grouping and drag-to-reorder controls.
 
 [cols="1h,6", grid=none]
 |===
@@ -27,13 +27,17 @@ The `groupDataGrid` component enhances the base data grid with robust row groupi
 |
 |*Other:* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<columnRendering,columnRendering>> - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - <<sortByGroupEnabled,sortByGroupEnabled>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
 |Handlers
-|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - <<CellFocusEvent,CellFocusEvent>> - <<CollapseEvent,CollapseEvent>> - <<ColumnReorderEvent,ColumnReorderEvent>> - <<ColumnResizeEvent,ColumnResizeEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<ExpandEvent,ExpandEvent>> - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - <<GridDragEndEvent,GridDragEndEvent>> - <<GridDragStartEvent,GridDragStartEvent>> - <<GridDragDropEvent,GridDragDropEvent>> - <<GroupDataGridGroupItemClickEvent,GroupDataGridGroupItemClickEvent>> - <<GroupDataGridGroupItemDoubleClickEvent,GroupDataGridGroupItemDoubleClickEvent>> - <<GroupDataGridGrouipingChangedEvent,GroupDataGridGrouipingChangedEvent>> - <<ItemClickEvent,ItemClickEvent>> - <<ItemDoubleClickEvent,ItemDoubleClickEvent>> - <<SelectionEvent,SelectionEvent>> - <<SortEvent,SortEvent>> - <<dataGenerator,dataGenerator>> - <<dragFilter,dragFilter>> - <<dropFilter,dropFilter>> - <<enterPressHandler,enterPressHandler>> - <<groupPartNameGenerator,groupPartNameGenerator>> - <<itemSelectableProvider,itemSelectableProvider>> - <<partNameGenerator,partNameGenerator>> - <<tooltipGenerator,tooltipGenerator>>
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - <<CellFocusEvent,CellFocusEvent>> - <<CollapseEvent,CollapseEvent>> - <<ColumnReorderEvent,ColumnReorderEvent>> - <<ColumnResizeEvent,ColumnResizeEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<ExpandEvent,ExpandEvent>> - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - <<GridDragEndEvent,GridDragEndEvent>> - <<GridDragStartEvent,GridDragStartEvent>> - <<GridDropEvent,GridDropEvent>> - <<GroupItemClickEvent,GroupItemClickEvent>> - <<GroupItemDoubleClickEvent,GroupItemDoubleClickEvent>> - <<GroupingChangedEvent,GroupingChangedEvent>> - <<ItemClickEvent,ItemClickEvent>> - <<ItemDoubleClickEvent,ItemDoubleClickEvent>> - <<SelectionEvent,SelectionEvent>> - <<SortEvent,SortEvent>> - <<dataGenerator,dataGenerator>> - <<dragFilter,dragFilter>> - <<dropFilter,dropFilter>> - <<enterPressHandler,enterPressHandler>> - <<groupPartNameGenerator,groupPartNameGenerator>> - <<groupTooltipGenerator, groupTooltipGenerator>> - <<itemSelectableProvider,itemSelectableProvider>> - <<partNameGenerator,partNameGenerator>> - <<tooltipGenerator,tooltipGenerator>>
 |Elements
 |<<groupBy, groupBy>> - <<columnRef,columnRef>> - <<columns,columns>> - <<column,column>> - <<groupColumn,groupColumn>> - xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn]
 |===
 
 [[Basics]]
 == Basics
+
+To get started, xref:groupdatagrid:index.adoc#installation[install the add-on] and then add the component through the *Add Component* palette in Studio xref:studio:view-designer.adoc[View Designer].
+
+image::groupdatagrid-palette.png[align="center",width="765"]
 
 The following example groups customers based on their respective values in the *Grade* column.
 
@@ -44,10 +48,11 @@ image::groupdatagrid-basic.png[align="center",width="1097"]
 ====
 [source,xml,indent=0]
 ----
-include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/basicgroupgrid/basic-group-grid-view.xml[tags=data;customersDc;basics]
+include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/basicgroupgrid/basic-group-grid-view.xml[tags=view;data;facets;layout;customersDc;basics]
 ----
-<1> Initial grouping is by the `grade` property; more groupings can be added.
-<2> Group column definition.
+<1> If the component is added manually rather than through the *Add Component* palette, declare the `groupg` namespace.
+<2> Initial grouping is by the `grade` property; more groupings can be added.
+<3> Group column definition.
 ====
 
 [[data-binding]]
@@ -76,14 +81,14 @@ image::groupdatagrid-hide-count.png[align="center",width="1097"]
 
 The component supports grouping by multiple columns. Click the grouping column icon to open the *Group by* dialog, then add or remove columns.
 
-image::groupdatagrid-multiple.png[align="center",width="1097"]
+image::groupdatagrid-multiple.png[align="center",width="1100"]
 
 [[disable-grouping]]
 == Disable Grouping
 
-To prevent users from grouping by a specific column, set its `groupAllowed` property to `false`. In the example below, the *Country* column cannot be grouped through the *Group by* dialog.
+To prevent users from grouping by a specific column, set its `groupAllowed` property to `false`. This removes the column from the  *Group by* dialog. In the example below, the *Country* column cannot be grouped:
 
-image::groupdatagrid-groupallowed.png[align="center",width="1097"]
+image::groupdatagrid-groupallowed.png[align="center",width="1100"]
 
 .XML code
 [%collapsible]
@@ -94,9 +99,9 @@ include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagrid
 ----
 ====
 
-NOTE: Columns with `groupAllowed = false` may be used for default grouping through the <<groupBy,groupBy>> element. They can also be grouped programmatically using the `groupBy()` method.
+To turn off grouping entirely for users, set `displayColumnsGrouperOnIconClick="false"` on the <<groupColumn>> element.
 
-You can completely disable grouping by users if you set the `displayColumnsGrouperOnIconClick="false"` attribute in the <<groupColumn>> element.
+NOTE: Default grouping can still be declared with the <<groupBy>> element or applied programmatically via the `groupBy()` method.
 
 [[custom-grouping-column]]
 == Custom Grouping Column
@@ -272,13 +277,13 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 |`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - drag end event of dataGrid rows. Corresponds to the `grid-dragend` DOM event.
 |[[GridDragStartEvent]]GridDragStartEvent
 |`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - drag start event of dataGrid rows. Corresponds to the `grid-dragstart` DOM event.
-|[[GridDragDropEvent]]GridDragDropEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragDropEvent` - drop event that occurs on the data grid or its rows. Corresponds to the `grid-drop` DOM event.
-|[[GroupDataGridGroupItemClickEvent]]GroupDataGridGroupItemClickEvent
+|[[GridDropEvent]]GridDropEvent
+|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - drop event that occurs on the data grid or its rows. Corresponds to the `grid-drop` DOM event.
+|[[GroupItemClickEvent]]GroupItemClickEvent
 |Fired when a row that corresponds to a group item is clicked
-|[[GroupDataGridGroupItemDoubleClickEvent]]GroupDataGridGroupItemDoubleClickEvent
+|[[GroupItemDoubleClickEvent]]GroupItemDoubleClickEvent
 |Fired when a row that corresponds to a group item is double-clicked.
-|[[GroupDataGridGrouipingChangedEvent]]GroupDataGridGroupingChangedEvent
+|[[GroupingChangedEvent]]GroupingChangedEvent
 |Fired when grouping changes — columns added or removed.
 |[[ItemClickEvent]]ItemClickEvent
 |`com.vaadin.flow.component.grid.ItemClickEvent` fired when a data grid item is clicked. Corresponds to the `item-click` DOM event.
@@ -298,6 +303,8 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 |Handles the event when the user presses the Enter key.
 |[[groupPartNameGenerator]]groupPartNameGenerator
 |Generates parts of CSS class names for group items based on given conditions. This allows for customizing group items.
+|[[groupTooltipGenerator]]groupTooltipGenerator
+|Generates tooltip for the group based on given conditions.
 |[[itemSelectableProvider]]itemSelectableProvider
 |Sets a predicate to check whether a specific item in the grid may be selected or deselected by the user. The predicate receives an item instance and should return `true` if a user may change the selection state of that item, or `false` otherwise.
 |[[partNameGenerator]]partNameGenerator
