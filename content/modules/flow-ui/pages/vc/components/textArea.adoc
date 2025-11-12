@@ -9,10 +9,36 @@
 
 Область для ввода многострочного текста.
 
-* XML-элемент: `textArea`
+[cols="1h,6", grid=none]
+|===
+|XML-элемент
+|`textArea`
+|Java-класс
+|`JmixTextArea`
+|Атрибуты
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#helperText[helperText] - xref:flow-ui:vc/common-attributes.adoc#label[label] - xref:flow-ui:vc/common-attributes.adoc#placeholder[placeholder] - xref:flow-ui:vc/common-attributes.adoc#readOnly[readOnly] - xref:flow-ui:vc/common-attributes.adoc#value[value] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#property[property]
+|
+|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#clearButtonVisible[clearButtonVisible] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<maxRows,maxRows>> - <<minRows,minRows>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|
+|*Validation:* xref:flow-ui:vc/common-attributes.adoc#errorMessage[errorMessage] - xref:flow-ui:vc/common-attributes.adoc#maxLength[maxLength] - xref:flow-ui:vc/common-attributes.adoc#minLength[minLength] - xref:flow-ui:vc/common-attributes.adoc#pattern[pattern] - xref:flow-ui:vc/common-attributes.adoc#required[required]
+|
+|*Other:* xref:flow-ui:vc/common-attributes.adoc#allowedCharPattern[allowedCharPattern] - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] - xref:flow-ui:vc/common-attributes.adoc#autocapitalize[autocapitalize] - xref:flow-ui:vc/common-attributes.adoc#autocomplete[autocomplete] - xref:flow-ui:vc/common-attributes.adoc#autocorrect[autocorrect] - xref:flow-ui:vc/common-attributes.adoc#autofocus[autofocus] - <<autoselect,autoselect>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex] - <<trimEnabled,trimEnabled>>
+|Обработчики
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - xref:flow-ui:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] - xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] - xref:flow-ui:vc/common-handlers.adoc#CompositionEndEvent[CompositionEndEvent] - xref:flow-ui:vc/common-handlers.adoc#CompositionStartEvent[CompositionStartEvent] - xref:flow-ui:vc/common-handlers.adoc#CompositionUpdateEvent[CompositionUpdateEvent] - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - xref:flow-ui:vc/common-handlers.adoc#InputEvent[InputEvent] - xref:flow-ui:vc/common-handlers.adoc#KeyDownEvent[KeyDownEvent] - xref:flow-ui:vc/common-handlers.adoc#KeyPressEvent[KeyPressEvent] - xref:flow-ui:vc/common-handlers.adoc#statusChangeHandler[statusChangeHandler] - <<validator,validator>>
+|Элементы
+|xref:vc/components/tooltip.adoc[tooltip] -
+xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
+xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
+xref:vc/miscellaneous/validator.adoc[validator]
+|===
 
-* Java-класс: `JmixTextArea`
-
+[[Basics]]
 == Основы
 
 Используйте `textArea`, когда ожидается ввод многострочного текста, такого как комментарии или описания.
@@ -26,6 +52,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Если не задана фиксированная высота, компонент автоматически подстраивает высоту под содержимое. Минимальная и стандартная высота - две строки текста.
 
+[[Data-Binding]]
 == Привязка данных
 
 ++++
@@ -97,71 +124,44 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 
 == Атрибуты
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#allowedCharPattern[allowedCharPattern] -
-xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
-xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
-xref:vc/common-attributes.adoc#autocapitalize[autocapitalize] -
-xref:vc/common-attributes.adoc#autocomplete[autocomplete] -
-xref:vc/common-attributes.adoc#autocorrect[autocorrect] -
-xref:vc/common-attributes.adoc#autofocus[autofocus] -
-xref:vc/components/textField.adoc#autoselect[autoselect] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/components/textField.adoc#clearButtonVisible[clearButtonVisible] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#errorMessage[errorMessage] -
-xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#helperText[helperText] -
-xref:vc/common-attributes.adoc#label[label] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#pattern[pattern] -
-xref:vc/common-attributes.adoc#placeholder[placeholder] -
-xref:vc/common-attributes.adoc#property[property] -
-xref:vc/common-attributes.adoc#readOnly[readOnly] -
-xref:vc/common-attributes.adoc#required[required] -
-xref:vc/common-attributes.adoc#requiredIndicatorVisible[requiredIndicatorVisible] -
-xref:vc/components/textField.adoc#trimEnabled[trimEnabled] -
-<<themeVariants, themeNames>> -
-xref:vc/components/textField.adoc#value[value] -
-xref:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
-xref:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+xref:vc/common-attributes.adoc[Общие атрибуты] выполняют ту же функцию для всех компонентов.
+Следующие атрибуты специфичны для `textArea`:
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Имя*
+|*Описание*
+|*По умолчанию*
+|[[autoselect]] autoselect
+| Установите в `true`, чтобы значение поля всегда автоматически выделялось при получении фокуса, в противном случае — `false`.
+| –
+|[[maxRows]]maxRows
+|Задаёт максимальное количество строк.
+| –
+|[[minRows]]minRows
+|Задаёт минимальное количество строк.
+| 2
+|[[trimEnabled]]trimEnabled
+|Если `true`, компонент обрезает пробелы в начале и в конце ввода. Например: " aaa bbb " будет сохранено как "aaa bbb".
+
+Настройте этот параметр для всего приложения с помощью свойства xref:ui-properties.adoc#jmix.ui.component.default-trim-enabled[jmix.ui.component.default-trim-enabled].
+| –
+|===
 
 == Обработчики
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
-xref:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] -
-xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
-xref:vc/common-handlers.adoc#CompositionEndEvent[CompositionEndEvent] -
-xref:vc/common-handlers.adoc#CompositionStartEvent[CompositionStartEvent] -
-xref:vc/common-handlers.adoc#CompositionUpdateEvent[CompositionUpdateEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
-xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
-xref:vc/common-handlers.adoc#InputEvent[InputEvent] -
-xref:vc/common-handlers.adoc#KeyDownEvent[KeyDownEvent] -
-xref:vc/common-handlers.adoc#KeyPressEvent[KeyPressEvent] -
-xref:vc/common-handlers.adoc#KeyUpEvent[KeyUpEvent] -
-xref:vc/common-handlers.adoc#statusChangeHandler[statusChangeHandler] -
-xref:vc/components/textField.adoc#validator[validator]
+xref:vc/common-handlers.adoc[Общие обработчики] настраиваются одинаково для всех компонентов.
+Следующие обработчики специфичны для `textArea`:
 
 include::../handler-generation-tip.adoc[]
 
-== Элементы
-
-xref:vc/components/tooltip.adoc[tooltip] -
-xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
-xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
-xref:vc/miscellaneous/validator.adoc[validator]
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Название*
+|*Описание*
+|[[validator]]validator
+|Устанавливает xref:vc/miscellaneous/validator.adoc[validator] для компонента.
+|===
 
 == Смотрите также
 
