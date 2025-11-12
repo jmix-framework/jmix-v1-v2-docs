@@ -16,40 +16,18 @@
 |Java-класс
 |`DataGrid`
 |Атрибуты
-|xref:vc/common-attributes.adoc#id[id] -
-<<aggregatable, aggregatable>> -
-<<aggregationPosition,aggregationPosition>> -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<allRowsVisible,allRowsVisible>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-<<columnReorderingAllowed,columnReorderingAllowed>> -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-<<detailsVisibleOnClick,detailsVisibleOnClick>> -
-<<dropMode,dropMode>> -
-<<editorBuffered,editorBuffered>> -
-<<emptyStateText,emptyStateText>> -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/components/entityPicker.adoc#metaClass[metaClass] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<multiSort,multiSort>> -
-<<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> -
-<<multiSortPriority,multiSortPriority>> -
-<<nestedNullBehavior,nestedNullBehavior>> -
-<<pageSize,pageSize>> -
-<<rowDraggable,rowDraggable>> -
-<<selectionMode,selectionMode>> -
-xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
-xref:vc/common-attributes.adoc#themeNames[themeNames] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
-|Обработчики
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - <<aggregatable,aggregatable>> - <<columnReorderingAllowed,columnReorderingAllowed>> - <<emptyStateText,emptyStateText>> - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<selectionMode,selectionMode>> - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass]
+|
+|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|
+|*Other:* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
+|Handlers
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 <<CellFocusEvent,CellFocusEvent>> -
@@ -718,7 +696,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[pageSize]]pageSize
 |Определяет размер страницы (количество элементов, загружаемых из источника данных за один раз).
 |`50`
-|[[rowDraggable]]rowDraggable
+|[[rowsDraggable]]rowDraggable
 |Если значение `true`, пользователи могут перетаскивать строки в таблице.
 |`false`
 |[[selectionMode]]selectionMode
@@ -761,7 +739,7 @@ include::../handler-generation-tip.adoc[]
 |[[dataGenerator]]dataGenerator
 |Добавляет генератор данных для таблицы. Если генератор уже был добавлен, действие не выполняется. Подробнее см. в интерфейсе `com.vaadin.flow.data.provider.HasDataGenerators`.
 |[[dragFilter]]dragFilter
-|Позволяет задавать, какие именно строки можно перетаскивать, вместо активации этой функции для всех строк через атрибут <<rowDraggable, rowDraggable>>.
+|Позволяет задавать, какие именно строки можно перетаскивать, вместо активации этой функции для всех строк через атрибут <<rowsDraggable, rowsDraggable>>.
 |[[dropFilter]]dropFilter
 |Позволяет задавать, какие именно строки могут быть целями для операции перетаскивания (drop targets).
 |[[enterPressHandler]]enterPressHandler
