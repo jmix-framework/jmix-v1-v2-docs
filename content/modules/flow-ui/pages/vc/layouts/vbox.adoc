@@ -8,9 +8,25 @@
 
 `vbox` располагает все вложенные компоненты в один вертикальный столбец.
 
-* XML-элемент: `vbox`
-
-* Java-класс: `VerticalLayout`
+[cols="1h,6", grid=none]
+|===
+|XML-элемент
+|`vbox`
+|Java-класс
+|`VerticalLayout`
+|Атрибуты
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Size:* <<boxSizing,boxSizing>> - xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignItems[alignItems] - xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] - <<expand,expand>> - <<justifyContent,justifyContent>> - <<spacing,spacing>>
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<margin,margin>> - <<padding,padding>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - <<wrap,wrap>>
+|
+|*Other:* xref:flow-ui:vc/common-attributes.adoc#clickShortcut[clickShortcut]
+|Обработчики
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - <<ClickEvent,ClickEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 == Основы
 
@@ -26,102 +42,37 @@ image::visual-components/layouts/vbox-basic.png[align="center", width="210"]
 [[attributes]]
 == Атрибуты
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignItems[alignItems] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing, boxSizing>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand, expand>> -
-xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent, justifyContent>> -
-<<margin, margin>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding, padding>> -
-<<spacing, spacing>> -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+В Jmix существует множество xref:vc/common-attributes.adoc[общих атрибутов], которые служат одной цели для всех компонентов.
 
-[[boxSizing]]
-=== boxSizing
+Следующие атрибуты специфичны для `vbox`:
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Задает способ вычисления общей ширины и высоты элемента. Возможные значения:
-
-* `UNDEFINED`
-
-* `CONTENT_BOX`
-
-* `BORDER_BOX`
-
-[[expand]]
-=== expand
-
-Указывает компонент внутри контейнера, который должен быть расширен для использования всего доступного пространства. В случае `vbox` этот атрибут устанавливает высоту компонента на `100%`.
-
-//For a container with vertical placement, this attribute sets 100% height to a component; for the containers with horizontal placement - 100% width. Additionally, resizing a container will resize the expanded component.
-
-[[justifyContent]]
-=== justifyContent
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Определяет, как браузер распределяет пространство между элементами содержимого и вокруг них. Возможные значения:
-
-* `START`
-
-* `END`
-
-* `CENTER`
-
-* `BETWEEN`
-
-* `AROUND`
-
-* `EVENLY`
-
-Примеры xref:vc/layout-rules.adoc#justify-content-mode[использования] смотрите в разделе Правила компоновки.
-
-[[margin]]
-=== margin
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Определяет отступ между внешними границами и содержимым контейнера. Возможные значения - `true`, `false`. По умолчанию `false`.
-
-[[padding]]
-=== padding
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Устанавливает внутренние отступы со всех четырех сторон элемента одновременно. Возможные значения - `true`, `false`. По умолчанию `false`.
-
-[[spacing]]
-=== spacing
-
-Устанавливает промежутки между компонентами внутри контейнера. Возможные значения - `true`, `false`. По умолчанию `false`.
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Название*
+|*Описание*
+|*Значение по умолчанию*
+|[[boxSizing]]boxSizing
+|Задает способ вычисления общей ширины и высоты элемента. Возможные значения: `UNDEFINED`, `CONTENT_BOX`, `BORDER_BOX`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[страницу MDN о box-sizing^].
+|-
+|[[expand]]expand
+|Указывает компонент внутри контейнера, который должен быть расширен для использования всего доступного пространства. В случае `hbox` этот атрибут устанавливает ширину компонента на 100%.
+|-
+|[[justifyContent]]justifyContent
+|Определяет, как браузер распределяет пространство между элементами содержимого и вокруг них. См. xref:vc/layout-rules.adoc#justify-content-mode[примеры использования] в разделе Правила компоновки.
+|`START`
+|[[margin]]margin
+|Определяет отступ между внешними границами и содержимым контейнера. Возможные значения: `true`, `false`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/margin[страницу MDN о margin^].
+|`false`
+|[[padding]]padding
+|Устанавливает внутренние отступы со всех четырех сторон элемента одновременно. Возможные значения: `true`, `false`. Смотрите также: https://developer.mozilla.org/en-US/docs/Web/CSS/padding[страницу MDN о padding^].
+|`false`
+|[[spacing]]spacing
+|Устанавливает промежутки между компонентами внутри контейнера. Возможные значения: `true`, `false`.
+|`false`
+|[[wrap]]wrap
+|Если true, компоненты будут переноситься на следующую строку при нехватке места. См. https://vaadin.com/docs/latest/components/vertical-layout#wrapping[Wrapping] в документации Vaadin.
+|`false`
+|===
 
 [[handlers]]
 == Обработчики
