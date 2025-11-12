@@ -26,6 +26,7 @@ xref:vc/common-attributes.adoc#css[css] -
 xref:flow-ui:vc/components/fileStorageUploadField.adoc#dropAllowed[dropAllowed] -
 <<dropLabel,dropLabel>> -
 <<dropLabelIcon,dropLabelIcon>> -
+xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 xref:flow-ui:vc/components/fileStorageUploadField.adoc#maxFileSize[maxFileSize] -
 <<maxFiles,maxFiles>> -
