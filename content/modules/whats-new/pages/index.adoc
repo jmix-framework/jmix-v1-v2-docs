@@ -146,6 +146,7 @@ The `io.jmix.flowui.model.impl.EntityValuesComparator` class has been moved to t
 
 * Resolved issues in Jmix Framework:
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.1[2.7.1^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
 +
 Version 2.7.0 has regressions https://github.com/jmix-framework/jmix/issues/4850[#4850^] and https://github.com/jmix-framework/jmix/issues/4852[#4852^], affecting frontend-only projects. See the issue comments for temporary workarounds.
