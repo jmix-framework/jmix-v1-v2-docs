@@ -16,28 +16,15 @@
 |Java Class
 |`HorizontalLayout`
 |Attributes
-|xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignItems[alignItems] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing,boxSizing>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand,expand>> -
-xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent,justifyContent>> -
-<<margin,margin>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding,padding>> -
-<<spacing,spacing>> -
-xref:vc/common-attributes.adoc#themeNames[themeNames] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Size:* <<boxSizing,boxSizing>> - xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignItems[alignItems] - xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] - <<expand,expand>> - <<justifyContent,justifyContent>> - <<spacing,spacing>>
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<margin,margin>> - <<padding,padding>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - <<wrap,wrap>>
+|
+|*Other:* xref:flow-ui:vc/common-attributes.adoc#clickShortcut[clickShortcut]
 |Handlers
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent,ClickEvent>> -
@@ -152,6 +139,9 @@ The following attributes are specific to `hbox`:
 |`false`
 |[[spacing]]spacing
 |Sets spacing between components within a layout. Possible values: `true`, `false`.
+|`false`
+|[[wrap]]wrap
+|If `true` enables components to flow onto a new line when space runs out. See https://vaadin.com/docs/latest/components/horizontal-layout#wrapping[Wrapping] in the Vaadin documentation.
 |`false`
 |===
 

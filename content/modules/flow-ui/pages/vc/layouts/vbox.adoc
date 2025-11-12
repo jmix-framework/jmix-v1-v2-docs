@@ -8,9 +8,29 @@
 
 `vbox` lays out all nested components in a single vertical column.
 
-* XML element: `vbox`
-
-* Java class: `VerticalLayout`
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`vbox`
+|Java Class
+|`VerticalLayout`
+|Attributes
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Data Binding:* –
+|
+|*Size:* <<boxSizing,boxSizing>> - xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignItems[alignItems] - xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] - <<expand,expand>> - <<justifyContent,justifyContent>> - <<spacing,spacing>>
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<margin,margin>> - <<padding,padding>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - <<wrap,wrap>>
+|
+|*Validation:* –
+|
+|*Other:* xref:flow-ui:vc/common-attributes.adoc#clickShortcut[clickShortcut]
+|Handlers
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - <<ClickEvent,ClickEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 == Basics
 
@@ -26,102 +46,38 @@ image::visual-components/layouts/vbox-basic.png[align="center", width="210"]
 [[attributes]]
 == Attributes
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignItems[alignItems] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing, boxSizing>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand, expand>> -
-xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent, justifyContent>> -
-<<margin, margin>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding, padding>> -
-<<spacing, spacing>> -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
 
-[[boxSizing]]
-=== boxSizing
+The following attributes are specific to `vbox`:
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets how the total width and height of an element is calculated. Possible values are:
-
-* `UNDEFINED`
-
-* `CONTENT_BOX`
-
-* `BORDER_BOX`
-
-[[expand]]
-=== expand
-
-Specifies a component within the layout that should be expanded to use all available space. In the case of vbox, this attribute sets the component's height to 100%.
-
-//For a container with vertical placement, this attribute sets 100% height to a component; for the containers with horizontal placement - 100% width. Additionally, resizing a container will resize the expanded component.
-
-[[justifyContent]]
-=== justifyContent
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines how the browser distributes space between and around content items. Possible values are:
-
-* `START`
-
-* `END`
-
-* `CENTER`
-
-* `BETWEEN`
-
-* `AROUND`
-
-* `EVENLY`
-
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[boxSizing]]boxSizing
+|Sets how the total width and height of an element is calculated. Possible values are: `UNDEFINED`, `CONTENT_BOX`, `BORDER_BOX`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[MDN page about box-sizing^].
+|-
+|[[expand]]expand
+|Specifies a component within the layout that should be expanded to use all available space. In the case of `hbox`, this attribute sets the component's width to 100%.
+|-
+|[[justifyContent]]justifyContent
+|Defines how the browser distributes space between and around content items.
 For xref:vc/layout-rules.adoc#justify-content-mode[usage examples] visit the Layout Rules section.
-
-[[margin]]
-=== margin
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Defines indentation between the outer borders and the container content. Possible values -- `true`, `false`. Default is `false`.
-
-[[padding]]
-=== padding
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-Sets the padding area on all four sides of an element at once. Possible values -- `true`, `false`. Default is `false`.
-
-[[spacing]]
-=== spacing
-
-Sets spacing between components within a layout. Possible values -- `true`, `false`. Default is `false`.
+|`START`
+|[[margin]]margin
+|Defines indentation between the outer borders and the container content. Possible values: `true`, `false`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/margin[MDN page about margin^].
+|`false`
+|[[padding]]padding
+|Sets the padding area on all four sides of an element at once. Possible values: `true`, `false`. See also: https://developer.mozilla.org/en-US/docs/Web/CSS/padding[MDN page about padding^].
+|`false`
+|[[spacing]]spacing
+|Sets spacing between components within a layout. Possible values: `true`, `false`.
+|`false`
+|[[wrap]]wrap
+|If `true` enables components to flow onto a new line when space runs out. See https://vaadin.com/docs/latest/components/vertical-layout#wrapping[Wrapping] in the Vaadin documentation.
+|`false`
+|===
 
 [[handlers]]
 == Handlers
