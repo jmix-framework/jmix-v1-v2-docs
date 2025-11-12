@@ -1,35 +1,35 @@
-= Creating Notifications
+= Создание уведомлений
 
-You can create notifications via administration UI or programmatically in code.
+Вы можете создавать уведомления через административный интерфейс или программно в коде.
 
 [[administration-ui]]
-== Administration UI
+== Административный интерфейс
 
-After the add-on is added to your application, the main menu contains the *Notifications* item. The *Notifications browser* provides a list of created notifications and buttons for managing them.
+После добавления дополнения в ваше приложение в главном меню появляется пункт *Notifications*. Экран *Notifications* предоставляет список созданных уведомлений и кнопки для управления ими.
 
 image::ntf-list.png[align="center" width="1270"]
 
 [[ntf-editor]]
-The notification editor appears after clicking the *Create new notification* button.
+Редактор уведомлений появляется после нажатия кнопки *Create notification*.
 
 image::ntf-editor.png[align="center" width="480"]
 
-The dialog provides the following fields to fill in:
+В диалоговом окне доступны следующие поля для заполнения:
 
-* *Subject* – a subject of the notification.
-* *Type* – a type of notification. There are no default notification types. See the xref:notifications:configuration.adoc#notification-types[configuration] section to create types.
-* *Recipients* – list of recipients of the notification. Start typing a username in the field, and select the appropriate users from the list.
-* *Channels* – a channel used for notification.
-** *In-app channel* – a user will receive the notification in the application UI.
-** *Email channel* – a user will receive an email with the notification. (available with xref:email:index.adoc[Email] add-on.)
-* *Body* – body of the notification.
+* *Subject* – тема уведомления.
+* *Type* – тип уведомления. Типов уведомлений по умолчанию нет. Смотрите раздел xref:notifications:configuration.adoc#notification-types[настройка], чтобы создать типы.
+* *Recipients* – список получателей уведомления. Начните вводить имя пользователя в поле и выберите подходящих пользователей из списка.
+* *Channels* – канал, используемый для уведомления.
+** *In-app channel* – пользователь получит уведомление в пользовательском интерфейсе приложения.
+** *Email channel* – пользователь получит email с уведомлением (доступно с дополнением xref:email:index.adoc[Email]).
+* *Body* – основное содержимое уведомления.
 
 [[programmatic-creation]]
-== Programmatic Creation
+== Программное создание
 
-The *NotificationManager* service provides methods to send notifications to users.
+Сервис *NotificationManager* предоставляет методы для отправки уведомлений пользователям.
 
-In the example below, a notification is sent to the user every time a new order is created.
+В примере ниже уведомление отправляется пользователю каждый раз, когда создается новый заказ.
 
 image::ntf-programmatic.png[align="center" width="1270"]
 
@@ -37,14 +37,14 @@ image::ntf-programmatic.png[align="center" width="1270"]
 ----
 include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/view/order/OrderDetailView.java[tags=ntf-create]
 ----
-<1> This method is invoked after saving changes.
-<2> Checks if this entity is newly created.
-<3> Initiates `NotificationRequestBuilder` that creates a new `NotificationRequest` object.
-<4> Defines the subject of the notification.
-<5> Sets the recipient by the provided username.
-<6> Sets notification channels by provided names. The `in-app` and `email` are available.
-<7> Set notification body content type.
-<8> Sets notification body.
-<9> Creates and sends the notification request.
+<1> Этот метод вызывается после сохранения изменений.
+<2> Проверяет, является ли сущность новой.
+<3> Инициирует `NotificationRequestBuilder`, который создает новый объект `NotificationRequest`.
+<4> Определяет тему уведомления.
+<5> Устанавливает получателя по указанному имени пользователя.
+<6> Устанавливает каналы уведомлений по указанным именам. Доступны `in-app` и `email`.
+<7> Устанавливает тип содержимого тела уведомления.
+<8> Устанавливает основное содержимое уведомления.
+<9> Создает и отправляет запрос на уведомление.
 
-TIP: Click *Code Snippets* in the actions panel to xref:jmix:studio:code-snippets.adoc[generate code] for sending notifications.
+TIP: Нажмите *Code Snippets* на панели действий, чтобы xref:jmix:studio:code-snippets.adoc[сгенерировать код] для отправки уведомлений.

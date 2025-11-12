@@ -1,27 +1,27 @@
-= Configuration
+= Настройка
 
-After installing the add-on in your application, create notification types, configure notification channels and assign roles to users.
+После установки дополнения в вашем приложении создайте типы уведомлений, настройте каналы уведомлений и назначьте роли пользователям.
 
-The add-on provides two notification channels out-of-the-box: the in-app channel shows notifications in the application UI, the email channel sends emails. You can define your own channels by creating beans implementing the `NotificationChannel` interface.
+Дополнение предоставляет два канала уведомлений из коробки: встроенный канал показывает уведомления в пользовательском интерфейсе приложения, а email-канал отправляет электронные письма. Вы можете определить собственные каналы, создавая бины, реализующие интерфейс `NotificationChannel`.
 
 [[notification-types]]
-== Notification Types
+== Типы уведомлений
 
-The add-on does not provide notification types by default. You should create a set of `NotificationType` instances and register them via `NotificationTypesRepository` when initializing the application. The following code can be added to any bean of the application, for example to the main application class annotated with `@SpringBootApplication`:
+Дополнение не предоставляет типы уведомлений по умолчанию. Вам следует создать набор экземпляров `NotificationType` и зарегистрировать их через `NotificationTypesRepository` при инициализации приложения. Следующий код можно добавить в любой бин приложения, например, в главный класс приложения, аннотированный `@SpringBootApplication`:
 
 [source,java,indent=0]
 ----
 include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/NotificationsEx1Application.java[tags=notification-type]
 ----
-<1> Creates a notification type with the unique `info` name and `INFO_CIRCLE` icon.
+<1> Создает тип уведомления с уникальным именем `info` и иконкой `INFO_CIRCLE`.
 
-Localized messages for the notification types can be added with the following template:
+Локализованные сообщения для типов уведомлений можно добавить по следующему шаблону:
 
 ----
 io.jmix.notifications/NotificationType.<name>=<value>
 ----
 
-In case of the example above:
+В случае примера выше:
 
 [source,properties,indent=0]
 ----
@@ -29,13 +29,13 @@ include::example$/notifications-ex1/src/main/resources/com/company/notifications
 ----
 
 [[in-app-channel]]
-== In-App Channel
+== Встроенный канал
 
-To show notifications sent to the in-app channel, add a notification indicator component. For example, you may place it in the top right corner:
+Чтобы показывать уведомления, отправленные через встроенный канал, добавьте компонент индикатора уведомлений. Например, вы можете разместить его в правом верхнем углу:
 
 image::ntf-indicator.png[align="center" width="1268"]
 
-For that, add `notificationIndicator` within the main view's `navigationBar` component:
+Для этого добавьте `notificationIndicator` внутри компонента `navigationBar` главного экрана:
 
 [source,xml,indent=0]
 
@@ -43,22 +43,22 @@ For that, add `notificationIndicator` within the main view's `navigationBar` com
 include::example$/notifications-ex1/src/main/resources/com/company/notificationsex1/view/main/main-view.xml[tags=namespace;not1;not2]
 ----
 
-<1> Declares the `notifications` namespace in the root element.
-<2> Adds a visual component with the unread notifications count.
+<1> Объявляет пространство имен `notifications` в корневом элементе.
+<2> Добавляет визуальный компонент с счетчиком непрочитанных уведомлений.
 
 [[email-channel]]
-== Email Channel
+== Email-канал
 
-To send notifications by email, add the xref:email:index.adoc[Email] add-on to the application. After that, you will be able to select the email channel in the xref:notifications:creating-notifications.adoc#ntf-editor[notification editor] window.
+Чтобы отправлять уведомления по электронной почте, добавьте в приложение дополнение xref:email:index.adoc[Email]. После этого вы сможете выбирать email-канал в окне xref:notifications:creating-notifications.adoc#ntf-editor[редактора уведомлений].
 
-The recipient email address is taken from a property of the xref:security:users.adoc#entity[user] object. By default, the add-on assumes that email is stored in the `email` property. If you want to use another property, define its name in the `application.properties` file, for example:
+Адрес электронной почты получателя берется из свойства объекта xref:security:users.adoc#entity[пользователя]. По умолчанию дополнение предполагает, что email хранится в свойстве `email`. Если вы хотите использовать другое свойство, определите его имя в файле `application.properties`, например:
 
 [source,properties,indent=0]
 ----
 include::example$/notifications-ex1/src/main/resources/application.properties[tags=email]
 ----
 
-Besides, you can create a Spring bean implementing the `UserEmailResolver` interface to define a more complex logic of obtaining the user's email address, for example:
+Кроме того, вы можете создать Spring-бин, реализующий интерфейс `UserEmailResolver`, чтобы определить более сложную логику получения адреса электронной почты пользователя, например:
 
 [source,java,indent=0]
 ----
@@ -66,14 +66,14 @@ include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/a
 ----
 
 [[roles]]
-== Security Roles
+== Роли безопасности
 
-To work with notifications, users with limited access to the system should have one of the following roles:
+Для работы с уведомлениями пользователи с ограниченным доступом к системе должны иметь одну из следующих ролей:
 
-* *Notifications: administrator* – a user with full access to notifications.
-* *Notifications: In-app notifications reader* – a user that receives notifications sent through in-app channel and is able to read them in a special dialog.
-* *Notifications: sender* – a user can create and send notifications.
-* *Notifications: combines sender and reader* – combines sender and reader roles.
+* *Notifications: administrator* – пользователь с полным доступом к уведомлениям.
+* *Notifications: In-app notifications reader* – пользователь, который получает уведомления, отправленные через встроенный канал, и может читать их в специальном диалоге.
+* *Notifications: sender* – пользователь может создавать и отправлять уведомления.
+* *Notifications: combines sender and reader* – объединяет роли отправителя и читателя.
 
 ////
 [[using-in-bpm]]

@@ -1,13 +1,13 @@
-= Viewing Notifications 
+= Просмотр уведомлений
 
-To show notifications sent to the in-app channel, add the `notificationsIndicator` UI component to an application screen as described in the xref:configuration.adoc#in-app-channel[Configuration] section.
+Чтобы отображать уведомления, отправленные через встроенный канал, добавьте UI-компонент `notificationsIndicator` на экран приложения, как описано в разделе xref:configuration.adoc#in-app-channel[Настройка].
 
-When the user clicks on the indicator, the notifications dialog opens:
+Когда пользователь нажимает на индикатор, открывается диалоговое окно уведомлений:
 
 image::ntf-programmatic.png[align="center" width="1270"]
 
-Double-click on a notification to open it:
+Дважды щелкните по уведомлению, чтобы открыть его:
 
 image::ntf-read.png[align="center", width="1270"]
 
-When the user clicks *OK*, the notification window is closed and the notification is marked as read.
+Когда пользователь нажимает *OK*, окно уведомления закрывается, и уведомление помечается как прочитанное.
