@@ -15,39 +15,17 @@ A table of data that can be edited, sorted, filtered, and aggregated based on a 
 |Java Class
 |`DataGrid`
 |Attributes
-|xref:vc/common-attributes.adoc#id[id] -
-<<aggregatable, aggregatable>> -
-<<aggregationPosition,aggregationPosition>> -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<allRowsVisible,allRowsVisible>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-<<columnReorderingAllowed,columnReorderingAllowed>> -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-<<detailsVisibleOnClick,detailsVisibleOnClick>> -
-<<dropMode,dropMode>> -
-<<editorBuffered,editorBuffered>> -
-<<emptyStateText,emptyStateText>> -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/components/entityPicker.adoc#metaClass[metaClass] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<multiSort,multiSort>> -
-<<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> -
-<<multiSortPriority,multiSortPriority>> -
-<<nestedNullBehavior,nestedNullBehavior>> -
-<<pageSize,pageSize>> -
-<<rowDraggable,rowDraggable>> -
-<<selectionMode,selectionMode>> -
-xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
-xref:vc/common-attributes.adoc#themeNames[themeNames] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - <<aggregatable,aggregatable>> - <<columnReorderingAllowed,columnReorderingAllowed>> - <<emptyStateText,emptyStateText>> - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<selectionMode,selectionMode>> - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass]
+|
+|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|
+|*Other:* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
 |Handlers
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -697,7 +675,7 @@ xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all
 |[[pageSize]]pageSize
 |Determines the page size or the number of items that will be fetched from the data provider at a time.
 |`50`
-|[[rowDraggable]]rowDraggable
+|[[rowsDraggable]]rowsDraggable
 |If `true`, enables users to drag rows in the grid.
 |`false`
 |[[selectionMode]]selectionMode
@@ -737,7 +715,7 @@ include::../handler-generation-tip.adoc[]
 |[[dataGenerator]]dataGenerator
 |Adds a data generator for the data grid. If the generator was already added, does nothing. See the `com.vaadin.flow.data.provider.HasDataGenerators` interface.
 |[[dragFilter]]dragFilter
-|Allows to control which specific rows can be dragged, rather than making all rows draggable with <<rowDraggable, rowDraggable>>.
+|Allows to control which specific rows can be dragged, rather than making all rows draggable with <<rowsDraggable, rowsDraggable>>.
 |[[dropFilter]]dropFilter
 |Allows to control which specific rows are valid drop targets.
 |[[enterPressHandler]]enterPressHandler
