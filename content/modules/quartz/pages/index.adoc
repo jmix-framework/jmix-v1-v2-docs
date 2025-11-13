@@ -1,19 +1,19 @@
 = Quartz
 
-This add-on allows you to manage https://www.quartz-scheduler.org/[Quartz^] jobs via user interface:
+Данное дополнение позволяет управлять задачами https://www.quartz-scheduler.org/[Quartz^] через пользовательский интерфейс:
 
-* Create new Quartz jobs from the existing implementation of `org.quartz.Job` interface.
-* Pause and resume jobs execution.
-* Trigger immediate execution of inactive jobs.
-* Edit job triggers and parameters.
-* Delete jobs.
+* Создавать новые задачи Quartz из существующей реализации интерфейса `org.quartz.Job`.
+* Приостанавливать и возобновлять выполнение задач.
+* Запускать немедленное выполнение неактивных задач.
+* Редактировать триггеры и параметры задач.
+* Удалять задачи.
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
@@ -23,18 +23,18 @@ implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
 
 [NOTE]
 ====
-If URL of your main database is set as variable replacing the whole URL (e.g. `main.datasource.url = $\{DB_URL\}`)
-you may need to explicitly set the proper driver delegate class via `spring.quartz.properties.org.quartz.jobStore.driverDelegateClass` application property.
+Если URL вашей основной базы данных задан как переменная, заменяющая весь URL (например, `main.datasource.url = $\{DB_URL\}`),
+вам может потребоваться явно задать соответствующий класс драйвера через свойство приложения `spring.quartz.properties.org.quartz.jobStore.driverDelegateClass`.
 
-Value depends on your database:
+Значение зависит от вашей базы данных:
 
 * *PostgreSQL*: `org.quartz.impl.jdbcjobstore.PostgreSQLDelegate`
 * *Oracle*: `org.quartz.impl.jdbcjobstore.oracle.OracleDelegate`
 * *MS SQL*: `org.quartz.impl.jdbcjobstore.MSSQLDelegate`
-* Other database: skip this step - default value will be used
+* Другая база данных: пропустите этот шаг - будет использовано значение по умолчанию.
 
-If variable within `main.datasource.url` property doesn't include database prefix (e.g. `main.datasource.url = jdbc:postgresql://$\{DB_HOST\}/$\{DB_NAME\}`)
-or there are no variables at all - driver delegate class will be resolved automatically and this step can be skipped.
+Если переменная в свойстве `main.datasource.url` не включает префикс базы данных (например, `main.datasource.url = jdbc:postgresql://$\{DB_HOST\}/$\{DB_NAME\}`)
+или переменных вообще нет - класс драйвера будет разрешен автоматически, и этот шаг можно пропустить.
 ====
 
 // todo flowui
@@ -44,53 +44,53 @@ or there are no variables at all - driver delegate class will be resolved automa
 // ----
 
 [[usage]]
-== Usage
+== Использование
 
-To create and schedule a job for execution, do the following:
+Чтобы создать и запланировать задачи для выполнения, сделайте следующее:
 
-. Create a class implementing the `org.quartz.Job` interface. It's `execute()` method will be invoked by the scheduler. For example:
+. Создайте класс, реализующий интерфейс `org.quartz.Job`. Его метод `execute()` будет вызываться планировщиком. Например:
 +
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
 ----
 +
-In the job class, you can inject Spring beans with `@Autowired`.
+В классе задачи вы можете инжектировать Spring-бины с помощью `@Autowired`.
 
-. Run the application, open *Quartz -> Quartz jobs* view and click *Create*.
+. Запустите приложение, откройте экран *Quartz -> Quartz jobs* и нажмите *Create*.
 +
 --
-** Enter an arbitrary unique name in the *Name* field and select your job class in the *Class* field.
+** Введите произвольное уникальное имя в поле *Name* и выберите ваш класс задачи в поле *Class*.
 +
-The *Group* field is optional but can be used to group jobs in UI.
+Поле *Group* является необязательным, но может использоваться для группировки задач в пользовательском интерфейсе.
 
-** Create at least one trigger for the job on the *Triggers* tab. You can select either *Cron expression* or *Simple* schedule type. In the former case, enter a http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] like `0/5 * * ? * * *` (each 5 sec). In the latter case, enter a repeat interval in milliseconds.
+** Создайте хотя бы один триггер для задачи на вкладке *Triggers*. Вы можете выбрать тип расписания *Cron expression* или *Simple*. В первом случае введите http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[выражение Cron^], например `0/5 * * ? * * *` (каждые 5 секунд). Во втором случае введите интервал повторения в миллисекундах.
 --
 +
-After you save the trigger and the job, it is immediately scheduled for execution according to the trigger settings.
+После сохранения триггера и задачи она немедленно планируется для выполнения в соответствии с настройками триггера.
 +
-To edit the job settings, first pause it by selecting and clicking *Pause*. After saving changes, you can resume the scheduling by clicking *Resume*.
+Чтобы отредактировать настройки задачи, сначала приостановите ее, выбрав и нажав *Pause*. После сохранения изменений вы можете возобновить планирование, нажав *Resume*.
 +
-You can also execute any registered job immediately by clicking *Execute now*, even if the job has no triggers. This is useful for testing.
+Вы также можете выполнить любую зарегистрированную задачу немедленно, нажав *Execute now*, даже если у задачи нет триггеров. Это полезно для тестирования.
 
 [[authentication]]
-=== Authentication in Jobs
+=== Аутентификация в задачах
 
-The code executed by the scheduler is not authenticated, that is not associated with any user.
+Код, выполняемый планировщиком, не аутентифицирован, то есть не ассоциирован с каким-либо пользователем.
 
-If you invoke operations that require authentication, for example working with data through `DataManager`, use xref:security:authentication.adoc#system[SystemAuthenticator] or `@Authenticated` annotation:
+Если вы вызываете операции, требующие аутентификации, например, работу с данными через `DataManager`, используйте xref:security:authentication.adoc#system[SystemAuthenticator] или аннотацию @Authenticated:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/quartz/ex1/app/SampleAuthenticatedJob.java[tags=auth-job]
 ----
 
-TIP: You can also use `UnconstrainedDataManager` to work with data in unauthenticated contexts.
+TIP: Вы также можете использовать `UnconstrainedDataManager` для работы с данными в неаутентифицированном контексте.
 
 [[job-parameters]]
-=== Job Parameters
+=== Параметры задачи
 
-The *Job editor* view allows you to set parameters for the job instance on the *Job data parameters* tab. You can use the parameters in the job class as follows:
+Экран *Job editor* позволяет задать параметры для экземпляра задачи на вкладке *Job data parameters*. Вы можете использовать параметры в классе задачи следующим образом:
 
 [source,java,indent=0]
 ----
@@ -98,15 +98,15 @@ include::example$/ex1/src/main/java/quartz/ex1/app/SampleParameterizedJob.java[t
 ----
 
 [[track-job-execution]]
-=== Tracking Job Execution
+=== Отслеживание выполнения задач
 
-If you want to track execution of jobs, create a bean implementing the `JobListener` interface or extending the `JobListenerSupport` as follows:
+Если вы хотите отслеживать выполнение задач, создайте бин, реализующий интерфейс `JobListener` или расширяющий `JobListenerSupport` следующим образом:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/quartz/ex1/app/JobExecutionListener.java[]
 ----
-<1> Invoked by Spring after the bean is instantiated.
-<2> Invoked by Quartz scheduler after a job is executed.
+<1> Вызывается Spring после создания экземпляра бина.
+<2> Вызывается планировщиком Quartz после выполнения задачи.
 
-In the `jobWasExecuted()` method, you can store information about the executed job in the log or in the database.
+В методе `jobWasExecuted()` вы можете сохранить информацию о выполненной задаче в журнале или в базе данных.
