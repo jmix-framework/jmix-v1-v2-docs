@@ -54,7 +54,7 @@ vite.config.ts
 
 . Скопируйте файл `src/main/resources/<base_package>/menu.xml` из созданного проекта в мигрирующий и перезапишите существующий файл.
 
-. Откройте файл `src/main/resources/<base_package>/messages_en.properties` мигрирующего проектв и удалите сообщения `++<base_package>.screen.*++` и `++<base_package>/menu.application++`. Скопируйте сообщения `++<base_package>.view.*++` и `++<base_package>/menu.application.title++` из такого же файла созданного проекта.
+. Откройте файл `src/main/resources/<base_package>/messages_en.properties` мигрирующего проекта и удалите сообщения `++<base_package>.screen.*++` и `++<base_package>/menu.application++`. Скопируйте сообщения `++<base_package>.view.*++` и `++<base_package>/menu.application.title++` из такого же файла созданного проекта.
 
 . Скопируйте классы `FullAccessRole` и `UiMinimalRole` пакета `<base_package>.security` из созданного проекта в мигрирующий.
 
