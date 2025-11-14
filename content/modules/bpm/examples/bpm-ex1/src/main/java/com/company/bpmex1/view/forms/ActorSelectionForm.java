@@ -19,7 +19,7 @@ import java.util.List;
 // tag::params[]
 @ProcessForm(
         params = {
-                @Param(name = "variableName"),
+                @Param(name = "nextActor"),
                 @Param(name = "entityPickerCaption")
         }
 )
@@ -33,8 +33,11 @@ public class ActorSelectionForm extends StandardView {
     private EntityPicker<String> userEntityPicker;
 
     // tag::params-annotation[]
+
+    //...
+
     @ProcessFormParam
-    private String variableName;
+    private String nextActor;
 
     @ProcessFormParam
     private String entityPickerCaption;
@@ -48,7 +51,7 @@ public class ActorSelectionForm extends StandardView {
     @Subscribe("completeTaskBtn")
     private void onCompleteTaskBtnClick(ClickEvent<JmixButton> event) {
         processFormContext.taskCompletion()
-                .addProcessVariable(variableName, userEntityPicker.getValue())
+                .addProcessVariable(nextActor, userEntityPicker.getValue())
                 .complete();
         closeWithDefaultAction();
     }

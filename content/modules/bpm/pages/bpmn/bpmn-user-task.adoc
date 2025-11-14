@@ -518,7 +518,7 @@ CandidateUsers and candidateGroups can both be defined on the same user task.
 [[defining-task-forms]]
 == Defining User Task Forms
 
-User task can be configured to use a xref:process-forms.adoc[process form] to visualize it for performer.
+User task can be configured to use a xref:forms.adoc[process form] to visualize it for performer.
 Jmix BPM offers the following options for process forms:
 
 image::bpmn-user-task/form-type-selection.png[,350]

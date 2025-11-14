@@ -1,8 +1,10 @@
 = Process Forms
 
-Process forms are views displayed to users. They can be configured for the `StartEvent` and `User Task` model elements. There are several types of forms:
+xref:bpmn/bpmn-events.adoc#start-events[Start Event] and xref:bpmn/bpmn-user-task.adoc[User Task] elements can be set up with a process form. This will allow users to input and submit data necessary for executing tasks.
 
-* *Jmix view* — this type of process form is based on a Jmix view.
-* *Input dialog* — this form is created at runtime when a user starts the process or performs a user task. The fields of the form are defined in the process model.
-* *No form* — for processes and tasks that start programmatically.
-* *Custom* — used to render a form in a non-standard way.
+The following form types are available:
+
+* *No form:* for processes and tasks that start automatically without user input.
+* xref:input-dialog.adoc[Input dialog]: a simple dialog with input fields defined within the process model.
+* xref:bpmn/jmix-view-forms.adoc[Jmix view]: process form based on a Jmix view.
+* *Custom:* any uniquely defined form that does not follow standard configurations.
