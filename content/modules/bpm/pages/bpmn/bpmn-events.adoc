@@ -501,7 +501,7 @@ For example, with script task.
 
 If process variables are created before the form, they will be added to form automatically.
 
-About the _Form_ settings see the details in the xref:process-forms.adoc[Process Forms] section.
+About the _Form_ settings see the details in the xref:forms.adoc[Process Forms] section.
 
 .*XML Representation*
 

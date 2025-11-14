@@ -1,4 +1,4 @@
-= Input Dialog Forms
+= Input Dialog
 
 *Input dialog form* это форма для ввода параметров для элементов `Start Event` или `User Task`. Диалог автоматически отображается когда пользователь запускает процесс или выполняет пользовательскую задачу.
 
@@ -8,125 +8,54 @@ image::input-dialog-forms/form-example.png[,600]
 
 Чтобы настроить диалог, выберите элемент `Start Event` или `User Task` и установите для него тип `Input dialog`.
 
-image::input-dialog-forms/create-dialog-form.png[,400]
+[[form-type]]
+== Form type
 
-После этого появятся дополнительные свойства. Их описание приведено ниже.
-
-image::input-dialog-forms/form-section.png[,400]
+Эта настройка указывает тип процессной формы: *No form*, *Input dialog*, *Jmix view*, or *Custom*. Выбор типа отобразит соответствующие настройки.
 
 [[open-mode]]
-=== Open mode
+== Open mode
 
-Это свойство определяет режим в котором форма будет открыта:
+Настройка *Open mode* определяет, как отображается форма:
 
-* *Dialog* – форма будет открыта в диалоговом окне.
-* *Navigate* – форма будет открыта как новый экран путём перехода по его URL.
+* *Dialog*: форма отображается в диалоге.
+* *Navigate*: форма отображается как экран и будет доступна по собственному URL.
 
-image::input-dialog-forms/open-mode.png[,400]
+[[input-dialog-paramters]]
+== Input dialog parameters
 
-По умолчанию используется *Dialog*.
+Параметры связаны с полями ввода в диалоге. Чтобы добавить параметр, нажмите кнопку image:quick-start/plus-button.png[[align="center", width="32"]:
 
-[[parameters]]
-=== Parameters
+image::input-dialog-forms/parameter-editor-begin.png[align="center", width="601"]
 
-Parameters это поля формы, которые могут отображать значения либо ожидать ввода значений от пользователя. Нажмите *create,* чтобы перейти к созданию параметра:
+В редакторе выберите существующую переменную процесса или создайте новую, введя её имя. Затем добавьте заголовок и укажите тип параметра.
 
-image::input-dialog-forms/create-parameters.png[,400]
+[NOTE]
+====
+Параметры типов `Entity` и `Entity list` потребуют дополнительной настройки. Это включает выбор класса сущности и компонента пользовательского интерфейса, либо *EntityPicker*, либо *ComboBox*.
 
-После этого откроется окно редактора. Выберите переменную процесса из списка или определите новую переменную, введя её имя.
+image::input-dialog-forms/parameter-editor-entity.png[align="center", width="602"]
 
-image::input-dialog-forms/parameter-editor-begin.png[,600]
+*EntityPicker* позволяет пользователям находить экземпляры через связанный экран. Если такой экран не указан, по умолчанию используется стандартный экран со списком экземпляров для этой сущности.
 
-Параметр можно сделать редактируемым и обязательным выбрав соответствующие чекбоксы.
-
-Параметр может быть одного из следующих типов:
-
-* String
-* Multiline string
-* Decimal
-* Number
-* Boolean
-* Date
-* Date with time
-* Entity
-* Entity list
-* File
-* Platform enum
-* Custom enum
-
-Параметры с типом `Entity` и `Entity list` потребуют дополнительной настройки. Для них необходимо выбрать соответствующий класс сущности и компонент интерфейса для работы с ним.
-
-image::input-dialog-forms/parameter-editor-entity.png[,800]
-
-Если выбран *EntityPicker*, можно указать экран для работы с сущностью. Если оставить это поле пустым, то будет использован стандартный экран list для этой сущности.
-image::input-dialog-forms/parameter-editor-entity-ui-compontent.png[,800]
-
-При выборе *ComboBox*, необходимо описать JPQL запрос для выбора экземпляров. Запрос можно написать вручную либо используя xref:studio:jpql-designer.adoc[].
-
-image::input-dialog-forms/parameter-editor-entity-combo-box.png[,800]
-
-После того как параметр создан, его можно редактировать непосредственно в панели *BPMN Inspector*.
-
-image::input-dialog-forms/edit-param-in-panel.png[,400]
-
-
-==== XML представление
-
-Диалоговая форма определяется непосредственно в модели BPMN. В XML модели она представлена атрибутом `jmix:formData`:
-
-[source,xml]
-----
-<jmix:formData type="input-dialog" openMode="DIALOG">
-  <jmix:formFields>
-    <jmix:formField id="order" caption="Order" type="entity" editable="true" required="false">
-      <jmix:formFieldProperty name="entityName" value="smpl_Order" />
-      <jmix:formFieldProperty name="uiComponent" value="comboBox" />
-      <jmix:formFieldProperty name="query" value="select e from smpl_Order e where e.amount &#62; 1000" />
-    </jmix:formField>
-    <jmix:formField id="name" caption="Name" type="string" editable="true" required="false" />
-  </jmix:formFields>
-----
+**ComboBox** отображает экземпляры в выпадающем списке и требует JPQL-запрос для их загрузки.
+====
 
 [[business-key]]
-=== Business Key
+== Business Key
 
-При создании диалога ввода для элемента `Start Event` вы можете определить xref:bpm-concepts.adoc#business-key[бизнес ключ].
+NOTE: Эта настройка доступна только для xref:bpmn/bpmn-events.adoc#start-events[Start Event].
 
-image::input-dialog-forms/setting-business-key.png[,400]
-
-Моделер в Studio позволяет задать бизнес-ключ напрямую или получить его из переменной процесса.
-
-NOTE: xref:jmix:bpm:menu-views/modeler-web.adoc[Веб‑моделер] поддерживает четыре источника для бизнес‑ключа: переменная процесса, атрибут сущности (например, ${entity.attribute}), вызов метода Spring‑бина или Flowable https://www.flowable.com/open-source/docs/bpmn/ch04-API/#expressions[expression^].
+Укажите xref:bpm-concepts.adoc#business-key[business key] через один из четырех источников: переменная процесса, атрибут переменной сущности (e.g., `${entity.attribute}`), вызов метода Spring bean или https://www.flowable.com/open-source/docs/bpmn/ch04-API/#expressions[выражение Flowable^].
 
 [[outcomes]]
-=== Outcomes
+== Outcomes
 
-Аттрибут outcomes содержит предопределенные варианты завершения задачи, указывающие какое решение принял исполнитель.
-В форме эти варианты будут представлены кнопками. Чтобы завершить задачу, пользователь должен нажать одну из них. Например, в задаче по утверждению документа пользователь может утвердить документ или отклонить его. Соответственно, он увидит две кнопки: "*Утвердить*" и "*Отклонить*". Если варианты не предопределены, то пользователь увидит стандартную кнопку *Complete*.
+Результаты формы отмечают завершение пользовательской задачи, позволяя пользователям указывать её статус, например, утверждено или отклонено. Результаты отображаются как кнопки на процессной форме. По умолчанию, если вы не укажете ни один результат, используется стандартный результат *Complete*.
 
-NOTE: Cобытие завершения задачи будет вызвано при выборе любого из вариантов.
+NOTE: Событие завершения задачи срабатывает независимо от конкретного результата.
 
-Чтобы задать значения для outcomes нажмите *create* в панели *BPM Inspector*:
+Чтобы добавить результат, нажмите кнопку image:quick-start/plus-button.png[align="center", width="32"]. Затем используйте редактор, чтобы указать id результата, заголовок и иконку.
 
-image::input-dialog-forms/create-outcomes.png[,400]
-
-Затем откроется окно редактора результатов. Здесь вы можете создать несколько вариантов снабдив их подписью и иконкой:
-
-image::input-dialog-forms/outcomes-editor.png[,600]
-
-Вы также можете редактировать значения непосредственно в панели *BPMN Inspector*.
-
-image::input-dialog-forms/outcomes-created.png[,400]
-
-==== XML представление
-
-В XML значения outcomes определяются c помощью элемента `jmix:formOutcomes`.
-
-[source,xml]
-----
-  <jmix:formOutcomes>
-    <jmix:formOutcome id="approve" caption="Approve" icon="CHECK" />
-    <jmix:formOutcome id="reject" caption="Reject" icon="BAN" />
-  </jmix:formOutcomes>
-----
+image::input-dialog-forms/outcomes-editor.png[align="center", width="610"]
 

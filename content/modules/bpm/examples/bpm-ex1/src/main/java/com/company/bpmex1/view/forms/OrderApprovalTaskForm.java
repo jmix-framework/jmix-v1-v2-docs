@@ -20,9 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
                 @Outcome(id = "reject")
         }
 )
+// end::outcomes[]
 public class OrderApprovalTaskForm extends StandardView {
 
-    // end::outcomes[]
     @ViewComponent
     @ProcessVariable // <2>
     private TypedTextField<String> orderNumber;
