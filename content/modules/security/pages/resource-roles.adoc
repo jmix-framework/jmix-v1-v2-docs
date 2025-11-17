@@ -128,7 +128,7 @@ A resource role can have any number of policies, and a user can have any number 
 
 * Fine-grained roles define permissions to closely related resources like an entity, its UI views and menu items. For example, "Full access to Customers", "Can create and update Orders". You would normally assign several such roles to the user.
 
-* Coarse-grained roles define all permissions required for a specific job, like "Salesperson". Such a role can define all permissions itself or inherit them from child roles, so a course-grained role can be made as an aggregation of fine-grained ones.
+* Coarse-grained roles define all permissions required for a specific job, like "Salesperson". Such a role can define all permissions itself or inherit them from base roles, so a course-grained role can be made as an aggregation of fine-grained ones.
 
 We recommend creating fine-grained roles at design time and using runtime capabilities only for combining them into different coarse-grained roles for simple assignment to users, and for rare ad-hoc changes in your security model.
 
