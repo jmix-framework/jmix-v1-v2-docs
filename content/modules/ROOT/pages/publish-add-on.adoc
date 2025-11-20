@@ -1,22 +1,22 @@
 = Публикация дополнений
 
-This guide will help you to set up everything you need for publishing your open-source add-on to the Jmix https://www.jmix.io/marketplace/[marketplace^].
+Это руководство поможет вам настроить всё необходимое для публикации вашего дополнения с открытым исходным кодом в https://www.jmix.io/marketplace/[маркетплейсе^] Jmix.
 
 [NOTE]
 ====
-With our proposed approach both source code and binary artifacts are hosted on GitHub.
+С нашим предлагаемым подходом и исходный код, и бинарные артефакты размещаются на GitHub.
 
-Alternatively, you can publish your add-on artifacts to Maven Central. In this case, create a GitHub repository for your source code, set up publishing by yourself and then follow the <<register-in-marketplace,Register Add-on in Marketplace>> instructions.
+Альтернативно, вы можете публиковать артефакты вашего дополнения в Maven Central. В этом случае создайте репозиторий GitHub для вашего исходного кода, настройте публикацию самостоятельно, а затем следуйте инструкциям <<register-in-marketplace,Регистрация дополнения в Маркетплейсе>>.
 ====
 
 [[create-project]]
-== Create Add-on Project
+== Создание проекта дополнения
 
-You can create your new Jmix add-on project through the Jmix Studio Project wizard using the *Add-On* template.
+Вы можете создать свой новый проект дополнения Jmix через мастер проектов Jmix Studio, используя шаблон *Add-On*.
 
-NOTE: Please don't use `io.jmix.*` as a base package and artifact group of your add-on. This name is reserved for Jmix core add-ons. Ideally, the base package should be a reverse-DNS notation of your own internet domain.
+NOTE: Пожалуйста, не используйте `io.jmix.*` в качестве базового пакета и группы артефактов вашего дополнения. Это имя зарезервировано для основных дополнений Jmix. В идеале базовый пакет должен быть обратной DNS-записью вашего собственного интернет-домена.
 
-To interact well with the GitHub Actions workflows we will see later, you should change the repository settings for publishing add-on artifacts to GitHub Packages:
+Для корректного взаимодействия с рабочими процессами GitHub Actions, которые мы рассмотрим далее, вам следует изменить настройки репозитория для публикации артефактов дополнения в GitHub Packages:
 
 [source, groovy]
 .build.gradle
@@ -42,7 +42,7 @@ publishing {
 }
 ----
 
-Additionally, you should remove the version attribute in `build.gradle` (under `group = 'my.new.jmix.addon'`). Instead, create a file called `gradle.properties` with the version information directly next to the `build.gradle` file:
+Дополнительно следует удалить атрибут `version` в `build.gradle` (под `group = 'my.new.jmix.addon'`). Вместо этого создайте файл с именем `gradle.properties` с информацией о версии непосредственно рядом с файлом `build.gradle`:
 
 [source,properties]
 .gradle.properties
@@ -51,29 +51,29 @@ version=0.0.1-SNAPSHOT
 ----
 
 [[github-repository]]
-== Create GitHub Repository
+== Создание репозитория GitHub
 
-Now you need a GitHub repository. GitHub offers all necessary parts for publishing an open-source add-on:
+Теперь вам нужен репозиторий GitHub. GitHub предлагает все необходимые компоненты для публикации дополнения с открытым исходным кодом:
 
-* source code hosting
-* continuous integration system (GitHub Actions)
-* package management (GitHub Package Registry)
+* хостинг исходного кода
+* систему непрерывной интеграции (GitHub Actions)
+* управление пакетами (GitHub Package Registry)
 
-You can create a new GitHub repository https://github.com/new[here^].
+Вы можете создать новый репозиторий GitHub https://github.com/new[здесь^].
 
 [[license]]
-== Choose License
+== Выбор лицензии
 
-There are several open-source licenses that you can choose from. https://opensource.org/licenses/Apache-2.0[Apache License, Version 2.0^], as well as https://opensource.org/licenses/MIT[MIT License^], are common liberal licenses for open-source projects. Jmix itself is licensed under https://github.com/jmix-framework/jmix/blob/master/LICENSE.txt[Apache 2.0^].
+Существует несколько лицензий с открытым исходным кодом на выбор. https://opensource.org/licenses/Apache-2.0[Лицензия Apache, версия 2.0^], а также https://opensource.org/licenses/MIT[Лицензия MIT^], являются распространенными либеральными лицензиями для проектов с открытым исходным кодом. Сам Jmix лицензирован под https://github.com/jmix-framework/jmix/blob/master/LICENSE.txt[Apache 2.0^].
 
-Once you have picked a license, put the license file into the root directory of your GitHub repository.
+После выбора лицензии поместите файл лицензии в корневую директорию вашего репозитория GitHub.
 
 [[continuous-integration]]
-== Set up CI
+== Настройка CI
 
-GitHub offers a built-in CI system, that compiles the code, runs tests, performs releases, etc. for free for open-source projects.
+GitHub предлагает встроенную систему CI, которая бесплатно для проектов с открытым исходным кодом компилирует код, запускает тесты, выполняет выпуски релизов и т.д.
 
-By adding the following GitHub action workflow files into your GitHub repository, the CI system will perform compilation and execution of automated tests. You will need to create the directory `.github/workflows` manually in the repository.
+Добавив следующие файлы рабочих процессов GitHub Actions в ваш репозиторий GitHub, система CI выполнит компиляцию и запуск автоматизированных тестов. Вам потребуется вручную создать директорию `.github/workflows` в репозитории.
 
 [source,yaml]
 .test.yml
@@ -135,59 +135,59 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 ----
 
-With those two files in place GitHub Actions will perform the following tasks:
+При наличии этих двух файлов GitHub Actions будет выполнять следующие задачи:
 
-* compile the code
-* run unit / integration tests
-* store test results
-* publishes a new version for newly created releases
+* компиляция кода
+* запуск модульных / интеграционных тестов
+* сохранение результатов тестов
+* публикация новой версии для вновь созданных релизов
 
 [[create-release]]
-== Create Release
+== Создание релиза
 
-GitHub allows creating releases through the Web UI and the CLI. For the web UI, you have to first create a tag for a particular commit. Next, you can create the corresponding release. See https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository[GitHub docs] for more information.
+GitHub позволяет создавать релизы через веб-интерфейс и CLI. Для веб-интерфейса сначала необходимо создать тег для определенного коммита. Затем вы можете создать соответствующий релиз. Смотрите https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository[документацию GitHub^] для получения дополнительной информации.
 
-To create a GitHub release through the CLI use the following command: `gh release create 0.1.0`. You should replace `0.1.0` with your desired version to create.
+Чтобы создать релиз GitHub через CLI, используйте следующую команду: `gh release create 0.1.0`. Вы должны заменить `0.1.0` на желаемую версию для создания.
 
-TIP: We propose to follow https://semver.org/[semantic versioning], which defines how to increase version numbers based on the type of change you performed in this release. It allows users to more easily understand the potential impact of a version update.
+TIP: Мы предлагаем следовать https://semver.org/[семантическому версионированию^], которое определяет, как увеличивать номера версий в зависимости от типа изменений, выполненных в этом релизе. Это позволяет пользователям легче понять потенциальное влияние обновления версии.
 
-Once the release is created, GitHub actions will create the artifact and release it accordingly.
+После создания релиза GitHub actions создаст артефакт и выпустит его соответствующим образом.
 
 [[register-in-marketplace]]
-== Register Add-on in Marketplace
+== Регистрация дополнения в Маркетплейсе
 
 [[create-issue]]
-=== Create Issue
+=== Создание Issue
 
-To publish an add-on to the Jmix Marketplace, you need to create an issue in the https://github.com/jmix-framework/jmix-website-content/issues/new/choose[jmix-website-content^] repository. Select "Publish Add-on to Marketplace" and enter the add-on name and the Github repository it is located in.
+Чтобы опубликовать дополнение в Маркетплейсе Jmix, вам необходимо создать issue в репозитории https://github.com/jmix-framework/jmix-website-content/issues/new/choose[jmix-website-content^]. Выберите "Publish Add-on to Marketplace" и введите название дополнения и репозиторий GitHub, в котором оно находится.
 
-After you created the issue, we will check the add-on and, if the add-on artifacts are published on GitHub Packages, create proxies to allow users to download the artifacts from the standard Jmix repositories `global.repo.jmix.io` and `nexus.jmix.io`.
+После того как вы создадите issue, мы проверим дополнение и, если артефакты дополнения опубликованы в GitHub Packages, создадим прокси, чтобы позволить пользователям загружать артефакты из стандартных репозиториев Jmix `global.repo.jmix.io` и `nexus.jmix.io`.
 
 [[submit-description]]
-=== Submit Description
+=== Предоставление описания
 
-Create a PR with the description of your add-on in the https://github.com/Haulmont/jmix-website-content/tree/master/Content/Add-ons[add-on directory^] of the `jmix-website-content` repository. We accept the PR and publish the content on the website.
+Создайте PR с описанием вашего дополнения в https://github.com/Haulmont/jmix-website-content/tree/master/Content/Add-ons[директории дополнений^] репозитория `jmix-website-content`. Мы примем PR и опубликуем контент на сайте.
 
-If you later want to make changes to your description, you can create another PR with your desired changes in this repository.
+Если позже вы захотите внести изменения в свое описание, вы можете создать другой PR с желаемыми изменениями в этом репозитории.
 
 [[update-bom]]
-=== Update Jmix BOM
+=== Обновление Jmix BOM
 
-After the <<create-release,release>> is published on GitHub, you will be able to download the artifact through the Jmix artifact repositories `global.repo.jmix.io` and `nexus.jmix.io`.
+После того как <<create-release,релиз>> будет опубликован на GitHub, вы сможете загружать артефакт через репозитории артефактов Jmix `global.repo.jmix.io` и `nexus.jmix.io`.
 
-Generally, Jmix works with BOM (bill of materials) to centrally manage compatible versions. You can find the versions that are specified for a given Jmix release in the https://github.com/jmix-framework/jmix/tree/master/jmix-bom[jmix-bom^] project on GitHub.
+Как правило, Jmix работает с BOM (Bill of Materials) для централизованного управления совместимыми версиями. Версии, указанные для данного релиза Jmix, можно найти в проекте https://github.com/jmix-framework/jmix/tree/master/jmix-bom[jmix-bom^] на GitHub.
 
-The main benefit of this approach is that users don't have to manually find out the correct version of your add-on that is compatible with their version of Jmix. Instead, you declare which version is working correctly with a particular Jmix release centrally in the BOM.
+Основное преимущество этого подхода заключается в том, что пользователям не нужно вручную выяснять правильную версию вашего дополнения, совместимую с их версией Jmix. Вместо этого вы объявляете, какая версия корректно работает с конкретным релизом Jmix, централизованно в BOM.
 
-To connect your release with a particular Jmix version, create an issue at https://github.com/jmix-framework/jmix/issues[^] and provide the compatible add-on and Jmix versions.
+Чтобы связать ваш релиз с конкретной версией Jmix, создайте issue на https://github.com/jmix-framework/jmix/issues[^] и укажите совместимые версии дополнения и Jmix.
 
-Alternatively, you can create a PR to the corresponding https://github.com/jmix-framework/jmix/branches/all?query=release_[release branch^].
+Альтернативно, вы можете создать PR в соответствующую https://github.com/jmix-framework/jmix/branches/all?query=release_[ветку релиза^].
 
-1. Fork the https://github.com/jmix-framework/jmix[jmix-framework/jmix^] repository.
+1. Сделайте форк репозитория https://github.com/jmix-framework/jmix[jmix-framework/jmix^].
 
-2. Switch to a Jmix release branch you would like to add your release to (like `{page-origin-branch}`).
+2. Переключитесь на ветку релиза Jmix, в которую вы хотите добавить свой релиз (например, `{page-origin-branch}`).
 
-3. Add a line with your maven coordinates and the correct version to `jmix-bom/bom.gradle` after the `community add-ons` comment:
+3. Добавьте строку с вашими Maven-координатами и правильной версией в `jmix-bom/bom.gradle` после комментария `community add-ons`:
 +
 [source,gradle]
 .bom.gradle
@@ -199,12 +199,12 @@ api 'my.new.jmix.addon:my-add-on-starter:1.0.0'
 // end community add-ons
 ----
 
-4. Create a PR with the target branch: `{page-origin-branch}` of the `jmix-framework/jmix` repository.
+4. Создайте PR с целевой веткой: `{page-origin-branch}` репозитория `jmix-framework/jmix`.
 
 [NOTE]
 ====
-When a new major or minor Jmix version is released (for example, 5.5.0), its BOM doesn't contain any third-party add-ons because they are not tested for compatibility with the new version.
+Когда выпускается новая мажорная или минорная версия Jmix (например, 5.5.0), её BOM не содержит сторонних дополнений, поскольку они не протестированы на совместимость с новой версией.
 
-You should create a new issue or submit a PR for the corresponding release branch (for example, `release_5_5`) to include your add-on in the new BOM.
-Until your add-on is not in the BOM, users can still use your add-on with the new Jmix version if they explicitly specify the add-on version in their build scripts.
+Вам следует создать новый issue или отправить PR для соответствующей ветки релиза (например, `release_5_5`), чтобы включить ваше дополнение в новый BOM.
+Пока ваше дополнение не находится в BOM, пользователи всё равно могут использовать ваше дополнение с новой версией Jmix, если они явно укажут версию дополнения в своих скриптах сборки.
 ====
