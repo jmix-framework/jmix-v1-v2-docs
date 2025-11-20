@@ -1,77 +1,77 @@
-= Bands and Datasets
+= Бэнды и наборы данных
 
-The internal report structure is composed of _bands_. A band represents a section of the report that may appear zero or more times in the final document.
+Внутренняя структура отчета состоит из _бэндов_. Бэнд представляет собой раздел отчета, который может появляться в итоговом документе ноль или более раз.
 
-A band is populated with data provided by one or multiple _datasets_ associated with the band.
+Бэнд заполняется данными, предоставляемыми одним или несколькими _наборами данных_, связанными с этим бэндом.
 
-In the report template, the bands are marked up in a way that depends on the file format. The report definition includes the hierarchical structure of bands, corresponding to the template bands.
+В шаблоне отчета бэнды размечены способом, зависящим от формата файла. Определение отчета включает иерархическую структуру бэндов, соответствующую бэндам шаблона.
 
-The picture below shows an example of bands used in a report:
+На рисунке ниже показан пример бэндов, используемых в отчете:
 
-.Sample report bands
+.Пример бэндов отчета
 image::create/bands-1.svg[align="center", width="611"]
 
-The `Root` band in the report definition is predefined, however, it may not be used in a template.
+Бэнд `Root` в определении отчета предопределен, однако он может не использоваться в шаблоне.
 
-TIP: You can find examples of various bands and datasets in the xref:reports-guide:index.adoc[] guide.
+TIP: Примеры различных бэндов и наборов данных можно найти в руководстве xref:reports-guide:index.adoc[].
 
 [[bands]]
-== Bands
+== Бэнды
 
 [[bands-tab]]
-=== Bands Tab
+=== Вкладка Bands
 
-The *Bands* tab of the runtime report editor allows you to define the band hierarchy and datasets for each band.
+Вкладка *Bands* редактора отчетов позволяет определить иерархию бэндов и наборы данных для каждого бэнда.
 
 image::bands.png[align="center",width="1079"]
 
-A report band has the following parameters:
+Бэнд отчета имеет следующие параметры:
 
-* *Name* -- band name, unique within the report. It must contain only Latin letters, numbers, and underscores.
+* *Name* -- имя бэнда, уникальное в пределах отчета. Должно содержать только латинские буквы, цифры и знаки подчеркивания.
 +
-NOTE: If the band name starts with *header*, its data will not be printed when using the xref:creation/templates.adoc#table_output[table formatter].
+NOTE: Если имя бэнда начинается с *header*, его данные не будут выводиться при использовании xref:creation/templates.adoc#table_output[форматера таблиц].
 
-* *Orientation* -- band orientation: *Horizontal*, *Vertical* or *Crosstab*.
-** *Horizontal* bands are copied downwards. They may contain sub-bands.
-** *Vertical* bands are copied to the right.
-** *Crosstab* bands are copied to the right and downwards as a matrix.
+* *Orientation* - ориентация бэнда: *Horizontal*, *Vertical* или *Crosstab*.
+** *Horizontal* бэнды копируются вниз. Они могут содержать подбэнды.
+** *Vertical* бэнды копируются вправо.
+** *Crosstab* бэнды копируются вправо и вниз в виде матрицы.
 
-* *Parent* -- parent band.
+* *Parent* - родительский бэнд.
 
-* *Multiple Datasets* -- select this checkbox if you want to define more than one dataset for the band.
+* *Multiple Datasets* - установите этот флажок, если хотите определить более одного набора данных для бэнда.
 
-* *Dataset type* -- <<datasets,the type>> of dataset.
+* *Dataset type* -- <<datasets,тип>> набора данных.
 
-Each band includes one or more datasets. When running a report, datasets are transformed into lists of rows, where each row contains a map of name-value pairs. A band appears in the report as many times as the number of rows in its longest dataset.
+Каждый бэнд включает один или несколько наборов данных. При запуске отчета наборы данных преобразуются в списки строк, где каждая строка содержит карту пар "имя-значение". Бэнд появляется в отчете столько раз, сколько строк в его самом длинном наборе данных.
 
-Fields defined in the report template are replaced with corresponding values from the dataset when the report is executed. When defining datasets, you can use xref:creation/parameters.adoc[report external parameters] and fields from other bands, which lets you link bands.
+Поля, определенные в шаблоне отчета, заменяются соответствующими значениями из набора данных при выполнении отчета. При определении наборов данных можно использовать xref:creation/parameters.adoc[внешние параметры отчета] и поля из других бэндов, что позволяет связывать бэнды.
 
-Each report has the *Root* band. You can create datasets in it and refer to their fields from other bands.
+Каждый отчет имеет бэнд *Root*. В нем можно создавать наборы данных и ссылаться на их поля из других бэндов.
 
-Note that the *Dataset name* column, available when working with multiple datasets, is for user convenience only.
+Обратите внимание, что столбец *Dataset name*, доступный при работе с несколькими наборами данных, предназначен только для удобства пользователя.
 
 [[band-def]]
-=== @BandDef Annotation
+=== Аннотация @BandDef
 
-The `@BandDef` allows you to define bands when creating a report at design time. It has the following attributes:
+Аннотация `@BandDef` позволяет определять бэнды при создании отчета во время разработки. Она имеет следующие атрибуты:
 
-* `name` -- band name, unique within the report. It must contain only Latin letters, numbers, and underscores.
-* `parent` -- name of the parent band. Can be omitted only for the `Root` band.
-* `root` -- must be set to `true` only for the `Root` band. `false` by default.
-* `orientation` -- band's orientation defined by the `Orientation` enum: `HORIZONTAL`, `VERTICAL`, `CROSS`. It's `HORIZONTAL` by default.
-* `dataSets` -- datasets defined by the array of `@DataSetDef` annotations.
+* `name` - имя бэнда, уникальное в пределах отчета. Должно содержать только латинские буквы, цифры и знаки подчеркивания.
+* `parent` - имя родительского бэнда. Может быть опущено только для бэнда `Root`.
+* `root` - должно быть установлено в `true` только для бэнда `Root`. По умолчанию `false`.
+* `orientation` - ориентация бэнда, определяемая перечислением `Orientation`: `HORIZONTAL`, `VERTICAL`, `CROSS`. По умолчанию `HORIZONTAL`.
+* `dataSets` - наборы данных, определяемые массивом аннотаций `@DataSetDef`.
 
-The report must include the definition of the `Root` band with `name = "Root"` and `root = true` attributes.
+Отчет должен включать определение бэнда `Root` с атрибутами `name = "Root"` и `root = true`.
 
-IMPORTANT: The order of `@BandDef` annotations in the report definition Java class is important. It affects the printing order of bands on the same level of the hierarchy.
+IMPORTANT: Порядок аннотаций `@BandDef` в Java-классе определения отчета важен. Он влияет на порядок вывода бэндов на одном уровне иерархии.
 
 [[datasets]]
-== Datasets
+== Наборы данных
 
 [[structure_sql]]
-=== SQL Dataset
+=== Набор данных SQL
 
-*SQL* dataset is produced as a result of SQL query execution. It is recommended to use aliases for query result fields using the `as` operator. It is also recommended to enclose the aliases in double quotes to prevent possible case conversion by the DBMS:
+*SQL* набор данных формируется в результате выполнения SQL-запроса. Рекомендуется использовать псевдонимы для полей результата запроса с помощью оператора `as`. Также рекомендуется заключать псевдонимы в двойные кавычки, чтобы предотвратить возможное преобразование регистра СУБД:
 
 [source, sql,indent=0]
 ----
@@ -79,9 +79,9 @@ select u.name as "userName", u.login as "userLogin"
 from user_ u
 ----
 
-You can use report input parameters and parent bands fields in the query. Parameters should be addressed by name enclosed in `${}`, for example, `++${dateFrom}++`. Parent band fields should be addressed similarly, by adding the band name in front of the field name: `${band1.field1}`.
+В запросе можно использовать входные параметры отчета и поля родительских бэндов. К параметрам следует обращаться по имени, заключенному в `${}`, например, `++${dateFrom}++`. К полям родительских бэндов следует обращаться аналогично, добавляя имя бэнда перед именем поля: `${band1.field1}`.
 
-Below is an example of an SQL query with a `groupId` parameter, obtained from the `group` parent band and an external `enabled` parameter:
+Ниже приведен пример SQL-запроса с параметром `groupId`, полученным из родительского бэнда `group`, и внешним параметром `enabled`:
 
 [source, sql,indent=0]
 ----
@@ -94,36 +94,36 @@ where u.group_id = ${group.groupId}
 
 [CAUTION]
 ====
-You should manually include conditions to filter soft deleted records for SQL queries.
+В SQL-запросах следует вручную добавлять условия для фильтрации записей, помеченных как удаленные.
 ====
 
 [[link_field]]
-Merge multiple datasets::
+Объединение нескольких наборов данных::
 +
 --
-The *Link field* is used to merge data from multiple datasets inside one band. It can be used when the whole data for the report row could not be received by a single query or a Groovy script.
+*Link field* используется для объединения данных из нескольких наборов данных внутри одного бэнда. Может использоваться, когда все данные для строки отчета не могут быть получены одним запросом или Groovy-скриптом.
 --
 
 [[data_store]]
-Selecting data store::
+Выбор хранилища данных::
 +
 --
-By default, queries are executed on the main database. If you want to query an xref:data-model:data-stores.adoc#additional[additional data store], set its name in the *Data store* field.
+По умолчанию запросы выполняются к основной базе данных. Если требуется выполнить запрос к xref:data-model:data-stores.adoc#additional[дополнительному хранилищу данных], укажите его имя в поле *Data store*.
 --
 
 [[query_preprocessing]]
-Query preprocessing in bands::
+Предварительная обработка запросов в бэндах::
 +
 --
-If you need to modify the SQL/JPQL query dynamically depending on the report input parameters or the parameter values from the parent band, you can use the SQL preprocessing. The template engine enables you to modify SQL/JPQL queries using Groovy. In order to activate it, check the *Preprocess query as Groovy template* checkbox below the band editor. The resulting query will be processed by `GStringTemplateEngine` that will have access to:
+Если необходимо динамически модифицировать SQL/JPQL запрос в зависимости от входных параметров отчета или значений параметров из родительского бэнда, можно использовать предварительную обработку SQL. Механизм шаблонов позволяет модифицировать SQL/JPQL запросы с помощью Groovy. Для активации установите флажок *Preprocess query as Groovy template* под редактором бэнда. Итоговый запрос будет обработан `GStringTemplateEngine`, который получит доступ к:
 
-* the report parameters: `${<parameter_name>}`,
+* параметрам отчета: ${<имя_параметра>},
 
-* values from parent bands: `${<band_name>.<parameter_name>}`.
+* значениям из родительских бэндов: ${<имя_бэнда>.<имя_параметра>}.
 
-Let's consider the following example: depending on whether the `createTs2` report parameter is passed you need to select one of the query conditions: `e.create_ts < $\{createTs2\}` or `e.create_ts < current_timestamp`.
+Рассмотрим пример: в зависимости от того, передан ли параметр отчета `createTs2`, нужно выбрать одно из условий запроса: `e.create_ts < $\{createTs2\}` или `e.create_ts < current_timestamp`.
 
-In this case, the query should look like this:
+В этом случае запрос должен выглядеть так:
 
 [source, sql,indent=0]
 ----
@@ -134,7 +134,7 @@ and
 <% out << (createTs2 != null  ? 'e.create_ts < ${createTs2}' : 'e.create_ts < current_timestamp')%>
 ----
 
-Thus, if the `createTs2` parameter is not passed, the initial query will be transformed into the following resulting query:
+Таким образом, если параметр `createTs2` не передан, исходный запрос преобразуется в следующий итоговый запрос:
 
 [source, sql,indent=0]
 ----
@@ -145,7 +145,7 @@ and
 e.create_ts < current_timestamp
 ----
 
-If `createTs2` is passed, the following resulting query will be used for the band:
+Если createTs2 передан, для бэнда будет использован следующий итоговый запрос:
 
 [source, sql,indent=0]
 ----
@@ -158,11 +158,11 @@ e.create_ts < ${createTs2}
 --
 
 [[structure_jpql]]
-=== JPQL Dataset
+=== Набор данных JPQL
 
-*JPQL* dataset is produced as a result of JPQL query execution. The resulted query fields must have aliases provided using the `as` operator. Similar to SQL query, you can use report input parameters and parent bands fields in the JPQL query.
+Набор данных *JPQL* формируется в результате выполнения JPQL-запроса. Поля результирующего запроса должны иметь псевдонимы, заданные с помощью оператора `as`. Аналогично SQL-запросу, в JPQL-запросе можно использовать входные параметры отчета и поля родительских бэндов.
 
-Below is an example of a JPQL query with a `groupId` parameter, obtained from the `group` parent band and an external `enabled` parameter:
+Ниже приведен пример JPQL-запроса с параметром `groupId`, полученным из родительского бэнда `group`, и внешним параметром `enabled`:
 
 [source, jpql,indent=0]
 ----
@@ -172,65 +172,65 @@ where u.group.id = ${group.groupId}
     and u.active = ${active}
 ----
 
-JPQL queries automatically support soft deletion and return only records that are not deleted.
+JPQL-запросы автоматически поддерживают мягкое удаление и возвращают только записи, не помеченные как удаленные.
 
 [IMPORTANT]
 ====
-When using a JPQL query as a data source for a report, please note that the query is executed directly against the database and bypasses xref:data-access:data-manager.adoc[DataManager]. This means that the system's regular xref:security:authorization.adoc#data-access-checks[data access security checks] (row-level and resource) are *not applied automatically*. You must ensure that your JPQL queries only retrieve data that the user is authorized to access. It is your responsibility to implement any necessary security checks in your queries.
+При использовании JPQL-запроса в качестве источника данных для отчета обратите внимание, что запрос выполняется напрямую к базе данных и обходит xref:data-access:data-manager.adoc[DataManager]. Это означает, что обычные xref:security:authorization.adoc#data-access-checks[проверки безопасности доступа к данным] (на уровне строк и ресурсов) *не применяются автоматически*. Вы должны убедиться, что ваши JPQL-запросы извлекают только те данные, к которым пользователь имеет право доступа. Вы несете ответственность за реализацию необходимых проверок безопасности в ваших запросах.
 ====
 
-You can also use *Link field* to <<link_field,merge multiple datasets>>, use *Data store* to <<data_store,query additional data store>> or activate <<query_preprocessing,query preprocessing>> by checking the *Preprocess query as Groovy template* checkbox below the band editor.
+Вы также можете использовать *Link field* для <<link_field,объединения нескольких наборов данных>>, использовать *Data store* для <<data_store,запросов к дополнительному хранилищу данных>> или активировать <<query_preprocessing,предварительную обработку запросов>>, установив флажок *Preprocess query as Groovy template* под редактором бэнда.
 
 [[structure_groovy]]
-=== Groovy Dataset
+=== Набор данных Groovy
 
-*Groovy* dataset is produced as a result of Groovy script execution. The script returns an object of the `List<Map<String, Object>>` type. Each element of this list - an object of the `Map<String, Object>` type - corresponds to one dataset record.
+Набор данных Groovy формируется в результате выполнения Groovy-скрипта. Скрипт возвращает объект типа `List<Map<String, Object>>`. Каждый элемент этого списка - объект типа `Map<String, Object>` - соответствует одной записи набора данных.
 
-The following objects are passed into the script:
+В скрипт передаются следующие объекты:
 
-* `params` - external report parameters map. Below is an example to get a parameter value:
+* `params` - карта внешних параметров отчета. Пример получения значения параметра:
 +
 [source, groovy,indent=0]
 ----
 def active = params['active']
 ----
 
-* `parentBand` - parent band as an object of the `io.jmix.reports.yarg.structure.BandData` type. This object allows you to get a parent band field value by invoking the `getParameterValue()` method, for example:
+* `parentBand` - родительский бэнд как объект типа `io.jmix.reports.yarg.structure.BandData`. Этот объект позволяет получить значение поля родительского бэнда путем вызова метода `getParameterValue()`, например:
 +
 [source, groovy,indent=0]
 ----
 def groupId = parentBand.getParameterValue('groupId')
 ----
 
-* `currentAuthentication` - an object of the `io.jmix.core.security.CurrentAuthentication` type associated with the currently authenticated user. For example:
+* `currentAuthentication` - объект типа `io.jmix.core.security.CurrentAuthentication`, связанный с текущим аутентифицированным пользователем. Например:
 +
 [source, groovy,indent=0]
 ----
 def user = currentAuthentication.getUser()
 ----
 
-* `metadata` - an object of the `io.jmix.core.Metadata` type, providing access the application metadata. For example:
+* `metadata` - объект типа `io.jmix.core.Metadata`, предоставляющий доступ к метаданным приложения. Например:
 +
 [source, groovy,indent=0]
 ----
 def metaClass = metadata.getClass('User')
 ----
 
-* `dataManager` - an object of the `io.jmix.core.DataManager` type that provides CRUD functionality. For example:
+* `dataManager` - объект типа `io.jmix.core.DataManager`, предоставляющий CRUD-функциональность. Например:
 +
 [source, groovy,indent=0]
 ----
 def book = dataManager.load(Book.class).id(bookId).fetchPlan("book.edit").one()
 ----
 
-* `timeSource` - an object of the `io.jmix.core.TimeSource` type used to obtain the current time. For example:
+* `timeSource` - объект типа `io.jmix.core.TimeSource`, используемый для получения текущего времени. Например:
 +
 [source, groovy,indent=0]
 ----
 def currentDate = timeSource.currentTimestamp()
 ----
 
-* `applicationContext` - an object of the `org.springframework.context.ApplicationContext` type that provides access to managed beans. For example:
+* `applicationContext` - объект типа `org.springframework.context.ApplicationContext`, предоставляющий доступ к управляемым бинам. Например:
 +
 [source, groovy,indent=0]
 ----
@@ -238,17 +238,17 @@ def accountService = applicationContext.getBean(AccountService);
 ----
 
 [[structure_entity]]
-=== Entity Dataset
+=== Набор данных Entity
 
-*Entity* dataset consists of a single row and is produced using attributes of a single JPA entity instance and the entities related to it.
+Набор данных *Entity* состоит из одной строки и формируется с использованием атрибутов одного экземпляра JPA-сущности и связанных с ней сущностей.
 
-The data source is produced from an external parameter of the *Entity* type, which must be described in the *Parameters* tab. The value in the *Entity parameter name* field must match the parameter name.
+Источник данных формируется из внешнего параметра типа *Entity*, который должен быть описан на вкладке *Parameters*. Значение в поле *Entity parameter name* должно совпадать с именем параметра.
 
-The report template must contain fields with entity attribute names. Attribute names can use names in the existing fetch plan by checking *Use existing fetch plan* or can be selected by the *Select entity attributes* button.
+Шаблон отчета должен содержать поля с именами атрибутов сущности. Имена атрибутов могут использовать имена из существующего фетч-плана (при установке флажка *Use existing fetch plan*) или могут быть выбраны кнопкой *Select entity attributes*.
 
 [CAUTION]
 ====
-As the reporting engine always reloads entities in the *Entity* dataset from the database, you cannot use it for DTO entities or JPA entity instances not saved to the database. Instead, use the <<structure_groovy,Groovy dataset>> and access the entity passed as a parameter in the following way:
+Поскольку механизм отчетов всегда перезагружает сущности в наборе данных *Entity* из базы данных, вы не можете использовать его для DTO-сущностей или экземпляров JPA-сущностей, не сохраненных в базе данных. Вместо этого используйте <<structure_groovy,Набор данных Groovy>> и обращайтесь к сущности, переданной как параметр, следующим образом:
 
 [source,groovy,indent=0]
 ----
@@ -260,17 +260,17 @@ return [['title': entity.title,
 ====
 
 [[structure_list]]
-=== List of Entities Dataset
+=== Набор данных List of Entities
 
-*List of entities* dataset is produced using a list of JPA entity instances.
+Набор данных *List of entities* формируется с использованием списка экземпляров JPA-сущностей.
 
-The data source is produced using an external parameter being a *List of entities*, which must be described in the *Parameters* tab. The value in the *List of entities parameter name* field must match the parameter alias.
+Источник данных формируется с использованием внешнего параметра типа *List of entities*, который должен быть описан на вкладке *Parameters*. Значение в поле *List of entities parameter name* должно совпадать с псевдонимом параметра.
 
-The report template must contain fields with entity attribute names. Attribute names can use names in the existing fetch plan by checking *Use existing fetch plan* or can be selected by the *Select entity attributes* button.
+Шаблон отчета должен содержать поля с именами атрибутов сущности. Имена атрибутов могут использовать имена из существующего фетч-плана (при установке флажка *Use existing fetch plan*) или могут быть выбраны кнопкой *Select entity attributes*.
 
 [CAUTION]
 ====
-As the reporting engine always reloads entities in the *List of entities* dataset from the database, you cannot use it for DTO entities or JPA entity instances not saved to the database. Instead, use the <<structure_groovy,Groovy dataset>> and access the list of entities passed as a parameter in the following way:
+Поскольку механизм отчетов всегда перезагружает сущности в наборе данных *List of entities* из базы данных, вы не можете использовать его для DTO-сущностей или экземпляров JPA-сущностей, не сохраненных в базе данных. Вместо этого используйте <<structure_groovy,Набор данных Groovy>> и обращайтесь к списку сущностей, переданному как параметр, следующим образом:
 
 [source,groovy,indent=0]
 ----
@@ -282,16 +282,16 @@ return params['entities'].collect {[
 ====
 
 [[structure_json]]
-=== JSON Dataset
+=== Набор данных JSON
 
-*JSON* dataset is generated from JSON data. This data can be received from the following sources:
+Набор данных *JSON* генерируется из JSON-данных. Эти данные могут быть получены из следующих источников:
 
-. *Groovy script*
+. *Groovy-скрипт*
 +
 --
-The script provided by the user is supposed to return JSON data as a string.
+Предполагается, что скрипт, предоставленный пользователем, возвращает JSON-данные в виде строки.
 
-For example:
+Например:
 
 [source, json,indent=0]
 ----
@@ -302,9 +302,9 @@ include::example$/library/src/main/resources/com/company/library/reports/bands/j
 . *URL*
 +
 --
-The report engine will perform a GET HTTP query against the URL.
+Механизм отчетов выполнит HTTP-запрос GET по указанному URL.
 
-For example:
+Например:
 
 [source, plain,indent=0]
 ----
@@ -315,23 +315,23 @@ https://jsonplaceholder.typicode.com/users
 . *Parameter*
 +
 --
-The report external parameter of String type which contains the JSON data must be described in the *Parameters* tab.
+Внешний параметр отчета типа String, содержащий JSON-данные, должен быть описан на вкладке *Parameters*.
 --
 
-The received JSON tree is queried using the JsonPath query. For example, you can use the `$.store.book[*]` JsonPath to return all books from the following JSON tree:
+Полученное JSON-дерево запрашивается с помощью JsonPath-запроса. Например, можно использовать JsonPath `$.store.book[*]` для возврата всех книг из следующего JSON-дерева:
 
 [source, json,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/reports/bands/json.json[]
 ----
 
-For more details on JsonPath expressions, see the http://goessner.net/articles/JsonPath/[documentation^].
+Для получения более подробной информации о выражениях JsonPath смотрите http://goessner.net/articles/JsonPath/[документацию^].
 
 [CAUTION]
 ====
-Fields outputted by the report that have `Date`, `DateTime`, or `Time` data types do not support the format defined by `java.text.SimpleDateFormat`. To set the correct format, you should write a Groovy script.
+Поля, выводимые отчетом, которые имеют типы данных `Date`, `DateTime` или `Time`, не поддерживают формат, определенный `java.text.SimpleDateFormat`. Чтобы установить правильный формат, следует написать Groovy-скрипт.
 
-To do this, switch to the **Value formats** tab of the report detail view and open the xref:creation/value-formats.adoc[formatter] dialog. For example, for the field `bookPublication.dateTime` Groovy-script will look like this:
+Для этого перейдите на вкладку *Value formats* экрана деталей отчета и откройте диалог xref:creation/value-formats.adoc[форматера]. Например, для поля `bookPublication.dateTime` Groovy-скрипт будет выглядеть так:
 
 [source, groovy,indent=0]
 ----
@@ -340,25 +340,25 @@ include::example$/library/src/main/resources/com/company/library/reports/bands/f
 ====
 
 [[data-set-def]]
-=== @DataSetDef Annotation
+=== Аннотация @DataSetDef
 
-The `@DataSetDef` annotation allows you to define datasets when creating a report at design time. It has the following attributes:
+Аннотация `@DataSetDef` позволяет определять наборы данных при создании отчета во время разработки. Она имеет следующие атрибуты:
 
-* `name` -- dataset name. It is used in datasets of the `DELEGATE` type to link the dataset definition with the method that returns the delegate.
+* `name` - имя набора данных. Используется в наборах данных типа `DELEGATE` для связи определения набора данных с методом, возвращающим делегат.
 +
-In a cross-tab band (`@BandDef.orientation = Orientation.CROSS`), the datasets must have the following names:
+В кросс-табличном бэнде (`@BandDef.orientation = Orientation.CROSS`) наборы данных должны иметь следующие имена:
 
-** Column headers: `$\{band_name}_dynamic_header`
-** Row headers: `$\{band_name}_master_data`
-** Main content: `$\{band_name}`
+** Заголовки столбцов: `$\{band_name}_dynamic_header`
+** Заголовки строк:  `$\{band_name}_master_data`
+** Основное содержимое: `$\{band_name}`
 
-* `type` -- dataset type defined by the `DataSetType` enum. Values of this enum correspond to the types of runtime datasets described above.
+* `type` - тип набора данных, определяемый перечислением `DataSetType`. Значения этого перечисления соответствуют типам наборов данных во время выполнения, описанным выше.
 +
-Usually, design-time reports use datasets of the `DELEGATE` type. In this case, they are linked by name with methods annotated with `@DataSetDelegate` annotation.
+Обычно в отчетах, создаваемых во время разработки, используются наборы данных типа `DELEGATE`. В этом случае они связываются по имени с методами, аннотированными аннотацией `@DataSetDelegate`.
 
 [[data-set-delegate]]
-=== @DataSetDelegate Annotation
+=== Аннотация @DataSetDelegate
 
-The `@DataSetDelegate` annotation allows you to define a method that returns a delegate for executing a dataset logic. It has the `name` attributes, which should be equal to the name of the corresponding dataset.
+Аннотация `@DataSetDelegate` позволяет определить метод, который возвращает делегат для выполнения логики набора данных. Она имеет атрибут `name`, который должен быть равен имени соответствующего набора данных.
 
-The annotated method must not have any parameters and should return the `ReportDataLoader` functional interface.
+Аннотированный метод не должен иметь параметров и должен возвращать функциональный интерфейс `ReportDataLoader`.

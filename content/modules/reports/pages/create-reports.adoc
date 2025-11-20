@@ -1,19 +1,17 @@
-= Creating Reports
+= Создание отчетов
 
-A report in Jmix consists of two separate but related elements:
+Отчет в Jmix состоит из двух отдельных, но связанных элементов:
 
-* _Report Template_ -- a file in an office format (XLSX, DOCX), HTML or JRXML, that defines the visual representation of the report.
-* _Report Definition_ -- a program artifact that defines the report structure and data, as well as input parameters, output value formats and access parameters. The report definition contains a reference to the template.
+* _Шаблон отчета_ - файл в офисном формате (XLSX, DOCX), HTML или JRXML, который определяет визуальное представление отчета.
+* _Определение отчета_ - программный артефакт, который определяет структуру и данные отчета, а также входные параметры, форматы выходных значений и параметры доступа. Определение отчета содержит ссылку на шаблон.
 
-Reports can be created by users in the running application. In this case, the report definition is created using the xref:reports-ui.adoc[reports admin UI]. The template is uploaded through the admin UI to the application and stored in the database together with the report definition:
+Отчеты могут создаваться пользователями в работающем приложении. В этом случае определение отчета создается с помощью xref:reports-ui.adoc[административного интерфейса отчетов]. Шаблон загружается через административный интерфейс в приложение и хранится в базе данных вместе с определением отчета:
 
-.Creating a report at runtime
+.Создание отчета во время выполнения
 image::create/create-runtime-1.svg[align="center", width="605"]
 
-When creating reports at design time, the developer creates a report definition in an annotated Java class. The report template is usually created using an external office application (LibreOffice, Microsoft Excel/Word) and then saved in the application resources:
+При создании отчетов во время разработки разработчик создает определение отчета в аннотированном Java-классе. Шаблон отчета обычно создается с помощью внешнего офисного приложения (LibreOffice, Microsoft Excel/Word) и затем сохраняется в ресурсах приложения:
 
-.Creating a report at design-time
+.Создание отчета во время разработки
 image::create/create-design-time-1.svg[align="center", width="468"]
-
-
 // This section provides reference information about report definitions and templates, along with examples of solving typical problems encountered when creating various types of reports.

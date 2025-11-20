@@ -1,90 +1,90 @@
-= Running Reports
+= Запуск отчетов
 
-Users can run reports through the admin UI or from relevant application views using the actions provided by the Reports add-on. The report engine loads the report definition and the template from the application code or from the database and generates the output document:
+Пользователи могут запускать отчеты через административный интерфейс или из соответствующих экранов приложения с помощью действий, предоставляемых дополнением Reports. Механизм отчетов загружает определение отчета и шаблон из кода приложения или из базы данных и генерирует выходной документ:
 
-.Running a report
+.Запуск отчета
 image::run/run-1.svg[align="center", width="552"]
 
 [[run-from-list]]
-== Running from Reports List
+== Запуск из списка отчетов
 
-The easiest way to run reports is from the xref:reports-ui.adoc#run-report-view[Run report] view. The user must have the permission to access this view. The list will contain all reports that are xref:creation/permissions.adoc[available to the user] in accordance with their role. If the report has external parameters, they will be requested in a special form when running the report.
+Самый простой способ запустить отчеты - из экрана xref:reports-ui.adoc#run-report-view[Run report]. Пользователь должен иметь разрешение на доступ к этому экрану. Список будет содержать все отчеты, xref:creation/permissions.adoc[доступные пользователю] в соответствии с его ролью. Если отчет имеет внешние параметры, они будут запрошены в специальной форме при запуске отчета.
 
 [[run-actions]]
-== Running from Views
+== Запуск из экранов
 
-Users can run reports from arbitrary views using special actions and associated buttons or component context menu items. In this case, the xref:creation/permissions.adoc[availability] of the report in this view is checked in addition to the user role.
+Пользователи могут запускать отчеты из произвольных экранов, используя специальные действия и связанные с ними кнопки или пункты контекстного меню компонентов. В этом случае проверяется xref:creation/permissions.adoc[доступность] отчета в данном экране в дополнение к роли пользователя.
 
-Action types and examples of their use are described below.
+Типы действий и примеры их использования описаны ниже.
 
 [[run-report-action]]
 === RunReportAction
 
-`io.jmix.reportsflowui.action.RunReportAction` is a xref:flow-ui:actions/standard-actions.adoc[standard action] for running the reports associated with the current view or list component. It should be defined for a `Button` or a list component (xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]).
+`io.jmix.reportsflowui.action.RunReportAction` - это xref:flow-ui:actions/standard-actions.adoc[стандартное действие] для запуска отчетов, связанных с текущим экраном или компонентом списка. Оно должно быть определено для `Button` или компонента списка (xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]).
 
-Below is an example of using the declarative action for the `DataGrid`:
+Ниже приведен пример использования декларативного действия для `DataGrid`:
 
 [source,xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/book/book-list-view.xml[tags=buttonsPanel;reportRun;booksDataGrid;actions;report_runReport]
 ----
-<1> Add a button with run report action.
-<2> The `type` attribute defines a specific `report_runReport` action type, provided by the Reports add-on.
+<1> Добавляет кнопку с действием запуска отчета.
+<2> Атрибут `type` определяет конкретный тип действия `report_runReport`, предоставляемый дополнением Reports.
 
-Example of programmatically creating the action together with a button declared in the view XML descriptor:
+Пример программного создания действия вместе с кнопкой, объявленной в XML-дескрипторе экрана:
 
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/book/BookListView.java[tags=runBtn;actions;onInit;create]
 ----
 
-When the action is performed, a modal **Run report** dialog will appear, displaying reports related to the current view. When the user selects a report from the list, the parameters input form is displayed (if any have been defined) and the report will be generated.
+При выполнении действия появится модальное диалоговое окно *Run report*, в котором отобразятся отчеты, связанные с текущим экраном. Когда пользователь выберет отчет из списка, отобразится форма ввода параметров (если они были определены), и отчет будет сгенерирован.
 
 [[run-list-entity-report-action]]
 === RunListEntityReportAction
 
-`io.jmix.reportsflowui.action.RunListEntityReportAction` is a xref:flow-ui:actions/standard-actions.adoc[standard action] for printing reports for entity instances associated with a list component (xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]).
+`io.jmix.reportsflowui.action.RunListEntityReportAction` - это xref:flow-ui:actions/standard-actions.adoc[стандартное действие] для печати отчетов для экземпляров сущностей, связанных с компонентом списка (xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]).
 
-The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the entity type displayed by the list component. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to the user for selection.
+Действие выбирает только отчеты, имеющие внешний параметр типа *Entity* или *List of entities*, где тип сущности параметра совпадает с типом сущности, отображаемой компонентом списка. Если в результате выбора доступен только один отчет, он вызывается немедленно. Если доступно несколько отчетов, их список предлагается пользователю для выбора.
 
-The external parameter value is passed to the report using the following rules:
+Значение внешнего параметра передается в отчет по следующим правилам:
 
-* If the parameter has the *List of entities* type, the list of instances currently selected in the list component is passed into it.
+* Если параметр имеет тип *List of entities*, в него передается список экземпляров, выбранных в данный момент в компоненте списка.
 
-* If the parameter has the *Entity* type, and the list component has a single instance selected (one row is highlighted), then this instance is passed into the report.
+* Если параметр имеет тип *Entity*, и в компоненте списка выбран один экземпляр (выделена одна строка), то этот экземпляр передается в отчет.
 
-* If the parameter is of the *Entity* type, and the list component has several rows selected, then the report runs several times according to the number of selected instances. After execution, the user gets a single ZIP archive containing all generated reports.
+* Если параметр имеет тип *Entity*, и в компоненте списка выбрано несколько строк, то отчет запускается несколько раз в соответствии с количеством выбранных экземпляров. После выполнения пользователь получает один ZIP-архив, содержащий все сгенерированные отчеты.
 
-Below is an example of using the declarative action for the `DataGrid`:
+Ниже приведен пример использования декларативного действия для `DataGrid`:
 
 [source, xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/author/author-list-view.xml[tags=buttonsPanel;runList;authorsDataGrid;actions]
 ----
-<1> Add a button with run list entity report action.
-<2> The `type` attribute defines a specific `report_runListEntityReport` action type, provided by the framework.
+<1> Добавляет кнопку с действием запуска отчета для списка сущностей.
+<2> Атрибут `type` определяет конкретный тип действия `report_runListEntityReport`, предоставляемый фреймворком.
 
-Example of programmatically creating the action together with a button declared in the view XML descriptor:
+Пример программного создания действия вместе с кнопкой, объявленной в XML-дескрипторе экрана:
 
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/author/AuthorListView.java[tags=runBtn;actions;onInit;runList]
 ----
 
-When the action is performed, if no entities were selected from the list component, a confirmation window will be displayed.
+При выполнении действия, если ни одна сущность не была выбрана из компонента списка, будет отображено окно подтверждения.
 
 image::run-list-entity-report-action-confirmation.png[align="center",width="402"]
 
-After that, the modal **Run report** dialog will open where reports related to the current view will be displayed. From this modal view, the user can run some report for the selected entity.
+После этого откроется модальное диалоговое окно *Run report*, в котором будут отображены отчеты, связанные с текущим экраном. Из этого модального окна пользователь может запустить какой-либо отчет для выбранной сущности.
 
 [[run-single-entity-report-action]]
 === RunSingleEntityReportAction
 
-`io.jmix.reportsflowui.action.RunSingleEntityReportAction` is an action associated with an entity detail view. The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the edited entity type. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to user for selection.
+`io.jmix.reportsflowui.action.RunSingleEntityReportAction` - это действие, связанное с экраном деталей сущности. Действие выбирает только отчеты, имеющие внешний параметр типа *Entity* или *List of entities*, где тип сущности параметра совпадает с типом редактируемой сущности. Если в результате выбора доступен только один отчет, он вызывается немедленно. Если доступно несколько отчетов, их список предлагается пользователю для выбора.
 
-The external parameter value - edited entity instance - is passed into the report. If the parameter has the *List of entities* type, then a list containing a single item is passed.
+Значение внешнего параметра - экземпляр редактируемой сущности - передается в отчет. Если параметр имеет тип *List of entities*, то передается список, содержащий один элемент.
 
-Below is an example of using the action in a button located near the standard *OK* and *Cancel* buttons:
+Ниже приведен пример использования действия в кнопке, расположенной рядом со стандартными кнопками *OK* и *Cancel*:
 
 [source, xml,indent=0]
 ----
@@ -97,46 +97,46 @@ include::example$/library/src/main/java/com/company/library/view/book/BookDetail
 ----
 
 [[reports-api]]
-== Reports API
+== API отчетов
 
-TIP: Use xref:jmix:studio:code-snippets.adoc[] to generate code for running reports using the API.
+TIP: Используйте xref:jmix:studio:code-snippets.adoc[], чтобы сгенерировать код для запуска отчетов с помощью API.
 
 [[report-runner]]
 === ReportRunner
 
-`ReportRunner` is an interface used for running reports. All its methods return the `ReportOutputDocument` object that contains the result of report execution.
+`ReportRunner` - это интерфейс, используемый для запуска отчетов. Все его методы возвращают объект `ReportOutputDocument`, который содержит результат выполнения отчета.
 
-Below are a few examples using `ReportRunner`.
+Ниже приведено несколько примеров использования `ReportRunner`.
 
-. Running a report based on the information specified in the <<report-run-context,ReportRunContext>> object:
+. Запуск отчета на основе информации, указанной в объекте <<report-run-context,ReportRunContext>>:
 +
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/runreport/RunReportView.java[tags=inject-report-runner;rrc-btn2-start;report-runner-v1;rrc-btn2-end]
 ----
-<1> The `ReportRunContext` contains the report entity and parameters.
+<1> `ReportRunContext` содержит сущность отчета и параметры.
 
-. Running a report by its code and additional information specified using the fluent interface:
+. Запуск отчета по его коду и дополнительной информации, указанной с использованием интерфейса fluent:
 +
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/runreport/RunReportView.java[tags=inject-report-runner;rr-btn1-start;report-runner-v2;rr-btn1-end]
 ----
-<1> Entry point to the fluent interface for a report with a specified code.
-<2> Adds an input parameter to the parameter map.
-<3> Sets a code of template that will be used to run a report.
-<4> Builds a `ReportRunContext` instance and runs a report using this run context.
+<1> Точка входа в fluent-интерфейс для отчета с указанным кодом.
+<2> Добавляет входной параметр в карту параметров.
+<3> Устанавливает код шаблона, который будет использоваться для запуска отчета.
+<4> Создает экземпляр `ReportRunContext` и запускает отчет, используя этот контекст запуска.
 
-. Running a report by the report entity and additional information specified using the fluent interface:
+. Запуск отчета по сущности отчета и дополнительной информации, указанной с использованием интерфейса fluent:
 +
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/runreport/RunReportView.java[tags=inject-report-runner;rr-btn2-start;report-runner-v3;rr-btn2-end]
 ----
-<1> Sets a type of output document.
-<2> Sets a name pattern of an output document.
+<1> Устанавливает тип выходного документа.
+<2> Устанавливает шаблон имени выходного документа.
 
-You can get the report contents and file name directly from `ReportOutputDocument`:
+Вы можете получить содержимое отчета и имя файла непосредственно из `ReportOutputDocument`:
 
 [source, java,indent=0]
 ----
@@ -146,53 +146,53 @@ include::example$/library/src/main/java/com/company/library/view/runreport/RunRe
 [[ui-report-runner]]
 === UIReportRunner
 
-`UiReportRunner` is an interface for executing reports from the application views. In addition to the options required to run a report, `UiReportRunner` allows you to configure the following features:
+`UiReportRunner` - это интерфейс для выполнения отчетов из экранов приложения. В дополнение к опциям, необходимым для запуска отчета, `UiReportRunner` позволяет настроить следующие функции:
 
-* Displaying the result of the report execution in the browser (in the case of table templates).
+* Отображение результата выполнения отчета в браузере (в случае табличных шаблонов).
 +
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/runreport/RunReportView.java[tags=run-and-show]
 ----
 
-* Whether to show a dialog to input the report parameters before run. Use `ParametersDialogShowMode` for this purpose. Three modes are supported:
+* Показывать ли диалог для ввода параметров отчета перед запуском. Используйте для этого `ParametersDialogShowMode`. Поддерживаются три режима:
 
-** `YES` - to show the dialog to input the report parameters.
-** `NO` - do not show the dialog to input the report parameters.
-** `IF_REQUIRED` - to show the dialog to input the report parameters if:
+** `YES` - показывать диалог для ввода параметров отчета.
+** `NO` - не показывать диалог для ввода параметров отчета.
+** `IF_REQUIRED` - показывать диалог для ввода параметров отчета, если:
 +
-*** The report has input parameters;
-*** The report has several templates;
-*** The report has one template with an alterable output type.
+*** Отчет имеет входные параметры;
+*** Отчет имеет несколько шаблонов;
+*** Отчет имеет один шаблон с изменяемым типом вывода.
 
-* Execute report generation synchronously or in the background:
+* Выполнять генерацию отчета синхронно или в фоновом режиме:
 +
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/runreport/RunReportView.java[tags=in-background]
 ----
 
-* Run a report several times for the specified parameter alias and values:
+* Запустить отчет несколько раз для указанного псевдонима параметра и значений:
 +
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/runreport/RunReportView.java[tags=run-multiple-reports]
 ----
 +
-The `runMultipleReports()` method runs a report for each object from the specified collection. Objects in the collection should have the same type as an input parameter with specified alias.
+Метод `runMultipleReports()` запускает отчет для каждого объекта из указанной коллекции. Объекты в коллекции должны иметь тот же тип, что и входной параметр с указанным псевдонимом.
 
 [[report-run-context]]
 === ReportRunContext
 
-The `ReportRunContext` class stores the following information required for report running:
+Класс `ReportRunContext` хранит следующую информацию, необходимую для запуска отчета:
 
-* The `Report` entity;
-* The `ReportTemplate` entity: if not specified, the default template is used;
-* Input parameters;
-* Type of output document;
-* Output name pattern.
+* Сущность `Report`;
+* Сущность `ReportTemplate`: если не указана, используется шаблон по умолчанию;
+* Входные параметры;
+* Тип выходного документа;
+* Шаблон имени выходного документа.
 
-Let's look at examples of creating a `ReportRunContext`:
+Рассмотрим примеры создания `ReportRunContext`:
 
 [source, java,indent=0]
 ----
@@ -202,7 +202,7 @@ include::example$/library/src/main/java/com/company/library/view/runreport/RunRe
 [[report-zip-utils]]
 === ReportZipUtils
 
-The `ReportZipUtils` interface helps package a list of `ReportOutputDocument` objects into one ZIP archive.
+Интерфейс `ReportZipUtils` помогает упаковать список объектов `ReportOutputDocument` в один ZIP-архив.
 
 [source, java,indent=0]
 ----

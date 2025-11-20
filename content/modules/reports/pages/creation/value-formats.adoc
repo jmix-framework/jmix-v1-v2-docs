@@ -1,25 +1,25 @@
-= Value Formats
+= Форматы значений
 
-You can specify the formatting for any field output by the report in the *Value formats* tab of the report detail view. Below is the form to add a format:
+Вы можете указать форматирование для любого поля, выводимого отчетом, на вкладке *Value formats* экрана деталей отчета. Ниже приведена форма для добавления формата:
 
 image::value-format.png[align="center",width="642"]
 
-* *Name* - report field name with the band prefix, for example, `Book.year`.
-* *Format string* - field format. For number values specify the format according to the `java.text.DecimalFormat` rules, for dates - `java.text.SimpleDateFormat`.
-* *Groovy script* checkbox - allows specifying a Groovy script to format the parameter. Using the `value` alias, the current parameter value is passed to the script, which can be formatted or converted to the desired format. A Groovy script should return the new value as a string.
+* *Name* - имя поля отчета с префиксом бэнда, например, `Book.year`.
+* *Format string* - формат поля. Для числовых значений укажите формат согласно правилам `java.text.DecimalFormat`, для дат - `java.text.SimpleDateFormat`.
+* Флажок *Groovy script* - позволяет указать Groovy-скрипт для форматирования параметра. Используя псевдоним `value`, текущее значение параметра передается в скрипт, который может быть отформатирован или преобразован в нужный формат. Groovy-скрипт должен возвращать новое значение в виде строки.
 +
-With Groovy scripting, you can create a formatter that handles xref:data-model:enumerations.adoc[enumeration]-type attributes in Jmix reports. This formatter will convert the enumeration's ID into localized text using the xref:localization:message-bundles.adoc#messages-interface[Messages] bean.
+С помощью Groovy-скриптов можно создать форматер, который обрабатывает атрибуты типа xref:data-model:enumerations.adoc[перечисления] в отчетах Jmix. Этот форматер будет преобразовывать ID перечисления в локализованный текст с использованием бина xref:localization:message-bundles.adoc#messages-interface[Messages].
 +
 image::value-format-groovy.png[align="center",width="642"]
 +
-To access Spring-managed beans, utilize the `ApplicationContext` object (`org.springframework.context.ApplicationContext`).
+Для доступа к бинам, управляемым Spring, используйте объект `ApplicationContext` (`org.springframework.context.ApplicationContext`).
 
-With the help of formats, it is possible to insert images and HTML blocks into the document.
+С помощью форматов можно вставлять в документ изображения и HTML-блоки.
 
-* In order to insert an image, specify the image URL as the field value, and the format string must be as follows: `${image:<Width>x<Height>}`, for example, `${image:200x300}`.
+* Чтобы вставить изображение, укажите URL изображения в качестве значения поля, а строка формата должна быть следующей: `${image:<Ширина>x<Высота>}`, например, `${image:200x300}`.
 +
-To work with the `FileRef`, use the `${imageFileId:WxH}` value formatter that accepts a `FileRef` instance or a URI of a file as a string.
+Для работы с `FileRef` используйте форматер значений `${imageFileId:WxH}`, который принимает экземпляр `FileRef` или URI файла в виде строки.
 
-* In order to insert an HTML block, you should return an HTML markup in the field, and select `++${html}++` as the format string. In the output value, you may omit top-level tags up to `<body>` inclusive. If necessary, all missing top-level tags will be added automatically. All blocks should be encoded with `UTF-8`. CSS and the `style` attribute are not supported.
+* Чтобы вставить HTML-блок, следует вернуть HTML-разметку в поле и выбрать `++${html}++` в качестве строки формата. В выходном значении можно опустить теги верхнего уровня вплоть до `<body>` включительно. При необходимости все отсутствующие теги верхнего уровня будут добавлены автоматически. Все блоки должны быть закодированы в `UTF-8`. CSS и атрибут `style` не поддерживаются.
 
-You can specify your own custom formats as well. To do this, type the new value in the field without opening the dropdown and press *Enter*. You can also choose any format from the dropdown, edit its name in the field and press *Enter*. Custom format will be saved in both cases.
+Вы также можете указать собственные пользовательские форматы. Для этого введите новое значение в поле, не открывая выпадающий список, и нажмите *Enter*. Также можно выбрать любой формат из выпадающего списка, отредактировать его имя в поле и нажать *Enter*. В обоих случаях пользовательский формат будет сохранен.

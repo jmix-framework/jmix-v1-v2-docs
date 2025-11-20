@@ -1,21 +1,21 @@
-= Report Details
+= Детали отчета
 
 [[report-details-tab]]
-== Report Details Tab
+== Вкладка деталей отчета
 
-When creating or editing a report at runtime, the *Report details* tab is shown by default:
+При создании или редактировании отчета во время выполнения по умолчанию отображается вкладка *Report details*:
 
 image::report-details.png[align="center",width="882"]
 
-This tab contains fields to enter general report properties:
+Эта вкладка содержит поля для ввода общих свойств отчета:
 
-* *Name* -- report name. The name can be localized in the *Name localization* field.
-* *Group* -- report group, which is used for grouping in the standard report list view.
-* *System code* -- mandatory code, which you may use to identify the report in the application code.
-* The *System* flag designates a report for internal system use. System reports can be executed only through the xref:run-report.adoc#reports-api[API]. They are hidden in UI of the xref:run-report.adoc#run-actions[report actions] and in the xref:run-report.adoc#run-from-list[Run report] view.
-* *Available through REST API* -- select this checkbox to make a report available through the xref:reports:rest-api.adoc[REST API].
-* *Description* -- report description.
-* *Name localization* -- this field allows you to localize the report name shown when users run the report. Enter `locale_name=report_name` pairs on separate lines. For example:
+* *Name* - название отчета. Название может быть локализовано в поле *Name localization*.
+* *Group* - группа отчетов, которая используется для группировки в стандартном экране списка отчетов.
+* *System code* - обязательный код, который можно использовать для идентификации отчета в коде приложения.
+* Флаг *System* обозначает отчет для внутреннего системного использования. Системные отчеты могут быть выполнены только через xref:run-report.adoc#reports-api[API]. Они скрыты в пользовательском интерфейсе xref:run-report.adoc#run-actions[действий отчета] и в экране xref:run-report.adoc#run-from-list[Run report].
+* *Available through REST API* - установите этот флажок, чтобы сделать отчет доступным через xref:reports:rest-api.adoc[REST API].
+* *Description* - описание отчета.
+* *Name localization* - это поле позволяет локализовать название отчета, которое показывается пользователям при запуске отчета. Вводите пары `locale_name=report_name` на отдельных строках. Например:
 +
 [source]
 ----
@@ -24,14 +24,14 @@ zh_CN=客户资料
 ----
 
 [[report-def]]
-== @ReportDef Annotation
+== Аннотация @ReportDef
 
-The `@ReportDef` annotation allows you to specify report details when creating a report at design time. It has the following attributes:
+Аннотация `@ReportDef` позволяет указать детали отчета при его создании во время разработки. Она имеет следующие атрибуты:
 
-* `name` -- report name. You can use the `msg://` prefix to refer to a xref:localization:message-bundles.adoc[localized message].
-* `group` -- report group, defined by a class annotated with `@ReportGroupDef`.
-* `code` -- report code.
-* `description` -- report description.
-* `uuid` -- optional unique ID of the report. Specify this attribute to have a stable runtime object identifier, for example, to find and run the report by ID.
-* `restAccessible` -- whether the report can be executed through the REST API.
-* `system` -- sets the system flag for the report. System reports can be executed only through the xref:run-report.adoc#reports-api[API]. They are hidden in UI of the xref:run-report.adoc#run-actions[report actions] and in the xref:run-report.adoc#run-from-list[Run report] view.
+* `name` - название отчета. Можно использовать префикс `msg://` для ссылки на xref:localization:message-bundles.adoc[локализованное сообщение].
+* `group` - группа отчетов, определяемая классом с аннотацией `@ReportGroupDef`.
+* `code` - код отчета.
+* `description` - описание отчета.
+* `uuid` - опциональный уникальный идентификатор отчета. Укажите этот атрибут, чтобы иметь стабильный идентификатор объекта во время выполнения, например, для поиска и запуска отчета по ID.
+* `restAccessible` - может ли отчет быть выполнен через REST API.
+* `system` - устанавливает системный флаг для отчета. Системные отчеты могут быть выполнены только через xref:run-report.adoc#reports-api[API]. Они скрыты в пользовательском интерфейсе xref:run-report.adoc#run-actions[действий отчета] и в экране xref:run-report.adoc#run-from-list[Run report].

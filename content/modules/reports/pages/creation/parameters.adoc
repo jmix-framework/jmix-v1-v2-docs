@@ -1,46 +1,46 @@
-= Parameters
+= Параметры
 
-External parameters are passed from the outside when running a report and can be used as conditions in datasets. All external parameters become fields for each report band, so you can use them directly in the template as dataset fields. If any dataset contains field with the same name, it overrides the external parameter in the corresponding band and the report uses the dataset field value.
+Внешние параметры передаются извне при запуске отчета и могут использоваться как условия в наборах данных. Все внешние параметры становятся полями для каждого бэнда отчета, поэтому их можно использовать напрямую в шаблоне как поля наборов данных. Если какой-либо набор данных содержит поле с таким же именем, оно переопределяет внешний параметр в соответствующем бэнде, и отчет использует значение поля набора данных.
 
-External parameters can be passed by the invoking code when running a report through xref:run-report.adoc#reports-api[API]. Also, the report generator can show a dialog to enter parameters when a user runs the report. In the latter case you should describe the external parameters in the *Parameters* tab of the report detail view.
+Внешние параметры могут передаваться вызывающим кодом при запуске отчета через xref:run-report.adoc#reports-api[API]. Также генератор отчетов может показывать диалог для ввода параметров, когда пользователь запускает отчет. В последнем случае следует описать внешние параметры на вкладке *Parameters* экрана деталей отчета.
 
 image::parameters.png[align="center",width="1073"]
 
-After you click on the *Create* button the *Report parameter* dialog is displayed.
+После нажатия кнопки *Create* отображается диалоговое окно *Report parameter*.
 
 image::report-parameter.png[align="center", width="642"]
 
 [[properties]]
-== Properties
+== Свойства
 
-In the *Properties* tab, you can define parameter properties:
+На вкладке *Properties* можно определить свойства параметра:
 
-* *Name* - parameter name, as it will appear in the parameter input form when running the report.
-* *Alias* - parameter alias used to access it in datasets.
-* *Type* - parameter type.
-* *Hidden* - flag that defines whether the request for parameter should be hidden from users.
-* *Required?* - flag determining if the parameter is mandatory.
-* *Default value* - defines the parameter value that will be used by default if no other value is selected by the user.
+* *Name* - название параметра, которое будет отображаться в форме ввода параметров при запуске отчета.
+* *Alias* - псевдоним параметра, используемый для доступа к нему в наборах данных.
+* *Type* - тип параметра.
+* *Hidden* - флаг, определяющий, следует ли скрывать запрос параметра от пользователей.
+* *Required?* - флаг, определяющий, является ли параметр обязательным.
+* *Default value* - определяет значение параметра, которое будет использоваться по умолчанию, если пользователь не выберет другое значение.
 
-The parameter type can be primitive types of *String*, *Number*, *Boolean* or temporal types, besides, you can choose *Enumeration*, *Entity* or *List of entities* as a parameter type. Based on different type selected, additional fields are required:
+Тип параметра может быть примитивным (*String*, *Number*, *Boolean*) или временным, кроме того, можно выбрать *Enumeration*, *Entity* или *List of entities* в качестве типа параметра. В зависимости от выбранного типа требуются дополнительные поля:
 
-If the *Entity* or *List of entities* parameter type is selected:
+Если выбран тип параметра *Entity* или *List of entities*:
 
-* *Entity* - entity to use as parameter.
-* *Entity selection view* - optional view identifier, which will be used to select entity instances. If the view is not specified, selection will be made from a special view generic for all entities.
+* *Entity* - сущность, используемая в качестве параметра.
+* *Entity selection view* - необязательный идентификатор экрана, который будет использоваться для выбора экземпляров сущности. Если экран не указан, выбор будет производиться из специального общего экрана для всех сущностей.
 
-If the *Enumeration* parameter type is selected:
+Если выбран тип параметра *Enumeration*:
 
-* *Enumeration* - enumeration to use as parameter.
+* *Enumeration* - перечисление, используемое в качестве параметра.
 
-If the temporal parameter type is selected (*Date*, *Time* or *Date and time*):
+Если выбран временной тип параметра (*Date*, *Time* или *Date and time*):
 
-* *Default date(time) is current* - flag defines whether the current timestamp will be used as the default parameter value.
+* *Default date(time) is current* - флаг определяет, будет ли текущая метка времени использоваться в качестве значения параметра по умолчанию.
 
 [[localization]]
-== Localization
+== Локализация
 
-In the *Localization* tab, you can define the parameter name for different locales. In order to do this, you should enter the `++locale_name = parameter_name++` pairs, for example:
+На вкладке *Localization* можно определить название параметра для разных локалей. Для этого следует ввести пары `++locale_name = parameter_name++`, например:
 
 [source, properties,indent=0]
 ----
@@ -48,66 +48,66 @@ de = das Buch
 ----
 
 [[transformation]]
-== Transformation
+== Преобразование
 
-In the *Transformation* tab, you can apply a Groovy script to the parameter before using it in the report.
+На вкладке *Transformation* можно применить Groovy-скрипт к параметру перед его использованием в отчете.
 
-A Groovy script should return a new parameter value. The following variables are passed into the script:
+Groovy-скрипт должен возвращать новое значение параметра. В скрипт передаются следующие переменные:
 
-* `params` - parameters map is available by alias `params`.
+* `params` - карта параметров доступна по псевдониму `params`.
 
-* `paramValue` - current parameter value is available in the script by the `paramValue`.
+* `paramValue` - текущее значение параметра доступно в скрипте как `paramValue`.
 
-* `dataManager` - an object of the `DataManager` type that provides CRUD functionality.
+* `dataManager` - объект типа `DataManager`, предоставляющий CRUD-функциональность.
 
-* `metadata` - an object of the `Metadata` type that provides access to the application metadata.
+* `metadata` - объект типа `Metadata`, предоставляющий доступ к метаданным приложения.
 
-* `applicationContext` - an object of the `org.springframework.context.ApplicationContext` type that provides access to managed beans.
+* `applicationContext` - объект типа `org.springframework.context.ApplicationContext`, предоставляющий доступ к управляемым бинам.
 
-For example:
+Например:
 
 [source, plain, indent=0]
 ----
 return "%" + paramValue + "%"
 ----
 
-You can also use predefined transformations that add wildcards for text (String) parameters:
+Также можно использовать предопределенные преобразования, которые добавляют подстановочные знаки для текстовых (String) параметров:
 
-* `Starts with`,
+* `Starts with` (Начинается с),
 
-* `Ends with`,
+* `Ends with` (Заканчивается на),
 
-* `Contains`.
+* `Contains` (Содержит).
 
 image::transformation.png[align="center",width="642"]
 
-In the *Validation* tab, you can define a Groovy script with some conditions for the parameter validation, see the details below.
+На вкладке *Validation* можно определить Groovy-скрипт с условиями для проверки параметра, подробности смотрите ниже.
 
 [[validation]]
-== Validation
+== Проверка
 
-You can validate an input parameter and/or define the cross-parameter validation.
+Вы можете проверить входной параметр и/или определить межпараметрическую проверку.
 
-. You can enable validation of each parameter in the *Validation* tab by checking the *Validate* checkbox. The validation logic is specified by a Groovy script. The script should check the parameter value and call the `showErrorMessage()` method if the value is not valid. This method will show the user an alert with the given message about the report validation errors.
+. Вы можете включить проверку каждого параметра на вкладке *Validation*, установив флажок *Validate*. Логика проверки задается Groovy-скриптом. Скрипт должен проверить значение параметра и вызвать метод `showErrorMessage()`, если значение недопустимо. Этот метод покажет пользователю предупреждение с указанным сообщением об ошибках проверки отчета.
 +
-The script receives the following parameters:
+Скрипт получает следующие параметры:
 +
-* `value` - the parameter value entered by the user.
+* `value` - значение параметра, введенное пользователем.
 +
-* `applicationContext` - an object of the `org.springframework.context.ApplicationContext` type, providing access to managed beans.
+* `applicationContext` - объект типа `org.springframework.context.ApplicationContext`, предоставляющий доступ к управляемым бинам.
 +
-* `currentAuthentication` - an object of the `io.jmix.core.security.CurrentAuthentication` type associated with the currently authenticated user.
+* `currentAuthentication` - объект типа `io.jmix.core.security.CurrentAuthentication`, связанный с текущим аутентифицированным пользователем.
 +
-* `dataManager` - a `DataManager` object for performing CRUD operations.
+* `dataManager` - объект `DataManager` для выполнения CRUD-операций.
 +
-* `metadata` - a `Metadata` object providing access to application metadata.
+* `metadata` - объект `Metadata`, предоставляющий доступ к метаданным приложения.
 +
-* `showErrorMessage` - a method that triggers validation failure if called within the script.
+* `showErrorMessage` - метод, который вызывает сбой проверки, если он вызывается в скрипте.
 +
 image::validation.png[align="center",width="642"]
 
-. Cross-parameter validation can be enabled by checking the *Validate* checkbox in the *Cross parameters validation* section of the *Parameters* tab. Validation logic is defined using a Groovy script. This script should verify the consistency of parameter values and call `showErrorMessage()` if inconsistencies are found. This method displays an alert to the user, indicating report validation errors.
+. Межпараметрическую проверку можно включить, установив флажок *Validate* в разделе *Cross parameters validation* на вкладке *Parameters*. Логика проверки определяется с помощью Groovy-скрипта. Этот скрипт должен проверять согласованность значений параметров и вызывать `showErrorMessage()`, если обнаружены несоответствия. Этот метод отображает пользователю предупреждение с указанием ошибок проверки отчета.
 +
-In addition to the parameters listed previously, the script also receives the `params` variable, a map containing the external report parameters.
+В дополнение к перечисленным ранее параметрам скрипт также получает переменную `params` — карту, содержащую внешние параметры отчета.
 +
 image::cross-parameter-validation.png[align="center",width="834"]

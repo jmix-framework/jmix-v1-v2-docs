@@ -1,32 +1,32 @@
 = Reports
 
-The Reports add-on allows developers and end users to design and generate various reports by formatting data from the Jmix application using templates created in user-friendly office applications or HTML.
+Дополнение Reports позволяет разработчикам и конечным пользователям создавать и генерировать различные отчеты, форматируя данные из приложения Jmix с помощью шаблонов, созданных в удобных офисных приложениях или HTML.
 
-The add-on provides the following features:
+Дополнение предоставляет следующие возможности:
 
-* Designing reports using annotated Java classes or at runtime using a comprehensive admin UI and a step-by-step wizard.
-* Generating reports in DOCX, ODT, XLSX, HTML and text formats, and converting report output to PDF.
-* Creating XLSX reports with a complex structure, including multi-level organization, data aggregation, and cross-tab features.
-* Using diagrams and formulas in XLSX reports.
-* Report access rights, REST API, and execution history.
+* Создание отчетов с использованием аннотированных Java-классов или во время выполнения с помощью комплексного административного интерфейса и пошагового мастера.
+* Генерация отчетов в форматах DOCX, ODT, XLSX, HTML и текстовом формате, а также конвертация вывода отчетов в PDF.
+* Создание отчетов XLSX со сложной структурой, включая многоуровневую организацию, агрегацию данных и кросс-таблицы.
+* Использование диаграмм и формул в отчетах XLSX.
+* Права доступа к отчетам, REST API и история выполнения.
 
-This chapter provides reference information about creating and running reports.
+В этой главе представлена справочная информация по созданию и запуску отчетов.
 
-Refer to the xref:reports-guide:index.adoc[] guide for practical examples that demonstrate report design.
+Обратитесь к руководству xref:reports-guide:index.adoc[] для получения практических примеров, демонстрирующих создание отчетов.
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
 include::example$reports-onboarding/build.gradle[tags=dependencies]
 ----
 
-To access reports through the xref:reports:rest-api.adoc[REST API], add also the following dependencies:
+Для доступа к отчетам через xref:reports:rest-api.adoc[REST API] добавьте также следующие зависимости:
 
 [source,groovy,indent=0]
 ----
@@ -37,5 +37,5 @@ include::example$reports-onboarding/build.gradle[tags=rest-dependencies]
 
 [TIP]
 ====
-The Reports add-on uses the *LibreOffice* package to output reports in PDF and DOC formats. xref:configuration.adoc#libre_office[Install] *LibreOffice* to support PDF and DOC output.
+Дополнение Reports использует пакет *LibreOffice* для вывода отчетов в форматах PDF и DOC. xref:configuration.adoc#libre_office[Установите] *LibreOffice* для поддержки вывода в PDF и DOC.
 ====

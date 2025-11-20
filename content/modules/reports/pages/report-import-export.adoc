@@ -1,24 +1,24 @@
-= Importing and Exporting Reports
+= Импорт и экспорт отчетов
 
-The Jmix Reports add-on provides features to handle the export and import of report definitions directly from the UI and programmatically.
+Дополнение Jmix Reports предоставляет функции для обработки экспорта и импорта определений отчетов непосредственно из пользовательского интерфейса и программно.
 
 [[manually]]
-== Manually
+== Вручную
 
-The Reports add-on allows you to manually import and export reports directly from the *Reports* view by clicking the *Import* and *Export* buttons. See xref:report-view.adoc#export-import[Report List View] for more information.
+Дополнение Reports позволяет вручную импортировать и экспортировать отчеты непосредственно из экрана *Reports* с помощью кнопок *Import* и *Export*. Для получения дополнительной информации смотрите xref:report-view.adoc#export-import[Экран списка отчетов].
 
 [[report-import-export]]
-== Using ReportImportExport
+== Использование ReportImportExport
 
-The Jmix Reports add-on provides the `ReportImportExport` API which allows you to import ZIP files with exported reports.
+Дополнение Jmix Reports предоставляет API `ReportImportExport`, который позволяет импортировать ZIP-файлы с экспортированными отчетами.
 
-Consider the example of automated report deployment within a Jmix project. The reports have been manually exported and saved as ZIP archives to the project's resources directory.
+Рассмотрим пример автоматизированного развертывания отчетов в рамках проекта Jmix. Отчеты были вручную экспортированы и сохранены как ZIP-архивы в директорию ресурсов проекта.
 
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/app/DemoDataInitializer.java[tags=dataManager;resources;reportImportExport;REPORT_LOCATION;DemoDataInitializer;ApplicationStartedEvent;importReports;importReport]
 ----
-<1> The `DemoDataInitializer` bean is responsible for triggering the report import on application startup.
-<2> This method is automatically invoked when the `ApplicationStartedEvent` is published. We'll put our initialization logic in here. `ApplicationStartedEvent` is a Spring event that is published after the entire application has been initialized and is ready to process requests. It signals the successful startup of your Jmix application.
-<3> `DemoDataInitializer` utilizes an `InitFlags` entity to persist a flag that’s set to `true` after the initial import. This flag uses a pessimistic database lock to avoid concurrent execution when multiple servers in a cluster are starting up. Moreover, you have the flexibility to define alternative conditions for report creation/updates or even trigger `ReportImportExport` via a manual command in the application's user interface.
-<4> The `ReportImportExport` bean handles the actual report import.
+<1> Бин `DemoDataInitializer` отвечает за запуск импорта отчетов при старте приложения.
+<2> Этот метод автоматически вызывается при публикации события `ApplicationStartedEvent`. Мы поместим нашу логику инициализации сюда. `ApplicationStartedEvent` - это событие Spring, которое публикуется после полной инициализации приложения и его готовности обрабатывать запросы. Оно сигнализирует об успешном запуске вашего Jmix приложения.
+<3> `DemoDataInitializer` использует сущность `InitFlags` для сохранения флага, который устанавливается в `true` после первоначального импорта. Этот флаг использует пессимистическую блокировку базы данных, чтобы избежать параллельного выполнения при запуске нескольких серверов в кластере. Более того, у вас есть гибкость в определении альтернативных условий для создания/обновления отчетов или даже запуска `ReportImportExport` с помощью ручной команды в пользовательском интерфейсе приложения.
+<4> Бин `ReportImportExport` обрабатывает фактический импорт отчетов.

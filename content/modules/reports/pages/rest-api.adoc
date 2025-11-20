@@ -1,43 +1,43 @@
-= Reports REST API
+= REST API отчетов
 :page-aliases: reports:api.adoc
 
-The Reports add-on REST API provides the following functions:
+REST API дополнения Reports предоставляет следующие функции:
 
-* Getting a list of reports.
+* Получение списка отчетов.
 
-* Getting the details on a specific report.
+* Получение деталей по конкретному отчету.
 
-* Running a report and getting the result.
+* Запуск отчета и получение результата.
 
-* Getting the details on a specific report group.
+* Получение деталей по конкретной группе отчетов.
 
-* Getting Swagger documentation.
+* Получение документации Swagger.
 
-Reports REST API uses the OAuth2 protocol for authentication in the same way as xref:rest:access-control.adoc[Generic REST].
+REST API отчетов использует протокол OAuth2 для аутентификации таким же образом, как и xref:rest:access-control.adoc[Generic REST].
 
-To enable REST API for reports, make sure your `build.gradle` contains the following dependencies:
+Чтобы включить REST API для отчетов, убедитесь, что ваш `build.gradle` содержит следующие зависимости:
 
 [source,groovy,indent=0]
 ----
 include::example$/library/build.gradle[tags=reports-rest]
 ----
 
-To make a report available through the REST API, select the *Available through REST API* checkbox on the xref:reports:creation/details.adoc[Report details] tab.
+Чтобы сделать отчет доступным через REST API, установите флажок *Available through REST API* на вкладке xref:reports:creation/details.adoc[Детали отчета].
 
-Below we provide a formal description of some features specific to the Reports add-on. For more information on how to get an OAuth token and other REST API features, see REST API add-on xref:rest:index.adoc[documentation].
+Ниже мы предоставляем формальное описание некоторых функций, специфичных для дополнения Reports. Для получения дополнительной информации о том, как получить токен OAuth и о других функциях REST API, смотрите xref:rest:index.adoc[документацию] дополнения REST API.
 
 [[rest_reports_get_all]]
-== Getting Reports List
+== Получение списка отчетов
 
 --
-The list of existing reports can be retrieved with the following *GET* request:
+Список существующих отчетов можно получить с помощью следующего *GET* запроса:
 
 [source, plain,indent=0]
 ----
 /rest/reports/report
 ----
 
-For example:
+Например:
 
 [source, plain,indent=0]
 ----
@@ -47,7 +47,7 @@ Authorization: Bearer j-Rn3PPAiH7cZZfaDiDWQEDp9YU
 Content-Type: application/json
 ----
 
-The response body will contain the list of brief information on the reports marked as *Available through REST API*:
+Тело ответа будет содержать список краткой информации об отчетах, помеченных как *Available through REST API*:
 
 [source, json,indent=0]
 ----
@@ -66,38 +66,38 @@ The response body will contain the list of brief information on the reports mark
 ]
 ----
 
-<1> Report ID,
-<2> Report name,
-<3> xref:creation/details.adoc[Report system code] (if exists),
-<4> Group ID.
+<1> ID отчета,
+<2> Название отчета,
+<3> xref:creation/details.adoc[Системный код отчета] (если существует),
+<4> ID группы.
 --
 
 [[rest_reports_get_one]]
-== Getting Report Info
+== Получение информации об отчете
 
 --
-The detailed information on a specific report is retrieved with the following *GET* request:
+Детальная информация о конкретном отчете извлекается с помощью следующего *GET* запроса:
 
 [source, plain,indent=0]
 ----
 /rest/reports/report/{id}
 ----
 
-The last part of the query here is the report identifier, for example:
+Последняя часть запроса здесь - это идентификатор отчета, например:
 
 [source, plain,indent=0]
 ----
 GET http://localhost:8080/rest/reports/report/cb090350-2694-e2bb-f5d9-813daa8dc418
 ----
 
-The returned JSON object will contain the following information on the passed report:
+Возвращаемый JSON-объект будет содержать следующую информацию о переданном отчете:
 
 * ID
-* report name
-* group ID
-* xref:creation/details.adoc[system code] (if exists)
-* xref:creation/templates.adoc[report templates]
-* xref:creation/parameters.adoc[parameters] and their types
+* название отчета
+* ID группы
+* xref:creation/details.adoc[системный код] (если существует)
+* xref:creation/templates.adoc[шаблоны отчета]
+* xref:creation/parameters.adoc[параметры] и их типы
 
 [source, json,indent=0]
 ----
@@ -106,31 +106,31 @@ include::example$/library/src/main/resources/com/company/library/reports/rest/re
 --
 
 [[rest_reports_run]]
-== Running Report
+== Запуск отчета
 
 --
-To run a report, send the following *POST* request:
+Чтобы запустить отчет, отправьте следующий *POST* запрос:
 
 [source, plain,indent=0]
 ----
 /rest/reports/run/{id}
 ----
 
-The last part of the query here is the report identifier, for example:
+Последняя часть запроса здесь - это идентификатор отчета, например:
 
 [source, plain,indent=0]
 ----
 POST http://localhost:8080/rest/reports/run/2dd27fbf-8830-416a-899f-339543f8f27a
 ----
 
-The report parameters are passed in the request body:
+Параметры отчета передаются в теле запроса:
 
 [source, plain,indent=0]
 ----
 {parameters: [{name: 'author',value: '4b3a21b0-d6b7-4161-b0b6-55f118fbaac5'}]}
 ----
 
-To print a report with a non-default template, pass the template code in the request body:
+Чтобы напечатать отчет с нестандартным шаблоном, передайте код шаблона в теле запроса:
 
 [source, plain,indent=0]
 ----
@@ -139,28 +139,28 @@ To print a report with a non-default template, pass the template code in the req
 --
 
 [[rest_reports_get_group_details]]
-== Getting Report Group Info
+== Получение информации о группе отчетов
 
 --
-The detailed information on a specific report group is retrieved with the following *GET* request:
+Детальная информация о конкретной группе отчетов извлекается с помощью следующего *GET* запроса:
 
 [source, plain,indent=0]
 ----
 /rest/reports/group/{groupId}
 ----
 
-The last part of the query here is the group identifier, for example:
+Последняя часть запроса здесь - это идентификатор группы, например:
 
 [source, plain,indent=0]
 ----
 GET http://localhost:8080/rest/reports/group/4e083530-0b9c-11e1-9b41-6bdaa41bff94
 ----
 
-The returned JSON object will contain the following information on the passed group:
+Возвращаемый JSON-объект будет содержать следующую информацию о переданной группе:
 
-* group ID
-* group title
-* group code (if exists)
+* ID группы
+* название группы
+* код группы (если существует)
 
 [source, json,indent=0]
 ----
@@ -169,10 +169,10 @@ include::example$/library/src/main/resources/com/company/library/reports/rest/gr
 --
 
 [[rest_reports_openapi]]
-== Getting the OpenAPI Documentation
+== Получение документации OpenAPI
 
 --
-The complete OpenAPI documentation on the Reports add-on can be retrieved with the *GET* request on the address:
+Полная документация OpenAPI по дополнению Reports может быть получена с помощью GET запроса по адресу:
 
 [source, plain,indent=0]
 ----
@@ -182,7 +182,7 @@ http://localhost:8080/rest/reports/docs/openapi.yaml
 
 [CAUTION]
 ====
-When fetching `openapi.yaml` from the server, the response returns `application/yaml` content type, so in you should use `Accept: application/yaml` in request header.
+При получении `openapi.yaml` с сервера ответ возвращает тип контента `application/yaml`, поэтому в заголовке запроса следует использовать `Accept: application/yaml`.
 ====
 
 --

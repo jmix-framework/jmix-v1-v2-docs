@@ -1,159 +1,159 @@
-= Reports Configuration
+= Настройка отчетов
 
 [[app_properties]]
-== Application Properties
+== Свойства приложения
 
-This section describes the application properties related to the Reports add-on in alphabetical order.
+В этом разделе описаны свойства приложения, связанные с дополнением Reports, в алфавитном порядке.
 
 [[jmix.reports.client.background-report-processing-timeout-ms]]
 === jmix.reports.client.background-report-processing-timeout-ms
 
-Defines the processing timeout in milliseconds for the report execution if the <<jmix.reports.client.use-background-report-processing,jmix.reports.client.use-background-report-processing>> is set to `true`.
+Определяет таймаут обработки в миллисекундах для выполнения отчета, если свойство <<jmix.reports.client.use-background-report-processing,jmix.reports.client.use-background-report-processing>> установлено в `true`.
 
-Default value: `10000`.
+Значение по умолчанию: `10000`.
 
 [[jmix.reports.client.enable-tab-symbol-in-data-set-editor]]
 === jmix.reports.client.enable-tab-symbol-in-data-set-editor
 
-Defines whether TAB key should be handled as `\t` symbol instead of focus navigation in Script fields of the report detail view.
+Определяет, должна ли клавиша TAB обрабатываться как символ `\t` вместо навигации по фокусу в полях Script экрана деталей отчета.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.reports.client.use-background-report-processing]]
 === jmix.reports.client.use-background-report-processing
 
-Allows you to set the report execution as a background task. This property is used in order to add the cancel option.
+Позволяет установить выполнение отчета как фоновую задачу. Это свойство используется для добавления опции отмены.
 
-Default value: `false`.
+Значение по умолчанию: `false`.
 
 [[jmix.reports.curl-path]]
 === jmix.reports.curl-path
 
-The Reports add-on uses the cURL tool to run external reports. The property value represents the path to the cURL tool.
+Дополнение Reports использует инструмент cURL для запуска внешних отчетов. Значение свойства представляет путь к инструменту cURL.
 
-Default value: `curl`.
+Значение по умолчанию: `curl`.
 
 [[jmix.reports.display-device-available]]
 === jmix.reports.display-device-available
 
-`false` value allows running LibreOffice in the server operating system without a window interface.
+Значение `false` позволяет запускать LibreOffice в серверной операционной системе без оконного интерфейса.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.reports.doc-formatter-timeout]]
 === jmix.reports.doc-formatter-timeout
 
-Sets the LibreOffice timeout in seconds for converting DOCX/XLSX to HTML/PDF.
+Устанавливает таймаут LibreOffice в секундах для преобразования DOCX/XLSX в HTML/PDF.
 
-When the time is up, the user will receive an error message.
+По истечении времени пользователь получит сообщение об ошибке.
 
-Default value: `20`
+Значение по умолчанию: `20`
 
 [[jmix.reports.formulas-post-processing-evaluation-enabled]]
 === jmix.reports.formulas-post-processing-evaluation-enabled
 
-Controls whether formulas in XLSX reports are re-evaluated after the report document is formed.
+Управляет тем, пересчитываются ли формулы в отчетах XLSX после формирования документа отчета.
 
-When enabled (`true`), LibreOffice or other spreadsheet software will recalculate all formulas in the XLSX report, ensuring the most up-to-date values are displayed. This is particularly useful when formulas in the report aren't automatically calculated upon opening in certain spreadsheet applications.
+Когда включено (`true`), LibreOffice или другое программное обеспечение для работы с электронными таблицами пересчитает все формулы в отчете XLSX, гарантируя отображение самых актуальных значений. Это особенно полезно, когда формулы в отчете не рассчитываются автоматически при открытии в некоторых приложениях для работы с электронными таблицами.
 
-The default value is `false`.
+Значение по умолчанию: `false`.
 
 [[jmix.reports.history-cleanup-max-days]]
 === jmix.reports.history-cleanup-max-days
 
-The scheduled task deletes all xref:exec-history.adoc[execution history] records older than the specified number of days. If the property value is 0, the scheduled task does not consider this property when deleting records.
+Задача по расписанию удаляет все записи xref:exec-history.adoc[истории выполнения] старше указанного количества дней. Если значение свойства равно 0, задача по расписанию не учитывает это свойство при удалении записей.
 
-See xref:exec-history.adoc#execution_history_cleanup[Cleanup the History] for details on setting up the scheduled task.
+Смотрите xref:exec-history.adoc#execution_history_cleanup[Очистка истории] для получения подробной информации о настройке задачи по расписанию.
 
-Default value: `730`
+Значение по умолчанию: `730`
 
 [[jmix.reports.history-cleanup-max-items-per-report]]
 === jmix.reports.history-cleanup-max-items-per-report
 
-The scheduled task leaves no more than this number of xref:exec-history.adoc[execution history] entries for every report. It is not recommended to use a number greater than 1000 as the value of this property. If the property value is 0, the scheduled task does not consider this property when deleting records. It is useful for frequently run reports such as email templates, invoicing document templates, etc.
+Задача по расписанию оставляет не более этого количества записей xref:exec-history.adoc[истории выполнения] для каждого отчета. Не рекомендуется использовать число больше 1000 в качестве значения этого свойства. Если значение свойства равно 0, задача по расписанию не учитывает это свойство при удалении записей. Это полезно для часто запускаемых отчетов, таких как шаблоны электронной почты, шаблоны документов счетов-фактур и т.д.
 
-See xref:exec-history.adoc#execution_history_cleanup[Cleanup the History] for details on setting up the scheduled task.
+Смотрите xref:exec-history.adoc#execution_history_cleanup[Очистка истории] для получения подробной информации о настройке задачи по расписанию.
 
-Default value: `1000`.
+Значение по умолчанию: `1000`.
 
 [[jmix.reports.history-recording-enabled]]
 === jmix.reports.history-recording-enabled
 
-Activates the xref:exec-history.adoc[report execution history] mechanism.
+Активирует механизм xref:exec-history.adoc[истории выполнения отчетов].
 
-Default value: `false`.
+Значение по умолчанию: `false`.
 
-[[jmix.reports.multilineStringsProcessingEnabled]]
-=== jmix.reports.multilineStringsProcessingEnabled
+[[jmix.reports.multiline-strings-processing-enabled]]
+=== jmix.reports.multiline-strings-processing-enabled
 
-Enables processing of multi-line strings in parameter values for DOCX report templates. When enabled (`true`), line break characters (`\n`, `\r\n`) present in parameter values are rendered as actual line breaks in the generated DOCX document. This functionality is only applied when using a xref:creation/templates.adoc#template_doc[DOCX template].
+Включает обработку многострочных строк в значениях параметров для шаблонов отчетов DOCX. Когда включено (`true`), символы переноса строки (`\n`, `\r\n`), присутствующие в значениях параметров, отображаются как фактические переносы строк в сгенерированном документе DOCX. Эта функциональность применяется только при использовании xref:creation/templates.adoc#template_doc[шаблона DOCX].
 
-Default value: `false`.
+Значение по умолчанию: `false`.
 
 [[jmix.reports.office-path]]
 === jmix.reports.office-path
 
-Sets the path to LibreOffice.
+Устанавливает путь к LibreOffice.
 
-Default value: `/`
+Значение по умолчанию: `/`
 
 [[jmix.reports.office-ports]]
 === jmix.reports.office-ports
 
-Specifies the comma- or vertical bar-separated list of available ports for LibreOffice.
+Определяет список доступных портов для LibreOffice, разделенных запятыми или вертикальной чертой.
 
-For example: `jmix.reports.office-ports = 8100|8101|8102|8103|8104|8105`.
+Например: `jmix.reports.office-ports = 8100|8101|8102|8103|8104|8105`.
 
-Default value: `8100, 8101, 8102, 8103`.
+Значение по умолчанию: `8100, 8101, 8102, 8103`.
 
 [[jmix.reports.pdf-fonts-directory]]
 === jmix.reports.pdf-fonts-directory
 
-Sets to the fonts directory for converting reports from HTML to PDF.
+Устанавливает путь к директории со шрифтами для преобразования отчетов из HTML в PDF.
 
-For example: `jmix.reports.pdf-fonts-directory = C:/Windows/Fonts`.
+Например: `jmix.reports.pdf-fonts-directory = C:/Windows/Fonts`.
 
 [[jmix.reports.put-empty-row-if-no-data-selected]]
 === jmix.reports.put-empty-row-if-no-data-selected
 
-Sets the mode when the bands which datasets have returned no records are still displayed once.
+Устанавливает режим, при котором бэнды, наборы данных которых не вернули записей, все равно отображаются один раз.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.reports.save-output-documents-to-history]]
 === jmix.reports.save-output-documents-to-history
 
-If set to true, report results files are saved to the xref:files:index.adoc[file store], if the <<jmix.reports.history-recording-enabled,jmix.reports.history-recording-enabled>> property is on. See xref:exec-history.adoc#history_output_documents[Output documents] for details.
+Если установлено в `true`, файлы результатов отчетов сохраняются в xref:files:index.adoc[файловом хранилище], если свойство <<jmix.reports.history-recording-enabled,jmix.reports.history-recording-enabled>> включено. Смотрите xref:exec-history.adoc#history_output_documents[Выходные документы] для получения подробной информации.
 
-Default value: `false`.
+Значение по умолчанию: `false`.
 
 [[jmix.reports.use-office-for-document-conversion]]
 === jmix.reports.use-office-for-document-conversion
 
-Turns on using LibreOffice to convert the report having DOCX template to HTML/PDF, which significantly increases the conversion accuracy.
+Включает использование LibreOffice для преобразования отчета с шаблоном DOCX в HTML/PDF, что значительно повышает точность преобразования.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.reports.view-file-extensions]]
 === jmix.reports.view-file-extensions
 
-Specifies the list of file extensions to be shown in the web browser tab instead of downloading them automatically.
+Определяет список расширений файлов, которые должны отображаться во вкладке веб-браузера вместо автоматической загрузки.
 
-Default value: `htm, html, jpg, png, jpeg, pdf`
+Значение по умолчанию: `htm, html, jpg, png, jpeg, pdf`
 
 [[libre_office]]
-== Installing and Configuring LibreOffice
+== Установка и настройка LibreOffice
 
-The Reports add-on uses the *LibreOffice* package to output reports in PDF and DOC xref:creation/templates.adoc#output_format_compliance[formats]. Below we provide instructions about how to install and configure it in the application server:
+Дополнение Reports использует пакет *LibreOffice* для вывода отчетов в xref:creation/templates.adoc#output_format_compliance[форматах] PDF и DOC. Ниже мы предоставляем инструкции о том, как установить и настроить его на сервере приложений:
 
 [[install-on-microsoft-windows]]
-=== For Microsoft Windows
+=== Для Microsoft Windows
 
 // *Installing and Configuring LibreOffice for Microsoft Windows*
 
-* Download the application at http://www.libreoffice.org/download/download/[www.libreoffice.org^].
-* Install the application.
-* Configure <<jmix.reports.office-path,jmix.reports.office-path>> application property, set it the path to *LibreOffice*, for example:
+* Скачайте приложение на http://www.libreoffice.org/download/download/[www.libreoffice.org^].
+* Установите приложение.
+* Настройте свойство приложения <<jmix.reports.office-path,jmix.reports.office-path>>, установите путь к *LibreOffice*, например:
 
 [source, properties,indent=0]
 ----
@@ -161,31 +161,31 @@ jmix.reports.office-path = C:/Program Files (x86)/LibreOffice 5/program
 ----
 
 [[install-on-ubuntu-server]]
-=== On Ubuntu Server
+=== На сервере Ubuntu
 // *Installing and Configuring LibreOffice on Ubuntu Server*
 
-* Install the `libreoffice` package, for example, by running the following command:
+* Установите пакет `libreoffice`, например, выполнив следующую команду:
 +
 [source, properties,indent=0]
 ----
 $ sudo apt-get install libreoffice
 ----
     
-* Configure <<jmix.reports.office-path,jmix.reports.office-path>> application property, set it the path to *LibreOffice*:
+* Настройте свойство приложения <<jmix.reports.office-path,jmix.reports.office-path>>, установите путь к *LibreOffice*:
 +
 [source, properties,indent=0]
 ----
 jmix.reports.office-path = /usr/lib/libreoffice/program
 ----
 
-* If the server does not have window interface installed, LibreOffice will start with the error, `Caused by: java.awt.HeadlessException: No X11 DISPLAY variable was set, but this program performed an operation which requires it`, or will simply terminate without error messages. To resolve this issue, set the <<jmix.reports.display-device-available, jmix.reports.display-device-available>> application property:
+* Если на сервере не установлен оконный интерфейс, LibreOffice запустится с ошибкой `Caused by: java.awt.HeadlessException: No X11 DISPLAY variable was set, but this program performed an operation which requires it` или просто завершит работу без сообщений об ошибках. Чтобы решить эту проблему, установите свойство приложения <<jmix.reports.display-device-available, jmix.reports.display-device-available>>:
 +
 [source, properties,indent=0]
 ----
 jmix.reports.display-device-available = false
 ----
 
-* You can run the following command to diagnose errors when starting LibreOffice:
+* Вы можете выполнить следующую команду для диагностики ошибок при запуске LibreOffice:
 +
 [source, properties,indent=0]
 ----
@@ -194,9 +194,9 @@ $ strace -e trace=signal /usr/lib/libreoffice/programs/office.bin --headless --a
 
 [TIP]
 ====
-For Ubuntu users who installed tomcat using `apt`, it is necessary to copy `~/.config/libreoffice` to `$CATALINA_HOME`. For tomcat10, it is `/usr/share/tomcat10`.
+Для пользователей Ubuntu, которые установили tomcat с помощью `apt`, необходимо скопировать `~/.config/libreoffice` в `$CATALINA_HOME`. Для tomcat10 это `/usr/share/tomcat10`.
 
-After that, you should change the owner of this folder:
+После этого следует изменить владельца этой папки:
 
 [source, properties,indent=0]
 ----
@@ -207,12 +207,12 @@ sudo chown -R tomcat10.tomcat10 /usr/share/tomcat10/.config/
 ====
 
 [[install-on-mac]]
-=== For macOS
+=== Для macOS
 // *Installing and Configuring LibreOffice for macOS*
 
-* Download the application at https://www.libreoffice.org/get-help/install-howto/macos/[www.libreoffice.org^].
-* Install the application.
-* In the <<jmix.reports.office-path, jmix.reports.office-path>> application property, specify the path to *LibreOffice.app*, for example:
+* Скачайте приложение на https://www.libreoffice.org/get-help/install-howto/macos/[www.libreoffice.org^].
+* Установите приложение.
+* В свойстве приложения <<jmix.reports.office-path, jmix.reports.office-path>> укажите путь к *LibreOffice.app*, например:
 +
 [source, properties,indent=0]
 ----
@@ -220,10 +220,10 @@ jmix.reports.office-path = /Applications/LibreOffice.app/Contents/MacOS
 ----
 
 [[formula-recalculation]]
-=== LibreOffice Formulas Recalculation On Load
+=== Пересчет формул LibreOffice при загрузке
 
-The LibreOffice Calc setting, found under *Tools > Options > LibreOffice Calc > Formula > Recalculation on File Load*, controls how LibreOffice handles formula recalculation when opening a spreadsheet file (like an XLSX report).
+Настройка LibreOffice Calc, находящаяся в разделе *Tools > Options > LibreOffice Calc > Formula > Recalculation on File Load*, управляет тем, как LibreOffice обрабатывает пересчет формул при открытии файла электронной таблицы (например, отчета XLSX).
 
-By default, LibreOffice might choose to not automatically recalculate formulas upon opening a file to improve load times, especially for large and complex spreadsheets. This can lead to situations where formulas display outdated results until the user manually triggers a recalculation (for example, by pressing `F9` or editing a cell).
+По умолчанию LibreOffice может не пересчитывать формулы автоматически при открытии файла, чтобы ускорить загрузку, особенно для больших и сложных электронных таблиц. Это может привести к ситуациям, когда формулы отображают устаревшие результаты до тех пор, пока пользователь вручную не инициирует пересчет (например, нажав `F9` или отредактировав ячейку).
 
-Setting *Recalculation on File Load* to *Always recalculate* forces LibreOffice to recalculate all formulas every time the file is opened. This guarantees that the displayed values are always up-to-date but may increase the file's opening time, especially for large or computationally intensive spreadsheets. Therefore, this setting represents a trade-off between speed of opening and data accuracy. While it solves the problem of outdated formula results in most cases, it's worth considering the performance implications for very large files.
+Установка параметра *Recalculation on File Load* в значение *Always recalculate* заставляет LibreOffice пересчитывать все формулы каждый раз при открытии файла. Это гарантирует, что отображаемые значения всегда актуальны, но может увеличить время открытия файла, особенно для больших или сложных в вычислительном отношении электронных таблиц. Таким образом, эта настройка представляет собой компромисс между скоростью открытия и точностью данных. Хотя она решает проблему устаревших результатов формул в большинстве случаев, стоит учитывать последствия для производительности очень больших файлов.

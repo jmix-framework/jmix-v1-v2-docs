@@ -1,39 +1,39 @@
 [[quick_start]]
-= Getting Started with Reports
+= Начало работы с отчетами
 :page-aliases: reports:quick-start.adoc
 
-This section helps you quickly explore the basic functionality of the Reports add-on by creating a couple of reports with minimal effort.
+Этот раздел поможет вам быстро ознакомиться с базовой функциональностью дополнения Reports, создав пару отчетов с минимальными усилиями.
 
-Examples in this section are based on the Onboarding application created in xref:tutorial:index.adoc[]. You will create two reports:
+Примеры в этом разделе основаны на приложении Onboarding, созданном в xref:tutorial:index.adoc[Самоучителе]. Вы создадите два отчета:
 
-* *User Profile*: Shows the main details and the list of onboarding steps for a selected user.
-* *List of Users*: Displays the list of users and their roles.
+* *User Profile* (*Профиль пользователя*): Показывает основные данные и список этапов онбординга для выбранного пользователя.
+* *List of Users* (*Список пользователей*): Отображает список пользователей и их роли.
 
-TIP: See also the xref:reports-guide:index.adoc[] guide for practical examples of reports with a complex structure and various output types.
+TIP: Также ознакомьтесь с руководством xref:reports-guide:index.adoc[] для получения практических примеров отчетов со сложной структурой и различными типами вывода.
 
 [[project_setup_report]]
-== Project Setup
+== Настройка проекта
 
-. Download and unpack the source code of the https://github.com/jmix-framework/jmix-onboarding-2[Jmix Onboarding^] project, or clone it using Git:
+. Скачайте и распакуйте исходный код проекта https://github.com/jmix-framework/jmix-onboarding-2[Jmix Onboarding^] или клонируйте его с помощью Git:
 +
 ----
 git clone https://github.com/jmix-framework/jmix-onboarding-2.git
 ----
-. Open the `jmix-onboarding-2` project in Studio as described in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section.
-. Add the Reports add-on to the project as described in the xref:index.adoc#installation[Installation] section.
+. Откройте проект `jmix-onboarding-2` в Studio, как описано в разделе xref:studio:project.adoc#opening-existing-project[Открытие существующего проекта].
+. Добавьте дополнение Reports в проект, как описано в разделе xref:index.adoc#installation[Установка].
 
 [[creating-report-at-runtime]]
-== Creating Report at Runtime
+== Создание отчета во время выполнения
 
-In this section, you will create the *User Profile* report using the wizard available in the running application. The report definition and template will be stored in the database.
+В этом разделе вы создадите отчет *User Profile* (*Профиль пользователя*) с помощью мастера, доступного в работающем приложении. Определение отчета и шаблон будут храниться в базе данных.
 
-Launch the application using the `Onboarding Jmix Application` run/debug configuration of your IDE, navigate to http://localhost:8080[^] and log in as `admin` with `admin` password.
+Запустите приложение, используя конфигурацию запуска/отладки `Onboarding Jmix Application` в вашей IDE, перейдите по адресу http://localhost:8080[^] и войдите как `admin` с паролем `admin`.
 
-. Open the *Reports -> Reports* view and run the report creation wizard by clicking *Create -> Using wizard*.
+. Откройте экран *Reports -> Reports* и запустите мастер создания отчетов, нажав *Create -> Using wizard*.
 +
 image::reports_wizard_main.png[align="center", width="606"]
 +
-Enter the following parameters on the first step of the wizard:
+Введите следующие параметры на первом шаге мастера:
 +
 * *Entity*: `User`
 * *Template type*: `DOCX`
@@ -43,51 +43,51 @@ Enter the following parameters on the first step of the wizard:
 +
 image::get-started/wizard-1.png[align="center", width="721"]
 
-. In the next step of the wizard, specify the attributes of the `User` entity and the related `Department` that should be displayed in the report. These attributes will form the "simple region".
+. На следующем шаге мастера укажите атрибуты сущности `User` и связанной сущности `Department`, которые должны отображаться в отчете. Эти атрибуты сформируют "простой регион".
 +
 image::get-started/wizard-2.png[align="center", width="635"]
 +
-Click *OK* to proceed to the next step: editing report regions.
+Нажмите *OK*, чтобы перейти к следующему шагу: редактированию регионов отчета.
 
-. The appeared view contains a list of named regions, or bands, that display related data. If the entity includes collection attributes, the *Add tabulated region* button is enabled.
+. Появившийся экран содержит список именованных регионов (или бэндов), которые отображают связанные данные. Если сущность включает атрибуты-коллекции, кнопка *Add tabulated region* становится активной.
 +
-Click on the *Add tabulated region* button to create a band for displaying a list of onboarding steps of this `User` instance.
+Нажмите кнопку *Add tabulated region*, чтобы создать бэнд для отображения списка этапов онбординга данного экземпляра `User`.
 +
 image::get-started/wizard-3.png[align="center", width="711"]
 +
-Select `User.Steps` in the *Select attributes* dialog.
+Выберите `User.Steps` в диалоговом окне *Select attributes*.
 +
-Then select the `Steps.Step.Name`, `Due date` and `Completed date` attributes.
+Затем выберите атрибуты `Steps.Step.Name`, `Due date` и `Completed date`.
 +
 image::get-started/wizard-4.png[align="center", width="630"]
 +
-Click *OK*, then *Next* to move to the final step where you can adjust the output file name and format. Click *Save*.
+Нажмите *OK*, затем *Next*, чтобы перейти к финальному шагу, где можно настроить имя выходного файла и формат. Нажмите *Save*.
 
-. The wizard finishes and the report detail view is opened. You can explore the created report structure and run the report.
+. Мастер завершает работу, и открывается экран деталей отчета. Вы можете изучить созданную структуру отчета и запустить отчет.
 
-. To render the user picture in the report, create a xref:reports:creation/value-formats.adoc[value format] for this field. Switch to the *Value formats* tab and click *Create*. Enter `User1.picture` in the *Name* field and `${imageFileId:200x200}` in the *Format string* field:
+. Чтобы отобразить изображение пользователя в отчете, создайте xref:reports:creation/value-formats.adoc[формат значения] для этого поля. Перейдите на вкладку *Value formats* и нажмите *Create*. Введите `User1.picture` в поле *Name* и `${imageFileId:200x200}` в поле *Format string*:
 +
 image::get-started/value-format-1.png[align="center", width="630"]
 +
-Save the value format.
+Сохраните формат значения.
 
-. You can adjust the visual representation of the report by modifying the template on the *Templates* tab. Below we will show the output generated from the default template created by the wizard automatically.
+. Вы можете настроить визуальное представление отчета, изменив шаблон на вкладке *Templates*. Ниже мы покажем вывод, сгенерированный из шаблона по умолчанию, созданного мастером автоматически.
 
-. Click *Run* and select a user in the *Input parameters* dialog window.
+. Нажмите *Run* и выберите пользователя в диалоговом окне *Input parameters*.
 +
-The report will be generated and downloaded by your browser as the `User Profile.docx` file.
+Отчет будет сгенерирован и загружен вашим браузером как файл `User Profile.docx`.
 +
 image::get-started/docx-report-1.png[align="center", width="1129"]
 
-. Now let's configure the application to run the report from the *Users* view.
+. Теперь давайте настроим приложение для запуска отчета из экрана *Users*.
 +
-Switch to the *Roles and views* tab of the report detail view and add `User.list` to the *Views* list:
+Перейдите на вкладку *Roles and views* экрана деталей отчета и добавьте `User.list` в список *Views*:
 +
 image::get-started/views-tab-1.png[align="center", width="1018"]
 +
-Click *OK* to save the report definition.
+Нажмите *OK*, чтобы сохранить определение отчета.
 +
-Open `user-list-view.xml` in your IDE and add an action of the `report_runListEntityReport` type and a corresponding button to the view layout:
+Откройте `user-list-view.xml` в вашей IDE и добавьте действие типа `report_runListEntityReport` и соответствующую кнопку в контейнер экрана:
 +
 [source,xml,indent=0]
 .src/main/resources/com/company/onboarding/view/user/user-list-view.xml
@@ -95,31 +95,31 @@ Open `user-list-view.xml` in your IDE and add an action of the `report_runListEn
 include::example$reports-onboarding/src/main/resources/com/company/onboarding/view/user/user-list-view.xml[tags=report;runListEntityReport]
 ----
 +
-Make sure the view is hot-deployed or restart the application. Open the *Users* view, select a user in the data grid and click the *Print reports* button. The report for the selected user will be generated and downloaded.
+Убедитесь, что экран обновлен через hot deploy, или перезапустите приложение. Откройте экран *Users*, выберите пользователя в таблице данных и нажмите кнопку *Print reports.* Отчет для выбранного пользователя будет сгенерирован и загружен.
 
-== Creating Report at Design-Time
+== Создание отчета во время разработки
 
-In this section, you will create the *List of Users* report in Studio. The report definition and template will be stored in the application sources.
+В этом разделе вы создадите отчет *List of Users* (*Список пользователей*) в Studio. Определение отчета и шаблон будут храниться в исходных кодах приложения.
 
-NOTE: The wizard in Studio currently cannot configure the structure and fields of the created report the same as the <<creating-report-at-runtime,runtime wizard>> does. It just creates a working example that displays application users and roles, no matter how you call the report.
+NOTE: Мастер в Studio в настоящее время не может настроить структуру и поля создаваемого отчета так же, как это делает <<creating-report-at-runtime,мастер, доступный в работающем приложении>>. Он просто создает рабочий пример, который отображает пользователей приложения и их роли, независимо от того, как вы вызовете отчет.
 
-. In the *Jmix* tool window, click *New* (+) -> *Report Definition*. In the first step of the *New Report Definition* wizard, enter `ListOfUsers` to the *Class Name* field:
+. В окне *Jmix* нажмите *New (+) -> Report Definition*. На первом шаге мастера *New Report Definition* введите `ListOfUsers` в поле *Class Name*:
 +
 image::get-started/studio-1.png[align="center",width="860"]
 
-. In the *Additional Parameters* step, leave all fields empty and make sure the *Generate code and template for printing the list of users and their roles* checkbox is selected:
+. На шаге *Additional Parameters* оставьте все поля пустыми и убедитесь, что установлен флажок *Generate code and template for printing the list of users and their roles*:
 +
 image::get-started/studio-2.png[align="center",width="503"]
 
-. In the *Availability* step of the wizard, add `UserListView` to the *Available in Views* list:
+. На шаге *Availability* мастера добавьте `UserListView` в список *Available in Views*:
 +
 image::get-started/studio-3.png[align="center",width="860"]
 
-. After finishing the wizard, the created report class and template are available in the *Report Definitions* section of the *Jmix* tool window:
+. После завершения работы мастера созданный класс отчета и шаблон доступны в разделе *Report Definitions* окна *Jmix*:
 +
 image::get-started/studio-4.png[align="center",width="272"]
 +
-The report class defines the report structure using annotations and includes a method for loading the list of users. The nested `Roles` band selects user roles using SQL.
+Класс отчета определяет структуру отчета с использованием аннотаций и включает метод для загрузки списка пользователей. Вложенный бэнд `Roles` выбирает роли пользователей с помощью SQL.
 +
 [source,java]
 .src/main/java/com/company/onboarding/report/ListOfUsers.java
@@ -127,11 +127,11 @@ The report class defines the report structure using annotations and includes a m
 include::example$reports-onboarding/src/main/java/com/company/onboarding/report/ListOfUsers.java[]
 ----
 
-. Now you can run the report from the *Reports* and *Run report* views.
+. Теперь вы можете запустить отчет из экранов *Reports* и *Run report*.
 +
 image::get-started/xlsx-report-1.png[align="center",width="1152"]
 
-. To run the report from the *Users* view, open `user-list-view.xml` and add an action of the `report_runReport` type and a corresponding button to the view layout:
+. Чтобы запустить отчет из экрана *Users*, откройте `user-list-view.xml` и добавьте действие типа `report_runReport` и соответствующую кнопку в контейнер экрана:
 +
 [source,xml,indent=0]
 .src/main/resources/com/company/onboarding/view/user/user-list-view.xml
@@ -139,4 +139,4 @@ image::get-started/xlsx-report-1.png[align="center",width="1152"]
 include::example$reports-onboarding/src/main/resources/com/company/onboarding/view/user/user-list-view.xml[tags=report;runReport]
 ----
 +
-Make sure the view is hot-deployed or restart the application. Open the *Users* view and click the *Run report* button. You will see the *Run report* dialog with the list of reports available in the *Users* view.
+Убедитесь, что экран обновлен через hot deploy, или перезапустите приложение. Откройте экран *Users* и нажмите кнопку *Run report*. Вы увидите диалоговое окно *Run report* со списком отчетов, доступных в экране *Users*.

@@ -1,14 +1,13 @@
 [[permissions]]
-= Roles and Views
+= Роли и экраны
 
-You can define user rights to access the report as well as report availability in certain application views in the *Roles and views* tab of the report detail view.
+Вы можете определить права пользователей на доступ к отчету, а также доступность отчета в определенных экранах приложения на вкладке *Roles and views* экрана деталей отчета.
 
-If the *Resource roles* list contains at least one role, the report will be available only to users with this role. If no role is specified, the report is available to everyone.
+Если список *Resource roles* содержит хотя бы одну роль, отчет будет доступен только пользователям с этой ролью. Если роль не указана, отчет доступен всем.
 
 [TIP]
 ====
-Keep in mind that in the report list view (the *Reports->Reports* menu item) all system reports are visible because this view is considered administrative.
+Имейте в виду, что в экране списка отчетов (пункт меню *Reports->Reports)* все системные отчеты видны, поскольку этот экран считается административным.
 ====
 
-The *Views* list allows you to specify, in which views the report will be available when invoking xref:run-report.adoc#run_report_action[RunReportAction], xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction], xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] or xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] actions. If no view is specified, the report won't be available from any application view.
-
+Список *Views* позволяет указать, в каких экранах отчет будет доступен при вызове действий xref:run-report.adoc#run-report-action[RunReportAction], xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction], xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] или xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction]. Если экран не указан, отчет не будет доступен ни из одного экрана приложения.
