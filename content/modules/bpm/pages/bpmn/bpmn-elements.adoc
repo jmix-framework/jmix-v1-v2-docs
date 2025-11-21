@@ -13,7 +13,7 @@ BPMN elements can be categorized into several types, each serving a specific pur
 - xref:bpmn/bpmn-events.adoc[**Events**]: Represent something that happens during the process (that are _start_, _intermediate_, _end_).
 - *Activities*: xref:bpmn/bpmn-tasks.adoc[Tasks] or xref:bpmn/bpmn-subprocesses.adoc[subprocesses] that are performed (that is, user tasks, service tasks, script tasks).
 - xref:bpmn/bpmn-gateways.adoc[*Gateways*]: Control the flow of the process by determining branching, forking, merging, and joining of paths.
-image::bpmn-elements/comment-link.png[]
+image:bpmn-elements/comment-link.png[]
 
 2. *Connecting Objects*: Elements that connect flow objects and define the flow of the process.
 - xref:bpmn/bpmn-sequence-flow.adoc[*Sequence Flows*]: Indicate the order of activities in the process (image:bpmn-elements/sequence-flow.png[,80]).
