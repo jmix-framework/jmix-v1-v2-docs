@@ -8,23 +8,13 @@ that represents operations with _Jmix entities_ within a process.
 It can be convenient to use Entity Data Task for manipulations with data instead of regular service Task.
 You can load entities from the database, modify them, and create the new ones.
 
-[NOTE]
-====
-To be exact, we talk here about _entity instances_, not _entities_ themselves.
-====
-
 .*Graphical Notation*
 
 An entity data task is visualized as a rounded rectangle with a small database icon in the top-left corner.
 
 image::jmix-data-task/data-task.png[,150]
 
-[NOTE]
-====
-As an Entity Data task is a Jmix extension, 3rd party BPMN modeling tools don't support it. Take care about compatibility if you need to exchange BPMN models with some of them.
-
-For example, *StormBPMN* doesn't allow to create entity data tasks -- use service tasks instead with a comment thai it must be the _data entity task_. And vice versa: when publishing BPMN models from Jmix to Storm, your entity data task visually will be shown as common service tasks, but their properties in the XML will be safe.
-====
+NOTE: The Entity Data task is an extension specific to Jmix, which means that it is not supported by other BPMN modeling tools. When exporting the model, the Entity Data task will be replaced by a standard service task; however, its XML properties will remain unchanged.
 
 .*XML Representation*
 
@@ -45,7 +35,7 @@ Here is a newly created entity data task; by default, it is a _Load entity_ task
 
 An entity data task has the following properties:
 
-image::jmix-data-task/data-task-properties.png[,400]
+image::jmix-data-task/data-task-properties.png[,463]
 
 To configure data task:
 
@@ -68,155 +58,21 @@ See the xref:bpm:bpmn/multi-instance-activities.adoc[Multi-Instance] section.
 [[data-task-types]]
 == Data Task Types
 
-You can select a type of data task from a pull-down list:
+The data task can perform one of the following actions:
 
-image::jmix-data-task/data-task-types.png[,400]
-
-Here you can create data tasks of the following types:
-
-* xref:loading-entities[Load Entities]
 * xref:modifying-entities[Modify Entity]
 * xref:creating-entities[Create Entity]
+* xref:loading-entities[Load Entities]
 
-[TIP]
-====
-To delete an entity, use a service task and call a method doing deletion with the help of xref:jmix:data-access:data-manager.adoc[DataManager].
-====
+TIP: To delete an entity, use a service task and call a method doing deletion with the help of xref:jmix:data-access:data-manager.adoc[DataManager].
 
 [[loading-entities]]
-== Loading Entities
+=== Loading Entities
 
-To load entities, you should select the _Load Entities_ task type in the properties panel.
-Then, define *JPQL query* and, if needed, the xref:loading-result[*result variable*].
-
-[[jpql-query]]
-=== JPQL Query
-
-To create a JPQL query, select a _JPQL_ property field and click the _Edit_ button:
-
-image::jmix-data-task/load-data-task-edit-jpql.png[,400]
-
-And _JPQL Query Designer_ window will open. First, select entity class from a pull-down list, for example, `smpl_Order`. Entity alias will be set automatically, you can change it later.
-
-image::jmix-data-task/jpql-wizard.png[,900]
-
-[[result-types]]
-==== Result Types
-
-Next, select the result type:
-
-*Entity*::
-In this case, the query always returns a list of entities. If you choose option _Save result as a single element_, you'll get the first element from the list, ordered by default or according parameter you set.
-+
-This JPQL query will be generated:
-+
- select s from smpl_Order s
-
-*Entities count*::
-In this cas, the query returns an integer value, the result of counting operation.
-+
-image::jmix-data-task/jpql-count.png[]
-+
-This JPQL query will be generated:
-+
- select COUNT(s) from smpl_Order s
-
-*Tuple*::
-The query of this type returns a collection of field values, including from associated entities. When the _Tuple_ result type has chosen, the *Select* section appears.
-+
-image::jmix-data-task/jpql-tuple.png[,900]
-+
-To complete the query creation, you have to select one attribute. For example, `customer.name`.
-+
-image::jmix-data-task/attribute-selection.png[,250]
-+
-This JPQL query will be generated:
-+
- select s.customer.name from smpl_Order s
-+
-In addition, you can use *Distinct* check box for receiving only unique items.
-+
-image::jmix-data-task/jpql-distinct.png[,900]
-+
-And the query will be modified:
-+
- select distinct s.customer.name from smpl_Order s
-+
-NOTE: Only one field will be included in tuple, others will be ignored if you add more.
-+
-As well, it's possible to use *aggregation* functions with tuples.
-+
-image::jmix-data-task/jpql-tuple-aggregation-function.png[,200]
-+
-In this case, the query returns a single numeric value.
-+
-image::jmix-data-task/jpql-tuple-aggregation.png[,900]
-+
-For example, this query calculates the sum of all order amounts.
-+
- select SUM(s.amount) from smpl_Order s
-
-[[query-filtering-sorting]]
-==== Query Filtering and Sorting
-
-You can use `WHERE` and `ORDER BY` clauses with your JPQL query:
-
-image::jmix-data-task/jpql-query-conditions.png[,900]
-
-WHERE clause::
-In JPQL, the `WHERE` clause is used to specify conditions that filter the results of a query. To apply it, click
-image:jmix-data-task/attribute-icon.png[,25] icon and select an entity attribute, for example, `amount`:
-+
-image::jmix-data-task/jpql-where-attribute.png[,900]
-+
-And define operation:
-+
-image::jmix-data-task/jpql-operations.png[,900]
-+
-This JPQL query will be generated and returns a list of orders with amount greater than the value we set in parameter `amount1`:
-+
- select s from smpl_Order s where s.amount > :amount1
-+
-Besides, it's possible to use _functions_ in the `WHERE` clause. Click
-image:jmix-data-task/function-icon.png[,25] icon, select one from the list and then select an attribute that will be used:
-+
-image::jmix-data-task/jpql-where-function.png[,900]
-+
-This query must return orders with the amount greater than parameter value and within a certain year, defined by another parameter.
-+
- select s from smpl_Order s where s.amount > :amount1 and extract(year from s.approvalDate) = :year1
-+
-When there is more than one condition in the `WHERE` clause, they are joined by logical operators and/or, and you can choose desired one:
-+
-image::jmix-data-task/where-and-or.png[,270]
-
-
-ORDER clause::
-The `ORDER BY` clause in JPQL is used to sort the results of a query
-in ascending or descending order based on one or more attributes of the entities.
-It allows you to specify the order in which the retrieved records should be presented.
-+
-To add it to your query, switch to the `ORDER` tab and select an attribute you want to use for sorting.
-+
-image::jmix-data-task/jpql-order.png[,900]
-+
-The query will be modified this way:
-+
- select s from smpl_Order s where s.amount > :amount1 and extract(year from s.approvalDate) = :year1 order by s.number asc
-+
-By default, an ascending direction is used, but you can change this:
-+
-image::jmix-data-task/order-direction.png[,270]
-
-[TIP]
-====
-Click the *Copy* button to copy your query in memory.
-
-image::jmix-data-task/copy-query-button.png[,200]
-====
+To load entities, you should select the _Load Entities_ task type in the properties panel. Then, define *JPQL query* and, if needed, the xref:loading-result[*result variable*].
 
 [[query-parameters]]
-==== Query Parameters
+==== JPQL Query Parameters
 You can set parameters of WHERE, ORDER BY clauses directly in the query body, for example:
 
  select s from smpl_Order s where s.amount < 500
@@ -224,41 +80,25 @@ You can set parameters of WHERE, ORDER BY clauses directly in the query body, fo
 But often you need to define parameter values externally, i.e., at runtime.
 For this, you have to create named parameters:
 
-* *JPQL parameters* -- If there are parameters in your query, define them here:
+image::jmix-data-task/create-jpql-parameter.png[,463]
 
-image::jmix-data-task/create-jpql-parameter.png[,400]
-
-[WARNING]
-====
-The name of parameter you create must match the name of the parameter in the query, there is no automatic control.
-====
+WARNING: The name of parameter you create must match the name of the parameter in the query, there is no automatic control.
 
 Parameter values can be passed into the process using two methods:
 
 * Process variable
 * Expression
 
-For example, like this:
-
-image::jmix-data-task/jpql-parameters.png[,400]
-
-
 [[loading-result]]
 === Loading Result
 
 To use the result of the loading operation further in the process, define a *Result variable*.
-You can select one of the existing process variables or enter an arbitrary name -- then a new variable will be created.
-
-image::jmix-data-task/load-task-result-variable.png[,400]
+You can enter the name of the existing process variable or enter an arbitrary name – then a new variable will be created.
 
 If there is an existed process variable with such a name but of the other type, it will be overridden.
 The type of the result variable will be defined by the type of the query result.
 
-
-As well, you can choose between two options in the combo box *Save result as* depending on the query result you expect, a _Single element_ or _Collection_.
-
-image::jmix-data-task/load-task-save-result.png[,400]
-
+As well, you can choose between two options in the combo box *Save result as* depending on the query result you expect: *Single element* or *Collection*.
 
 *XML Representation*
 
@@ -297,49 +137,27 @@ You can modify an entity stored in one of the existing process variables. Entity
 
 Also, you can specify a process variable directly by typing its name.
 This is relevant when the variable is not presented in the list. For example, when it is created programmatically in the service task, or it is a result of loading entity by another data task.
-After that, it is necessary to explicitly define an entity type and proceed with specifying entity attributes.
 
-image::jmix-data-task/modify-data-task-properties.png[,400]
+image::jmix-data-task/modify-data-task-properties.png[,463]
 
 [[specifying-attributes]]
 === Specifying Attributes
 
-Click a _Create_ link to specify entity attributes you want to modify.
-
 The value of the attribute can be specified in one of the following ways:
 
-* Specifying a direct value by typing in the field:
+* Direct value
+* Expression
+* Spring bean
 +
-image::jmix-data-task/data-task-attribute-direct.png[,400]
-+
-Or by selecting from the list for *Enumerations*:
-+
-image::jmix-data-task/data-task-attribute-enum.png[,400]
-+
-* Specifying an expression.
-+
-image::jmix-data-task/data-task-attribute-expression.png[,400]
-+
-The process variable `today` must be defined before this data task be executed.
+[NOTE]
+====
+The Spring bean option is disable by default. To enable this set the following application property:
 
-* Using a Spring bean.
-+
-By default, this option is disabled.
-To enable this variant in the list, set the property:
-+
 [source,properties,indent=0]
 ----
 include::example$/ex1/src/main/resources/application.properties[tags=spring-bean-enable]
 ----
-+
-Then, a _Spring bean_ option becomes available in the *Value type* field:
-+
-image::data-task/spring-bean-option.png[,330]
-+
-Now you can specify a Spring bean and its method to pass a value into entity attribute:
-+
-image::data-task/spring-bean-value.png[,400]
-
+====
 
 *XML Representation*
 
@@ -374,11 +192,9 @@ Attributes for the modified entity are passed via JSON.
 
 To create an entity, select the entity name from the list. All non-system attributes will be available for specifying using *BPMN Inspector*.
 
-image::jmix-data-task/create-data-task-properties.png[,400]
+image::jmix-data-task/create-data-task-properties.png[,463]
 
-If you need to use this entity further in the process, set a *Result variable* parameter or leave it blank if you don't need it.
-
-Specify all required (mandatory) attributes and other ones you want.
+If you need to use this entity further in the process set the *Result variable* parameter.
 
 *XML Representation*
 

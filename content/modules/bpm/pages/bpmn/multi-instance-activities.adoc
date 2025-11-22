@@ -66,7 +66,7 @@ loopCounter:: It indicates the index in the for-each loop of that particular ins
 To make an activity multi-instance, select it on the canvas and go to the *BPMN Navigator* panel.
 Choose a desired instance type:
 
-image::multi-instance/multi-instance-types.png[,350]
+image::multi-instance/multi-instance-types.png[,463]
 
 [[defining-number-of-instan]]
 === Number of Instances
@@ -84,8 +84,7 @@ When setting _cardinality_, you can use expressions that resolve to a positive n
 Set collection source and collection:: -- there are various sources available -- expression,
 process variable, and user provider. In this case, process engine creates as many activities as collection size is.
 
-image::multi-instance/collection-source-user-task.png[,350]
-
+image::multi-instance/collection-source-user-task.png[,463]
 
 .*Set Collection from Expression*
 Also, you can use expression to pass a collection in multi-instance activity.
@@ -178,7 +177,7 @@ image::process-example-multi-user-task.png[,400]
 Then, we can use outcome-based like
 "Everyone said _Yes_":
 
-image::sequence-flow-with-outcome-based-condition.png[,450]
+image::sequence-flow-with-outcome-based-condition.png[,463]
 
 [[boundary-events]]
 == Boundary Events

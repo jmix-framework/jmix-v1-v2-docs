@@ -29,7 +29,7 @@ image:bpmn-elements/comment-link.png[]
 4. *Artifacts*: Additional information that can be attached to the process to provide context.
 - *Data Objects*: Represent data that is required or produced by activities.
 - *Groups*: Visual elements that group different tasks but do not affect the flow.
-- *Annotations**: Provide additional information about the process.
+- *Annotations*: Provide additional information about the process.
 
 
 [[markers]]

@@ -1,13 +1,12 @@
 = Collaboration
 
-
 A collaboration represents the interaction between multiple participants in a business process. Each participant is defined with a unique ID and name, and is associated with a specific process definition through the processRef attribute.
 
-.*Graphical Notation*
+== Graphical Notation
 
-A collaboration does not have a distinct visual representation on its own. However, the presence of at least one xref:bpm:bpmn/bpmn-pools-lanes.adoc#pools[pool] in the diagram indicates that it is part of a collaboration.
+A collaboration does not have a distinct visual representation on its own. However, the presence of at least one xref:bpm:bpmn/bpmn-pools-lanes.adoc#pools[pool] indicates that it is part of a collaboration.
 
-.*XML Representation*
+== XML Representation
 
 In the XML, a collaboration is defined by the `<collaboration>` element containing `<participant>` child elements. Each `<participant>` is associated with a specific process via the `processRef` attribute, which references the ID of the process definition.
 
@@ -21,23 +20,18 @@ In the XML, a collaboration is defined by the `<collaboration>` element containi
   </collaboration>
 ----
 
-Besides, collaboration may have `isClosed` attribute that is ignored in Jmix BPM.
-
 [[properties]]
-.*Properties*
+== Properties
 
-Here are *Collaboration* properties:
-
-image::collaboration-properties.png[,350]
-
-ID::
-Identifies the collaborations.
-
-Name::
-The *name* property describes what the collaboration does. Its maximal length is 255 characters. But the name isn't displayed anywhere on the diagram.
-
-Documentation::
-Place here a process description. The maximal length is 4000 characters.
+[cols="1,6", grid=rows, frame=none]
+|===
+|*Property*
+|*Description*
+|Id
+|The id of the collaboration.
+|Name
+|The name of the collaboration.
+|===
 
 [[meassge-flows]]
 == Message Flows

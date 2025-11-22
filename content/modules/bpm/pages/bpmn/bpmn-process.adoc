@@ -1,61 +1,50 @@
 = Process
 
-A *process* is defined as a structured flow of activities that are performed to achieve a specific organizational goal.
-In the BPMN model, a process is a root element containing all other elements.
+Process is a structured flow of activities or tasks that serve a particular business goal.
+In BPMN, a process is a central element that encompasses all associated elements, thereby illustrating the entire workflow and interactions within the business context.
 
-.*Graphical Notation*
+== Graphical Notation
 
-A process has no visual representation. Anyway, when you are in the modeler, an empty canvas already has a process definition.
+A process does not have a visual representation. It can be wrapped into a xref:bpmn/bpmn-pools-lanes.adoc#pools[pool] to make the model clearer, but using pools isn't mandatory.
 
-A process can be encapsulated into a xref:bpmn/bpmn-pools-lanes.adoc#pools[pool]. In this case, the pool visually represents the process, but using pools isn't mandatory.
+== XML Representation
 
-
-*XML Representation*
-
-In the XML, the process is represented by `process` element. By default, it has an attribute `isExecutable` equals `true` that can be omitted.
-
-//todo: на самом деле процесс запускается при любом значении атрибута. Надо уточнить, как должно быть
+In the XML, the process is represented by `process` element.
 
 [source,xml]
 ----
   <process id="new-process" name="New process" isExecutable="true" >
     . . .
- </process>
+  </process>
 ----
 
-Additionally, the process may have `processType`, `isClosed`, and `definitionalCollaborationRef` attributes that are ignored in Jmix BPM.
+// Additionally, the process may have `processType`, `isClosed`, and `definitionalCollaborationRef` attributes that are ignored in Jmix BPM.
 
 [[properties]]
-.*Properties*
+== Properties
 
-Here are the process properties in the *BPM Navigator*:
+Just like the elements which make up a process, the process itself has a number of properties. You can view and edit process properties in the Modeler when no element is selected.
 
-image::bpmn-process/process-properties.png[,400]
-
-ID::
-The *process ID* identifies the process when it is deployed. In runtime, it is called *process key*.
-+
-[NOTE]
-====
-When creating a process in Jmix Studio, the system automatically sets the process ID to match the file name. While this is not a strict requirement, you have the flexibility to change the process ID as needed.
-However, it is considered best practice to keep the process ID and file name identical for consistency and easier identification.
-====
-
-Name::
-The *name* property describes what the process does. Its maximal length is 255 characters.
-
-[[starter-candidates]]
-Starter candidates::
-Users that allowed to start the process. They can be defined by *Candidate groups* and/or *Candidate users*. It is the same as setting candidates in the *User task*, see details xref:bpmn/bpmn-user-task.adoc#task-candidate-users-and-groups[here].
-+
-If the user is among candidates, he or she will see this process definition in the xref:menu-views/start-process-view.adoc[Start process] view.
-
-Event listeners::
-See xref:listeners.adoc#execution-listeners[listeners].
-//todo: needs testing
-
-Definitions::
-Here you can create xref:bpmn/bpmn-events.adoc#event-definitions[event definitions] for messages, signals, and errors.
-
-Documentation::
-Place here a process description. The maximal length is 4000 characters.
+[cols="1,6", grid=rows, frame=none]
+|===
+|*Property*
+|*Description*
+|Process id
+|The *process id* identifies the process when it is deployed. In runtime, it is called *process key*.
+|Name
+|The name of the process. The maximal length is 255 characters.
+|Candidate groups
+|A group of users permitted to start the process. If the user belongs to the group, they will see this process definition in the xref:menu-views/start-process-view.adoc[Start process] view.
+|Candidate users
+|Individual users permitted to start the process. If the user is among candidates, they will see this process definition in the xref:menu-views/start-process-view.adoc[Start process] view.
+|Event listeners
+|See xref:listeners.adoc#execution-listeners[listeners].
+|Signal definitions
+|To create a signal definition, set its *Id* and *Name*. Besides, specify its *Scope*. You can use it in xref:bpmn/bpmn-events.adoc#signal-events[Signal event] elements.
+|Message definitions
+|To create a message definition, set its id and name. This message can be used in xref:bpmn/bpmn-events.adoc#message-events[Message event] elements.
+|Error definitions
+|To create an error definition, set its id and name. Besides, you may set Error code. This error can be used in xref:bpmn/bpmn-events.adoc#error-events[Error event] elements.
+|Documentation
+|A description and additional information about the process.
+|===

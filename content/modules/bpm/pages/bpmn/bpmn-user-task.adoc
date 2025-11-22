@@ -35,15 +35,12 @@ The `id` attribute is required, the `name` attribute is optional.
 [[properties]]
 == Properties
 
-User task has common properties as other activities have and three specific sections:
+In addition to general properties, user task has the following specific properties:
 
+* *Due Date* to inform the performer when the task must be completed.
 * *Assignee*, where you can assign a single task performer or potential performers (candidates);
 * *Form*, where you can define a user interface for the task;
 * *Task Listeners*, where you can add listeners triggered by task lifecycle events.
-
-Besides, it has an additional property in the _General_ section -- *Due Date* to inform the performer when the task must be completed.
-
-image::bpmn-user-task/user-task-properties.png[,500]
 
 [[due-date]]
 == Due Date
@@ -51,16 +48,10 @@ image::bpmn-user-task/user-task-properties.png[,500]
 The *due date* parameter in a user task specifies the deadline by which the task must be completed.
 This parameter is crucial for managing time-sensitive activities within a business process.
 
-Take in account that due date doesn't affect the process itself.
-When the appointed date arrives, nothing happens in the process -- you should manage this event yourself.
-For example, in the custom task list.
+NOTE: Setting a due date does not start any automatic actions. It is necessary to manually configure any subsequent actions.
 
 [[setting-due-date]]
 === Setting Due Date
-There is a *due date* field at the user task properties panel in the _General_ section:
-
-image::bpmn-user-task/due-date-field.png[,350]
-
 The _Due date_ parameter can be set in two variants:
 
 * *Fixed date*: Some date in the future that means a deadline.
@@ -170,11 +161,11 @@ In Jmix BPM, the _assignee source_ refers to the mechanism used to determine whi
 There are three options, how to do that:
 
 [horizontal]
-Expression:: -- here must be an expression that result is a String containing username.
-Process variable:: -- a variable that refers to _User_ entity.
-User provider:: -- a special Java class with the method returning a username.
+Expression:: – an expression that result is a String containing username.
+Process variable:: – a variable that refers to _User_ entity.
+User provider:: – a Java class with the method returning a username.
 
-image::bpmn-user-task/assignee-sources.png[,350]
+image::bpmn-user-task/assignee-sources.png[,460]
 
 [[assign-taask-by-expression]]
 ==== Assigning Task by Expression
@@ -183,7 +174,7 @@ Expression is a default assignee source.
 You will need to write an expression that evaluates a username of an assignee.
 For example, if the `User` entity is stored in a process variable called `manager`, then the expression will be `${manager.username}`:
 
-image::bpmn-user-task/assign-by-expression.png[,350]
+image::bpmn-user-task/assign-by-expression.png[,460]
 
 *XML representation*
 [source,xml]
@@ -196,7 +187,7 @@ image::bpmn-user-task/assign-by-expression.png[,350]
 
 If you want to assign a task to a specific user, you can write a username directly:
 
-image::bpmn-user-task/assigne-by-expression-direct.png[,350]
+image::bpmn-user-task/assigne-by-expression-direct.png[,460]
 
 Also, you can invoke Spring bean method that returns username:
 
@@ -211,7 +202,7 @@ If you select the *Process variable* assignee source, the _ComboBox_ component w
 
 The build-in `initiator` process variable is available for assigning tasks while modeling a process. It contains an entity of the user that started the process:
 
-image::bpmn-user-task/assignee-initiator.png[,350]
+image::bpmn-user-task/assignee-initiator.png[,460]
 
 *XML representation*
 
@@ -249,15 +240,12 @@ include::example$/ex1/src/main/resources/application.properties[tags=name]
 ==== Assigning Task by User Provider
 
 If you need to apply a complicated business logic to define a task performer, better to choose a *User provider* option.
-In this case, the system offers to select an existing user provider Java class or allows to create a new one:
+In this case, the system offers to select an existing user provider Java class:
 
-image::bpmn-user-task/selecting-user-provider.png[,350]
+image::bpmn-user-task/selecting-user-provider.png[,460]
 
-User provider should implement one or more methods with the `String` returned type.
-A method gets parameter values that are specified in the modeler and returns a username of the user that should become a task assignee.
-If the class has the only method, it'd be applied automatically:
-
-image::bpmn-user-task/assign-by-user-provider.png[,350]
+The user provider class needs to implement one or more methods with the `String` return type.
+A method gets parameter values that are specified in the modeler and returns a username of the user that becomes a task assignee.
 
 *XML representation*
 
@@ -294,8 +282,8 @@ Task task = taskService.createTaskQuery()
 
 taskService.setAssignee(task.getId(), "jane"); <2>
 ----
-<1> -- getting task object by Query API
-<2> -- setting assignee by username
+<1> getting task object by Query API
+<2> setting assignee by username
 
 Tasks assigned to the certain user can be retrieved through the `TaskService` as follows:
 
@@ -305,7 +293,7 @@ List<Task> tasks = taskService.createTaskQuery()
     .taskAssignee("jane") <1>
     .list();
 ----
-<1> -- username
+<1> username
 
 [[task-candidate-users-and-groups]]
 == Task Candidate Users and Groups
@@ -355,43 +343,9 @@ It's possible to claim the task on the specified user via API:
 taskService.claim("taskId", "userId");
 ----
 
-[[setting-candidates-in-studio]]
-=== Setting Candidates in Studio
-
-To set up candidates in Studio use corresponding user task properties in *BPMN Inspector*:
-
-image::bpmn-user-task/setting-candidates.png[,350]
-
-To enter values in these fields, click an _Edit_ button
-image:bpmn-user-task/edit-button.png[,20], and type user groups codes or usernames in editor window as a comma-separated list:
-
-image::bpmn-user-task/edit-candidates.png[,300]
-image::bpmn-user-task/edit-candidate-users.png[,300]
-
-*XML representation*
-
-[source,xml]
-----
-<userTask id="Activity_0cu0xtq" name="User task"
-    camunda:candidateUsers="bob, peter"
-    camunda:candidateGroups="accountants, sales"
-    jmix:candidateGroupsValue="accountants, sales"
-    jmix:candidateUsersValue="bob, peter" />
- . . .
-</userTask>
-----
-
-[WARNING]
-====
-Studio doesn't see real user groups and users.
-So it is on developer's responsibility to use only valid group codes and usernames as candidates.
-Otherwise, it causes a runtime error.
-====
-
 [[setting-candidates-in-web]]
-=== Setting Candidates in Web BPM Modeler
+=== Setting Candidates in Modeler
 
-In the *Web BPM Modeler,* more options for setting candidate groups and users are available.
 For setting candidate groups, click the *Edit* button:
 
 image::bpmn-user-task/web-modeler-candidate-groups.png[,400]
@@ -516,187 +470,177 @@ For example, this way you can refer to the username of the _User_ entity variabl
 CandidateUsers and candidateGroups can both be defined on the same user task.
 
 [[defining-task-forms]]
-== Defining User Task Forms
+== User Task Process Forms
 
-User task can be configured to use a xref:forms.adoc[process form] to visualize it for performer.
-Jmix BPM offers the following options for process forms:
+User task can be configured with a xref:forms.adoc[process form] to assist the performer in entering data required for this task. The collected data can then be passed along in the process.
 
-image::bpmn-user-task/form-type-selection.png[,350]
-
-By default, a new user task is created with no form. You can select one while configuring the task.
-
-*Recommendations on using process forms*
-
-Choose *Input dialog* forms for the rapid prototyping or for uncomplicated forms not needed customization even in production.
-Such forms usually operate with simple data types -- strings, numbers, enums, dates.
-
-When you need to show on the form complex data objects like entities or collections of entities with many fields,
-validations, and formatting requirements, it'd be better to choose *Jmix view*.
-However, this requires more efforts.
-
-
-[[user-task-outcomes]]
-=== User Task Outcomes
-
-When users complete a user task, they often have to make a decision, for example, approve or reject the document.
-After that, the process should go one or another way.
-You can use task outcomes for modeling such cases.
-
-Outcomes appear on process forms as buttons that may be provided with icon.
-Wherein, default *Complete* button becomes not visible.
-
-image::outcomes/outcome-buttons.png[,350]
-
-You can create outcomes both in input dialog forms and Jmix views but different ways.
-See details below.
-
-[[outcomes-input-dialogs]]
-==== Outcomes in Input Dialog Forms
-
-For xref:bpm:input-dialog.adoc[input dialog] process forms,
-outcomes are defined in the *Outcomes* section in the *BPMN Inspector* panel.
-
-image::bpmn-user-task/outcomes-in-proprties.png[,350]
-
-You can create outcomes using *Outcomes editor*, set its id, caption, and icon:
-
-image::outcomes/outcomes-editor.png[,500]
-
-Later you can edit outcomes directly in the *BPMN Inspector* panel:
-
-image::outcomes/outcomes-created.png[,350]
-
-In the *Web BPM Modeler*, you can see outcomes in the  properties panel:
-
-image::outcomes/web-outcomes.png[,350]
-
-To create or edit the outcome, use *Outcome editor*:
-
-image::outcomes/web-outcome-edit.png[,400]
-
-*XML representation*
-
-When outcomes are used with the input dialog form, a special _jmix:formOutcomes_ section is added.
-Here you can see your outcomes with _jmix:formOutcome_ attributes.
-
-[source,xml]
-----
-<userTask id="Activity_0cu0xtq" name="User task" camunda:candidateUsers="bob, peter" camunda:candidateGroups="accountants, sales" jmix:candidateGroupsValue="accountants, sales" jmix:candidateUsersValue="bob, peter">
-  <extensionElements>
-    <jmix:formData type="input-dialog" openMode="DIALOG">
-      <jmix:formOutcomes> <1>
-        <jmix:formOutcome id="approve" caption="Approve" icon="CHECK" /> <2>
-        <jmix:formOutcome id="reject" caption="Reject" icon="BAN" /> <3>
-      </jmix:formOutcomes>
-    </jmix:formData>
-  </extensionElements>
-</userTask>
-----
-<1> -- outcomes section
-<2> -- "approve" outcome
-<3> -- "reject" outcome
-
-[[outcomes-jmix-views]]
-==== Outcomes in Jmix View Forms
-
-For xref:bpm:bpmn/jmix-view-forms.adoc#declare-task-outcomes[Jmix screen] forms,
-outcomes are defined in the screen controller.
-
-However, in the Studio you can see outcomes in the *Form* section just for reference --
-it helps to design the process without looking in the Jmix view controller code.
-
-image::bpmn-user-task/outcomes-jmix-form.png[,350]
-
-How to create and use outcomes in Jmix views, see in the corresponding section.
-
-[[using-outcomes]]
-=== Using Outcomes
-
-When the user clicks one of the outcome buttons, the task is completed
-and the decision is written to a special process variable which name is built according to the following name pattern:
-`<user-task-id>_result`.
-You can find it in the list of variables in the *Process instance edit* view.
-
-image::outcomes/outcome-container.png[,500]
-
-It has type `OutcomesContainer` that contains a list of `Outcome` objets for the case when the given user task is multi-instanced.
-
-You can access outcomes container programmatically:
-[source,java]
-----
-String outcomeContainerName = taskIdValue + "_result"; <1>
-OutcomesContainer outcomesContainer = (OutcomesContainer) execution
-        .getVariable(outcomeContainerName); <2>
-----
-<1> -- Generate a name of the outcomes container.
-<2> -- Get the outcomes container, that is a list of outcomes.
-
-This variable value holds information about the users (if many) that completed the task and outcomes they selected.
-Yuo can see it in the *Process variable editor* window.
-
-image::outcomes/outcome-container-esitor.png[,400]
-
-[[outcome-based-conditions]]
-==== Outcome-Based Conditions
-
-After you set outcomes for the task,
-you need to specify conditions for sequence flows after the exclusive gateway element.
-You can write a condition expression or select an outcome from the drop-down list.
-
-Let's look at the example of configuring a sequence flow using *outcome-based conditions*.
-Here is a fragment of the process with user task and exclusive gateway having two outgoing sequence flows.
-
-image::outcomes/approve-invoice-process.png[,350]
-
-To specify conditions for the `approved` sequence flow, select it on the canvas and configure its properties.
-
-Change the *Condition source* to the *User task outcome* and select the task and its outcome in the drop-down lists.
-
-image::outcomes/sequence-flow-condition.png[,650]
-
-[[outcome-based-conditions-multi-instance]]
-==== Outcome-Based Conditions in Multi-Instance Mode
+[[multi-instance]]
+== Multi Instance
 
 User tasks can be multi-instanced.
 See details on this mode in the xref:bpm:bpmn/multi-instance-activities.adoc[Multi-Instance] section.
-Here we look at only multi-instance mode affects outcome-based conditions.
 
-In this example, the `Approve invoice` task is multi-instance.
-It means there is a collection of users performing this task, and each of them works with his or her own instance.
 
-image::bpmn-user-task/outcomes-multi-instance.png[,350]
+//todo:move elsewhere
+// [[user-task-outcomes]]
+// === User Task Outcomes
+//
+// When users complete a user task, they often have to make a decision, for example, approve or reject the document.
+// After that, the process should go one or another way.
+// You can use task outcomes for modeling such cases.
+//
+// Outcomes appear on process forms as buttons that may be provided with icon.
+// Wherein, default *Complete* button becomes not visible.
+//
+// image::outcomes/outcome-buttons.png[,350]
 
-So, regarding this document, there will be made as many distinct decisions as there are users in the collection.
-But all their decisions will be accumulated in the one *outcome container*.
-
-Therefore, we can specify an additional parameter – *Condition type*, that may have the following values:
-
-* Anyone completed with the outcome
-* Everyone completed with the outcome
-* No one completed the outcome
-
-image::bpmn-user-task/outcome-multi-condittions.png[,700]
-
-Thus, you can organize some kind of voting using this feature.
-
-*XML representation*
-[source,xml]
-----
-<sequenceFlow id="Flow_15f0sh3" name="Approved" sourceRef="Gateway_1kb7ltq" targetRef="Activity_0xl938c">
-  <extensionElements>
-    <jmix:conditionDetails
-        conditionSource="userTaskOutcome" <1>
-        conditionType="anyoneCompleted" <2>
-        userTaskId="approve-invoice" <3>
-        userTaskOutcome="approve" /> <4>
-  </extensionElements>
-  <conditionExpression xsi:type="tFormalExpression">${execution.getVariable('approve-invoice_result') != null &amp;&amp; bpm_UserTaskResults.containsOutcome(execution.getVariable('approve-invoice_result'), 'approve')}</conditionExpression>
-</sequenceFlow>
-----
-<1> -- Condition source selected.
-<2> -- Condition type, by default equals `anyoneCompleted` even for not multi-instance tasks. In this case, it is hidden from the properties panel.
-<3> -- Reference to the user task.
-<4> -- The outcome selected.
+// [[outcomes-input-dialogs]]
+// ==== Outcomes in Input Dialog Forms
+//
+// For xref:bpm:input-dialog.adoc[input dialog] process forms,
+// outcomes are defined in the *Outcomes* section in the *BPMN Inspector* panel.
+//
+// image::bpmn-user-task/outcomes-in-proprties.png[,350]
+//
+// You can create outcomes using *Outcomes editor*, set its id, caption, and icon:
+//
+// image::outcomes/outcomes-editor.png[,500]
+//
+// Later you can edit outcomes directly in the *BPMN Inspector* panel:
+//
+// image::outcomes/outcomes-created.png[,350]
+//
+// In the *Web BPM Modeler*, you can see outcomes in the  properties panel:
+//
+// image::outcomes/web-outcomes.png[,350]
+//
+// To create or edit the outcome, use *Outcome editor*:
+//
+// image::outcomes/web-outcome-edit.png[,400]
+//
+// *XML representation*
+//
+// When outcomes are used with the input dialog form, a special _jmix:formOutcomes_ section is added.
+// Here you can see your outcomes with _jmix:formOutcome_ attributes.
+//
+// [source,xml]
+// ----
+// <userTask id="Activity_0cu0xtq" name="User task" camunda:candidateUsers="bob, peter" camunda:candidateGroups="accountants, sales" jmix:candidateGroupsValue="accountants, sales" jmix:candidateUsersValue="bob, peter">
+//   <extensionElements>
+//     <jmix:formData type="input-dialog" openMode="DIALOG">
+//       <jmix:formOutcomes> <1>
+//         <jmix:formOutcome id="approve" caption="Approve" icon="CHECK" /> <2>
+//         <jmix:formOutcome id="reject" caption="Reject" icon="BAN" /> <3>
+//       </jmix:formOutcomes>
+//     </jmix:formData>
+//   </extensionElements>
+// </userTask>
+// ----
+// <1> -- outcomes section
+// <2> -- "approve" outcome
+// <3> -- "reject" outcome
+//
+// [[outcomes-jmix-views]]
+// ==== Outcomes in Jmix View Forms
+//
+// For xref:bpm:bpmn/jmix-view-forms.adoc#declare-task-outcomes[Jmix screen] forms,
+// outcomes are defined in the screen controller.
+//
+// However, in the Studio you can see outcomes in the *Form* section just for reference --
+// it helps to design the process without looking in the Jmix view controller code.
+//
+// image::bpmn-user-task/outcomes-jmix-form.png[,350]
+//
+// How to create and use outcomes in Jmix views, see in the corresponding section.
+//
+// [[using-outcomes]]
+// === Using Outcomes
+//
+// When the user clicks one of the outcome buttons, the task is completed
+// and the decision is written to a special process variable which name is built according to the following name pattern:
+// `<user-task-id>_result`.
+// You can find it in the list of variables in the *Process instance edit* view.
+//
+// image::outcomes/outcome-container.png[,500]
+//
+// It has type `OutcomesContainer` that contains a list of `Outcome` objets for the case when the given user task is multi-instanced.
+//
+// You can access outcomes container programmatically:
+// [source,java]
+// ----
+// String outcomeContainerName = taskIdValue + "_result"; <1>
+// OutcomesContainer outcomesContainer = (OutcomesContainer) execution
+//         .getVariable(outcomeContainerName); <2>
+// ----
+// <1> -- Generate a name of the outcomes container.
+// <2> -- Get the outcomes container, that is a list of outcomes.
+//
+// This variable value holds information about the users (if many) that completed the task and outcomes they selected.
+// Yuo can see it in the *Process variable editor* window.
+//
+// image::outcomes/outcome-container-esitor.png[,400]
+//
+// [[outcome-based-conditions]]
+// ==== Outcome-Based Conditions
+//
+// After you set outcomes for the task,
+// you need to specify conditions for sequence flows after the exclusive gateway element.
+// You can write a condition expression or select an outcome from the drop-down list.
+//
+// Let's look at the example of configuring a sequence flow using *outcome-based conditions*.
+// Here is a fragment of the process with user task and exclusive gateway having two outgoing sequence flows.
+//
+// image::outcomes/approve-invoice-process.png[,350]
+//
+// To specify conditions for the `approved` sequence flow, select it on the canvas and configure its properties.
+//
+// Change the *Condition source* to the *User task outcome* and select the task and its outcome in the drop-down lists.
+//
+// image::outcomes/sequence-flow-condition.png[,650]
+//
+// [[outcome-based-conditions-multi-instance]]
+// ==== Outcome-Based Conditions in Multi-Instance Mode
+//
+// User tasks can be multi-instanced.
+// See details on this mode in the xref:bpm:bpmn/multi-instance-activities.adoc[Multi-Instance] section.
+// Here we look at only multi-instance mode affects outcome-based conditions.
+//
+// In this example, the `Approve invoice` task is multi-instance.
+// It means there is a collection of users performing this task, and each of them works with his or her own instance.
+//
+// image::bpmn-user-task/outcomes-multi-instance.png[,350]
+//
+// So, regarding this document, there will be made as many distinct decisions as there are users in the collection.
+// But all their decisions will be accumulated in the one *outcome container*.
+//
+// Therefore, we can specify an additional parameter – *Condition type*, that may have the following values:
+//
+// * Anyone completed with the outcome
+// * Everyone completed with the outcome
+// * No one completed the outcome
+//
+// image::bpmn-user-task/outcome-multi-condittions.png[,700]
+//
+// Thus, you can organize some kind of voting using this feature.
+//
+// *XML representation*
+// [source,xml]
+// ----
+// <sequenceFlow id="Flow_15f0sh3" name="Approved" sourceRef="Gateway_1kb7ltq" targetRef="Activity_0xl938c">
+//   <extensionElements>
+//     <jmix:conditionDetails
+//         conditionSource="userTaskOutcome" <1>
+//         conditionType="anyoneCompleted" <2>
+//         userTaskId="approve-invoice" <3>
+//         userTaskOutcome="approve" /> <4>
+//   </extensionElements>
+//   <conditionExpression xsi:type="tFormalExpression">${execution.getVariable('approve-invoice_result') != null &amp;&amp; bpm_UserTaskResults.containsOutcome(execution.getVariable('approve-invoice_result'), 'approve')}</conditionExpression>
+// </sequenceFlow>
+// ----
+// <1> -- Condition source selected.
+// <2> -- Condition type, by default equals `anyoneCompleted` even for not multi-instance tasks. In this case, it is hidden from the properties panel.
+// <3> -- Reference to the user task.
+// <4> -- The outcome selected.
 
 [[setting-task-listeners]]
 == Setting Task Listeners
@@ -705,18 +649,14 @@ User tasks in Jmix BPM support the use of task listeners to execute custom logic
 Task listeners allow you to define Java classes or expressions
 that will be triggered when certain events occur related to the user task.
 
+image::bpmn-user-task/task-listeners-field.png[,460]
+
 Available events for task listeners on user tasks include:
 
 - *create*: Triggered when the user task is created
 - *assignment*: Triggered when the user task is assigned to a user or group
 - *complete*: Triggered when the user task is completed
 - *delete*: Triggered when the user task is deleted
-
-image::bpmn-user-task/task-listeners-field.png[,350]
-
-image::bpmn-user-task/task-listener-editor.png[,450]
-
-image::bpmn-user-task/creating-task-listener.png[,550]
 
 To configure a task listener for a user task, you can use the `flowable:taskListener` extension element in the BPMN XML
 or the `addTaskListener` method in the Java API.
@@ -738,13 +678,13 @@ or performing additional validations based on the events that occur during the l
  . . .
 </userTask>
 ----
-<1> -- Task listener class
-<2> -- Task event
+<1> Task listener class
+<2> Task event
 
 See details in  the xref:task-listeners.adoc[Task Listeners] section.
 
 [[task-documentation]]
-== Task Documentation (Description)
+== Documentation
 To provide user with additional information, we have parameter _documentation_ like it named in BPMN, or _description_ as it is named in API.
 It can be no more than 4000 characters long.
 

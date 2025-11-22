@@ -58,9 +58,9 @@ See the xref:bpm:bpmn/multi-instance-activities.adoc[Multi-Instance] section for
 [[extension-properties]]
 == Extension Properties
 
-You can create for the task extension properties:
+Extension properties can be added to the task.
 
-image::bpmn-service-task/extension-properties.png[,400]
+image::bpmn-service-task/extension-properties.png[,460]
 
 In XML, extension properties are defined by `jmix:property` attribute:
 
@@ -71,16 +71,13 @@ In XML, extension properties are defined by `jmix:property` attribute:
 <extensionElements>
 <!--   . . .    -->
     <jmix:properties>
-      <jmix:property name="color" value="red" /> <1>
+      <jmix:property name="color" value="red" />
     </jmix:properties>
   </extensionElements>
 </serviceTask>
 ----
-<1> -- Created extension property.
 
 [[execution-listeners]]
 == Execution Listeners
 
-You can define execution listeners for the task:
-
-image::bpmn-service-task/create-execution-listner.png[,400]
+You can define execution listeners for the task. See xref:listeners.adoc#execution-listeners[Execution listeners].

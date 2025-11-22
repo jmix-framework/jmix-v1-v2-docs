@@ -49,13 +49,7 @@ or consuming xref:bpm:bpm-concepts.adoc#tokens[tokens].
 [[gateway-properties]]
 === Gateway Properties
 
-All gateways have only general properties:
-
-* Id
-* Name
-
-image::bpmn-gateways/gateway-properties.png[,400]
-
+Gateways have only general properties: an ID and a name.
 
 [[exclusive-gateway]]
 == Exclusive Gateway
