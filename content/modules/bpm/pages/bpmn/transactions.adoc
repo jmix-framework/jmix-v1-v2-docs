@@ -67,9 +67,17 @@ Behind the scenes, when we reach the "generate invoice" task, we are creating a 
 to continue the process later and persisting it into the database.
 This job is then picked up by the job executor and executed.
 
-To use this feature, we have to set the async property `true`.
+[NOTE]
+====
+To use this feature, set the *Asynchronous* property `true` for the corresponding element. This property is applicable to:
 
-image::transactions/async-property.png[,400]
+* xref:bpmn/bpmn-service-task.adoc[]
+* xref:bpmn/bpmn-script-task.adoc[]
+* xref:bpmn/bpmn-business-rule-task.adoc[]
+* xref:bpmn/jmix-email-task.adoc[]
+* xref:bpmn/bpmn-subprocesses.adoc#embedded-subprocess[Embedded subprocess]
+* xref:bpmn/bpmn-subprocesses.adoc#call-activity[Call activity]
+====
 
 In the XML, it is presented by the attribute `flowable:async="true"`.
 
@@ -78,16 +86,6 @@ In the XML, it is presented by the attribute `flowable:async="true"`.
 <serviceTask id="Activity_0pzv18b" name="Generate invoice"
  flowable:async="true" />
 ----
-
-The *async* attribute is applicable to:
-
-* Service task
-* Script task
-* Business rule task
-* Email sending task
-* Embedded subprocess
-* Call activity
-
 
 [[fail-retry]]
 == Fail Retry

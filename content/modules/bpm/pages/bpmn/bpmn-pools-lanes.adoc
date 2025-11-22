@@ -1,65 +1,38 @@
 = Pools and Lanes
 
-In BPMN,
-a *swimming pool* is a graphical element
-used to represent a participant in a xref:bpm:bpmn/bpmn-collaboration.adoc[collaboration].
-It may contain few lanes.
+Processes are often contained within a *swimming pool*, which can be further divided into *lanes*. Pools and lanes represent participants and responsibilities, adding structure and clarity to complex processes.
+
+image::bpmn-pool-lanes/pool-lanes.png[,460]
 
 [[pools]]
 == Pools
-A swimming pool may have *lanes*, which represent different actors within the process.
-Each lane contains the activities (task or subprocesses).
 
-Usually, lanes are used in high-level analytical models helping to visualize zones of responsibility for each actor.
-Overall, swimming pools and lanes in BPMN help are aimed to improve communication and collaboration between different stakeholders involved in a business process.
-
-[TIP]
-====
-Avoid using lanes in executable models.
-====
-
-[[adding-pool]]
-=== Adding a Pool
-
-Initial process template doesn't have a pool. You can add it later using a tool palette.
-The newly added pool automatically covers all elements on the diagram.
+Pool represents a participant in a xref:bpm:bpmn/bpmn-collaboration.adoc[collaboration]. Although a process can run without a pool, adding it can clarify the roles involved. When you add a pool , it automatically wraps all elements in the diagram.
 
 image::bpmn-pool-lanes/adding-pool.png[]
 
-Once added, the pool cannot be removed from the diagram.
-Deletion of the pool deletes ALL elements inside it.
+WARNING: Deletion of the pool deletes *all elements* inside it.
 
-.*Properties*
+=== Properties
 
-When the pool is created, a simple process diagram becomes a *collaboration diagram*. As well, the behavior of the *BPMN Inspector* be changed.
+By adding a pool, a basic process becomes a <<collaboration-model, collaboration>>. As a result, when no elements are selected, the right panel will show xref:bpm:bpmn/bpmn-collaboration.adoc#properties[collaboration properties] in place of process properties.
 
-First, now when you select nothing, properties of the collaboration would be shown:
+image::bpmn-pool-lanes/collaboration-properties.png[,810]
 
-image::bpmn-pool-lanes/collaboration-properties.png[,400]
+Selecting a pool element lets you specify its *Id* and *Name*, as well as edit the corresponding xref:bpmn/bpmn-process.adoc#properties[process properties].
 
-When you select the pool element, properties of the participant and the process will be shown:
+image::bpmn-pool-lanes/process-properties.png[,810]
 
-image::bpmn-pool-lanes/process-properties.png[,550]
+=== XML Representation
 
-Don't miss participant id/name with the process id/name. Participant (pool) is just the graphical object, whereas the process is to be executed.
-
-So, when you need to start the process manually or via API, look for process id.
-
-[NOTE]
-====
-In the web application, the term _key_ is used instead of _id_, particularly in the process definitions list.
-====
-
-.*XML Representation*
-
-In the XML file, the collaboration definition section  appears when you add a pool.
+Adding a pool results in a `collaboration` section with nested `participant` elements.
 
 [source,xml]
 ----
-<collaboration id="Collaboration_16sinaz"> <1>
-    <participant id="Participant_1txu04k" processRef="pool-demo" /> <2>
+<collaboration id="Collaboration_16sinaz">
+    <participant id="Participant_1txu04k" processRef="pool-demo" />
 </collaboration>
-<process id="pool-demo" name="Pool demo" isExecutable="true"> <3>
+<process id="pool-demo" name="Pool demo" isExecutable="true">
     <startEvent id="Event_0yeospn">
       <outgoing>Flow_1snk2tn</outgoing>
     </startEvent>
@@ -69,20 +42,12 @@ In the XML file, the collaboration definition section  appears when you add a po
     </userTask>
 </process>
 ----
-<1> -- Collaboration definition section
-<2> -- Participant (pool) included in collaboration
-<3> -- Process definition (as it was before adding the pool)
 
-[NOTE]
-====
-Attribute `isExecutable` is ignored by process engine.
-====
+//todo: delete in favor of /bpmn/bpmn-collaboration.html
+[[collaboration-model]]
+=== Collaboration Model
 
-
-[[multiple-pools]]
-=== Multiple Pools
-
-Collaboration may include many processes as shown in the picture below:
+Multiple pools create a collaboration model that illustrates relationships and interactions between multiple participants.
 
 image::bpmn-pool-lanes/collaboration-two-processes.png[,700]
 
@@ -90,58 +55,37 @@ When you deploy a collaboration model, each process will be deployed separately 
 
 image::bpmn-pool-lanes/process-definitions-wiindow.png[,650]
 
-[TIP]
-====
-Use this technique when you create several processes communicating with each other. Or when you have the main process and call activities.
-====
-
-[[empty-pool]]
-=== Empty Pool
-
-An empty pool represents a participant in a process that does not have any defined activities or processes within it.
-
-.*Visual Representation*
-An empty pool will appear as a rectangle without any internal elements such as tasks, events, or gateways.
-
-(To be defined)
-//todo - сейчас есть ошибка -- пустые пулы не рисуются нормально
-
-
 [[lanes]]
 == Lanes
 
-In BPMN, *Lanes* are used to organize and categorize activities within a *Pool*.
+*Lane* is a subsection within a pool that represents a specific role, responsibility, or department.
 
-You can divide a pool by lanes using the context tool menu on the right of selected object; as well, you can add lanes above or below:
+=== Properties
 
-image::bpmn-pool-lanes/adding-lanes.png[,650]
+Select a lane element to see its properties.
 
-To delete lane, use the deletion tool. It removes only the lane itself, but not elements placed on it.
+[cols="1,6", grid=rows, frame=none]
+|===
+|*Property*
+|*Description*
+|*Id*
+|The id of the lane
+|*Name*
+|The name of the lane.
+|*Assignee source*
+|Assign a performer based on expression, process variable or user provider. See xref:bpm:bpmn/bpmn-user-task.adoc[user task] for details.
+|*Candidate groups*
+|A group of users permitted to perform activities within the lane.
+|*Candidate users*
+|Individual users permitted perform activities within the lane.
+|===
 
-image::bpmn-pool-lanes/lane-properties.png[,400]
+NOTE: Every user task on the lane without an explicitly defined assignee will inherit the assignee value from the lane.
 
-.*Properties*
+=== XML Representation
 
-Select a single lane element to see its properties:
-
-image::bpmn-pool-lanes/lanes.png[]
-
-image::bpmn-pool-lanes/single-lane-properties.png[,400]
-
-Here you can set lane id and name, that will be shown on the diagram.
-Besides, you can assign a performer like for a xref:bpm:bpmn/bpmn-user-task.adoc[user task].
-Then,
-all user tasks placed in this lane will be assigned to the same performer if you leave the task assignee section empty.
-
-[NOTE]
-====
-Subprocesses are not supported.
-====
-
-.*XML Representation*
-
-Lanes are represented in the XML file by the <laneSet> element and corresponding <lane> elements.
-Each lane contains properties and list of activities placed on it.
+Lanes are represented by the `laneSet` element and individual `lane` elements.
+Each `lane` contains properties and list of activities placed on it.
 
 [source,xml]
 ----

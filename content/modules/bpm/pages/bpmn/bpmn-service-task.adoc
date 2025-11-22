@@ -3,15 +3,13 @@
 [[overview]]
 == Overview
 
-A *Service Task* is a specific type of task that represents an automated activity within a process.
-It is designed to invoke Java code, external services, APIs, or automated applications, to complete its function.
+A *Service Task* is used to invoke Java code, external services, APIs, or automated applications, to complete its function.
 
 .*Graphical Notation*
 
 A service task is visualized as a rounded rectangle with a small gear icon in the top-left corner.
 
 image::bpmn-service-task/service-task.png[,150]
-
 
 .*XML Representation*
 
@@ -22,7 +20,7 @@ Depending on implementation, the service task may have different XML representat
 
 A service task has the following properties:
 
-image::bpmn-service-task/service-task-properties.png[,400]
+image::bpmn-service-task/service-task-properties.png[,460]
 
 Setting the task properties:
 
@@ -44,11 +42,8 @@ In some cases, it can affect performance.
 [[task-types]]
 == Types of Service Tasks
 
-Parameter _Task type_ defines the way service task is implemented.
+Parameter *Task type* defines the way service task is implemented.
 There are the following types of service tasks in Jmix BPM:
-
-image::bpmn-service-task/service-taks-types.png[,200]
-Let's overview them briefly:
 
 Spring bean:: In this case, specified method of the selected bean will be executed when the process reaches the task.
 Process variables or fixed values can be passed as method parameters, the result can be stored in a result variable.
@@ -70,44 +65,12 @@ So it has features of both.
 
 *Jmix BPM* allows to invoke from the service task a Spring bean method and provide parameter values for it.
 This approach is the most recommended for using in service tasks.
-That's why it is selected as a default task type.
 
-You can create a new bean right from here by clicking the _'Plus'_ button:
+You can select an existing bean and its associated method using the **Bean Name** and **Method** fields, respectively.
 
-image::bpmn-service-task/bean-create-button.png[,400]
+Once the method is selected, more fields will appear to enter the values for the method arguments.
 
-Next, enter the bean name:
-
-image::bpmn-service-task/create-new-bean.png[,450]
-
-And you'll be automatically switched to the code editor, where you can write required methods, for example:
-
-[source,java]
-----
-@Component(value = "smpl_OrderStatusBean")
-public class OrderStatusBean {
-
-    public Integer setStatus(String orderId, String status) {
-        // set status, returns quantity of items
-        return quantity;
-    }
-}
-----
-
-Also, bean name and methods are selected from drop-down lists:
-
-image::bpmn-service-task/select-bean.png[,400]
-
-After the method is selected, a panel for entering method argument values is displayed:
-
-image::bpmn-service-task/spring-bean-task-properties.png[,400]
-
-The *BPMN Inspector* builds an expression for bean method invocation, thai isn't editable.
-In the case of method from the screenshot above, the expression will be:
-
- ${smpl_OrderStatusBean.setStatus(OrderId,'Sent')}
-
-Pay attention to the *is var* check box. It makes sense mostly for string parameters.
+Pay attention to the *is variable* check box. It makes sense mostly for string parameters.
 If the checkbox is not selected, then the argument value will be written to the resulting expression in apostrophes.
 If the checkbox is selected, no apostrophes will be added and a variable with a provided name will be passed to the method.
 
@@ -117,7 +80,7 @@ If the checkbox is selected, no apostrophes will be added and a variable with a 
 [[result-variable]]
 ==== Result Variable
 
-If the selected method returns any value, the _Result variable_ field appears.
+If the selected method returns any value, the *Result variable* field appears.
 You can put here one of the existing process variables or create a new one just entering its name.
 
 [WARNING]
@@ -127,9 +90,7 @@ If the result type differs from existing, a new process variable with the same n
 If there was a `String` variable `a1`, and you save in it numeric result `100L`, there wil be a new variable 'a1' of type `Long' and value `100`.
 ====
 
-The _Result variable_ has a _Use local scope_ checkbox.
-
-When set to `true`, this parameter ensures that the result variable created by the service task is scoped locally to the execution context of the task.
+Next to the *Result variable* it the *Use local scope* checkbox. When set to `true`, this parameter ensures that the result variable created by the service task is scoped locally to the execution context of the task.
 This means that the variable will only be accessible within the current execution and will not be propagated to the parent execution or process instance.
 
 This setting helps in isolating the variable to the specific execution of the service task.
@@ -194,24 +155,18 @@ public class MyProcessBean {
 
 Then set this method in your service task:
 
-image::bpmn-service-task/execution-as-parameter.png[,400]
-
+image::bpmn-service-task/execution-as-parameter.png[,460]
 
 [[java-delegate-service-task]]
-=== Java Delegate Service Task
+=== Java Delegate Class
 
 In this case, business logic will be executed by a class implementing `org.flowable.engine.delegate.JavaDelegate` interface with _execute()_ method.
 The method receives `execution` object as a parameter, so you'll have access to process context, including all process variables.
 
-If you select _JavaDelegate class_ option in the _Task type_ combo box, you can create a new class from here by clicking the _'Plus'_ button:
+If you select _JavaDelegate class_ option in the _Task type_ combo box, you can select an appropriate class implementing `JavaDelegate`:
 
-image::bpmn-service-task/create-java-delegate.png[,400]
+image::bpmn-service-task/create-java-delegate.png[,460]
 
-Type the name of a new Java Delegate class in the dialog window:
-
-image::bpmn-service-task/new-java-delegate.png[,500]
-
-And you'll be automatically switched to the code editor, where you can write the logic you need.
 For example, let's implement the class creating a process variable with random value:
 
 [source,java]
@@ -267,7 +222,7 @@ For example, an expression like `$\{myServiceBean\}` would resolve to a Spring b
 In a Spring context, delegate expressions can reference Spring beans directly, enabling seamless integration with the Spring framework.
 This allows for dependency injection and the use of Spring's features within the delegate implementation.
 
-To be used in delegate expressions your `JavaDelegate` class must be announced as a Spring bean by `@Component` annotation.
+To use `JavaDelegate` classes in delegate expressions, annotate them with @Component, similar to a Spring bean.
 In this case, it combines the features of both types -- _Spring bean_ and _Java Delegate_ class:
 
 [source,java]
@@ -285,15 +240,7 @@ public class MyDelegateExpression implements JavaDelegate {
 In result, you have access to Spring context and process context from within this class.
 To invoke it, use the _Delegate expression_ task type. For example:
 
-image::bpmn-service-task/delegate-expression.png[,400]
-
-Here you can create a new delegate expression class:
-
-image::bpmn-service-task/new-delegate-expression.png[,500]
-
-Or select one of the existing classes from a pull-down list:
-
-image::bpmn-service-task/select-delegate-expression.png[,400]
+image::bpmn-service-task/delegate-expression.png[,473]
 
 .*XML Representation*
 
@@ -304,7 +251,7 @@ In XML, an attribute `flowable:delegateExpression` is used for this purpose:
 ----
 <serviceTask id="delegate-expression"
     name="Delegate expression task"
-    flowable:delegateExpression="${smpl_MyDelegateExpression}"
+    flowable:delegateExpression="${MyDelegateExpression}"
     jmix:taskType="delegateExpression">
 </serviceTask>
 ----
@@ -315,7 +262,7 @@ In XML, an attribute `flowable:delegateExpression` is used for this purpose:
 Expression is the most general way to invoke Java logic.
 You can call a Spring bean method from expression:
 
-image::bpmn-service-task/expression-service-task.png[,700]
+image::bpmn-service-task/expression-service-task.png[,460]
 
 [[evaluating-value]]
 ==== Evaluating a Value of Expression
@@ -343,10 +290,10 @@ About the *fail retry* concept, see xref:bpm:bpmn/transactions.adoc#fail-retry[F
 ==== Configuring
 To set a *Fail retry* parameters, find the corresponding property in the *BPMN Inspector* panel:
 
-image::bpmn-service-task/fail-retry-property.png[,400]
+image::bpmn-service-task/fail-retry-property.png[,460]
 
-The value must be time cycle expression follows *ISO 8601* standard, just like timer event expressions.
-The example `R5/PT7M` as above makes the job executor retry the job 5 times and wait 7 minutes between before each retry.
+The value must be time cycle expression follows *ISO 8601* standard.
+The example `R5/PT7M` as above makes the job executor retry the job 5 times and wait 7 minutes between each retry.
 
 *XML Representation*
 
@@ -359,11 +306,10 @@ Here is a sample usage:
     flowable:async="true"
     flowable:class="org.flowable.engine.test.jobexecutor.RetryFailingDelegate">
     <extensionElements>
-        <flowable:failedJobRetryTimeCycle>R5/PT7M</flowable:failedJobRetryTimeCycle> <1>
+        <flowable:failedJobRetryTimeCycle>R5/PT7M</flowable:failedJobRetryTimeCycle>
     </extensionElements>
 </serviceTask>
 ----
-<1> -- Fail retry parameter.
 
 [NOTE]
 ====
@@ -402,13 +348,9 @@ How to inject fields:
 private Expression messageField;
 private Expression quantityField;
 ----
-. On the diagram, select the service task and create fields with the same name as you defined in code:
+. Select the service task and create fields with the same name as you defined in code. The field values can be either expressions or strings.
 +
-image::bpmn-service-task/create-field.png[,400]
-
-. Then enter field values, as expressions or strings:
-+
-image::bpmn-service-task/field-injection-properties.png[,400]
+image::bpmn-service-task/field-injection-properties.png[,473]
 +
 [TIP]
 ====

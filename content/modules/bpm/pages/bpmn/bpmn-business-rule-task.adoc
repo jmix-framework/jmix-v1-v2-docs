@@ -35,13 +35,8 @@ Technically, a business rule task is a service task of special type:
 
 A business rule task has the following properties:
 
-image::bpmn-business-rule-task/business-rule-task-properties.png[,400]
+image::bpmn-business-rule-task/business-rule-task-properties.png[,473]
 
-Actually, it has one specific property -- _Decision Table Key_. Here you can select one of the existing DMN tables from the pull-down list:
+The key property is the *Decision table key*. You can select an existing DMN table from the dropdown list.
 
-image::bpmn-business-rule-task/select-decision-table.png[,400]
-
-[WARNING]
-====
-Process with undefined decision table in the business rules task cannot be deployed.
-====
+WARNING: To deploy the process, every business rules task must have a decision table.

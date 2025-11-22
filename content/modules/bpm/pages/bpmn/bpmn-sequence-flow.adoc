@@ -56,10 +56,9 @@ Sequence flows have general properties:
 * Id
 * Name
 
-And a _Condition_ property. (See the purpose and usage details of _condition_ property in the Exclusive gateway section.)
+Additionally, sequence flows include also have a *Condition* property. For more information, see xref:bpmn/bpmn-gateways.adoc#gateways-conditions[Conditions] in the Exclusive Gateway section.
 
-image::bpmn-sequence-flows/flow-properties.png[,300]
-
+image::bpmn-sequence-flows/flow-properties.png[,463]
 
 [[conditional-flow]]
 == Conditional Sequence Flow

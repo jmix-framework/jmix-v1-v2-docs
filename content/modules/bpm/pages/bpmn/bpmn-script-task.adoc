@@ -46,23 +46,15 @@ A script task is defined by specifying the `script` and the `scriptFormat`.
 
 Script task has the following specific properties:
 
-* *scriptFormat*: an extended attribute that indicates the language of the script (only _Groovy_).
+* *scriptFormat*: an extended attribute that specifies the script language; currently, only Groovy is supported. See https://groovy-lang.org/documentation.html[Groovy language documentation^].
 
-* *script*: the script to execute, defined as a string in a field element named "script".
+* *script*: the script to execute. Use the *Script editor* to edit it.
 
-* *resultVariable*: optional task attribute that when present will store a variable with the specified name
-in the execution context with the script evaluation result (see note below).
+* *resultVariable*: This optional attribute saves the evaluation result in a variable with the specified name within the execution context. See <<script-result, details>>.
 
-image::bpmn-script-task/script-task-properties.png[,350]
+image::bpmn-script-task/script-task-properties.png[,473]
 
-To edit the script, use *Script editor* by clicking twice on the script field:
-
-image::bpmn-script-task/script-editor.png[,700]
-
-[WARNING]
-====
-The script body cannot be empty, otherwise it causes a parsing error during deployment.
-====
+WARNING: The script body cannot be empty, otherwise it causes a parsing error during deployment.
 
 [[variables-scripts]]
 === Variables in Scripts
@@ -132,10 +124,3 @@ If there is no _'return'_ in your script, as a result will be taken result of th
 String a = "abc".toUpperCase()
 String b = "jmix".toUpperCase()
 ----
-
-[[about-groovy]]
-== About Groovy
-*Apache Groovy* is a powerful, optionally typed and dynamic language, with static-typing and static compilation capabilities,
-for the Java platform aimed at improving developer productivity thanks to concise, familiar and easy to learn syntax.
-
-See https://groovy-lang.org/documentation.html[Groovy language documentation^].

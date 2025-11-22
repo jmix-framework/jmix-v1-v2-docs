@@ -6,16 +6,17 @@ There are several approaches to handle process engine events like task creation,
 [[execution-listeners]]
 == Execution Listeners
 
-
+See https://www.flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs/#execution-listener[Flowable documentation^].
 
 [[task-listeners]]
 == Task Listeners
 
+See https://www.flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs/#task-listener[Flowable documentation^].
 
 [[spring-events-bpm]]
 == Spring Events for BPM
 
-BPM add-on additionally introduces a set of Spring application events. The following events are published:
+Jmix BPM introduces a set of Spring application events. The following events are published:
 
 * `UserTaskAssignedEvent`
 * `UserTaskCreatedEvent`

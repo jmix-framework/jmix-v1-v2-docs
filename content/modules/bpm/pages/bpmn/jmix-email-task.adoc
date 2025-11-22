@@ -18,7 +18,7 @@ image::jmix-email-task/email-task.png[,150]
 
 An email  task has the following properties:
 
-image::jmix-email-task/email-task-properties.png[,700]
+image::jmix-email-task/email-task-properties.png[,463]
 To configure email task:
 
 * First, you have to set xref:bpmn/bpmn-tasks.adoc#common-task-properties[general task properties].
@@ -44,50 +44,21 @@ The email task has common parameters while sending emails -- addressee, sender, 
 [[set-address]]
 === Set Addresses
 
-There are few fields with addresses:
-*To*, *Cc*, *Bcc*, and *From*.
-
-The first three can contain a list of emails, so use *Email Address Editor* to fill them by clicking
-image:jmix-email-task/edit-button.png[,25] _Edit_ button.
-
-You can use a process variable or expression to provide the address, or specify it directly.
-Several addresses are possible and can be set in the editor:
-
-image::jmix-email-task/address-editor.png[,500]
-
-*From* is a sender’s address, so it can be only one. Because of that, the address editor isn't used. You can place here a direct value or expression as well.
-
-* *Subject* - an email subject. You can use a process variable in the subject.
-* *Content* - a body of the email. In the editor, you can select the type of content: HTML or plain text. Using process variables is available.
-+
-image::jmix-email-task/email-content-editor.png[,500]
-
-* *Content type* - defines a type of content, plain text or HTML.
-+
-image::jmix-email-task/content-type.png[,400]
-
+* Recipients addresses
+** *To* is for primary recipient addresses. You can use a process variable or expression to define the address, or input it directly. Multiple addresses are allowed.
+** *Cc* is for carbon copy recipients. You can use a process variable or input addresses directly. Multiple addresses are allowed.
+** *Bcc* is for blind carbon copy recipients. You can use a process variable or input addresses directly. Multiple addresses are allowed.
+* *From* is a sender’s address, so it allows only one entry. You can use either a direct value or an expression to set this field.
+* *Subject* contains the subject line of the email. It supports the use of process variables for dynamic entries.
+* *Content* represents the body of the email. In the editor, you can choose between HTML or plain text content types. Process variables can also be utilized in this section for dynamic content generation.
 
 [[async-sending]]
 === Asynchronous Sending
-* *Send asynchronously* - by default, emails are sent asynchronously.
-+
-image::jmix-email-task/send-async.png[,400]
-+
-[WARNING]
-====
-Don't miss this parameter with the *Async* flag common for all tasks.
-====
+By default, emails are sent asynchronously. You can change this with the *Send asynchronously* checkbox.
 
 [[attachements-content]]
-=== Attachments & Content
-* *Attachments* - a file content.
-It should be specified as an expression: a process variable or a Spring bean method call.
-The `File`, `FileRef`, `byte[]`, and `FileDescription` types are supported.
-+
-Providing an attachment name is optional.
-If the name is not specified, it will be taken from the file content.
-In case of `byte[]` as a file content, the default `attachment_<incremental_part>` naming will be used.
-+
-image::jmix-email-task/create-attachment.png[,400]
+=== Attachments
 
+Use the *Attachments* section to include file content. The content must be supplied as an expression via a process variable or by invoking a Spring bean method that returns one of the following types: `File`, `FileRef`, `byte[]`, or `FileDescription`.
 
+Specifying an attachment name is optional. If a name is not provided, it will default to the name derived from the file content. When using `byte[]` for the file content, the default naming convention will be `attachment_<incremental_part>`.

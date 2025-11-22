@@ -1,8 +1,5 @@
 = Subprocesses
 
-[[overview]]
-== Overview
-
 *Subprocess* is an activity that contains other activities, gateways, events,
 and so on, which in itself forms a process that is part of the bigger process.
 Subprocesses allow hierarchical modeling, resulting in a high-level, end-to-end overview of the business process.
@@ -32,8 +29,7 @@ In other words, you can't call them from anywhere;
 they are a solid part of parent process.
 
 .*Graphical Notation*
-A subprocess is typically represented as a rounded rectangle, similar to a regular task, but bigger size.
-To create a subprocess, select image:bpmn-subprocesses/icon-subprocess.png[,30] from the palette and place it on the canvas.
+A subprocess is represented as a rounded rectangle. To create a subprocess, select image:bpmn-subprocesses/icon-subprocess.png[,30] from the palette and place it on the canvas.
 
 image::bpmn-subprocesses/create-subprocess.png[,500]
 
@@ -43,7 +39,7 @@ An embedded subprocess can only have one _'none start event'_; no other start ev
 .*XML Representation*
 
 An embedded subprocess is defined by the _subProcess_ element.
-All activities, gateways, events, and son on, that are part of the subprocess need to be enclosed within this element.
+All activities, gateways, events, and so on, that are part of the subprocess need to be enclosed within this element.
 
 [source,xml]
 ----
@@ -58,11 +54,11 @@ All activities, gateways, events, and son on, that are part of the subprocess ne
 
 .*Properties*
 
-Embedded subprocess has no special properties, only general ones. You can set its name that will be shown as a label on its shape on the diagram.
+Embedded subprocess has no special properties, only general ones.
 
-image::bpmn-subprocesses/subprocess-properties.png[,500]
+image::bpmn-subprocesses/subprocess-properties.png[,463]
 
-As well, a subprocess may be xref:bpm:bpmn/transactions.adoc#asynchronous-continuation[asynchronous]
+A subprocess may be xref:bpm:bpmn/transactions.adoc#asynchronous-continuation[asynchronous]
 and xref:bpm:bpmn/multi-instance-activities.adoc[multi-instance].
 
 
@@ -200,8 +196,7 @@ See more in the xref:bpmn/transactions.adoc[BPMN Transactions] section.
 [[call-activity]]
 == Call Activity
 
-Call Activity is a type of activity that allows you to call a reusable process
-or a global task from within another process.
+Call Activity allows you to call a reusable process or a global task from within another process.
 It provides a way to break down complex processes into smaller, more manageable parts and promotes reusability.
 
 Opposite to embedded subprocess, _call activity_ is an _external_ subprocess.
@@ -229,10 +224,10 @@ In practice, this means that the ID of the process is used in the `calledElement
               calledElement="data-task-sample" <1>
               flowable:inheritBusinessKey="true"> <2>
   <extensionElements>
-    <flowable:in sourceExpression="${client.name}" <3>
-                 target="clientName" />
-    <flowable:out source="clientName"  <4>
-                  target="clientName" />
+    <flowable:in sourceExpression="${customer.name}" <3>
+                 target="customerName" />
+    <flowable:out source="customerName"  <4>
+                  target="customerName" />
   </extensionElements>
   <incoming>Flow_0sdrrfm</incoming>
 </callActivity>
@@ -251,43 +246,33 @@ This means that the subprocess can be deployed independently of the calling proc
 
 .*Properties*
 
-You can configure call activity by setting its properties:
+You can configure a call activity by setting its properties:
 
-image::bpmn-subprocesses/call-activity-properties.png[,450]
+image::bpmn-subprocesses/call-activity-properties.png[,463]
 
-* *Called Element*: It is a reference to one of the existing process definitions.
+* *Called element*: This property refers to an existing process definition.
 +
 CAUTION: Avoid unmanaged recursion! Technically, it's possible to call another instance of the process from within itself.
 
-* *Called Element Type*: In Studio, by default, is used _key_ parameter. It means the last version of the referred process will be called.
-+
-[NOTE]
-====
-In web modeler, it's possible to call a specified version of the process by its _id_.
-====
+* *Called element type*: by default, the _Key_ parameter is used, which calls the most recent version of the process. You can call a specific version of the process using its id.
 
-* *Business Key*: You can define it by expression or inherit from the parent process.
-See xref:bpm:bpm-concepts.adoc
+* *Business key expression*: You can define it by expression or inherit from the parent process. See xref:bpm:bpm-concepts.adoc#business-key[business key] for more details.
 
 * *Variables Mapping*:
 
-** First, call activity can inherit process variables from the parent process.
-It means when the called process will start, in it will be created process variables like in the parent process,
-but they will be new instances, not references to original ones.
+** *Inheriting variables*: Call activity can inherit process variables from the parent process.When the called process starts, new instances of the process variables will be created, distinct from the original references.
 
-** *In Mapping*: Here you can pass parameters into the called process using existing process variables (source) to variables in the called process (target):
+** *In mapping*: You can pass parameters to the called process using existing process variables (source) to map them to variables within the called process (target):
 +
-image::bpmn-subprocesses/in-mapping.png[,350]
+image::bpmn-subprocesses/in-mapping.png[,463]
 +
-Or by expressions:
+Alternatively, you can use expressions:
 +
-image::bpmn-subprocesses/in-mapping-expression.png[,350]
+image::bpmn-subprocesses/in-mapping-expression.png[,463]
 
-** *Out Mapping*: This way you can mirror variables from the called process (source) on the variables in the parent process (target):
+** *Out Mapping*: Similarly, you can map variables from the called process (source) on the variables in the parent process (target):
 +
-image::bpmn-subprocesses/out-mapping.png[,350]
-+
-Or you can use expression.
+image::bpmn-subprocesses/out-mapping.png[,463]
 
 [[user-task-call-activity]]
 === User Tasks in Call Activity
