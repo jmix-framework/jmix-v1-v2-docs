@@ -1,96 +1,97 @@
-= Getting Started with Search
+= Начало работы с поиском
 
-This guide provides instructions on initiating Search functionality within your application.
+Это руководство предоставляет инструкции по инициализации функциональности поиска в вашем приложении.
 
-Suppose you wish to introduce a few entities to your application and enable searching across their attributes.
+Предположим, вы хотите добавить несколько сущностей в ваше приложение и включить поиск по их атрибутам.
 
-To begin, follow these steps:
+Для начала выполните следующие шаги:
 
-. Include Search in your project following the guidelines in the xref:search:index.adoc#installation[installation] section.
-. xref:search:index.adoc#connecting-to-search-engine-service[Configure] connection based on the service's location.
+. Включите Search в ваш проект, следуя рекомендациям в разделе xref:search:index.adoc#installation[установка].
+. xref:search:index.adoc#connecting-to-search-engine-service[Настройте] подключение в зависимости от местоположения сервиса.
 
 [[data-model-views-creation]]
-== Create Data Model and Views
+== Создание модели данных и экранов
 
-Let's create the classes listed below:
+Давайте создадим перечисленные ниже классы:
 
-. The `Status` enumeration with the `SILVER` and `GOLD` values.
-. The `Customer` entity with the fields:
+. Перечисление `Status` со значениями `SILVER` и `GOLD`.
+. Сущность `Customer` с полями:
 
-* `firstName` with `String` type
-* `lastName` with `String` type
-* `status` with `Status` type
-* `card` with `FileRef` type
+* `firstName` типа `String`
+* `lastName` типа `String`
+* `status` типа `Status`
+* `card` типа `FileRef`
 
-. The `Order` entity with the fields:
+. Сущность `Order` с полями:
 
-* `date` with `Date` type
-* `number` with `String` type
-* `amount` with `Integer` type
-* `product` with `String` type
-* `customer` with association to `Customer`, many-to-one cardinality
+* `date` типа `Date`
+* `number` типа `String`
+* `amount` типа `Integer`
+* `product` типа `String`
+* `customer` связь с `Customer`, кардинальность "многие-к-одному"
 
-Set up the xref:data-model:entities.adoc#instance-name[instance name] for the `Order` entity to be displayed as the search result.
+Настройте xref:data-model:entities.adoc#instance-name[имя экземпляра] для сущности `Order`, чтобы оно отображалось в результатах поиска.
 
-Create detail and list views for the `Customer` and `Order` entities.
+Создайте экраны деталей и списка для сущностей `Customer` и `Order`.
 
 [[index-definition]]
-== Create Index Definition Interface
+== Создание интерфейса определения индекса
 
-Next, it is necessary to establish an Index Definition - an interface outlining which entities and attributes are to be indexed. Suppose we intend to search orders based on their number, product name, customer status, or customer last name. Within the Index Definition, we will define a method to specify the required attributes.
+Далее необходимо создать определение индекса (Index Definition) - интерфейс, описывающий, какие сущности и атрибуты должны индексироваться. Предположим, мы намерены искать заказы по их номеру, названию продукта, статусу клиента или фамилии клиента. В рамках определения индекса мы определим метод для указания требуемых атрибутов.
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDefinition.java[tags=index-definition;order-mapping]
 ----
-. The interface should be annotated with `@JmixEntitySearchIndex` with the required parameter `entity`.
-. The interface can be named arbitrarily.
-. The `@AutoMappedField` annotation automatically maps requested properties. Here, we will utilize the `includeProperties` parameter to indicate the attributes to be indexed.
-. The method can be named at your discretion.
+. Интерфейс должен быть аннотирован `@JmixEntitySearchIndex` с обязательным параметром `entity`.
+. Интерфейс может быть назван произвольно.
+. Аннотация `@AutoMappedField` автоматически сопоставляет запрошенные свойства. Здесь мы используем параметр `includeProperties`, чтобы указать атрибуты для индексации.
+. Метод может быть назван по вашему усмотрению.
 
 [[configure-index-naming]]
-== Configure Index Naming
-By default, index name is formed as `<prefix><entity_name>`. Default prefix is `search_index_`.
+== Настройка именования индексов
 
-As you may utilize the same Elasticsearch/OpenSearch service across multiple projects, it is advisable to customize the default prefix for unique index names. To implement this change, add the following property to your `application.properties` file:
+По умолчанию имя индекса формируется как `<prefix><entity_name>`. Префикс по умолчанию - `search_index_`.
+
+Поскольку вы можете использовать один и тот же сервис Elasticsearch/OpenSearch в нескольких проектах, рекомендуется настроить префикс по умолчанию для уникальных имен индексов. Чтобы внести это изменение, добавьте следующее свойство в ваш файл `application.properties`:
 
 [source,properties,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/application.properties[tags=prefix]
 ----
 
-As alternative way you can specify full index name in `indexName` attribute of `@JmixEntitySearchIndex`.
+В качестве альтернативного способа вы можете указать полное имя индекса в атрибуте `indexName` аннотации `@JmixEntitySearchIndex`.
 
 [[configure-indexing-queue]]
-== Configure Indexing Queue Processing
+== Настройка обработки очереди индексации
 
-The Jmix application monitors data modifications but does not automatically synchronize them with search engine service. To ensure regular updates of indexes, simply add the xref:quartz:index.adoc[] add-on to the project. The Search add-on will leverage Quartz for scheduled processing of the indexing queue using default configurations.
+Приложение Jmix отслеживает изменения данных, но не синхронизирует их автоматически с сервисом поисковой системы. Чтобы обеспечить регулярное обновление индексов, просто добавьте в проект дополнение xref:quartz:index.adoc[]. Дополнение Search будет использовать Quartz для плановой обработки очереди индексации, используя конфигурации по умолчанию.
 
 [[create-search-view]]
-== Create Search View
+== Создание экрана поиска
 
-. Create an empty view named *Search* by utilizing the `Blank view` Studio template.
-. Click *Add Component* in the actions panel, find the `SearchField` item, and then double-click it.
-. The newly added `searchField` element will appear in both the *Jmix UI* structure panel and in the XML. You can configure attributes like `id`, `height`, `width`, etc., in the same way as it is done for other xref:flow-ui:vc/components.adoc[UI components].
+. Создайте пустой экран с именем *Search*, используя шаблон Studio `Blank view`.
+. Нажмите *Add Component* на панели действий, найдите элемент `SearchField` и дважды щелкните по нему.
+. Новый элемент `searchField` появится как на панели структуры *Jmix UI*, так и в XML. Вы можете настраивать атрибуты, такие как `id`, `height`, `width` и т.д., так же, как это делается для других xref:flow-ui:vc/components.adoc[UI-компонентов].
 +
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=search-field]
 ----
 
-Now, the view includes a text field for inputting the search term and a button to execute the search.
+Теперь экран включает текстовое поле для ввода поискового запроса и кнопку для выполнения поиска.
 
 [[test-searching]]
-== Test Searching in Application
+== Тестирование поиска в приложении
 
-Now, we are ready to launch and test the application.
+Теперь мы готовы запустить и протестировать приложение.
 
-Initially, add some instances of the `Customer` and `Order` entities.
+Сначала добавьте несколько экземпляров сущностей `Customer` и `Order`.
 
-Navigate to the *Search* view to locate customers with the `Silver` status.
+Перейдите на экран *Search*, чтобы найти клиентов со статусом `Silver`.
 
-The search outcomes will appear in the *Search results* view.
+Результаты поиска появятся на экране *Search results*.
 
 image::search-result.png[align="center",width="1138"]
 
-Clicking on a result will redirect you to the entity detail view.
+Щелчок по результату перенаправит вас на экран деталей сущности.

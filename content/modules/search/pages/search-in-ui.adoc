@@ -1,13 +1,13 @@
-= Using Search in UI
+= Использование поиска в UI
 
 [[visual-components]]
-== Visual Components
+== Визуальные компоненты
 
-The Search add-on provides two UI components: `SearchField` and `FullTextFilter`.
+Дополнение Search предоставляет два UI-компонента: `SearchField` и `FullTextFilter`.
 
-These components are available in the *Add Component* palette of the Studio xref:studio:view-designer.adoc[View Designer] as soon as you install the add-on in your project.
+Эти компоненты доступны в палитре *Add Component* в xref:studio:view-designer.adoc[Дизайнере экранов] Jmix Studio сразу после установки дополнения в ваш проект.
 
-If you don’t use the view designer, declare the `search` namespace in your view’s XML descriptor manually:
+Если вы не используете дизайнер экранов, объявите пространство имен `search` в XML-дескрипторе вашего экрана вручную:
 
 [source,xml,indent=0]
 ----
@@ -17,26 +17,26 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 [[search-field]]
 === SearchField
 
-The `SearchField` component presents a text input field along with a button for executing searches.
+Компонент `SearchField` представляет текстовое поле ввода вместе с кнопкой для выполнения поиска.
 
-Here's a usage example of the `SearchField` component within a view:
+Вот пример использования компонента `SearchField` внутри экрана:
 
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns;view;search-field]
 ----
 
-Attributes of the `SearchField` component:
+Атрибуты компонента `SearchField`:
 
-* `searchStrategy` - determines the search strategy applied. If no strategy is specified, the default one is used.
-* `entities` - specifies the entities for searching. Multiple entities can be listed as a comma-separated sequence:
+* `searchStrategy` - определяет применяемую стратегию поиска. Если стратегия не указана, используется стратегия по умолчанию.
+* `entities` - определяет сущности для поиска. Несколько сущностей могут быть перечислены в виде последовательности, разделенной запятыми:
 +
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
 ----
 
-By default, `searchField` opens the built-in `SearchResultsView`. This view handles the search engine querying process and presents a result list within the navigation view or in a new dialog, based on the `openMode` attribute of `searchField`.
+По умолчанию `searchField` открывает встроенный `SearchResultsView`. Этот экран управляет процессом выполнения запроса к поисковому движку и отображает список результатов в контейнере навигации или в новом диалоговом окне, в зависимости от атрибута `openMode` компонента `searchField`.
 
 // If you wish to modify this functionality, you can configure the `SearchCompletedHandler` in the following manner:
 //
@@ -50,46 +50,46 @@ By default, `searchField` opens the built-in `SearchResultsView`. This view hand
 [[full-text-filter]]
 === FullTextFilter
 
-The `FullTextFilter` component functions similarly to the xref:flow-ui:vc/components/propertyFilter.adoc[] component.
+Компонент `FullTextFilter` функционирует аналогично компоненту xref:flow-ui:vc/components/propertyFilter.adoc[].
 
-Here's an example of using `fullTextFilter` in the view:
+Вот пример использования `fullTextFilter` в экране:
 
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=data;layout;fullTextFilter;dataGrid]
 ----
 
-Attributes of the `FullTextFilter` component:
+Атрибуты компонента `FullTextFilter`:
 
-* `dataLoader` specifies the `DataLoader` to be filtered.
-* `searchStrategy` determines the search strategy to be employed. If not explicitly defined, a default strategy is utilized.
-* `autoApply` - when set to `true`, the `FullTextFilter` component automatically applies itself to the `DataLoader` upon changes to its value.
+* `dataLoader` определяет `DataLoader`, к которому применяется фильтр.
+* `searchStrategy` определяет используемую стратегию поиска. Если не определена явно, используется стратегия по умолчанию.
+* `autoApply` - при значении `true` компонент `FullTextFilter` автоматически применяется к `DataLoader` при изменении своего значения.
 
-`FullTextFilter` works as follows: it finds identifiers of entities through a full-text search, and subsequently appends a condition containing these identifiers to the data loader. Consequently, when a `DataGrid` is linked to this data loader, it will display only those records that match the full-text search criteria, combined with other filters, if any.
+`FullTextFilter` работает следующим образом: он находит идентификаторы сущностей через полнотекстовый поиск и затем добавляет условие, содержащее эти идентификаторы, в загрузчик данных. Следовательно, когда `DataGrid` связан с этим загрузчиком данных, он будет отображать только те записи, которые соответствуют критериям полнотекстового поиска, в сочетании с другими фильтрами, если они есть.
 
 [[search-strategies]]
-=== Search Strategies
+=== Стратегии поиска
 
-A search strategy defines how the search term is processed. Basically it configures search request with some query.
+Стратегия поиска определяет, как обрабатывается поисковый термин. По сути, она конфигурирует поисковый запрос с определенным запросом.
 
-The `SearchField` and `FullTextFilter` components support the following built-in search strategies:
+Компоненты `SearchField` и `FullTextFilter` поддерживают следующие встроенные стратегии поиска:
 
-* `anyTermAnyField` - a document matches if it contains at least one of input words in any indexed field.
+* `anyTermAnyField` - документ соответствует, если он содержит хотя бы одно из введенных слов в любом индексированном поле.
 
-* `allTermsAnyField` - a document matches if it contains all input words in any field in any order.  This strategy is set by default.
+* `allTermsAnyField` - документ соответствует, если он содержит все введенные слова в любом поле в любом порядке. Эта стратегия установлена по умолчанию.
 
-* `allTermsSingleField` - a document matches if it has at least one field that contains all input words in any order.
+* `allTermsSingleField` - документ соответствует, если у него есть хотя бы одно поле, которое содержит все введенные слова в любом порядке.
 
-* `phrase` - a document matches if it has at least one field that contains all input words in the provided order.
+* `phrase` - документ соответствует, если у него есть хотя бы одно поле, которое содержит все введенные слова в заданном порядке.
 
-You can set the proper strategy by using the `strategy` attribute, for example:
+Вы можете установить нужную стратегию, используя атрибут `strategy`, например:
 
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=strategy]
 ----
 
-To override the default strategy, add the following property to your `application.properties` file:
+Чтобы переопределить стратегию по умолчанию, добавьте следующее свойство в ваш файл `application.properties`:
 
 [source,properties,indent=0]
 ----
@@ -97,50 +97,51 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=defa
 ----
 
 [[custom-search-strategies]]
-==== Custom Search Strategies
-Additionally, you can create a custom search strategy. For that purpose, you need to create a new Spring bean implementing one of the platform-specific interfaces:
+==== Пользовательские стратегии поиска
 
-* `OpenSearchSearchStrategy` - if you use OpenSearch.
-* `ElasticsearchSearchStrategy` - if you use Elasticsearch.
+Дополнительно вы можете создать пользовательскую стратегию поиска. Для этой цели вам нужно создать новый Spring-бин, реализующий один из специфичных для платформы интерфейсов:
 
-Then you need to implement 2 methods:
+* `OpenSearchSearchStrategy` - если вы используете OpenSearch.
+* `ElasticsearchSearchStrategy` - если вы используете Elasticsearch.
 
-* `String getName()` - should return a unique strategy name.
+Затем вам нужно реализовать 2 метода:
 
-* `void configureRequest(SearchRequest.Builder requestBuilder, SearchContext searchContext)` - configure you search request using provided builder according to your requirements.
+* `String getName()` - должен возвращать уникальное имя стратегии.
+
+* `void configureRequest(SearchRequest.Builder requestBuilder, SearchContext searchContext)` - настройте ваш поисковый запрос, используя предоставленный builder, в соответствии с вашими требованиями.
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchSearchStrategy.java[tags=strategy]
 ----
 
-After that, you can assign your custom strategy to the `SearchField` or `FullTextFilter` component using the strategy name.
+После этого вы можете назначить вашу пользовательскую стратегию компоненту `SearchField` или `FullTextFilter`, используя имя стратегии.
 
 [[fts-condition-in-filter-component]]
-== Full-text Search Condition in GenericFilter Component
+== Условие полнотекстового поиска в компоненте GenericFilter
 
-When the Search add-on is added to the project, a new condition appears in the *Add condition* dialog of the xref:flow-ui:vc/components/genericFilter.adoc[GenericFilter] component:
+Когда дополнение Search добавлено в проект, в диалоговом окне *Add condition* компонента xref:flow-ui:vc/components/genericFilter.adoc[GenericFilter] появляется новое условие:
 
 image:search:add_condition.png[align="center",width="1151"]
 
-Within the *Full-text filter condition editor* dialog, you can define a caption for the full-text filter and choose a search strategy. If no search strategy is selected, then the default one is used.
+В диалоговом окне *Full-text filter condition editor* вы можете определить надпись для полнотекстового фильтра и выбрать стратегию поиска. Если стратегия поиска не выбрана, то используется стратегия по умолчанию.
 
 image:search:condition_editor.png[align="center",width="641"]
 
-Subsequently, the records in the list component linked to the filter will undergo filtering based on the outcome of the full-text search.
+Впоследствии записи в компоненте списка, связанном с фильтром, будут фильтроваться на основе результата полнотекстового поиска.
 
 [[using-search-api-in-views]]
-== Using Search API in Views
+== Использование Search API в экранах
 
-You can use Search API in view controllers. Let's look at the example:
+Вы можете использовать Search API в контроллерах экранов. Рассмотрим пример:
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/view/search/UsingApiView.java[tags=inject;click-event]
 ----
-<1> API is called from the view when clicking on a button.
-<2> Defining the search string is mandatory: here, the query will look through all fields marked for indexing that contain the `"silver"` string.
-<3> Adds the conditions for the query: firstly, the max amount of records in the result set. Default value is `10`.
-<4> Next, the list of entities to search within. By default, all indexed entities are included.
-<5> The `EntitySearcher` service is used to start searching.
-<6> `SearchResultProcessor` is used for fetching entities from the search result.
+<1> API вызывается из экрана при нажатии на кнопку.
+<2> Определение поисковой строки обязательно: здесь запрос будет искать по всем полям, помеченным для индексации, которые содержат строку `"silver"`.
+<3> Добавляет условия для запроса: во-первых, максимальное количество записей в результирующем наборе. Значение по умолчанию - `10`.
+<4> Далее, список сущностей, в которых осуществляется поиск. По умолчанию включены все индексированные сущности.
+<5> Сервис `EntitySearcher` используется для начала поиска.
+<6> `SearchResultProcessor` используется для извлечения сущностей из результата поиска.

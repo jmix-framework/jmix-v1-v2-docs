@@ -1,53 +1,53 @@
-= Indexing Queue
+= Очередь индексации
 
-Once you integrate the Search add-on into your application, it immediately begins xref:config-options.adoc#tracking-changes[monitoring changes] in your entities. This section details the process of configuring the automatic update of indexes with the latest data.
+После интеграции дополнения Search в ваше приложение оно немедленно начинает xref:config-options.adoc#tracking-changes[отслеживать изменения] в ваших сущностях. В этом разделе подробно описывается процесс настройки автоматического обновления индексов актуальными данными.
 
-The change tracking mechanism stores a queue of actions that should be done for changed entity instances in the `SEARCH_INDEXING_QUEUE` database table. The `IndexingQueueManager` bean contains methods to process the queue and send changed data to Elasticsearch/OpenSearch.
+Механизм отслеживания изменений сохраняет очередь действий, которые должны быть выполнены для измененных экземпляров сущностей, в таблице базы данных `SEARCH_INDEXING_QUEUE`. Бин `IndexingQueueManager` содержит методы для обработки очереди и отправки измененных данных в Elasticsearch/OpenSearch.
 
-NOTE: It's essential to establish regular processing of the indexing queue to ensure that search results reflect current data.
+NOTE: Крайне важно настроить регулярную обработку очереди индексации, чтобы обеспечить отражение текущих данных в результатах поиска.
 
-For scheduling periodic queue processing, you can utilize the Quartz Job Scheduler following the instructions provided.
+Для планирования периодической обработки очереди вы можете использовать Планировщик задач Quartz, следуя приведенным инструкциям.
 
 [[default-quartz-configuration]]
-== Default Quartz Configuration
+== Конфигурация Quartz по умолчанию
 
-The Search add-on comes with a pre-configured Quartz job for regularly processing the indexing queue. To enable this feature, follow these steps:
+Дополнение Search поставляется с предварительно настроенной задачей Quartz для регулярной обработки очереди индексации. Чтобы включить эту функцию, выполните следующие шаги:
 
-. Include the Quartz add-on in your project as described in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+. Включите дополнение Quartz в ваш проект, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
-. Modify the CRON expression as needed. The default value is `0/5 * * * * ?` (every 5 seconds).
+. При необходимости измените выражение CRON. Значение по умолчанию - `0/5 * * * * ?` (каждые 5 секунд).
 +
 [source,properties,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/application.properties[tags=cron]
 ----
 
-The default configuration creates and schedules a job with the `IndexingQueueProcessing` identity.
+Конфигурация по умолчанию создает и планирует задание с идентификатором `IndexingQueueProcessing`.
 
 [[custom-qurtz-configuration]]
-== Custom Quartz Configuration
+== Пользовательская конфигурация Quartz
 
-If you prefer to utilize a custom Quartz configuration, follow these steps:
+Если вы предпочитаете использовать пользовательскую конфигурацию Quartz, выполните следующие шаги:
 
-. Include the Quartz add-on in your project as described in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+. Включите дополнение Quartz в ваш проект, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
-. Within the `application.properties` file, include the following property to deactivate the default configuration:
+. В файле `application.properties` включите следующее свойство, чтобы деактивировать конфигурацию по умолчанию:
 +
 [source,properties,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/application.properties[tags=not-default]
 ----
 
-. Develop a custom job class that invokes `IndexingQueueManager.processNextBatch()`:
+. Разработайте пользовательский класс задачи, который вызывает `IndexingQueueManager.processNextBatch()`:
 +
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/MyCustomQueueProcessingJob.java[tags=custom-job]
 ----
 
-. While the application is running, navigate to the *Quartz -> Quartz jobs* view to set up a job for the `MyCustomQueueProcessingJob` class.
+. Во время работы приложения перейдите в экран *Quartz -> Quartz jobs*, чтобы настроить задачу для класса `MyCustomQueueProcessingJob`.
 
-. Alternatively, if you want to configure the job during development, register the following beans in the application:
+. Альтернативно, если вы хотите настроить задачу во время разработки, зарегистрируйте следующие бины в приложении:
 +
 [source,java,indent=0]
 ----

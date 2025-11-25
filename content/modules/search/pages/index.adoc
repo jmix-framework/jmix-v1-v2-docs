@@ -1,29 +1,29 @@
 = Search
 
-The Search add-on provides full-text search functionality for your application.
-It allows you to configure indexing of entities and uploaded files, as well as providing API and UI components for searching the indexed data. The search results are filtered based on the xref:security:index.adoc[data access] permissions of the current user.
+Дополнение Search предоставляет функциональность полнотекстового поиска для вашего приложения.
+Оно позволяет настраивать индексацию сущностей и загруженных файлов, а также предоставляет API и UI-компоненты для поиска по индексированным данным. Результаты поиска фильтруются на основе прав xref:security:index.adoc[доступа к данным] текущего пользователя.
 
-The add-on utilizes https://www.elastic.co[Elasticsearch^] or https://opensearch.org[OpenSearch^] (since Jmix 2.3) as its search engine. It can work with only one of them at the same time.
+Дополнение использует https://www.elastic.co[Elasticsearch^] или https://opensearch.org[OpenSearch^] (начиная с Jmix 2.3) в качестве поисковой системы. Оно может работать только с одной из них одновременно.
 
-For more information about the internal search and indexing mechanisms, please refer to the https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html[Elasticsearch^] or https://opensearch.org/docs/latest[OpenSearch^] documentation.
+Для получения дополнительной информации о внутренних механизмах поиска и индексации обратитесь к документации https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html[Elasticsearch^] или https://opensearch.org/docs/latest[OpenSearch^].
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-By default, the add-on will be installed with the OpenSearch support.
+По умолчанию дополнение будет установлено с поддержкой OpenSearch.
 
-If you upgrade the project from the previous Jmix version with the installed add-on, it will keep the Elasticsearch support.
+Если вы обновляете проект с предыдущей версии Jmix с установленным дополнением, оно сохранит поддержку Elasticsearch.
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
 include::example$/search-ex1/build.gradle[tags=dependency]
 ----
 
-If you want to switch between Elasticsearch and OpenSearch, replace `jmix-search-opensearch-starter` with `jmix-search-elasticsearch-starter` or vice versa:
+Если вы хотите переключиться между Elasticsearch и OpenSearch, замените `jmix-search-opensearch-starter` на `jmix-search-elasticsearch-starter` или наоборот:
 
 [source,groovy,indent=0]
 ----
@@ -31,24 +31,24 @@ include::example$/search-ex1/build.gradle[tags=dependency-elastic]
 ----
 
 [[connecting-to-search-engine-service]]
-== Connecting to Search Engine Service
+== Подключение к сервису поисковой системы
 
-To connect to the Elasticsearch/OpenSearch service, specify the following properties in the `application.properties` file:
+Для подключения к сервису Elasticsearch/OpenSearch укажите следующие свойства в файле `application.properties`:
 
-* `jmix.search.server.url` - the complete URL of the service.
-* `jmix.search.server.login` - the login for basic authentication.
-* `jmix.search.server.password` - the user password used to connect to the service.
+* `jmix.search.server.url` - полный URL сервиса.
+* `jmix.search.server.login` - логин для базовой аутентификации.
+* `jmix.search.server.password` - пароль пользователя, используемый для подключения к сервису.
 
 [[version-compatibility]]
-== Versions Compatibility
+== Совместимость версий
 
-Java API clients for Elasticsearch/OpenSearch are forward-compatible with server version.
+Java API клиенты для Elasticsearch/OpenSearch имеют прямую совместимость с версией сервера.
 
-The add-on uses Elasticsearch Java API client v8.10.4 that supports ES 8.10+ (but also should support older versions till the oldest version is still supported by Elastic - 7.17.x)
+Дополнение использует Elasticsearch Java API client v8.10.4, который поддерживает ES 8.10+ (но также должен поддерживать более старые версии вплоть до самой старой версии, все еще поддерживаемой Elastic - 7.17.x).
 
-With OpenSearch, the add-on uses Java API client v2.10.3.
+Для OpenSearch дополнение использует Java API client v2.10.3.
 
-CAUTION: Note that the Search add-on is not currently compatible with the Elasticsearch service offered by AWS.
+CAUTION: Обратите внимание, что дополнение Search в настоящее время не совместимо с сервисом Elasticsearch, предлагаемым AWS.
 
 // In case you use a local service, you may not specify the properties above.
 

@@ -1,14 +1,14 @@
-= Index Definitions
+= Определения индексов
 
-Search indexes are specified through Java interfaces that outline which entities and attributes should be indexed. It is recommended to create these interfaces for every entity that requires full-text search functionality.
+Поисковые индексы задаются через Java-интерфейсы, которые описывают, какие сущности и атрибуты должны индексироваться. Рекомендуется создавать эти интерфейсы для каждой сущности, требующей функциональности полнотекстового поиска.
 
 [[interface]]
-== Index Definition Interface
+==  Интерфейс определения индекса
 
-A Java interface defining an index must adhere to these requirements:
+Java-интерфейс, определяющий индекс, должен соответствовать следующим требованиям:
 
-* It can be named arbitrarily.
-* It must be annotated with the `@JmixEntitySearchIndex` annotation.
+* Может иметь произвольное имя.
+* Должен быть аннотирован аннотацией `@JmixEntitySearchIndex`.
 
 [source,java,indent=0]
 ----
@@ -17,18 +17,19 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDe
 
 [[interface-annotation]]
 === `@JmixEntitySearchIndex`
-Attributes
 
-* `entity` - specifies the entity class associated with this Index Definition. Mandatory.
-* `indexName` - specifies the full name of index that will be used for that entity. Optional. If not set index name is based on xref:search-properties.adoc#jmix.search.searchIndexNamePrefix[prefix and entity name].
+Атрибуты
 
-Indexed entity properties are specified using methods within the interface. These methods must adhere to the following guidelines:
+* `entity` - указывает класс сущности, связанный с этим определением индекса. Является обязательным.
+* `indexName` - указывает полное имя индекса, которое будет использоваться для этой сущности. Является опциональным. Если не задано, имя индекса формируется на основе xref:search-properties.adoc#jmix.search.searchIndexNamePrefix[префикса и имени сущности].
 
-* They should return `void`.
-* They can be named arbitrarily.
-* They should not accept parameters.
-* They should not contain any implementation logic.
-* Each method should be annotated with the `@AutoMappedField` annotation.
+Индексируемые свойства сущности задаются с помощью методов внутри интерфейса. Эти методы должны соответствовать следующим правилам:
+
+* Должны возвращать `void`.
+* Могут иметь произвольное имя.
+* Не должны принимать параметры.
+* Не должны содержать никакой логики реализации.
+* Каждый метод должен быть аннотирован аннотацией `@AutoMappedField`.
 
 [source,java,indent=0]
 ----
@@ -36,40 +37,40 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDe
 ----
 
 [[auto-mapped-field]]
-== AutoMappedField Annotation
+== Аннотация AutoMappedField
 
-The `@AutoMappedField` annotation enables you to map specific entity attributes based on their data type (see <<automatic-mapping,below>>). It can include the following parameters:
+Аннотация `@AutoMappedField` позволяет сопоставлять определенные атрибуты сущности на основе их типа данных (смотрите <<automatic-mapping,ниже>>). Она может включать следующие параметры:
 
-* `includeProperties` - a list of entity attributes to be indexed. It accepts dot notation to specify attributes of related entities. By default, none are indexed for search.
+* `includeProperties` - список атрибутов сущности для индексации. Принимает точечную нотацию для указания атрибутов связанных сущностей. По умолчанию никакие атрибуты не индексируются для поиска.
 
-* `excludeProperties` - a list of entity attributes to be excluded from indexing. It accepts dot notation to specify attributes of related entities. By default, none are excluded.
+* `excludeProperties` - список атрибутов сущности, которые следует исключить из индексации. Принимает точечную нотацию для указания атрибутов связанных сущностей. По умолчанию никакие атрибуты не исключаются.
 
-* `analyzer` - the name of an analyzer defined in Elasticsearch/OpenSearch to be used in index field mapping. If not specified, the `standard` analyzer is used.
+* `analyzer` - имя анализатора, определенного в Elasticsearch/OpenSearch, который будет использоваться в маппинге поля индекса. Если не указано, используется анализатор `standard`.
 
-* `indexFileContent` - a boolean flag that determines if the content of a file found in matched file properties should be indexed. By default, it is set to `true`.
+* `indexFileContent` - логический флаг, определяющий, следует ли индексировать содержимое файла, найденного в сопоставленных файловых свойствах. По умолчанию установлен в `true`.
 
-Both `includeProperties` and `excludeProperties` support `*` wildcard. It is expanded to local properties at the corresponding level:
+И `includeProperties`, и `excludeProperties` поддерживают подстановочный знак `*`. Он раскрывается в локальные свойства на соответствующем уровне:
 
-* `*` - local properties of the indexed entity.
-* `refField.*` - local properties of the entity referenced by the `refField` property.
+* `*` - локальные свойства индексируемой сущности.
+* `refField.*` - локальные свойства сущности, на которую ссылается свойство `refField`.
 
-The wildcard does not apply to back-reference attributes and attributes of entity xref:data-model:entities.adoc#traits[traits] such as `version`, `createdBy`, etc.
+Подстановочный знак не применяется к атрибутам обратной ссылки и атрибутам xref:data-model:entities.adoc#traits[черт] сущности, таких как `version`, `createdBy` и т.д.
 
-`excludeProperties` is beneficial only when `includeProperties` contains a wildcard to restrict its expansion. For instance:
+`excludeProperties` полезен только тогда, когда `includeProperties` содержит подстановочный знак, чтобы ограничить его раскрытие. Например:
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/CardIndexDefinition.java[tags=exclude]
 ----
 
-An analyzer is employed to alter incoming text values in various manners, including language morphologies. A specified analyzer is utilized during both the indexing and searching phases.
+Анализатор используется для изменения входящих текстовых значений различными способами, включая морфологии языков. Указанный анализатор используется как на этапе индексации, так и на этапе поиска.
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/CustomerIndexDefinition.java[tags=interface;method]
 ----
 
-Multiple mapping annotations can be applied to a single method or distributed across multiple methods for some kind of grouping. The examples below illustrate the identical definition:
+Несколько аннотаций маппинга могут быть применены к одному методу или распределены по нескольким методам для некой группировки. Примеры ниже иллюстрируют идентичное определение:
 
 [source,java,indent=0]
 ----
@@ -101,31 +102,31 @@ public interface OrderIndexDefinition {
 ----
 
 [[automatic-mapping]]
-== Automatic Mapping
+== Автоматический маппинг
 
-Automatic mapping by the `@AutoMappedField` annotation is supported for entity attributes of the following types:
+Автоматический маппинг с помощью аннотации `@AutoMappedField` поддерживается для атрибутов сущности следующих типов:
 
-* <<textual-attributes,Textual>>
-* <<reference-attributes,Reference>>
-* <<file-attributes,File>>
-* <<enumeration-attributes,Enumerations>>
-* <<embedded-attributes,Embedded>>
+* <<textual-attributes,Текстовые>>
+* <<reference-attributes,Ссылочные>>
+* <<file-attributes,Файловые>>
+* <<enumeration-attributes,Перечисления>>
+* <<embedded-attributes,Встроенные>>
 
-The wildcard encompasses all these attribute types.
+Подстановочный знак охватывает все эти типы атрибутов.
 
 [[textual-attributes]]
-=== Textual Attributes
+=== Текстовые атрибуты
 
-These attributes are of the `String` type. It is the most common case, a value of an attribute is used as the indexed value.
+Эти атрибуты имеют тип `String`. Это наиболее распространенный случай, значение атрибута используется как индексируемое значение.
 
-The field in the index appears as follows:
+Поле в индексе выглядит следующим образом:
 
 [source,json]
 ----
 "textualFieldName": "value"
 ----
 
-In case of multiple values:
+В случае нескольких значений:
 
 [source,json]
 ----
@@ -133,11 +134,11 @@ In case of multiple values:
 ----
 
 [[reference-attributes]]
-=== Reference Attributes
+=== Ссылочные атрибуты
 
-These are references to related entities. The indexed value comprises solely the instance name of the associated entity, omitting any nested properties. To index nested properties of a related entity, make sure to explicitly incorporate `refProperty.nestedProperty` or `refProperty.*` into your mapping.
+Это ссылки на связанные сущности. Индексируемое значение включает только имя экземпляра связанной сущности, опуская любые вложенные свойства. Чтобы индексировать вложенные свойства связанной сущности, обязательно явно включите `refProperty.nestedProperty` или `refProperty.*` в ваш маппинг.
 
-The field in the index appears as follows:
+Поле в индексе выглядит следующим образом:
 
 [source,json]
 ----
@@ -146,7 +147,7 @@ The field in the index appears as follows:
 }
 ----
 
-In case of multiple values:
+В случае нескольких значений:
 
 [source,json]
 ----
@@ -156,16 +157,16 @@ In case of multiple values:
 ----
 
 [[file-attributes]]
-=== Files
+=== Файлы
 
-These are attributes of the `FileRef` type referring files in xref:files:file-storage.adoc[File Storage]. By default, both the file name and content are utilized as indexed values. If you wish to index only the file name, you must adjust the `indexFileContent` parameter of `@AutoMappedField` to `false`:
+Это атрибуты типа `FileRef`, ссылающиеся на файлы в xref:files:file-storage.adoc[Файловом хранилище]. По умолчанию и имя файла, и его содержимое используются как индексируемые значения. Если вы хотите индексировать только имя файла, вы должны изменить параметр `indexFileContent` в `@AutoMappedField` на `false`:
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/EventIndexDefinition.java[tags=file]
 ----
 
-The field in the index appears as follows:
+Поле в индексе выглядит следующим образом:
 
 [source,json]
 ----
@@ -175,7 +176,7 @@ The field in the index appears as follows:
 }
 ----
 
-In case of multiple values:
+В случае нескольких значений:
 
 [source,json]
 ----
@@ -192,18 +193,18 @@ In case of multiple values:
 ----
 
 [[enumeration-attributes]]
-=== Enumeration Attributes
+=== Атрибуты перечислений
 
-In the case of xref:data-model:enumerations.adoc[enumeration] attributes, the indexed values include xref:localization:message-bundles.adoc#localizing-data-model[localized values] for all available locales.
+В случае атрибутов xref:data-model:enumerations.adoc[перечислений] индексируемые значения включают xref:localization:message-bundles.adoc#localizing-data-model[локализованные значения] для всех доступных локалей.
 
-An entry in the index appears as:
+Запись в индексе выглядит как:
 
 [source,json]
 ----
 "enumFieldName": ["enValue", "ruValue"]
 ----
 
-If multiple enumeration values are present, each value in all available locales is included, leading to a multiplication of values:
+Если присутствует несколько значений перечисления, каждое значение на всех доступных локалях включается, что приводит к умножению значений:
 
 [source,json]
 ----
@@ -211,18 +212,18 @@ If multiple enumeration values are present, each value in all available locales 
 ----
 
 [[embedded-attributes]]
-=== Embedded Attributes
+=== Встроенные атрибуты
 
-These are references to embedded JPA entities. Adding an embedded attribute implies including all its nested attributes `("someEmbeddedProperty" = "someEmbeddedProperty.*")`. The index value is determined by the type of the nested attribute, and unsupported types will be ignored.
+Это ссылки на встроенные JPA-сущности. Добавление встроенного атрибута подразумевает включение всех его вложенных атрибутов `("someEmbeddedProperty" = "someEmbeddedProperty.*")`. Значение индекса определяется типом вложенного атрибута, а неподдерживаемые типы будут игнорироваться.
 
-For instance, imagine a root entity with a `customer` attribute linked to the embedded `Customer` entity, which holds the `firstName` and `lastName` attributes. If you choose to include the `customer` attribute, it will automatically trigger the inclusion of the `customer.firstName` and `customer.lastName` attributes.
+Например, представьте корневую сущность с атрибутом `customer`, связанным со встроенной сущностью `Customer`, которая содержит атрибуты `firstName` и `lastName`. Если вы решите включить атрибут `customer`, это автоматически приведет к включению атрибутов `customer.firstName` и `customer.lastName`.
 
 [[nested-attributes]]
-=== Nested Attributes and Collections
+=== Вложенные атрибуты и коллекции
 
-You can specify nested properties using the dot notation: `refProperty.nestedRefProperty.targetDataProperty`.
+Вы можете указывать вложенные свойства, используя точечную нотацию: `refProperty.nestedRefProperty.targetDataProperty`.
 
-Furthermore, the system supports collection attributes, which includes nested collections at various levels. In such cases, the index consolidates all attribute values at the lowest level. For instance, a property like `collectionOfReferences.nestedCollectionOfAnotherReferences.name` is stored in the following format:
+Кроме того, система поддерживает атрибуты-коллекции, включая вложенные коллекции на различных уровнях. В таких случаях индекс объединяет все значения атрибутов на самом нижнем уровне. Например, свойство типа `collectionOfReferences.nestedCollectionOfAnotherReferences.name` сохраняется в следующем формате:
 
 [source,json]
 ----
@@ -233,55 +234,55 @@ Furthermore, the system supports collection attributes, which includes nested co
 }
 ----
 
-Within the array, you'll find values of the `name` attribute from all instances of `EntityB` within all instances of `EntityA` in the root entity.
+Внутри массива вы найдете значения атрибута `name` из всех экземпляров `EntityB` внутри всех экземпляров `EntityA` в корневой сущности.
 
 [[programmatic-mapping]]
-== Programmatic Mapping
+== Программный маппинг
 
-Instead of using annotations, you can build mapping definition programmatically.
+Вместо использования аннотаций вы можете построить определение маппинга программно.
 
-To do this, you will need to define a method in your index definition interface. This method should satisfy the following conditions:
+Для этого вам нужно определить метод в вашем интерфейсе определения индекса. Этот метод должен удовлетворять следующим условиям:
 
-* It must be a default method.
-* It can be named arbitrarily.
-* It can accept Spring beans as parameters for custom configuration.
-* It must return the `MappingDefinition` type.
-* It must be annotated with `@ManualMappingDefinition`.
+* Должен быть методом по умолчанию (default).
+* Может иметь произвольное имя.
+* Может принимать Spring-бины в качестве параметров для пользовательской конфигурации.
+* Должен возвращать тип `MappingDefinition`.
+* Должен быть аннотирован `@ManualMappingDefinition`.
 
-Within the method body, you can create a mapping definition using `MappingDefinition.builder()`.
+В теле метода вы можете создать определение маппинга, используя `MappingDefinition.builder()`.
 
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/CustomerIndexDefinition.java[tags=interface;manual-mapping]
 ----
-<1> The `@ManualMappingDefinition` annotation marks methods with manual creation of mapping definition.
-<2> You can pass Spring beans as parameters for custom mapping configuration.
-<3> The list of properties that should be indexed. Here the `*` wildcard is used to include all local properties of the indexed `Customer` entity.
-<4> The list of properties that should not be indexed.
-<5> The `FieldMappingStrategy` implementation class that should be used to map properties. The mapping strategy can also be defined as instance using the `withFieldMappingStrategy()` method with the strategy instance as a parameter.
-<6> An explicit property value extractor. For example, a `FilePropertyValueExtractor` instance can be used for processing attributes of the `FileRef` type.
+<1> Аннотация `@ManualMappingDefinition` отмечает методы с ручным созданием определения маппинга.
+<2> Вы можете передавать Spring-бины в качестве параметров для пользовательской конфигурации маппинга.
+<3> Список свойств, которые должны быть индексированы. Здесь используется подстановочный знак `*` для включения всех локальных свойств индексируемой сущности `Customer`.
+<4> Список свойств, которые не должны индексироваться.
+<5> Класс реализации `FieldMappingStrategy`, который должен использоваться для маппинга свойств. Стратегия маппинга также может быть определена как экземпляр с помощью метода `withFieldMappingStrategy()` с экземпляром стратегии в качестве параметра.
+<6> Явный экстрактор значений свойств. Например, экземпляр `FilePropertyValueExtractor` может использоваться для обработки атрибутов типа `FileRef`.
 
-NOTE: There can be only one method with programmatic mapping. If a method with programmatic mapping exists, all mapping annotations are ignored.
+NOTE: Может быть только один метод с программным маппингом. Если метод с программным маппингом существует, все аннотации маппинга игнорируются.
 
 [[indexable-predicate]]
-== Indexable Predicate
+== Предикат индексируемости
 
-Indexing process can have additional instance-level condition.
-It can be added by configuring Indexable Predicate. This predicate applies to each entity instance during indexing and defines if it should be indexed or not.
+Процесс индексации может иметь дополнительное условие на уровне экземпляра.
+Оно может быть добавлено путем настройки предиката индексируемости (Indexable Predicate). Этот предикат применяется к каждому экземпляру сущности во время индексации и определяет, должен ли он быть проиндексирован.
 
-It doesn't apply during deletion.
+Он не применяется во время удаления.
 
-To configure Indexable Predicate add method that fulfils the following requirements:
+Чтобы настроить предикат индексируемости, добавьте метод, удовлетворяющий следующим требованиям:
 
-* With default modifier.
-* With any name.
-* With return type - `Predicate<TargetEntity>`, where 'TargetEntity' is the value of `entity()` parameter of current annotation.
-* With Spring beans required for predicate logic as parameters.
-* Annotated with `@IndexablePredicate`.
+* С модификатором `default`.
+* С любым именем.
+* С возвращаемым типом - `Predicate<TargetEntity>`, где `TargetEntity` - это значение параметра `entity()` текущей аннотации.
+* С Spring-бинами, требуемыми для логики предиката, в качестве параметров.
+* Аннотированный `@IndexablePredicate`.
 
-Actual predicate should be created within method body and returned as a result.
+Фактический предикат должен быть создан в теле метода и возвращен как результат.
 
-NOTE: Instance passed to predicate includes only declared indexable properties, others are unfetched. To get access to them you need to reload instance with proper fetch plan within predicate.
+NOTE: Переданный в предикат экземпляр включает только объявленные индексируемые свойства, остальные не подгружены. Чтобы получить к ним доступ, вам нужно перезагрузить экземпляр с подходящим фетч-планом внутри предиката.
 
 [source,java,indent=0]
 ----

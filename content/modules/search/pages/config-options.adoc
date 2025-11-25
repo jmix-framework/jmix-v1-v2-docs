@@ -1,60 +1,60 @@
-= Search Configuration Options
+= Параметры конфигурации поиска
 
 [[indexes-creation]]
-== Index Creation
+== Создание индексов
 
-The Search add-on checks the current configuration of Elasticsearch indexes and compares it to the expected ones. Further actions depend on the selected Index Schema Management Strategy:
+Дополнение Search проверяет текущую конфигурацию индексов Elasticsearch и сравнивает ее с ожидаемой. Дальнейшие действия зависят от выбранной стратегии управления схемой индекса:
 
-* `create-only` - every missing index will be created, existing indexes with irrelevant configuration will be kept as is.
-* `create-or-recreate` - every missing index will be created, existing indexes with irrelevant configuration will be recreated (all data will be lost). This is the default strategy.
-* `none` - missing indexes are ignored, existing indexes with irrelevant configuration will be kept as is. This option may be used if you want to operate indexes manually.
+* `create-only` - каждый отсутствующий индекс будет создан, существующие индексы с нерелевантной конфигурацией останутся как есть.
+* `create-or-recreate` - каждый отсутствующий индекс будет создан, существующие индексы с нерелевантной конфигурацией будут пересозданы (все данные будут потеряны). Это стратегия по умолчанию.
+* `none` - отсутствующие индексы игнорируются, существующие индексы с нерелевантной конфигурацией останутся как есть. Эта опция может быть использована, если вы хотите управлять индексами вручную.
 
-The strategy can be configured by adding the following property to your `application.properties` file:
+Стратегия может быть настроена путем добавления следующего свойства в ваш файл `application.properties`:
 
 [source,properties,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/application.properties[tags=management-strategy]
 ----
 
-The index schema synchronization is automatically performed on application startup. Besides, it can be manually performed using `synchronizeXXX` operations of xref:search:search-api.adoc#entity-indexing-mbean[EntityIndexing MBean].
+Синхронизация схемы индекса автоматически выполняется при запуске приложения. Кроме того, она может быть выполнена вручную с использованием операций `synchronizeXXX` xref:search:search-api.adoc#entity-indexing-mbean[EntityIndexing MBean].
 
-The EntityIndexing MBean also contains the `recreateIndex` operation. It drops and creates index without taking into account the current Index Schema Management Strategy, even if the target index has an actual configuration. All index data will be lost.
+EntityIndexing MBean также содержит операцию `recreateIndex`. Она удаляет и создает индекс без учета текущей стратегии управления схемой индекса, даже если целевой индекс имеет актуальную конфигурацию. Все данные индекса будут потеряны.
 
 [[index-naming]]
-== Index Naming
+== Именование индексов
 
-Search indexes have the following naming template: `<prefix><entity_name>`.
+Индексы поиска имеют следующий шаблон именования: `<prefix><entity_name>`.
 
-Default prefix is `search_index_`.
+Префикс по умолчанию - `search_index_`.
 
-If multiple projects use the same Elasticsearch service, you should ensure that index names are unique: all projects should have unique entity names or projects should have different prefixes.
+Если несколько проектов используют один и тот же сервис Elasticsearch, вы должны обеспечить уникальность имен индексов: все проекты должны иметь уникальные имена сущностей или проекты должны иметь разные префиксы.
 
-Prefixes can be configured by adding the following property to your `application.properties` file:
+Префиксы могут быть настроены путем добавления следующего свойства в ваш файл `application.properties`:
 
 [source,properties,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/application.properties[tags=prefix]
 ----
 
-Also you can specify full index name in `indexName` attribute of `@JmixEntitySearchIndex`.
+Также вы можете указать полное имя индекса в атрибуте `indexName` аннотации `@JmixEntitySearchIndex`.
 
 [[existing-data-indexing]]
-== Existing Data Indexing
+== Индексация существующих данных
 
-There are two approaches to existing data indexing:
+Существует два подхода к индексации существующих данных:
 
-* *Automatic* - is a part of the index schema synchronization and enabled by default. It enqueues all instances of each entity whose index has been created (in the background process). Automatic indexing can be enabled for specific entities only.
+* *Автоматический* - является частью синхронизации схемы индекса и включен по умолчанию. Он ставит в очередь все экземпляры каждой сущности, индекс для которой был создан (в фоновом процессе). Автоматическая индексация может быть включена только для определенных сущностей.
 
-* *Manual* - by using the `enqueueIndexAll` operation of xref:search:search-api.adoc#entity-indexing-mbean[EntityIndexing MBean].
+* *Ручной* - с использованием операции `enqueueIndexAll` xref:search:search-api.adoc#entity-indexing-mbean[EntityIndexing MBean].
 
-To enable automatic indexing for specific entities, add the following application property:
+Чтобы включить автоматическую индексацию для определенных сущностей, добавьте следующее свойство приложения:
 
 [source,properties,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/application.properties[tags=auto-index]
 ----
 
-Also, you can completely disable automatic indexing by adding the following application property:
+Также вы можете полностью отключить автоматическую индексацию, добавив следующее свойство приложения:
 
 [source,properties]
 ----
@@ -62,11 +62,11 @@ jmix.search.enqueue-index-all-on-startup-index-recreation-enabled = false
 ----
 
 [[tracking-changes]]
-== Entities Tracking
+== Отслеживание сущностей
 
-By default, the system tracks changes of indexed entities. It stores information about all entity instances affected by the changes to the indexing queue.
+По умолчанию система отслеживает изменения индексированных сущностей. Она сохраняет информацию обо всех экземплярах сущностей, затронутых изменениями, в очередь индексации.
 
-This behavior can be disabled by adding the following application property:
+Это поведение может быть отключено путем добавления следующего свойства приложения:
 
 [source,properties]
 ----
@@ -74,37 +74,38 @@ jmix.search.changed-entities-indexing-enabled = false
 ----
 
 [[roles]]
-== Security Roles
+== Роли безопасности
 
-To utilize the functionality of the Search add-on, users with limited access to the system should have one of the following roles:
+Для использования функциональности дополнения Search пользователи с ограниченным доступом к системе должны иметь одну из следующих ролей:
 
-* *Search: edit filter* provides permissions to add full-text search conditions to the filter.
-* *Search: view search results* provides permissions to access the Search Results view.
+* *Search: edit filter* предоставляет разрешения на добавление условий полнотекстового поиска в фильтр.
+* *Search: view search results* предоставляет разрешения на доступ к экрану результатов поиска.
 
 [[index-settings]]
-== Index Settings and Analysis
-The add-on allows you to configure index settings including analysis.
+== Настройки индекса и анализ
 
-NOTE: This configuration depends on used search platform (OpenSearch or Elasticsearch) and should be recreated accordingly if you switch between them.
+Дополнение позволяет вам настраивать параметры индекса, включая анализ.
 
-* Create a Spring bean that implements `OpenSearchIndexSettingsConfigurer` (or `ElasticsearchIndexSettingsConfigurer` in case of Elasticsearch usage).
-* Implement method `configure(OpenSearchIndexSettingsConfigurationContext)`.
+NOTE: Эта конфигурация зависит от используемой поисковой платформы (OpenSearch или Elasticsearch) и должна быть соответствующим образом воссоздана при переключении между ними.
+
+* Создайте Spring-бин, который реализует `OpenSearchIndexSettingsConfigurer` (или `ElasticsearchIndexSettingsConfigurer` в случае использования Elasticsearch).
+* Реализуйте метод `configure(OpenSearchIndexSettingsConfigurationContext)`.
 
 [[index-settings-implementation]]
-=== Implementation
+=== Реализация
 
-Settings can be configured via settings builder (belongs to OpenSearch/Elasticsearch Java API client).
+Настройки могут быть сконфигурированы через builder настроек (принадлежит OpenSearch/Elasticsearch Java API client).
 
-Configuration context provides two types of settings builder:
+Контекст конфигурации предоставляет два типа настроек builder:
 
-* *Common* - allows you to configure settings that will be applied to all indexes. Can be acquired via `context.getCommonSettingsBuilder()`.
-* *Entity specific* - allows you to configure settings that will be applied only to index for specific entity.
-Entity specific settings has higher priority and _override the common settings_.
-Can be acquired via `context.getEntitySettingsBuilder(Class)`.
+* *Общий* - позволяет настраивать настройки, которые будут применены ко всем индексам. Может быть получен через `context.getCommonSettingsBuilder()`.
+* *Специфичный для сущности* - позволяет настраивать настройки, которые будут применены только к индексу для конкретной сущности.
+Специфичные для сущности настройки имеют более высокий приоритет и _переопределяют общие настройки_.
+Может быть получен через `context.getEntitySettingsBuilder(Class)`.
 
-Use builder's methods to set corresponding index settings.
+Используйте методы builder для установки соответствующих настроек индекса.
 
-Use `.analysis()` to start building chain that allows you to create custom analyzers, tokenizers, etc.
+Используйте `.analysis()` для начала построения цепочки, которая позволяет создавать пользовательские анализаторы, токенизаторы и т.д.
 
 [source,java,indent=0]
 ----

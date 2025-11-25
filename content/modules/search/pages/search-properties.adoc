@@ -1,177 +1,174 @@
-= Search Properties
+= Свойства поиска
 
 [[jmix.search.changedEntitiesIndexingEnabled]]
 == jmix.search.changed-entities-indexing-enabled
 
-Defines whether automatic indexing of xref:config-options.adoc#tracking-changes[changed entities] is enabled.
+Определяет, включена ли автоматическая индексация xref:config-options.adoc#tracking-changes[измененных сущностей].
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.search.defaultSearchStrategy]]
 == jmix.search.default-search-strategy
 
-Name of default xref:search-in-ui.adoc#search-strategies[search strategy].
+Имя стратегии поиска xref:search-in-ui.adoc#search-strategies[по умолчанию].
 
-Default value: `anyTermAnyField`
+Значение по умолчанию: `anyTermAnyField`
 
 [[jmix.search.enqueueIndexAllOnStartupIndexRecreationEnabled]]
 == jmix.search.enqueue-index-all-on-startup-index-recreation-enabled
 
-Defines whether all entity instances related to indexes created or recreated on startup should be enqueued automatically. See also xref:config-options.adoc#existing-data-indexing[Existing Data Indexing].
+Определяет, должны ли все экземпляры сущностей, связанные с индексами, созданными или пересозданными при запуске, автоматически ставиться в очередь. Смотрите также xref:config-options.adoc#existing-data-indexing[Индексация существующих данных].
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.search.enqueueIndexAllOnStartupIndexRecreationEntities]]
 == jmix.search.enqueue-index-all-on-startup-index-recreation-entities
 
-Defines the list of entities that should be automatically enqueued on startup in case of index recreation. Empty list means all indexed entities. See also xref:config-options.adoc#existing-data-indexing[Existing Data Indexing].
+Определяет список сущностей, которые должны автоматически ставиться в очередь при запуске в случае пересоздания индекса. Пустой список означает все индексированные сущности. Смотрите также xref:config-options.adoc#existing-data-indexing[Индексация существующих данных].
 
-Default value: none
+Значение по умолчанию: none
 
 [[jmix.search.enqueueingSessionProcessingCron]]
 == jmix.search.enqueueing-session-processing-cron
 
-http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] that is used by default Enqueueing Session processing Quartz xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration].
+http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Выражение Cron^], которое по умолчанию применяется в xref:indexing-queue.adoc#default-quartz-configuration[конфигурации планирования] Quartz для обработки сессий, помещенных в очередь.
 
-Default value: `0/5 * * * * ?`
+Значение по умолчанию: `0/5 * * * * ?`
 
 [[jmix.search.indexingQueueProcessingCron]]
 == jmix.search.indexing-queue-processing-cron
 
-http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] that is used by default Indexing Queue processing Quartz xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration].
+http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Выражение Cron^], которое по умолчанию используется в xref:indexing-queue.adoc#default-quartz-configuration[конфигурации планирования] Quartz для управления обработкой очереди индексации.
 
-Default value: `0/5 * * * * ?`
+Значение по умолчанию: `0/5 * * * * ?`
 
 [[jmix.search.indexSchemaManagementStrategy]]
 == jmix.search.index-schema-management-strategy
 
-The way of index schema synchronization. See xref:config-options.adoc#indexes-creation[Index Creation] for more detail.
+Способ синхронизации схемы индекса. Подробнее смотрите в xref:config-options.adoc#indexes-creation[Создание индексов].
 
-Default value: `create-or-recreate`
+Значение по умолчанию: `create-or-recreate`
 
 [[jmix.search.maxSearchPageCount]]
 == jmix.search.max-search-page-count
 
-Sets the max amount of result pages.
+Задает максимальное количество страниц результатов.
 
-Default value: `100`
+Значение по умолчанию: `100`
 
 [[jmix.search.processQueueBatchSize]]
 == jmix.search.process-queue-batch-size
 
-Sets the amount of queue items processed in single batch.
+Задает количество элементов очереди, обрабатываемых в одной партии.
 
-Default value: `100`
+Значение по умолчанию: `100`
 
 [[jmix.search.reindexEntityEnqueueBatchSize]]
 == jmix.search.reindex-entity-enqueue-batch-size
 
-Sets the amount of entity instances enqueued in single batch during entity reindex process.
+Задает количество экземпляров сущностей, помещаемых в очередь в одной партии во время процесса переиндексации сущности.
 
-Default value: `100`
+Значение по умолчанию: `100`
 
 [[jmix.search.searchIndexNamePrefix]]
 == jmix.search.search-index-name-prefix
 
-Prefix for search index name. Index naming template: <prefix><entity_name>. See xref:getting-started.adoc#configure-index-naming[Configure Index Naming].
+Префикс для имени поискового индекса. Шаблон именования индекса: `<prefix><entity_name>`. Смотрите xref:getting-started.adoc#configure-index-naming[Настройка именования индексов].
 
-Default value: `search_index_`
+Значение по умолчанию: `search_index_`
 
 [[jmix.search.searchReloadEntitiesBatchSize]]
 == jmix.search.search-reload-entities-batch-size
 
-Defines the batch size for post-search entity processing, for example, when results are filtered after search due to the row-level security policies, or when entities are fetched from search results with their fetch plans. See xref:search-api.adoc#security-and-pagination[Access Control and Pagination].
+Определяет размер партии для пост-поисковой обработки сущностей, например, когда результаты фильтруются после поиска из-за политик безопасности на уровне строк или когда сущности извлекаются из результатов поиска со своими фетч-планами. Смотрите xref:search-api.adoc#security-and-pagination[Контроль доступа и пагинация].
 
-Default value: `100`
+Значение по умолчанию: `100`
 
 [[jmix.search.searchResultPageSize]]
 == jmix.search.search-result-page-size
 
-Sets the max amount of objects displayed on single page of search result.
+Задает максимальное количество объектов, отображаемых на одной странице результата поиска.
 
-Default value: `100`
+Значение по умолчанию: `100`
 
 [[jmix.search.useDefaultEnqueueingSessionProcessingQuartzConfiguration]]
 == jmix.search.use-default-enqueueing-session-processing-quartz-configuration
 
-Defines whether the default Enqueueing Session processing Quartz  xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration] is used.
+Определяет, используется ли xref:indexing-queue.adoc#default-quartz-configuration[конфигурация планировщика] Quartz по умолчанию для обработки сессии постановки в очередь.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.search.useDefaultIndexingQueueProcessingQuartzConfiguration]]
 == jmix.search.use-default-indexing-queue-processing-quartz-configuration
 
-Defines whether the default Indexing Queue processing Quartz  xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration] is used.
+Определяет, используется ли xref:indexing-queue.adoc#default-quartz-configuration[конфигурация планировщика] Quartz по умолчанию для обработки очереди индексации.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.search.server.url]]
 == jmix.search.server.url
 
-Defines URL of the Elasticsearch/OpenSearch service
+Определяет URL сервиса Elasticsearch/OpenSearch.
 
-Default value: `localhost:9200`
+Значение по умолчанию: `localhost:9200`
 
 [[jmix.search.server.login]]
 == jmix.search.server.login
 
-Defines login for basic authentication.
+Определяет логин для базовой аутентификации.
 
-Default value: none
+Значение по умолчанию: none
 
 [[jmix.search.server.password]]
 == jmix.search.server.password
 
-Defines password for basic authentication.
+Определяет пароль для базовой аутентификации.
 
-Default value: none
+Значение по умолчанию: none
 
 [[jmix.search.server.bulkRequestRefreshPolicy]]
 == jmix.search.server.bulk-request-refresh-policy
 
-Defines refresh policy that should be used with bulk requests to search service.
+Определяет политику обновления, которая должна использоваться с массовыми запросами к поисковому сервису.
 
-Refresh makes recent changes available for searching.
+Обновление делает последние изменения доступными для поиска.
 
-* `false` - bulk request will not cause refresh.
-Changes made by this request will be visible after refresh is performed via another causes - explicit refresh operation or periodical refresh (by default - every second).
-Recommended policy. Use other policies only if you must have the changes made by a request visible synchronously with the request.
-* `true` - refresh will be performed immediately after request execution.
-_This mode should be used only after careful verification because it can lead to performance issues._
-* `wait_for` - request will not cause refresh but will wait for it to be performed via another cause.
-Response will be sent back after refresh is done.
+* `false` - массовый запрос не вызовет обновления.
+Изменения, сделанные этим запросом, станут видимыми после того, как обновление будет выполнено по другим причинам - явная операция обновления или периодическое обновление (по умолчанию - каждую секунду).
+Рекомендуемая политика. Используйте другие политики только если изменения, сделанные запросом, должны быть видны синхронно с запросом.
+* `true` - обновление будет выполнено немедленно после выполнения запроса.
+_Этот режим следует использовать только после тщательной проверки, так как он может привести к проблемам с производительностью_.
+* `wait_for` - запрос не вызовет обновления, но будет ждать его выполнения по другой причине.
+Ответ будет отправлен обратно после выполнения обновления.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.search.server.ssl.certificateLocation]]
 == jmix.search.server.ssl.certificate-location
 
-Defines location of certificate for connection to search service (if required).
+Определяет местоположение сертификата для подключения к поисковому сервису (если требуется).
 
-Location is handled according to the rules of `io.jmix.core.Resources`.
+Местоположение обрабатывается в соответствии с правилами `io.jmix.core.Resources`.
 
-Default value: none
+Значение по умолчанию: none
 
 [[jmix.search.server.ssl.certificateAlias]]
 == jmix.search.server.ssl.certificate-alias
 
-Defines alias what will be used to store certificate to the Key Store.
+Определяет псевдоним, который будет использоваться для сохранения сертификата в Key Store.
 
-Default value: `es_client_ca`
+Значение по умолчанию: `es_client_ca`
 
 [[jmix.search.server.ssl.certificateFactoryType]]
 == jmix.search.server.ssl.certificate-factory-type
 
-Defines type of certificate factory.
+Определяет тип фабрики сертификатов.
 
-Default value: `X.509`
+Значение по умолчанию: `X.509`
 
 [[jmix.search.server.ssl.keyStoreType]]
 == jmix.search.server.ssl.key-store-type
 
-Defines type of key store.
+Определяет тип хранилища ключей.
 
-Default value: `pkcs12`
-
-
-
+Значение по умолчанию: `pkcs12`
