@@ -81,11 +81,23 @@ Formulas can reference the cells of the same band or another band. To be process
 
 To process the data as an Excel chart, create an empty band in the report structure and a named region with the same name in the template. Then create a chart inside this named region and refer to related bands using the *Select data* button in the chart context menu. If your chart data is in a continuous range of cells, select any cell in that range. Your chart will include all the data in the range. If your data isn't in a continuous range, select nonadjacent cells or ranges.
 
-Converting XLSX to PDF and CSV::
-+
---
+[TIP]
+====
+*Enabling row auto-height in XLSX templates*
+
+To activate automatic row height calculation in manually created XLSX templates, you should define a named region that starts with `hint_rowAutoHeight` and specify the target cell range where the auto-height behavior should be applied.
+
+For XLSX reports generated using the xref:getting-started.adoc#creating-report-at-runtime[report wizard], this named region is automatically added for each configured report region.
+
+When a report is executed, cell whose content exceeds the available space for a single line will automatically become multi-line, with the row height adjusting accordingly to display the entire contents.
+====
+
+[NOTE]
+====
+*Converting XLSX to PDF and CSV*
+
 XLSX reports can be automatically converted to CSV and PDF format. xref:configuration.adoc#libre_office[LibreOffice] should be installed for PDF conversion.
---
+====
 
 [[template_csv]]
 === CSV Templates
