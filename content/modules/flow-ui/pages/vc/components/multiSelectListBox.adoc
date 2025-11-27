@@ -9,28 +9,17 @@
 
 `multiSelectListBox` allows users to select multiple values from a scrollable list of items using checkboxes.
 
-* XML element: `multiSelectListBox`
-
-* Java class: `JmixMultiSelectListBox`
-
-== Basics
-
-Use the xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] or xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum] attribute is used to create a list of items:
-
-[source,xml,indent=0]
-----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
-----
-
-<1> `CollectionContainer` for the `Hobby` entity.
-<2> `multiSelectListBox` gets `hobbiesDc` as an items container so that the list of hobbies displayed.
-
-image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
-
-== Attributes
-
-xref:vc/common-attributes.adoc#id[id] -
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`multiSelectListBox`
+|Java Class
+|`JmixMultiSelectListBox`
+|Attributes
+|xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
@@ -45,22 +34,85 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#readOnly[readOnly] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
+<<itemEnabledProvider,itemEnabledProvider>> -
+<<itemLabelGenerator,itemLabelGenerator>> -
+<<renderer,renderer>>
+|Elements
+|xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
+xref:vc/components/tooltip.adoc[tooltip]
+|===
+
+== Basics
+
+Use the xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] or xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum] attribute to create a list of items:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
+----
+
+<1> `CollectionContainer` for the `Hobby` entity.
+<2> `multiSelectListBox` gets `hobbiesDc` as an items container so that the list of hobbies displayed.
+
+image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
+
+[[item-enabled-provider]]
+== Item Enabled Provider
+
+`itemEnabledProvider` allows you to dynamically control the enabled state of individual items based on specific conditions. Disabled items appear grayed out and cannot be selected by the user. All items are enabled by default.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=itemEnabledProvider]
+----
+
+[[customizing-item-labels]]
+== Customizing Item Labels
+
+`itemLabelGenerator` allows you to customize how items are displayed in the `multiSelectListBox` component. This gives you control over the text that users see, enabling you to present information in a more user-friendly or context-specific manner.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=itemLabelGenerator]
+----
+
+[[rendering-items]]
+== Rendering Items
+
+It is possible to customize the render of items. The renderer is applied to each item to create a component which represents the item.
+
+You can use the `setRenderer()` method or the `@Supply` annotation for it.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=renderer]
+----
+
+[[fragment-renderer]]
+Alternatively, you can render items using a nested `fragmentRenderer` element. Refer to the xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment Renderer] section for more information.
 
 == Handlers
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
-xref:vc/components/radioButtonGroup.adoc#itemEnabledProvider[itemEnabledProvider] -
-xref:vc/components/comboBox.adoc#itemLabelGenerator[itemLabelGenerator]
+xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+The following handlers are specific to `multiSelectListBox`.
 
 include::../handler-generation-tip.adoc[]
 
-== Elements
-
-xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
-xref:vc/components/tooltip.adoc[tooltip]
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|[[itemEnabledProvider]]itemEnabledProvider
+|`itemEnabledProvider` is applied to each item of this `multiSelectListBox` to determine whether the item should be enabled (`true`) or disabled (`false`). See <<item-enabled-provider,Item Enabled Provider>>.
+|[[itemLabelGenerator]]itemLabelGenerator
+|Allows you to customize the labels displayed for each item in `multiSelectListBox`. See <<customizing-item-labels,Customizing Item Labels>>.
+|[[renderer]]renderer
+|Sets the item renderer for this `multiSelectListBox`. See <<rendering-items,Rendering Items>>.
+|===
 
 == See Also
 
-See the https://vaadin.com/docs/latest/components/list-box#multi[Vaadin Docs^] for more information.
+See the {vaadin-docs}/components/list-box#multi[Vaadin Docs^] for more information.
