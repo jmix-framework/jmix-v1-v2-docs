@@ -9,28 +9,17 @@
 
 `multiSelectListBox` позволяет пользователям выбирать несколько значений из прокручиваемого списка элементов с помощью флажков.
 
-* XML-элемент: `multiSelectListBox`
-
-* Java-класс: `JmixMultiSelectListBox`
-
-== Основы
-
-Для создания списка элементов используются атрибуты xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] или xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum]:
-
-[source,xml,indent=0]
-----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
-----
-
-<1> `CollectionContainer` для сущности `Hobby`.
-<2> `multiSelectListBox` получает `hobbiesDc` в качестве контейнера элементов, чтобы отобразить список хобби.
-
-image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
-
-== Атрибуты
-
-xref:vc/common-attributes.adoc#id[id] -
+[cols="1h,6", grid=none]
+|===
+|XML-элемент
+|`multiSelectListBox`
+|Java-класс
+|`JmixMultiSelectListBox`
+|Атрибуты
+|xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
@@ -45,21 +34,85 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#readOnly[readOnly] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
+|Обработчики
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
+<<itemEnabledProvider,itemEnabledProvider>> -
+<<itemLabelGenerator,itemLabelGenerator>> -
+<<renderer,renderer>>
+|Элементы
+|xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
+xref:vc/components/tooltip.adoc[tooltip]
+|===
+
+== Основы
+
+Для создания списка элементов используйте атрибуты xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] или xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum]:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
+----
+
+<1> `CollectionContainer` для сущности `Hobby`.
+<2> `multiSelectListBox` получает `hobbiesDc` в качестве контейнера элементов, чтобы отобразить список хобби.
+
+image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
+
+[[item-enabled-provider]]
+== Поставщик itemEnabledProvider
+
+`itemEnabledProvider` позволяет вам динамически управлять активным состоянием отдельных элементов на основе определенных условий. Неактивные элементы отображаются серыми и не могут быть выбраны пользователем. По умолчанию все элементы активны.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=itemEnabledProvider]
+----
+
+[[customizing-item-labels]]
+== Настройка надписей элементов
+
+`itemLabelGenerator` позволяет вам настраивать способ отображения элементов в компоненте `multiSelectListBox`. Это дает вам контроль над текстом, который видят пользователи, позволяя представлять информацию в более удобном или контекстно-зависимом виде.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=itemLabelGenerator]
+----
+
+[[rendering-items]]
+== Рендеринг элементов
+
+Можно настроить рендеринг элементов. Рендерер применяется к каждому элементу для создания компонента, который представляет этот элемент.
+
+Для этого можно использовать метод `setRenderer()` или аннотацию `@Supply`.
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=renderer]
+----
+
+[[fragment-renderer]]
+В качестве альтернативы вы можете отображать элементы, используя вложенный элемент `fragmentRenderer`. Дополнительную информацию смотрите в разделе xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Рендерер фрагментов].
 
 == Обработчики
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
-xref:vc/components/radioButtonGroup.adoc#itemEnabledProvider[itemEnabledProvider] -
-xref:vc/components/comboBox.adoc#itemLabelGenerator[itemLabelGenerator]
+В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые конфигурируются одинаково для всех компонентов.
+
+Ниже приведены обработчики, специфичные для `multiSelectListBox`.
 
 include::../handler-generation-tip.adoc[]
 
-== Элементы
-
-xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
-xref:vc/components/tooltip.adoc[tooltip]
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Название*
+|*Описание*
+|[[itemEnabledProvider]]itemEnabledProvider
+|`itemEnabledProvider` применяется к каждому элементу данного `multiSelectListBox`, чтобы определить, должен ли элемент быть включен (`true`) или отключен (`false`). Смотрите <<item-enabled-provider,Поставщик itemEnabledProvider>>.
+|[[itemLabelGenerator]]itemLabelGenerator
+|Позволяет вам настроить метки, отображаемые для каждого элемента `multiSelectListBox`. Смотрите <<customizing-item-labels,Настройка надписей элементов>>.
+|[[renderer]]renderer
+|Устанавливает рендерер элементов для данного `multiSelectListBox`. Смотрите <<rendering-items,Рендеринг элементов>>.
+|===
 
 == Смотрите также
 

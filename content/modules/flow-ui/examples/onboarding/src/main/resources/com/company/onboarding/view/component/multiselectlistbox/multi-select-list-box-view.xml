@@ -14,6 +14,14 @@
             </loader>
         </collection>
         <!-- end::hobbiesDc[] -->
+        <collection id="usersDc" class="com.company.onboarding.entity.User">
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
         <!-- tag::data[] -->
     </data>
     <!-- end::data[] -->
@@ -26,6 +34,8 @@
         <!-- tag::basics[] -->
         <multiSelectListBox itemsContainer="hobbiesDc"/> <!--2-->
         <!-- end::basics[] -->
+        <multiSelectListBox id="multiSelectListBox" itemsContainer="usersDc"/>
+        <multiSelectListBox id="mSelectListBox" itemsContainer="usersDc"/>
         <!-- tag::layout[] -->
     </layout>
     <!-- end::layout[] -->
