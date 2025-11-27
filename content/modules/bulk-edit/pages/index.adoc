@@ -37,4 +37,28 @@ Usage example:
     </actions>
 ----
 
-To be able to select mulitple entities, set `selectionMode="MULTI"` for `dataGrid`.
+To be able to select multiple entities, set `selectionMode="MULTI"` for `dataGrid`.
+
+[[parameterization]]
+=== Parameterization
+
+The `bulked_edit` action provides additional properties that can be configured either in XML or programmatically using setter methods in Java.
+
+In XML, configure these properties using the nested `<properties>` element. Each `<property>` element corresponds to a setter method in the action class:
+
+[source,xml]
+----
+<action id="bulkEditAction" type="bulked_edit">
+    <properties>
+        <property name="includeProperties" value="username, email"/>
+    </properties>
+</action>
+----
+
+==== Available Properties
+
+* `includeProperties` - specifies the entity attributes to display in the bulk editor window. When set, all other attributes are excluded from editing.
+
+* `exclude` - defines a regular expression to explicitly exclude specific fields from the list of attributes available for editing.
+
+* `useConfirmDialog` - controls whether to show a confirmation dialog to users before saving changes. Default value is `true`.
