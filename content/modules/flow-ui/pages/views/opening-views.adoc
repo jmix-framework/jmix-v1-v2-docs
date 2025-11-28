@@ -34,6 +34,19 @@ If you want to return to the calling view after the opened view is closed, invok
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=viewNavigators;navigateToViewThenBack]
 ----
 
+[NOTE]
+====
+*Backward Navigation Limitations*
+
+Backward navigation supports only one level of view nesting. The navigation stack does not store the entire chain of view transitions.
+
+Due to this limitation:
+
+* Views opened from a detail view must use `DIALOG` open mode.
+* The navigation history is limited to immediate parent-child relationships.
+* Deep navigation links cannot be restored using backward navigation.
+====
+
 To navigate to a list view, use the `listView()` method accepting the entity class. The list view class will be chosen by <<view-inference-conventions,convention>>. For example:
 
 [source,java,indent=0]
