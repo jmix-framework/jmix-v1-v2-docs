@@ -72,7 +72,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 Изображение может быть предоставлено приложением статически.
 
-По умолчанию статический контент загружается из каталогов `/static`, `/public`, `/resources` или `/META-INF/resources` в classpath (подробности смотрите в https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[документации Spring Boot^]).
+По умолчанию статический контент загружается из каталогов `/static`, `/public`, `/resources` или `/META-INF/resources` в classpath (подробности смотрите в https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[документации Spring Boot^]). Чтобы сконфигурировать анонимный доступ к статическим ресурсам, см. раздел xref:security:custom-endpoints.adoc#static-public-resources[Безопасность: Статические публичные ресурсы].
 
 * В XML:
 +

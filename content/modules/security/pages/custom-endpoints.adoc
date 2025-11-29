@@ -12,9 +12,21 @@
 
 Spring Security использует специальные бины типа {spring-security-doc}/servlet/architecture.html#servlet-securityfilterchain[SecurityFilterChain^] для определения того, какие URL должны быть защищены. Каждый `SecurityFilterChain` конфигурируется с помощью билдера {spring-security-doc}/servlet/configuration/java.html#jc-httpsecurity[HttpSecurity^]. Приложение может иметь несколько бинов `SecurityFilterChain`. В этом случае очень важно указать их правильный порядок. См. раздел {spring-security-doc}/servlet/configuration/java.html#_multiple_httpsecurity_instances[Multiple HttpSecurity Instances^] в документации Spring Security для информации о настройке нескольких объектов `HttpSecurity`.
 
-Каждое приложение Jmix по умолчанию содержит конфигурацию безопасности, которая расширяет класс {vaadin-docs}/security/enabling-security#security-configuration-class[VaadinWebSecurity^]. Эта конфигурация настраивает доступ к внутренним эндпойнтам Vaadin и передает все запросы на авторизацию механизмам Jmix и Vaadin (предоставляет доступ к экранам с помощью аннотации на классе экрана или анализа ресурсных ролей пользователя). `SecurityFilterChain`, созданный этой конфигурацией, всегда имеет наименьший приоритет и всегда вызывается последним. Секция <<custom-endpoints-security>> ниже объясняет, как определить ваш собственный `SecurityFilterChain` для защиты пользовательских эндпойнтов.
+Каждое приложение Jmix по умолчанию содержит конфигурацию безопасности, которая расширяет класс {vaadin-docs}/security/enabling-security#security-configuration-class[VaadinWebSecurity^]. Эта конфигурация настраивает доступ к внутренним эндпойнтам Vaadin и передает все запросы на авторизацию механизмам Jmix и Vaadin (предоставляет доступ к экранам с помощью аннотации на классе экрана или анализа ресурсных ролей пользователя). `SecurityFilterChain`, созданный этой конфигурацией, всегда имеет наименьший приоритет и всегда вызывается последним. Секция <<custom-endpoints-security>> ниже объясняет, как определить ваш собственный `SecurityFilterChain` для защиты пользовательских эндпойнтов. В разделе <<static-public-resources>> приведена информация о том, как полностью обойти Spring Security для некоторых URL.
 
 Дополнения, такие как xref:oidc:index.adoc[OpenID Connect] или xref:authorization-server:index.adoc[Authorization Server], добавляют свои бины `SecurityFilterChain`, которые защищают эндпойнты авторизационного или ресурсного сервера. Эти бины всегда вызываются до тех, которые предоставлены модулем UI. См. раздел <<token-based-authentication>> ниже для информации о том, как защитить API-эндпойнты при использовании этих дополнений.
+
+[[static-public-resources]]
+== Статические публичные ресурсы
+
+Чтобы полностью игнорировать правила Spring Security для статических общедоступных ресурсов, создайте класс конфигурации, унаследованный от `FlowuiVaadinWebSecurity`, и зарегистрируйте шаблоны общедоступных URL с помощью метода `ignoring()` класса `WebSecurity`:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/DemoSecurityConfiguration.java[]
+----
+
+Пример конфигурации выше предоставляет публичный доступ ко всем файлам, расположенным в директории `src/main/resources/public/images` вашего проекта (подробнее о статических ресурсах см. https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[документацию Spring Boot^]).
 
 [[custom-endpoints-security]]
 == Безопасность кастомных эндпойнтов
@@ -30,7 +42,7 @@ Spring Security использует специальные бины типа {s
 include::example$/security-ex1/src/main/java/com/company/demo/security/api/SimplePublicSecurityConfiguration.java[tags=public-filter-chain]
 ----
 
-Данная конфигурация предоставляет доступ к всем запросам для эндпойнтов, соответствующих шаблону `/public/**`.
+Данная конфигурация предоставляет доступ к всем запросам для эндпойнтов, соответствующих шаблону `/public-api/**`.
 
 [[public-endpoints-example]]
 === Публичные эндпойнты
