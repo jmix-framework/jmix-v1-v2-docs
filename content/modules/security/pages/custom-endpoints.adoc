@@ -12,9 +12,21 @@ To gain a deep understanding of how endpoint security works, read the relevant s
 
 Spring Security uses special {spring-security-doc}/servlet/architecture.html#servlet-securityfilterchain[SecurityFilterChain^] beans to determine which URLs should be protected. Each `SecurityFilterChain` bean is configured by the {spring-security-doc}/servlet/configuration/java.html#jc-httpsecurity[HttpSecurity^] builder. An application can have multiple `SecurityFilterChain` beans declared. In this case, it is extremely important to indicate their correct order. See the {spring-security-doc}/servlet/configuration/java.html#_multiple_httpsecurity_instances[Multiple HttpSecurity Instances^] section of the Spring Security documentation for how to configure multiple `HttpSecurity` objects.
 
-Each Jmix application by default contains a security configuration that extends the {vaadin-docs}/security/enabling-security#security-configuration-class[VaadinWebSecurity^] class. This configuration sets up access to internal Vaadin endpoints and delegates all requests authorization to Jmix and Vaadin mechanisms (grants access to views using view controller annotation or by analyzing user's resource roles). `SecurityFilterChain` created by this configuration always has the lowest priority and is always invoked last. The <<custom-endpoints-security>> section below explains how to define you own `SecurityFilterChain` to protect custom endpoints.
+Each Jmix application by default contains a security configuration that extends the {vaadin-docs}/security/enabling-security#security-configuration-class[VaadinWebSecurity^] class. This configuration sets up access to internal Vaadin endpoints and delegates all requests authorization to Jmix and Vaadin mechanisms (grants access to views using view controller annotation or by analyzing user's resource roles). `SecurityFilterChain` created by this configuration always has the lowest priority and is always invoked last. The <<custom-endpoints-security>> section below explains how to define you own `SecurityFilterChain` to protect custom endpoints. The <<static-public-resources>> section explains how to completely bypass Spring Security for some URLs.
 
 Add-ons like xref:oidc:index.adoc[OpenID Connect] or xref:authorization-server:index.adoc[Authorization Server] bring their own `SecurityFilterChain` beans that protect authorization or resource server endpoints. These beans are always invoked before the one from the UI module. See the <<token-based-authentication>> section below for how to protect API endpoints when using these add-ons.
+
+[[static-public-resources]]
+== Static Public Resources
+
+To completely ignore Spring Security rules for static public resources, create a configuration class extending `FlowuiVaadinWebSecurity` and register your public URL patterns with the `ignoring()` method of `WebSecurity`:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/DemoSecurityConfiguration.java[]
+----
+
+The example configuration above gives public access to all files located inside the `src/main/resources/public/images` directory of your project (see how to serve static content in the https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot documentation^]).
 
 [[custom-endpoints-security]]
 == Custom Endpoints Security
@@ -30,7 +42,7 @@ A simple `SecurityFilterChain` bean definition may look as follows:
 include::example$/security-ex1/src/main/java/com/company/demo/security/api/SimplePublicSecurityConfiguration.java[tags=public-filter-chain]
 ----
 
-The configuration above grants access to all requests that match the `/public/**` pattern.
+The configuration above grants access to all requests that match the `/public-api/**` pattern.
 
 [[public-endpoints-example]]
 === Public Endpoints

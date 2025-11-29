@@ -72,7 +72,7 @@ Alternatively, the `image` component can display images from different resources
 
 An image can be served statically by the application.
 
-By default, static content is served from `/static`, `/public`, `/resources`, or `/META-INF/resources` directories of the classpath (see details in the https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot documentation^]).
+By default, static content is served from `/static`, `/public`, `/resources`, or `/META-INF/resources` directories of the classpath (see details in the https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot documentation^]). To configure anonymous access to static resources, see xref:security:custom-endpoints.adoc#static-public-resources[Security: Static Public Resources].
 
 * In XML:
 +
