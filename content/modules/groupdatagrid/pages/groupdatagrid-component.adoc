@@ -135,12 +135,13 @@ include::example$/groupdatagrid-ex1/src/main/java/com/company/groupdatagridex1/v
 
 Exporting functionality is provided by free xref:grid-export:index.adoc[] add-on which supports all grid types: `groupDataGrid`, `dataGrid`, and `treeDataGrid`.
 
-image::groupdatagrid-export.png[align="center",width="1097"]
+image::groupdatagrid-export.png[align="center",width="1090"]
 
-The add-on provides two export options. For `groupDataGrid` it affects both the scope and the generated spreadsheet formating:
+The add-on provides three export options. It affects both the scope and the generated spreadsheet formating:
 
-* *All rows* – Exports every row from the grid and flattens grouping: group labels become regular cell values placed in the first column.
-* *Current page* – Exports only the rows visible on the current page and preserves the grouping structure in the generated XLS file. Group headers and indentation are maintained so the exported spreadsheet reflects the same hierarchical layout you see in the grid.
+* *All Rows* – Exports all rows and flattens the grouping.
+* *Current Page* – Exports only the visible rows while *preserving the grouping structure as seen in the grid*.
+* *Selected Rows* – Exports the currently selected rows and flattens the grouping.
 
 [[Styling]]
 == Styling
