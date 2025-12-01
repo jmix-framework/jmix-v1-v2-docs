@@ -5,8 +5,8 @@ import com.google.common.base.Strings;
 import io.jmix.core.metamodel.annotation.DatatypeDef;
 import io.jmix.core.metamodel.annotation.Ddl;
 import io.jmix.core.metamodel.datatype.Datatype;
+import org.springframework.lang.Nullable;
 
-import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Locale;

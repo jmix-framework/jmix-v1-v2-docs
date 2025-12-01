@@ -8,6 +8,10 @@
 * Редактировать триггеры и параметры задач.
 * Удалять задачи.
 
+Пользовательский интерфейс управления Quartz доступен через пункт главного меню *Quartz -> Quartz jobs*.
+
+Дополнение также предоставляет Liquibase changelogs для автоматического создания схемы базы данных, необходимой для Quartz.
+
 [[installation]]
 == Установка
 
@@ -17,8 +21,7 @@
 
 [source,groovy,indent=0]
 ----
-implementation 'io.jmix.quartz:jmix-quartz-starter'
-implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
+include::example$quartz-ex1/build.gradle[tags=dependencies]
 ----
 
 [NOTE]
@@ -37,12 +40,6 @@ implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
 или переменных вообще нет - класс драйвера будет разрешен автоматически, и этот шаг можно пропустить.
 ====
 
-// todo flowui
-// [source,groovy,indent=0]
-// ----
-// include::example$/ex1/build.gradle[tags=dependencies]
-// ----
-
 [[usage]]
 == Использование
 
@@ -52,7 +49,7 @@ implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleJob.java[]
 ----
 +
 В классе задачи вы можете инжектировать Spring-бины с помощью `@Autowired`.
@@ -82,7 +79,7 @@ include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleAuthenticatedJob.java[tags=auth-job]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleAuthenticatedJob.java[tags=auth-job]
 ----
 
 TIP: Вы также можете использовать `UnconstrainedDataManager` для работы с данными в неаутентифицированном контексте.
@@ -94,7 +91,7 @@ TIP: Вы также можете использовать `UnconstrainedDataMan
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleParameterizedJob.java[tags=job-params]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleParameterizedJob.java[tags=job-params]
 ----
 
 [[track-job-execution]]
@@ -104,7 +101,7 @@ include::example$/ex1/src/main/java/quartz/ex1/app/SampleParameterizedJob.java[t
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/JobExecutionListener.java[]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/JobExecutionListener.java[]
 ----
 <1> Вызывается Spring после создания экземпляра бина.
 <2> Вызывается планировщиком Quartz после выполнения задачи.

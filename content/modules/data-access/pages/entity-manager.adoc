@@ -4,7 +4,7 @@
 
 TIP: Мы рекомендуем использовать xref:data-manager.adoc[DataManager] для работы с сущностями и обращаться к `EntityManager` только если он вам действительно нужен.
 
-Для получения информации о методах `EntityManager` обратитесь к документации API https://jakarta.ee/specifications/persistence/2.2/apidocs/javax/persistence/entitymanager[javax.persistence.EntityManager^].
+Для получения информации о методах `EntityManager` обратитесь к документации API https://jakarta.ee/specifications/persistence/3.1/apidocs/jakarta.persistence/jakarta/persistence/entitymanager[jakarta.persistence.EntityManager^].
 
 `EntityManager` можно использовать в приложениях Jmix для работы с xref:data-model:entities.adoc#jpa[сущностями JPA] в основном таким же образом, как и в любом приложении Spring. Однако Jmix предоставляет собственную реализацию стандартного интерфейса, которая имеет некоторые особенности.
 

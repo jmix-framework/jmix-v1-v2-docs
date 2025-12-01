@@ -16,7 +16,7 @@ Bean Validation вызывается автоматически в xref:flow-ui:
 [[defining-constraints]]
 == Определение ограничений
 
-Ограничения Bean Validation определяются с помощью аннотаций пакета `javax.validation.constraints` или собственных аннотаций. Аннотации указываются на декларации класса сущности или POJO, на поле или getter-методе, а также на методе сервиса.
+Ограничения Bean Validation определяются с помощью аннотаций пакета `jakarta.validation.constraints` или собственных аннотаций. Аннотации указываются на декларации класса сущности или POJO, на поле или getter-методе, а также на методе сервиса.
 
 Стандартный набор ограничений включает наиболее часто используемые и универсальные. Кроме того, Bean Validation позволяет разработчикам добавлять <<custom-constraints,собственные ограничения>>.
 
@@ -129,7 +129,7 @@ Bean Validation наследуется. Если вы аннотируете к�
 * `RestApiChecks` - группа ограничений bean validation, используемая xref:jmix:rest:index.adoc[REST API] для валидации данных.
 * `UiComponentChecks` - группа ограничений bean validation, используемая пользовательским интерфейсом для валидации полей.
 * `UiCrossFieldChecks` -  группа ограничений bean validation, используемая пользовательским интерфейсом для перекрестной валидации.
-* `javax.validation.groups.Default` - эта группа передается всегда, кроме как при коммите редактора UI.
+* `jakarta.validation.groups.Default` - эта группа передается всегда, кроме как при коммите редактора UI.
 
 [[validation-messages]]
 === Cообщения валидации
@@ -203,7 +203,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Person.ja
 [[programmatic-validation]]
 === Программная валидация
 
-Вы можете выполнить Bean Validation программно, используя метод `validate()` интерфейса `javax.validation.Validator`. Результатом валидации является набор объектов `ConstraintViolation`. Например:
+Вы можете выполнить Bean Validation программно, используя метод `validate()` интерфейса `jakarta.validation.Validator`. Результатом валидации является набор объектов `ConstraintViolation`. Например:
 
 [source,java,indent=0]
 ----

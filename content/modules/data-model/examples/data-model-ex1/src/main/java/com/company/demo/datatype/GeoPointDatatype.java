@@ -5,8 +5,8 @@ import com.company.demo.entity.GeoPoint;
 import io.jmix.core.metamodel.annotation.DatatypeDef;
 import io.jmix.core.metamodel.annotation.Ddl;
 import io.jmix.core.metamodel.datatype.Datatype;
+import org.springframework.lang.Nullable;
 
-import javax.annotation.Nullable;
 import java.text.ParseException;
 import java.util.Locale;
 
