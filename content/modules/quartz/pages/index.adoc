@@ -8,6 +8,10 @@ This add-on allows you to manage https://www.quartz-scheduler.org/[Quartz^] jobs
 * Edit job triggers and parameters.
 * Delete jobs.
 
+The Quartz management user interface can be accessed through the *Quartz -> Quartz jobs* main menu item.
+
+The add-on also provides Liquibase changelogs for automatic creation of the database schema required by Quartz.
+
 [[installation]]
 == Installation
 
@@ -17,8 +21,7 @@ For manual installation, add the following dependencies to your `build.gradle`:
 
 [source,groovy,indent=0]
 ----
-implementation 'io.jmix.quartz:jmix-quartz-starter'
-implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
+include::example$quartz-ex1/build.gradle[tags=dependencies]
 ----
 
 [NOTE]
@@ -34,14 +37,8 @@ Value depends on your database:
 * Other database: skip this step - default value will be used
 
 If variable within `main.datasource.url` property doesn't include database prefix (e.g. `main.datasource.url = jdbc:postgresql://$\{DB_HOST\}/$\{DB_NAME\}`)
-or there are no variables at all - driver delegate class will be resolved automatically and this step can be skipped.
+or there are no variables at all – driver delegate class will be resolved automatically and this step can be skipped.
 ====
-
-// todo flowui
-// [source,groovy,indent=0]
-// ----
-// include::example$/ex1/build.gradle[tags=dependencies]
-// ----
 
 [[usage]]
 == Usage
@@ -52,7 +49,7 @@ To create and schedule a job for execution, do the following:
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleJob.java[]
 ----
 +
 In the job class, you can inject Spring beans with `@Autowired`.
@@ -82,7 +79,7 @@ If you invoke operations that require authentication, for example working with d
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleAuthenticatedJob.java[tags=auth-job]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleAuthenticatedJob.java[tags=auth-job]
 ----
 
 TIP: You can also use `UnconstrainedDataManager` to work with data in unauthenticated contexts.
@@ -94,7 +91,7 @@ The *Job editor* view allows you to set parameters for the job instance on the *
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleParameterizedJob.java[tags=job-params]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleParameterizedJob.java[tags=job-params]
 ----
 
 [[track-job-execution]]
@@ -104,7 +101,7 @@ If you want to track execution of jobs, create a bean implementing the `JobListe
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/JobExecutionListener.java[]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/JobExecutionListener.java[]
 ----
 <1> Invoked by Spring after the bean is instantiated.
 <2> Invoked by Quartz scheduler after a job is executed.

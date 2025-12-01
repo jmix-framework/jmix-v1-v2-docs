@@ -47,7 +47,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Customer.
 <6> `@jakarta.persistence.Column` annotation specifies a mapping to a table column. The `nullable = false` parameter indicates that the xref:db-migration.adoc[database migration] mechanism should create the column with the `NOT NULL` constraint.
 <7> `@jakarta.persistence.Version` indicates that the entity must be optimistically locked using the value of this attribute. The attribute should be of `Integer` type. Studio creates such an attribute automatically if you select the _Versioned_ trait for the entity.
 <8> The <<instance-name,@InstanceName>> annotation here indicates a single attribute chosen as the instance name.
-<9> `@NotNull` and `@Email` annotations from the `javax.validation.constraints` package are the examples of using https://beanvalidation.org[Bean Validation^] annotations in entities.
+<9> `@NotNull` and `@Email` annotations from the `jakarta.validation.constraints` package are the examples of using https://beanvalidation.org[Bean Validation^] annotations in entities.
 <10> The `unique = true` parameter of the `@Column` annotation indicates that the database migration mechanism should add the unique constraint to the column.
 
 Both table and entity name can have a prefix to eliminate name conflicts with entities of other modules. Studio inserts this prefix if the project has the `jmix.projectId` property in `build.gradle`.

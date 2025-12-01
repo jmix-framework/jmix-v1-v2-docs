@@ -72,14 +72,14 @@ The API then returns the list of violations of the entity validations.
 ----
 [
   {
-    "message": "javax.validation.constraints.PastOrPresent.message",
-    "messageTemplate": "{javax.validation.constraints.PastOrPresent.message}",
+    "message": "jakarta.validation.constraints.PastOrPresent.message",
+    "messageTemplate": "{jakarta.validation.constraints.PastOrPresent.message}",
     "path": "date",
     "invalidValue": "2048-01-01"
   },
   {
     "message": "may not be null",
-    "messageTemplate": "{javax.validation.constraints.NotNull.message}",
+    "messageTemplate": "{jakarta.validation.constraints.NotNull.message}",
     "path": "customer",
     "invalidValue": null
   }
