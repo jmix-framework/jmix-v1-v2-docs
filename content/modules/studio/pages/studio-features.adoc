@@ -22,7 +22,7 @@ The Jmix Studio features can be broadly categorized into the following areas:
 | xref:bpmn-designer.adoc[]
 | xref:reverse-engineering.adoc[]
 |
-|
+| xref:ai-assistant.adoc[]
 |===
 
 == Project Management & Environment
