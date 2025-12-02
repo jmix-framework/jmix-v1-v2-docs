@@ -28,3 +28,5 @@ include::ROOT:partial$premium-repo.adoc[]
 implementation 'io.jmix.bpm:jmix-bpm-starter'
 implementation 'io.jmix.bpm:jmix-bpm-flowui-starter'
 ----
+
+include::ROOT:single-menu-note.adoc[]

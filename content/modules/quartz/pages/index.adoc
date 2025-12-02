@@ -40,6 +40,8 @@ include::example$quartz-ex1/build.gradle[tags=dependencies]
 или переменных вообще нет - класс драйвера будет разрешен автоматически, и этот шаг можно пропустить.
 ====
 
+include::ROOT:single-menu-note.adoc[]
+
 [[usage]]
 == Использование
 

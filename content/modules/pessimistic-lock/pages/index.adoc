@@ -18,6 +18,8 @@
 include::example$/pslock-ex1/build.gradle[tags=dependencies]
 ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[usage]]
 == Использование
 

@@ -28,6 +28,8 @@ CAUTION: Дополнение xref:rest:index.adoc[Generic REST] не полно
 include::example$/multitenancy-ex1/build.gradle[tags=dependency]
 ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[how-it-works]]
 == Как это работает
 

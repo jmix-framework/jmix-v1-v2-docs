@@ -27,3 +27,5 @@ include::ROOT:partial$premium-repo.adoc[]
 implementation 'io.jmix.businesscalendar:jmix-businesscalendar-starter'
 implementation 'io.jmix.businesscalendar:jmix-businesscalendar-flowui-starter'
 ----
+
+include::ROOT:single-menu-note.adoc[]

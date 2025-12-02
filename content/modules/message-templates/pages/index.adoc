@@ -55,3 +55,5 @@ implementation 'io.jmix.messagetemplates:jmix-messagetemplates-starter'
 ----
 
 CAUTION: Дополнение *Message Templates* не может быть использовано с версиями Oracle Database до 12.2, так как более старые версии имеют ограничения на длину имен объектов базы данных.
+
+include::ROOT:single-menu-note.adoc[]

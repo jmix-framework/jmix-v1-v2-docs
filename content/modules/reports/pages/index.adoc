@@ -39,3 +39,5 @@ include::example$reports-onboarding/build.gradle[tags=rest-dependencies]
 ====
 Дополнение Reports использует пакет *LibreOffice* для вывода отчетов в форматах PDF и DOC. xref:configuration.adoc#libre_office[Установите] *LibreOffice* для поддержки вывода в PDF и DOC.
 ====
+
+include::ROOT:single-menu-note.adoc[]

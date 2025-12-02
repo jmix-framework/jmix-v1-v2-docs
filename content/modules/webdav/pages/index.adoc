@@ -43,6 +43,8 @@ implementation 'io.jmix.webdav:jmix-webdav-flowui-starter'
 // include::webdav:example$ex1/build.gradle[tags=dependencies]
 // ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[https]]
 == HTTPS
 
