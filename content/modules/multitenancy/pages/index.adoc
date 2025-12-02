@@ -28,6 +28,8 @@ For manual installation, add the following dependencies to your `build.gradle`:
 include::example$/multitenancy-ex1/build.gradle[tags=dependency]
 ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[how-it-works]]
 == How it Works
 

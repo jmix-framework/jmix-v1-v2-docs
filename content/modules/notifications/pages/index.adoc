@@ -29,3 +29,5 @@ implementation 'io.jmix.notifications:jmix-notifications-flowui-starter'
 // ----
 // include::example$ex1/build.gradle[tags=notifications-dep]
 // ----
+
+include::ROOT:single-menu-note.adoc[]

@@ -40,6 +40,8 @@ If variable within `main.datasource.url` property doesn't include database prefi
 or there are no variables at all – driver delegate class will be resolved automatically and this step can be skipped.
 ====
 
+include::ROOT:single-menu-note.adoc[]
+
 [[usage]]
 == Usage
 

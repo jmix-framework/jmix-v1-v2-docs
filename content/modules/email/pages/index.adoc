@@ -22,3 +22,5 @@ For manual installation, add the following dependencies to your `build.gradle`:
 implementation 'io.jmix.email:jmix-email-starter'
 implementation 'io.jmix.email:jmix-email-flowui-starter'
 ----
+
+include::ROOT:single-menu-note.adoc[]

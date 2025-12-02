@@ -22,3 +22,4 @@ For manual installation, add the following dependencies to your `build.gradle`:
 include::example$/dyn-attr-ex1/build.gradle[tags=dependencies]
 ----
 
+include::ROOT:single-menu-note.adoc[]

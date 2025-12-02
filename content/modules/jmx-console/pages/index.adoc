@@ -15,3 +15,5 @@ For manual installation, add the following dependency to your `build.gradle`:
 ----
 implementation('io.jmix.jmxconsole:jmix-jmxconsole-starter')
 ----
+
+include::ROOT:single-menu-note.adoc[]
