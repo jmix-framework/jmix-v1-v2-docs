@@ -22,7 +22,7 @@
 | xref:bpmn-designer.adoc[]
 | xref:reverse-engineering.adoc[]
 |
-|
+| xref:ai-assistant.adoc[]
 |===
 
 == Управление проектом и окружение
