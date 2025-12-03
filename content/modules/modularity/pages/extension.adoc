@@ -90,6 +90,20 @@ include::example$/ext/src/main/java/com/company/sample/ext/view/department/ExtDe
 
 Публичные и защищенные методы базового контроллера можно переопределить, чтобы при необходимости расширить логику экрана.
 
+[CAUTION]
+====
+When extending or overriding a view that uses `MessageBundle` in its parent controller, you must ensure the child view's `messageGroup` matches the parent's value.
+
+If the `messageGroup` differs, the framework attempts to load messages using the child view's group, which will fail because the messages are defined in the parent's bundle.
+
+For example:
+
+[source,java,indent=0]
+----
+include::example$/ext/src/main/java/com/company/sample/ext/view/extpessimisticlocklist/ExtPessimisticLockListView.java[tags=extend]
+----
+====
+
 [[descriptor-extension]]
 === Правила расширения XML-дескрипторов
 

@@ -21,6 +21,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.jmix.pessimisticlock:jmix-pessimisticlock-starter'
+    implementation 'io.jmix.pessimisticlock:jmix-pessimisticlock-flowui-starter'
+
     implementation 'io.jmix.core:jmix-core-starter'
     implementation 'io.jmix.data:jmix-eclipselink-starter'
     implementation 'io.jmix.security:jmix-security-starter'
