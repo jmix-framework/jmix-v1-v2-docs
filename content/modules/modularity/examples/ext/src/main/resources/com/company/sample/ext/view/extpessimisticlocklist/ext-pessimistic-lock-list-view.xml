@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://io.jmix.pessimisticlockflowui.view.pessimisticlock/lockListView.title"
+      extends="io/jmix/pessimisticlockflowui/view/pessimisticlock/pessimistic-lock-list-view.xml"
+      messagesGroup="io.jmix.pessimisticlockflowui.view.pessimisticlock">
+    <layout/>
+</view>
