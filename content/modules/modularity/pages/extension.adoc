@@ -92,11 +92,11 @@ include::example$/ext/src/main/java/com/company/sample/ext/view/department/ExtDe
 
 [CAUTION]
 ====
-When extending or overriding a view that uses `MessageBundle` in its parent controller, you must ensure the child view's `messageGroup` matches the parent's value.
+При расширении или переопределении экрана, который использует `MessageBundle` в своем родительском контроллере, вы должны убедиться, что параметр `messageGroup` дочернего экрана соответствует значению родительского.
 
-If the `messageGroup` differs, the framework attempts to load messages using the child view's group, which will fail because the messages are defined in the parent's bundle.
+Если `messageGroup` отличается, фреймворк попытается загрузить сообщения, используя группу дочернего экрана, что приведет к ошибке, так как сообщения определены в пакете родительского экрана.
 
-For example:
+Например:
 
 [source,java,indent=0]
 ----
