@@ -125,7 +125,44 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/mapbas
 //The default value is 28. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_View-View.html#setMaxZoom[setMaxZoom^].
 * `minZoom` - устанавливает минимальный уровень масштабирования для отображения.
 //The default value is 0. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_View-View.html#setMinZoom[setMinZoom^].
-* `projection` относится к системе координат, в которой отображается карта. Распространенные проекции включают `EPSG:3857` и `EPSG:4326`. Проекция по умолчанию - https://epsg.io/3857[EPSG:3857^]. Вы можете установить пользовательскую проекцию в специальном внутреннем элементе `projection`. Подробнее смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_proj_Projection-Projection.html[Projection^].
+* `projection` определяет систему координат (CRS), используемую для отображения географических данных на карте. Она преобразует трехмерные координаты Земли в двухмерную плоскость. Распространенные проекции включают `EPSG:3857` (Web Mercator) и `EPSG:4326` (WGS 84). Проекция по умолчанию - https://epsg.io/3857[EPSG:3857^]. Вы можете задать пользовательскую проекцию:
++
+[[set-custom-projection]]
+[TIP]
+====
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/geo-map-custom-projection" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
+*Настройка пользовательской проекции*
+
+Выполните следующие шаги для настройки пользовательской проекции:
+
+. *Определите бин проекции*. Зарегистрируйте проекцию в вашей Spring-конфигурации, используя формат https://epsg.io/21781.proj4[PROJ.4^]:
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/MapsEx2Application.java[tags=register-projection]
+----
+
+. *Настройте компонент карты*. Укажите атрибут `projection` для `mapView` в вашем XML-дескрипторе:
++
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/customprojection/custom-projection-view.xml[tags=map]
+----
+
+. *Инициализируйте в контроллере*. Примените проекцию программно ко всем компонентам карты на странице:
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/customprojection/CustomProjectionView.java[tags=set-projection]
+----
++
+NOTE: Проекция применяется ко всем компонентам карты на странице. После установки все операции с координатами используют единицы измерения проекции (метры, градусы и т.д.).
+====
 * `rotation` - устанавливает поворот для отображения в радианах (положительный поворот по часовой стрелке, 0 означает Север). Подробнее смотрите https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setRotation[setRotation^].
 * `zoom` определяет конкретный уровень масштабирования. Уровень масштабирования начинается с 0, представляя вид с максимальным отдалением, и постепенно увеличивается по мере приближения.
 

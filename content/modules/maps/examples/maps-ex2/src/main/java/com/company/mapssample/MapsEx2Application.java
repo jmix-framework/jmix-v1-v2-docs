@@ -5,6 +5,8 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import io.jmix.mapsflowui.component.projection.GeoMapProjectionRegistration;
+import io.jmix.mapsflowui.component.projection.ProjectionRegistration;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -53,4 +55,15 @@ public class MapsEx2Application implements AppShellConfigurator {
                 + environment.getProperty("local.server.port")
                 + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
     }
+    // tag::register-projection[]
+    @Bean
+    public ProjectionRegistration projectionRegistration21781() {
+        return new GeoMapProjectionRegistration("EPSG:21781",
+                "+proj=somerc +lat_0=46.9524055555556 " +
+                        "+lon_0=7.43958333333333 " +
+                        "+k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel " +
+                        "+towgs84=674.374,15.056,405.346,0,0,0,0 +units=m " +
+                        "+no_defs +type=crs");
+    }
+    // end::register-projection[]
 }

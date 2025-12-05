@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:maps="http://jmix.io/schema/maps/ui"
+      title="msg://customProjectionView.title">
+    <layout>
+        <!-- tag::map[] -->
+        <maps:geoMap id="geoMap"
+                     width="100%"
+                     height="100%">
+            <maps:mapView projection="EPSG:21781"
+                          centerX="10.872461786203276"
+                          centerY="48.36928140366503"
+                          zoom="4.0">
+            </maps:mapView>
+            <maps:layers>
+                <maps:tile>
+                    <maps:osmSource/>
+                </maps:tile>
+            </maps:layers>
+        </maps:geoMap>
+        <!-- end::map[] -->
+    </layout>
+</view>
