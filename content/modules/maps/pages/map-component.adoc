@@ -125,7 +125,44 @@ You can specify additional parameters:
 //The default value is 28. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_View-View.html#setMaxZoom[setMaxZoom^].
 * `minZoom` - sets a minimum zoom level for the view.
 //The default value is 0. For more details see https://openlayers.org/en/v8.1.0/apidoc/module-ol_View-View.html#setMinZoom[setMinZoom^].
-* `projection` refers to the coordinate reference system in which the map is displayed. Common projections include `EPSG:3857` and `EPSG:4326`. The default projection is https://epsg.io/3857[EPSG:3857^]. You can set a custom projection in the special inner `projection` element. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_proj_Projection-Projection.html[Projection^].
+* `projection` defines the coordinate reference system (CRS) used to display geographic data on a map. It transforms three-dimensional Earth coordinates onto a two-dimensional plane. Common projections include `EPSG:3857` (Web Mercator) and `EPSG:4326` (WGS 84). The default projection is https://epsg.io/3857[EPSG:3857^]. You can set a custom projection:
++
+[[set-custom-projection]]
+[TIP]
+====
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/geo-map-custom-projection" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+*Custom Projection Setup*
+
+Follow these steps to configure a custom projection:
+
+. *Define Projection Bean*. Register the projection in your Spring configuration using https://epsg.io/21781.proj4[PROJ.4^] format:
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/MapsEx2Application.java[tags=register-projection]
+----
+
+. *Configure Map Component*. Specify the `projection` attribute for a `mapView` in your XML descriptor:
++
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/customprojection/custom-projection-view.xml[tags=map]
+----
+
+. *Initialize in Controller*. Apply the projection programmatically to all map components on the page:
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/customprojection/CustomProjectionView.java[tags=set-projection]
+----
++
+NOTE: The projection applies to all map components on the page. Once set, all coordinate operations use the projection's units (meters, degrees, etc.).
+====
 * `rotation` - sets the rotation for the view in radians (positive rotation clockwise, 0 means North). For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setRotation[setRotation^].
 * `zoom` defines the specific zoom level. The zoom level begins at 0, representing the maximum zoomed-out view, and progressively rises as you zoom in for a closer perspective.
 
