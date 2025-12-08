@@ -16,7 +16,7 @@ See xref:studio:project.adoc#upgrading-project[Upgrading Project] section for ho
 
 * Updates the version of Jmix BOM which in turn defines versions of all dependencies.
 * Updates the version of Jmix Gradle plugin.
-
+* If your project includes Authorization Server or OpenID Connect add-ons, Studio adds the `jmix.resource-server.force-api-security-scope.enabled=false` application property for the reason explained <<resource-role-api-scope,below>>.
 
 See also the full list of <<breaking-changes,breaking changes>> that can affect your project after the upgrade.
 
@@ -140,6 +140,13 @@ The report code has become a mandatory field. If you edit a report without a cod
 === Moved EntityValuesComparator
 
 The `io.jmix.flowui.model.impl.EntityValuesComparator` class has been moved to the `io.jmix.core.comparator` package. If you are using this class in your code, update the import statements.
+
+[[resource-role-api-scope]]
+=== Fixed API Scope in Resource Roles
+
+Due to the resolution of issue https://github.com/jmix-framework/jmix/issues/4425[#4425^], the API scope in resource roles is now functioning correctly. Consequently, API users who were previously granted permissions through non-API roles will no longer retain those permissions.
+
+You can set the `jmix.resource-server.force-api-security-scope.enabled` application property to false to restore the behavior that existed prior to the resolution of the issue. It will ensure that all API clients continue to function exactly as before.
 
 [[changelog]]
 == Changelog
