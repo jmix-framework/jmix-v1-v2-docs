@@ -13,6 +13,7 @@
 
 * Обновляет версию Jmix BOM, которая, в свою очередь, определяет версии всех зависимостей.
 * Обновляет версию Jmix Gradle plugin.
+* Если ваш проект включает дополнение Authorization Server или OpenID Connect, Studio добавляет свойство приложения `jmix.resource-server.force-api-security-scope.enabled=false` по причине, объясненной <<resource-role-api-scope,ниже>>.
 
 См. полный список <<breaking-changes,критических изменений>>, которые могут затронуть ваш проект после обновления.
 
@@ -135,6 +136,13 @@ public interface OrderRepository extends JmixDataRepository<Order, UUID> {
 === EntityValuesComparator перемещен
 
 Класс `io.jmix.flowui.model.impl.EntityValuesComparator` перемещен в пакет `io.jmix.core.comparator`. Если вы используете этот класс в своем коде, обновите инструкции импорта.
+
+[[resource-role-api-scope]]
+=== Исправлен API scope в ресурсных ролях
+
+В связи с исправлением проблемы https://github.com/jmix-framework/jmix/issues/4425[#4425^], API scope в ресурсных ролях теперь работает правильно. Следовательно, пользователи API, которым ранее были предоставлены разрешения через не API-роли, больше не получат эти разрешения.
+
+Вы можете установить свойство приложения `jmix.resource-server.force-api-security-scope.enabled` в значение false, чтобы восстановить поведение, существовавшее до исправления проблемы. Это обеспечит функционирование всех клиентов API на имеющейся конфигурации ролей.
 
 [[changelog]]
 == Список изменений
