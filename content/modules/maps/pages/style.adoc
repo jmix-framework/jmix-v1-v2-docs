@@ -1,12 +1,16 @@
-= Style
+= Styling
 
 The `Style` object enable developers to customize the color, size, font, and other visual properties of map xref:maps:features-geometries.adoc[features].
 
 Styles can also be applied at the xref:maps:layers-sources.adoc[layer] level, defining a consistent appearance for all features within a layer.
 
-== Style for PointFeature
+[[styling-point-features]]
+== Styling Point Features
 
-To change the style for a xref:maps:features-geometries.adoc#point-feature[PointFeature], you typically define a `PointStyle` object with the desired appearance properties like `image`, `fill`, `stroke`, etc. and then apply that style to the `PointFeature`.
+You can customize the appearance of a xref:maps:features-geometries.adoc#point-feature[PointFeature] by defining a `PointStyle` object with properties like `image`, `fill`, `stroke`, and `text`, then applying it to the feature.
+
+[[basic-point-style]]
+=== Basic Point Style with Image
 
 [source,java,indent=0]
 ----
@@ -14,6 +18,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 ----
 
 image::style-point.png[align="center", width="480"]
+
+[[text-point-labels]]
+=== Text Labels for Points
 
 Using text instead of an image for the `PointFeature` allows you to display textual labels directly on the map at specified coordinates, providing clarity and context to the displayed data.
 
@@ -28,7 +35,78 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-point-text.png[align="center", width="479"]
 
-== Style for MarkerFeature
+[[point-icons]]
+=== Using Icons for Points
+
+. *Font Icons*
++
+Example using Font Awesome 7 Free icons:
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-font-icon]
+----
++
+image::styles-font-icons.png[align="center", width="288"]
++
+NOTE: To use icon fonts, like Font Awesome, you must include them in your project
+
+. *SVG Icons*
++
+The `IconStyle` class provides several methods for setting icons on points.
+
+* The `withVaadinIcon()` method accepts any `VaadinIcon` enum value.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-vaadin-icon]
+----
++
+image::styles-vaadin-icons.png[align="center", width="250"]
+
+* `withLumoIcon()` - sets icon from the Lumo icon set. You can adjust the size and color.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-lumo-icon]
+----
++
+image::styles-lumo-icons.png[align="center", width="250"]
+
+* `withIconFromSet()` - uses icons from your own icon sets (see xref:flow-ui:icons/custom-icons.adoc[Custom Icons]). The icon's predefined color may affect the final appearance.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-custom-icon]
+----
++
+image::styles-custom-icons.png[align="center", width="255"]
++
+[NOTE]
+====
+Icons from custom sets have predefined colors (fill=`"#1E90FF"`). If you also call `withColor("...")`, OpenLayers will combine both colors. For instance:
+
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-custom-green-icon]
+----
+
+image::styles-custom-green-icons.png[align="center", width="255"]
+
+To color exclusively via Java API, set your icon's fill to `"#FFF"` (white).
+====
+
+* `withIconName()` - sets icon from icon set with the following format: `"collectionName:iconName"`.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-icon-name]
+----
++
+image::styles-icon-name.png[align="center", width="257"]
+
+[[styling-marker-features]]
+== Styling Marker Features
 
 To change the marker icon, refer the following example:
 
@@ -41,7 +119,10 @@ Additionally, an example of customizing marker icons based on the geo-object's a
 
 image::style-marker.png[align="center", width="491"]
 
-== Style for LineStringFeature
+NOTE: You can also apply the examples from <<point-icons,Using Icons for Points>> to set icons as markers for a `MarkerFeature`.
+
+[[styling-linestring-features]]
+== Styling LineString Features
 
 To change the style for a `LineStringFeature`, you typically define a `LineStringStyle` object with the desired appearance properties like `stroke`, `fill`, etc., and then apply that style to the `LineStringFeature`.
 
@@ -52,7 +133,8 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-line-string.png[align="center", width="476"]
 
-== Style for PolygonFeature
+[[styling-polygon-features]]
+== Styling Polygon Features
 
 Changing the style for a `PolygonFeature` involves defining a new `PolygonStyle` with desired properties like `fill`, `stroke`, etc., and applying this style to the `PolygonFeature`.
 
@@ -64,7 +146,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 image::style-polygon.png[align="center", width="476"]
 
 [[select-mode-styles]]
-== Select Mode Styles
+== Selecting Mode Styles
 
 Every feature type in the vector source has default styles for the xref:editing-geometries.adoc#select-mode[select mode]. These styles are automatically applied when a user selects a feature on the map. To customize the selection styles, each feature provides methods for adding your own styles.
 
@@ -80,7 +162,7 @@ image::styles-select.gif[align="center",width="455"]
 NOTE: To apply the same selection style to all features in the source, set the select styles on the vector layer.
 
 [[modify-mode-styles]]
-== Modify Mode Styles
+== Modifying Mode Styles
 
 Vector sources provide the xref:editing-geometries.adoc#modify-mode[modify mode]. When activated, this mode generates points at the geometry's vertices, allowing for modifications such as adding new vertices and changing existing vertex positions. This mode also defines the styles for these generated vertices, which are displayed on the map to represent the geometry.
 

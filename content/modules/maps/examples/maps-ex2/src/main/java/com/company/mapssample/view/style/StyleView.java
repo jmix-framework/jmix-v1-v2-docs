@@ -34,7 +34,7 @@ public class StyleView extends StandardView {
 
     @Subscribe
     public void onInit(final InitEvent event) {
-        vectorSource.addAllFeatures(List.of(
+        vectorSource.addAllFeatures(List.of(createPointWithFontIcons(),
                 createStyledMarker(),
                 createStyledPoint(),
                 createTextPoint(),
@@ -115,4 +115,68 @@ public class StyleView extends StandardView {
                                 .build());
     }
     // end::lineString[]
+    // tag::point-font-icon[]
+    private PointFeature createPointWithFontIcons() {
+        return new PointFeature(GeometryUtils.createPoint(0, 43))
+                .withStyles(new Style()
+                        .withText(new TextStyle()
+                                .withText("\uf015")
+                                .withFont("24px 'Font Awesome 7 Free'")));
+    }
+    // end::point-font-icon[]
+/*
+    // tag::point-vaadin-icon[]
+    private PointFeature createPointWithVaadinIcons() {
+        return new PointFeature(GeometryUtils.createPoint(11, 45))
+                .withStyles(new Style()
+                        .withImage(new IconStyle()
+                                .withVaadinIcon(VaadinIcon.USER)
+                                .withColor("#1B1BB3")
+                        ));
+    }
+    // end::point-vaadin-icon[]
+
+    // tag::point-lumo-icon[]
+    private PointFeature createPointWithLumoIcons() {
+        return new PointFeature(GeometryUtils.createPoint(12, 47))
+                .withStyles(new Style()
+                        .withImage(new IconStyle()
+                                .withLumoIcon(LumoIcon.SEARCH)
+                                .withIconHeight("32px")
+                                .withIconWidth("32px")
+                                .withColor("#621448"))
+                );
+    }
+    // end::point-lumo-icon[]
+
+
+    // tag::point-custom-icon[]
+    private PointFeature createCustomPoint() {
+        return new PointFeature(GeometryUtils.createPoint(4, 33))
+                .withStyles(new Style()
+                        .withImage(new IconStyle()
+                                .withIconFromSet(StarIcons.CIRCLE))
+                );
+    }
+    // end::point-custom-icon[]
+    private PointFeature createCustomGreenPoint() {
+        return new PointFeature(GeometryUtils.createPoint(5, 32))
+                // tag::point-custom-green-icon[]
+                .withStyles(new Style()
+                        .withImage(new IconStyle()
+                                .withIconFromSet(StarIcons.CIRCLE)
+                                .withColor("yellow"))
+                );
+    }
+    // end::point-custom-green-icon[]
+    // tag::point-icon-name[]
+    private PointFeature createPointWithIconName() {
+        return new PointFeature(GeometryUtils.createPoint(0, 30))
+                .withStyles(new Style()
+                        .withImage(new IconStyle()
+                                .withIconName("vaadin:user")));
+    }
+    // end::point-icon-name[]
+
+ */
 }
