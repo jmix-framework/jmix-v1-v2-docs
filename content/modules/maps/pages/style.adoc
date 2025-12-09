@@ -1,12 +1,16 @@
-= Стиль
+= Стилизация
 
 Объект `Style` позволяет разработчикам настраивать цвет, размер, шрифт и другие визуальные свойства xref:maps:features-geometries.adoc[объектов] карты.
 
 Стили также могут применяться на уровне xref:maps:layers-sources.adoc[слоя], определяя единообразный внешний вид для всех объектов внутри слоя.
 
-== Стиль для PointFeature
+[[styling-point-features]]
+== Стилизация точечных объектов
 
-Чтобы изменить стиль для xref:maps:features-geometries.adoc#point-feature[PointFeature], обычно определяют объект `PointStyle` с нужными свойствами внешнего вида, такими как `image`, `fill`, `stroke` и т.д., и затем применяют этот стиль к `PointFeature`.
+Вы можете настроить внешний вид xref:maps:features-geometries.adoc#point-feature[точечного объекта (PointFeature)], задав `PointStyle` со свойствами, такими как `image`, `fill`, `stroke` и `text`, а затем применив его к объекту.
+
+[[basic-point-style]]
+=== Базовый стиль PointFeature с изображением
 
 [source,java,indent=0]
 ----
@@ -14,6 +18,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 ----
 
 image::style-point.png[align="center", width="480"]
+
+[[text-point-labels]]
+=== Текстовые надписи для точечных объектов
 
 Использование текста вместо изображения для `PointFeature` позволяет отображать текстовые надписи непосредственно на карте в указанных координатах, обеспечивая ясность и контекст для отображаемых данных.
 
@@ -28,7 +35,78 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-point-text.png[align="center", width="479"]
 
-== Стиль для MarkerFeature
+[[point-icons]]
+=== Использование иконок для точечных объектов
+
+. *Шрифтовые иконки*
++
+Пример использования бесплатных иконок Font Awesome 7:
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-font-icon]
+----
++
+image::styles-font-icons.png[align="center", width="288"]
++
+NOTE: Чтобы использовать шрифтовые иконки, такие как Font Awesome, вы должны включить их в свой проект.
+
+. *SVG-иконки*
++
+Класс `IconStyle` предоставляет несколько методов для установки иконок на точечных объектах.
+
+* Метод `withVaadinIcon()` принимает любое значение перечисления `VaadinIcon`.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-vaadin-icon]
+----
++
+image::styles-vaadin-icons.png[align="center", width="250"]
+
+* `withLumoIcon()` - устанавливает иконку из набора иконок Lumo. Вы можете настроить размер и цвет.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-lumo-icon]
+----
++
+image::styles-lumo-icons.png[align="center", width="250"]
+
+* `withIconFromSet()` - использует иконки из ваших собственных наборов иконок (смотрите xref:flow-ui:icons/custom-icons.adoc[Пользовательские иконки]). Предопределенный цвет иконки может повлиять на окончательный внешний вид.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-custom-icon]
+----
++
+image::styles-custom-icons.png[align="center", width="255"]
++
+[NOTE]
+====
+Иконки из пользовательских наборов имеют предопределенные цвета (заливка=`"#1E90FF"`). Если вы также вызовете `withColor("...")`, OpenLayers скомбинирует оба цвета. Например:
+
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-custom-green-icon]
+----
+
+image::styles-custom-green-icons.png[align="center", width="255"]
+
+Чтобы задавать цвет исключительно через Java API, установите заливку вашей иконки в `"#FFF"` (белый).
+====
+
+* `withIconName()` - устанавливает иконку из набора иконок в следующем формате: `"collectionName:iconName"`.
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-icon-name]
+----
++
+image::styles-icon-name.png[align="center", width="257"]
+
+[[styling-marker-features]]
+== Стилизация объектов-маркеров
 
 Чтобы изменить значок маркера, обратитесь к следующему примеру:
 
@@ -41,7 +119,10 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-marker.png[align="center", width="491"]
 
-== Стиль для LineStringFeature
+NOTE: Вы также можете применить примеры из раздела <<point-icons,Использование иконок для точечных объектов>>, чтобы установить иконки в качестве маркеров для `MarkerFeature`.
+
+[[styling-linestring-features]]
+== Стилизация объектов LineString
 
 Чтобы изменить стиль для `LineStringFeature`, обычно определяют объект `LineStringStyle` с нужными свойствами внешнего вида, такими как `stroke`, `fill` и т.д., и затем применяют этот стиль к `LineStringFeature`.
 
@@ -52,7 +133,8 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-line-string.png[align="center", width="476"]
 
-== Стиль для PolygonFeature
+[[styling-polygon-features]]
+== Стилизация объектов Polygon
 
 Изменение стиля для `PolygonFeature` включает определение нового `PolygonStyle` с нужными свойствами, такими как `fill`, `stroke` и т.д., и применение этого стиля к `PolygonFeature`.
 
