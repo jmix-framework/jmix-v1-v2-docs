@@ -98,6 +98,7 @@
 **** xref:flow-ui:vc/creating-components/creating-web-component.adoc[]
 **** xref:flow-ui:vc/creating-components/vaadin-addon.adoc[]
 **** xref:flow-ui:vc/creating-components/integrating-into-jmix-ui.adoc[]
+**** xref:flow-ui:vc/creating-components/generic-component-xml.adoc[]
 
 ** xref:flow-ui:data-components.adoc[]
 *** xref:flow-ui:data/data-containers.adoc[]
