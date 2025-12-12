@@ -10,4 +10,12 @@ image::entity-browser.png[algne=centre]
 
 In case the entity is soft-deleted, the *Show mode* dropdown allows you to view removed entities and restore or wipe them out.
 
-The *Export* and *Import* actions allow you to export and import entities to/from JSON. Note that one-to-many and many-to-many references are not exported together with the root entity.
+The *Export* and *Import* actions allow you to export and import entities to/from JSON.
+
+[NOTE]
+====
+. All simple fields (`DATATYPE`, `ENUM`) are exported.
+. All reference fields (`ASSOCIATION`, `COMPOSITION`, `EMBEDDED`) are exported, but they use the `_local` xref:data-access:fetching.adoc#built-in-fetch-plans[fetch plan].
+
+Using the `_local` fetch plan for related entities ensures that one-to-many and many-to-many associations are included in the export, but only down to the level of their local attributes (immediate attributes that are not references), and not to the level of their own deep relationships.
+====
