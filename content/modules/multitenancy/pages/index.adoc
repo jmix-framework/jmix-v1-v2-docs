@@ -79,6 +79,13 @@ You also have the option to set a custom name for the URL parameter by using the
 
 NOTE: You can implement your own scheme of unique usernames instead of the method described above.
 
+[CAUTION]
+====
+*User Substitution*
+
+A user belonging to a specific tenant should only be xref:security:users.adoc#user-substitution[substituted] by users from the same tenant.
+====
+
 [[configuring-users]]
 == Configuring Users
 
@@ -129,3 +136,25 @@ When setting up roles for tenant users, do not include the tenant-id attributes 
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/security/UsersRole.java[tags=mt-1]
 ----
+
+[[role-assignment]]
+=== Role Assignment
+
+Role assignments are restricted to users within the same tenant.
+
+When assigning roles within the administration interface, the system enforces tenant isolation as follows:
+
+. From *Application → Users* View
++
+When using the *Role assignment* button in the *Application → Users* view:
+
+* Only roles belonging to the same tenant as the selected user are displayed.
+* Roles from other tenants are automatically filtered out and remain hidden.
+
+. From *Security → Resource Roles* / *Security → Row-level Roles* Views
++
+When using the *Assign to users* button in the *Security → Resource roles* or *Security → Row-level roles* views:
+
+* Users from all tenants are displayed in the selection dialog.
+* However, the system prevents confirming the selection if you choose users from different tenants.
+* A warning notification is displayed when attempting to assign roles across tenant boundaries.
