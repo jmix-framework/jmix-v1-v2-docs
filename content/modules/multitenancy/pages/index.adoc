@@ -69,16 +69,22 @@ image::tenants-view.png[align="center", width="1070"]
 
 Пользователи тенанта могут входить в приложение, указывая полный логин, включающий `tenant-id`, например, `t1|alice`.
 
-// It's suitable for 2.2:
-// There are two ways to log in tenant users to the application:
-//
-// . The first way is to use a URL parameter that includes the tenant-id when accessing the login screen, for example `++http://localhost:8080/#login?tenantId=t1++`. In this case, users can simply enter their login name without the tenant-id prefix, like just `alice`.
-// +
-// You also have the option to set a custom name for the URL parameter by using the `jmix.multitenancy.tenantIdUrlParamName application` application property.
-//
-// . Users can provide the full username including the tenant-id, for example `t1|alice`.
+Существует два способа входа пользователей аренды в приложение:
+
+. Первый способ - использование параметра URL, который включает tenant-id при доступе к экрану входа, например `++http://localhost:8080/login?tenantId=t1++`. В этом случае пользователи могут просто ввести своё имя для входа без префикса tenant-id, например, просто `alice`.
++
+У вас также есть возможность задать пользовательское имя для параметра URL с помощью свойства приложения `jmix.multitenancy.tenantIdUrlParamName application`.
+
+. Пользователи могут указать полное имя пользователя, включая tenant-id, например, `t1|alice`.
 
 NOTE: Вы можете реализовать собственную схему уникальных логинов вместо описанного выше метода.
+
+[CAUTION]
+====
+*Замещение пользователей*
+
+Пользователь, принадлежащий определённому тенанту, должен xref:security:users.adoc#user-substitution[замещаться] только пользователями из того же тенанта.
+====
 
 [[configuring-users]]
 == Настройка пользователей
@@ -130,3 +136,25 @@ include::example$/multitenancy-ex1/src/main/java/com/company/demo/view/login/Log
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/security/UsersRole.java[tags=mt-1]
 ----
+
+[[role-assignment]]
+=== Назначение ролей
+
+Назначение ролей ограничено пользователями в рамках одного тенанта.
+
+При назначении ролей в интерфейсе администратора система обеспечивает изоляцию арендаторов следующим образом:
+
+. В экране *Application → Users*
++
+При использовании кнопки *Role assignment* в экране *Application → Users*:
+
+* Отображаются только роли, принадлежащие тому же тенанту, что и выбранный пользователь.
+* Роли из других тенантов автоматически скрываются и не отображаются.
+
+. В экранах *Security → Resource Roles* / *Security → Row-level Roles*
++
+При использовании кнопки *Assign to users* в экранах *Security → Resource roles* или *Security → Row-level roles*:
+
+* В диалоге выбора отображаются пользователи из всех тенантов.
+* Однако система не позволяет подтвердить выбор, если выбраны пользователи из разных тенантов.
+* При попытке назначить роли с пересечением границ тенантов отображается предупреждающее уведомление.
