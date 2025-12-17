@@ -363,7 +363,14 @@ The `kanban` component supports customization of card display. Renderers can be 
 [[taskRendererFunction]]
 === Task Renderer
 
-The task renderer is defined by a callback function that can be used for customizing task rendering. The Kanban calls it with two arguments: the task HTML element and the task data.
+The task renderer is defined by a callback function - `taskRendererFunction`.
+
+The `taskRendererFunction` allows you to customize how individual tasks are rendered in the Kanban board.
+
+The callback function receives two parameters:
+
+* `task` (HTMLElement). The HTML element representing the task card that you can modify.
+* `data` (Object). The task data object containing all task properties.
 
 For example:
 
@@ -378,10 +385,20 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+For complete API details, see https://www.htmlelements.com/docs/kanban-api/#toc-ontaskrender_any[Kanban JavaDoc^].
+
 [[columnHeaderRendererFunction]]
 === Header Renderer
 
-The header renderer is defined by a callback function that can be used for customizing column header rendering. The Kanban calls it with three arguments: column header HTML element, the column data and the column data field.
+The header renderer is defined by a callback function - `columnHeaderRendererFunction`.
+
+The `columnHeaderRendererFunction` allows you to customize how Kanban column headers are rendered.
+
+The callback function receives three parameters:
+
+* `header` (HTMLElement). The HTML element representing the column header that you can modify.
+* `data` (Object). The column data object containing column properties.
+* `dataField` (String). The data field name associated with this column (matches the `dataField` attribute in the column definition).
 
 For example:
 
@@ -396,10 +413,28 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+For complete API details, see https://www.htmlelements.com/docs/kanban-api/#toc-oncolumnheaderrender_any[Kanban JavaDoc^].
+
 [[columnFooterRendererFunction]]
 === Footer Renderer
 
-The footer renderer is defined by a callback function which can be used for customizing column footer rendering. The Kanban calls it with three arguments: the column footer HTML element, the column data and the column data field.
+The footer renderer is defined by a callback function - `columnFooterRendererFunction`.
+
+The `columnFooterRendererFunction` allows you to customize how Kanban column footers are rendered. Column footers are typically used to display summaries, statistics, or action buttons for each column.
+
+To use column footer rendering, ensure these attributes are enabled:
+
+[source,xml]
+----
+<kanban:kanban columnSummaryEnabled="true"
+               columnFooterVisible="true">
+----
+
+The callback function receives three parameters:
+
+* `footer` (HTMLElement). The HTML element representing the column footer that you can modify.
+* `data` (Object). The column data object containing column properties and summary information.
+* `dataField` (String). The data field name associated with this column (matches the `dataField` attribute).
 
 For example:
 
@@ -413,6 +448,8 @@ image::footer-renderer.png[align="center",width="800"]
 include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/kanban/kanban-view.xml[tags=footer-renderer]
 ----
 ====
+
+For complete API details, see https://www.htmlelements.com/docs/kanban-api/#toc-oncolumnfooterrender_any[Kanban JavaDoc^].
 
 [[attributes]]
 == Attributes
