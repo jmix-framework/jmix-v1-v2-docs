@@ -363,7 +363,14 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 [[taskRendererFunction]]
 === Рендерер задачи
 
-Рендерер задачи определяется функцией обратного вызова, которую можно использовать для настройки рендеринга задачи. Kanban вызывает ее с двумя аргументами: HTML-элемент задачи и данные задачи.
+Рендерер задачи определяется функцией обратного вызова - `taskRendererFunction`.
+
+`taskRendererFunction` позволяет вам настраивать способ отрисовки отдельных задач на kanban-доске.
+
+Функция обратного вызова принимает два параметра:
+
+* `task` (HTMLElement). HTML-элемент, представляющий карточку задачи, который вы можете изменять.
+* `data` (Object). Объект данных задачи, содержащий все свойства задачи.
 
 Например:
 
@@ -378,10 +385,20 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+Полные сведения об API смотрите в https://www.htmlelements.com/docs/kanban-api/#toc-ontaskrender_any[Kanban JavaDoc^].
+
 [[columnHeaderRendererFunction]]
 === Рендерер заголовка
 
-Рендерер заголовка определяется функцией обратного вызова, которую можно использовать для настройки рендеринга заголовка столбца. Kanban вызывает ее с тремя аргументами: HTML-элемент заголовка столбца, данные столбца и поле данных столбца.
+Рендерер заголовка определяется функцией обратного вызова - `columnHeaderRendererFunction`.
+
+`columnHeaderRendererFunction` позволяет вам настраивать способ отрисовки заголовков колонок kanban-доски.
+
+Функция обратного вызова принимает три параметра:
+
+* `header` (HTMLElement). HTML-элемент, представляющий заголовок колонки, который вы можете изменять.
+* `data` (Object). Объект данных колонки, содержащий свойства колонки.
+* `dataField` (String). Имя поля данных, связанного с этой колонкой (соответствует атрибуту `dataField` в определении колонки).
 
 Например:
 
@@ -396,10 +413,28 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+Полные сведения об API смотрите в https://www.htmlelements.com/docs/kanban-api/#toc-oncolumnheaderrender_any[Kanban JavaDoc^].
+
 [[columnFooterRendererFunction]]
 === Рендерер нижнего колонтитула
 
-Рендерер нижнего колонтитула определяется функцией обратного вызова, которую можно использовать для настройки рендеринга нижнего колонтитула столбца. Kanban вызывает ее с тремя аргументами: HTML-элемент нижнего колонтитула столбца, данные столбца и поле данных столбца.
+Рендерер футера (подвала колонки) определяется функцией обратного вызова - `columnFooterRendererFunction`.
+
+`columnFooterRendererFunction` позволяет вам настраивать способ отрисовки футеров (подвалов) колонок kanban-доски. Футеры колонок обычно используются для отображения сводок, статистики или кнопок действий для каждой колонки.
+
+Чтобы использовать рендеринг футера колонки, убедитесь, что следующие атрибуты включены:
+
+[source,xml]
+----
+<kanban:kanban columnSummaryEnabled="true"
+               columnFooterVisible="true">
+----
+
+Функция обратного вызова принимает три параметра:
+
+* `footer` (HTMLElement). HTML-элемент, представляющий футер (подвал) колонки, который вы можете изменять.
+* `data` (Object). Объект данных колонки, содержащий свойства колонки и сводную информацию.
+* `dataField` (String). Имя поля данных, связанного с этой колонкой (соответствует атрибуту `dataField`).
 
 Например:
 
@@ -413,6 +448,8 @@ image::footer-renderer.png[align="center",width="800"]
 include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/kanban/kanban-view.xml[tags=footer-renderer]
 ----
 ====
+
+Полные сведения об API смотрите в https://www.htmlelements.com/docs/kanban-api/#toc-oncolumnfooterrender_any[Kanban JavaDoc^].
 
 [[attributes]]
 == Атрибуты
