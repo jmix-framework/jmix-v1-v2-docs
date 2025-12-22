@@ -154,6 +154,9 @@ You can set the `jmix.resource-server.force-api-security-scope.enabled` applicat
 * Resolved issues in Jmix Framework:
 
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.2[2.7.2^]
++
+Version 2.7.2 has a regression in the Brazilian Portuguese translation add-on. See https://github.com/jmix-framework/jmix/issues/4980#issuecomment-3680596429[#4980^] for a workaround.
+
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.1[2.7.1^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
 +
