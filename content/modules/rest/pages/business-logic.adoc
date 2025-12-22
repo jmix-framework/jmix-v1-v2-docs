@@ -24,9 +24,7 @@ image::business-logic-diagram.svg[align="center"]
 Чтобы использовать Spring-бин как часть Jmix Services API, он должен соответствовать одному из следующих условий:
 
 * *Подход на основе аннотаций*: Spring-бин должен быть создан с использованием специальных аннотаций.
-* *Традиционный подход*: Spring-бин должен соответствовать следующим критериям:
-1. Бин должен иметь аннотацию Spring `@Service` (специализированная версия аннотации `@Component`).
-2. Бин необходимо зарегистрировать в файле конфигурации `rest-services.xml`.
+* *XML-подход*: Spring-бин должен быть зарегистрирован в файле конфигурации `rest-services.xml`.
 
 Давайте подробнее рассмотрим эти два метода.
 
@@ -64,7 +62,7 @@ public class OrderService {
 ----
 import org.springframework.stereotype.Service;
 
-@Service("sample_OrderService") //<1>
+@Component("sample_OrderService") //<1>
 public class OrderService {
 
     public BigDecimal calculateTotalAmount(int orderId) {
@@ -72,7 +70,7 @@ public class OrderService {
     }
 }
 ----
-<1> `OrderServiceBean` зарегистрирован как `@Service` Spring с именем `sample_OrderService`.
+<1> `OrderServiceBean` зарегистрирован как `@Component` с именем `sample_OrderService`.
 
 NOTE: Если имя сервиса не указано в аннотации явно, предполагается, что оно равно простому имени класса с первой буквой в нижнем регистре. В приведенном выше примере это было бы `orderService`.
 
@@ -148,7 +146,7 @@ NOTE: При использовании GET для вызова службы ч�
 [source,java]
 .OrderServiceBean.java
 ----
-@Service("sales_OrderService")
+@Component("sales_OrderService")
 public class OrderService {
 
     public OrderValidationResult validateOrder(Order order, Date validationDate){
