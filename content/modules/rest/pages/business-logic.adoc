@@ -25,10 +25,8 @@ image::business-logic-diagram.svg[align="center"]
 
 To use a Spring bean as part of the Jmix Services API, it needs to meet one of the following conditions:
 
-* *Annotation-Based Approach*: The Spring bean must be created using the `@RestService` annotation-based method.
-* *XML-based Approach*: The Spring bean must fulfill these criteria:
-1. The Spring bean needs to be annotated with Spring's `@Service` annotation (a specialized version of the `@Component` annotation).
-2. The Spring bean needs to be registered in the `rest-services.xml` configuration file.
+* *Annotation-based approach*: The Spring bean must be created using the `@RestService` annotation.
+* *XML-based approach*: The Spring bean must be registered in the `rest-services.xml` configuration file.
 
 Let's examine these two methods in more detail.
 
@@ -66,7 +64,7 @@ Let's look at the first part with this example:
 ----
 import org.springframework.stereotype.Service;
 
-@Service("sample_OrderService") //<1>
+@Component("sample_OrderService") //<1>
 public class OrderService {
 
     public BigDecimal calculateTotalAmount(int orderId) {
@@ -74,7 +72,7 @@ public class OrderService {
     }
 }
 ----
-<1> The `OrderServiceBean` is registered as the Spring `@Service` with the name `sample_OrderService`.
+<1> The `OrderServiceBean` is registered as the Spring `@Component` with the name `sample_OrderService`.
 
 NOTE: If the service name is not specified explicitly in the annotation, it is assumed to be equal to the simple class name with the first letter in lowercase. In the example above it would be `orderService`.
 
@@ -150,7 +148,7 @@ Suppose we added a new method to the OrderService created in the previous part:
 [source,java]
 .OrderServiceBean.java
 ----
-@Service("sales_OrderService")
+@Component("sales_OrderService")
 public class OrderService {
 
     public OrderValidationResult validateOrder(Order order, Date validationDate){
