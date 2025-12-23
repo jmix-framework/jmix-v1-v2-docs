@@ -109,6 +109,15 @@ After that, in the view controller, use the `ContainerDataGridItems` class to bi
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=dataGrid;usersDc;onInit;setItems]
 ----
 
+[[multi-select]]
+== Multi-Select Mode
+
+By default, the component operates in single‑selection mode. When you set <<selectionMode, selectionMode>> to `MULTI`, a checkbox column appears, allowing you to select any number of rows. To select every row, click the checkbox in the header row.
+
+image::visual-components/components/data-grid-multi-select.png[align="center", width="960"]
+
+NOTE: Range selection using *Shift + click*  or other shortcuts is not currently supported.
+
 [[inline-editing]]
 == Inline Editing
 
@@ -679,7 +688,7 @@ xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all
 |If `true`, enables users to drag rows in the grid.
 |`false`
 |[[selectionMode]]selectionMode
-|Sets the selection mode. Possible values: `SINGLE`, `MULTI`.
+|Sets the selection mode. Possible values: `SINGLE`, `MULTI`, `NONE`.
 |`SINGLE`
 |===
 
