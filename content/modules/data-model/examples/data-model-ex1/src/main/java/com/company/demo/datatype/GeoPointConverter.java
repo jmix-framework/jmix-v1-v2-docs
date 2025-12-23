@@ -28,7 +28,7 @@ public class GeoPointConverter implements AttributeConverter<GeoPoint, String> {
     public String convertToDatabaseColumn(GeoPoint attribute) {
         if (attribute == null)
             return null;
-        return attribute.latitude + "|" + attribute.longitude;
+        return attribute.latitude() + "|" + attribute.longitude();
     }
 
     @Override
