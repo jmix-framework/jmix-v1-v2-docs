@@ -2,7 +2,7 @@
 
 External parameters are passed from the outside when running a report and can be used as conditions in datasets. All external parameters become fields for each report band, so you can use them directly in the template as dataset fields. If any dataset contains field with the same name, it overrides the external parameter in the corresponding band and the report uses the dataset field value.
 
-External parameters can be passed by the invoking code when running a report through xref:run-report.adoc#reports-api[API]. Also, the report generator can show a dialog to enter parameters when a user runs the report. In the latter case you should describe the external parameters in the *Parameters* tab of the report detail view.
+External parameters can be passed by the invoking code when running a report through xref:run-report.adoc#reports-api[API]. Also, the report generator can show a dialog to enter parameters when a user runs the report. In the latter case you should describe the external parameters in the *Parameters* tab of the runtime report editor.
 
 image::parameters.png[align="center",width="1073"]
 
@@ -111,3 +111,66 @@ image::validation.png[align="center",width="642"]
 In addition to the parameters listed previously, the script also receives the `params` variable, a map containing the external report parameters.
 +
 image::cross-parameter-validation.png[align="center",width="834"]
+
+[[input-parameter-def]]
+== @InputParameterDef Annotation
+
+The `@InputParameterDef` annotation allows you to define an input parameter when creating a report at design time. Input parameters are passed externally when running a report and can be used as conditions in xref:reports:creation/bands.adoc#datasets[datasets].
+
+To implement additional logic, create a method annotated with <<input-parameter-delegate,@InputParameterDelegate>>.
+
+The `@InputParameterDef` annotation has the following attributes:
+
+* `alias` - unique alias used to access the parameter in datasets.
+* `name` - input parameter name. You can use the `msg://` prefix to refer to a xref:localization:message-bundles.adoc[localized message].
+* `required` - specifies whether the parameter is mandatory. Default: `false`.
+* `type` - data type of the parameter defined by the `ParameterType` enum:
+** `DATE` - date, without time. Value class: `java.util.Date`.
+** `TEXT` - text string. Value class: `String`
+** `ENTITY` - a single entity instance (persistent or DTO).
+** `BOOLEAN` - `Boolean` value.
+** `NUMERIC` - number with an optional decimal part. Value class: `Double`.
+** `ENTITY_LIST` - a `java.util.Collection` of entity instances (persistent or DTO).
+** `ENUMERATION` - enumeration value, descendant of `Enum`.
+** `DATETIME` - date with time. Value class: `java.util.Date`.
+** `TIME` - time. Value class: `java.util.Date`.
+* `enumerationClass` - enumeration class for `ParameterType.ENUMERATION` parameters.
+* `defaultValue` - string representation of the default value used if no other value is selected. Consider using `io.jmix.reports.yarg.structure.DefaultValueProvider` delegate instead for complex types.
+* `defaultDateIsCurrent` - indicates whether the current timestamp will be used as the default value for `ParameterType.DATE`, `ParameterType.TIME`, `ParameterType.DATETIME` types. Default: `false`.
+* `entity` - additional parameters for `ParameterType.ENTITY` and `ParameterType.ENTITY_LIST` types defined by <<entity-parameter-def,@EntityParameterDef>>.
+* `predefinedTransformationEnabled` - enables predefined transformation for `ParameterType.TEXT` parameters, useful when the parameter is used in query conditions for SQL and JPQL datasets. Default: `false`.
+* `predefinedTransformation` - type of predefined transformation for `ParameterType.TEXT` parameters defined by the `PredefinedTransformation` enum: `STARTS_WITH`, `CONTAINS`, `ENDS_WITH`. Default: `CONTAINS`.
+* `hidden` - determines whether the request for parameter should be hidden from users. Default: `false`.
+
+[[input-parameter-delegate]]
+== @InputParameterDelegate Annotation
+
+The `@InputParameterDelegate` annotation defines a delegate method that implements logic related to an input parameter.
+
+*Requirements*:
+
+* The method must have no parameters.
+* The method must return one of the supported functional interfaces.
+
+Supported interfaces:
+
+* `DefaultValueProvider` - provides a default value for the parameter.
+* `ParameterValidator` - validates the parameter value.
+* `ParameterTransformer` - transforms the parameter value.
+
+The `@InputParameterDelegate` annotation has the `alias` attribute, which is an alias of the input parameter declared in the current report definition.
+
+[[entity-parameter-def]]
+== @EntityParameterDef Annotation
+
+Defines additional parameters for input parameters of type `ParameterType.ENTITY` and `ParameterType.ENTITY_LIST`.
+
+It has the following attributes:
+
+* `entityClass` - entity class of the parameter. Default: `void.class`.
+* `component` - UI component type used to input `ParameterType.ENTITY` parameter values when launching a report from the UI. The `component` attribute accepts the following `EntityInputComponent` enum values:
+** `OPTION_LIST` - xref:flow-ui:vc/components/entityComboBox.adoc[EntityComboBox] component is used. Options are loaded with a JPQL query.
+** `LOOKUP_VIEW` - xref:flow-ui:vc/components/entityPicker.adoc[EntityPicker] component is used, which opens a lookup view. Default value.
+* `optionsQueryJoin` - JOIN clause added to the JPQL query that loads options.
+* `optionsQueryWhere` - WHERE clause added to the JPQL query that loads options.
+* `lookupViewId` - ID of the lookup view opened to select `ParameterType.ENTITY` or `ParameterType.ENTITY_LIST` parameter values.

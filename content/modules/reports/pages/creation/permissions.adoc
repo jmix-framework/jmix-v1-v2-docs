@@ -1,7 +1,10 @@
 [[permissions]]
 = Roles and Views
 
-You can define user rights to access the report as well as report availability in certain application views in the *Roles and views* tab of the report detail view.
+[[roles-views-tab]]
+== Roles and Views Tab
+
+You can define user rights to access the report as well as report availability in certain application views in the *Roles and views* tab of the runtime report editor.
 
 If the *Resource roles* list contains at least one role, the report will be available only to users with this role. If no role is specified, the report is available to everyone.
 
@@ -10,5 +13,24 @@ If the *Resource roles* list contains at least one role, the report will be avai
 Keep in mind that in the report list view (the *Reports->Reports* menu item) all system reports are visible because this view is considered administrative.
 ====
 
-The *Views* list allows you to specify, in which views the report will be available when invoking xref:run-report.adoc#run_report_action[RunReportAction], xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction], xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] or xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] actions. If no view is specified, the report won't be available from any application view.
+The *Views* list allows you to specify, in which views the report will be available when invoking xref:run-report.adoc#run-report-action[RunReportAction], xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction], xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] or xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] actions. If no view is specified, the report won't be available from any application view.
 
+[[available-for-roles]]
+== @AvailableForRoles
+
+The `@AvailableForRoles` annotation specifies which xref:security:resource-roles.adoc[resource roles] can launch the defined report in specific views and actions when creating a report at design time. If this annotation is absent or the role list is empty, role-based restrictions are not applied, allowing any user to launch the report.
+
+The `@AvailableForRoles` annotation has the following attributes:
+
+* `roleCodes` - resource role codes that should have access to the report.
+* `roleClasses` - resource role definition interfaces (marked with `@ResourceRole`) that should have access to the report.
+
+[[available-in-views]]
+== @AvailableInViews
+
+The `@AvailableInViews` annotation defines in which views the report will be available when using xref:run-report.adoc#run-actions[standard reporting actions] (from the `io.jmix.reportsflowui.action` package).
+
+The `@AvailableInViews` annotation has the following attributes:
+
+* `viewIds` - IDs of views where the report will be available via standard actions.
+* `viewClasses` - view controller classes where the report will be available via standard actions. The controller class must be annotated with `@ViewController`.
