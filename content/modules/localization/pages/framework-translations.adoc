@@ -7,6 +7,25 @@ The Jmix framework subsystems come with `messages.properties` files containing m
 
 With the help of our community, we provide translations of the framework messages for several languages in the form of _translation add-ons_. A translation add-on is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation add-ons created by the Jmix team and community members on the Jmix marketplace: open the *Jmix* tool window in Studio, select *Add-ons* item and click *Marketplace* in its context menu. In the opened *Add-ons* window, filter the add-ons by the *Localization* tag.
 
+To install translation add-ons manually, add dependencies from the following list to your `build.gradle`:
+
+[source,groovy]
+----
+implementation 'io.jmix.translations:jmix-translations-ar'      // Arabic
+implementation 'io.jmix.translations:jmix-translations-ckb'     // Central Kurdish
+implementation 'io.jmix.translations:jmix-translations-de'      // German
+implementation 'io.jmix.translations:jmix-translations-el'      // Greek
+implementation 'io.jmix.translations:jmix-translations-es'      // Spanish
+implementation 'io.jmix.translations:jmix-translations-fr'      // French
+implementation 'io.jmix.translations:jmix-translations-it'      // Italian
+implementation 'io.jmix.translations:jmix-translations-nl'      // Dutch
+implementation 'io.jmix.translations:jmix-translations-pt-br'   // Brazilian Portuguese
+implementation 'io.jmix.translations:jmix-translations-ro'      // Romanian
+implementation 'io.jmix.translations:jmix-translations-ru'      // Russian
+implementation 'io.jmix.translations:jmix-translations-tr'      // Turkish
+implementation 'io.jmix.translations:jmix-translations-zh-cn'   // Simplified Chinese
+----
+
 [[translating-framework]]
 == Translating Framework in Your Project
 
