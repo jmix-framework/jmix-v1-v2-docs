@@ -21,7 +21,7 @@ public class GeoPointDatatype implements Datatype<GeoPoint> {
     @Override
     public String format(@Nullable Object value) { // <5>
         if (value instanceof GeoPoint) {
-            return ((GeoPoint) value).latitude + "|" + ((GeoPoint) value).longitude;
+            return ((GeoPoint) value).latitude() + "|" + ((GeoPoint) value).longitude();
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class GeoPointDatatype implements Datatype<GeoPoint> {
         try {
             return new GeoPoint(Double.parseDouble(strings[0]), Double.parseDouble(strings[1]));
         } catch (Exception e) {
-            throw new ParseException(String.format("Cannot parse %s as GeoPoint: %s", value, e.toString()), 0);
+            throw new ParseException(String.format("Cannot parse %s as GeoPoint: %s", value, e), 0);
         }
     }
 
