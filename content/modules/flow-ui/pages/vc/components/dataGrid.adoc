@@ -114,6 +114,15 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=dataGrid;usersDc;onInit;setItems]
 ----
 
+[[multi-select]]
+== Множественный выбор
+
+По умолчанию компонент работает в режиме одиночного выбора. Когда вы задаёте <<selectionMode, selectionMode>> значение `MULTI`, появляется столбец с чекбоксами, позволяющий выбрать любое количество строк. Чтобы выбрать все строки, щёлкните по чекбоксу в заголовке таблицы.
+
+image::visual-components/components/data-grid-multi-select.png[align="center", width="960"]
+
+NOTE: Выбор диапазона с помощью *Shift + click* или других сочетаний клавиш в настоящее время не поддерживается.
+
 [[inline-editing]]
 == Встроенное редактирование
 
@@ -700,11 +709,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |Если значение `true`, пользователи могут перетаскивать строки в таблице.
 |`false`
 |[[selectionMode]]selectionMode
-|Устанавливает режим выделения элементов. Допустимые значения:
-
-- `SINGLE` - одиночное выделение
-
-- `MULTI` - множественное выделение
+|Устанавливает режим выделения элементов. Допустимые значения: `SINGLE`, `MULTI`, `NONE`.
 |`SINGLE`
 |===
 
