@@ -7,6 +7,25 @@
 
 С помощью нашего коммьюнити, мы предоставляем переводы сообщений фреймворка на несколько языков в виде _дополнений с переводами_. Дополнение с переводом – это набор файлов сообщений, запакованных в JAR, которые можно добавить в ваш проект как зависимость. Дополнения с переводами можно найти в каталоге дополнений Jmix: откройте окно инструментов *Jmix* в Studio, выберите пункт *Add-ons* и нажмите *Marketplace* в его контекстном меню. В открывшемся окне *Add-ons* отфильтруйте содержимое по тегу *Localization*.
 
+Чтобы вручную установить дополнения переводов, добавьте зависимости из следующего списка в ваш `build.gradle`:
+
+[source,groovy]
+----
+implementation 'io.jmix.translations:jmix-translations-ar'      // Arabic
+implementation 'io.jmix.translations:jmix-translations-ckb'     // Central Kurdish
+implementation 'io.jmix.translations:jmix-translations-de'      // German
+implementation 'io.jmix.translations:jmix-translations-el'      // Greek
+implementation 'io.jmix.translations:jmix-translations-es'      // Spanish
+implementation 'io.jmix.translations:jmix-translations-fr'      // French
+implementation 'io.jmix.translations:jmix-translations-it'      // Italian
+implementation 'io.jmix.translations:jmix-translations-nl'      // Dutch
+implementation 'io.jmix.translations:jmix-translations-pt-br'   // Brazilian Portuguese
+implementation 'io.jmix.translations:jmix-translations-ro'      // Romanian
+implementation 'io.jmix.translations:jmix-translations-ru'      // Russian
+implementation 'io.jmix.translations:jmix-translations-tr'      // Turkish
+implementation 'io.jmix.translations:jmix-translations-zh-cn'   // Simplified Chinese
+----
+
 [[translating-framework]]
 == Перевод сообщений фреймворка в проекте
 
