@@ -12,6 +12,9 @@ Here is an example of sending email using `EmailInfo` object:
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=emailer;email-info1;email-info2]
 ----
+<1> Inject the `io.jmix.email.Emailer` interface.
+<2> Create an `io.jmix.email.EmailInfo` object using `io.jmix.email.EmailInfoBuilder`.
+<3> Send the email synchronously.
 +
 During synchronous sending, the framework can throw `EmailException` with the information about failed recipient addresses and corresponding error messages.
 +
@@ -21,7 +24,7 @@ One `SendingMessage` instance is created in the database for all recipients duri
 
 == Email Attachments
 
-The `EmailAttachment` object is a wrapper that holds the attachment as a byte array, a file name, and, if necessary, an attachment identifier which is unique for this message. 
+The `io.jmix.email.EmailAttachment` object is a wrapper that holds the attachment as a byte array, a file name, and, if necessary, an attachment identifier which is unique for this message.
 
 [source,java,indent=0]
 ----
