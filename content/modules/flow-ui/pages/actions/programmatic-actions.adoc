@@ -1,0 +1,21 @@
+= Программные действия
+
+Любой подходящий компонент может получать действия, созданные и назначаемые программно в контроллере экрана. Этот способ прост, но может сделать контроллер более громоздким и не позволяет переиспользовать действие в XML.
+
+Ниже пример, в котором кнопка покажет пользователю "Hello" при нажатии:
+
+. Инжектируйте компонент в контроллер экрана:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ProgrammaticActionView.java[tags=action-button]
+----
++
+. Задайте действие, создав экземпляр класса `BaseAction`:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ProgrammaticActionView.java[tags=setAction]
+----
+
+TIP: Сравните этот подход с идентичным примером в разделе xref:actions/custom-action-type.adoc#_baseaction[Собственные типы действий], который позволяет переиспользовать действия в разных экранах.
