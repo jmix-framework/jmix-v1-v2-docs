@@ -34,16 +34,21 @@ public class NewsItemListView extends StandardListView<NewsItem> {
     private DataGrid<NewsItem> newsItemsDataGrid;
     @Autowired
     private Notifications notifications;
+    // tag::dialogs[]
     @Autowired
-    private Dialogs dialogs;
-    @Autowired
-    private Resources resources;
+    private Dialogs dialogs; // <1>
+
+    // end::dialogs[]
     // tag::emailer[]
     @Autowired
-    private Emailer emailer;
+    private Emailer emailer; // <1>
 
     // end::emailer[]
+    // tag::resources[]
+    @Autowired
+    private Resources resources; // <2>
 
+    // end::resources[]
 
     // tag::send-email-handler[]
     @Subscribe("newsItemsDataGrid.sendEmailAction")
@@ -73,20 +78,20 @@ public class NewsItemListView extends StandardListView<NewsItem> {
 
     // tag::send-news-by-mail[]
     private void sendNewsByEmail(NewsItem newsItem) throws IOException {
-        InputStream resourceAsStream = resources.getResourceAsStream("/META-INF/resources/icons/icon.png"); // <1>
+        InputStream resourceAsStream = resources.getResourceAsStream("/META-INF/resources/icons/icon.png"); // <3>
         byte[] bytes = IOUtils.toByteArray(resourceAsStream);
-        EmailAttachment emailAttachment = new EmailAttachment(bytes, "logo.png", "logoId");
+        EmailAttachment emailAttachment = new EmailAttachment(bytes, "logo.png", "logoId"); // <4>
 
-        final EmailInfo emailInfo = EmailInfoBuilder.create()
+        final EmailInfo emailInfo = EmailInfoBuilder.create() // <5>
                 .setAddresses("john.doe@company.com,jane.doe@company.com")
                 .setSubject(newsItem.getSubject())
-                .setFrom(null) // <2>
+                .setFrom(null) // <6>
                 .setBodyContentType("text/plain; charset=UTF-8")
                 .setBody(newsItem.getContent())
                 .setAttachments(emailAttachment)
                 .setImportant(false)
                 .build();
-        emailer.sendEmailAsync(emailInfo);
+        emailer.sendEmailAsync(emailInfo); // <7>
     }
     // end::send-news-by-mail[]
 
@@ -109,8 +114,8 @@ public class NewsItemListView extends StandardListView<NewsItem> {
         // tag::email-info2[]
         EmailInfo emailInfo = EmailInfoBuilder.create("john.doe@company.com",
                         "Email subject", "Email body")
-                .build();
-        emailer.sendEmail(emailInfo);
+                .build(); // <2>
+        emailer.sendEmail(emailInfo); // <3>
     }
     // end::email-info2[]
 

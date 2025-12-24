@@ -35,17 +35,23 @@ With the UI ready, add logic to make it functional. This logic will use the xref
 +
 [source,java,indent=0]
 ----
-include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=send-email-handler]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=dialogs;send-email-handler]
 ----
+<1> Inject the `io.jmix.flowui.Dialogs` object into the controller class.
 +
 . Implement the `sendNewsByEmail()` method.
 +
 [source,java,indent=0]
 ----
-include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=send-news-by-mail]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=resources;emailer;send-news-by-mail]
 ----
-<1> To demonstrate adding an attachment, an application icon file will be used.
-<2> The *from* address will be taken from the xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address].
+<1> Inject the `io.jmix.email.Emailer` interface.
+<2> Inject the `io.jmix.core.Resources` interface.
+<3> To demonstrate how to add an attachment, we'll use an application icon file.
+<4> Create an `io.jmix.email.EmailAttachment` object.
+<5> Create an `io.jmix.email.EmailInfo` object using `io.jmix.email.EmailInfoBuilder`.
+<6> The *from* address will be taken from the xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address] property.
+<7> Send the email asynchronously (in the background).
 
 == Configuring SMTP Server parameters
 

@@ -60,39 +60,39 @@ public class EmailEx1Application implements AppShellConfigurator {
     // tag::quartz[]
     @Bean
     JobDetail myCustomEmailSendingJob() {
-        return JobBuilder.newJob()
+        return JobBuilder.newJob() // <1>
                 .ofType(MyCustomEmailSendingJob.class)
                 .storeDurably()
                 .withIdentity("emailSending")
-                .build();
+                .build(); // <2>
     }
 
     @Bean
     Trigger myCustomEmailSendingTrigger() {
-        return TriggerBuilder.newTrigger()
-                .forJob(myCustomEmailSendingJob())
+        return TriggerBuilder.newTrigger() // <3>
+                .forJob(myCustomEmailSendingJob()) // <4>
                 .startNow()
                 .withSchedule(CronScheduleBuilder.cronSchedule("* 0/2 * * * ?"))
-                .build();
+                .build(); // <5>
     }
     // end::quartz[]
     // tag::quartz-clean[]
     @Bean
     JobDetail myCustomEmailCleaningJob() {
-        return JobBuilder.newJob()
+        return JobBuilder.newJob() // <1>
                 .ofType(MyCustomEmailCleaningJob.class)
                 .storeDurably()
                 .withIdentity("emailCleaning")
-                .build();
+                .build(); // <2>
     }
 
     @Bean
     Trigger MyCustomEmailCleaningTrigger() {
-        return TriggerBuilder.newTrigger()
-                .forJob(myCustomEmailCleaningJob())
+        return TriggerBuilder.newTrigger() // <3>
+                .forJob(myCustomEmailCleaningJob()) // <4>
                 .startNow()
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 1/2 * ? "))
-                .build();
+                .build(); // <5>
     }
     // end::quartz-clean[]
 }

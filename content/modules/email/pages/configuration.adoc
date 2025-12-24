@@ -205,7 +205,7 @@ jmix.email.use-default-quartz-configuration = false
 +
 [source,java,indent=0]
 ----
-include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailSendingJob.java[tags=quartz]
 ----
 
 . In the running application, open the *Quartz -> Quartz jobs* view, and configure a job for the `MyCustomEmailSendingJob` class.
@@ -216,6 +216,11 @@ include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomE
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz]
 ----
+<1> Start building a job definition using the `org.quartz.JobBuilder` class.
+<2> Create an `org.quartz.JobDetail` instance.
+<3> Start building a trigger definition using the `org.quartz.TriggerBuilder` class.
+<4> Link this trigger to the previously defined job.
+<5> Create an `org.quartz.Trigger` instance.
 
 [[email-cleaning-scheduler]]
 == Email Cleaning Scheduler
@@ -277,6 +282,11 @@ include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomE
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz-clean]
 ----
+<1> Start building a job definition using the `org.quartz.JobBuilder` class.
+<2> Create an `org.quartz.JobDetail` instance.
+<3> Start building a trigger definition using the `org.quartz.TriggerBuilder` class.
+<4> Link this trigger to the previously defined job.
+<5> Create an `org.quartz.Trigger` instance.
 
 . Set the age for important and non-important emails using the <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> and <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>> properties, for example:
 +
