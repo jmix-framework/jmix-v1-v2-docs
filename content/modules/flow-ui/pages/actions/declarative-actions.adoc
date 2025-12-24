@@ -1,6 +1,6 @@
 = Declarative Actions
 
-You can specify a set of actions in an XML screen descriptor for any component that implements the `HasActions` interface (xref:vc/components/dataGrid.adoc[], xref:vc/components/entityComboBox.adoc[], xref:vc/components/entityPicker.adoc[], and others), or in the view itself. You can do it in the `actions` element, which contains nested `action` elements.
+You can specify a set of actions in an XML view descriptor for any component that implements the `HasActions` interface (xref:vc/components/dataGrid.adoc[], xref:vc/components/entityComboBox.adoc[], xref:vc/components/entityPicker.adoc[], and others), or in the view itself. You can do it in the `actions` element, which contains nested `action` elements.
 
 In the example below, a set of actions is declared for a `dataGrid`.
 

@@ -1,0 +1,21 @@
+= Programmatic Actions
+
+Any appropriate component can have actions created and set programmatically in the view controller. The method is simple but can make the controller verbose and does not allow reusing the action in XML.
+
+Below example makes the button show “Hello” when clicked:
+
+. Inject the component to the view controller:
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ProgrammaticActionView.java[tags=action-button]
+----
++
+. Set the action by instantiating the `BaseAction` class.
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ProgrammaticActionView.java[tags=setAction]
+----
+
+TIP: See how this compares to the equivalent example in xref:actions/custom-action-type.adoc#_baseaction[Custom action type], which allows the action to be reused.

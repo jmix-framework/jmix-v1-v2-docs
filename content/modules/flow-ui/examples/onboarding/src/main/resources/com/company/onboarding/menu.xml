@@ -165,6 +165,8 @@
         <item view="StandardListActionsView" title="msg://com.company.onboarding.view.actions/standardListActionsView.title"/>
         <item view="StandardPickerActionsView"
               title="msg://com.company.onboarding.view.actions/standardEntityPickerActionsView.title"/>
+        <item view="ProgrammaticActionView"
+              title="msg://com.company.onboarding.view.actions/programmaticActionView.title"/>
     </menu>
 
     <menu id="facets" title="Facets">

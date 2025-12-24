@@ -2,16 +2,22 @@
 
 `Action` is an interface that abstracts an action (in other words, some function) from a visual component. It is particularly useful when the same action can be invoked from different visual components (for example, both from a button and a table context menu). `Action` also defines some common properties, such as caption, keyboard shortcuts, flags of accessibility and visibility, etc.
 
-You can create actions declaratively in view XML or by creating classes inherited from `BaseAction`. Also, there is a set of provided by the framework standard actions for views, list and picker components.
+== Creating Actions
 
-Visual components associated with an action can be of two types:
+The framework supplies a collection of xref:actions/standard-actions.adoc[] for views, list components, and picker components. Besides, you can create custom actions using one of the three approaches:
 
-* Visual components with a single action implement the `HasAction` interface. For example, xref:vc/components/button.adoc[].
+* *xref:actions/declarative-actions.adoc[]:* declare an action in view XML and implement its handler.
+* *xref:actions/custom-action-type.adoc[]:* create an action class and reuse it by type across application views.
+* *xref:actions/programmatic-actions.adoc[]:* create an action "in-place" in the view controller.
+
+== Components that Can Host Actions
+
+The following components can host actions:
+
+* *Single-action components* implement the `HasAction` interface. For example, xref:vc/components/button.adoc[]. To set an action use `HasAction.setAction()`.
+
+* *Multi-action components* implement the `HasActions` interface. For example: xref:vc/components/dataGrid.adoc[], xref:vc/components/entityComboBox.adoc[], xref:vc/components/entityPicker.adoc[]. To set an action use `HasActions.addAction()`.
 +
-An action is linked to the component by invoking the `HasAction.setAction()` method.
+NOTE: The implementation checks for an existing action with the same identifier; if found, it replaces the old action. This allows a standard action declared in a view descriptor to be overridden programmatically in a controller with different properties.
 
-* Visual components containing multiple actions implement the `HasActions` interface. For example xref:vc/components/dataGrid.adoc[], xref:vc/components/entityComboBox.adoc[], xref:vc/components/entityPicker.adoc[].
-+
-The `HasActions.addAction()` method is used to add actions to the component. Implementation of this method in the component checks whether it already contains an action with the same identifier. If yes, then the existing action will be replaced with the new one. Therefore, it is possible, for example, to declare a standard action in a view descriptor and then create a new one programmatically in the controller with different properties and add it to the component.
-
-* A view itself can also contain actions. You can define them in the top-level `<actions>` element of XML descriptor, or add programmatically using the `getViewActions.addAction()` method of the view class.
+* *Views* themselves can contain actions. Define them in the top‑level `<actions>` XML element or add programmatically using the `getViewActions.addAction()` method of the view class.

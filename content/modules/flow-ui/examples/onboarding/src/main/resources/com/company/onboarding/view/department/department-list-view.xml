@@ -25,11 +25,23 @@
         <dataLoadCoordinator auto="true"/>
     </facets>
     <!-- end::dataLoadCoordinator[] -->
+    <!-- tag::actions[] -->
     <actions>
+    <!-- end::actions[] -->
         <action id="selectAction" type="lookup_select"/>
         <action id="discardAction" type="lookup_discard"/>
+        <!-- tag::my-action[] -->
+        <action id="myAction" type="myAction"/>
+        <!-- end::my-action[] -->
+        <!-- tag::actions[] -->
     </actions>
+    <!-- end::actions[] -->
+    <!-- tag::layout[] -->
     <layout>
+        <!-- end::layout[] -->
+        <!-- tag::action-button[] -->
+        <button id="actionBtn" action="myAction"/>
+        <!-- end::action-button[] -->
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createBtn" action="departmentsTable.create"/>
             <button id="editBtn" action="departmentsTable.edit"/>
@@ -57,5 +69,7 @@
             <button id="selectBtn" action="selectAction"/>
             <button id="discardBtn" action="discardAction"/>
         </hbox>
+        <!-- tag::layout[] -->
     </layout>
+    <!-- end::layout[] -->
 </view>

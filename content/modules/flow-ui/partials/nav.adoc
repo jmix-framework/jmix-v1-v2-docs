@@ -112,13 +112,14 @@
 *** xref:flow-ui:data/entities-in-ui.adoc[]
 
 ** xref:flow-ui:actions.adoc[]
-*** xref:flow-ui:actions/declarative-actions.adoc[]
 *** xref:flow-ui:actions/standard-actions.adoc[]
 **** xref:flow-ui:actions/view-actions.adoc[]
 **** xref:flow-ui:actions/list-actions.adoc[]
 **** xref:flow-ui:actions/entity-picker-actions.adoc[]
 **** xref:flow-ui:actions/user-menu-actions.adoc[]
 **** xref:flow-ui:actions/value-picker-actions.adoc[]
+*** xref:flow-ui:actions/declarative-actions.adoc[]
+*** xref:flow-ui:actions/programmatic-actions.adoc[]
 *** xref:flow-ui:actions/custom-action-type.adoc[]
 
 ** xref:flow-ui:facets.adoc[]
