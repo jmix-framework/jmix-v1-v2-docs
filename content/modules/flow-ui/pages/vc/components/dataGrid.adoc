@@ -352,6 +352,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[context-menu]]
 == Context Menu
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-context-menu" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 The context menu offers an alternative way to access <<actions, actions>> through a right click. Each action is represented by its own menu item.
 
 Use the `contextMenu` element to refine the list of items in the menu, organizing them with separators and a hierarchical structure.
