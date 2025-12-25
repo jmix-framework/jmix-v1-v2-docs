@@ -357,6 +357,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[context-menu]]
 == Контекстное меню
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/data-grid-context-menu" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 Контекстное меню предоставляет альтернативный способ доступа к <<actions, действиям>> через правую кнопку мыши. Каждое действие представлено отдельным пунктом меню.
 
 Элемент `contextMenu` позволяет настроить список пунктов, организовав их с помощью разделителей и иерархической структуры.
