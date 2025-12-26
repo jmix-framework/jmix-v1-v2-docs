@@ -17,15 +17,17 @@ public class DatabaseUserRepository extends AbstractDatabaseUserRepository<User>
         return User.class;
     }
 
+    // tag::init-built-in-users[]
     @Override
     protected void initSystemUser(final User systemUser) {
         final Collection<GrantedAuthority> authorities = getGrantedAuthoritiesBuilder()
-                .addResourceRole(FullAccessRole.CODE)
+                .addResourceRole(FullAccessRole.CODE) // <1>
                 .build();
         systemUser.setAuthorities(authorities);
     }
 
     @Override
-    protected void initAnonymousUser(final User anonymousUser) {
+    protected void initAnonymousUser(final User anonymousUser) { // <2>
     }
+    // end::init-built-in-users[]
 }
