@@ -34,7 +34,7 @@ TIP: See the https://github.com/jmix-framework/jmix-samples-2/tree/main/user-reg
 
 Any Jmix application with the standard security subsystem has two built-in user objects:
 
-* _Anonymous_ user object corresponds to not authenticated users limiting them to the login view. By customizing this object, you can assign some permissions to users before they log in.
+* _Anonymous_ user object corresponds to not authenticated users limiting them to the login view. By customizing this object, you can grant some permissions to users before they log in.
 +
 * _System_ user object is required for the xref:authentication.adoc#system[system authentication] mechanism. It is used when there is no real user interacting with the application, for example, when the application is starting up, or when a business method is called by a scheduler.
 
@@ -49,7 +49,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/DatabaseU
 <1> By default, the system user is granted the `system-full-access` role and hence has all permissions.
 <2> The anonymous user is not granted any role and hence has no permissions.
 +
-TIP: To simplify providing anonymous access to specific views, use xref:flow-ui:views/view-annotations.adoc#common-annotations[`@AnonymousAllowed`].
+TIP: To simplify providing anonymous access to specific views, use xref:flow-ui:views/view-annotations.adoc#common-annotations[@AnonymousAllowed].
 
 [[user-substitution]]
 == User Substitution
