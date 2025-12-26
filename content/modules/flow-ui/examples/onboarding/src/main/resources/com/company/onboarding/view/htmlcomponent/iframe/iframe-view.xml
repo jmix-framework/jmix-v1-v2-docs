@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://iframeView.title">
+    <layout>
+        <!-- tag::iframe-basic[] -->
+        <iframe width="100%" height="100%" css="border: unset;"
+                resource="https://en.wikipedia.org/wiki/Parrot"/>
+        <!-- end::iframe-basic[] -->
+
+
+        <!-- tag::iframe-resourceDoc[] -->
+        <iframe resourceDoc="&lt;h1&gt;Awesome!&lt;h1/&gt;"/>
+        <!-- end::iframe-resourceDoc[] -->
+
+    </layout>
+</view>
