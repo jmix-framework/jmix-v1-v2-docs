@@ -131,6 +131,7 @@
         <item view="H1H6View" title="msg://com.company.onboarding.view.htmlcomponent.h1h6/h1H6View.title"/>
         <item view="LabelView" title="msg://com.company.onboarding.view.htmlcomponent.label/labelView.title"/>
         <item view="SpanView" title="msg://com.company.onboarding.view.htmlcomponent.span/spanView.title"/>
+        <item view="IframeView" title="msg://com.company.onboarding.view.htmlcomponent.iframe/iframeView.title"/>
     </menu>
 
     <menu id="customComponents" title="Custom components">

@@ -81,6 +81,7 @@
 **** xref:flow-ui:vc/html-components/div.adoc[]
 **** xref:flow-ui:vc/html-components/h1-h6.adoc[]
 **** xref:flow-ui:vc/html-components/image.adoc[]
+**** xref:flow-ui:vc/html-components/iframe.adoc[]
 **** xref:flow-ui:vc/html-components/nativeLabel.adoc[]
 **** xref:flow-ui:vc/html-components/span.adoc[]
 *** xref:flow-ui:vc/miscellaneous.adoc[]

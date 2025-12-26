@@ -37,7 +37,7 @@ TIP: Alternatively, use the xref:vc/components/html.adoc[html] component to add 
 |`hr`
 |`hr`
 
-|`iframe`
+|xref:vc/html-components/iframe.adoc[]
 |`iframe`
 
 |xref:vc/html-components/image.adoc[]
