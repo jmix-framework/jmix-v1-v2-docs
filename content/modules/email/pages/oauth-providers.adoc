@@ -1,91 +1,91 @@
-= Setting up OAuth for Google and Microsoft
+= Настройка OAuth для Google и Microsoft
 
-Jmix application can use OAuth 2.0 token-based authorization to work with email service providers. This method offers enhanced security compared to basic authentication with login and password. Many providers are gradually deprecating support of basic authentication, leaving OAuth as the only viable authentication type.
+Приложение Jmix может использовать авторизацию на основе токена OAuth 2.0 для работы с провайдерами почтовых сервисов. Этот метод предлагает повышенную безопасность по сравнению с базовой аутентификацией с помощью логина и пароля. Многие провайдеры постепенно отказываются от поддержки базовой аутентификации, оставляя OAuth единственным жизнеспособным типом аутентификации.
 
-This section describes the process to obtain OAuth credentials for Google and Microsoft, along with the setup steps for Jmix application.
+В этом разделе описывается процесс получения учетных данных OAuth для Google и Microsoft, а также шаги настройки для приложения Jmix.
 
 == Google
 
-To enable OAuth with Google, register your OAuth application and generate credentials. Then, set up your Jmix application using obtained credentials.
+Чтобы включить OAuth для Google, зарегистрируйте свое OAuth-приложение и сгенерируйте учетные данные. Затем настройте свое приложение Jmix, используя полученные учетные данные.
 
-NOTE: The instructions below are based on the Google Developer documentation for https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow[setting up OAuth for web Applications^]. Please check this link for the most up-to-date procedures and any use case specifics.
+NOTE: Следующие инструкции основаны на документации Google Developer для https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow[настройки OAuth для веб-приложений^]. Пожалуйста, проверьте эту ссылку для получения самой актуальной информации о процедурах и особенностях конкретных случаев использования.
 
-=== Create a Project
+=== Создание проекта
 
-. Sign in to the https://console.cloud.google.com/[Google Cloud console].
-. In the top bar, click *Select a project*.
-. Click *New project* and enter you project information.
+. Войдите в https://console.cloud.google.com/[консоль Google Cloud^].
+. В верхней панели нажмите *Select a project*.
+. Нажмите *New project* и введите информацию о вашем проекте.
 +
 image:google-oauth-project.png[align="center", width="550"]
 +
-. Click *Create*.
+. Нажмите *Create*.
 
-=== Create an OAuth 2.0 application
+=== Создание OAuth 2.0 приложения
 
-. Select the project created previously.
-. Click the menu button in the top left corner, and select *APIs & Services -> OAuth consent screen*.
-. Click *Get Started*.
-. Complete the form:
+. Выберите проект, созданный ранее.
+. Нажмите кнопку меню в верхнем левом углу и выберите *APIs & Services -> OAuth consent screen*.
+. Нажмите *Get Started*.
+. Заполните форму:
 +
 image:google-oauth-app.png[align="center", width="685"]
 +
-. Click *Create*
+. Нажмите *Create*
 
-=== Enable API for your project
+=== Включение API для вашего проекта
 
-To send emails, your application needs Gmail API:
+Для отправки писем вашему приложению необходим Gmail API:
 
-. Open https://console.developers.google.com/apis/library[the API Library^]. If prompted, select your project.
-. Search for the Gmail API and enable it.
+. Откройте https://console.developers.google.com/apis/library[Библиотеку API^]. При появлении запроса выберите свой проект.
+. Найдите Gmail API и включите его.
 +
 image:google-oauth-1.png[align="center", width="1280"]
 
-=== Create authorization credentials
+=== Создание учетных данных для авторизации
 
-To access the API, your application must have authorization credentials:
+Для доступа к API ваше приложение должно иметь учетные данные авторизации:
 
-. Go to the https://console.developers.google.com/auth/clients[Clients page].
-. If prompted, select your project.
-. Click *Create client*.
-. Select the *Web application* application type.
-. Complete the form:
-* *Name*: (Provide any descriptive name.)
-* *Authorized JavaScript origins*: http://localhost:8080 (Use the address of your Jmix application. The origins identify the domains from which your application can send requests to the OAuth 2.0 server.)
+. Перейдите на https://console.developers.google.com/auth/clients[страницу клиентов^].
+. При появлении запроса выберите свой проект.
+. Нажмите *Create client*.
+. Выберите тип приложения *Web application*.
+. Заполните форму:
+* *Name*: (Укажите любое описательное имя)
+* *Authorized JavaScript origins*: http://localhost:8080 (Используйте адрес вашего приложения Jmix. Источники (origins) определяют домены, с которых ваше приложение может отправлять запросы на сервер OAuth 2.0)
 * *Authorized redirect URIs*:
-** http://localhost:8080 (Use the address of your Jmix application.)
-** https://developers.google.com/oauthplayground (Add this URI to access the Google Developers OAuth2 playground in order to obtain a token in the next step)
+** http://localhost:8080 (Используйте адрес вашего приложения Jmix)
+** https://developers.google.com/oauthplayground (Добавьте этот URI для доступа к Google Developers OAuth2 playground, чтобы получить токен на следующем шаге)
 +
 image:google-oauth-2.png[align="center", width="550"]
 +
-. Click *Create*.
-. Copy or download the *Client ID* and *Client secret* and store it securely. You will need this information later.
+. Нажмите *Create*.
+. Скопируйте или скачайте *Client ID* и *Client secret* и сохраните их в безопасном месте. Эта информация понадобится вам позже.
 +
 image:google-oauth-3.png[align="center", width="427"]
 
-=== Obtain Refresh Token
+=== Получение токена обновления (Refresh Token)
 
-Token will be obtained via Authorization Code flow using Google Developers OAuth2 playground.
+Токен будет получен через Authorization Code flow с использованием Google Developers OAuth2 playground.
 
-TIP: You can use other approaches to go through Authorization Code flow, such as using Postman, https://oauthdebugger.com[oauthdebugger], or manual requests.
+TIP: Вы можете использовать другие подходы для прохождения Authorization Code flow, такие как Postman, https://oauthdebugger.com[oauthdebugger^] или ручные запросы.
 
-. Go to https://developers.google.com/oauthplayground[Google Developers OAuth2 Playground].
-. Open OAuth 2.0 configuration (gear icon).
+. Перейдите на https://developers.google.com/oauthplayground[Google Developers OAuth2 Playground^].
+. Откройте конфигурацию OAuth 2.0 (значок шестеренки).
 +
 image:google-oauth-4.png[align="center", width="421"]
 +
-* Select the *Use your own OAuth credentials* checkbox.
-* Input your *Client ID* and *Client Secret*.
-. In the list of scopes on the left select *Gmail API* -> *https://mail.google.com/*
-. Click *Authorize APIs* and go through consent screens.
-. Now you have *Authorization code*. Click *Exchange authorization code for tokens*.
+* Установите флажок *Use your own OAuth credentials*.
+* Введите ваш *Client ID* и *Client Secret*.
+. В списке scopes слева выберите *Gmail API* -> *https://mail.google.com/*
+. Нажмите *Authorize APIs* и пройдите экраны согласия.
+. Теперь у вас есть *Authorization code*. Нажмите *Exchange authorization code for tokens*.
 +
 image:google-oauth-5.png[align="center", width="492"]
 +
-. Copy *Refresh token*.
+. Скопируйте *Refresh token*.
 
-=== Configure application properties
+=== Настройка свойств приложения
 
-Use the credentials to configure the `application.properties` file of your Jmix application:
+Используйте учетные данные для настройки файла `application.properties` вашего приложения Jmix:
 
 .application.properties
 [source,properties,indent=0]
@@ -110,13 +110,13 @@ jmix.email.oauth2.secret=<client_secret>
 jmix.email.oauth2.refresh-token=<refresh_token>
 ----
 
-Where `<account_name>` is the email address used for configuration. And `<client_id>`, `<client_secret>`, `<refresh_token>` are values obtained during the configuration process.
+Где `<account_name>` - это адрес электронной почты, используемый для конфигурации. А `<client_id>`, `<client_secret>`, `<refresh_token>` - значения, полученные в процессе настройки.
 
-IMPORTANT: Alternatively, you can provide or change the refresh token value at runtime via *Email* -> *xref:menu-views/oauth-token.adoc[]* view.
+IMPORTANT: Альтернативно, вы можете предоставить или изменить значение токена обновления во время выполнения через экран *Email* -> *xref:menu-views/oauth-token.adoc[]*.
 
-=== Add gradle dependency
+=== Добавление зависимости gradle
 
-Add the following dependency to your `build.gradle`:
+Добавьте следующую зависимость в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----
@@ -125,53 +125,52 @@ implementation 'com.google.auth:google-auth-library-oauth2-http'
 
 == Microsoft
 
-To enable OAuth with Microsoft, register your OAuth application and generate credentials. Then, set up your Jmix application using obtained credentials.
+Чтобы включить OAuth для Microsoft, зарегистрируйте свое OAuth-приложение и сгенерируйте учетные данные. Затем настройте приложение Jmix, используя полученные учетные данные.
 
-NOTE: The instructions below are based on the https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app[Microsoft Entra documentation]. Please check this link for the most up-to-date procedures and any use case specifics.
+NOTE: Следующие инструкции основаны на https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app[документации Microsoft Entra^]. Пожалуйста, проверьте эту ссылку для получения самой актуальной информации о процедурах и особенностях конкретных случаев использования.
 
-=== Register the application
+=== Регистрация приложения
 
-. Sign in to the https://portal.azure.com[Microsoft Azure portal^].
-. If you have multiple Azure Active Directory tenants, switch to the desired tenant.
-. Navigate to *App registrations*.
-. Click *New Registration* and provide the following information:
-* Enter a name for your app.
-* Under *Supported account types*, select the option applicable to your business scenario.
-* Under *Redirect URI*, choose *Web* in the *Select a platform* dropdown and set http://localhost:8080 (address of your Jmix application) as redirect URI.
+. Войдите на https://portal.azure.com[портал Microsoft Azure^].
+. Если у вас несколько арендаторов Azure Active Directory, переключитесь на нужный.
+. Перейдите в *App registrations*.
+. Нажмите *New Registration* и предоставьте следующую информацию:
+* Введите имя для вашего приложения.
+* В разделе *Supported account types* выберите вариант, применимый к вашему бизнес-сценарию.
+* В разделе *Redirect URI* выберите *Web* в выпадающем списке *Select a platform* и установите http://localhost:8080 (адрес вашего приложения Jmix) в качестве URI перенаправления.
 +
 image:microsoft-oauth-app.png[align="center", width="971"]
 +
-. Click *Register*.
+. Нажмите *Register*.
 
-Your application is now available under *Home* -> *App Registrations*. Within the application you can view values for *Application (client) ID* and *Directory (tenant) ID*.
+Ваше приложение теперь доступно в разделе *Home* -> *App Registrations*. Внутри приложения вы можете просмотреть значения *Application (client) ID* и *Directory (tenant) ID*.
 
-=== Generate a Client Secret
+=== Генерация клиентского секрета (Client Secret)
 
-. Open your application and navigate to *Certificates & Secrets*.
-. Click *New Client Secret*.
-. Enter a description and an expiry period.
-. Click *Add* then copy the key *Value*. This is the OAuth 2.0 client secret.
+. Откройте ваше приложение и перейдите в *Certificates & Secrets*.
+. Нажмите *New Client Secret*.
+. Введите описание и срок действия.
+. Нажмите *Add* , затем скопируйте ключ *Value*. Это клиентский секрет OAuth 2.0.
 +
 image:microsoft-oauth-1.png[align="center", width="1191"]
 
+=== Настройка разрешений API
 
-=== Configuring API Permissions
+Для отправки писем вашему приложению необходимы определенные разрешения:
 
-To send emails, your application needs certain permissions:
+. Откройте ваше приложение и перейдите в  *API permissions*.
+. Добавьте разрешение `SMTP.Send`.
 
-. Open your application and navigate to *API permissions*.
-. Add SMTP.Send permission.
+=== Получение токена обновления (Refresh Token)
 
-=== Obtain Refresh Token
+Токен будет получен через Authorization Code flow с использованием браузера и CLI.
 
-Token will be obtained via authorization Code flow using the browser and CLI.
+TIP: Вы можете использовать другие подходы для прохождения Authorization Code flow, такие как Postman, https://oauthdebugger.com[oauthdebugger^] или ручные запросы. Описанный ниже процесс использует браузер и CLI.
 
-TIP: You can use other approaches to go through Authorization Code flow, such as using Postman, https://oauthdebugger.com[oauthdebugger], or manual requests. The process described below uses browser and CLI.
-
-. Navigate to the following URL:
+. Перейдите по следующему URL:
 +
 ----
-// Line breaks for legibility only
+// Разрывы строк добавлены для удобочитаемости
 
 https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize?
 client_id=<client_id>
@@ -181,7 +180,7 @@ client_id=<client_id>
 &scope=offline_access%20https://outlook.office.com/SMTP.Send
 ----
 +
-This may require admin consent to get access to requested API permissions. Once the user authenticates and grants consent, the Microsoft identity platform returns a response. This example shows a successful response:
+Это может потребовать согласия администратора для получения доступа к запрошенным разрешениям API. После того как пользователь пройдет аутентификацию и предоставит согласие, платформа Microsoft identity возвращает ответ. Этот пример показывает успешный ответ:
 +
 ----
 http://localhost:8080/?
@@ -189,8 +188,8 @@ code=AwABAAAAvPM1KaPlrEqdFSBzjqfTGBCmLdgfSTLEMPGYuNHSUYBrq...
 &session_state=12345
 ----
 
-. Save the value of the `code` parameter from the response.
-. Exchange code for token:
+. Сохраните значение параметра `code` из ответа.
+. Обменяйте код на токен:
 +
 ----
  curl -X POST https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token \
@@ -203,11 +202,11 @@ code=AwABAAAAvPM1KaPlrEqdFSBzjqfTGBCmLdgfSTLEMPGYuNHSUYBrq...
 -d "scope=offline_access https://outlook.office.com/SMTP.Send email openid"
 ----
 +
-. A successful response contains a `refresh_token` value. Copy its value for future use.
+. Успешный ответ содержит значение `refresh_token` value. Скопируйте его значение для будущего использования.
 
-=== Configure application properties
+=== Настройка свойств приложения
 
-Use the credentials to configure the `application.properties` file of your Jmix application:
+Используйте учетные данные для настройки файла `application.properties` вашего приложения Jmix:
 
 .application.properties
 [source,properties,indent=0]
@@ -233,13 +232,13 @@ jmix.email.oauth2.tenant-id=<tenant_id>
 jmix.email.oauth2.refresh-token=<refresh_token>
 ----
 
-Where `<account_name>` is the email address used for configuration. And `<client_id>`, `<client_secret>`, `<refresh_token>`, `<tenant_id>` are values obtained during the configuration process.
+Где `<account_name>` - это адрес электронной почты, используемый для конфигурации. А `<client_id>`, `<client_secret>`, `<refresh_token>`, `<tenant_id>` - значения, полученные в процессе настройки.
 
-IMPORTANT: Alternatively, you can provide or change the refresh token value at runtime via *Email* -> *xref:menu-views/oauth-token.adoc[]* view.
+IMPORTANT: Альтернативно, вы можете предоставить или изменить значение токена обновления во время выполнения через экран *Email* -> *xref:menu-views/oauth-token.adoc[]*.
 
-=== Add gradle dependency
+=== Добавление зависимости gradle
 
-Add the following dependency to your `build.gradle`:
+Добавьте следующую зависимость в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----

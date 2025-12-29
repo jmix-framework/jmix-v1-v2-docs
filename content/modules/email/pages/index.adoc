@@ -1,21 +1,21 @@
 = Email Sending
 
-Jmix provides the following email sending functionality:
+Jmix предоставляет следующую функциональность для отправки электронных писем:
 
-* *Synchronous and asynchronous sending:* In synchronous mode the calling code waits until the message is sent to the SMTP server; in asynchronous mode the message is persisted to the database for later sending and control is returned immediately to the calling code.
+* *Синхронная и асинхронная отправка*: В синхронном режиме вызывающий код ожидает, пока сообщение будет отправлено на SMTP-сервер; в асинхронном режиме сообщение сохраняется в базу данных для последующей отправки, и управление немедленно возвращается вызывающему коду.
 
-* *Scheduled sending via xref:jmix:quartz:index.adoc[]:* Defer sends, create recurring messages, or align sending with specific time zones using Quartz jobs.
+* *Планируемая отправка через xref:jmix:quartz:index.adoc[]*: Откладывайте отправку, создавайте повторяющиеся сообщения или согласовывайте отправку с определенными часовыми поясами с помощью задач Quartz.
 
-* *Reliable tracking:* Send timestamps and error details are saved in the database for both synchronous and asynchronous modes.
+* *Надежное отслеживание*: Временные метки отправки и сведения об ошибках сохраняются в базе данных как для синхронного, так и для асинхронного режимов.
 
-* *User interface:* A user interface to search and view sent emails, including full message content, attributes, sending status, and attempt count.
+* *Пользовательский интерфейс*: Пользовательский интерфейс для поиска и просмотра отправленных писем, включая полное содержимое сообщения, атрибуты, статус отправки и количество попыток.
 
 [[installation]]
-== Installation
+== Установка
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, add the following dependencies to your `build.gradle`:
+Для ручной установки добавьте следующие зависимости в ваш `build.gradle`:
 
 [source,groovy,indent=0]
 ----

@@ -1,10 +1,10 @@
 = OAuth2 token
 
-Administration view *OAuth2 token* enables providing or changing the refresh token value at runtime.
+Административный экран *OAuth2 token* позволяет предоставлять или изменять значение токена обновления во время выполнения.
 
 image::oauth-token-view.png[align="center"]
 
 [NOTE]
 ====
-Grant the *Email: token manager* resource role to allow access to this view to non-administrator users.
+Предоставьте ресурсную роль *Email: token manager*, чтобы разрешить доступ к этому экрану пользователям, не являющимися администраторами.
 ====

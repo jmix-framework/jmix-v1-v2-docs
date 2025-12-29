@@ -1,22 +1,22 @@
-= Getting Started with Email
+= Начало работы с Email
 :page-aliases: email:quick-start.adoc
 
-This section introduces a minimal example of using the xref:index.adoc[] add-on. The goal is to create a newsfeed for application users. Such feed can be used to send announcements, updates, notifications, usage statistics, and other related information via email.
+В этом разделе представлен минимальный пример использования дополнения xref:index.adoc[]. Цель - создать ленту новостей для пользователей приложения. Такая лента может использоваться для отправки объявлений, обновлений, уведомлений, статистики использования и другой связанной информации по электронной почте.
 
-To follow along, create a new Jmix project and xref:index.adoc#installation[install the add-on] .
+Чтобы следовать инструкциям, создайте новый проект Jmix и xref:index.adoc#installation[установите дополнение].
 
-== Creating Entity and Views
+== Создание сущности и экранов
 
-First, create an entity to store news items along with simple CRUD views for managing them. Follow the steps below:
+Сначала создайте сущность для хранения новостных записей, а также простые экраны CRUD для управления ими. Следуйте инструкциям ниже:
 
-. Create `NewsItem` entity with the following attributes:
+. Создайте сущность `NewsItem` со следующими атрибутами:
 
-* `date` of type `LocalDate`.
-* `subject` of type `String`.
-* `content` of type `String` with unlimited length.
+* `date` типа `LocalDate`.
+* `subject` типа `String`.
+* `content` типа `String` с неограниченной длиной.
 
-. Create entity list and detail views for this entity.
-. Open to the list view and add a new button and bind it to the email sending action:
+. Создайте экраны списка и деталей для этой сущности.
+. Откройте экран списка и добавьте новую кнопку, привязав ее к действию отправки письма:
 +
 .news-item-list-view.xml
 [source,xml,indent=0]
@@ -24,53 +24,53 @@ First, create an entity to store news items along with simple CRUD views for man
 include::example$/email-ex1/src/main/resources/com/company/emailex1/view/newsitem/news-item-list-view.xml[tags=news-item-datagrid]
 ----
 +
-<1> Add a new button.
-<2> Add a new action.
+<1> Добавьте новую кнопку.
+<2> Добавьте новое действие.
 
-== Sending Email Logic
+== Логика отправки письма
 
-With the UI ready, add logic to make it functional. This logic will use the xref:api.adoc[add-on's API].
+С готовым пользовательским интерфейсом добавьте логику, чтобы сделать его функциональным. Эта логика будет использовать xref:api.adoc[API дополнения].
 
-. Set up a handler for the `sendEmailAction` action. In the handler, show a dialog asking if the news can be queued for sending:
+. Настройте обработчик для действия `sendEmailAction`. В обработчике покажите диалог с вопросом, можно ли поставить новость в очередь на отправку:
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=dialogs;send-email-handler]
 ----
-<1> Inject the `io.jmix.flowui.Dialogs` object into the controller class.
+<1> Инжектируйте объект `io.jmix.flowui.Dialogs` в класс контроллера.
 +
-. Implement the `sendNewsByEmail()` method.
+. Реализуйте метод `sendNewsByEmail()`.
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=resources;emailer;send-news-by-mail]
 ----
-<1> Inject the `io.jmix.email.Emailer` interface.
-<2> Inject the `io.jmix.core.Resources` interface.
-<3> To demonstrate how to add an attachment, we'll use an application icon file.
-<4> Create an `io.jmix.email.EmailAttachment` object.
-<5> Create an `io.jmix.email.EmailInfo` object using `io.jmix.email.EmailInfoBuilder`.
-<6> The *from* address will be taken from the xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address] property.
-<7> Send the email asynchronously (in the background).
+<1> Инжектируйте интерфейс `io.jmix.email.Emailer`.
+<2> Инжектируйте интерфейс `io.jmix.core.Resources`.
+<3> Для демонстрации добавления вложения мы будем использовать файл значка приложения.
+<4> Создайте объект `io.jmix.email.EmailAttachment`.
+<5> Создайте объект `io.jmix.email.EmailInfo` с помощью `io.jmix.email.EmailInfoBuilder`.
+<6> Адрес *from* будет взят из свойства xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address].
+<7> Отправьте письмо асинхронно (в фоновом режиме).
 
-== Configuring SMTP Server parameters
+== Настройка параметров SMTP-сервера
 
-Use Spring Boot xref:configuration.adoc#spring-boot-mail-properties[mail properties] to define basic email sending parameters, such as protocol, host, port, and others in the `application.properties` file.
+Используйте xref:configuration.adoc#spring-boot-mail-properties[свойства Spring Boot для почты], чтобы определить основные параметры отправки писем, такие как протокол, хост, порт и другие, в файле `application.properties`.
 
-NOTE: You may need to obtain SMTP server configuration parameters from your system administrator or service provider. See the xref:oauth-providers.adoc[] for steps to configure email sending with these providers.
+NOTE: Возможно, вам потребуется получить параметры конфигурации SMTP-сервера у вашего системного администратора или поставщика услуг. Смотрите xref:oauth-providers.adoc[], чтобы узнать о шагах по настройке отправки писем с помощью этих провайдеров.
 
-== Working with User Interface
+== Работа с пользовательским интерфейсом
 
-Run the application, open the *News items* view. Click *Create* to compose a news item. After saving and returning to the previous view, select your item and click *Send Email*. The confirmation dialog will appear – click *Yes* to proceed.
+Запустите приложение, откройте экран *News items*. Нажмите *Create*, чтобы создать новостную запись. После сохранения и возврата к предыдущему экрану выберите вашу запись и нажмите *Send Email*. Появится диалог подтверждения - нажмите *Yes*, чтобы продолжить.
 
 image::confirmation.png[align="center"]
 
-Go to the *Email -> xref:menu-views/email-history.adoc[]* view. A record with the `Queue` status indicates that the email is waiting to be sent. The email details will be displayed on the right as you click it.
+Перейдите в экран *Email -> xref:menu-views/email-history.adoc[]*. Запись со статусом `Queue` указывает на то, что письмо ожидает отправки. Детали письма будут отображены справа при его выборе.
 
 image::email-history.png[align="center"]
 
-To send an email from the UI, select it from the list and click *Resend email*. You can change or add recipients before sending. Once the email is sent, the status will change to `Sent`.
+Чтобы отправить письмо из пользовательского интерфейса, выберите его из списка и нажмите *Resend email*. Вы можете изменить или добавить получателей перед отправкой. Как только письмо будет отправлено, статус изменится на `Sent`.
 
-TIP: To send queued emails regularly or on a specific schedule, set up the xref:configuration.adoc#email-sending-scheduler[Quartz Scheduler].
+TIP: Для регулярной отправки писем из очереди или отправки по конкретному расписанию настройте xref:configuration.adoc#email-sending-scheduler[Планировщик Quartz].
 
 image::resend.png[align="center"]

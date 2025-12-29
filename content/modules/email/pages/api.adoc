@@ -1,44 +1,44 @@
 = Email Sending API
 
-== Sending Methods
+== Методы отправки
 
-To send emails, use the following methods of the `Emailer` bean:
+Для отправки электронных писем используйте следующие методы бина `Emailer`:
 
-* `sendEmail()` – synchronous message sending. The calling code is blocked while sending the message to the SMTP server. You can specify the message either by a set of parameters – the comma-separated list of recipients, subject, content, an array of attachments; or as a special `EmailInfo` object which encapsulates all this information and allows you to explicitly set the sender’s address.
+* `sendEmail()` – синхронная отправка сообщения. Вызывающий код блокируется во время отправки сообщения на SMTP-сервер. Вы можете указать сообщение либо набором параметров - списком получателей, разделенным запятыми, темой, содержимым, массивом вложений; либо в виде специального объекта `EmailInfo`, который инкапсулирует всю эту информацию и позволяет явно задать адрес отправителя.
 +
-Here is an example of sending email using `EmailInfo` object:
+Вот пример отправки письма с использованием объекта `EmailInfo`:
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=emailer;email-info1;email-info2]
 ----
-<1> Inject the `io.jmix.email.Emailer` interface.
-<2> Create an `io.jmix.email.EmailInfo` object using `io.jmix.email.EmailInfoBuilder`.
-<3> Send the email synchronously.
+<1> Инжектируйте интерфейс `io.jmix.email.Emailer`.
+<2> Создайте объект `io.jmix.email.EmailInfo`, используя `io.jmix.email.EmailInfoBuilder`.
+<3> Отправьте письмо синхронно.
 +
-During synchronous sending, the framework can throw `EmailException` with the information about failed recipient addresses and corresponding error messages.
+Во время синхронной отправки фреймворк может выбросить `EmailException` с информацией о неудачных адресах получателей и соответствующими сообщениями об ошибках.
 +
-One `SendingMessage` instance is created in the database for all recipients during the execution of the method. It has the initial `SendingStatus.SENDING` status, and `SendingStatus.SENT` after successful sending. In case of a message sending error, the message status changes to `SendingStatus.NOT_SENT`.
+Во время выполнения метода в базе данных создается один экземпляр `SendingMessage` для всех получателей. Он имеет начальный статус `SendingStatus.SENDING`, и `SendingStatus.SENT` после успешной отправки. В случае ошибки отправки сообщения статус сообщения меняется на `SendingStatus.NOT_SENT`.
 +
-* `sendEmailAsync()` – asynchronous message sending. This method returns `SendingMessage` instance in `SendingStatus.QUEUE` status, which was created in the database. The actual sending is performed later by the `Emailer.processQueuedEmails()` method which should be called by a xref:configuration.adoc#email-sending-scheduler[scheduler].
+* `sendEmailAsync()` - асинхронная отправка сообщения. Этот метод возвращает экземпляр `SendingMessage` со статусом `SendingStatus.QUEUE`, который был создан в базе данных. Фактическая отправка выполняется позже методом `Emailer.processQueuedEmails()`, который должен вызываться xref:configuration.adoc#email-sending-scheduler[планировщиком].
 
-== Email Attachments
+== Вложения электронной почты
 
-The `io.jmix.email.EmailAttachment` object is a wrapper that holds the attachment as a byte array, a file name, and, if necessary, an attachment identifier which is unique for this message.
+Объект `io.jmix.email.EmailAttachment` - это обертка, которая хранит вложение в виде массива байтов, имя файла и, при необходимости, идентификатор вложения, уникальный для данного сообщения.
 
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=create-attachment]
 ----
 
-The attachment identifier is an optional but useful field when you want to insert images in the message body. For this, specify a unique `contentId` when creating `EmailAttachment`, as `logoId` in the example above. To insert the image in the message body, use an expression like `cid:logoId` as a path to attachment, for example:
+Идентификатор вложения - это необязательное, но полезное поле, когда вы хотите вставить изображения в тело сообщения. Для этого укажите уникальный `contentId` при создании `EmailAttachment`, как `logoId` в примере выше. Чтобы вставить изображение в тело сообщения, используйте выражение вида `cid:logoId` в качестве пути к вложению, например:
 
 [source,html]
 ----
 <img src="cid:logoId"/>
 ----
 
-Also, you can create a text attachment from the string and specify an encoding and the name of the attachment file. In the example, an attachment is created and sent with email:
+Также вы можете создать текстовое вложение из строки и указать кодировку и имя файла вложения. В примере создается и отправляется вложение с письмом:
 
 [source,java,indent=0]
 ----

@@ -1,18 +1,18 @@
-= Email Properties
+= Свойства Email
 
 [[spring-boot-mail-properties]]
-== Spring Boot Mail Properties
+== Свойства Spring Boot Mail
 
-Use Spring Boot {spring-boot-doc}/appendix/application-properties/index.html#appendix.application-properties.mail[mail properties^] to define basic email sending parameters, such as protocol, host, port, and others.
+Используйте {spring-boot-doc}/appendix/application-properties/index.html#appendix.application-properties.mail[свойства Spring Boot для почты^], чтобы определить основные параметры отправки писем, такие как протокол, хост, порт и другие.
 
-For example:
+Например:
 
 [source, properties,indent=0]
 ----
 include::example$/email-ex1/src/main/resources/application.properties[tags=spring-boot-properties]
 ----
 
-Also, you can specify `JavaMail` properties in the format `spring.mail.properties.*`. For example, the `mail.smtp.auth` property can be provided as follows:
+Также вы можете указать свойства `JavaMail` в формате `spring.mail.properties.*`. Например, свойство `mail.smtp.auth` можно задать следующим образом:
 
 [source, properties,indent=0]
 ----
@@ -20,167 +20,167 @@ include::example$/email-ex1/src/main/resources/application.properties[tags=java-
 ----
 
 [[email-properties]]
-== Jmix Email Properties
+== Свойства Jmix Email
 
-Jmix email properties allow you to configure the functionality described in the xref:api.adoc[] section.
+Свойства Jmix email позволяют настроить функциональность, описанную в разделе xref:api.adoc[].
 
 [[jmix.email.from-address]]
 === jmix.email.from-address
 
-Defines the default sender's address. It is used if the `EmailInfo.from` attribute is not specified.
+Определяет адрес отправителя по умолчанию. Используется, если атрибут `EmailInfo.from` не указан.
 
-Default value: `DoNotReply@localhost`
+Значение по умолчанию: `DoNotReply@localhost`
 
 [[jmix.email.scheduled-sending-delay-call-count]]
 === jmix.email.scheduled-sending-delay-call-count
 
-Property is used in asynchronous sending of emails to skip the first few calls of `Emailer.processQueuedEmails()` after server startup to reduce the load during application initialization. Email sending will start with the next call.
+Свойство используется при асинхронной отправке писем для пропуска первых нескольких вызовов `Emailer.processQueuedEmails()` после запуска сервера, чтобы снизить нагрузку во время инициализации приложения. Отправка писем начнется со следующего вызова.
 
-Default value: `2`
+Значение по умолчанию: `2`
 
 [[jmix.email.message-queue-capacity]]
 === jmix.email.message-queue-capacity
 
-Property is used for asynchronous sending, the maximum number of messages read from the queue and sent in one call of `Emailer.processQueuedEmails()`.
+Свойство используется для асинхронной отправки, максимальное количество сообщений, читаемых из очереди и отправляемых за один вызов `Emailer.processQueuedEmails()`.
 
-Default value: `100`
+Значение по умолчанию: `100`
 
 [[jmix.email.default-sending-attempts-limit]]
 === jmix.email.default-sending-attempts-limit
 
-Property is used for asynchronous sending, the default number of attempts to send an email. It is used if the `attemptsCount` parameter is not specified when calling `Emailer.sendEmailAsync()`.
+Свойство используется для асинхронной отправки, количество попыток отправить письмо по умолчанию. Используется, если параметр `attemptsCount` не указан при вызове `Emailer.sendEmailAsync()`.
 
-Default value: `10`
+Значение по умолчанию: `10`
 
 [[jmix.email.sending-timeout-sec]]
 === jmix.email.sending-timeout-sec
 
-Defines the maximum expected time in seconds, which is required to send an email to the SMTP server. It is used for asynchronous sending to optimize the selection of `SendingMessage` objects from the DB queue.
+Определяет максимально ожидаемое время в секундах, необходимое для отправки письма на SMTP-сервер. Используется для асинхронной отправки для оптимизации выборки объектов `SendingMessage` из базы данных.
 
-Default value: `240`
+Значение по умолчанию: `240`
 
 [[jmix.email.admin-address]]
-=== jmix.email.admin-addresss
+=== jmix.email.admin-address
 
-Defines the address, to which all messages are sent if the <<jmix.email.send-all-to-admin,jmix.email.send-all-to-admin>> property is switched on.
+Определяет адрес, на который отправляются все сообщения, если включено свойство <<jmix.email.send-all-to-admin,jmix.email.send-all-to-admin>>.
 
-Default value: `admin@localhost`
+Значение по умолчанию: `admin@localhost`
 
 [[jmix.email.send-all-to-admin]]
 === jmix.email.send-all-to-admin
 
-Indicates that all messages should be sent to the <<jmix.email.admin-address,jmix.email.admin-address>> address, regardless of the specified recipient’s address. It is recommended to use this parameter during system development and debugging.
+Указывает, что все сообщения должны отправляться на адрес <<jmix.email.admin-address,jmix.email.admin-address>>, независимо от указанного адреса получателя. Рекомендуется использовать этот параметр во время разработки и отладки системы.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.email.use-file-storage]]
 === jmix.email.use-file-storage
 
-When turned on, the email body text and attachments will be stored in file storage instead of BLOB columns in the database. Should be used if the application stores lots of emails and/or email attachments.
+При включении текст тела письма и вложения будут храниться в файловом хранилище, а не в BLOB-столбцах базы данных. Следует использовать, если приложение хранит много писем и/или вложений к письмам.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.email.async-sending-username]]
 === jmix.email.async-sending-username
 
-Defines the login of the system user, used by asynchronous email sending code to be able to persist the information to the database. It is recommended to create a separate user (for example, emailer) without a password so that it will be impossible to log in under their name via user interface. This is also convenient to search for messages related to email sending in the server log.
+Определяет логин системного пользователя, используемого кодом асинхронной отправки писем для возможности сохранения информации в базе данных. Рекомендуется создать отдельного пользователя (например, `emailer`) без пароля, чтобы под его именем было невозможно войти через пользовательский интерфейс. Это также удобно для поиска сообщений, связанных с отправкой писем, в логе сервера.
 
-Default value: `admin`
+Значение по умолчанию: `admin`
 
 [[jmix.email.use-default-quartz-configuration]]
 === jmix.email.use-default-quartz-configuration
 
-Defines whether the <<sending-default-quartz-configuration,Default Quartz Configuration>> of the Email Sending is used.
+Определяет, используется ли <<sending-default-quartz-configuration,конфигурация Quartz по умолчанию>> для отправки писем.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.email.email-sending-cron]]
 === jmix.email.email-sending-cron
 
-Defines the CRON expression that is used by default in quartz scheduling configuration of the Email Sending .
+Определяет CRON-выражение, которое используется по умолчанию в конфигурации планирования Quartz для отправки писем.
 
-Default value: `0 * * * * ?` (every minute).
+Значение по умолчанию: `0 * * * * ?` (каждую минуту).
 
 [[jmix.email.use-default-email-cleaning-quartz-configuration]]
 === jmix.email.use-default-email-cleaning-quartz-configuration
 
-Defines whether the <<cleaning-default-quartz-configuration,Default Quartz Configuration>> of the Email Cleaning is used.
+Определяет, используется ли <<cleaning-default-quartz-configuration,конфигурация Quartz по умолчанию>> для очистки писем.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.email.email-cleaning-cron]]
 === jmix.email.email-cleaning-cron
 
-Defines the CRON expression that is used by default in quartz scheduling configuration of the Email Cleaning .
+Определяет CRON-выражение, которое используется по умолчанию в конфигурации планирования Quartz для очистки писем.
 
-Default value: `0 0 0 * * ?` (in the begining of every day)
+Значение по умолчанию: `0 0 0 * * ?` (в начале каждого дня)
 
 [[jmix.email.max-age-of-important-messages]]
 === jmix.email.max-age-of-important-messages
 
-Defines the maximum age (in days) of important messages after which they must be deleted. Zero value (`0`) means that messages won't be removed.
+Определяет максимальный возраст (в днях) важных сообщений, после которого они должны быть удалены. Значение ноль (`0`) означает, что сообщения не будут удаляться.
 
-Default value: `0`
+Значение по умолчанию: `0`
 
 [[jmix.email.max-age-of-non-important-messages]]
 === jmix.email.max-age-of-non-important-messages
 
-Defines the maximum age (in days) of messages after which they must be deleted. Zero value (`0`) means that messages won't be removed.
+Определяет максимальный возраст (в днях) сообщений, после которого они должны быть удалены. Значение ноль (`0`) означает, что сообщения не будут удаляться.
 
-Default value: `0`
+Значение по умолчанию: `0`
 
 [[jmix.email.clean-file-storage]]
 === jmix.email.clean-file-storage
 
-Defines whether the file storage cleaning should be performed while the cleaning scheduler is working.
+Определяет, должна ли выполняться очистка файлового хранилища во время работы планировщика очистки.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.email.oauth2.enabled]]
 === jmix.email.oauth2.enabled
 
-If `true` enables using OAuth 2.0 token-based authorization to connect to email server.
+Если `true`, включает использование авторизации на основе токена OAuth 2.0 для подключения к почтовому серверу.
 
 [[jmix.email.oauth2.provider]]
 === jmix.email.oauth2.provider
 
-Specifies email OAuth provider.
+Определяет провайдера OAuth для почты.
 
 [[jmix.email.oauth2.client-id]]
 === jmix.email.oauth2.client-id
 
-Specifies OAuth client id.
+Определяет идентификатор клиента OAuth (client id).
 
 [[jmix.email.oauth2.secret]]
 === jmix.email.oauth2.secret
 
-Specifies OAuth client secret.
+Определяет секрет клиента OAuth (client secret).
 
 [[jmix.email.oauth2.tenant-id]]
 === jmix.email.oauth2.tenant-id
 
-Specifies OAuth tenant id.
+Определяет идентификатор тенанта OAuth (tenant id).
 
 [[jmix.email.oauth2.refresh-token]]
 === jmix.email.oauth2.refresh-token
 
-Specifies OAuth refresh token.
+Определяет токен обновления OAuth (refresh token).
 
 [[email-sending-scheduler]]
-== Email Sending Scheduler
+== Планировщик отправки писем
 
-When you call the `Emailer.sendEmailAsync()` method, an email is not sent but queued in the database. To send queued emails, you need to invoke the `Emailer.processQueuedEmails()` method.
+При вызове метода `Emailer.sendEmailAsync()` письмо не отправляется, а ставится в очередь в базе данных. Для отправки писем из очереди необходимо вызвать метод `Emailer.processQueuedEmails()`.
 
-You can use Quartz Job Scheduler for periodic processing of the email queue as described below.
+Вы можете использовать планировщик заданий Quartz для периодической обработки очереди писем, как описано ниже.
 
 [[sending-default-quartz-configuration]]
-=== Default Quartz Configuration
+=== Конфигурация Quartz по умолчанию
 
-The Email Sending add-on provides the default configuration of the Quartz job that processes the email sending queue. To use it, do the following:
+Дополнение Email Sending предоставляет конфигурацию задачи Quartz по умолчанию для обработки очереди отправки писем. Чтобы использовать ее, выполните следующие действия:
 
-. Include Quartz add-on in your project as described in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+. Включите дополнение Quartz в свой проект, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
-. Change the CRON expression if necessary using the <<jmix.email.email-sending-cron,jmix.email.email-sending-cron>> property:
+. При необходимости измените CRON-выражение, используя свойство <<jmix.email.email-sending-cron,jmix.email.email-sending-cron>>:
 +
 [source, properties,indent=0]
 ----
@@ -188,69 +188,69 @@ include::example$/email-ex1/src/main/resources/application.properties[tags=email
 ----
 
 [[sending-custom-quartz-configuration]]
-=== Custom Quartz Configuration
+=== Пользовательская конфигурация Quartz
 
-If you want to use a custom Quartz job configuration, do the following:
+Если вы хотите использовать пользовательскую конфигурацию задачи Quartz, выполните следующие действия:
 
-. Include Quartz add-on in your project as described in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+. Включите дополнение Quartz в свой проект, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
-. Set the <<jmix.email.use-default-quartz-configuration>> application property to false:
+. Установите значение свойства приложения <<jmix.email.use-default-quartz-configuration>> в `false`:
 +
 [source, properties,indent=0]
 ----
 jmix.email.use-default-quartz-configuration = false
 ----
 
-. Create a job class:
+. Создайте класс задачи:
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailSendingJob.java[tags=quartz]
 ----
 
-. In the running application, open the *Quartz -> Quartz jobs* view, and configure a job for the `MyCustomEmailSendingJob` class.
+. В работающем приложении откройте экран *Quartz -> Quartz jobs* и настройте задачу для класса `MyCustomEmailSendingJob`.
 
-. Alternatively, if you want to configure the email sending job at development time, add the following beans to the main application class:
+. Альтернативно, если вы хотите настроить задачу отправки писем на этапе разработки, добавьте следующие бины в основной класс приложения:
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz]
 ----
-<1> Start building a job definition using the `org.quartz.JobBuilder` class.
-<2> Create an `org.quartz.JobDetail` instance.
-<3> Start building a trigger definition using the `org.quartz.TriggerBuilder` class.
-<4> Link this trigger to the previously defined job.
-<5> Create an `org.quartz.Trigger` instance.
+<1> Начните построение определения задачи с помощью класса `org.quartz.JobBuilder`.
+<2> Создайте экземпляр `org.quartz.JobDetail`.
+<3> Начните построение определения триггера с помощью класса `org.quartz.TriggerBuilder`.
+<4> Свяжите этот триггер с ранее определенной задачей.
+<5> Создайте экземпляр `org.quartz.Trigger`.
 
 [[email-cleaning-scheduler]]
-== Email Cleaning Scheduler
+== Планировщик очистки писем
 
-The add-on has a built-in cleaning Quartz job that is switched off by default. You can use it for periodic cleaning of saved emails as described below.
+Дополнение имеет встроенную задачу Quartz для очистки, которая по умолчанию выключена. Вы можете использовать ее для периодической очистки сохраненных писем, как описано ниже.
 
-If you need to keep some emails longer, use the `important` flag and set the maximum age for important and non-important emails. You can set this flag using the `setImportant()` method of the `EmailInfoBuilder`.
+Если вам нужно хранить некоторые письма дольше, используйте флаг `important` и установите максимальный возраст для важных и неважных писем. Вы можете установить этот флаг с помощью метода `setImportant()` у `EmailInfoBuilder`.
 
 [[cleaning-default-quartz-configuration]]
-=== Default Quartz Configuration
+=== Конфигурация Quartz по умолчанию
 
-To use the default configuration of the Quartz job for regular cleaning of emails, do the following:
+Чтобы использовать конфигурацию задачи Quartz по умолчанию для регулярной очистки писем, выполните следующие действия:
 
-. Include Quartz add-on in your project as described in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+. Включите дополнение Quartz в свой проект, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
-. Set the <<jmix.email.use-default-email-cleaning-quartz-configuration,jmix.email.use-default-email-cleaning-quartz-configuration>> property to `true`:
+. Установите значение свойства <<jmix.email.use-default-email-cleaning-quartz-configuration,jmix.email.use-default-email-cleaning-quartz-configuration>> в `true`:
 +
 [source, properties,indent=0]
 ----
 jmix.email.use-default-email-cleaning-quartz-configuration=true
 ----
 
-. Change the CRON expression if necessary using the <<jmix.email.email-cleaning-cron,jmix.email.email-cleaning-cron>> property.
+. При необходимости измените CRON-выражение, используя свойство <<jmix.email.email-cleaning-cron,jmix.email.email-cleaning-cron>>.
 +
 [source, properties,indent=0]
 ----
 jmix.email.email-cleaning-cron=0 0 0 1/2 * ? 
 ----
 
-. Set the age for important and non-important emails using the <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> and <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>> properties, for example:
+. Установите возраст для важных и неважных писем, используя свойства <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> и <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>>, например:
 +
 [source, properties,indent=0]
 ----
@@ -258,37 +258,37 @@ jmix.email.max-age-of-non-important-messages=5
 jmix.email.max-age-of-important-messages=30
 ----
 
-. Set the <<jmix.email.clean-file-storage,jmix.email.clean-file-storage>> property to `true` in case you want to delete attachments.
+. Установите значение свойства <<jmix.email.clean-file-storage,jmix.email.clean-file-storage>> в `true`, если вы хотите удалять вложения.
 
 [[cleaning-custom-quartz-configuration]]
-=== Custom Quartz Configuration
+=== Пользовательская конфигурация Quartz
 
-If you want to use a custom Quartz job configuration, do the following:
+Если вы хотите использовать пользовательскую конфигурацию задачи Quartz, выполните следующие действия:
 
-. Include Quartz add-on in your project as described in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+. Включите дополнение Quartz в свой проект, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
-. Create a job class:
+. Создайте класс задачи:
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
 ----
 
-. In the running application, open the *Quartz -> Quartz jobs* view, and configure a job for the `MyCustomEmailCleaningJob` class.
+. В работающем приложении откройте экран *Quartz -> Quartz jobs* и настройте задачу для класса `MyCustomEmailCleaningJob`.
 
-. Alternatively, if you want to configure the email cleaning job at development time, add the following beans to the main application class:
+. Альтернативно, если вы хотите настроить задачу очистки писем на этапе разработки, добавьте следующие бины в основной класс приложения:
 +
 [source,java,indent=0]
 ----
 include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz-clean]
 ----
-<1> Start building a job definition using the `org.quartz.JobBuilder` class.
-<2> Create an `org.quartz.JobDetail` instance.
-<3> Start building a trigger definition using the `org.quartz.TriggerBuilder` class.
-<4> Link this trigger to the previously defined job.
-<5> Create an `org.quartz.Trigger` instance.
+<1> Начните построение определения задачи с помощью класса `org.quartz.JobBuilder`.
+<2> Создайте экземпляр `org.quartz.JobDetail`.
+<3> Начните построение определения триггера с помощью класса `org.quartz.TriggerBuilder`.
+<4> Свяжите этот триггер с ранее определенной задачей.
+<5> Создайте экземпляр `org.quartz.Trigger`.
 
-. Set the age for important and non-important emails using the <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> and <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>> properties, for example:
+. Установите возраст для важных и неважных писем, используя свойства <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> и <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>>, например:
 +
 [source, properties,indent=0]
 ----
@@ -296,27 +296,27 @@ jmix.email.max-age-of-non-important-messages=5
 jmix.email.max-age-of-important-messages=30
 ----
 
-. Set the <<jmix.email.clean-file-storage,jmix.email.clean-file-storage>> property to `true` in case you want to delete attachments.
+. Установите значение свойства <<jmix.email.clean-file-storage,jmix.email.clean-file-storage>> в `true`, если вы хотите удалять вложения.
 
 [[file-storage-usage]]
-== File Storage Usage
+== Использование файлового хранилища
 
-You can store email body text and attachments in file storage instead of BLOB columns in the database.
+Вы можете хранить текст тела письма и вложения в файловом хранилище вместо BLOB-столбцов в базе данных.
 
-To use file storage:
+Чтобы использовать файловое хранилище:
 
-. Ensure the following line is present in the `dependencies` section of your `build.gradle` file:
+. Убедитесь, что следующая строка присутствует в разделе `dependencies` вашего файла `build.gradle`:
 +
 [source,groovy,indent=0]
 ----
 include::example$/email-ex1/build.gradle[tags=fs-dependency]
 ----
 +
-. Enable file storage usage. Set in the `application.properties` file:
+. Включите использование файлового хранилища. Установите в файле `application.properties`:
 +
 [source, properties,indent=0]
 ----
 include::example$/email-ex1/src/main/resources/application.properties[tags=fs-enable]
 ----
 
-By default, the local file storage is located in the application work directory at `${user.dir}/.jmix/work/filestorage`.
+По умолчанию локальное файловое хранилище находится в рабочем каталоге приложения по пути `${user.dir}/.jmix/work/filestorage`.
