@@ -81,7 +81,7 @@ Use the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute to custo
 
 Choose among four color variants to convey the component's visual intent: default, `success`, `error`, and `contrast`.
 
-image::visual-components/html-components/label-badge-color.png[align="center", width="306"]
+image::visual-components/html-components/label-badge-color.png[align="center", width="400"]
 
 .XML code
 [%collapsible]
@@ -94,7 +94,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 Combine the color variants with the `primary` theme to add extra emphasis:
 
-image::visual-components/html-components/label-badge-color-primary.png[align="center", width="306"]
+image::visual-components/html-components/label-badge-color-primary.png[align="center", width="400"]
 
 .XML code
 [%collapsible]
@@ -109,7 +109,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 Applying the `pill` theme creates a badge with rounded corners. Use it independently or combine with color themes:
 
-image::visual-components/html-components/label-badge-pill.png[align="center", width="328"]
+image::visual-components/html-components/label-badge-pill.png[align="center", width="420"]
 
 .XML code
 [%collapsible]

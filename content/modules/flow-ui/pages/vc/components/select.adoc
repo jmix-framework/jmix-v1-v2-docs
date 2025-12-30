@@ -39,7 +39,9 @@ xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<noVerticalOverlap, noVerticalOverlap>> -
 <<overlayClass,overlayClass>> -
+<<overlayWidth,overlayWidth>> -
 xref:vc/common-attributes.adoc#placeholder[placeholder] -
 xref:vc/common-attributes.adoc#property[property] -
 xref:vc/common-attributes.adoc#readOnly[readOnly] -
@@ -340,8 +342,14 @@ The following attributes are specific to `select`:
 |[[itemsEnum]]itemsEnum
 |Defines the enumeration class for creating a list of items. See <<items-enum,Items Enum>>.
 |
+|[[noVerticalOverlap]]noVerticalOverlap
+|When `false`, the overlay is shown on top of the input field. When `true`, the overlay does not cover the input field. See this in https://vaadin.com/docs/latest/components/select#overlay-position[Vaadin documentation^].
+|`false`
 |[[overlayClass]]overlayClass
 |Defines a space-delimited list of CSS class names to set on the overlay element. See <<overlay, Overlay>>.
+|
+|[[overlayWidth]]overlayWidth
+|Specifies the overlay’s width. If omitted (default), the overlay automatically adjusts its width to match the widest option or at least the input field’s width. See this in https://vaadin.com/docs/latest/components/select#overlay-width[Vaadin documentation^].
 |
 |===
 
