@@ -81,7 +81,7 @@ image::visual-components/html-components/label-dynamic.png[align="center", width
 
 Выберите среди четырех вариантов цвета для передачи визуального назначения компонента: по умолчанию, `success`, `error` и `contrast`.
 
-image::visual-components/html-components/label-badge-color.png[align="center", width="306"]
+image::visual-components/html-components/label-badge-color.png[align="center", width="400"]
 
 .XML-код
 [%collapsible]
@@ -94,7 +94,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 Сочетайте варианты цвета с темой `primary` для добавления дополнительного акцента:
 
-image::visual-components/html-components/label-badge-color-primary.png[align="center", width="306"]
+image::visual-components/html-components/label-badge-color-primary.png[align="center", width="400"]
 
 .XML-код
 [%collapsible]
@@ -109,7 +109,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 Применение темы `pill` создает бейдж со скругленными углами. Используйте ее независимо или в сочетании с цветовыми темами:
 
-image::visual-components/html-components/label-badge-pill.png[align="center", width="328"]
+image::visual-components/html-components/label-badge-pill.png[align="center", width="420"]
 
 .XML-код
 [%collapsible]

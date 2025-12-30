@@ -157,7 +157,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/ta
 [[theme-variants]]
 == Варианты тем
 
-Внешний вид компонента настраивается с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который позволяет выбрать среди шести различных вариантов:
+Внешний вид компонента настраивается с помощью атрибута xref:vc/common-attributes.adoc#themeNames[themeNames], который позволяет выбрать среди семи различных вариантов:
 
 .`centered`
 [%collapsible]
@@ -205,6 +205,14 @@ image:visual-components/components/tabs-equal-width.png[align="center", width=53
 Добавляет границу вокруг самих вкладок, а также области содержимого.
 
 image:visual-components/layouts/tabsheet-bordered.png[align="center", width=400]
+====
+
+.`no-padding`
+[%collapsible]
+====
+Удаляет отступы из области содержимого.
+
+image:visual-components/layouts/tabsheet-no-padding.png[align="center", width=360]
 ====
 
 == Смотрите также

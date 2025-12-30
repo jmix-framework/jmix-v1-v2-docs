@@ -72,6 +72,15 @@ image::visual-components/components/button-variant-1.png[align="center", width="
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-1]
 ----
 
+* Варианты для предупреждений:
++
+image::visual-components/components/button-variant-7.png[align="center", width="319"]
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/button/button-view.xml[tags=variant-7]
+----
+
 * Варианты для опасных действий/ошибок:
 +
 image::visual-components/components/button-variant-2.png[align="center", width="319"]

@@ -39,7 +39,9 @@ xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<noVerticalOverlap, noVerticalOverlap>> -
 <<overlayClass,overlayClass>> -
+<<overlayWidth,overlayWidth>> -
 xref:vc/common-attributes.adoc#placeholder[placeholder] -
 xref:vc/common-attributes.adoc#property[property] -
 xref:vc/common-attributes.adoc#readOnly[readOnly] -
@@ -340,8 +342,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[itemsEnum]]itemsEnum
 |Определяет класс перечисления для создания списка элементов. Смотрите <<items-enum,Список значений перечисления>>.
 |
+|[[noVerticalOverlap]]noVerticalOverlap
+|Когда `false`, оверлей отображается поверх поля ввода. Когда `true`, оверлей не покрывает поле ввода. См. {vaadin-docs}/components/select#overlay-position[документацию Vaadin^].
+|`false`
 |[[overlayClass]]overlayClass
 |Определяет список имён CSS-классов, разделённых пробелами, для установки на элементе оверлея. Смотрите <<overlay, Оверлей>>.
+|
+|[[overlayWidth]]overlayWidth
+|Задаёт ширину оверлея. Если параметр не указан (значение по умолчанию), ширина оверлея автоматически подбирается так, чтобы соответствовать самой широкой опции или, как минимум, ширине поля ввода. См. {vaadin-docs}/components/select#overlay-width[документацию Vaadin^].
 |
 |===
 

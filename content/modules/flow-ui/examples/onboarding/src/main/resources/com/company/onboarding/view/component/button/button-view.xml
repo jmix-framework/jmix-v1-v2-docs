@@ -78,6 +78,15 @@
             <!-- end::variant-6[] -->
         </hbox>
 
+
+        <hbox>
+            <!-- tag::variant-7[] -->
+            <button text="Primary" themeNames="primary warning"/>
+            <button text="Secondary" themeNames="warning"/>
+            <button text="Tertiary" themeNames="tertiary warning"/>
+            <!-- end::variant-7[] -->
+        </hbox>
+
         <!-- tag::action-2[] -->
         <button id="helloButton" action="helloAction"/>
         <!-- end::action-2[] -->
