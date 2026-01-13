@@ -340,15 +340,15 @@ include::example$/library/src/main/resources/com/company/library/reports/templat
      src="data:image/png;base64,iVBORw0K ..... AcEP9PwxD0hNKK1FCAAAAAElFTkSuQmCC"/>
 ----
 +
-You can also insert an image stored in the database as a byte array (`byte[]`) into an HTML report. To do this, use a Groovy script in the value format settings to convert the `byte[]` into a `Base64 Data URL` string.
+Также можно вставить изображение, хранящееся в базе данных в виде массива байтов (`byte[]`), в HTML-отчет. Для этого используйте Groovy-скрипт в настройках формата значения, чтобы преобразовать `byte[]` в строку в формате `Base64 Data URL`.
 
-. In the report structure, select the desired band, for example, `User`.
-. Within this band, create or ensure that there is a parameter named `picture`. This parameter will receive `byte[]` data from the database (from the entity's `picture` field).
-. In the report structure, navigate to the *Value Formats* tab.
-. Create a new format:
+. В структуре отчета выберите нужный бэнд, например, `User`.
+. В этой полосе создайте или убедитесь, что существует параметр с именем `picture`. Этот параметр будет получать данные типа `byte[]` из базы данных (из поля `picture` сущности).
+. В структуре отчета перейдите на вкладку *Value Formats*.
+. Создайте новый формат:
 
-** *Name*: `picture` - this must match the parameter name from step 2.
-** Select *Groovy script* checkbox.
+** *Name*: `picture` - оно должно совпадать с именем параметра из шага 2.
+** Выберите чекбокс *Groovy script*.
 ** *Groovy script*:
 +
 [source, groovy, indent=0]
@@ -361,7 +361,7 @@ if (value) {
     return "";
 }
 ----
-. In your report HTML template, reference the generated value like this:
+. В вашем HTML-шаблоне отчета обращайтесь к сформированному значению так:
 +
 [source, html, indent=0]
 ----
