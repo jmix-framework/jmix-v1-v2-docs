@@ -340,6 +340,34 @@ An image is added as a byte array within the `src` attribute. This approach allo
 <img alt="SomePicture.png"
      src="data:image/png;base64,iVBORw0K ..... AcEP9PwxD0hNKK1FCAAAAAElFTkSuQmCC"/>
 ----
++
+You can also insert an image stored in the database as a byte array (`byte[]`) into an HTML report. To do this, use a Groovy script in the value format settings to convert the `byte[]` into a `Base64 Data URL` string.
+
+. In the report structure, select the desired band, for example, `User`.
+. Within this band, create or ensure that there is a parameter named `picture`. This parameter will receive `byte[]` data from the database (from the entity's `picture` field).
+. In the report structure, navigate to the *Value Formats* tab.
+. Create a new format:
+
+** *Name*: `picture` - this must match the parameter name from step 2.
+** Select *Groovy script* checkbox.
+** *Groovy script*:
++
+[source, groovy, indent=0]
+----
+import java.util.Base64
+
+if (value) {
+    return "data:image/png;base64," + Base64.getEncoder().encodeToString(value)
+} else {
+    return "";
+}
+----
+. In your report HTML template, reference the generated value like this:
++
+[source, html, indent=0]
+----
+<img src="${User[0].fields('picture')}" alt="picture"/>
+----
 
 * by custom prefixes:
 ** You can use the `resource://` prefixes to refer image files from the `conf` directory or classpath. This only works for HTML templates to output the PDF format. For example, the image `abc.jpg` hosted in the `resource\com\company\app\images` folder can be inserted like:
