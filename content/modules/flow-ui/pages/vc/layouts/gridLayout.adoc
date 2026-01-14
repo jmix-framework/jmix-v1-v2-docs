@@ -16,7 +16,7 @@ The `gridLayout` component arranges child components in a responsive, two-dimens
 |`GridLayout`
 |Attributes
 |xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<alignSelf,alignSelf>> -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 <<columnMinWidth,columnMinWidth>> -
 xref:vc/common-attributes.adoc#css[css] -
@@ -25,6 +25,7 @@ xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 <<data-binding,itemsContainer>> -
 <<data-binding,itemsEnum>> -
+<<justifySelf,justifySelf>> -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
@@ -182,6 +183,11 @@ The following attributes are specific to `gridLayout`:
 |*Name*
 |*Description*
 |*Default*
+|[[alignSelf]]alignSelf
+|Controls the vertical alignment of a component within its grid cell along the block (column) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/align-self[align-self^] property. See also xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf].
+
+Available for projects with version 2.7.2+.
+|`AUTO`
 |[[columnMinWidth]]columnMinWidth
 |Sets the minimum width for the grid columns in `gridLayout`. This ensures columns don't become too narrow when the container resizes.
 This value represented as a CSS length value (for example, `"50px"`, `"10rem"`)
@@ -189,6 +195,11 @@ This value represented as a CSS length value (for example, `"50px"`, `"10rem"`)
 |[[gap]]gap
 |Controls the spacing between grid cells (both row and column gaps). This creates visual separation between components. The value represented as a CSS length value (for example, `"10px"`, `"1rem"`)
 |`var(--lumo-space-s)`
+|[[justifySelf]]justifySelf
+|Controls the horizontal alignment of a component within its grid cell along the inline (row) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] property.
+
+Available for projects with version 2.7.2+.
+|`AUTO`
 |===
 
 == Handlers
