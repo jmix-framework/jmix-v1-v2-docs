@@ -16,7 +16,7 @@
 |`GridLayout`
 |Атрибуты
 |xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<alignSelf,alignSelf>> -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 <<columnMinWidth,columnMinWidth>> -
 xref:vc/common-attributes.adoc#css[css] -
@@ -25,6 +25,7 @@ xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 <<data-binding,itemsContainer>> -
 <<data-binding,itemsEnum>> -
+<<justifySelf,justifySelf>> -
 xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
@@ -182,6 +183,11 @@ xref:vc/common-attributes.adoc[Общие атрибуты] служат одн�
 |*Название*
 |*Описание*
 |*Значение по умолчанию*
+|[[alignSelf]]alignSelf
+|Управляет вертикальным выравниванием компонента внутри ячейки `gridLayout` вдоль поперечной оси. Это соответствует CSS-свойству https://developer.mozilla.org/en-US/docs/Web/CSS/align-self[align-self^]. Смотрите также xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf].
+
+Доступно для проектов с версии 2.7.2 и выше.
+|`AUTO`
 |[[columnMinWidth]]columnMinWidth
 |Задает минимальную ширину для столбцов сетки в `gridLayout`. Это гарантирует, что столбцы не станут слишком узкими при изменении размера контейнера.
 Значение представляется в виде CSS-значения длины (например, `"50px"`, `"10rem"`).
@@ -189,6 +195,11 @@ xref:vc/common-attributes.adoc[Общие атрибуты] служат одн�
 |[[gap]]gap
 |Управляет промежутком между ячейками сетки (как между строками, так и между столбцами). Создает визуальное разделение между компонентами. Значение представляется в виде CSS-значения длины (например, `"10px"`, `"1rem"`).
 |`var(--lumo-space-s)`
+|[[justifySelf]]justifySelf
+|Управляет горизонтальным выравниванием компонента внутри ячейки `gridLayout` вдоль горизонтальной оси. Это соответствует CSS-свойству https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^].
+
+Доступно для проектов с версии 2.7.2 и выше.
+|`AUTO`
 |===
 
 == Обработчики
