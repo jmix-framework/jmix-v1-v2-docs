@@ -33,12 +33,16 @@ image::ntf-editor.png[align="center" width="480"]
 
 image::ntf-programmatic.png[align="center" width="1270"]
 
+Данный сценарий относится к категории событий жизненного цикла сущности (_Entity Lifecycle Events_). Эта логика должна выполняться при создании новой сущности заказа. Фреймворк Jmix генерирует событие xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] каждый раз, когда сущность создается, обновляется или удаляется в базе данных.
+
+Для обработки этого события необходимо определить слушателя событий (event listener) в виде Spring-бина. Метод, который обрабатывает `EntityChangedEvent`, должен быть аннотирован `@TransactionalEventListener`, чтобы гарантировать его выполнение только после того, как сущность будет закоммичена в базе данных.
+
 [source,java,indent=0]
 ----
-include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/view/order/OrderDetailView.java[tags=ntf-create]
+include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/listener/OrderEventListener.java[tags=ntf-create]
 ----
-<1> Этот метод вызывается после сохранения изменений.
-<2> Проверяет, является ли сущность новой.
+<1> Ожидает события `EntityChangedEvent` после коммита транзакции, что гарантирует, что запись заказа уже сохранена в базе данных.
+<2> Открывает новую транзакцию для загрузки и сохранения данных. Это необходимо, потому что текущая транзакция уже закрыта после коммита. Без этого вызовы `dataManager.load()` или `dataManager.save()` завершились бы ошибкой из-за отсутствия активной транзакции.
 <3> Инициирует `NotificationRequestBuilder`, который создает новый объект `NotificationRequest`.
 <4> Определяет тему уведомления.
 <5> Устанавливает получателя по указанному имени пользователя.
