@@ -1,6 +1,6 @@
 = Application Settings
 
-Это дополнение предоставляет простой API и пользовательский интерфейс для работы с изменяемыми значениями различных типов, хранящимися в базе данных. Эти значения обычно используются как параметры различного функционала приложения.
+Это дополнение предоставляет простой API и пользовательский интерфейс для работы с изменяемыми значениями различных типов, хранящимися в базе данных. Эти значения обычно используются как параметры различного функционала приложения, такие как значения по умолчанию, лимиты или функциональные флаги.
 
 [[installation]]
 == Установка
@@ -11,33 +11,49 @@
 
 [source,groovy,indent=0]
 ----
-implementation("io.jmix.appsettings:jmix-appsettings-starter")
-implementation("io.jmix.appsettings:jmix-appsettings-flowui-starter")
+include::example$/appsettings-ex1/build.gradle[tags=dependencies]
 ----
 
 include::ROOT:single-menu-note.adoc[]
 
-// todo flowui
-// [source,groovy,indent=0]
-// ----
-// include::example$/ex1/build.gradle[tags=dependencies]
-// ----
-
 [[usage]]
-== Использование
+== Пример использования
 
-Чтобы определить некоторые настройки, создайте сущность, расширяющую класс `io.jmix.appsettings.entity.AppSettingsEntity`:
+Представьте, что у вас есть сущность `Customer` и простая бизнес-логика:
+
+* Новые клиенты должны получать грейд по умолчанию (например, Bronze/Gold/Platinum) и страну по умолчанию, которые бизнес-пользователи могут изменять во время выполнения.
+* Также есть текст уведомления, который может быть использован в пользовательском интерфейсе или отчетах.
+* Все эти значения должны быть изменяемыми без перезапуска приложения.
+
+Это можно реализовать в два этапа.
+
+=== Этап 1. Определите сущность настроек
+
+Создайте сущность, которая расширяет класс `io.jmix.appsettings.entity.AppSettingsEntity`:
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/appsettings/ex1/entity/CustomerSettings.java[tags=settings-entity]
+include::example$/appsettings-ex1/src/main/java/com/company/appsettingsex1/entity/CustomerSettings.java[tags=settings-entity]
 ----
 
-После этого вы сможете устанавливать значения для атрибутов этой сущности с помощью экрана *Application settings*.
+После этого в приложении в разделе *Application settings* бизнес-пользователи смогут редактировать `defaultGrade`, `country` и `notificationText`.
 
-Для получения настроек в коде приложения используйте бин `AppSettings`, например:
+image::app-settings-menu-view.png[width=1478]
+
+=== Этап 2. Используйте настройки в бизнес-логике
+
+Для получения настроек в коде приложения используйте бин `AppSettings`. Например, на экране редактирования клиента при инициализации сущности вы можете установить значения по умолчанию на основе настроек:
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/appsettings/ex1/screen/customer/CustomerEdit.java[tags=app-settings]
+include::example$/appsettings-ex1/src/main/java/com/company/appsettingsex1/view/customer/CustomerDetailView.java[tags=app-settings]
 ----
+
+После этого:
+
+* Когда бизнес-пользователь обновляет значение грейда по умолчанию с Bronze на Gold, все новые клиенты будут инициализированы с этим значением.
+* Когда бизнес-пользователь указывает страну по умолчанию, все новые клиенты будут инициализированы с этим значением.
+
+image::app-settings-initialize-entity.png[width=1478]
+
+Аналично, вы можете использовать текст уведомления для меток и подсказок в пользовательском интерфейсе, привязывая его к компонентам или всплывающей подсказке.
