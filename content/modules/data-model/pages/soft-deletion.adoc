@@ -132,20 +132,23 @@ Create an additional attribute and make sure it is updated from the `deletedDate
 ----
 @SystemLevel
 @Column(name = "DELETED_DATE_NN")
-@Temporal(TemporalType.TIMESTAMP)
-private Date deletedDateNN = new Date(0); // add initializer manually
+private OffsetDateTime deletedDateNN = OffsetDateTime.of(
+            1970, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC
+    ); // add initializer manually
 
-public Date getDeletedDateNN() {
+public OffsetDateTime getDeletedDateNN() {
     return deletedDateNN;
 }
 
-public void setDeletedDateNN(Date deletedDateNN) {
+public void setDeletedDateNN(OffsetDateTime deletedDateNN) {
     this.deletedDateNN = deletedDateNN;
 }
 
-public void setDeletedDate(Date deletedDate) {
+public void setDeletedDate(OffsetDateTime deletedDate) {
     this.deletedDate = deletedDate;
-    setDeletedDateNN(deletedDate == null ? new Date(0) : deletedDate); // add this manually
+    setDeletedDateNN(deletedDate == null ? OffsetDateTime.of(
+            1970, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC
+    ) : deletedDate); // add this manually
 }
 ----
 
