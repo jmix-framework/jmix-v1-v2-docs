@@ -319,7 +319,9 @@ include::../handler-generation-tip.adoc[]
 [[FileUploadFailedEvent]]
 === FileUploadFailedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent` is fired when `FailedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFailedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFailedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent` is fired when a `FailedEvent` is triggered by the underlying `Upload` component.
+
+`FailedEvent` occurs when a file upload is received by the server but the reception process is interrupted before completion. Common causes include network failures, server-side processing errors, or explicit cancellation.
 
 [source,java,indent=0]
 ----
@@ -329,27 +331,48 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[FileUploadFileRejectedEvent]]
 === FileUploadFileRejectedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` is fired when `FileRejectedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFileRejectedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFileRejectedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` is fired when the underlying Vaadin `Upload` component triggers a `FileRejectedEvent`.
+
+This event indicates that a user-selected file has been rejected because it fails to meet one or more constraints configured on the upload component, such as:
+
+* File size limits (<<maxFileSize,maxFileSize>>)
+* Accepted file types (<<acceptedFileTypes,acceptedFileTypes>>).
+
+Use this event to provide user feedback when upload constraints are violated.
 
 [[FileUploadFinishedEvent]]
 === FileUploadFinishedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` is fired when `FinishedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFinishedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFinishedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` is triggered when the underlying Vaadin `Upload` component fires a `FinishedEvent`.
+
+This event signals that a file upload process has completed, regardless of its outcome. It is fired for both successful uploads and failed attempts.
+
+For more granular control over the upload result, consider using these specific sub-events instead:
+
+* <<FileUploadSucceededEvent,FileUploadSucceededEvent>> - indicates a successful file upload.
+
+* <<FileUploadFailedEvent,FileUploadFailedEvent>> - indicates a failed or interrupted upload.
 
 [[FileUploadProgressEvent]]
 === FileUploadProgressEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` is fired when `ProgressUpdateEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addProgressListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addProgressListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` is fired when the underlying Vaadin `Upload` component emits a `ProgressUpdateEvent`.
+
+This event enables real-time tracking of an ongoing file upload. It provides continuous feedback on the upload progress, allowing you to update UI elements.
 
 [[FileUploadStartedEvent]]
 === FileUploadStartedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` is fired when `StartedEvent` of `Upload` is occurred. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addStartedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addStartedListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` is fired when the underlying Vaadin `Upload` component emits a `StartedEvent`.
+
+This event signals the beginning of a file upload process, immediately after a user selects a file and the transfer to the server is initiated.
 
 [[FileUploadSucceededEvent]]
 === FileUploadSucceededEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` is fired when the `Upload` component's `SucceededEvent` occurs, meaning the upload has been successfully received. See https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addSucceededListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addSucceededListener(ComponentEventListener)^] for details.
+`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` is fired when the underlying Vaadin `Upload` component triggers a `SucceededEvent`.
+
+This event confirms the successful completion of a file upload, indicating that the file has been fully received and processed by the server without errors.
 
 Here is an example of using `fileStorageUploadField` for `.xls` и `.xlsx` files, and then processing those files in `FileUploadSucceededEvent`.
 
