@@ -96,7 +96,7 @@ image::visual-components/components/file-storage-upload-text-attrs.png[align="ce
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/api/platform/24.0.5/com/vaadin/flow/component/upload/UploadI18N.Error.html#setFileIsTooBig(java.lang.String)" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/UploadI18N.Error.html#setFileIsTooBig(java.lang.String)" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -109,7 +109,7 @@ image::visual-components/components/file-storage-upload-text-attrs.png[align="ce
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/api/platform/24.0.5/com/vaadin/flow/component/upload/UploadI18N.Error.html#setIncorrectFileType(java.lang.String)" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/UploadI18N.Error.html#setIncorrectFileType(java.lang.String)" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -319,7 +319,9 @@ include::../handler-generation-tip.adoc[]
 [[FileUploadFailedEvent]]
 === FileUploadFailedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent` возникает, когда происходит `FailedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFailedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFailedListener(ComponentEventListener)^].
+`io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent` возникает, когда базовый компонент `Upload` генерирует событие `FailedEvent`.
+
+Событие `FailedEvent` происходит, когда сервер получает загружаемый файл, но процесс приема прерывается до его завершения. Типичные причины включают сбои сети, ошибки обработки на стороне сервера или явную отмену загрузки.
 
 [source,java,indent=0]
 ----
@@ -329,27 +331,48 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[FileUploadFileRejectedEvent]]
 === FileUploadFileRejectedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` возникает, когда происходит `FileRejectedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFileRejectedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFileRejectedListener(ComponentEventListener)^].
+`io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` возникает, когда базовый компонент Vaadin `Upload` генерирует событие `FileRejectedEvent`.
+
+Это событие указывает на то, что выбранный пользователем файл был отклонен, так как он не соответствует одному или нескольким ограничениям, настроенным на компоненте загрузки, таким как:
+
+* Ограничение размера файла (<<maxFileSize,maxFileSize>>)
+* Разрешенные типы файлов (<<acceptedFileTypes,acceptedFileTypes>>).
+
+Используйте это событие для предоставления обратной связи пользователю при нарушении ограничений загрузки.
 
 [[FileUploadFinishedEvent]]
 === FileUploadFinishedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` возникает, когда происходит `FinishedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFinishedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFinishedListener(ComponentEventListener)^].
+`io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` возникает, когда базовый компонент Vaadin `Upload` генерирует событие `FinishedEvent`.
+
+Это событие указывает на завершение процесса загрузки файла, независимо от его результата. Оно возникает как для успешных загрузок, так и для неудачных попыток.
+
+Для более детального контроля над результатом загрузки рассмотрите использование вместо него следующих конкретных под-событий:
+
+* <<FileUploadSucceededEvent,FileUploadSucceededEvent>> - указывает на успешную загрузку файла.
+
+* <<FileUploadFailedEvent,FileUploadFailedEvent>> - указывает на неудачную или прерванную загрузку.
 
 [[FileUploadProgressEvent]]
 === FileUploadProgressEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` возникает, когда происходит `ProgressUpdateEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addProgressListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addProgressListener(ComponentEventListener)^].
+`io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` возникает, когда базовый компонент Vaadin `Upload` генерирует событие `ProgressUpdateEvent`.
+
+Это событие позволяет отслеживать процесс загрузки файла в реальном времени. Оно предоставляет непрерывную обратную связь о ходе загрузки, позволяя вам обновлять элементы пользовательского интерфейса.
 
 [[FileUploadStartedEvent]]
 === FileUploadStartedEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` возникает, когда происходит `StartedEvent` компонента `Upload`. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addStartedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addStartedListener(ComponentEventListener)^].
+`io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` возникает, когда базовый компонент Vaadin `Upload` генерирует событие `StartedEvent`.
+
+Это событие сигнализирует о начале процесса загрузки файла, сразу после того как пользователь выбирает файл и инициируется его передача на сервер.
 
 [[FileUploadSucceededEvent]]
 === FileUploadSucceededEvent
 
-`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` возникает, когда происходит `SucceededEvent` компонента `Upload`, что означает, что загрузка успешно завершена. Подробности смотрите в документации к https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addSucceededListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addSucceededListener(ComponentEventListener)^].
+`io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` возникает, когда базовый компонент Vaadin `Upload` генерирует событие `SucceededEvent`.
+
+Это событие подтверждает успешное завершение загрузки файла, указывая на то, что файл был полностью принят и обработан сервером без ошибок.
 
 Вот пример использования `fileStorageUploadField` для файлов `.xls` и `.xlsx`, а затем обработки этих файлов в `FileUploadSucceededEvent`.
 
