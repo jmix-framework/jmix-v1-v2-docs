@@ -39,16 +39,21 @@ CAUTION: There is no automatic filtering for native SQL, so tenant users should 
 
 In your project, the `User` entity should include a tenant-id attribute. This attribute must be assigned a specific value for all tenant users. Users without a value in this attribute (those not linked to any specific tenant) can access data from all tenants. This setup is suitable for __global administrators__ who are responsible for configuring tenants and overseeing the entire system.
 
-The following entities of Jmix modules have `sysTenantId` attribute and support multitenancy:
+== Add-ons and Modules with Multitenancy Support
 
-* `EntityLogItem`
-* `SendingMessage`
-* `SendingAttachment`
-* `Report`
-* `ReportGroup`
-* `ResourceRoleEntity`
-* `RowLevelRoleEntity`
-* `FilterConfiguration`
+The following add-ons and modules will correctly store tenant information and ensure tenant isolation when using the Multitenancy add-on. The specific entities that include the `sysTenantId` attribute are listed next to each add-on.
+
+* xref:audit:index.adoc[Audit add-on]: `EntityLogItem`.
+* xref:bpm:index.adoc[BPM add-on]: `ContentStorage`, `UserGroup`, `UserGroupRole`, `UserGroupUser`.
+* xref:email:index.adoc[Email Sending add-on]: `SendingMessage`, `SendingAttachment`.
+* xref:reports:index.adoc[Reports add-on]: `Report`, `ReportGroup`.
+* xref:security:index.adoc[Security subsystem] (built into the framework) : `ResourceRoleEntity`, `RowLevelRoleEntity`.
+* Filter configuration (built into the framework): `FilterConfiguration`.
+
+To evaluate support for custom and community add‑ons:
+
+* Check the add‑on’s documentation for mentions of `sysTenantId` or `@TenantId`.
+* Inspect its entities to see whether they have a tenant field and how it is used.
 
 [[managing-tenants]]
 == Managing Tenants
