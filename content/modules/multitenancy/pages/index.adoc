@@ -39,16 +39,21 @@ CAUTION: Автоматическая фильтрация для нативно
 
 В вашем проекте сущность `User` должна включать атрибут `tenant-id`. Этому атрибуту должно быть присвоено определенное значение для всех пользователей тенанта. Пользователи без значения в этом атрибуте (те, кто не связан с каким-либо конкретным тенантом) могут получать доступ к данным всех тенантов. Такая настройка подходит для __глобальных администраторов__, которые отвечают за настройку тенантов и наблюдение за всей системой.
 
-Следующие сущности модулей Jmix имеют атрибут `sysTenantId` и поддерживают мультитенантность:
+== Дополнения и модули с поддержкой Multitenancy
 
-* `EntityLogItem`
-* `SendingMessage`
-* `SendingAttachment`
-* `Report`
-* `ReportGroup`
-* `ResourceRoleEntity`
-* `RowLevelRoleEntity`
-* `FilterConfiguration`
+Следующие дополнения и модули корректно хранят информацию и обеспечивают изоляцию тенантов при использовании дополнения Multitenancy. Конкретные сущности, которые содержат атрибут `sysTenantId`, перечислены рядом с каждым дополнением.
+
+* xref:audit:index.adoc[Audit]: `EntityLogItem`.
+* xref:bpm:index.adoc[BPM]: `ContentStorage`, `UserGroup`, `UserGroupRole`, `UserGroupUser`.
+* xref:email:index.adoc[Email Sending]: `SendingMessage`, `SendingAttachment`.
+* xref:reports:index.adoc[Reports]: `Report`, `ReportGroup`.
+* xref:security:index.adoc[Подсистема безопасности] (встроена в фреймворк): `ResourceRoleEntity`, `RowLevelRoleEntity`.
+* Конфигурация фильтров (встроена в фреймворк): `FilterConfiguration`.
+
+Чтобы оценить поддержку Multitenancy в кастомных дополнениях:
+
+* Проверьте документацию дополнения на наличие упоминаний `sysTenantId` или `@TenantId`.
+* Изучите сущности в дополнении, чтобы узнать, есть ли у них атрибут тенанта и как он используется.
 
 [[managing-tenants]]
 == Управление тенантами
