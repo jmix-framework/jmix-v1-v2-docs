@@ -89,6 +89,19 @@ execution.setVariable("variableName", variableValue)
 
 By default, no variables are stored automatically.
 
+[[beans-scripts]]
+=== Beans in Scripts
+
+Beans may be accessed in scripts by their names. The following Groovy script calls the `doSomething` method from `MyBean` and sets the result in the execution context as a variable:
+
+[source, groovy]
+----
+res = MyBean.doSomething()
+execution.setVariable("doSomething", res)
+----
+
+TIP: The primary and recommended way to call a bean is with a xref:bpmn/bpmn-service-task.adoc[]. If you need to use Groovy logic along with Java bean calls, call the bean from a Service Task before or after the Script Task and let them communicate via process variables.
+
 [[script-result]]
 === Script Result
 
