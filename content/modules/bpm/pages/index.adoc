@@ -34,3 +34,23 @@ implementation 'io.jmix.bpm:jmix-bpm-flowui-starter'
 ----
 
 include::ROOT:single-menu-note.adoc[]
+
+[[oracle-db-note]]
+== Oracle Database Note
+
+When the application starts, the Flowable engine checks if the xref:bpm:introduction.adoc#database-table-names[`ACT_GE_PROPERTY`] table exists. If the application is using Oracle Database as the data source, you might see this error:
+
+----
+oracle.jdbc.OracleDatabaseException: ORA-00942: table or view does not exist
+----
+
+One possible cause of the https://docs.oracle.com/en/error-help/db/ora-00942[ORA-00942^] error is that the table belongs to a schema that is different from default and is not referenced correctly. This can occur when the database has multiple users.
+
+To resolve this issue, explicitly set the schema by adding this line to your `application.properties` file:
+
+.application.properties
+----
+flowable.database-schema=<db_username>
+----
+
+Replace `<db_username>` with the actual database username.
