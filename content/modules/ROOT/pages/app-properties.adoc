@@ -176,28 +176,28 @@ jmix.cors.allowed-origins = https://www.allowed1.com, https://www.allowed2.com
 Значение по умолчанию: `100`
 
 [[long-classpath-issues-windows]]
-== Long Classpath Issues on Windows
+== Проблемы длинного classpath в Windows
 
 [[io.jmix.flowui.read-class-path-from-temp-jar]]
 === io.jmix.flowui.read-class-path-from-temp-jar
 
-On Windows OS, applications with extensive classpaths may encounter UI rendering issues in Flow UI.
+В операционной системе Windows приложения с большим количеством путей в classpath могут столкнуться с проблемами отрисовки пользовательского интерфейса в Flow UI.
 
-Jmix provides a configuration property to resolve this Windows-specific issue:
+Jmix предоставляет свойство конфигурации для решения этой специфической для Windows проблемы:
 
 [source,properties]
 ----
 io.jmix.flowui.read-class-path-from-temp-jar = true
 ----
 
-Default value: `true`
+Значение по умолчанию: `true`
 
-When enabled:
+При включении:
 
-* Automatically activates on Windows OS only.
-* Extracts the classpath from the `MANIFEST.MF` file within Gradle's temporary JAR.
-* Ensures Spring Boot correctly identifies all classpath entries.
-* Restores proper UI resource loading and component rendering.
+* Автоматически активируется только в операционной системе Windows.
+* Извлекает classpath из файла `MANIFEST.MF` внутри временного JAR-файла, созданного Gradle.
+* Гарантирует, что Spring Boot правильно идентифицирует все записи classpath.
+* Восстанавливает корректную загрузку ресурсов пользовательского интерфейса и отрисовку компонентов.
 
 [[see-also]]
 == Смотрите также
