@@ -177,6 +177,30 @@ This property affects the Spring Security's {spring-security-api}/org/springfram
 
 Default value: `100`
 
+[[long-classpath-issues-windows]]
+== Long Classpath Issues on Windows
+
+[[io.jmix.flowui.read-class-path-from-temp-jar]]
+=== io.jmix.flowui.read-class-path-from-temp-jar
+
+On Windows OS, applications with extensive classpaths may encounter UI rendering issues in Flow UI.
+
+Jmix provides a configuration property to resolve this Windows-specific issue:
+
+[source,properties]
+----
+io.jmix.flowui.read-class-path-from-temp-jar = true
+----
+
+Default value: `true`
+
+When enabled:
+
+* Automatically activates on Windows OS only.
+* Extracts the classpath from the `MANIFEST.MF` file within Gradle's temporary JAR.
+* Ensures Spring Boot correctly identifies all classpath entries.
+* Restores proper UI resource loading and component rendering.
+
 [[see-also]]
 == See Also
 
