@@ -30,3 +30,24 @@ implementation 'io.jmix.bpm:jmix-bpm-flowui-starter'
 ----
 
 include::ROOT:single-menu-note.adoc[]
+
+[[oracle-db-note]]
+== Использование совместно с Oracle Database
+
+При запуске приложения, движок Flowable проверяет, существует ли таблица xref:bpm:introduction.adoc#database-table-names[`ACT_GE_PROPERTY`].
+Если приложение использует Oracle Database в качестве хранилища данных, вы можете столкнуться с ошибкой:
+
+----
+oracle.jdbc.OracleDatabaseException: ORA-00942: table or view does not exist
+----
+
+Одной из возможных причин ошибки https://docs.oracle.com/en/error-help/db/ora-00942[ORA-00942^] является то, что таблица принадлежит схеме, отличной от стандартной и которая не указана явно. Это может произойти, если в базе данных несколько пользователей.
+
+Чтобы решить данную проблему, явно укажите схему, добавив следующую строку в файл `application.properties`:
+
+.application.properties
+----
+flowable.database-schema=<db_username>
+----
+
+Замените `<db_username>` на фактическое имя пользователя базы данных.
