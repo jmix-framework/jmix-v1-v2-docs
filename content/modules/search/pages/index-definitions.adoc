@@ -285,19 +285,19 @@ NOTE: Может быть только один метод с программн
 [[FieldMappingStrategy]]
 === FieldMappingStrategy
 
-`io.jmix.search.index.mapping.strategy.FieldMappingStrategy` - base interface for mapping strategy.
+`io.jmix.search.index.mapping.strategy.FieldMappingStrategy` - базовый интерфейс для стратегии маппинга.
 
-Defines how entity properties are transformed into search index fields. Each strategy determines:
+Определяет, как свойства сущности преобразуются в поля поискового индекса. Каждая стратегия определяет:
 
-* Which property types it supports (`isSupported()` method).
-* How the field configuration is generated for the search engine.
-* What value extraction method to use.
-* Execution order when multiple strategies apply.
+* Какие типы свойств она поддерживает (метод `isSupported()`).
+* Как генерируется конфигурация поля для поискового движка.
+* Какой метод извлечения значений использовать.
+* Порядок выполнения, когда применяются несколько стратегий.
 
 [[PropertyValueExtractor]]
 === PropertyValueExtractor
 
-`io.jmix.search.index.mapping.propertyvalue.PropertyValueExtractor` - a functional interface responsible for extracting property values from entity instances during indexing. It transforms entity property data into JSON format that can be indexed by the search engine. Use custom implementations when you need specialized value extraction logic beyond standard property mapping.
+`io.jmix.search.index.mapping.propertyvalue.PropertyValueExtractor` - функциональный интерфейс, отвечающий за извлечение значений свойств из экземпляров сущностей во время индексации. Он преобразует данные свойств сущности в формат JSON, который может быть проиндексирован поисковым движком. Используйте пользовательские реализации, когда вам нужна специализированная логика извлечения значений, выходящая за рамки стандартного маппинга свойств.
 
 [[indexable-predicate]]
 == Предикат индексируемости
