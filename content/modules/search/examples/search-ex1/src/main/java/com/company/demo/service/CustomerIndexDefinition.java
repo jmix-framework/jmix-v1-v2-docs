@@ -11,6 +11,7 @@ import io.jmix.search.index.annotation.ManualMappingDefinition;
 import io.jmix.search.index.mapping.MappingDefinition;
 import io.jmix.search.index.mapping.MappingDefinitionElement;
 import io.jmix.search.index.mapping.propertyvalue.impl.FilePropertyValueExtractor;
+import io.jmix.search.index.mapping.propertyvalue.impl.SimplePropertyValueExtractor;
 import io.jmix.search.index.mapping.strategy.impl.AutoMappingStrategy;
 
 import java.util.function.Predicate;
@@ -56,6 +57,47 @@ public interface CustomerIndexDefinition {
     }
     // end::predicate[]
 
+    // tag::text-config[]
+    @ManualMappingDefinition
+    default MappingDefinition mappingMethod(AutoMappingStrategy autoMappingStrategy,
+                                      SimplePropertyValueExtractor simplePropertyValueExtractor) {
+        return MappingDefinition.builder()
+                .addElement(
+                        MappingDefinitionElement.builder()
+                                .includeProperties("*")
+                                .excludeProperties("firstName", "lastName") // <1>
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addElement(
+                        MappingDefinitionElement.builder()
+                                .includeProperties("firstName") // <2>
+                                .withFieldMappingStrategy(autoMappingStrategy) // <3>
+                                .withFieldConfiguration( // <4>
+                                        "{\n" +
+                                                "    \"type\": \"text\",\n" +
+                                                "    \"analyzer\": \"standard\",\n" +
+                                                "    \"boost\": 2\n" +
+                                                "}"
+                                )
+                                .build()
+                )
+                .addElement(
+                        MappingDefinitionElement.builder()
+                                .includeProperties("lastName") // <5>
+                                .withFieldConfiguration( // <6>
+                                        "{\n" +
+                                                "    \"type\": \"text\",\n" +
+                                                "    \"analyzer\": \"english\"\n" +
+                                                "}"
+                                )
+                                .withPropertyValueExtractor(simplePropertyValueExtractor) // <7>
+                                .withOrder(1) // <8>
+                                .build()
+                )
+                .build();
+    }
+// end::text-config[]
     // tag::interface[]
 }
 // end::interface[]
