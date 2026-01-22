@@ -3,7 +3,7 @@
 [[overview]]
 == Overview
 
-A *Service Task* is used to invoke Java code, external services, APIs, or automated applications, to complete its function.
+A *Service Task* is used to invoke Java logic, external services, APIs, or automated applications.
 
 .*Graphical Notation*
 
@@ -38,33 +38,27 @@ Actually, it is recommended always to set _Async_ on (true).
 In some cases, it can affect performance.
 ====
 
+[[task-type]]
+== Task Type
 
-[[task-types]]
-== Types of Service Tasks
+*Task type* declares how Java logic should be invoked for the service task:
 
-Parameter *Task type* defines the way service task is implemented.
-There are the following types of service tasks in Jmix BPM:
+* *Spring Bean*: Specify a Spring Bean, its method, and the necessary method parameters.
 
-Spring bean:: In this case, specified method of the selected bean will be executed when the process reaches the task.
-Process variables or fixed values can be passed as method parameters, the result can be stored in a result variable.
+* *Java Delegate Class*: Provide a class that implements `JavaDelegate` or `FutureJavaDelegate`.
 
-Java Delegate Class:: In this case, the service task is implemented as _JavaDelegate_ class, and its _execute()_ method will be invoked.
-Also, it supports a _Fields injection_ mechanism.
+* *Expression*: Invoke a method expression.
 
-Expression:: It is a general way to call any method or evaluate inline expression.
-
-Delegate expression:: Actually, it isn't expression, it is a Spring bean that implements JavaDelegate interface.
-So it has features of both.
+* *Delegate Expression*: Evaluate an expression that resolves to a delegation object.
 
 // External worker:: The External Worker Task allows you to create jobs that should be acquired and executed by External Workers.
 //todo -- test this
 
 
 [[spring-bean-service-task]]
-=== Spring Bean Service Task
+=== Spring Bean
 
 *Jmix BPM* allows to invoke from the service task a Spring bean method and provide parameter values for it.
-This approach is the most recommended for using in service tasks.
 
 You can select an existing bean and its associated method using the **Bean Name** and **Method** fields, respectively.
 
@@ -160,10 +154,9 @@ image::bpmn-service-task/execution-as-parameter.png[,460]
 [[java-delegate-service-task]]
 === Java Delegate Class
 
-In this case, business logic will be executed by a class implementing `org.flowable.engine.delegate.JavaDelegate` interface with _execute()_ method.
-The method receives `execution` object as a parameter, so you'll have access to process context, including all process variables.
+In this case, business logic will be executed by a class that implements `org.flowable.engine.delegate.JavaDelegate` or `org.flowable.engine.delegate.FutureJavaDelegate` interface overriding its _execute()_ method. The method receives `execution` object as a parameter, so you'll have access to process context, including all process variables.
 
-If you select _JavaDelegate class_ option in the _Task type_ combo box, you can select an appropriate class implementing `JavaDelegate`:
+If you select _JavaDelegate class_ option in the *Task type* combo box, you can select an appropriate class:
 
 image::bpmn-service-task/create-java-delegate.png[,460]
 
@@ -214,7 +207,7 @@ This also may affect xref:field-injections[Fields injection].
 
 
 [[delegate-expression-service-task]]
-=== Delegate Expression Service Task
+=== Delegate Expression
 
 A *delegate expression* is a powerful feature used in service tasks that allows for the dynamic resolution of a Java object at runtime.
 For example, an expression like `$\{myServiceBean\}` would resolve to a Spring bean named `myServiceBean`.
@@ -222,7 +215,7 @@ For example, an expression like `$\{myServiceBean\}` would resolve to a Spring b
 In a Spring context, delegate expressions can reference Spring beans directly, enabling seamless integration with the Spring framework.
 This allows for dependency injection and the use of Spring's features within the delegate implementation.
 
-To use `JavaDelegate` classes in delegate expressions, annotate them with @Component, similar to a Spring bean.
+To use delegated classes in delegate expressions, annotate them with `@Component`, similar to a Spring bean.
 In this case, it combines the features of both types -- _Spring bean_ and _Java Delegate_ class:
 
 [source,java]
@@ -257,7 +250,7 @@ In XML, an attribute `flowable:delegateExpression` is used for this purpose:
 ----
 
 [[expression-service-task]]
-=== Expression Service Task
+=== Expression
 
 Expression is the most general way to invoke Java logic.
 You can call a Spring bean method from expression:
@@ -320,14 +313,6 @@ Process engine, in its default configuration, reruns a job three times if thereâ
 === Field Injections
 
 The *field injections* is a Flowable mechanism of passing parameter in Java Delegate class as fixed string values or expressions resolved in strings.
-It can be used with the following task types:
-
-* Java Delegate class
-
-And, if a called object is Java Delegate class, in
-
-* Delegate expression
-* Expression
 
 Injected field must always be of `org.flowable.common.engine.api.delegate.Expression` type.
 When the injected expression is resolved, it can be cast to the appropriate target type.
@@ -341,7 +326,7 @@ Otherwise, it'll be an error.
 
 How to inject fields:
 
-. Create fields definition in your `JavaDelegate` class:
+. Create fields definition in your delegated class:
 +
 [source,java]
 ----
@@ -358,7 +343,7 @@ If you need to pass a numeric values, use expression like shown above, for examp
 If you write just _3_, this will be interpreted as `String` object "3" and cannot be cast to `Integer` type.
 ====
 
-. At runtime, the process engine resolves expression and passes result strings in Java Delegate class.
+. At runtime, the process engine resolves expression and passes result strings to the delegated class.
 . In Java Delegate class, there must be a code getting values from the fields and casing them to desired types:
 +
 [source,java]
