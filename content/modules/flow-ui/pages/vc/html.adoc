@@ -25,6 +25,9 @@ TIP: Используйте компонент xref:vc/components/html.adoc[html
 |`emphasis`
 |`em`
 
+|xref:vc/html-components/fieldset.adoc[]
+|`fieldset`
+
 |`footer`
 |`footer`
 

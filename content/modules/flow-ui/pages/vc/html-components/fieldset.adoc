@@ -1,0 +1,55 @@
+= fieldSet
+
+Компонент `fieldSet` группирует компоненты на экране, упрощая их восприятие.
+
+// short description
+[cols="1h,6", grid=none]
+|===
+|XML Элемент
+|`fieldSet`
+|Java Класс
+|`FieldSet`
+|Атрибуты
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<legendText,legendText>> - xref:flow-ui:vc/common-attributes.adoc#text[text] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#property[property]
+|
+|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - xref:flow-ui:vc/common-attributes.adoc#whiteSpace[whiteSpace]
+|
+|*Other:* xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] - xref:flow-ui:vc/common-attributes.adoc#title[title]
+|Handlers
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
+
+[[Basics]]
+== Основы
+
+Чтобы использовать компонент, оберните компоненты, которые вы хотите сгруппировать и добавьте
+ `legendText` для заголовка.
+
+[source,xml,indent=0]
+----
+include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlcomponent/fieldset/fieldset-view.xml[tags=basics]
+----
+
+image::visual-components/html-components/fieldset-basic.png[align="center", width="236"]
+
+== Атрибуты
+
+xref:vc/common-attributes.adoc[Общие атрибуты] выполняют ту же функцию для всех компонентов.
+Следующие атрибуты специфичны для `fieldSet`:
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Имя*
+|*Описание*
+|*По умолчанию*
+|[[legendText]]legendText
+|Предоставляет подпись или заголовок для сгруппированных компонентов.
+| –
+|===
+
