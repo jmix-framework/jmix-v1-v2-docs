@@ -39,8 +39,13 @@ Just like the elements which make up a process, the process itself has a number 
 |Individual users permitted to start the process. If the user is among candidates, they will see this process definition in the xref:menu-views/start-process-view.adoc[Start process] view.
 |Event listeners
 |See xref:listeners.adoc#execution-listeners[listeners].
-|Signal definitions
-|To create a signal definition, set its *Id* and *Name*. Besides, specify its *Scope*. You can use it in xref:bpmn/bpmn-events.adoc#signal-events[Signal event] elements.
+|Signal definitions [[signal-definition]]
+a|To create a signal definition, set its *Id*, *Name*, and *Scope*:
+
+* `Global` signals are sent throughout the entire process engine. This means if one process instance triggers a signal event, other process instances can respond to it. This is useful for communication between different processes.
+* `Process instance` signals only function within their own process instance. They can help synchronize tasks that are mutually exclusive.
+
+You can configure a xref:bpmn/bpmn-events.adoc#signal-events[signal event] element to reference a definition.
 |Message definitions
 |To create a message definition, set its id and name. This message can be used in xref:bpmn/bpmn-events.adoc#message-events[Message event] elements.
 |Error definitions
