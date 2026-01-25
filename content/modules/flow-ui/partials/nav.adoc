@@ -79,6 +79,7 @@
 **** xref:flow-ui:vc/layouts/vbox.adoc[]
 *** xref:flow-ui:vc/html.adoc[]
 **** xref:flow-ui:vc/html-components/div.adoc[]
+**** xref:flow-ui:vc/html-components/fieldset.adoc[]
 **** xref:flow-ui:vc/html-components/h1-h6.adoc[]
 **** xref:flow-ui:vc/html-components/image.adoc[]
 **** xref:flow-ui:vc/html-components/iframe.adoc[]

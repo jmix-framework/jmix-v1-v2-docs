@@ -132,6 +132,7 @@
         <item view="LabelView" title="msg://com.company.onboarding.view.htmlcomponent.label/labelView.title"/>
         <item view="SpanView" title="msg://com.company.onboarding.view.htmlcomponent.span/spanView.title"/>
         <item view="IframeView" title="msg://com.company.onboarding.view.htmlcomponent.iframe/iframeView.title"/>
+        <item view="FieldsetView" title="msg://com.company.onboarding.view.htmlcomponent.fieldset/fieldsetView.title"/>
     </menu>
 
     <menu id="customComponents" title="Custom components">
