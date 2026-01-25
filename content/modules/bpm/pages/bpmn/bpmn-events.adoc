@@ -632,9 +632,7 @@ The activity may have several boundary message events.
 [[signal-events]]
 == Signal Events
 
-Signal events are events that reference a xref:bpmn/bpmn-events.adoc#signal-definition[signal definition].
-Broadcasting a signal will trigger all signal events matching the name of the broadcast signal.
-Signals have a scope, it can be _Global_ or _Process instance_.
+Signal events refer a xref:bpmn/bpmn-process.adoc#signal-definition[signal] defined in a process. When a signal is sent, it will activate all events associated with that signal. Signals have a scope, it can be _Global_ or _Process instance_.
 
 image::bpmn-events/signal-events.png[,400]
 
@@ -652,7 +650,7 @@ Signal end event isn't supported. Use xref:bpmn/bpmn-events.adoc#signal-throwing
 [[signal-start-event]]
 === Signal Start Event
 
-A *signal start event* can be used to start a process instance using a named xref:bpmn/bpmn-events.adoc#signal-definition[signal definition].
+A *signal start event* can be used to start a process instance using a named xref:bpmn/bpmn-process.adoc#signal-definition[signal definition].
 The process can have one or more signal start events, but signal definitions must differ.
 
 .*Graphical Notation*
