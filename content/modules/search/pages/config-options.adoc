@@ -7,6 +7,12 @@ The Search add-on checks the current configuration of Elasticsearch indexes and 
 
 * `create-only` - every missing index will be created, existing indexes with irrelevant configuration will be kept as is.
 * `create-or-recreate` - every missing index will be created, existing indexes with irrelevant configuration will be recreated (all data will be lost). This is the default strategy.
+* The `create-or-update` strategy manages search indexes by creating missing ones and updating the configuration of existing ones without full recreation.
++
+When using this strategy:
+
+** If a new field or fields are added to an existing index, the index will not be recreated. All previously indexed instances will remain in the index (with data corresponding to the old configuration), while newly indexed instances will be added with the new configuration (including the extra field or fields).
+** If any fields are deleted from the index, that index will become unavailable. Such an index must be manually recreated using the JMX console.
 * `none` - missing indexes are ignored, existing indexes with irrelevant configuration will be kept as is. This option may be used if you want to operate indexes manually.
 
 The strategy can be configured by adding the following property to your `application.properties` file:
