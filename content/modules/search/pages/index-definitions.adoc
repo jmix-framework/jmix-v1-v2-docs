@@ -274,10 +274,9 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/CustomerInde
 * `"type": "text"` — explicitly specifies the text type.
 * `"analyzer": "standard"` — uses the standard Elasticsearch analyzer for token splitting.
 * `"boost": 2` — gives the firstName field double weight in search. Documents where the query matches the name will rank higher in results.
-<5> Applies only to the `lastName` field.
-<6> Fully defines the mapping, bypassing any strategy. The field will be indexed as text with the `"english"` analyzer, which specializes in the English language.
-<7> A mandatory parameter when specifying the configuration directly (`withFieldConfiguration`). Indicates which component should extract the value of this property from the `Customer` entity for indexing. Without an extractor, the engine will not know how to retrieve the data.
-<8> Sets the order for this mapping element. This can be important if elements conflict with each other.
+<5> Fully defines the mapping, bypassing any strategy. The field will be indexed as text with the `"english"` analyzer, which specializes in the English language.
+<6> A mandatory parameter when specifying the configuration directly (`withFieldConfiguration`). Indicates which component should extract the value of this property from the `Customer` entity for indexing. Without an extractor, the engine will not know how to retrieve the data.
+<7> Sets the order for this mapping element. This can be important if elements conflict with each other.
 
 NOTE: There can be only one method with programmatic mapping. If a method with programmatic mapping exists, all mapping annotations are ignored.
 
