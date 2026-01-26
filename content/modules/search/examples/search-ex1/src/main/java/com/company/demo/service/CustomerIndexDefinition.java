@@ -84,15 +84,15 @@ public interface CustomerIndexDefinition {
                 )
                 .addElement(
                         MappingDefinitionElement.builder()
-                                .includeProperties("lastName") // <5>
-                                .withFieldConfiguration( // <6>
+                                .includeProperties("lastName")
+                                .withFieldConfiguration( // <5>
                                         "{\n" +
                                                 "    \"type\": \"text\",\n" +
                                                 "    \"analyzer\": \"english\"\n" +
                                                 "}"
                                 )
-                                .withPropertyValueExtractor(simplePropertyValueExtractor) // <7>
-                                .withOrder(1) // <8>
+                                .withPropertyValueExtractor(simplePropertyValueExtractor) // <6>
+                                .withOrder(1) // <7>
                                 .build()
                 )
                 .build();
