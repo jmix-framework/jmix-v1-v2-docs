@@ -1,0 +1,29 @@
+= Получение данных о процессной форме
+
+Бин `io.jmix.bpm.processform.ProcessFormDataExtractor` предоставляет программный доступ к информации о форме процесса. Ниже показан пример REST‑контроллера, который использует этот бин для получения данных формы, связанной с запущенным экземпляром процесса.
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/app/FormDataController.java[tags=form-data-controller]
+----
+<1> При указании `processDefinitionID` будут возвращены данные стартовой формы процесса.
+<2> При указании `taskID` возвращаются данные формы соответствующей задачи.
+
+**Тело успешного ответа:**
+
+----
+{
+  "type": "jmix-screen",
+  "screenId": "FormExample",
+  "openMode": "DIALOG",
+  "businessKey": null,
+  "businessKeySource": null,
+  "allowedProcessKeys": [],
+  "fields": [],
+  "outcomes": [],
+  "formParams": [],
+  "outputVariables": []
+}
+----
+
+TIP: Обязательно защищайте эндпоинты приложения. Используйте примеры кода из раздела xref:security:custom-endpoints.adoc[] в качестве руководства.

@@ -14,6 +14,7 @@
 ** xref:bpm:forms.adoc[]
 *** xref:bpm:input-dialog.adoc[]
 *** xref:bpm:bpmn/jmix-view-forms.adoc[]
+*** xref:bpm:process-form-data-extractor.adoc[]
 ** xref:bpm:modeler-studio.adoc[]
 ** xref:bpm:bpm-concepts.adoc[]
 // *** xref:bpm:creating-process-in-studio.adoc[Creating Process in Studio]
@@ -50,3 +51,4 @@
 ** xref:bpm:instance-migration.adoc[]
 ** xref:bpm:auto-deployment.adoc[]
 ** xref:bpm:jmix-bpm-api.adoc[]
+** xref:bpm:jmix-bpm-rest-api.adoc[]

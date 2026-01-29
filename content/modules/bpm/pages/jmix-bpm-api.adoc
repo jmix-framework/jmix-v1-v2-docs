@@ -1,11 +1,11 @@
-= BPM API
+= Flowable API
 
-Jmix BPM использует Flowable API, что обеспечивает легкое взаимодействие приложения Spring Boot с процессным движком. Также <<flowable-rest-api,REST API>> Flowable предлагает широкие возможности для интеграции с внешними приложениями. Понимание доступных API позволяет разработчикам максимально эффективно использовать Flowable в дополнении Jmix BPM.
+Jmix BPM использует Flowable API, что обеспечивает легкое взаимодействие приложения Spring Boot с процессным движком.
 
 [[flowable-api]]
 == Flowable API
 
-Flowable API позволяет программно запускать экземпляры процессов, завершать задачи и выполнять различные запросы, например, получать список задач для пользователя или активные экземпляры определения процесса.
+https://www.flowable.com/open-source/docs/bpmn/ch04-API[Flowable API^] позволяет программно запускать экземпляры процессов, завершать задачи и выполнять различные запросы, например, получать список задач для пользователя или активные экземпляры определения процесса.
 
 image::jmix-bpm-api/api-services.png[,600]
 
@@ -27,22 +27,10 @@ include::example$/ex1/src/main/java/bpm/ex1/screen/customer/CustomerEdit.java[ta
 include::example$/ex1/src/main/java/bpm/ex1/service/MyCustomBean.java[tags=bean;runtime-service]
 ----
 
-[[flowable-rest-api]]
-== Flowable REST API
-
-//todo: check REST API usage
-
-См. https://www.flowable.com/open-source/docs/bpmn/ch14-REST
-
 [[flowable-dmn-api]]
 == Flowable DMN API
 
 См. https://www.flowable.com/open-source/docs/dmn/ch03-API
-
-[[flowable-dmn-rest-api]]
-== Flowable DMN REST API
-
-См. https://www.flowable.com/open-source/docs/dmn/ch07-REST
 
 [[examples]]
 == Примеры

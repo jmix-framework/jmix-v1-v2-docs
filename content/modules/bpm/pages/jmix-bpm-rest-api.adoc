@@ -1,0 +1,60 @@
+= Flowable REST API
+
+Приложение Jmix с дополнением BPM может использовать REST API Flowable:
+
+* *BPMN REST API* предоставляет эндпоинты для определений процессов, текущих и исторических экземпляров, пользовательских задач и др. (см. подробнее в https://www.flowable.com/open-source/docs/bpmn/ch14-REST[документации Flowable^]).
+
+* *DMN REST API* предоставляет эндпоинты для управления таблицами решений (см. подробнее в https://www.flowable.com/open-source/docs/dmn/ch07-REST[документации Flowable^]).
+
+[[gradle-dependencies]]
+== Зависимости Gradle
+
+Чтобы подключить API, добавьте соответствующие зависимости в `build.gradle`:
+
+.build.gradle
+[source]
+----
+include::example$/bpm-ex1/build.gradle[tags=dependencies;flowable-bpmn-api-starter;flowable-dmn-api-starter]
+----
+
+[[base-path-configuration]]
+== Настройка базового пути
+
+Flowable REST API будут доступны по отдельным базовым путям. Значения по умолчанию:
+
+[cols="1h,1,4", grid=rows]
+|===
+| |Путь |Пример URL
+
+|BPMN REST API
+|`/process-api`
+|`\http://localhost:8080/process-api/repository/process-definitions`
+
+|DMN REST API
+|`/dmn-api`
+|`\http://localhost:8080/dmn-api/dmn-repository/deployments`
+|===
+
+[NOTE]
+====
+Если установлен контекстный путь, его нужно добавить к URL.
+Например, если установлено свойство `server.servlet.context-path=/app`, то URL для DMN принимает вид
+`\http://localhost:8080/app/rest/bpm/dmn/dmn-repository/deployments`
+====
+
+Чтобы изменить пути по умолчанию, задайте желаемые значения в `application.properties`:
+
+.application.properties
+[source,properties]
+----
+include::example$/bpm-ex1/src/main/resources/application.properties[tags=process-path;dmn-path]
+----
+
+[[security-configuration]]
+== Конфигурация безопасности
+
+После добавления зависимостей настройте Spring Security конфигурацию для эндпоинтов Flowable в проекте Jmix. Раздел xref:security:custom-endpoints.adoc[] содержит примеры кода конфигураций для следующих сценариев:
+
+* Публичные эндпоинты
+* HTTP Basic аутентификация
+* Аутентификация с помощью токенов
