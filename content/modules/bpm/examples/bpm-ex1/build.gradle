@@ -36,7 +36,10 @@ configurations.implementation {
     exclude group: 'com.vaadin', module: 'hilla-dev'
 }
 
+// tag::dependencies[]
 dependencies {
+    //...
+    // end::dependencies[]
     implementation 'io.jmix.core:jmix-core-starter'
     implementation 'io.jmix.data:jmix-eclipselink-starter'
     implementation 'io.jmix.security:jmix-security-starter'
@@ -53,6 +56,14 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // tag::flowable-bpmn-api-starter[]
+    implementation 'org.flowable:flowable-spring-boot-starter-process-rest'
+    // end::flowable-bpmn-api-starter[]
+
+    // tag::flowable-dmn-api-starter[]
+    implementation 'org.flowable:flowable-spring-boot-starter-dmn-rest'
+    // end::flowable-dmn-api-starter[]
+
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -62,7 +73,9 @@ dependencies {
     implementation 'io.jmix.bpm:jmix-bpm-starter'
     implementation 'org.postgresql:postgresql'
     testImplementation 'org.hsqldb:hsqldb'
+    // tag::dependencies[]
 }
+// end::dependencies[]
 
 test {
     useJUnitPlatform()
