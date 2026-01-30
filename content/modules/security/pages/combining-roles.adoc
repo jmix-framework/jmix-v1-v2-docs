@@ -1,0 +1,51 @@
+= Combining Roles
+
+Multiple roles can be combined to create a hierarchy, based on these rules:
+
+* Resource roles only combine with other resource roles.
+* Row‑level roles only combine with other row‑level roles.
+* If a role is assigned to a user, all its parent roles also apply.
+
+Roles can be combined at design time — either by writing code or using xref:studio:role-designer.adoc#resource-role-designer[role designer]. At runtime, the hierarchy can be managed via the security views.
+
+== Combining Resource Roles at Design Time
+
+Role combination in code works like one interface extending another. For example, the resource `SystemOwner` role can get its policies from multiple more restrictive roles and then gain even broader access by adding its own extra policies.
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/SystemOwnerRole.java[tags=combined-role]
+----
+
+Use xref:studio:role-designer.adoc#resource-role-designer[role designer] in Studio to combine resource roles visually and see the resulting set of policies.
+
+image:resource-role-designer.png[width = 1016]
+
+== Combining Resource Roles at Runtime
+
+Resource roles can be combined at runtime on the *Security -> Resource roles* view. Create or choose a resource role to edit, then add one or several *Base roles*.
+
+image:combined-runtime-resource-role.png[width=1055]
+
+The final permission set is the role’s own permissions plus all permissions granted by the selected base roles.
+
+NOTE: Base roles can only be added to roles that were created at runtime.
+
+== Combining Row-level Roles at Design Time
+
+To combine row‑level roles, make an interface that extends the existing role interfaces. For example, `SameRegionRole` combines several roles whose policies let an employee see only data for their region.
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/SameRegionRole.java[tags=combined-role]
+----
+
+== Combining Row-level Roles at Runtime
+
+Row-level roles can be combined at runtime on the *Security -> Row-level roles* view. Create or choose a row-level role to edit, then add one or several *Base roles*.
+
+image:combined-runtime-row-level-role.png[width=1088]
+
+The final permission set is the role’s own permissions plus all permissions granted by the selected base roles.
+
+NOTE: Base roles can only be added to roles that were created at runtime.
