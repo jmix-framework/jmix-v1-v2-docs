@@ -60,6 +60,7 @@ xref:flow-ui:vc/common-attributes.adoc#css[css] -
 <<eventOrderStrict, eventOrderStrict>> -
 <<eventOverlap, eventOverlap>> -
 <<eventResizableFromStart, eventResizableFromStart>> -
+<<eventSingleClickThreshold, eventSingleClickThreshold>> -
 <<eventStartEditable, eventStartEditable>> -
 <<eventTextColor, eventTextColor>> -
 <<expandRows, expandRows>> -
@@ -1523,6 +1524,11 @@ NOTE: Убедитесь, что переведенные названия на�
 |Включает возможность изменения размера события с его начальной даты.
 |`false`
 
+|[[eventSingleClickThreshold]]eventSingleClickThreshold
+|Specifies the delay (in milliseconds) before a single-click event is triggered. This threshold is used to distinguish a single click from a double-click action.
+Please note, this attribute is supported in Jmix 2.7.2 and later.
+|`250`
+
 |[[eventStartEditable]]eventStartEditable
 |Включает возможность редактирования времени начала события с помощью перетаскивания.
 
@@ -1811,6 +1817,23 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 |[[EventClickEvent]]EventClickEvent
 |`io.jmix.fullcalendarflowui.component.event.EventClickEvent` отправляется, когда происходит нажатие на событие календаря.
 
+The calendar click event includes `MouseEventDetails`, providing specific information about the mouse interaction:
+
+* `clickCount`: number of consecutive clicks (1 for single-click, 2 for double-click). Please note, this attribute is supported in Jmix 2.7.2 and later.
+
+* `button`: which mouse button was pressed (`LEFT`, `MIDDLE`, `RIGHT`).
+
+* `pageX/pageY`: document-relative coordinates of the click.
+
+* Modifier keys: state of `Alt`, `Ctrl`, `Meta` (`Cmd` on macOS), and `Shift` keys during the click.
+
+|[[EventDoubleClickEvent]]EventDoubleClickEvent
+|`io.jmix.fullcalendarflowui.component.event.EventDoubleClickEvent` is fired when a user double-clicks on a calendar event.
+
+Please note, this functionality is supported in Jmix 2.7.2 and later.
+
+`EventDoubleClickEvent` includes <<EventClickEvent,MouseEventDetails>>, providing specific information about the mouse interaction.
+
 |[[EventDropEvent]]EventDropEvent
 |`io.jmix.fullcalendarflowui.component.event.EventDropEvent` отправляется, когда перетаскивание останавливается, и событие было перемещено в другой день или временной интервал.
 
@@ -1822,6 +1845,13 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 
 |[[EventResizeEvent]]EventResizeEvent
 |`io.jmix.fullcalendarflowui.component.event.EventResizeEvent` вызывается, когда завершается изменение размера, и длительность события календаря изменяется.
+
+|[[EventSingleClickEvent]]EventSingleClickEvent
+|`io.jmix.fullcalendarflowui.component.event.EventSingleClickEvent` is fired when a user clicks on a calendar event. To distinguish it from a double-click, the event is dispatched after a short delay. You can configure this delay via the <<eventSingleClickThreshold,eventSingleClickThreshold>> attribute.
+
+Please note, this functionality is supported in Jmix 2.7.2 and later.
+
+`EventSingleClickEvent` includes <<EventClickEvent,MouseEventDetails>>, providing specific information about the mouse interaction.
 
 |[[MoreLinkClickEvent]]MoreLinkClickEvent
 |`io.jmix.fullcalendarflowui.component.event.MoreLinkClickEvent` вызывается, когда пользователь нажимает на ссылку «more». Ссылку «more» можно активировать с помощью следующих свойств:
