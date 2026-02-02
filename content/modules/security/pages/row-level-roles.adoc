@@ -33,7 +33,17 @@ Row-level roles define restrictions by specifying _row-level policies_ for parti
 
 JPQL policy specifies the `where` (and optionally `join`) clause to be used when loading the entity.
 
-JPQL policy transforms the JPQL (and hence SQL) operator and filters out restricted instances on the database level, which is very efficient in terms of performance. But keep in mind that it affects only the root entity of a loaded object graph. If an entity can be loaded as a collection in another entity's object graph, define both JPQL and <<predicate-policy,predicate>> policies for it.
+JPQL policy transforms the JPQL (and hence SQL) operator and filters out restricted instances on the database level, which is very efficient in terms of performance. But keep in mind that it affects only the root entity of a loaded object graph.
+
+[IMPORTANT]
+====
+If an entity can be:
+
+* loaded as a root, and
+* also appear in nested collections/associations
+
+then define both JPQL and <<predicate-policy,predicate>> row-level policies for that entity. JPQL for efficient database-level filtering of root loads, predicate for nested loads.
+====
 
 In a design-time role, the JPQL policy is defined using the `@JpqlRowLevelPolicy` annotation, for example:
 
@@ -62,13 +72,23 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 [[predicate-policy]]
 === Predicate Policy
 
-Predicate policy defines a predicate that is tested when performing different actions with the entity. If the predicate returns true, the action is permitted for the entity instance.
+Predicate policy ties a boolean condition (the predicate) to an entity operation – `READ`, `CREATE`, `UPDATE`, or `DELETE`. If the predicate returns true, the operation is permitted for that entity instance.
 
-You can define predicate policies for the following actions: `READ`, `CREATE`, `UPDATE`, `DELETE`.
+The moment the predicate is tested differs by operation:
 
-The `READ` predicate is tested when the entity is loaded from the database for the root entity and (unlike <<jpql-policy,JPQL policy>>) all nested collections down to the loaded object graph. If an entity can be loaded as a collection in another entity's object graph, define both JPQL and predicate policies for it.
+* `READ` predicate is tested when the entity is loaded from the database. This includes both the root entity and (unlike <<jpql-policy, JPQL policy>>) all nested collections down to the loaded object graph. This in-memory test can *significantly impact performance when run on many instances* because they will be loaded and tested one at a time.
++
+[IMPORTANT]
+====
+If an entity can be:
 
-The `CREATE`, `UPDATE`, `DELETE` predicates are tested before the entity instance is created, updated or deleted from the database.
+* loaded as a root, and
+* also appear in nested collections/associations
+
+then define both <<jpql-policy, JPQL>> and predicate row-level policies for that entity. JPQL for efficient database-level filtering of root loads, predicate for nested loads.
+====
++
+* `CREATE`, `UPDATE`, `DELETE` predicates are tested before the entity instance is created, updated, or deleted from the database.
 
 In a design-time role, the predicate policy is defined using the `@PredicateRowLevelPolicy` annotation, for example:
 
@@ -77,7 +97,7 @@ In a design-time role, the predicate policy is defined using the `@PredicateRowL
 include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/NonConfidentialRowsRole.java[tags=role]
 ----
 
-This example demonstrates a row-level role that should be used in addition to resource roles of the example from the xref:resource-roles.adoc#example[previous section] to restrict access to instances of `CustomerDetail` having `confidential = true` attribute. You cannot use a JPQL policy to filter out `CustomerDetail` instances from the `Customer.details` collection because it can be loaded together with the owning `Customer` in a single database operation. Predicate policies are executed in memory for root entities and nested collections.
+This example demonstrates a row-level role that should be used in addition to resource roles of the example from the xref:resource-roles.adoc#example[previous section] to restrict access to instances of `CustomerDetail` having `confidential = true` attribute. You cannot use a JPQL policy to filter out `CustomerDetail` instances from the `Customer.details` collection because it can be loaded together with the owning `Customer` in a single database operation.
 
 In a runtime role, the predicate policy is defined using a Groovy script. In the script, use the `\{E\}` placeholder as a variable containing the tested entity instance. For example, the same condition as in the design-time role above can be written as the following Groovy script:
 
