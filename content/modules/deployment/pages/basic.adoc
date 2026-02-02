@@ -186,6 +186,22 @@ You need at least Tomcat 10 to run applications because since Jmix 2.0 they requ
 Use the latest Tomcat 10 to deploy Jmix WAR.
 ====
 
+[multiple-wars]
+=== Multiple WARs
+
+Deploying more than one Jmix WAR on the same Tomcat server can cause a JMX beans names clash, producing:
+
+----
+Caused by: javax.management.InstanceAlreadyExistsException: jmix.ui:type=TemporaryStorage
+----
+
+To resolve this issue give each WAR its own JMX domain. Add this to the application properties:
+
+.application.properties
+----
+spring.jmx.default-domain=myDomain
+----
+
 [[jndi-data-source]]
 === Using JNDI Data Source
 
