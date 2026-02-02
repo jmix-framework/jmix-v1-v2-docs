@@ -186,7 +186,7 @@ You need at least Tomcat 10 to run applications because since Jmix 2.0 they requ
 Use the latest Tomcat 10 to deploy Jmix WAR.
 ====
 
-[multiple-wars]
+[[multiple-wars]]
 === Multiple WARs
 
 Deploying more than one Jmix WAR on the same Tomcat server can cause a JMX beans names clash, producing:
