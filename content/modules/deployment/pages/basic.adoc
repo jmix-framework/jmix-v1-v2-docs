@@ -182,6 +182,22 @@ WAR-файл будет создан в папке `/build/libs`. Имя фай�
 
 IMPORTANT: Для запуска приложений Jmix необходим как минимум Tomcat 10, так как начиная с Jmix 2.0 требуется поддержка Jakarta EE 9 (пространство имен `jakarta.*`). Подробности см. в https://tomcat.apache.org/migration-10.html#Specification_APIs[документации Tomcat^].
 
+[[multiple-wars]]
+=== Развертывание нескольких WAR файлов
+
+Развёртывание нескольких WAR файлов Jmix на одном сервере Tomcat может привести к конфликту имён JMX бинов, вызывая ошибку:
+
+----
+Caused by: javax.management.InstanceAlreadyExistsException: jmix.ui:type=TemporaryStorage
+----
+
+Чтобы устранить проблему, задайте каждому WAR файлу собственный JMX домен. Для этого добавьте следующее в файл свойств приложения:
+
+.application.properties
+----
+spring.jmx.default-domain=myDomain
+----
+
 [[jndi-data-source]]
 === Использование источника данных JNDI
 
