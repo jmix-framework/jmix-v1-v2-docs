@@ -8,6 +8,10 @@ NOTE: Masquerade is for applications that are built with *Jmix 2.6* or newer.
 
 == Install Masquerade
 
+Masquerade can be added as a Gradle dependency and used either inside a Jmix application or in a plain Java project.
+
+=== Installing to a Jmix Project
+
 To install Masquerade, follow the steps below:
 
 . Ensure that your project uses Jmix 2.6 or newer. See the xref:studio:project.adoc#upgrading-project[Upgrading Project] section for how to upgrade using Studio.
@@ -17,6 +21,17 @@ To install Masquerade, follow the steps below:
 ----
 testImplementation 'io.jmix.masquerade:jmix-masquerade'
 ----
+
+=== Installing to a non-Jmix Java project
+
+Use the same dependency:
+
+.build.gradle
+----
+testImplementation 'io.jmix.masquerade:jmix-masquerade:<JMIX_VERSION>'
+----
+
+Replace the `<JMIX_VERSION>` with the version of Jmix framework of the target project (e.g., 2.6.2). After syncing Gradle, Masquerade will be ready for use.
 
 == Using Selenide
 Masquerade is based on Selenide, so you can use any of its methods.
