@@ -26,6 +26,30 @@ image::create-view-from-entity-designer.png[align="center",width="800"]
 
 На шаге *Create Jmix View* мастера выберите подходящий шаблон из списка, предоставленного Studio.
 
+Доступные шаблоны:
+
+* *Entity list view*
++
+Создает экран, отображающий список сущностей с возможностями фильтрации и выполнения действий. Смотрите xref:flow-ui:views/view-classes.adoc#standard-list-view[StandardListView].
++
+Ключевые компоненты: xref:flow-ui:vc/components/dataGrid.adoc[dataGrid], xref:flow-ui:vc/components/button.adoc[кнопки] действий (*Create*, *Edit*, *Remove*), xref:flow-ui:vc/components/genericFilter.adoc[genericFilter].
+
+* *Entity detail view*
++
+Создает экран на основе формы для создания, просмотра и редактирования отдельных экземпляров сущностей. Смотрите xref:flow-ui:views/view-classes.adoc#standard-detail-view[StandardDetailView].
++
+Ключевые компоненты: xref:flow-ui:vc/layouts/formLayout.adoc[formLayout] с привязками полей к данным, кнопки действий *OK* и *Cancel*.
+
+* *Entity list and detail views*
++
+Генерирует как экран списка, так и экран деталей в виде отдельных, но связанных экранов.
+
+* *Master-detail view*
++
+Создает комбинированный интерфейс со списком сущностей слева и формой деталей справа. Поля формы деталей заблокированы до тех пор, пока пользователь не нажмет *Create* или не выберет сущность для редактирования. Контроллер экрана является _сложным_. Он наследуется от `StandardListView`.
++
+Ключевые компоненты: контейнер, содержащий как `dataGrid`, так и `formLayout`.
+
 На следующем шаге вы можете изменить автоматически сгенерированные свойства экрана.
 
 image::wizard-properties.png[align="center",width="780"]
