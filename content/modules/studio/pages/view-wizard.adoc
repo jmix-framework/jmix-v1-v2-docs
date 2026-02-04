@@ -24,7 +24,31 @@ Another way is to click *Views -> Create View* on the xref:studio:entity-designe
 
 image::create-view-from-entity-designer.png[align="center",width="800"]
 
-On the *Create Jmix View* page of wizard, choose the appropriate template from the list provided by the Studio.
+On the *Create Jmix View* page of wizard, select the desired template from the list provided by Jmix Studio.
+
+Available templates:
+
+* *Entity list view*
++
+Creates a view displaying a list of entities with filtering, and action capabilities. See xref:flow-ui:views/view-classes.adoc#standard-list-view[StandardListView].
++
+Key components: xref:flow-ui:vc/components/dataGrid.adoc[dataGrid], action xref:flow-ui:vc/components/button.adoc[buttons] (*Create*, *Edit*, *Remove*), xref:flow-ui:vc/components/genericFilter.adoc[genericFilter].
+
+* *Entity detail view*
++
+Creates a form-based view for creating, viewing, and editing individual entity instances. See xref:flow-ui:views/view-classes.adoc#standard-detail-view[StandardDetailView].
++
+Key components: xref:flow-ui:vc/layouts/formLayout.adoc[formLayout] with field bindings, *OK* and *Cancel* action buttons.
+
+* *Entity list and detail views*
++
+Generates both a list view and a detail view as separate but connected views.
+
+* *Master-detail view*
++
+Creates a combined interface with an entity list on the left and a detail form on the right. The detail form fields are disabled until the user clicks *Create* or selects an entity to *Edit*. The view controller is complex. It extends `StandardListView`.
++
+Key components: layout containing both `dataGrid` and `formLayout`.
 
 On the next step, you can modify the automatically generated view properties.
 
