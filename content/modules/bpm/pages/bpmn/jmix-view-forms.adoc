@@ -118,7 +118,11 @@ NOTE: `@ProcessFormParam` can take a `name` attribute. If no name is explicitly 
 [[processvariable]]
 == @ProcessVariable
 
-`@ProcessVariable` can be set on class fields and view components. It indicates that the process variable's value will be set to that field when the process form opens. In the case of a view component, the variable's value will be set in that component.
+`@ProcessVariable` can be set on class fields and view components. It indicates that the process variable's value will be set to that field when the process form opens.
+
+NOTE: The variable becomes available in xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent]. It is not accessible in xref:flow-ui:views/view-events.adoc#init-event[InitEvent].
+
+In the case of a view component, the variable's value will be set in that component.
 
 [source,java,indent=0]
 ----
