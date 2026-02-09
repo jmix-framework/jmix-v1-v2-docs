@@ -4,21 +4,18 @@ Follow the steps below to update your Jmix Studio plugin for IntelliJ IDEA.
 
 1. Click *Help > Check for Updates* on Windows and Linux or *IntelliJ IDEA > Check for Updates* on macOS.
 +
-image::update-check.png[align="center"]
+image::update-check.png[align="center",width="880"]
 +
 If updates are available, you will see the notification in the lower right corner of the IDE.
 +
-image::update-notification.png[align="center"]
+image::update-notification.png[align="center",width="1155"]
 +
 2. Click *Update* to download the new version of the plugin. Or you can click *Details* and see the information about plugins having updates.
 +
-image::update-window.png[align="center"]
+image::update-window.png[align="center",width="912"]
 +
 3. After the download process completes, restart the IDE to apply the new version of the plugin.
 
 Another way to check if the Jmix Studio has the updates is to open the *Plugins* section in the *Settings* window.
 
-image::update-plugin.png[align="center"]
-
-
-
+image::update-plugin.png[align="center",width="1094"]

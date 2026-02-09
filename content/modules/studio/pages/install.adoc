@@ -18,7 +18,7 @@ In order to configure Jmix Studio to access the internet via a proxy server, you
 . Choose *Appearance & Behavior → System Settings → HTTP Proxy* section.
 . Set necessary setting values and press *Check connection* to test them.
 +
-image::idea-proxy.png[align="center"]
+image::idea-proxy.png[align="center",width="1012"]
 
 For more information, go to https://www.jetbrains.com/help/idea/settings-http-proxy.html[IntelliJ IDEA documentation^].
 
@@ -58,7 +58,7 @@ You can develop projects using Studio without internet connection. In this case,
 
 To start working offline, open the Gradle tool window on the right side of the IDE and click the *Toggle Offline Mode* button:
 
-image::idea-offline.png[align="center"]
+image::idea-offline.png[align="center",width="436"]
 
 In offline mode, Gradle uses dependencies from the cache when executing all project build tasks. Gradle does not attempt to access the network to perform dependency resolution. If the required dependencies are not present in the cache, build execution will fail.
 
@@ -81,15 +81,15 @@ To use nightly builds, you need to do the followings:
 . Open the *Main Menu → File → Settings → Plugins* dialog.
 . Click the gear icon and select *Manage Plugin Repositories*.
 +
-image::idea-gear.png[align="center"]
+image::idea-gear.png[align="center",width="1094"]
 +
 . Click `+` and enter the following path: `\https://plugins.jetbrains.com/plugins/jmix_nightly/list`
 +
-image::idea-add.png[align="center"]
+image::idea-add.png[align="center",width="612"]
 +
 . You should immediately see that Jmix plugin requests for update to the NIGHTLY version.
 +
-image::jmix-update.png[align="center"]
+image::jmix-update.png[align="center",width="1094"]
 +
 . Click *Update* and restart IDE.
 
@@ -113,12 +113,12 @@ You can download any release of the Studio plugin from the plugin repository sit
 . Select the channel you need to download a release from: Stable or Nightly.
 . Find the required build in the *Version History* list and download it.
 +
-image::jmix-site.png[align="center"]
+image::jmix-site.png[align="center",width="1331"]
 +
 . Open the *Main Menu → File → Settings → Plugins* dialog in IntelliJ IDEA.
 . Click the gear icon and select *Install Plugin from Disk*.
 +
-image::install-from-disk.png[align="center"]
+image::install-from-disk.png[align="center",width="1094"]
 +
 . Select the downloaded ZIP file in the file tree and press *OK*.
 . Restart IDE.
