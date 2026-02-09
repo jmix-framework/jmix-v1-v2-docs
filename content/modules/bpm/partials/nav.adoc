@@ -14,6 +14,7 @@
 ** xref:bpm:forms.adoc[]
 *** xref:bpm:input-dialog.adoc[]
 *** xref:bpm:bpmn/jmix-view-forms.adoc[]
+*** xref:bpm:bpmn/custom.adoc[]
 *** xref:bpm:process-form-data-extractor.adoc[]
 ** xref:bpm:modeler-studio.adoc[]
 ** xref:bpm:bpm-concepts.adoc[]
@@ -41,7 +42,6 @@
 *** xref:bpm:error-handling.adoc[]
 *** xref:bpm:jmix-listeners.adoc[]
 // ** Expressions
-//  **** xref:bpm:custom.adoc[]
 ** xref:bpm:dmn-1-3.adoc[]
 ** xref:bpm:bpm-components.adoc[]
 *** xref:bpm:process-engine.adoc[]

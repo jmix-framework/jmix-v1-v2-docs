@@ -1,0 +1,90 @@
+= Настраиваемые формы
+
+Подход, описанный в xref:bpmn/jmix-view-forms.adoc[предыдущем разделе], позволяет быстро преобразовать обычный экран Jmix в процеснную форму, упрощая привязку к элементу в xref:bpm:menu-views/modeler-web.adoc[Моделере]. Однако, к элементу может быть привязан любой экран, независимо от того, использует ли он аннотации.
+
+== Форма Jmix
+
+Чтобы отображать формы на экранах *Start process* или *My tasks*, реализуйте интерфейс `ProcessFormViewCreator` и зарегистрируйте его для типа формы `custom`.
+
+Пример `MyCustomProcessFormViewCreator`, реализующего `ProcessFormViewCreator`:
+
+[source,java,indent=0]
+----
+include::example$bpm-ex1/src/main/java/com/company/bpmex1/app/MyCustomProcessFormViewCreator.java[tags=custom]
+----
+
+<1> Аннотация `@Order` указывает, что эта реализация `ProcessFornViewCreator` будет использоваться первой.
+<2> Переопределение метода создания процессной формы запуска.
+<3> Проверка того, реализует ли экран `AcceptsProcessDefinition`. В таком случае необходимо установить `ProcessDefiniton` в экран.
+<4> Переопределение метода создания процессной формы задачи.
+<5> Проверка того, реализует ли экран `AcceptsTask`.  В таком случае необходимо установить `Task` в экран.
+
+Код выше использует два вспомогательных интерфейса. Пример интерфейса `AcceptsProcessDefinition`:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/AcceptsProcessDefinition.java[tags=custom]
+----
+Пример интерфейса `AcceptsTask`:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/AcceptsTask.java[tags=custom]
+----
+
+Эти интерфейсы должны быть реализованы в формах запуска и задачи.
+
+=== Форма запуска
+
+XML-дескриптор формы запуска, имеющей только кнопку *Start process*:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custom-start-form.xml[tags=custom]
+----
+
+Контроллер экрана формы:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomStartForm.java[tags=custom]
+----
+
+=== Форма задачи
+
+XML-дескриптор формы задачи, имеющей только кнопку *Task complete*:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custom-task-form.xml[tags=custom]
+----
+
+Контроллер экрана формы задачи:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomTaskForm.java[tags=custom]
+----
+
+[[set-up-element]]
+== Настройка элемента в Моделере
+
+После создания формы можно привязать её к элементу:
+
+. Перейдите в xref:menu-views/modeler-web.adoc[].
+. Выберите нужный элемент (User Task или Start Event).
++
+image::custom-forms/custom-form.png[align="center", width="861"]
++
+. Установите значение `Custom` для *Form type*.
+. Укажите *View id*.
+. При необходимости задайте *Form parameters* и *Outcomes*; форма должна уметь читать параметры и возвращать результаты.
+
+== Использование альтернативной технологии UI
+
+Формы также могут быть созданы с использованием альтернативной UI технологии (например, React), которые будут взаимодействовать с Jmix BPM через REST. Метаданные формы можно получить напрямую из Flowable через `FormService`:
+
+* `StartFormData getStartFormData (String processDefinitionId)`
+* `TaskFormData getTaskFormData (String taskId)`
+
+Также метаданные формы можно предоставить через `ProcessFormDataExtractor` в Jmix. Раздел xref:process-form-data-extractor.adoc[] содержит пример реализации REST-контроллера.

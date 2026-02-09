@@ -1,64 +1,64 @@
-= Настраиваемая форма
+= Custom Form
 
-Настраиваемые процессные формы могут быть полезны, если вам нужно отобразить форму нестандартным способом. Для настраиваемой формы в моделере можно указать id, список параметров и список выходов.
+Custom process forms can be useful if you need to render a form in a non-standard way. In the modeler, you can provide a form id, a list of form parameters and a list of outcomes for a custom form.
 
-Если вы используете альтернативную технологию UI (например, React), вам необходимо получить информацию о форме и отобразить форму, используя эту информацию. Ее можно получить с помощью интерфейса `FormService`, который имеет следующие методы:
+If you use an alternative UI technology (for example, React) then you need to get the form information and render the form using this information. You can obtain form information using the `FormService` interface that has the following methods:
 
-* `StartFormData getStartFormData(String processDefinitionId)`
-* `TaskFormData getTaskFormData(String taskId)`
+* `StartFormData getStartFormData​(String processDefinitionId)`
+* `TaskFormData getTaskFormData​(String taskId)`
 
-Для отображения настраиваемых форм на экранах *Start process* или *My tasks* необходимо определить `ProcessFormScreenCreator` для типа формы `custom`. Чтобы переопределить значение по умолчанию `ProcessFormScreenCreator`, добавьте аннотацию `@Order`.
+To render custom forms in the *Start process* or *My tasks* screens, you need to define the `ProcessFormScreenCreator` for the `custom` form type. To override the default `ProcessFormScreenCreator`, you need to add the `@Order` annotation.
 
-Давайте посмотрим на пример `MyCustomProcessFormScreenCreator`, которая реализует `ProcessFormScreenCreator`:
+Let's look at the example of `MyCustomProcessFormScreenCreator` that implements `ProcessFormScreenCreator`: 
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/service/MyCustomProcessFormScreenCreator.java[tags=custom]
 ----
 
-<1> Аннотация `@Order` указывает, что эта реализация `ProcessForScreenCreator` будет использоваться первой.
-<2> `ScreenCreator` будет применяться к настраиваемым процессным формам.
-<3> Переопределение метода создания процессной формы запуска.
-<4> Проверка того, реализует ли экран `AcceptsProcessDefinition`. В таком случае необходимо установить `ProcessDefiniton` в экран.
-<5> Переопределение метода создания процессной формы задачи.
-<6> Проверка того, реализует ли экран `AcceptsTask`. В таком случае необходимо установить `Task` в экран.
+<1> The `@Order` annotation indicates that this implementation of `ProcessForScreenCreator` will be used first.
+<2> `ScreenCreator` will be applied to custom process forms.
+<3> Overrides the method for creating a start process form.
+<4> Checks if the screen implements `AcceptsProcessDefinition`. In this case, it is necessary to set `ProcessDefiniton` to the screen.
+<5> Overrides the method for creating a task process form.
+<6> Checks if the screen implements `AcceptsTask`. In this case, it is necessary to set `Task` to the screen.
 
-Пример интерфейса `AcceptsProcessDefinition`:
+An example of the `AcceptsProcessDefinition` interface:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/service/AcceptsProcessDefinition.java[tags=custom]
 ----
 
-Пример интерфейса `AcceptsTask`:
+An example of the `AcceptsTask` interface:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/service/AcceptsTask.java[tags=custom]
 ----
 
-XML-дескриптор настраиваемой формы запуска, имеющей только кнопку *Start process*:
+XML descriptor of the custom start form that has only *Start process* button:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/resources/bpm/ex1/screen/forms/custom-start-form.xml[tags=custom]
 ----
 
-Контроллер экрана настраиваемой стартовой формы:
+Screen controller of the custom start form:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/java/bpm/ex1/screen/forms/CustomStartForm.java[tags=custom]
 ----
 
-XML-дескриптор настраиваемой формы задачи, имеющей только кнопку *Task complete*:
+XML descriptor of the custom task form that has only *Task complete* button:
 
 [source,java,indent=0]
 ----
 include::example$/ex1/src/main/resources/bpm/ex1/screen/forms/custom-task-form.xml[tags=custom]
 ----
 
-Контроллер экрана настраиваемой формы задачи:
+Screen controller of the custom task form:
 
 [source,java,indent=0]
 ----
