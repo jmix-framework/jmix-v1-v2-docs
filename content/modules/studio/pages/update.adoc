@@ -4,21 +4,18 @@
 
 1. Выберите *Help -> Check for Updates* на Windows и Linux или *IntelliJ IDEA / OpenIDE -> Check for Updates* на macOS.
 +
-image::update-check.png[align="center"]
+image::update-check.png[align="center",width="880"]
 +
 Если  доступно обновление, вы увидите уведомление в правом нижнем углу IDE.
 +
-image::update-notification.png[align="center"]
+image::update-notification.png[align="center",width="1155"]
 +
 2. Нажмите *Update*, чтобы загрузить новую версию плагина. Также вы можете нажать *Details* и посмотреть информацию об обновлениях плагинов.
 +
-image::update-window.png[align="center"]
+image::update-window.png[align="center",width="912"]
 +
 3. После завершения загрузки обновления перезапустите IDE, чтобы применить новую версию плагина.
 
 Еще один способ проверить, есть ли обновления для Jmix Studio – открыть раздел *Plugins* в окне *Settings*.
 
-image::update-plugin.png[align="center"]
-
-
-
+image::update-plugin.png[align="center",width="1094"]

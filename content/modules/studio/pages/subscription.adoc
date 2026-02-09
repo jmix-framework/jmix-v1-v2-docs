@@ -79,6 +79,6 @@ image::jmix-account-info.png[align="center", width="624"]
 
 Информация об учетной записи также отображается на приветственном экране:
 
-image::account-info-welcome-screen.png[align="center", width="1028"]
+image::account-info-welcome-screen.png[align="center", width="1258"]
 
 См. также раздел xref:jmix:ROOT:account-management.adoc[].

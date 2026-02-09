@@ -18,7 +18,7 @@ Jmix Studio реализована как плагин для IntelliJ IDEA ил
 . Выберите раздел *Appearance & Behavior → System Settings → HTTP Proxy*.
 . Установите нужные параметры и нажмите кнопку *Check connection*, чтобы проверить их.
 +
-image::idea-proxy.png[align="center"]
+image::idea-proxy.png[align="center",width="1012"]
 
 Для получения дополнительной информации перейдите к документации https://www.jetbrains.com/help/idea/settings-http-proxy.html[IntelliJ IDEA^].
 
@@ -58,7 +58,7 @@ git config --global http.proxy http://proxyUsername:proxyPassword@proxy.server.c
 
 Чтобы начать работать в автономном режиме, откройте окно инструментов Gradle в правой части интерфейса IDE и нажмите кнопку *Toggle Offline Mode*:
 
-image::idea-offline.png[align="center"]
+image::idea-offline.png[align="center",width="436"]
 
 В автономном режиме при выполнении всех задач сборки проекта Gradle будет использовать зависимости из кэша. Gradle не будет пытаться получить доступ к сети для устранения зависимостей. Если требуемые зависимости отсутствуют в кэше, выполнение сборки завершится неудачно.
 
@@ -81,15 +81,15 @@ CAUTION: Ночные сборки содержат изменения, кото
 . Откройте диалоговое окно плагинов в *Main Menu → File → Settings → Plugins*.
 . Нажмите на иконку шестеренки и выберите *Manage Plugin Repositories*.
 +
-image::idea-gear.png[align="center"]
+image::idea-gear.png[align="center",width="1094"]
 +
 . Нажмите `+` и введите следующий путь: `\https://plugins.jetbrains.com/plugins/jmix_nightly/list`
 +
-image::idea-add.png[align="center"]
+image::idea-add.png[align="center",width="612"]
 +
 . Вы сразу увидите, что плагин Jmix запрашивает обновление до версии NIGHTLY.
 +
-image::jmix-update.png[align="center"]
+image::jmix-update.png[align="center",width="1094"]
 +
 . Нажмите *Update* и перезапустите IDE.
 
@@ -116,7 +116,7 @@ image::jmix-update.png[align="center"]
 . Выберите канал, из которого хотите загрузить сборку: Стабильный или Ночной.
 . Найдите нужную сборку в списке *Version History* и загрузите ее.
 +
-image::jmix-site.png[align="center"]
+image::jmix-site.png[align="center",width="1331"]
 
 [[download-plugin-from-openide]]
 ==== Загрузка файла плагина с сайта OpenIDE
@@ -140,7 +140,7 @@ image::jmix-site.png[align="center"]
 . Откройте диалоговое окно *Main Menu → File → Settings → Plugins* в IntelliJ IDEA.
 . Нажмите на иконку шестеренки и выберите *Install Plugin from Disk*.
 +
-image::install-from-disk.png[align="center"]
+image::install-from-disk.png[align="center",width="1094"]
 +
 . Выберите загруженный ZIP-файл в открывшемся диалоге и нажмите *OK*.
 . Перезапустите IDE.
