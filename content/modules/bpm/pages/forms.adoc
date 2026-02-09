@@ -2,9 +2,9 @@
 
 xref:bpmn/bpmn-events.adoc#start-events[Start Event] and xref:bpmn/bpmn-user-task.adoc[User Task] elements can be set up with a process form. This will allow users to input and submit data necessary for executing tasks.
 
-The following form types are available:
+The following form types can be used:
 
 * *No form:* for processes and tasks that start automatically without user input.
 * xref:input-dialog.adoc[Input dialog]: a simple dialog with input fields defined within the process model.
-* xref:bpmn/jmix-view-forms.adoc[Jmix view]: process form based on a Jmix view.
-* *Custom:* any uniquely defined form that does not follow standard configurations.
+* xref:bpmn/jmix-view-forms.adoc[Jmix view]: leverages annotations to turn a Jmix view into a process form.
+* xref:bpmn/custom.adoc[Custom]: a custom form created with Jmix or alternative UI technology linked to the element by its ID.
