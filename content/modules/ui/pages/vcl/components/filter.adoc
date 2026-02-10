@@ -365,6 +365,14 @@ You can configure common action parameters using XML attributes of the `action` 
 [[filter-attributes]]
 == Filter Attributes
 
+
+[[applyShortcut]]
+=== applyShortcut
+
+Defines the keyboard shortcut that can be used to apply a filtering condition. This shortcut is only relevant when the filtering conditions are not set to be <<autoApply, automatically applied>>.
+
+The default value is specified by the xref:app-properties.adoc#jmix.ui.component.filter-apply-shortcut[jmix.ui.component.filter-apply-shortcut] property.
+
 [[filter-attribute-auto-apply]]
 === autoApply
 
