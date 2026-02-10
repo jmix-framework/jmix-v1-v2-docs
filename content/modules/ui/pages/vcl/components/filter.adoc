@@ -349,6 +349,14 @@ include::example$/ex1/src/main/resources/ui/ex1/screen/component/filter/filter-s
 [[filter-attributes]]
 == Атрибуты Filter
 
+
+[[applyShortcut]]
+=== applyShortcut
+
+Определяет комбинацию клавиш, которую можно использовать для применения условия фильтрации. Эта комбинация клавиш актуальна только в том случае, если условия фильтрации не настроены для <<autoApply,автоматического применения>>.
+
+Значение по умолчанию определяется свойством xref:app-properties.adoc#jmix.ui.component.filter-apply-shortcut[jmix.ui.component.filter-apply-shortcut].
+
 [[filter-attribute-auto-apply]]
 === autoApply
 
