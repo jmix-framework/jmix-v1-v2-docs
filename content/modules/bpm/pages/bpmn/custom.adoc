@@ -1,12 +1,8 @@
 = Custom Form
 
-When an element needs a form that cannot be shown as a simple xref:bpm:input-dialog.adoc[] and cannot use the usual xref:bpm:bpmn/jmix-view-forms.adoc[] annotation-driven approach, you can supply a custom form. This form may still be a Jmix view, or it can be built with an alternative UI technology (e.g., React).
+Using annotation-driven xref:bpm:bpmn/jmix-view-forms.adoc[] process forms offer tight integration and automatic bindings in the xref:menu-views/modeler-web.adoc[]. Besides, you can also configure the Modeler to work with a Jmix view that does not rely on that method.
 
-In the modeler, you will need to provide an id for this form. The custom form must read the supplied input parameters and return the outcomes.
-
-image::custom-forms/custom-form.png[align="center", width="861"]
-
-== Implementing a Custom Jmix Form
+== Custom Jmix Form
 
 To render custom forms in the *Start process* or *My tasks* views, implement the `ProcessFormViewCreator` interface and register it for the `custom` form type.
 
@@ -23,39 +19,40 @@ include::example$bpm-ex1/src/main/java/com/company/bpmex1/app/MyCustomProcessFor
 <4> Overrides the method for creating a task process form.
 <5> Checks if the view implements `AcceptsTask`. In this case, it is necessary to set `Task` to the view.
 
-=== Custom Start Form
-
-Begin with adding the supporting `AcceptsProcessDefinition` interface:
+The code above uses two supporting interfaces. An example of `AcceptsProcessDefinition` interface:
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/AcceptsProcessDefinition.java[tags=custom]
 ----
-
-XML descriptor of the custom start form that has only *Start process* button:
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custom-start-form.xml[tags=custom]
-----
-
-View controller of the custom start form:
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomStartForm.java[tags=custom]
-----
-
-=== Custom User Task Form
-
-First, add the supporting `AcceptsTask` interface:
+An example of `AcceptsTask` interface:
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/AcceptsTask.java[tags=custom]
 ----
 
-XML descriptor of the custom task form that has only *Task complete* button:
+These interfaces must be implemented by the custom start and task forms.
+
+=== Custom Start Form
+
+XML descriptor for a custom start form that has only a *Start process* button:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custom-start-form.xml[tags=custom]
+----
+
+View controller for the custom start form:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomStartForm.java[tags=custom]
+----
+
+=== Custom Task From
+
+XML descriptor for a custom task form that has only *Task complete* button:
 
 [source,java,indent=0]
 ----
@@ -69,9 +66,26 @@ View controller of the custom task form:
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomTaskForm.java[tags=custom]
 ----
 
+[[set-up-element]]
+== Setting up Element
+
+Once you created a view form, you can set up elements to use them.
+Follow the steps below:
+
+. Open the xref:menu-views/modeler-web.adoc[].
+. Select the appropriate element (User Task or Start Event).
++
+image::custom-forms/custom-form.png[align="center", width="861"]
++
+. Set *Form type* to `Custom`.
+. Provide *View id*.
+. Optionally, provide *Form parameters* and *Outcomes*. The form should be able to read the parameters and return the outcomes.
+
 == Using Alternative UI Technology
 
-When using an alternative UI technology (e.g., React), call Flowable's `FormService` to get the necessary data to render forms. It has the following methods:
+It is possible to create forms with an alternative UI technology (e.g., React) that talk to Jmix BPM via REST. You can obtain form information directly from the engine using Flowable’s `FormService`, that provides the following methods:
 
 * `StartFormData getStartFormData (String processDefinitionId)`
 * `TaskFormData getTaskFormData (String taskId)`
+
+Or, expose form metadata using `ProcessFormDataExtractor` in Jmix. See the xref:process-form-data-extractor.adoc[] section for example.
