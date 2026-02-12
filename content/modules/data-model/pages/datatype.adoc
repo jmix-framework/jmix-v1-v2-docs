@@ -82,6 +82,18 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Model.jav
 Instead, inject `ApplicationContext` and use its `getBean()` methods to locate required beans when needed.
 ====
 
+[[datatypeformatter]]
+== DatatypeFormatter
+
+`DatatypeFormatter` is an applied-purpose bean for programmatic formatting and parsing of values based on datatypes.  It automatically applies the <<localized-format-strings, localized format strings>> for the current user’s locale.
+
+Example usage:
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/app/DataFormatterService.java[tags=datatypeformatter]
+----
+
 [[custom-type]]
 == Support for Custom Java Type
 
