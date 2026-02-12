@@ -82,6 +82,16 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Model.jav
 Вместо этого, инжектируйте `ApplicationContext` и используйте его методы `getBean()` для получения требуемых бинов.
 ====
 
+[[datatypeformatter]]
+== DatatypeFormatter
+
+`DatatypeFormatter` это служебный бин для программного форматирования и парсинга значений в зависимости от datatype. Он автоматически применяет <<localized-format-strings, локализованные строки форматов>> для текущей локали пользователя.
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/app/DataFormatterService.java[tags=datatypeformatter]
+----
+
 [[custom-type]]
 == Поддержка произвольных классов Java
 
