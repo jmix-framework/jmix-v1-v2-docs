@@ -17,7 +17,7 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 [[search-field]]
 === SearchField
 
-The `SearchField` component presents a text input field along with a button for executing searches.
+The `SearchField` component presents a text input field along with a button for executing searches. Also, it provides runtime configuration options accessible via a settings button.
 
 Here's a usage example of the `SearchField` component within a view:
 
@@ -28,13 +28,23 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 
 Attributes of the `SearchField` component:
 
-* `searchStrategy` - determines the search strategy applied. If no strategy is specified, the default one is used.
+* `settingsButtonVisible` - shows/hides the settings button. The default value is `true`.
+* `searchButtonVisible` - shows/hides the search button. The default value is `true`.
+* `searchStrategy` - determines the <<search-strategies,search strategy>> applied. If no strategy is specified, the default one is used.
 * `entities` - specifies the entities for searching. Multiple entities can be listed as a comma-separated sequence:
 +
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
 ----
+
+*Runtime Configuration*
+
+The `SearchField` component includes a settings button for dynamic configuration. Users can dynamically configure:
+
+* Search strategy
+* Search size
+* Target entities
 
 By default, `searchField` opens the built-in `SearchResultsView`. This view handles the search engine querying process and presents a result list within the navigation view or in a new dialog, based on the `openMode` attribute of `searchField`.
 
@@ -74,15 +84,40 @@ A search strategy defines how the search term is processed. Basically it configu
 
 The `SearchField` and `FullTextFilter` components support the following built-in search strategies:
 
-* `anyTermAnyField` - a document matches if it contains at least one of input words in any indexed field.
+* `startsWith`
++
+NOTE: This strategy is **only available** when xref:index-definitions.adoc#extended-search[@ExtendedSearch] is enabled on at least one index definition.
++
+Performs prefix-based search using pre-indexed Edge N-Gram subfields:
 
-* `allTermsAnyField` - a document matches if it contains all input words in any field in any order.  This strategy is set by default.
+** Generates all prefixes from xref:search-properties.adoc#jmix.search.minPrefixLength[jmix.search.min-prefix-length] (default: `3`) to xref:search-properties.adoc#jmix.search.maxPrefixLength[jmix.search.max-prefix-length] (default: `8`).
+** Provides significantly faster performance than wildcard queries.
+** When input exceeds maximum prefix length, falls back to wildcard query if xref:search-properties.adoc#jmix.search.wildcardPrefixQueryEnabled[jmix.search.wildcard-prefix-query-enabled] = `true` (default).
++
+NOTE: Terms shorter than `jmix.search.min-prefix-length` always return empty results.
 
-* `allTermsSingleField` - a document matches if it has at least one field that contains all input words in any order.
+* `phrase`
++
+Performs exact phrase matching:
 
-* `phrase` - a document matches if it has at least one field that contains all input words in the provided order.
+** Documents must contain all search terms in the **exact order** within a single field.
+** Equivalent to a traditional phrase query in search engines.
+** Ideal for name, title, or exact wording searches.
 
-You can set the proper strategy by using the `strategy` attribute, for example:
+* `anyTermAnyField`
++
+Performs disjunctive term matching across all fields:
+
+** Documents matching **any** of the input terms in **any** indexed field are returned.
+** Terms are combined with OR logic.
+** Default strategy for backward compatibility.
+
++
+This strategy is set by default.
+
+CAUTION: `allTermsAnyField` and `allTermsSingleField` are deprecated and hidden from UI but can be reimplemented if needed.
+
+You can set the proper strategy by using the `searchStrategy` attribute, for example:
 
 [source,xml,indent=0]
 ----

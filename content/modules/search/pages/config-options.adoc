@@ -89,30 +89,77 @@ To utilize the functionality of the Search add-on, users with limited access to 
 
 [[index-settings]]
 == Index Settings and Analysis
-The add-on allows you to configure index settings including analysis.
 
-NOTE: This configuration depends on used search platform (OpenSearch or Elasticsearch) and should be recreated accordingly if you switch between them.
+The add-on allows you to configure index settings, including analysis configuration.
 
-* Create a Spring bean that implements `OpenSearchIndexSettingsConfigurer` (or `ElasticsearchIndexSettingsConfigurer` in case of Elasticsearch usage).
-* Implement method `configure(OpenSearchIndexSettingsConfigurationContext)`.
+NOTE: This setup depends on your search platform (OpenSearch or Elasticsearch) and must be recreated if you switch between them.
 
-[[index-settings-implementation]]
-=== Implementation
+=== Configuration API
 
-Settings can be configured via settings builder (belongs to OpenSearch/Elasticsearch Java API client).
+[NOTE]
+====
+The configuration API has been redesigned to separate index settings from analysis settings.
+The previous methods (`getCommonSettingsBuilder`, `getEntitySettingsBuilder`) are **deprecated**.
+They continue to work only until any of the new API methods are used or if xref:index-definitions.adoc#extended-search[@ExtendedSearch] is enabled.
+As soon as the new API is utilized, the deprecated API is ignored.
+====
 
-Configuration context provides two types of settings builder:
+==== Create a Configurer Bean
 
-* *Common* - allows you to configure settings that will be applied to all indexes. Can be acquired via `context.getCommonSettingsBuilder()`.
-* *Entity specific* - allows you to configure settings that will be applied only to index for specific entity.
-Entity specific settings has higher priority and _override the common settings_.
-Can be acquired via `context.getEntitySettingsBuilder(Class)`.
+Create a Spring bean that implements:
 
-Use builder's methods to set corresponding index settings.
+* `OpenSearchIndexSettingsConfigurer` – for OpenSearch.
+* `ElasticsearchIndexSettingsConfigurer` – for Elasticsearch.
 
-Use `.analysis()` to start building chain that allows you to create custom analyzers, tokenizers, etc.
+Implement the `configure()` method, which provides a `ConfigurationContext` object.
+
+==== Configure Index Settings
+
+Index settings are configured using dedicated **index settings builders**:
+
+* `getCommonIndexSettingsBuilder()` – applies to **all** indexes.
+* `getEntityIndexSettingsBuilder(Class<?> entityClass)` – applies to a **specific** entity index.
+Entity-specific settings have higher priority and _override common settings_.
+
+==== Configure Analysis
+
+Analysis settings are configured using dedicated **analysis builders**:
+
+* `getCommonAnalysisBuilder()` – applies to **all** indexes.
+* `getEntityAnalysisBuilder(Class<?> entityClass)` – applies to a **specific** entity index.
+
+Use the `.analysis()` method on the builder to define:
+
+* **Analyzers** – `.analyzer()`
+* **Tokenizers** – `.tokenizer()`
+* **Filters** – `.filter()`
+* **Character filters** – `.charFilter()`
+* **Normalizers** – `.normalizer()`
+
+=== Complete Example
+
+The following example demonstrates a custom configurer for OpenSearch.
+It configures common index settings and analysis, then overrides them with entity-specific settings for the `Order` entity.
 
 [source,java,indent=0]
 ----
-include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchIndexSettingsConfigurer.java[tags=index-settings-configurer;configure;configure-body]
+include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchIndexSettingsConfigurer.java[tags=import;index-settings-configurer;configure;configure-body]
 ----
+
+=== API Migration Guide
+
+If you are upgrading from an earlier version, replace the deprecated methods as follows:
+
+|===
+| Deprecated  | New API
+| `getCommonSettingsBuilder()` | `getCommonIndexSettingsBuilder()` +
+`getCommonAnalysisBuilder()`
+| `getEntitySettingsBuilder(Class)` | `getEntityIndexSettingsBuilder(Class)` +
+`getEntityAnalysisBuilder(Class)`
+|===
+
+[WARNING]
+====
+Do not mix old and new APIs. Once you start using the new builder methods, the deprecated ones will be ignored.
+This is **especially important** if you are using `@ExtendedSearch`, which **requires** the new API.
+====
