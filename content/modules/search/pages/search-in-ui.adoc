@@ -17,7 +17,7 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 [[search-field]]
 === SearchField
 
-Компонент `SearchField` представляет текстовое поле ввода вместе с кнопкой для выполнения поиска.
+Компонент `SearchField` представляет текстовое поле ввода вместе с кнопкой для выполнения поиска. Кроме того, он предоставляет опции конфигурации во время выполнения, доступные через кнопку настроек.
 
 Вот пример использования компонента `SearchField` внутри экрана:
 
@@ -28,15 +28,15 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 
 Атрибуты компонента `SearchField`:
 
-* `searchStrategy` - определяет применяемую стратегию поиска. Если стратегия не указана, используется стратегия по умолчанию.
+* `settingsButtonVisible` - показывает/скрывает кнопку настроек. Значение по умолчанию: `true`.
+* `searchButtonVisible` - показывает/скрывает кнопку поиска. Значение по умолчанию: `true`.
+* `searchStrategy` - определяет применяемую <<search-strategies,стратегию поиска>>. Если стратегия не указана, используется стратегия по умолчанию.
 * `entities` - определяет сущности для поиска. Несколько сущностей могут быть перечислены в виде последовательности, разделенной запятыми:
 +
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
 ----
-
-По умолчанию `searchField` открывает встроенный `SearchResultsView`. Этот экран управляет процессом выполнения запроса к поисковому движку и отображает список результатов в контейнере навигации или в новом диалоговом окне, в зависимости от атрибута `openMode` компонента `searchField`.
 
 // If you wish to modify this functionality, you can configure the `SearchCompletedHandler` in the following manner:
 //
@@ -46,6 +46,24 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 // ----
 //
 // Alternatively, you can use the `setSearchCompletedHandler()` method of the component.
+*Конфигурация во время выполнения*
+
+Компонент `SearchField` включает кнопку настроек для динамической конфигурации. Пользователи могут динамически настраивать:
+
+* Стратегию поиска
+* Размер поиска (количество результатов)
+* Целевые сущности
+
+По умолчанию `searchField` открывает встроенный `SearchResultsView`. Этот экран управляет процессом выполнения запроса к поисковому движку и отображает список результатов в контейнере навигации или в новом диалоговом окне, в зависимости от атрибута `openMode` компонента `searchField`.
+
+Если вы хотите изменить эту функциональность, вы можете настроить SearchCompletedHandler следующим образом:
+
+[source,java,indent=0]
+----
+include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchView.java[tags=SearchCompletedEvent]
+----
+
+Альтернативно, вы можете использовать метод `setSearchCompletedHandler()` компонента.
 
 [[full-text-filter]]
 === FullTextFilter
@@ -74,15 +92,40 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/fil
 
 Компоненты `SearchField` и `FullTextFilter` поддерживают следующие встроенные стратегии поиска:
 
-* `anyTermAnyField` - документ соответствует, если он содержит хотя бы одно из введенных слов в любом индексированном поле.
+* `startsWith`
++
+NOTE: Эта стратегия *доступна только* когда xref:index-definitions.adoc#extended-search[@ExtendedSearch] включен хотя бы для одного определения индекса.
++
+Выполняет поиск на основе префикса, используя предварительно индексированные подполя Edge N-Gram:
 
-* `allTermsAnyField` - документ соответствует, если он содержит все введенные слова в любом поле в любом порядке. Эта стратегия установлена по умолчанию.
+** Генерирует все префиксы от xref:search-properties.adoc#jmix.search.minPrefixLength[jmix.search.min-prefix-length] (по умолчанию: `3`) до xref:search-properties.adoc#jmix.search.maxPrefixLength[jmix.search.max-prefix-length] (по умолчанию: `8`).
+** Обеспечивает значительно более высокую производительность по сравнению с запросами по шаблону (wildcard).
+** Когда введенный термин превышает максимальную длину префикса, выполняется резервный запрос по шаблону, если xref:search-properties.adoc#jmix.search.wildcardPrefixQueryEnabled[jmix.search.wildcard-prefix-query-enabled] = `true` (значение по умолчанию).
++
+NOTE: Для терминов короче, чем jmix.search.min-prefix-length, поиск всегда возвращает пустой результат.
 
-* `allTermsSingleField` - документ соответствует, если у него есть хотя бы одно поле, которое содержит все введенные слова в любом порядке.
+* `phrase`
++
+Выполняет поиск точной фразы:
 
-* `phrase` - документ соответствует, если у него есть хотя бы одно поле, которое содержит все введенные слова в заданном порядке.
+** Документы должны содержать все поисковые термины в *точном порядке* в рамках одного поля.
+** Эквивалентно традиционному фразовому запросу в поисковых системах.
+** Идеально подходит для поиска по именам, названиям или точным формулировкам.
 
-Вы можете установить нужную стратегию, используя атрибут `strategy`, например:
+* `anyTermAnyField`
++
+Выполняет дизъюнктивное сопоставление терминов по всем полям:
+
+** Возвращаются документы, соответствующие *любому* из введенных терминов в *любом* индексированном поле.
+** Термины комбинируются с логикой ИЛИ.
+** Стратегия по умолчанию для обратной совместимости.
+
++
+Эта стратегия установлена по умолчанию.
+
+CAUTION: `allTermsAnyField` и `allTermsSingleField` объявлены устаревшими и скрыты из пользовательского интерфейса, но при необходимости могут быть повторно реализованы.
+
+Вы можете установить нужную стратегию, используя атрибут `searchStrategy`, например:
 
 [source,xml,indent=0]
 ----

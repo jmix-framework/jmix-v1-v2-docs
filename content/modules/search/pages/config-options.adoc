@@ -90,30 +90,76 @@ jmix.search.changed-entities-indexing-enabled = false
 [[index-settings]]
 == Настройки индекса и анализ
 
-Дополнение позволяет вам настраивать параметры индекса, включая анализ.
+Дополнение позволяет вам настраивать параметры индекса, включая конфигурацию анализа.
 
-NOTE: Эта конфигурация зависит от используемой поисковой платформы (OpenSearch или Elasticsearch) и должна быть соответствующим образом воссоздана при переключении между ними.
+NOTE: Эта настройка зависит от вашей поисковой платформы (OpenSearch или Elasticsearch) и должна быть пересоздана при переключении между ними.
 
-* Создайте Spring-бин, который реализует `OpenSearchIndexSettingsConfigurer` (или `ElasticsearchIndexSettingsConfigurer` в случае использования Elasticsearch).
-* Реализуйте метод `configure(OpenSearchIndexSettingsConfigurationContext)`.
+=== API конфигурации
 
-[[index-settings-implementation]]
-=== Реализация
+[NOTE]
+====
+API конфигурации был переработан, чтобы разделить настройки индекса и настройки анализа.
+Предыдущие методы (`getCommonSettingsBuilder`, `getEntitySettingsBuilder`) объявлены устаревшими (*deprecated*).
+Они продолжают работать только до тех пор, пока не используются какие-либо новые методы API или не включен xref:index-definitions.adoc#extended-search[@ExtendedSearch].
+Как только новый API задействуется, устаревший API игнорируется.
+====
 
-Настройки могут быть сконфигурированы через builder настроек (принадлежит OpenSearch/Elasticsearch Java API client).
+==== Создание бина-конфигуратора
 
-Контекст конфигурации предоставляет два типа настроек builder:
+Создайте Spring-бин, реализующий:
 
-* *Общий* - позволяет настраивать настройки, которые будут применены ко всем индексам. Может быть получен через `context.getCommonSettingsBuilder()`.
-* *Специфичный для сущности* - позволяет настраивать настройки, которые будут применены только к индексу для конкретной сущности.
-Специфичные для сущности настройки имеют более высокий приоритет и _переопределяют общие настройки_.
-Может быть получен через `context.getEntitySettingsBuilder(Class)`.
+* `OpenSearchIndexSettingsConfigurer` – для OpenSearch.
+* `ElasticsearchIndexSettingsConfigurer` – для Elasticsearch.
 
-Используйте методы builder для установки соответствующих настроек индекса.
+Реализуйте метод `configure()`, который предоставляет объект `ConfigurationContext`.
 
-Используйте `.analysis()` для начала построения цепочки, которая позволяет создавать пользовательские анализаторы, токенизаторы и т.д.
+==== Настройка параметров индекса
+
+Параметры индекса настраиваются с помощью специальных *билдеров настроек индекса*:
+
+* `getCommonIndexSettingsBuilder()` – применяется ко *всем* индексам.
+* `getEntityIndexSettingsBuilder(Class<?> entityClass)` – применяется к индексу *конкретной* сущности.
+Настройки для конкретной сущности имеют более высокий приоритет и _переопределяют общие настройки_.
+
+==== Настройка анализа
+
+Параметры анализа настраиваются с помощью специальных *билдеров анализа*:
+
+* `getCommonAnalysisBuilder()` – применяется ко *всем* индексам.
+* `getEntityAnalysisBuilder(Class<?> entityClass)` – применяется к индексу *конкретной* сущности.
+
+Используйте метод `.analysis()` билдера для определения:
+
+* *Анализаторов* – `.analyzer()`
+* *Токенизаторов* – `.tokenizer()`
+* *Фильтров* – `.filter()`
+* *Символьных фильтров* – `.charFilter()`
+* *Нормализаторов* – `.normalizer()`
+
+=== Полный пример
+
+Следующий пример демонстрирует пользовательский конфигуратор для OpenSearch.
+Он настраивает общие параметры индекса и анализа, а затем переопределяет их настройками для конкретной сущности `Order`.
 
 [source,java,indent=0]
 ----
-include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchIndexSettingsConfigurer.java[tags=index-settings-configurer;configure;configure-body]
+include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchIndexSettingsConfigurer.java[tags=import;index-settings-configurer;configure;configure-body]
 ----
+
+=== Руководство по миграции API
+
+Если вы обновляетесь с более ранней версии, замените устаревшие методы следующим образом:
+
+|===
+| Устаревший метод  | Новый API
+| `getCommonSettingsBuilder()` | `getCommonIndexSettingsBuilder()` +
+`getCommonAnalysisBuilder()`
+| `getEntitySettingsBuilder(Class)` | `getEntityIndexSettingsBuilder(Class)` +
+`getEntityAnalysisBuilder(Class)`
+|===
+
+[WARNING]
+====
+Не смешивайте старый и новый API. Как только вы начнете использовать новые методы билдеров, устаревшие будут игнорироваться.
+Это *особенно важно*, если вы используете `@ExtendedSearch`, который *требует* новый API.
+====

@@ -1,10 +1,13 @@
 package com.company.demo.service;
 
+// tag::import[]
 import com.company.demo.entity.Order;
 import io.jmix.searchopensearch.index.OpenSearchIndexSettingsConfigurationContext;
 import io.jmix.searchopensearch.index.OpenSearchIndexSettingsConfigurer;
 import org.opensearch.client.opensearch.indices.IndexSettings;
 import org.springframework.stereotype.Component;
+
+// end::import[]
 
 // tag::index-settings-configurer[]
 @Component

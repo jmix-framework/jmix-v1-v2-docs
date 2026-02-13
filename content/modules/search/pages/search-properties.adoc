@@ -49,12 +49,38 @@ http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger
 
 Значение по умолчанию: `create-or-recreate`
 
+[[jmix.search.maxPrefixLength]]
+== jmix.search.max-prefix-length
+
+Определяет максимальную длину генерируемых терминов-префиксов, используемых в поиске xref:search:index-definitions.adoc#extended-search["по началу строки" ("starts with")].
+
+Анализатор edge N-gram создает префиксы от <<jmix.search.minPrefixLength,min-prefix-length>> до этого максимального значения для каждого индексированного слова. Более длинные максимальные значения:
+
+* Повышают точность поиска для более длинных префиксов.
+* Увеличивают размер индекса из-за большего количества хранимых префиксов.
+* Снижают производительность резервных запросов по шаблону (wildcard).
+
+Значение по умолчанию: `8`.
+
 [[jmix.search.maxSearchPageCount]]
 == jmix.search.max-search-page-count
 
 Задает максимальное количество страниц результатов.
 
 Значение по умолчанию: `100`
+
+[[jmix.search.minPrefixLength]]
+== jmix.search.min-prefix-length
+
+Определяет минимальную длину генерируемых терминов-префиксов, используемых в поиске xref:search:index-definitions.adoc#extended-search["по началу строки" ("starts with")].
+
+Анализатор edge N-gram создает префиксы, начиная только с этой длины. Более короткие минимальные значения:
+
+* Позволяют сопоставлять очень короткие поисковые термины.
+* Значительно увеличивают размер индекса (генерируется больше префиксов).
+* Могут повлиять на производительность из-за большого количества мелких префиксов.
+
+Значение по умолчанию: `3`
 
 [[jmix.search.processQueueBatchSize]]
 == jmix.search.process-queue-batch-size
@@ -172,3 +198,14 @@ _Этот режим следует использовать только пос
 Определяет тип хранилища ключей.
 
 Значение по умолчанию: `pkcs12`
+
+[[jmix.search.wildcardPrefixQueryEnabled]]
+== jmix.search.wildcard-prefix-query-enabled
+
+Включает резервный запрос по шаблону (wildcard), когда длина поискового термина превышает <<jmix.search.maxPrefixLength,jmix.search.max-prefix-length>>.
+
+Если значение `true`, выполняется запрос по шаблону для терминов, длина которых превышает максимальную длину префикса; если `false`, для таких терминов не возвращается ни одного результата.
+
+NOTE: Для терминов короче, чем <<jmix.search.minPrefixLength,jmix.search.min-prefix-length>>, поиск всегда возвращает пустой результат независимо от этой настройки.
+
+Значение по умолчанию: `true`
