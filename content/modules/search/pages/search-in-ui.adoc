@@ -56,7 +56,7 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 
 По умолчанию `searchField` открывает встроенный `SearchResultsView`. Этот экран управляет процессом выполнения запроса к поисковому движку и отображает список результатов в контейнере навигации или в новом диалоговом окне, в зависимости от атрибута `openMode` компонента `searchField`.
 
-Если вы хотите изменить эту функциональность, вы можете настроить SearchCompletedHandler следующим образом:
+Если вы хотите изменить эту функциональность, вы можете настроить `SearchCompletedHandler` следующим образом:
 
 [source,java,indent=0]
 ----
