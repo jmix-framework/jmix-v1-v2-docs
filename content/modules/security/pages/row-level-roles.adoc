@@ -45,14 +45,9 @@ If an entity can be:
 then define both JPQL and <<predicate-policy,predicate>> row-level policies for that entity. JPQL for efficient database-level filtering of root loads, predicate for nested loads.
 ====
 
-In a design-time role, the JPQL policy is defined using the `@JpqlRowLevelPolicy` annotation, for example:
+==== Creating a JPQL Policy
 
-[source,java,indent=0]
-----
-include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/CreatedByMeOrdersRole.java[tags=role]
-----
-
-Consider the following rules when writing JPQL policies:
+A row‑level role can contain any number of JPQL policies. Keep these guidelines in mind when writing them:
 
 * Use `\{E\}` placeholder instead of the entity alias in `where` and `join` clauses. The framework will replace it with a real alias specified in the query.
 
@@ -60,7 +55,30 @@ Consider the following rules when writing JPQL policies:
 
 * The `join` text is added to the `from` query clause. It should begin with a comma, `join` or `left join`.
 
-You can use xref:data-access:jpql-extensions.adoc#session-and-user-attributes[session and user attributes] in query parameters. For example, the `current_user_username` parameter gets its value from the `username` attribute.
+In a design‑time role, add policies with the `@JpqlRowLevelPolicy` annotation, for example:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-join]
+----
+
+The `join` clause is optional. Since JPA creates implicit joins for path expressions, you can often achieve the same result by using a path expression in the `where` clause. The previous example can therefore be rewritten as:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-path-expression]
+----
+
+==== Session and User Attributes
+
+You can use xref:data-access:jpql-extensions.adoc#session-and-user-attributes[session and user attributes] in query parameters. In the example below, the `current_user_username` parameter gets its value from the `username` attribute of the current user.
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/CreatedByMeOrdersRole.java[tags=role]
+----
+
+==== Application-specific Attributes
 
 You can add application-specific attributes to your `User` entity and use them in JPQL policies. For example, imagine that you have added the `region` attribute to the `User` and `Customer` entities. Then you can restrict access to `Customer` and `Order` entities by allowing users to see only entities of their region:
 
