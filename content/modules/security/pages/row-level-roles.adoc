@@ -45,14 +45,9 @@ JPQL-политика преобразует оператор JPQL (и, след
 то для неё следует определить обе политики уровня строк: JPQL‑политику и <<predicate-policy, предикатную политику>> . JPQL‑политика обеспечит эффективную фильтрацию на уровне базы данных при загрузке корневой сущности, а предикатная — при загрузке вложенных коллекций.
 ====
 
-В роли, определенной во время разработки, JPQL-политика определяется аннотацией `@JpqlRowLevelPolicy`, например:
+==== Создание политики JPQL
 
-[source,java,indent=0]
-----
-include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/CreatedByMeOrdersRole.java[tags=role]
-----
-
-При написании JPQL-политик учитывайте следующие правила:
+Роль уровня строк может содержать любое количество JPQL политик. При написании JPQL политик учитывайте следующие правила:
 
 * Используйте плейсхолдер `\{E\}` вместо алиаса сущности в выражениях `where` и `join`. Фреймворк заменит его реальным алиасом, указанным в запросе.
 
@@ -60,7 +55,30 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 
 * Содержимое `join` добавляется в выражение `from` запроса. Оно должно начинаться с запятой или слов `join` или `left join`.
 
-Можно использовать параметры xref:data-access:jpql-extensions.adoc#session-and-user-attributes[атрибутов сессии и пользователя]. Например, параметр `current_user_username` получает свое значение из атрибута `username`.
+В роли, определенной во время разработки, JPQL-политика определяется аннотацией `@JpqlRowLevelPolicy`, например:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-join]
+----
+
+Условие `join` не является обязательным. Часто его можно заменить указав цепочку атрибутов в условии `where` – в таком случае JPA неявно создает нужный join. Таким образом, предыдущий пример можно записать так:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-path-expression]
+----
+
+==== Aтрибуты сессии и пользователя
+
+Можно использовать параметры xref:data-access:jpql-extensions.adoc#session-and-user-attributes[атрибутов сессии и пользователя]. Например, параметр `current_user_username` получает свое значение из атрибута `username` текущего пользователя:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/CreatedByMeOrdersRole.java[tags=role]
+----
+
+==== Атрибуты конкретного приложения
 
 Также можно добавить атрибуты, относящиеся к конкретному приложению, в сущность `User` и использовать их в JPQL-политиках. Например, представим, что к сущностям `User` и `Customer` был добавлен атрибут `region`. Затем можно ограничить доступ к объектам `Customer` и `Order`, разрешив пользователям видеть только сущности своего региона:
 
