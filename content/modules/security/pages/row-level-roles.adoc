@@ -35,15 +35,7 @@ JPQL policy specifies the `where` (and optionally `join`) clause to be used when
 
 JPQL policy transforms the JPQL (and hence SQL) operator and filters out restricted instances on the database level, which is very efficient in terms of performance. But keep in mind that it affects only the root entity of a loaded object graph.
 
-[IMPORTANT]
-====
-If an entity can be:
-
-* loaded as a root, and
-* also appear in nested collections/associations
-
-then define both JPQL and <<predicate-policy,predicate>> row-level policies for that entity. JPQL for efficient database-level filtering of root loads, predicate for nested loads.
-====
+include::partial$jpql-predicate-note.adoc[]
 
 ==== Creating a JPQL Policy
 
@@ -96,15 +88,7 @@ The moment the predicate is tested differs by operation:
 
 * `READ` predicate is tested when the entity is loaded from the database. This includes both the root entity and (unlike <<jpql-policy, JPQL policy>>) all nested collections down to the loaded object graph. This in-memory test can *significantly impact performance when run on many instances* because they will be loaded and tested one at a time.
 +
-[IMPORTANT]
-====
-If an entity can be:
-
-* loaded as a root, and
-* also appear in nested collections/associations
-
-then define both <<jpql-policy, JPQL>> and predicate row-level policies for that entity. JPQL for efficient database-level filtering of root loads, predicate for nested loads.
-====
+include::partial$jpql-predicate-note.adoc[]
 +
 * `CREATE`, `UPDATE`, `DELETE` predicates are tested before the entity instance is created, updated, or deleted from the database.
 

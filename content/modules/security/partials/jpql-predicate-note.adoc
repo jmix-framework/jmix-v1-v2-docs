@@ -1,0 +1,9 @@
+[IMPORTANT]
+====
+If an entity can be loaded
+
+* as a root, or
+* as a collection in another entity’s object graph,
+
+create both a <<jpql-policy, JPQL>> (for root loads) and a <<predicate-policy, predicate>> policy (for nested loads) for that entity.
+====
