@@ -20,13 +20,13 @@ Configure the main project settings on this step:
 +
 For beta-testing or early accessing new Jmix framework features, you might want to use one of unstable Jmix framework versions, ones that end with BETA or SNAPSHOT suffixes. To see them in the *Jmix version* drop-down list, you need to select the *Show unstable versions* checkbox.
 +
-* In the *Project JDK* field, select JDK corresponding to `JAVA_HOME` which is set in your environment. If you see the `<No JDK>` value, click *Add JDK* in the list and select the folder, where JDK is installed, for example, `C:\Program Files\BellSoft\LibericaJDK-17` on Windows or `/Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home` on macOS.
+* In the *Project JDK* field, select JDK corresponding to `JAVA_HOME` which is set in your environment. If you see the `<No JDK>` value, click *Add JDK* in the list and select the folder, where JDK is installed.
 +
 . On the next wizard step, select a template to be used for creating an empty project.
 +
 image::new-project-templates.png[align="center",width="912"]
 +
-. In the next window, you can set the project's name, location, and localization.
+. In the next window, you can set the project's name, location, and locales.
 +
 image::new-project-name.png[align="center"]
 +
@@ -58,11 +58,9 @@ If another project is already opened, go *File -> Open* from the main menu.
 +
 image::new-project-build.png[align="center"]
 +
-[IMPORTANT]
+[TIP]
 ====
-When opening a xref:studio:composite-projects.adoc[composite project], make sure to navigate to the `<project-name>-all` aggregator project directory and open the `build.gradle` file within that directory:
-
-image::open-composite-project.png[align="center",width="1078"]
+See also how to open a xref:studio:composite-projects.adoc#opening-composite-project[composite project] that organizes multiple related xref:modularity:creating-add-ons.adoc[add-ons] and applications into a single IDE project.
 ====
 . In the appeared dialog, select *Open as Project*.
 +

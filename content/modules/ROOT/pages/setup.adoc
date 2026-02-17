@@ -78,6 +78,17 @@ The command should return the Java version, e.g. `17.0.9`.
 
 CAUTION: If you connect to the internet via a proxy server, some Java system properties must be passed to the JVM running development tools and Gradle. xref:studio:install.adoc#working-behind-proxy[Configure] these properties using Jmix Studio.
 
+[[agentic-coding]]
+== Coding with AI Agents
+
+You can speed up the development of Jmix applications by using AI coding agents.
+
+To enable an AI agent to work effectively with Jmix patterns, architecture, and best practices, we recommend using the https://github.com/jmix-framework/jmix-agent-guidelines[Jmix AI Agent Guidelines^]. These guidelines provide:
+
+* **Architecture Overview**: Deep understanding of Jmix-specific patterns.
+* **Agent Skills**: Specialized knowledge for developing entities, UI views, data access, and more.
+* **Development Workflow**: Optimized instructions for AI agents to follow Jmix-specific mandatory rules.
+
 [[Troubleshooting]]
 == Troubleshooting
 

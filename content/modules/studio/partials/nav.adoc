@@ -5,6 +5,7 @@
 ** xref:studio:project.adoc[]
 ** xref:studio:studio-ui.adoc[]
 *** Core Development Tools
+**** xref:studio:ai-assistant.adoc[]
 **** xref:studio:entity-designer.adoc[]
 **** xref:studio:data-stores.adoc[]
 **** xref:studio:view-wizard.adoc[]

@@ -21,6 +21,8 @@ Jmix is an open-source framework, giving developers full control over their appl
 
 If you are new to Jmix, check out the https://www.youtube.com/watch?v=MKDZU4PyUTY[Jmix Introduction for Developers^] video.
 
+Use the *Jmix AI assistant* at https://ai-assistant.jmix.io[ai-assistant.jmix.io^] and in xref:studio:ai-assistant.adoc[your IDE] for any questions about Jmix and application development.
+
 The documentation contains everything you need to know for developing with Jmix:
 
 * The xref:concepts:index.adoc[] section explains the core principles and concepts of Jmix.
