@@ -61,6 +61,19 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCus
 include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-path-expression]
 ----
 
+Оба варианта создают одинаковый фильтр по экземплярам.
+
+Однако явный join становится необходимым, когда между сущностями нет прямой связи. Для иллюстрации, рассмотрим следующий граф объектов:
+
+image::row-level-roles-diagram.svg[align="center"]
+
+`Customer` и `Employee` не имеют прямых атрибутов‑ссылок, но всё‑равно связаны через промежуточную сущность `CustomerAccess`. Присоединив `CustomerAccess`, можно создать роль, определяющую, *какому сотруднику разрешено видеть какого клиента*:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/AccessToCustomerRole.java[tags=role]
+----
+
 ==== Aтрибуты сессии и пользователя
 
 Можно использовать параметры xref:data-access:jpql-extensions.adoc#session-and-user-attributes[атрибутов сессии и пользователя]. Например, параметр `current_user_username` получает свое значение из атрибута `username` текущего пользователя:
@@ -90,7 +103,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 +
 include::partial$jpql-predicate-note.adoc[]
 +
-* `CREATE`, `UPDATE`, `DELETE` predicates are tested before the entity instance is created, updated, or deleted from the database.
+* Предикаты `CREATE`, `UPDATE`, `DELETE` проверяются перед созданием, обновлением или удалением экземпляра сущности из базы данных.
 
 В роли, определенной во время разработки, предикатная политика определяется аннотацией `@PredicateRowLevelPolicy`, например:
 
