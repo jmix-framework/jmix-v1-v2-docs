@@ -1,6 +1,10 @@
 = Custom Form
 
-Using annotation-driven xref:bpm:bpmn/jmix-view-forms.adoc[] process forms offer tight integration and automatic bindings in the xref:menu-views/modeler-web.adoc[]. Besides, you can also configure the Modeler to work with a Jmix view that does not rely on that method.
+When an element needs a form that cannot be shown as a simple xref:bpm:input-dialog.adoc[] and cannot use the usual xref:bpm:bpmn/jmix-view-forms.adoc[] annotation-driven approach, you can supply a custom form. This form may still be a Jmix view, or it can be built with an alternative UI technology (e.g., React).
+
+In the modeler, you will need to provide an id for this form. The custom form must read the supplied input parameters and return the outcomes.
+
+image::custom-forms/custom-form.png[align="center", width="861"]
 
 == Custom Jmix Form
 
@@ -65,21 +69,6 @@ View controller of the custom task form:
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomTaskForm.java[tags=custom]
 ----
-
-[[set-up-element]]
-== Setting up Element
-
-Once you created a view form, you can set up elements to use them.
-Follow the steps below:
-
-. Open the xref:menu-views/modeler-web.adoc[].
-. Select the appropriate element (User Task or Start Event).
-+
-image::custom-forms/custom-form.png[align="center", width="861"]
-+
-. Set *Form type* to `Custom`.
-. Provide *View id*.
-. Optionally, provide *Form parameters* and *Outcomes*. The form should be able to read the parameters and return the outcomes.
 
 == Using Alternative UI Technology
 
