@@ -61,6 +61,19 @@ The `join` clause is optional. Since JPA creates implicit joins for path express
 include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-path-expression]
 ----
 
+Both variants produce the same row-level filter.
+
+However, explicit `join` becomes necessary when there is no direct relationship between entities. To illustrate, consider the following object graph:
+
+image::row-level-roles-diagram.svg[align="center"]
+
+`Customer` and `Employee` have no direct reference attributes, but are still connected through the intermediate `CustomerAccess` entity. By joining `CustomerAccess` you can create a role that determines *which employee is allowed to see which customer*:
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/AccessToCustomerRole.java[tags=role]
+----
+
 ==== Session and User Attributes
 
 You can use xref:data-access:jpql-extensions.adoc#session-and-user-attributes[session and user attributes] in query parameters. In the example below, the `current_user_username` parameter gets its value from the `username` attribute of the current user.
