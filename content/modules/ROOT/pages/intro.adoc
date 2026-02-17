@@ -21,7 +21,9 @@ Jmix является фреймворком с открытым исходны�
 
 Если вы новичок в Jmix, посмотрите видео https://www.youtube.com/watch?v=MKDZU4PyUTY[Jmix Introduction for Developers^].
 
-Используйте данную документацию при разработке на Jmix:
+Используйте *Jmix AI assistant* на https://ai-assistant.jmix.io[ai-assistant.jmix.io^] и в xref:studio:ai-assistant.adoc[вашей IDE] для любых вопросов о Jmix и разработке приложений.
+
+В данной документации:
 
 * Раздел xref:concepts:index.adoc[] рассказывает об основных принципах и возможностях Jmix.
 

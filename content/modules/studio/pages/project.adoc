@@ -20,7 +20,7 @@ image::new-project-create.png[align="center",width="912"]
 +
 Для бета-тестирования или раннего доступа к новым функциям фреймворка Jmix вы можете использовать одну из нестабильных версий, названия которых заканчиваются суффиксами BETA или SNAPSHOT. Чтобы увидеть их в выпадающем списке *Jmix version*, поставьте флажок *Show unstable versions*.
 +
-* В поле *Project JDK*, выберите JDK, соответствующий переменной `JAVA_HOME`, заданной в вашем окружении. Если вы видите значение `<No JDK>`, нажмите *Add JDK* в списке и выберите папку, в которую установлен JDK, например `C:\Program Files\BellSoft\LibericaJDK-17` на Windows или `/Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home` на macOS.
+* В поле *Project JDK*, выберите JDK, соответствующий переменной `JAVA_HOME`, заданной в вашем окружении. Если вы видите значение `<No JDK>`, нажмите *Add JDK* в списке и выберите папку, в которую установлен JDK.
 +
 . На следующем шаге мастера выберите шаблон, который будет использоваться для создания пустого проекта.
 +
@@ -58,11 +58,9 @@ image::new-project-welcome.png[align="center",width="912"]
 +
 image::new-project-build.png[align="center"]
 +
-[IMPORTANT]
+[TIP]
 ====
-При открытии xref:studio:composite-projects.adoc[композитного проекта] убедитесь, что вы перешли в директорию проекта-агрегатора `<project-name>-all` и открыли файл `build.gradle` в этой директории:
-
-image::open-composite-project.png[align="center",width="1078"]
+См. также как правильно открыть xref:studio:composite-projects.adoc#opening-composite-project[композитный проект], объединяющий несколько связанных xref:modularity:creating-add-ons.adoc[дополнений] и приложений в один проект в IDE.
 ====
 . В появившемся окне выберите *Open as Project*.
 +
