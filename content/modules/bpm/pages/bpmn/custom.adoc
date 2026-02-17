@@ -1,6 +1,10 @@
 = Настраиваемые формы
 
-Подход, описанный в xref:bpmn/jmix-view-forms.adoc[предыдущем разделе], позволяет быстро преобразовать обычный экран Jmix в процеснную форму, упрощая привязку к элементу в xref:bpm:menu-views/modeler-web.adoc[Моделере]. Однако, к элементу может быть привязан любой экран, независимо от того, использует ли он аннотации.
+Когда элементу требуется форма, которую нельзя отобразить с помощью xref:bpm:input-dialog.adoc[] либо подхода основанного на аннотациях в xref:bpm:bpmn/jmix-view-forms.adoc[], можно предоставить пользовательскую форму. Эта форма может по‑прежнему быть экраном Jmix, либо быть построена с помощью альтернативной UI‑технологии (например, React).
+
+В Моделере необходимо указать id этой формы. Пользовательская форма должна считывать переданные входные параметры и возвращать результаты.
+
+image::custom-forms/custom-form.png[align="center", width="861"]
 
 == Форма Jmix
 
@@ -65,20 +69,6 @@ include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custo
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomTaskForm.java[tags=custom]
 ----
-
-[[set-up-element]]
-== Настройка элемента в Моделере
-
-После создания формы можно привязать её к элементу:
-
-. Перейдите в xref:menu-views/modeler-web.adoc[].
-. Выберите нужный элемент (User Task или Start Event).
-+
-image::custom-forms/custom-form.png[align="center", width="861"]
-+
-. Установите значение `Custom` для *Form type*.
-. Укажите *View id*.
-. При необходимости задайте *Form parameters* и *Outcomes*; форма должна уметь читать параметры и возвращать результаты.
 
 == Использование альтернативной технологии UI
 
