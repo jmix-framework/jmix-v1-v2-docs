@@ -1,14 +1,14 @@
-= SearchField Component
+= Компонент SearchField
 
-The `SearchField` component presents a text input field with an accompanying button for executing searches. It also provides runtime configuration options accessible via a settings button.
+Компонент `SearchField` представляет собой текстовое поле ввода с соответствующей кнопкой для выполнения поиска. Он также предоставляет возможности настройки во время выполнения, доступные через кнопку параметров.
 
 [cols="2h,8", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`searchField`
-|Java Class
+|Java-класс
 |`io.jmix.searchflowui.component.SearchField`
-|Attributes
+|Атрибуты
 |xref:flow-ui:vc/common-attributes.adoc#id[id] -
 xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -42,7 +42,7 @@ xref:flow-ui:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
 xref:flow-ui:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
 xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
 xref:flow-ui:vc/common-attributes.adoc#width[width]
-|Handlers
+|Обработчики
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
@@ -56,15 +56,15 @@ xref:flow-ui:vc/common-handlers.adoc#KeyUpEvent[KeyUpEvent] -
 |===
 
 [[basic]]
-== Basics
+== Основы
 
-To add the component on the view, use Jmix Studio.
+Чтобы добавить компонент на экран, используйте Jmix Studio.
 
-Click *Add Component* in the actions panel, then find the `SearchField` item and double-click it.
+Нажмите *Add Component* на панели действий, затем найдите элемент `SearchField` и дважды кликните по нему.
 
 image::create-search-field-component.png[align="center", width="692"]
 
-The new `searchField` element will be added both in the *Jmix UI* structure panel and in the XML descriptor. You can configure standard attributes (xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc.) just like any other xref:flow-ui:vc/components.adoc[UI component].
+Новый элемент `searchField` будет добавлен как на панель структуры *Jmix UI*, так и в XML-дескриптор. Вы можете настроить стандартные атрибуты (xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width] и т.д.) так же, как и для любого другого xref:flow-ui:vc/components.adoc[UI-компонента].
 
 [source,xml,indent=0]
 ----
@@ -73,7 +73,7 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 
 image::search-field.png[align="center", width="211"]
 
-If you don't use the view designer, declare the `search` namespace in your view's XML descriptor manually:
+Если вы не используете дизайнер экранов, объявите пространство имен `search` в XML-дескрипторе вашего экрана вручную:
 
 [source,xml,indent=0]
 ----
@@ -81,35 +81,35 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 ----
 
 [[settings-button]]
-== Runtime Configuration
+== Конфигурация во время выполнения
 
-The `searchField` includes a *settings button* (vertical ellipsis `⋮`) that opens a configuration dialog, allowing users to dynamically adjust search parameters without modifying the XML.
+`searchField` включает *кнопку настроек* (вертикальное многоточие `⋮`), которая открывает диалог конфигурации, позволяя пользователям динамически изменять параметры поиска без изменения XML.
 
 image::search-settings-dialog.png[align="center", width="483"]
 
-Users can configure the following options at runtime:
+Пользователи могут настроить следующие параметры во время выполнения:
 
 [cols="2,2,4", options="header"]
 |===
-| Configuration | Corresponding Attribute | Description
+| Конфигурация | Соответствующий атрибут | Описание
 
-| Search Strategy
+| Стратегия поиска
 | <<searchStrategy,searchStrategy>>
-| Determines how the search term is processed
+| Определяет, как обрабатывается поисковый термин
 
-| Size
+| Размер
 | <<searchSize,searchSize>>
-| Limits the number of search results
+| Ограничивает количество результатов поиска
 
-| Entities
+| Сущности
 | <<entities,entities>>
-| Specifies which entities to search (multiple entities can be selected)
+| Определяет, по каким сущностям выполнять поиск (можно выбрать несколько сущностей)
 |===
 
 [[settings-button-visible]]
-=== Hiding the Settings Button
+=== Скрытие кнопки настроек
 
-You can hide the settings button using the `settingsButtonVisible` attribute:
+Вы можете скрыть кнопку настроек с помощью атрибута `settingsButtonVisible`:
 
 [source,xml,indent=0]
 ----
@@ -117,14 +117,14 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 ----
 
 [[search-results-view]]
-== Search Results View
+== Экран результатов поиска
 
-By default, the `searchField` opens the built-in `SearchResultsView`. This view handles the search engine querying process and displays results either in the current navigation view or in a dialog, depending on the <<openMode,openMode>> attribute.
+По умолчанию `searchField` открывает встроенный `SearchResultsView`. Этот экран управляет процессом выполнения запроса к поисковому движку и отображает результаты либо в текущем контейнере навигации, либо в диалоговом окне, в зависимости от атрибута <<openMode,openMode>>.
 
 [[searchCompletedHandler]]
-To modify this behavior, configure a `SearchCompletedHandler`. This can be done either declaratively using the `@Install` annotation or programmatically using `setSearchCompletedHandler()`.
+Чтобы изменить это поведение, настройте `SearchCompletedHandler`. Это можно сделать либо декларативно, используя аннотацию `@Install`, либо программно, используя `setSearchCompletedHandler()`.
 
-Example with `@Install`:
+Пример с `@Install`:
 
 [source,java,indent=0]
 ----
@@ -132,17 +132,17 @@ include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchVi
 ----
 
 [[attributes]]
-== Attributes
+== Атрибуты
 
-xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
-The following attributes are specific to `searchField`:
+xref:flow-ui:vc/common-attributes.adoc[Общие атрибуты] служат одной и той же цели для всех компонентов.
+Следующие атрибуты являются специфичными для `searchField`:
 
 [cols="1h,7a,1",grid=rows,frame=none]
 |===
-|*Name*|*Description*|*Default*
+|*Название*|*Описание*|*Значение по умолчанию*
 
 |[[entities]]entities
-| Specifies which entities to search. Multiple entities can be listed as a comma-separated sequence.
+| Определяет, по каким сущностям выполнять поиск. Несколько сущностей могут быть перечислены в виде последовательности, разделенной запятыми.
 
 [source,xml,indent=0]
 ----
@@ -151,23 +151,23 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 |-
 
 |[[openMode]]openMode
-| Specifies how the <<search-results-view,search results view>> is opened when a search is executed. `NAVIGATION` replaces the main content area; `DIALOG` opens a modal window.
+| Определяет, как открывается <<search-results-view,экран результатов поиска>> при выполнении поиска. `NAVIGATION` заменяет основную область контента; `DIALOG` открывает модальное окно.
 |`NAVIGATION`
 
 |[[searchButtonVisible]]searchButtonVisible
-|Shows or hides the search button.
+| Показывает или скрывает кнопку поиска.
 |`true`
 
 |[[searchSize]]searchSize
-|Limits the number of search results displayed on single page of search result.
-|Inherited from the application property xref:search:search-properties.adoc#jmix.search.searchResultPageSize[jmix.search.search-result-page-size].
+| Ограничивает количество результатов поиска, отображаемых на одной странице результата поиска.
+| Наследуется от свойства приложения xref:search:search-properties.adoc#jmix.search.searchResultPageSize[jmix.search.search-result-page-size].
 
 |[[searchStrategy]]searchStrategy
-|Determines the search strategy applied. See xref:search:search-in-ui.adoc#search-strategies[Search Strategies].
+|Определяет применяемую стратегию поиска. См. xref:search:search-in-ui.adoc#search-strategies[Стратегии поиска].
 |`anyTermAnyField`
 
 |[[settingsButtonVisible]]settingsButtonVisible
-|Shows or hides the settings button (`⋮`). See <<settings-button,Runtime Configuration>>.
+|Показывает или скрывает кнопку настроек (`⋮`). Смотрите <<settings-button,Конфигурация во время выполнения>>.
 |`true`
 
 |===

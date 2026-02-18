@@ -300,11 +300,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[justifySelf]]
 == justifySelf
 
-Controls the horizontal alignment of a component within its grid cell along the inline (row) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] property.
+Управляет горизонтальным выравниванием компонента внутри его ячейки сетки вдоль горизонтальной оси. Это соответствует CSS-свойству https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^].
 
-Default value is `AUTO`.
+Значение по умолчанию - `AUTO`.
 
-Available for projects with version 2.7.2+.
+Доступно для проектов с версии 2.7.2 и выше.
 
 [[label]]
 == label
