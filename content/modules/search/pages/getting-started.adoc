@@ -92,6 +92,6 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 
 Результаты поиска появятся на экране *Search results*.
 
-image::search-result.png[align="center",width="1138"]
+image::search-result.png[align="center",width="1301"]
 
 Щелчок по результату перенаправит вас на экран деталей сущности.

@@ -297,6 +297,15 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 * Если `invalid=false`, то поле отбражается в допустимом состоянии независимо от результата валидации.
 * If `invalid=true`, то поле отбражается в допустимом состоянии только если валидация прошла успешно.
 
+[[justifySelf]]
+== justifySelf
+
+Controls the horizontal alignment of a component within its grid cell along the inline (row) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] property.
+
+Default value is `AUTO`.
+
+Available for projects with version 2.7.2+.
+
 [[label]]
 == label
 

@@ -3,94 +3,14 @@
 [[visual-components]]
 == Визуальные компоненты
 
-Дополнение Search предоставляет два UI-компонента: `SearchField` и `FullTextFilter`.
-
-Эти компоненты доступны в палитре *Add Component* в xref:studio:view-designer.adoc[Дизайнере экранов] Jmix Studio сразу после установки дополнения в ваш проект.
-
-Если вы не используете дизайнер экранов, объявите пространство имен `search` в XML-дескрипторе вашего экрана вручную:
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns]
-----
-
-[[search-field]]
-=== SearchField
-
-Компонент `SearchField` представляет текстовое поле ввода вместе с кнопкой для выполнения поиска. Кроме того, он предоставляет опции конфигурации во время выполнения, доступные через кнопку настроек.
-
-Вот пример использования компонента `SearchField` внутри экрана:
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns;view;search-field]
-----
-
-Атрибуты компонента `SearchField`:
-
-* `settingsButtonVisible` - показывает/скрывает кнопку настроек. Значение по умолчанию: `true`.
-* `searchButtonVisible` - показывает/скрывает кнопку поиска. Значение по умолчанию: `true`.
-* `searchStrategy` - определяет применяемую <<search-strategies,стратегию поиска>>. Если стратегия не указана, используется стратегия по умолчанию.
-* `entities` - определяет сущности для поиска. Несколько сущностей могут быть перечислены в виде последовательности, разделенной запятыми:
-+
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
-----
-
-// If you wish to modify this functionality, you can configure the `SearchCompletedHandler` in the following manner:
-//
-// [source,java,indent=0]
-// ----
-// include::example$/ex1/src/main/java/search/ex1/screen/search/SearchScreenHandler2.java[tags=my-search-field;screen-builders;handler]
-// ----
-//
-// Alternatively, you can use the `setSearchCompletedHandler()` method of the component.
-*Конфигурация во время выполнения*
-
-Компонент `SearchField` включает кнопку настроек для динамической конфигурации. Пользователи могут динамически настраивать:
-
-* Стратегию поиска
-* Размер поиска (количество результатов)
-* Целевые сущности
-
-По умолчанию `searchField` открывает встроенный `SearchResultsView`. Этот экран управляет процессом выполнения запроса к поисковому движку и отображает список результатов в контейнере навигации или в новом диалоговом окне, в зависимости от атрибута `openMode` компонента `searchField`.
-
-Если вы хотите изменить эту функциональность, вы можете настроить `SearchCompletedHandler` следующим образом:
-
-[source,java,indent=0]
-----
-include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchView.java[tags=SearchCompletedEvent]
-----
-
-Альтернативно, вы можете использовать метод `setSearchCompletedHandler()` компонента.
-
-[[full-text-filter]]
-=== FullTextFilter
-
-Компонент `FullTextFilter` функционирует аналогично компоненту xref:flow-ui:vc/components/propertyFilter.adoc[].
-
-Вот пример использования `fullTextFilter` в экране:
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=data;layout;fullTextFilter;dataGrid]
-----
-
-Атрибуты компонента `FullTextFilter`:
-
-* `dataLoader` определяет `DataLoader`, к которому применяется фильтр.
-* `searchStrategy` определяет используемую стратегию поиска. Если не определена явно, используется стратегия по умолчанию.
-* `autoApply` - при значении `true` компонент `FullTextFilter` автоматически применяется к `DataLoader` при изменении своего значения.
-
-`FullTextFilter` работает следующим образом: он находит идентификаторы сущностей через полнотекстовый поиск и затем добавляет условие, содержащее эти идентификаторы, в загрузчик данных. Следовательно, когда `DataGrid` связан с этим загрузчиком данных, он будет отображать только те записи, которые соответствуют критериям полнотекстового поиска, в сочетании с другими фильтрами, если они есть.
+Дополнение Search предоставляет два UI-компонента: xref:search-field-component.adoc[SearchField] и xref:full-text-filter-component.adoc[FullTextFilter].
 
 [[search-strategies]]
 === Стратегии поиска
 
 Стратегия поиска определяет, как обрабатывается поисковый термин. По сути, она конфигурирует поисковый запрос с определенным запросом.
 
-Компоненты `SearchField` и `FullTextFilter` поддерживают следующие встроенные стратегии поиска:
+Компоненты xref:search-field-component.adoc[SearchField] и xref:full-text-filter-component.adoc[FullTextFilter] поддерживают следующие встроенные стратегии поиска:
 
 * `startsWith`
 +
@@ -158,7 +78,7 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=defa
 include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchSearchStrategy.java[tags=strategy]
 ----
 
-После этого вы можете назначить вашу пользовательскую стратегию компоненту `SearchField` или `FullTextFilter`, используя имя стратегии.
+После этого вы можете назначить вашу пользовательскую стратегию компоненту xref:search-field-component.adoc[SearchField] или xref:full-text-filter-component.adoc[FullTextFilter], используя имя стратегии.
 
 [[fts-condition-in-filter-component]]
 == Условие полнотекстового поиска в компоненте GenericFilter
@@ -169,7 +89,7 @@ image:search:add_condition.png[align="center",width="1151"]
 
 В диалоговом окне *Full-text filter condition editor* вы можете определить надпись для полнотекстового фильтра и выбрать стратегию поиска. Если стратегия поиска не выбрана, то используется стратегия по умолчанию.
 
-image:search:condition_editor.png[align="center",width="641"]
+image:search:condition_editor.png[align="center",width="642"]
 
 Впоследствии записи в компоненте списка, связанном с фильтром, будут фильтроваться на основе результата полнотекстового поиска.
 

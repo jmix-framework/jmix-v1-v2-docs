@@ -1,0 +1,132 @@
+= FullTextFilter Component
+
+The `FullTextFilter` component functions similarly to the xref:flow-ui:vc/components/propertyFilter.adoc[] component but performs full-text search across indexed entity fields.
+
+[cols="2h,8", grid=none]
+|===
+|XML Element
+|`fullTextFilter`
+|Java Class
+|`io.jmix.searchflowui.component.FullTextFilter`
+|Attributes
+|xref:flow-ui:vc/common-attributes.adoc#id[id] -
+xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
+<<autoApply,autoApply>> -
+xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] -
+xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] -
+xref:flow-ui:vc/common-attributes.adoc#css[css] -
+<<dataLoader,dataLoader>> -
+xref:flow-ui:vc/components/propertyFilter.adoc#defaultValue[defaultValue] -
+xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] -
+xref:flow-ui:vc/common-attributes.adoc#errorMessage[errorMessage] -
+xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
+xref:flow-ui:vc/common-attributes.adoc#height[height] -
+xref:flow-ui:vc/common-attributes.adoc#helperText[helperText] -
+xref:flow-ui:vc/common-attributes.adoc#justifySelf[justifySelf] -
+xref:flow-ui:vc/common-attributes.adoc#label[label] -
+xref:flow-ui:vc/components/propertyFilter.adoc#labelPosition[labelPosition] -
+xref:flow-ui:vc/components/propertyFilter.adoc#labelVisible[labelVisible] -
+xref:flow-ui:vc/components/propertyFilter.adoc#labelWidth[labelWidth] -
+xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] -
+xref:flow-ui:vc/components/propertyFilter.adoc#parameterName[parameterName] -
+xref:flow-ui:vc/common-attributes.adoc#readOnly[readOnly] -
+xref:flow-ui:vc/common-attributes.adoc#required[required] -
+xref:flow-ui:vc/common-attributes.adoc#requiredMessage[requiredMessage] -
+<<searchStrategy,searchStrategy>> -
+xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex] -
+xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] -
+xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
+xref:flow-ui:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
+xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
+xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - xref:flow-ui:vc/components/propertyFilter.adoc#validator[validator]
+|Elements
+|<<validation,validator>>
+|===
+
+[[basic]]
+== Basics
+
+To add the component on the view, use Jmix Studio.
+
+Click *Add Component* in the actions panel, then find the `Full-text filter` item and double-click it.
+
+image::create-full-text-filter-component.png[align="center", width="690"]
+
+Since the <<dataLoader,dataLoader>> attribute is required, Studio will display a dialog to select a data loader. Choose the appropriate data loader and click *OK*.
+
+The new `fullTextFilter` element will be added both in the *Jmix UI* structure panel and in the XML descriptor. You can configure standard attributes (xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc.) just like any other xref:flow-ui:vc/components.adoc[UI component].
+
+[source,xml,indent=0]
+----
+include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=data;layout;fullTextFilter;dataGrid]
+----
+
+If you don't use the view designer, declare the `search` namespace in your view's XML descriptor manually:
+
+[source,xml,indent=0]
+----
+include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns]
+----
+
+The `FullTextFilter` component operates as follows:
+
+. Performs a full-text search to find entity identifiers matching the search criteria.
+
+. Appends a condition containing these identifiers to the associated `dataLoader`.
+
+. When a `DataGrid` (or other listing component) is linked to this data loader, it displays only those records that match the full-text search criteria.
+
+The full-text condition combines with any other filters applied to the data loader, providing refined result sets.
+
+[[validation]]
+== Validation
+
+To check values entered into the `fullTextFilter` component, you can use a xref:flow-ui:vc/miscellaneous/validator.adoc[validator] in a nested `validators` element.
+
+The following predefined validators are available for `fullTextFilter`:
+
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`validators`
+|elements
+|xref:flow-ui:vc/miscellaneous/validator.adoc#custom-validator[custom] - xref:flow-ui:vc/miscellaneous/validator.adoc#DecimalMaxValidator[decimalMax] - xref:flow-ui:vc/miscellaneous/validator.adoc#DecimalMinValidator[decimalMin] - xref:flow-ui:vc/miscellaneous/validator.adoc#DigitsValidator[digits] - xref:flow-ui:vc/miscellaneous/validator.adoc#DoubleMaxValidator[doubleMax] - xref:flow-ui:vc/miscellaneous/validator.adoc#DoubleMinValidator[doubleMin] - xref:flow-ui:vc/miscellaneous/validator.adoc#EmailValidator[email] -
+xref:flow-ui:vc/miscellaneous/validator.adoc#FutureValidator[future] -
+xref:flow-ui:vc/miscellaneous/validator.adoc#FutureOrPresentValidator[futureOrPresent] - xref:flow-ui:vc/miscellaneous/validator.adoc#MaxValidator[max] - xref:flow-ui:vc/miscellaneous/validator.adoc#MinValidator[min] - xref:flow-ui:vc/miscellaneous/validator.adoc#NegativeValidator[negative] -
+xref:flow-ui:vc/miscellaneous/validator.adoc#NegativeOrZeroValidator[negativeOrZero] - xref:flow-ui:vc/miscellaneous/validator.adoc#NotBlankValidator[notBlank] - xref:flow-ui:vc/miscellaneous/validator.adoc#NotEmptyValidator[notEmpty] - xref:flow-ui:vc/miscellaneous/validator.adoc#NotNullValidator[notNull] -
+xref:flow-ui:vc/miscellaneous/validator.adoc#PastValidator[past] -
+xref:flow-ui:vc/miscellaneous/validator.adoc#PastOrPresentValidator[pastOrPresent] -
+xref:flow-ui:vc/miscellaneous/validator.adoc#PositiveValidator[positive] - xref:flow-ui:vc/miscellaneous/validator.adoc#PositiveOrZeroValidator[positiveOrZero] - xref:flow-ui:vc/miscellaneous/validator.adoc#RegexpValidator[regexp] - xref:flow-ui:vc/miscellaneous/validator.adoc#SizeValidator[size]
+|===
+
+[[attributes]]
+== Attributes
+
+xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `fullTextFilter`:
+
+[cols="1h,7a,1",grid=rows,frame=none]
+|===
+|*Name*|*Description*|*Default*
+
+|[[autoApply]]autoApply
+| When set to `true`, the `FullTextFilter` component automatically applies itself to the `DataLoader` upon changes to its value.
+|-
+|[[dataLoader]]dataLoader
+| `dataLoader` is a _required_ attribute. It sets a xref:flow-ui:data/data-loaders.adoc[data loader] related to the current `fullTextFilter`.
+|-
+
+|[[searchStrategy]]searchStrategy
+|Determines the search strategy applied. See xref:search:search-in-ui.adoc#search-strategies[Search Strategies].
+|`anyTermAnyField`
+
+|===

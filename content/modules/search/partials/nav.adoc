@@ -3,6 +3,8 @@
 ** xref:search:index-definitions.adoc[]
 ** xref:search:indexing-queue.adoc[]
 ** xref:search:search-in-ui.adoc[]
+*** xref:search:search-field-component.adoc[]
+*** xref:search:full-text-filter-component.adoc[]
 ** xref:search:config-options.adoc[]
 ** xref:search:search-api.adoc[]
 ** xref:search:search-properties.adoc[]
