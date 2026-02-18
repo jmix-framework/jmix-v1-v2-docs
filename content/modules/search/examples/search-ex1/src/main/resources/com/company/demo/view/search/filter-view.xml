@@ -17,10 +17,10 @@
             </fetchPlan>
         </collection>
     </data>
-    <!-- end::data[] -->
     <facets>
         <dataLoadCoordinator auto="true"/>
     </facets>
+    <!-- end::data[] -->
     <!-- tag::layout[] -->
     <layout>
         <!-- end::layout[] -->
@@ -44,6 +44,7 @@
                 <column property="date"/>
                 <column property="amount"/>
                 <column property="product"/>
+                <column property="customer"/>
             </columns>
         </dataGrid>
         <!-- end::dataGrid[] -->

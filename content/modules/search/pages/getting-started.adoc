@@ -91,6 +91,6 @@ Navigate to the *Search* view to locate customers with the `Silver` status.
 
 The search outcomes will appear in the *Search results* view.
 
-image::search-result.png[align="center",width="1138"]
+image::search-result.png[align="center",width="1301"]
 
 Clicking on a result will redirect you to the entity detail view.

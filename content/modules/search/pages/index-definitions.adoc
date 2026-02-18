@@ -318,7 +318,7 @@ The underlying mechanism involves a specific analysis chain (filters and analyze
 * *Storage*: These prefixes are stored in the subfields.
 * *Search*: When a user performs a search, the system matches the query against these pre-indexed prefixes instead of performing a live wildcard computation.
 
-The granularity of the prefix generation is controlled via xref:search-properties.adoc#jmix.search.minPrefixLength[jmix.search.minPrefixLength] and xref:search-properties.adoc#jmix.search.maxPrefixLength[jmix.search.maxPrefixLength] application properties.
+The granularity of the prefix generation is controlled via xref:search-properties.adoc#jmix.search.minPrefixLength[jmix.search.min-prefix-length] and xref:search-properties.adoc#jmix.search.maxPrefixLength[jmix.search.max-prefix-length] application properties.
 
 Attributes:
 

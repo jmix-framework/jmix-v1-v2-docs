@@ -297,6 +297,15 @@ Sets an invalid state to the field considering the result of the field validatio
 * If `invalid=false`, the field is valid regardless of the validation result.
 * If `invalid=true`, the field is valid only if the validation is passed successfully.
 
+[[justifySelf]]
+== justifySelf
+
+Controls the horizontal alignment of a component within its grid cell along the inline (row) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] property.
+
+Default value is `AUTO`.
+
+Available for projects with version 2.7.2+.
+
 [[label]]
 == label
 

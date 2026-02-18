@@ -3,86 +3,14 @@
 [[visual-components]]
 == Visual Components
 
-The Search add-on provides two UI components: `SearchField` and `FullTextFilter`.
-
-These components are available in the *Add Component* palette of the Studio xref:studio:view-designer.adoc[View Designer] as soon as you install the add-on in your project.
-
-If you don’t use the view designer, declare the `search` namespace in your view’s XML descriptor manually:
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns]
-----
-
-[[search-field]]
-=== SearchField
-
-The `SearchField` component presents a text input field along with a button for executing searches. Also, it provides runtime configuration options accessible via a settings button.
-
-Here's a usage example of the `SearchField` component within a view:
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns;view;search-field]
-----
-
-Attributes of the `SearchField` component:
-
-* `settingsButtonVisible` - shows/hides the settings button. The default value is `true`.
-* `searchButtonVisible` - shows/hides the search button. The default value is `true`.
-* `searchStrategy` - determines the <<search-strategies,search strategy>> applied. If no strategy is specified, the default one is used.
-* `entities` - specifies the entities for searching. Multiple entities can be listed as a comma-separated sequence:
-+
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
-----
-
-*Runtime Configuration*
-
-The `SearchField` component includes a settings button for dynamic configuration. Users can dynamically configure:
-
-* Search strategy
-* Search size
-* Target entities
-
-By default, `searchField` opens the built-in `SearchResultsView`. This view handles the search engine querying process and presents a result list within the navigation view or in a new dialog, based on the `openMode` attribute of `searchField`.
-
-If you wish to modify this functionality, you can configure the `SearchCompletedHandler` in the following manner:
-
-[source,java,indent=0]
-----
-include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchView.java[tags=SearchCompletedEvent]
-----
-
-Alternatively, you can use the `setSearchCompletedHandler()` method of the component.
-
-[[full-text-filter]]
-=== FullTextFilter
-
-The `FullTextFilter` component functions similarly to the xref:flow-ui:vc/components/propertyFilter.adoc[] component.
-
-Here's an example of using `fullTextFilter` in the view:
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=data;layout;fullTextFilter;dataGrid]
-----
-
-Attributes of the `FullTextFilter` component:
-
-* `dataLoader` specifies the `DataLoader` to be filtered.
-* `searchStrategy` determines the search strategy to be employed. If not explicitly defined, a default strategy is utilized.
-* `autoApply` - when set to `true`, the `FullTextFilter` component automatically applies itself to the `DataLoader` upon changes to its value.
-
-`FullTextFilter` works as follows: it finds identifiers of entities through a full-text search, and subsequently appends a condition containing these identifiers to the data loader. Consequently, when a `DataGrid` is linked to this data loader, it will display only those records that match the full-text search criteria, combined with other filters, if any.
+The Search add-on provides two UI components: xref:search-field-component.adoc[SearchField] and xref:full-text-filter-component.adoc[FullTextFilter].
 
 [[search-strategies]]
-=== Search Strategies
+== Search Strategies
 
 A search strategy defines how the search term is processed. Basically it configures search request with some query.
 
-The `SearchField` and `FullTextFilter` components support the following built-in search strategies:
+The xref:search-field-component.adoc[SearchField] and xref:full-text-filter-component.adoc[FullTextFilter] components support the following built-in search strategies:
 
 * `startsWith`
 +
@@ -132,7 +60,8 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=defa
 ----
 
 [[custom-search-strategies]]
-==== Custom Search Strategies
+=== Custom Search Strategies
+
 Additionally, you can create a custom search strategy. For that purpose, you need to create a new Spring bean implementing one of the platform-specific interfaces:
 
 * `OpenSearchSearchStrategy` - if you use OpenSearch.
@@ -149,7 +78,7 @@ Then you need to implement 2 methods:
 include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchSearchStrategy.java[tags=strategy]
 ----
 
-After that, you can assign your custom strategy to the `SearchField` or `FullTextFilter` component using the strategy name.
+After that, you can assign your custom strategy to the xref:search-field-component.adoc[SearchField] or xref:full-text-filter-component.adoc[FullTextFilter] component using the strategy name.
 
 [[fts-condition-in-filter-component]]
 == Full-text Search Condition in GenericFilter Component
@@ -160,7 +89,7 @@ image:search:add_condition.png[align="center",width="1151"]
 
 Within the *Full-text filter condition editor* dialog, you can define a caption for the full-text filter and choose a search strategy. If no search strategy is selected, then the default one is used.
 
-image:search:condition_editor.png[align="center",width="641"]
+image:search:condition_editor.png[align="center",width="642"]
 
 Subsequently, the records in the list component linked to the filter will undergo filtering based on the outcome of the full-text search.
 

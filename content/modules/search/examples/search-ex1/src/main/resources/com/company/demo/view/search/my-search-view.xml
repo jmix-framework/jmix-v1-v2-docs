@@ -7,5 +7,9 @@
         <search:searchField id="searchField"
                             entities="Customer, Order_"/>
         <!-- end::search-field[] -->
+        <!-- tag::settings-button-visible[] -->
+        <search:searchField id="searchCustomerField"
+                            settingsButtonVisible="false"/>
+        <!-- end::settings-button-visible[] -->
     </layout>
 </view>
