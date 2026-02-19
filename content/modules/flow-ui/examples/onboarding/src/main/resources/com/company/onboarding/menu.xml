@@ -175,6 +175,11 @@
         <item view="UrlQueryParametersView"
               title="msg://com.company.onboarding.view.facets/urlQueryParametersView.title"/>
         <item view="SettingsFacetView" title="msg://com.company.onboarding.view.facets/settingsFacetView.title"/>
+        <item view="ManualModeView"
+              title="msg://com.company.onboarding.view.facets.dataloadcoordinator.manualmode/manualModeView.title"/>
+        <item view="AutomaticModeView" title="msg://com.company.onboarding.view.automaticmode/automaticModeView.title"/>
+        <item view="SemiautomaticModeView"
+              title="msg://com.company.onboarding.view.facets.dataloadcoordinator.semiautomaticmode/semiautomaticModeView.title"/>
     </menu>
 
     <menu id="fragments" title="Fragments">

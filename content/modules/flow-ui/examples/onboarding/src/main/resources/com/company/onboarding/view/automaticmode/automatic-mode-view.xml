@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- tag::automatic-mode[] -->
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://automaticModeView.title">
+    <data>
+        <collection id="citiesDc" class="com.company.onboarding.entity.City"> <!--1-->
+            <loader id="citiesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from City e]]> <!--2-->
+                    <condition>
+                        <and>
+                            <jpql>
+                                <where>e.name like:component_nameField</where> <!--3-->
+                            </jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+        <collection id="customersDc"
+                    class="com.company.onboarding.entity.Customer">
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[
+                    select e from Customer e
+                    where e.city = :container_citiesDc]]> <!--4-->
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/> <!--5-->
+    </facets>
+    <layout>
+        <textField id="nameField"/> <!--6-->
+    </layout>
+</view>
+<!-- end::automatic-mode[] -->

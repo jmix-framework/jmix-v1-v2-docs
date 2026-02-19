@@ -127,6 +127,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
     * `fetchPlan` – необязательный дескриптор встроенного фетч-плана.
 <3> Запрос JPQL.
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[programmatic-lazy-loading]]
 === Программная конфигурация
 

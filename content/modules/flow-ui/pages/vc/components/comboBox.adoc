@@ -251,6 +251,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <1> Атрибут `pageSize` определяет размер пакета при загрузке данных из базы данных. По умолчанию он равен 50.
 <2> Как вы можете видеть, `itemsQuery` в `comboBox` не требует атрибутов `class` и `fetchPlan`, поскольку предполагается, что запрос возвращает список скалярных значений (обратите внимание на `e.name` в результирующем наборе). Для работы с сущностями используйте компонент xref:vc/components/entityComboBox.adoc[entityComboBox].
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[itemsFetchCallback-handler]]
 === Программная конфигурация
 

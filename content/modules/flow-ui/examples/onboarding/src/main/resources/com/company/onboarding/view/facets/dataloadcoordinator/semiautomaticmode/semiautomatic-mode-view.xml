@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- tag::semiautomatic-mode[] -->
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://semiautomaticModeView.title">
+    <data>
+        <collection id="citiesDc" class="com.company.onboarding.entity.City">
+            <loader id="citiesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from City e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+        <collection id="customersDc"
+                    class="com.company.onboarding.entity.Customer">
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[
+                    select e from Customer e
+                    where e.city = :container_citiesDc]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"> <!--1-->
+            <refresh loader="citiesDl">
+                <onViewEvent type="Ready"/> <!--2-->
+            </refresh>
+        </dataLoadCoordinator>
+    </facets>
+    <layout>
+
+        // ...
+
+    </layout>
+</view>
+<!-- end::semiautomatic-mode[] -->
