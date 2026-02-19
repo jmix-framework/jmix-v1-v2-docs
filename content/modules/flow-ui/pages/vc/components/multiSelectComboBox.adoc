@@ -198,6 +198,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 <1> The `pageSize` attribute of the component defines the batch size when loading data from the database. It is 50 by default.
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[itemsFetchCallback-handler]]
 === Programmatic Configuration
 

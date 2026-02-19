@@ -260,6 +260,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <1> The `pageSize` attribute of the component defines the batch size when loading data from the database. It is 50 by default.
 <2> As you can see, `itemsQuery` in `comboBox` does not need `class` and `fetchPlan` attributes because the query is supposed to return the list of scalar values (notice `e.name` in the result set). To work with entities, use the xref:vc/components/entityComboBox.adoc[entityComboBox] component.
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[itemsFetchCallback-handler]]
 === Programmatic Configuration
 

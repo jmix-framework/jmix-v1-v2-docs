@@ -127,6 +127,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
     * `fetchPlan` – and optional descriptor of inline fetch plan.
 <3> A JPQL query.
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[programmatic-lazy-loading]]
 === Programmatic Configuration
 

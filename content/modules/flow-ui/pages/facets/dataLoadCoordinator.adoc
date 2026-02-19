@@ -12,7 +12,7 @@
 [[basics]]
 == Basic Usage
 
-To trigger all data loaders on the view's `BeforeShowEvent`, just add `dataLoadCoordinator` with `auto="true"` to the view XML descriptor:
+To trigger all data loaders on the view at xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent], just add `dataLoadCoordinator` with `auto="true"` to the view XML descriptor:
 
 [source,xml,indent=0]
 ----
@@ -27,59 +27,61 @@ You can configure `dataLoadCoordinator` to work in the automatic, manual or semi
 [[automatic-mode]]
 === Automatic Mode
 
-In this mode, `dataLoadCoordinator` relies on parameter names with particular prefixes. The prefix denotes a component that provides the parameter value and sends value change events.
+In automatic mode (`auto="true"`), `dataLoadCoordinator` *triggers every loader it can provide parameter values for* on xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent]. The facet can automatically match parameters in the loader query to values that come from containers or visual components. To indicate the source, prepend the appropriate prefix to the parameter name: use `container_` for values taken from a container and `component_` for values taken from a visual component. For example, a parameter named `container_citiesDc` takes its value from the `citiesDc` container.
 
-By default, the parameter prefix is `container_` for data containers and `component_` for visual components. The <<componentPrefix,componentPrefix>> and <<containerPrefix,containerPrefix>> attributes allow you to use different prefixes.
+TIP: You can change the default prefixes with the `<<componentPrefix,componentPrefix>>` and `<<containerPrefix,containerPrefix>>` attributes.
 
-A loader is triggered on `BeforeShowEvent` if it has no parameters without recognized prefixes in its query text. It means that if the query contains an arbitrary parameter, for example `select e from User e where e.department = :department`, the loader will not be triggered automatically on view opening. You have to set the parameter value and invoke `userDl.load()` manually.
+If a query contains an arbitrary parameter without a prefix — e.g., `select e from User e where e.city = :city` — the facet won’t be able to match it, so the loader won’t be triggered automatically. In that case you must set the parameter value yourself and call `userDl.load()`. Adding arbitrary parameters within a xref:data/data-loaders.adoc#query-conditions[query condition] does not prevent the loader’s main query from running.
 
-Parameters in xref:data/data-loaders.adoc#query-conditions[query conditions] do not prevent the loader to be triggered on `BeforeShowEvent`.
+Usage example:
 
-//Usage example:
-//
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/automaticmode/automatic-mode-screen.xml[tags=automatic-mode]
-//----
-//
-//<1> Add XML schema for JPQL conditions.
-//<2> There are no parameters in the query, so the `citiesDl` loader will be triggered on `BeforeShowEvent`.
-//<3> The `citiesDl` loader will also be triggered on `nameField` component value change.
-//As the condition uses the "like" clause, the value will be automatically wrapped in `'(?i)% %'` to provide the case-insensitive search.
-//<4> The `customersDl` is triggered on the `citiesDc` data container item change.
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/automaticmode/automatic-mode-view.xml[tags=automatic-mode]
+----
+
+<1> *Data container* – holds the `City` entity. Its value is used as the `:container_citiesDc` parameter.
+<2> *City query* – includes no parameters and will execute on xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent].
+<3> *Query condition* – is appended to the city query when the user enters a value in `nameField`.
+<4> *Customer query* – reloads `Customer` rows each time the selected value in the `citiesDc` container changes.
+<5> *Facet set to automatic mode* – automatically coordinates loader execution, ensuring queries are run in the correct order.
+<6> *Input field* – the `nameField` text component whose value is bound to the `:component_nameField` in the city query.
 
 [[manual-mode]]
 === Manual Mode
 
-In this mode, the nested <<refresh,refresh>> elements define when the data loaders must be triggered.
+In manual mode (`auto = false`) the facet no longer performs any automatic actions. You must specify the exact view event that triggers the loader (for instance,`InitEvent`) and specify the origin of every query parameter, whether it’s a component value or a container value. These details are provided through <<refresh, <refresh> >> elements placed within the facet declaration.
 
-//Usage example:
-//
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=manual-mode]
-//----
-//
-//<1> Add XML schema for JPQL conditions.
-//<2> The `citiesDl` loader will be triggered on `InitEvent`.
-//<3> The `citiesDl` loader will also be triggered on the `nameField` component value change.
-//The `likeClause` attribute causes the value to be wrapped in `'(?i)% %'` to provide the case-insensitive search.
-//<4> The `customersDl` will be triggered on the `citiesDc` data container item change.
+Usage example:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/manualmode/manual-mode-view.xml[tags=manual-mode]
+----
+
+<1> *Data container* – holds the `City` entity. Its value is used as the `city` parameter in the customer query.
+<2> *City query* – includes no parameters and will execute on xref:flow-ui:views/view-events.adoc#init-event[InitEvent] as per manual configuration.
+<3> *Query condition* – is appended to the query when the user enters a value in `nameField`.
+<4> *Customer query* – reloads `Customer` instances each time the selected value in the `citiesDc` container changes.
+<5> *Manual facet mode* – loading is controlled by the rules defined in the `<refresh>` elements.
+<6> *City loader refresh condition* – triggers a refresh of `citiesDl` on `InitEvent` and when the content of the `nameField` component passing its input as the `name` parameter.
+<7> *Customer loader refresh condition* – triggers a refresh of `customersDl` when the selected item in `citiesDc` container changes, passing that city as the `city` parameter.
+<8> *Input field* – the `nameField` text component whose value is bound to the City query via a `<refresh>` element.
 
 [[semi-automatic-mode]]
 === Semi-automatic Mode
 
-When the `auto` attribute is set to `true`, and there are some manually configured triggers, `DataLoadCoordinator` will automatically configure all loaders having no manual configuration.
+The facet can be set to semiautomatic mode. In this mode the coordinator triggers loaders automatically (with `auto = "true"`), *but* also respects any manual rules you add.
 
-//Usage example:
-//
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/semiautomaticmode/semi-automatic-mode-screen.xml[tags=semi-automatic-mode]
-//----
-//
-//<1> The `customersDl` is configured automatically and triggered on the `brandsDc` data container item change.
-//<2> The `brandsDl` loader is configured manually and will be triggered on `AfterShowEvent`.
+Usage example:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/semiautomaticmode/semiautomatic-mode-view.xml[tags=semiautomatic-mode]
+----
+
+<1> *Facet set to semiautomatic mode* – the facet will automatically trigger loaders unless overridden by manual rules.
+<2> *City loader refresh condition* – specifies that the `citiesDl` loader should be triggered when the view fires xref:flow-ui:views/view-events.adoc#ready-event[ReadyEvent].
 
 [[attributes]]
 == Attributes
@@ -120,10 +122,6 @@ The `refresh` element can have the following nested elements defining the trigge
 +
 [[component-param]]
 * `param` - specifies the query parameter name.
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-component-value-changed]
-//----
 [[onContainerItemChanged]]
 . `onContainerItemChanged` - to trigger the loader when the current item in a data container is changed. It has the following attributes:
 +
@@ -132,10 +130,6 @@ The `refresh` element can have the following nested elements defining the trigge
 +
 [[container-param]]
 * `param` - specifies the query parameter name.
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-container-value-changed]
-//----
 [[onViewEvent]]
 . `onViewEvent` - to trigger the loader on a view lifecycle event. It has the following attribute:
 +
@@ -144,10 +138,6 @@ The `refresh` element can have the following nested elements defining the trigge
 ** `Init` - to trigger on `InitEvent`.
 ** `BeforeShow` - to trigger on `BeforeShowEvent`.
 ** `Ready` - to trigger on `ReadyEvent`.
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-screen-event]
-//----
 
 [[see-also]]
 == See Also
