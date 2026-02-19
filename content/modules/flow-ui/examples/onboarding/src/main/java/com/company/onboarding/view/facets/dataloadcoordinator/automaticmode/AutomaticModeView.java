@@ -1,4 +1,4 @@
-package com.company.onboarding.view.automaticmode;
+package com.company.onboarding.view.facets.dataloadcoordinator.automaticmode;
 
 
 import com.company.onboarding.view.main.MainView;
