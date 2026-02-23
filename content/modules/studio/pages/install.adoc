@@ -54,7 +54,7 @@ For more details, see https://git-scm.com/docs/git-config#Documentation/git-conf
 [[offline]]
 == Working Offline
 
-You can develop projects using Studio without internet connection. In this case, all project dependencies must already be loaded, that is the project was already opened and assembled by this Studio installation. Some studio features are not available in offline mode, for example, you cannot change the framework version or browse Jmix Add-Ons Marketplace.
+You can develop projects using Studio without an internet connection. In this case, all project dependencies must already be loaded, that is, the project must have already been opened and assembled by this Studio installation. Some Studio features are not available in offline mode, for example, you cannot change the framework version or browse Jmix Add-Ons Marketplace.
 
 To start working offline, open the Gradle tool window on the right side of the IDE and click the *Toggle Offline Mode* button:
 
@@ -67,16 +67,16 @@ In offline mode, Gradle uses dependencies from the cache when executing all proj
 
 Sometimes you might need to use one of the non-standard Studio builds in your IDE, for example, to get early access to the newest Studio features. Using a non-standard Studio build requires installation of a specific plugin version into the IntelliJ IDEA.
 
-NOTE: Pay attention, that non-standard Studio builds have the same subscription requirements as stable releases.
+NOTE: Keep in mind that non-standard Studio builds have the same subscription requirements as stable releases.
 
 [[nightly]]
 === Nightly Builds
 
-Nightly Studio builds are published every night as a part of the continuous integration process. These builds contain the latest changes implemented by the Jmix Studio team. You can switch to nightly builds if you want to get the newest features, improvements, and support for upcoming Jmix framework versions.
+Nightly Studio builds are published every night as part of the continuous integration process. These builds contain the latest changes implemented by the Jmix Studio team. You can switch to nightly builds if you want to get the newest features, improvements, and support for upcoming Jmix framework versions.
 
 CAUTION: Nightly builds contain changes that have not passed through the quality assurance process. Therefore, they can contain severe functionality defects.
 
-To use nightly builds, you need to do the followings:
+To use nightly builds, do the following:
 
 . Open the *Main Menu → File → Settings → Plugins* dialog.
 . Click the gear icon and select *Manage Plugin Repositories*.
@@ -95,7 +95,7 @@ image::jmix-update.png[align="center",width="1094"]
 
 As new nightly builds are published every night, you need to update Jmix plugin on a daily basis to get the latest changes.
 
-If you need to return to the stable plugin version, do the followings:
+If you need to return to the stable plugin version, do the following:
 
 . Open the *Main Menu → File → Settings → Plugins* dialog.
 . Go to the *Installed* tab.

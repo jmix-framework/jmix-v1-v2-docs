@@ -1,9 +1,9 @@
 = Data Model
 
-Data model is an essential part of any business application.
+The data model is an essential part of any business application.
 
 In Jmix, the application data is represented by xref:entities.adoc[entities]. An entity can be stored in an external storage or exist purely in memory. In both cases, an entity is associated with a xref:data-stores.adoc[data store], which is an abstraction over a data source in Jmix applications.
 
-An entity can have references to other entities, even if they are from different data stores. It allows you to create an integral data model comprising data from multiple relational databases or even from sources of different nature, like no-SQL databases or REST APIs.
+An entity can have references to other entities, even if they are from different data stores. It allows you to create an integral data model comprising data from multiple relational databases or even from sources of different nature, like NoSQL databases or REST APIs.
 
 TIP: See also the xref:concepts:features.adoc#data-model-and-metadata[Key Features] section to learn about Jmix data model concepts.

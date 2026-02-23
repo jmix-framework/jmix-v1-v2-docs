@@ -121,7 +121,7 @@ Choose the `Knowledge base` item from the `Application` menu.
 
 image::knowledge-base-with-renderers.png[align="center", width="1451"]
 
-The *Last modified by* column displays the author of the latest modifications to the WebDav file, while the *Last modified date* column shows the date of the last modifications to the WebDav file.
+The *Last modified by* column displays the author of the latest modifications to the WebDAV file, while the *Last modified date* column shows the date of the latest modifications to the WebDAV file.
 
 The *Download* button allows users to download the selected WebDAV document.
 

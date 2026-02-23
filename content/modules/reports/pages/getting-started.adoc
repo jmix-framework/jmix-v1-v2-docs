@@ -49,7 +49,7 @@ image::get-started/wizard-2.png[align="center", width="635"]
 +
 Click *OK* to proceed to the next step: editing report regions.
 
-. The appeared view contains a list of named regions, or bands, that display related data. If the entity includes collection attributes, the *Add tabulated region* button is enabled.
+. The view that appears contains a list of named regions, or bands, that display related data. If the entity includes collection attributes, the *Add tabulated region* button is enabled.
 +
 Click on the *Add tabulated region* button to create a band for displaying a list of onboarding steps of this `User` instance.
 +

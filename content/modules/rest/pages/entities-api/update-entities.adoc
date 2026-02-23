@@ -1,6 +1,6 @@
 = Update Entities
 
-The Entities API also allows you to update already existing entities through the endpoint: `/entities/:entityName/:entityId` with the HTTP method `PUT`.
+The Entities API also allows you to update existing entities through the endpoint: `/entities/:entityName/:entityId` with the HTTP method `PUT`.
 
 [[update-entity]]
 == Update an Entity
@@ -10,7 +10,7 @@ When the entity is updated successfully, the HTTP response status code `200 - OK
 Here is an example of how to update an entity:
 
 [source, http request]
-.Create Customer Request
+.Update Customer Request
 ----
 PUT http://localhost:8080/rest
             /entities
@@ -38,7 +38,7 @@ The Update Entity API behaves similarly to the xref:entities-api/create-entities
 [[association-attributes]]
 == Association Attributes
 
-In case you want to update a `1:1` or `N:1` association attribute, it is enough to send the new ID of the entity to reference. For `1:N` or `M:N` associations an updated list of entity references changes what the entity is associated to.
+In case you want to update a `1:1` or `N:1` association attribute, it is enough to send the new ID of the entity to reference. For `1:N` or `M:N` associations, an updated list of entity references changes what the entity is associated with.
 
 CAUTION: The Update Entity endpoint will _replace_ the existing association collection for a `1:N` or `M:N` association with what is part of the request. For every entity reference that is not part of the request, the reference will be removed. But, the entity that has been referenced _will not be deleted_ from the database.
 
@@ -125,7 +125,7 @@ NOTE: As the ID of the product tag `great (c4c028f0-fec1-7512-83cd-c17537d1f502)
 [NOTE]
 .Remove `*:1` Entity References
 ====
-To remove a reference for `N:1` or `1:1` associations, you need to send in `null` as a value. The absence of the attribute in the request will _not_ lead that the reference is removed, because of the <<Partial Updates>> feature. In this case, the attribute would just be ignored and not changed as part of the request.
+To remove a reference for `N:1` or `1:1` associations, you need to send `null` as a value. The absence of the attribute in the request will _not_ mean that the reference is removed, because of the <<Partial Updates>> feature. In this case, the attribute would just be ignored and not changed as part of the request.
 ====
 
 [[composition-attributes]]
@@ -271,7 +271,7 @@ With this response, the order lines of the Order have been successfully updated.
 
 As we learned above, the Update Entity endpoint will _replace_ the existing association/composition collection with what is part of the request. For every entity reference that is not part of the request, the reference will be removed. Moreover, the entity that has been referenced before _will be deleted_ from the application as well.
 
-Having that in mind, let's see how this situation behaves when Jmix Row-level Security is active for an entity:
+With that in mind, let's see how this situation behaves when Jmix Row-level Security is active for an entity:
 
 Assuming you load an `Order` instance together with the nested collection of `OrderLine` instances.
 
@@ -309,7 +309,7 @@ The `__securityToken` attribute contains encoded identifiers of filtered instanc
 [[partial-updates]]
 == Partial Updates
 
-It is possible to only send in the attributes that should be changed. In this case, all other attributes of the entity will stay untouched.
+It is possible to send only the attributes that should be changed. In this case, all other attributes of the entity will stay untouched.
 
 In the example below, you can send in an updated order date of the `Order` entity. Although the Order entity contains more attributes like `customer`, `amount`, `lines`.
 
@@ -381,7 +381,7 @@ PUT http://localhost:8080/rest
 ]
 ----
 
-In case of a violation of an entity validation, the entities will not be created, and a corresponding Error message will be returned. See  xref:entities-api/create-entities.adoc#entity-validation[Entity Validation] for further details.
+In case of a violation of an entity validation, the entities will not be updated, and a corresponding error message will be returned. See xref:entities-api/create-entities.adoc#entity-validation[Entity Validation] for further details.
 
 ////
 NOTE: All entities of the Bulk API are processed as part of one database transaction. This means if there is a validation violation in at least one of the entities, none of the entities will be created at all.

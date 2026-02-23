@@ -1,12 +1,12 @@
 = Message Templates
 :page-aliases: email-template:index.adoc
 
-The Message Templates add-on provides a flexible and efficient way to manage and utilize reusable message templates within your Jmix application. It allows developers to define templates with placeholders, which can be dynamically populated with data at runtime. This add-on simplifies the creation of personalized messages such as emails or in-app notifications.
+The Message Templates add-on provides a flexible and efficient way to manage and use reusable message templates within your Jmix application. It allows developers to define templates with placeholders that can be dynamically populated with data at runtime. This add-on simplifies the creation of personalized messages such as emails or in-app notifications.
 
 [[overview]]
 == Overview
 
-This add-on allows you to create and customize message templates that combine static content with dynamic parameters. You can design templates using either the visual HTML designer, which provides a wide range of HTML elements. The visual HTML editor offers a comprehensive toolkit for template design, making it easy to craft engaging and professional messages.
+This add-on allows you to create and customize message templates that combine static content with dynamic parameters. You can design templates in the visual HTML designer, which provides a wide range of HTML elements. The visual HTML editor offers a comprehensive toolkit for template design, making it easy to craft engaging and professional messages.
 
 image::add-on-overview.png[align="center", width="1206"]
 

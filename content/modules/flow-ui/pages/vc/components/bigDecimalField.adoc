@@ -87,7 +87,7 @@ image::visual-components/components/big-decimal-field-basics.png[align="center",
 
 == Data Binding
 
-You can bind a component to an entity and its attributes hold in a xref:data/data-containers.adoc[data container].
+You can bind a component to an attribute of an entity held in a xref:data/data-containers.adoc[data container].
 
 To bind `bigDecimalField` to an entity attribute:
 

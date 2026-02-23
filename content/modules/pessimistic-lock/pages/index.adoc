@@ -52,9 +52,9 @@ The following application properties control the expiration mechanism:
 
 * Set `jmix.pslock.use-default-quartz-configuration` to `false` if you want to disable the default expiration mechanism. This property is `true` by default.
 
-* Use `jmix.pslock.expiration-cron` to set a Cron expression for expiration schedule. This property has `0 * * * * ?` value by default, which means "every minute".
+* Use `jmix.pslock.expiration-cron` to set a Cron expression for the expiration schedule. This property has the `0 * * * * ?` value by default, which means "every minute".
 
 [[locks-admin-ui]]
 === Locks Admin UI
 
-Current state of locks can be tracked through the *Pessimistic Locking -> Locks* view. This view also enables unlocking of any object.
+The current state of locks can be tracked through the *Pessimistic Locking -> Locks* view. This view also allows unlocking any object.

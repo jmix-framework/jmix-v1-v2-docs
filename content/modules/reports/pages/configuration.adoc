@@ -15,7 +15,7 @@ Default value: `10000`.
 [[jmix.reports.client.enable-tab-symbol-in-data-set-editor]]
 === jmix.reports.client.enable-tab-symbol-in-data-set-editor
 
-Defines whether TAB key should be handled as `\t` symbol instead of focus navigation in Script fields of the report detail view.
+Defines whether the TAB key should be handled as the `\t` symbol instead of focus navigation in Script fields of the report detail view.
 
 Default value: `false`
 
@@ -109,7 +109,7 @@ Default value: `8100, 8101, 8102, 8103`.
 [[jmix.reports.pdf-fonts-directory]]
 === jmix.reports.pdf-fonts-directory
 
-Sets to the fonts directory for converting reports from HTML to PDF.
+Sets the fonts directory for converting reports from HTML to PDF.
 
 For example: `jmix.reports.pdf-fonts-directory = C:/Windows/Fonts`.
 
@@ -153,7 +153,7 @@ The Reports add-on uses the *LibreOffice* package to output reports in PDF and D
 
 * Download the application at http://www.libreoffice.org/download/download/[www.libreoffice.org^].
 * Install the application.
-* Configure <<jmix.reports.office-path,jmix.reports.office-path>> application property, set it the path to *LibreOffice*, for example:
+* Configure the <<jmix.reports.office-path,jmix.reports.office-path>> application property and set it to the path to *LibreOffice*, for example:
 
 [source, properties,indent=0]
 ----
@@ -171,7 +171,7 @@ jmix.reports.office-path = C:/Program Files (x86)/LibreOffice 5/program
 $ sudo apt-get install libreoffice
 ----
     
-* Configure <<jmix.reports.office-path,jmix.reports.office-path>> application property, set it the path to *LibreOffice*:
+* Configure the <<jmix.reports.office-path,jmix.reports.office-path>> application property and set it to the path to *LibreOffice*:
 +
 [source, properties,indent=0]
 ----

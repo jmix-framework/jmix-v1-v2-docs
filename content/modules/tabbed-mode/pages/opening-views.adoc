@@ -184,14 +184,14 @@ As you can see, when values are returned through a custom `CloseAction`, the cal
 
 A lookup view or a detail view can be inferred from the entity class.
 
-When opening a list view for lookup using `viewBuilders.lookup(this, SomeEntity.class)`, the framework selects a view according the following order:
+When opening a list view for lookup using `viewBuilders.lookup(this, SomeEntity.class)`, the framework selects a view according to the following order:
 
 . A view annotated with `@PrimaryLookupView(SomeEntity.class)`.
 . A view with the `SomeEntity.lookup` id.
 . A view annotated with `@PrimaryListView(SomeEntity.class)`.
 . A view with the `SomeEntity.list` id.
 
-When opening a detail view using `viewBuilders.detail(this, SomeEntity.class)`, the framework selects a view according the following order:
+When opening a detail view using `viewBuilders.detail(this, SomeEntity.class)`, the framework selects a view according to the following order:
 
 . A view annotated with `@PrimaryDetailView(SomeEntity.class)`.
 . A view with the `SomeEntity.detail` id.

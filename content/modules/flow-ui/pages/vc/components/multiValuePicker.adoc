@@ -7,7 +7,7 @@
 </div>
 ++++
 
-`multiValuePicker` works with a list of values of any type. It consists of the text field and the set of buttons defined by actions.
+`multiValuePicker` works with a list of values of any type. It consists of a text field and a set of buttons defined by actions.
 [cols="1h,6", grid=none]
 |===
 |XML Element

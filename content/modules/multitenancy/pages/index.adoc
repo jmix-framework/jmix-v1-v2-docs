@@ -14,7 +14,7 @@ In a multitenant Jmix application, there are two main categories of data:
 
 By implementing multitenancy in Jmix applications, developers can efficiently manage and deliver services to multiple clients or user groups, ensuring data isolation, security, and personalized access controls based on the specific needs of each tenant. This approach optimizes data organization and access while maintaining data privacy and integrity across different user groups.
 
-CAUTION: The xref:rest:index.adoc[] add-on does not fully support multitenancy. It doesn't separate entity instances by tenants.
+CAUTION: The xref:rest:index.adoc[] add-on does not fully support multitenancy. It doesn't separate entity instances between tenants.
 
 [[installation]]
 == Installation
@@ -78,7 +78,7 @@ There are two ways to log in tenant users to the application:
 
 . The first way is to use a URL parameter that includes the tenant-id when accessing the login screen, for example `++http://localhost:8080/login?tenantId=t1++`. In this case, users can simply enter their login name without the tenant-id prefix, like just `alice`.
 +
-You also have the option to set a custom name for the URL parameter by using the `jmix.multitenancy.tenantIdUrlParamName application` application property.
+You also have the option to set a custom name for the URL parameter by using the `jmix.multitenancy.tenantIdUrlParamName` application property.
 
 . Users can provide the full username including the tenant-id, for example `t1|alice`.
 
@@ -110,7 +110,7 @@ include::example$/multitenancy-ex1/src/main/java/com/company/demo/entity/User.ja
 include::example$/multitenancy-ex1/src/main/resources/com/company/demo/view/user/user-list-view.xml[tags=tenant]
 ----
 
-. Add field for selecting tenant in `user-detail-view.xml`:
+. Add a field for selecting a tenant in `user-detail-view.xml`:
 +
 [source,xml,indent=0]
 ----

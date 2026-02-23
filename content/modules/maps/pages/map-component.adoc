@@ -1,8 +1,8 @@
 = Map Component
 
-The `GeoMap` UI component displays a geographical data provided by xref:maps:layers-sources.adoc[Layers].
+The `GeoMap` UI component displays geographical data provided by xref:maps:layers-sources.adoc[Layers].
 
-The map is built by superposing layers. Initially, map does not have layers.
+The map is built by superposing map layers. Initially, the map does not have layers.
 
 You can define the general map parameters along with the layers in the view’s XML descriptor.
 
@@ -54,7 +54,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/mapbasic/Ma
 
 The `GeoMap` component can include multiple xref:maps:layers-sources.adoc[layers] that display different types of geographic information, such as raster layers, and vector layers.
 
-Initially, map does not have layers.
+Initially, the map does not have layers.
 
 For example, let's add a xref:maps:layers-sources.adoc#tile-layer[TileLayer] to the map.
 
@@ -72,7 +72,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/mapbasic/Ma
 [[source]]
 == Source
 
-A xref:maps:layers-sources.adoc[source] represents the data that is used to render map layers on the map component. Sources provide the spatial information that defines the content and appearance of the map layers.
+A xref:maps:layers-sources.adoc[source] represents the data used to render map layers on the map component. Sources provide the spatial information that defines the content and appearance of the map layers.
 
 For example, let's add a xref:maps:layers-sources.adoc#osm-source[OsmSource] for the tile layer.
 

@@ -8,9 +8,9 @@ The resulting list of authorities consists of group names a user is a member of.
 +
 * **Obtaining roles from user attributes**
 +
-Optionally user roles can be added based on their own attributes.
+Optionally, user roles can be added based on their own attributes.
 +
-Register a Spring bean, that implements the `LdapUserAdditionalRoleProvider` interface and implement the `getAdditionalRoles()` method within this bean. For example:
+Register a Spring bean that implements the `LdapUserAdditionalRoleProvider` interface and implement the `getAdditionalRoles()` method in this bean. For example:
 +
 [source,java,indent=0]
 ----
@@ -28,11 +28,11 @@ public class MyLdapUserAdditionalRoleProvider implements LdapUserAdditionalRoleP
 +
 The xref:ldap:properties.adoc#jmix.ldap.default-roles[jmix.ldap.default-roles] property contains a comma-separated list of roles that will be assigned to every user authenticated in LDAP.
 
-The resulting list of authorities is passed through `JmixLdapGrantedAuthoritiesMapper` in order to get the final collection of authorities. This mapper is used to map previously obtained authorities to Jmix `GrantedAuthority`.
+The resulting list of authorities is passed through `JmixLdapGrantedAuthoritiesMapper` to get the final collection of authorities. This mapper is used to map previously obtained authorities to Jmix `GrantedAuthority`.
 
 For example, consider that the initial list contains a simple authority with the value of `Administrators`. First, the mapper tries to find a resource role with the same role code. If the role hasn't been found, it searches for a row-level role with the same code. If the role isn't found, it won't be added to the final list.
 
-Also, you can implement the `LdapAuthorityToJmixRoleCodesMapper` interface to map LDAP authorities and Jmix role codes. It is available to map several role codes to one LDAP group. Roles can be either resource or low-level.
+Also, you can implement the `LdapAuthorityToJmixRoleCodesMapper` interface to map LDAP authorities and Jmix role codes. It can map several role codes to one LDAP group. Roles can be either resource or row-level.
 
 In the example below, the bean implements mapping the `mathematician` and `scientists` LDAP groups to Jmix role codes:
 
@@ -40,6 +40,6 @@ In the example below, the bean implements mapping the `mathematician` and `scien
 ----
 include::example$/ex1/src/main/java/ldap/ex1/app/CustomAuthorityMapperBean.java[tags=bean]
 ----
-<1> Overrides the method that takes an LDAP authority as input parameter and returns a collection of role codes that matches the given authority.
+<1> Overrides the method that takes an LDAP authority as an input parameter and returns a collection of role codes that match the given authority.
 <2> In case of the `mathematicians` group, an LDAP user obtains the `system-full-access` role.
 <3> In case of the `scientists` group, an LDAP user obtains two roles: `scientists-resource-role` and `scientists-row-level-role`.

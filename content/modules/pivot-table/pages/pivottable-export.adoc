@@ -8,7 +8,7 @@
 
 The `PivotTableExporter` bean provides an API for downloading a pivot table with aggregated data in the XLS (Excel) format.
 
-To utilize the `PivotTableExporter`, you need to create an instance of the bean within your view controller. You will need to pass the following parameters:
+To use the `PivotTableExporter`, you need to create an instance of the bean in your view controller. You need to pass the following parameters:
 
 • `PivotTable`: A reference to the `pivotTable` component from which you want to export data.
 • `PivotTableExcelExporter`: An instance of the `PivotTableExcelExporter` class, responsible for handling the Excel export process.
@@ -20,7 +20,7 @@ Here's an example of how to use the `PivotTableExporter` in your view controller
 include::../examples/pivottable-ex1/src/main/java/com/company/ex1/view/pivottableexport/PivottableExportView.java[tags=onInit;export]
 ----
 
-NOTE: The export functionality currently supports the following xref:pivot-table:pivottable-component.adoc#using-renderers[renderer] types: `TABLE`, `TABLE_BAR_CHART`, `HEATMAP`, `COL_HEATMAP`, and `ROW_HEATMAP`. It's important to note that cell colors are not exported.
+NOTE: The export functionality currently supports the following xref:pivot-table:pivottable-component.adoc#using-renderers[renderer] types: `TABLE`, `TABLE_BAR_CHART`, `HEATMAP`, `COL_HEATMAP`, and `ROW_HEATMAP`. Note that cell colors are not exported.
 
 The `exportTableToXls()` method provides a way to download the table data as an XLS (Excel) file. This is typically triggered by a button click in your UI. For example:
 

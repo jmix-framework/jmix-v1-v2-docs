@@ -1,20 +1,20 @@
 = Business Logic
 
-When interacting with the REST API it is oftentimes needed to have an application-level layer of business logic in place that represents the invocation point for the API. It can be used for orchestration, validation, or other tasks that should happen when the API client interacts with the system. The xref:rest:entities-api.adoc[Entities API] does not allow placing additional orchestration business logic when interacting with the API. Instead, the API client directly interacts with the xref:data-access:index.adoc[Data Access Layer] of Jmix.
+When interacting with the REST API, it is often needed to have an application-level layer of business logic in place that represents the invocation point for the API. It can be used for orchestration, validation, or other tasks that should happen when the API client interacts with the system. The xref:rest:entities-api.adoc[Entities API] does not allow placing additional orchestration business logic when interacting with the API. Instead, the API client directly interacts with the xref:data-access:index.adoc[Data Access Layer] of Jmix.
 
 For exposing business logic to the API client, Jmix provides two ways:
 
 1. Services API
 2. Custom controllers
 
-In the next section, we will take a look at both options to understand where the difference between those approaches is.
+In the next section, we will take a look at both options to understand what the difference between those approaches is.
 
 [[services-api]]
 == Services API
 
 Let's look at the first approach to expose business logic to the API client: the Services API.
 
-The Services API allows exposing an arbitrary Spring bean as an HTTP endpoint. In this case, Jmix will take care of the HTTP interactions like providing HTTP response codes, perform error handling, etc.
+The Services API allows exposing an arbitrary Spring bean as an HTTP endpoint. In this case, Jmix will take care of HTTP interactions like providing HTTP response codes, performing error handling, etc.
 
 In this overview you can see the interaction between the API client and the Jmix application when using the Services API:
 
@@ -74,7 +74,7 @@ public class OrderService {
 ----
 <1> The `OrderServiceBean` is registered as the Spring `@Component` with the name `sample_OrderService`.
 
-NOTE: If the service name is not specified explicitly in the annotation, it is assumed to be equal to the simple class name with the first letter in lowercase. In the example above it would be `orderService`.
+NOTE: If the service name is not specified explicitly in the annotation, it is assumed to be equal to the simple class name with the first letter in lowercase. In the example above, it would be `orderService`.
 
 The second part is to mention all Service methods as API endpoints. This happens via an XML configuration file, normally called `rest-services.xml`. You need to create this new file in your Jmix application as part of `src/main/resources`. It lists all service methods with information about the parameters that you want to expose.
 
@@ -102,7 +102,7 @@ After the file has been created, and the services have been defined, the last pa
 jmix.rest.services-config = rest-services.xml
 ----
 
-NOTE: The value of the `serviceConfig` is a reference to the file within the classpath. In this case, the file is located directly in the classpath root under `src/main/resources`. If you for example put the file in the `src/resources/com/example/rest-services.xml` package, the value would be: `com/example/rest-services.xml`.
+NOTE: The value of the `serviceConfig` is a reference to the file within the classpath. In this case, the file is located directly in the classpath root under `src/main/resources`. If you, for example, put the file in the `src/resources/com/example/rest-services.xml` package, the value would be: `com/example/rest-services.xml`.
 
 [[using-the-services-api]]
 === Using the Services API
@@ -137,7 +137,7 @@ A service method may return a result of a simple data type, an entity, an entity
 [[invoke-a-service-via-post]]
 ==== Invoke a Service via POST
 
-Alternatively, it is also possible to invoke the Service via HTTP POST. This is in particularly useful, when the Service method has one of the following parameter types:
+Alternatively, it is also possible to invoke the Service via HTTP POST. This is particularly useful when the Service method has one of the following parameter types:
 
 * Entities
 * Entity Collections
@@ -191,7 +191,7 @@ public class OrderValidationResult implements Serializable {
 }
 ----
 
-The new method has an Order entity in the arguments list and returns a POJO. Before the invocation of the REST API, the new method also must be registered in the `rest-services.xml`. Once you exposed the method you can perform the API call:
+The new method has an Order entity in the arguments list and returns a POJO. Before invoking the REST API, the new method must also be registered in the `rest-services.xml`. Once you expose the method, you can perform the API call:
 
 [source, http request]
 .Invoke Order Validation via HTTP POST

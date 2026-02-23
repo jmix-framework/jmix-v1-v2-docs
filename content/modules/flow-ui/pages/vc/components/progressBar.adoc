@@ -191,7 +191,7 @@ Sets a different theme to change component's colors and draw user attention.
 image::visual-components/components/progress-bar-themenames.png[align="center", width="382"]
 
 * `contrast` – applies more contrasting color scheme.
-* `error` – signals of an error state.
+* `error` – signals an error state.
 * `success` – indicates success.
 
 [[value]]

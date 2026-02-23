@@ -8,9 +8,9 @@ Access to REST API endpoints may be protected with access tokens. The Authorizat
 [[anonymous-access]]
 == Anonymous Access
 
-It is possible to expose certain parts of the REST API without authentication by using the anonymous access functionality of Jmix. In this case, the API request is performed as the user anonymous, which is configured by default in a Jmix application.
+It is possible to expose certain parts of the REST API without authentication by using the anonymous access functionality of Jmix. In this case, the API request is performed as the anonymous user, which is configured by default in a Jmix application.
 
-For every secured endpoint that is called without the `Authentication` header, the user will be authenticated with the `anonymous` user session.
+For every secured endpoint that is called without the `Authorization` header, the user will be authenticated with the `anonymous` user session.
 
 See the xref:security:custom-endpoints.adoc#token-based-authentication[Token Based Authentication] section for details on how to define access to anonymous resources. The easiest way is to set an application property with a comma-separated list of anonymous URL patterns.
 
@@ -32,7 +32,7 @@ GET {{baseRestUrl}}
 # Authorization: not set
 ----
 
-This request will respond in a successful response of the Service:
+This request returns a successful response from the service:
 
 .HTTP/1.1 200
 [source, json]

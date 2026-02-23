@@ -15,7 +15,7 @@
 
 == Basics
 
-`scroller` allows to display content that takes up a lot of space in a smaller area. Components placed inside the scrollable area must be wrapped with a layout component, such as xref:flow-ui:vc/layouts/vbox.adoc[].
+`scroller` allows displaying content that takes up a lot of space in a smaller area. Components placed inside the scrollable area must be wrapped with a layout component, such as xref:flow-ui:vc/layouts/vbox.adoc[].
 
 image::visual-components/layouts/scroller-basic.gif[align="center", width="240"]
 

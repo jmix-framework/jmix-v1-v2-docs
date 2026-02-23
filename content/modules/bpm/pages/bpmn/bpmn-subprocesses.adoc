@@ -137,7 +137,7 @@ image::bpmn-subprocesses/subprocess-error.png[,600]
 == Transaction Subprocess
 
 A *transaction subprocess* is an embedded subprocess that can be used to group multiple activities to a transaction.
-A transaction is a logical unit of work that allows to group a set of individual activities,
+A transaction is a logical unit of work that allows you to group a set of individual activities,
 such that they either succeed or fail collectively.
 
 .*Graphical Notation*
@@ -260,7 +260,7 @@ CAUTION: Avoid unmanaged recursion! Technically, it's possible to call another i
 
 * *Variables Mapping*:
 
-** *Inheriting variables*: Call activity can inherit process variables from the parent process.When the called process starts, new instances of the process variables will be created, distinct from the original references.
+** *Inheriting variables*: Call activity can inherit process variables from the parent process. When the called process starts, new instances of the process variables will be created, distinct from the original references.
 
 ** *In mapping*: You can pass parameters to the called process using existing process variables (source) to map them to variables within the called process (target):
 +

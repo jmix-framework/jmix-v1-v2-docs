@@ -5,7 +5,7 @@
 
 Let’s add the `location` attribute to the `User` entity:
 
-Double-click on the `User` entity in *Jmix* tool window and choose its last attribute (to append the new attribute at the end):
+Double-click the `User` entity in the *Jmix* tool window and choose its last attribute (to append the new attribute at the end):
 
 image::new-attr-for-user.png[align="center", width="1046"]
 
@@ -23,7 +23,7 @@ Choose the `location` attribute and click the *Add to Views* (image:add-attribut
 
 image::add-attr-to-view.png[align="center", width="431"]
 
-The displayed dialog window will present all views that exhibit the `User` entity. Select the `User.detail` view:
+The dialog shows all views that display the `User` entity. Select the `User.detail` view:
 
 image::add-attr-to-detail.png[align="center", width="561"]
 
@@ -37,7 +37,7 @@ image::changelog-user.png[align="center", width="1036"]
 
 Click *Save and run*.
 
-Studio will execute the changelog, proceed with building and running the application.
+Studio will execute the changelog, then build and run the application.
 
 Access `++http://localhost:8080++` using your web browser and log into the application using the credentials `admin/admin`.
 
@@ -68,7 +68,7 @@ On the subsequent step of the wizard, input the following:
 * *Controller name*: `LocationLookupView`
 * *Package name*: `com.company.onboarding.view.locationlookup`
 
-Clear *Parent menu item*,  as it is unnecessary for this view.
+Clear *Parent menu item*, as it is unnecessary for this view.
 
 image::create-blank-view-params.png[align="center", width="776"]
 
@@ -123,7 +123,7 @@ Choose the `select` action in the *Jmix UI* structure panel or in the view XML d
 
 image::action-performed-event.png[align="center", width="939"]
 
-Add the logic of opening `LocationLookupView` to `ActionPerformedEvent` handler method:
+Add the logic for opening `LocationLookupView` to the `ActionPerformedEvent` handler method:
 
 [source,java,indent=0]
 ----
@@ -146,7 +146,7 @@ Now you'll have the opportunity to review the alterations occurring in our view.
 [[add-components]]
 == Add Components on LocationLookupView
 
-First, include a field where the current location selected on the map will be shown. Navigate to the actions panel, click *Add Component*, locate `entityPicker`, and double-click it. Configure the component’s properties as follows:
+First, add a field where the current location selected on the map will be shown. Navigate to the actions panel, click *Add Component*, locate `entityPicker`, and double-click it. Configure the component properties as follows:
 
 [source,xml,indent=0]
 ----
@@ -187,7 +187,7 @@ Subsequently, incorporate a field for selecting the type of location. Click *Add
         itemsEnum="com.company.onboarding.entity.LocationType"/>
 ----
 
-To showcase the list of locations, we'll utilize the `listBox` component. Firstly, introduce a data container which will supply a collection of `Location` entities for the virtual list. To achieve this, click *Add Component* in the actions panel, navigate to the `Data components` section, and proceed to double-click the `Collection` item. Within the *Collection Properties Editor* window, select `Location` in the *Entity* field and then click *OK*:
+To show the list of locations, we'll use the `listBox` component. First, add a data container that will supply a collection of `Location` entities for the list. To do this, click *Add Component* in the actions panel, go to the `Data components` section, and double-click the `Collection` item. In the *Collection Properties Editor* window, select `Location` in the *Entity* field and click *OK*:
 
 image::location-collection-container.png[align="center", width="723"]
 

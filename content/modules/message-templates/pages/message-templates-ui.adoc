@@ -7,7 +7,7 @@ image::add-on-menu.png[align="center", width="181"]
 Within this section, users can navigate between three distinct views:
 
 * *Message templates*, where individual message templates are managed
-* *Template groups*, which allows you to organize templates into categories
+* *Template groups*, which allow you to organize templates into categories
 * *Template blocks*, which are reusable components for building templates
 
 Access to these views is determined by the user's assigned role. There are two roles specifically relevant to Message Templates:

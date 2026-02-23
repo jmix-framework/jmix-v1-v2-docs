@@ -121,7 +121,7 @@ xref:flow-ui:vc/common-attributes.adoc#width[width] -
 [[basic]]
 == Basic
 
-The `FullCalendar` component is available in the *Add Component* palette of the Studio xref:studio:view-designer.adoc[View Designer] as soon as you install add-on in your project.
+The `FullCalendar` component is available in the *Add Component* palette of the Studio xref:studio:view-designer.adoc[View Designer] as soon as you install the add-on in your project.
 
 image::add-calendar-via-studio.png[align="center"; width="765"]
 
@@ -265,14 +265,14 @@ Note that this value is *exclusive*. For all-day recurring events, set the end d
 Note that the calendar does not apply time zone conversion for this property. If the `OffsetTime` datatype is used in the entity, it will be transformed to the system's default time zone.
 
 |[[recurringEndTime]]recurringEndTime
-|Specifies the end time of a recurring event. If this is not defined, the event will to have the default duration as configured by the <<defaultTimedEventDuration, defaultTimedEventDuration>> property.
+|Specifies the end time of a recurring event. If this is not defined, the event will have the default duration as configured by the <<defaultTimedEventDuration, defaultTimedEventDuration>> property.
 |===
 
 [[entity-calendar-event]]
 === EntityCalendarEvent
 
 The implementation of <<calendar-event, CalendarEvent>> that works with JPA entities or DTOs.
-When <<container-data-provider>> is linked to a xref:flow-ui:data/collection-container.adoc[collection container], it automatically wraps loaded entities in `EntityCalendarEvent` objects and pass them to the component.
+When <<container-data-provider>> is linked to a xref:flow-ui:data/collection-container.adoc[collection container], it automatically wraps loaded entities in `EntityCalendarEvent` objects and passes them to the component.
 For example,  all calendar events in this scenario would be instances of `EntityCalendarEvent`:
 
 [source,xml,indent=0]

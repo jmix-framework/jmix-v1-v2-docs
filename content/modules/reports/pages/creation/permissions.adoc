@@ -13,7 +13,7 @@ If the *Resource roles* list contains at least one role, the report will be avai
 Keep in mind that in the report list view (the *Reports->Reports* menu item) all system reports are visible because this view is considered administrative.
 ====
 
-The *Views* list allows you to specify, in which views the report will be available when invoking xref:run-report.adoc#run-report-action[RunReportAction], xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction], xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] or xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] actions. If no view is specified, the report won't be available from any application view.
+The *Views* list allows you to specify in which views the report will be available when invoking xref:run-report.adoc#run-report-action[RunReportAction], xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction], xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] or xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] actions. If no view is specified, the report won't be available from any application view.
 
 [[available-for-roles]]
 == @AvailableForRoles

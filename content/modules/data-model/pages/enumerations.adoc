@@ -6,7 +6,7 @@ In Jmix, an enumeration is a Java enum implementing the `EnumClass` interface an
 
 * You can rename and reorder enum constants, and as long as you keep the identifiers, your data model will be compatible with the database content.
 
-* Even if the database contains a value that does not correspond to any enum constant (it happens if an old and a new versions of an application work with the same database), the entity still can be loaded with the enum attribute containing null. With the standard JPA approach, loading of such an instance is impossible at all.
+* Even if the database contains a value that does not correspond to any enum constant (it happens if an old and a new version of an application work with the same database), the entity still can be loaded with the enum attribute containing null. With the standard JPA approach, loading such an instance is impossible.
 
 TIP: Use xref:studio:entity-designer.adoc#enumerations[Studio enumeration designer] to create Jmix enumerations.
 

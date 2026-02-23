@@ -1,6 +1,6 @@
 = Events
 
-The map and features has the following events.
+The map and features have the following events.
 
 == Map Events
 
@@ -19,12 +19,12 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 [[MapSingleClickEvent]]
 === MapSingleClickEvent
 
-A map single event is fired after 250 ms to ensure that it is not a double click.
+A map single-click event is fired after 250 ms to ensure that it is not a double-click.
 
 [[MapDoubleClickEvent]]
 === MapDoubleClickEvent
 
-An event is fired when user makes double-click on a map.
+An event is fired when a user double-clicks on a map.
 
 Below is an example of handling a map double-click event.
 
@@ -63,7 +63,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 [[SourceFeatureClickEvent]]
 === SourceFeatureClickEvent
 
-An event that is fired when the xref:maps:features-geometries.adoc[feature] is clicked. Note, if the user makes double click, event will be fired twice.
+An event that is fired when the xref:maps:features-geometries.adoc[feature] is clicked. Note that if the user double-clicks, the event will be fired twice.
 
 [source,java,indent=0]
 ----
@@ -78,7 +78,7 @@ A feature single click event is fired after 250 ms to ensure that it is not a do
 [[SourceFeatureDoubleClickEvent]]
 === SourceFeatureDoubleClickEvent
 
-An event is fired when user makes double click on a feature.
+An event is fired when a user double-clicks on a feature.
 
 [[SourceFeatureSelectEvent]]
 === SourceFeatureSelectEvent
@@ -87,7 +87,7 @@ An event is triggered when features are selected or deselected. Keep in mind tha
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;featureSelectEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;featureSelectEvent]
 ----
 
 [[SourceFeatureDragStartEvent]]
@@ -97,7 +97,7 @@ An event is fired when the user starts dragging a feature.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragStartEvent]
 ----
 
 [[SourceFeatureDragEndEvent]]
@@ -107,7 +107,7 @@ An event is fired when the user finishes dragging a feature.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragEndEvent]
 ----
 
 [[SourceFeatureModifyStartEvent]]
@@ -117,7 +117,7 @@ An event is fired when a feature modification is initiated.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyStartEvent]
 ----
 
 [[SourceFeatureModifyEndEvent]]
@@ -127,7 +127,7 @@ An event is fired when a feature modification is completed.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyEndEvent]
 ----
 
 [[SourceFeatureDeleteEvent]]
@@ -137,13 +137,13 @@ An event is fired when a feature is deleted from a source.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureDeleteEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureDeleteEvent]
 ----
 
 [[GeoObjectClickEvent]]
 === GeoObjectClickEvent
 
-An event that is fired when the geo-object is clicked. Note, if the user makes double click, event will be fired twice.
+An event that is fired when the geo-object is clicked. Note that if the user double-clicks, the event will be fired twice.
 
 [source,java,indent=0]
 ----
@@ -158,7 +158,7 @@ A geo-object single click event is fired after 250 ms to ensure that it is not a
 [[GeoObjectDoubleClickEvent]]
 === GeoObjectDoubleClickEvent
 
-An event is fired when user makes double click on a geo-object.
+An event is fired when a user double-clicks on a geo-object.
 
 [[GeoObjectSelectEvent]]
 === GeoObjectSelectEvent
@@ -167,7 +167,7 @@ A selection event is triggered when geo-objects are selected or deselected. Keep
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;selectEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;selectEvent]
 ----
 
 [[GeoObjectDragStartEvent]]
@@ -177,7 +177,7 @@ An event is fired when the user starts dragging a geo-object.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragStartEvent]
 ----
 
 [[GeoObjectDragEndEvent]]
@@ -187,7 +187,7 @@ An event is fired when the user finishes dragging a geo-object.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragEndEvent]
 ----
 
 [[GeoObjectModifyStartEvent]]
@@ -197,7 +197,7 @@ An event is fired when a geo-object modification is initiated.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyStartEvent]
 ----
 
 [[GeoObjectModifyEndEvent]]
@@ -207,7 +207,7 @@ An event is fired when a geo-object modification is completed.
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyEndEvent]
 ----
 
 == Feature Events
@@ -215,7 +215,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 [[FeatureClickEvent]]
 === FeatureClickEvent
 
-An event that is fired when feature is clicked. Note, if the user makes double click, event will be fired twice.
+An event that is fired when a feature is clicked. Note that if the user double-clicks, the event will be fired twice.
 
 [[FeatureSingleClickEvent]]
 === FeatureSingleClickEvent
@@ -225,4 +225,4 @@ An event is fired after 250 ms to ensure that it is not a double click.
 [[FeatureDoubleClickEvent]]
 === FeatureDoubleClickEvent
 
-An event is fired when user makes double click on a feature.
+An event is fired when a user double-clicks on a feature.

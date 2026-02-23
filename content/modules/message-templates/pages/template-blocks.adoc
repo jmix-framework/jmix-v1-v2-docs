@@ -11,7 +11,7 @@ When you create a new block, the *Template block* detail view will appear. This 
 * Customize these elements by adjusting their properties, such as size, color, alignment, and more.
 * Arrange and organize elements to create a reusable block tailored to your needs.
 
-On the *Attributes* tab you can set the `attributes` of block. In GrapesJS, `attributes` are key-value pairs associated with a block. Essentially, they are a way to store and manage additional data related to a particular element or block within your design. They allow you to customize and configure the behavior and appearance of your components beyond the basic properties like content, style, or position.
+On the *Attributes* tab, you can set the `attributes` of the block. In GrapesJS, `attributes` are key-value pairs associated with a block. They are a way to store and manage additional data related to an element or block in your design. They allow you to customize and configure the behavior and appearance of your components beyond basic properties like content, style, or position.
 
 [[using-custom-blocks]]
 == Using Custom Blocks

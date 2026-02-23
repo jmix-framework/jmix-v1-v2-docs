@@ -178,7 +178,7 @@ manual_scaling:
   instances: 1
 ----
 
-The applicatin is configured, now we need to alter the build script to enable application deploy using Google Cloud SDK.
+The application is configured, now we need to alter the build script to enable application deployment using Google Cloud SDK.
 
 [[deploy-task]]
 === Deploy Task

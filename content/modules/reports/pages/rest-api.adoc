@@ -68,7 +68,7 @@ The response body will contain the list of brief information on the reports mark
 
 <1> Report ID,
 <2> Report name,
-<3> xref:creation/details.adoc[Report system code] (if exists),
+<3> xref:creation/details.adoc[Report system code] (if it exists),
 <4> Group ID.
 --
 
@@ -95,7 +95,7 @@ The returned JSON object will contain the following information on the passed re
 * ID
 * report name
 * group ID
-* xref:creation/details.adoc[system code] (if exists)
+* xref:creation/details.adoc[system code] (if it exists)
 * xref:creation/templates.adoc[report templates]
 * xref:creation/parameters.adoc[parameters] and their types
 
@@ -160,7 +160,7 @@ The returned JSON object will contain the following information on the passed gr
 
 * group ID
 * group title
-* group code (if exists)
+* group code (if it exists)
 
 [source, json,indent=0]
 ----
@@ -182,7 +182,7 @@ http://localhost:8080/rest/reports/docs/openapi.yaml
 
 [CAUTION]
 ====
-When fetching `openapi.yaml` from the server, the response returns `application/yaml` content type, so in you should use `Accept: application/yaml` in request header.
+When fetching `openapi.yaml` from the server, the response returns the `application/yaml` content type, so you should use `Accept: application/yaml` in the request header.
 ====
 
 --

@@ -1,12 +1,12 @@
 = Parameters
 
-External parameters are passed from the outside when running a report and can be used as conditions in datasets. All external parameters become fields for each report band, so you can use them directly in the template as dataset fields. If any dataset contains field with the same name, it overrides the external parameter in the corresponding band and the report uses the dataset field value.
+External parameters are passed from the outside when running a report and can be used as conditions in datasets. All external parameters become fields for each report band, so you can use them directly in the template as dataset fields. If any dataset contains a field with the same name, it overrides the external parameter in the corresponding band and the report uses the dataset field value.
 
-External parameters can be passed by the invoking code when running a report through xref:run-report.adoc#reports-api[API]. Also, the report generator can show a dialog to enter parameters when a user runs the report. In the latter case you should describe the external parameters in the *Parameters* tab of the runtime report editor.
+External parameters can be passed by the invoking code when running a report through xref:run-report.adoc#reports-api[API]. Also, the report generator can show a dialog to enter parameters when a user runs the report. In the latter case, you should describe the external parameters in the *Parameters* tab of the runtime report editor.
 
 image::parameters.png[align="center",width="1073"]
 
-After you click on the *Create* button the *Report parameter* dialog is displayed.
+After you click the *Create* button, the *Report parameter* dialog is displayed.
 
 image::report-parameter.png[align="center", width="642"]
 
@@ -22,12 +22,12 @@ In the *Properties* tab, you can define parameter properties:
 * *Required?* - flag determining if the parameter is mandatory.
 * *Default value* - defines the parameter value that will be used by default if no other value is selected by the user.
 
-The parameter type can be primitive types of *String*, *Number*, *Boolean* or temporal types, besides, you can choose *Enumeration*, *Entity* or *List of entities* as a parameter type. Based on different type selected, additional fields are required:
+The parameter type can be one of the primitive types (*String*, *Number*, *Boolean*) or a temporal type. You can also choose *Enumeration*, *Entity*, or *List of entities* as a parameter type. Based on the selected type, additional fields are required:
 
 If the *Entity* or *List of entities* parameter type is selected:
 
 * *Entity* - entity to use as parameter.
-* *Entity selection view* - optional view identifier, which will be used to select entity instances. If the view is not specified, selection will be made from a special view generic for all entities.
+* *Entity selection view* - optional view identifier, which will be used to select entity instances. If the view is not specified, selection will be made from a special generic view for all entities.
 
 If the *Enumeration* parameter type is selected:
 
@@ -35,7 +35,7 @@ If the *Enumeration* parameter type is selected:
 
 If the temporal parameter type is selected (*Date*, *Time* or *Date and time*):
 
-* *Default date(time) is current* - flag defines whether the current timestamp will be used as the default parameter value.
+* *Default date(time) is current* - a flag that defines whether the current timestamp will be used as the default parameter value.
 
 [[localization]]
 == Localization
@@ -56,7 +56,7 @@ A Groovy script should return a new parameter value. The following variables are
 
 * `params` - parameters map is available by alias `params`.
 
-* `paramValue` - current parameter value is available in the script by the `paramValue`.
+* `paramValue` - the current parameter value is available in the script as `paramValue`.
 
 * `dataManager` - an object of the `DataManager` type that provides CRUD functionality.
 

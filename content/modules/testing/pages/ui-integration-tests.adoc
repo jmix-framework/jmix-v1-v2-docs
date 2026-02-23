@@ -27,6 +27,6 @@ include::example$/testing-ex1/src/test/java/com/company/demo/user/UserUiTest.jav
 <2> The `@SpringBootTest` annotation should declare the application and the `jmix-flowui-test-assist` module configurations.
 <3> You can inject any Spring beans using the `@Autowired` annotation.
 <4> The test case method.
-<5> `UiTestUtils.getCurrentView()` method return the view currently opened by navigation.
+<5> `UiTestUtils.getCurrentView()` method returns the view currently opened by navigation.
 <6> The `findComponent()` method returns a UI component by its id.
 <7> The method executed after each test case can be used for test data cleanup.

@@ -26,7 +26,7 @@ For manual installation, add the following dependencies to your `build.gradle`:
 include::example$reports-onboarding/build.gradle[tags=dependencies]
 ----
 
-To access reports through the xref:reports:rest-api.adoc[REST API], add also the following dependencies:
+To access reports through the xref:reports:rest-api.adoc[REST API], also add the following dependencies:
 
 [source,groovy,indent=0]
 ----

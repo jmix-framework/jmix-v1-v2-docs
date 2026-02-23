@@ -124,7 +124,7 @@ In a runtime role, the predicate policy is defined using a Groovy script. In the
 [[accessing-spring-beans]]
 ==== Accessing Spring Beans
 
-If you need to access Spring beans in the predicate, return `io.jmix.security.model.RowLevelBiPredicate` from your method. This functional interface allows you to define lambda accepting two parameters: the examined entity instance and Spring's `ApplicationContext`. For example:
+If you need to access Spring beans in the predicate, return `io.jmix.security.model.RowLevelBiPredicate` from your method. This functional interface allows you to define a lambda accepting two parameters: the examined entity instance and Spring's `ApplicationContext`. For example:
 
 [source,java,indent=0]
 ----

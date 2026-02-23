@@ -33,7 +33,7 @@ Similarly, you can adjust the prefix for row-level role authorities using the `j
 
 * `getTimeZone()` returns the time zone of the current user. The <<time-zones,next section>> explains how the user time zone is determined and how it is used by the framework.
 
-* `isSet()` returns `true` if the current execution thread is authenticated, that is contains information about the user. If it's not, `getUser()`, `getLocale()` and `getTimeZone()` methods described above will throw the `IllegalStateException`.
+* `isSet()` returns `true` if the current execution thread is authenticated, that is, contains information about the user. If it's not, the `getUser()`, `getLocale()`, and `getTimeZone()` methods described above will throw `IllegalStateException`.
 
 Below is an example of getting the information about the current user:
 
@@ -120,7 +120,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/view/user/UserDeta
 [[brute-force-protection]]
 === BruteForce Protection
 
-The framework has a mechanism for the protection against password brute force cracking.
+The framework has a mechanism for protection against password brute force cracking.
 
 The <<jmix.security.bruteforceprotection.enabled,jmix.security.bruteforceprotection.enabled>> application property enables the protection. If the protection is enabled, the combination of user login and IP address is blocked for a time interval in case of multiple unsuccessful login attempts. A maximum number of login attempts for the combination of user login and IP address is defined by the <<jmix.security.bruteforceprotection.max-login-attempts-number,jmix.security.bruteforceprotection.max-login-attempts-number>> application property. Blocking interval in seconds is determined by the <<jmix.security.bruteforceprotection.block-interval,jmix.security.bruteforceprotection.block-interval>> application property.
 
@@ -142,7 +142,7 @@ Defines a maximum number of failed login attempts for the combination of user lo
 [[system]]
 == System Authentication
 
-The execution thread can be not authenticated if it was started by an internal scheduler or handles a request from the JMX interface. At the same time, your business logic or data access code usually requires information on who is currently working with the system for logging or authorization.
+The execution thread may not be authenticated if it was started by an internal scheduler or handles a request from the JMX interface. At the same time, your business logic or data access code usually requires information on who is currently working with the system for logging or authorization.
 
 To temporarily associate the current execution thread with a user, use the `SystemAuthenticator` bean. It has the following methods:
 
@@ -167,7 +167,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/mbean/SettingsMana
 [[authentication-events]]
 == Authentication Events
 
-Spring framework sends specific application events related to authentication.
+The Spring Framework sends specific application events related to authentication.
 
 TIP: Studio can help you generate listeners to authentication events. Click *New (+) -> Event Listener* in the *Jmix* tool window and select *Authentication Event* in the dialog.
 

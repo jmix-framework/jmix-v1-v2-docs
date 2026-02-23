@@ -48,7 +48,7 @@ include::ROOT:single-menu-note.adoc[]
 [[https]]
 == HTTPS
 
-Desktop applications use basic authentication for server connections via WebDAV, so you have to set up HTTPS for your web application. Refer to the xref:configuration.adoc#https[Configuring HTTPS] section for guidance on configuring HTTPS on localhost for development purposes.
+Desktop applications use basic authentication for server connections via WebDAV, so you have to set up HTTPS for your web application. Refer to the xref:configuration.adoc#https[Configuring HTTPS] section for guidance on configuring HTTPS on localhost in development.
 
 [[requirements]]
 == Requirements

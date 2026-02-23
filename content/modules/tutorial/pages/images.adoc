@@ -1,6 +1,6 @@
 = 6. Working with Images
 
-In this chapter, you will add the `picture` attribute to the `User` entity and learn how to upload and display images in UI.
+In this chapter, you will add the `picture` attribute to the `User` entity and learn how to upload and display images in the UI.
 
 [[file-ref-attr]]
 == Adding File Reference Attribute
@@ -23,7 +23,7 @@ Click *OK*.
 
 Select the `picture` attribute and click the *Add to Views* (image:common/add-attribute-to-screens.svg[]) button in the *Attributes* toolbar.
 
-The appeared dialog window will show all views that display the `User` entity. Select `User.detail` view and click *OK*.
+The dialog window that appears will show all views that display the `User` entity. Select the `User.detail` view and click *OK*.
 
 Studio will create the `pictureField` component in the `formLayout` of the `User.detail` view:
 

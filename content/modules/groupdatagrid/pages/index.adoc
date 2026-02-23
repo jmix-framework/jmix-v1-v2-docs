@@ -6,7 +6,7 @@
 </div>
 ++++
 
-This add-on makes xref:groupdatagrid:groupdatagrid-component.adoc[groupDataGrid] available in the component pallet. Use it as an alternative for xref:flow-ui:vc/components/dataGrid.adoc[] and xref:flow-ui:vc/components/treeDataGrid.adoc[] when column-based grouping is required.
+This add-on makes xref:groupdatagrid:groupdatagrid-component.adoc[groupDataGrid] available in the component palette. Use it as an alternative to xref:flow-ui:vc/components/dataGrid.adoc[] and xref:flow-ui:vc/components/treeDataGrid.adoc[] when column-based grouping is required.
 
 image::groupdatagrid-basic.png[align="center",width="1097"]
 

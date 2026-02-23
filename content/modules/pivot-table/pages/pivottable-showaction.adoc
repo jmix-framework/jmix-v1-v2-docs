@@ -41,4 +41,4 @@ include::../examples/pivottable-ex1/src/main/java/com/company/ex1/view/pivottabl
 <1> The `withIncludedProperties()` method only considers the properties you explicitly include, ignoring all others. To exclude specific properties, use the `withExcludedProperties()` method.
 <2> All other methods starting with `"with"` can be used to configure Pivot Table options. These include methods like `withHiddenFromAggregations()`, `withHiddenFromDragDrop()`, `withAggregationProperties()`, and more.
 
-You can export the displayed Pivot Table data to Excel (if the current renderer is supported). A corresponding button will be displayed by default in the opened tab for this purpose.
+You can export the displayed Pivot Table data to Excel (if the current renderer is supported). A corresponding button is displayed by default in the opened tab for this purpose.

@@ -80,7 +80,7 @@ include::example$fullcalendar-ex1/src/main/resources/com/company/onboarding/view
 
 We obtain the currently logged-in user from the `CurrentAuthentication` bean and pass this information to the data loader within the xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent]:
 
-* Subscribe o the `BeforeShowEvent`.
+* Subscribe to the `BeforeShowEvent`.
 * Inject the `meetingsDl` loader.
 * Inject the `CurrentAuthentication` bean.
 
@@ -96,7 +96,7 @@ include::example$fullcalendar-ex1/src/main/java/com/company/onboarding/view/myca
 
 In the actions panel, click *Add Component*,  locate the `FullCalendar` item, and double-click it.
 
-Then new `calendar` element will be generated. Configure the `id`, `height` and `width` attributes as shown below.
+Then a new `calendar` element will be generated. Configure the `id`, `height` and `width` attributes as shown below.
 
 [source, xml, indent=0]
 ----
@@ -141,7 +141,7 @@ include::example$fullcalendar-ex1/src/main/resources/com/company/onboarding/view
 Launch the application and log in as the `admin` user. The `admin` user does not have onboarding steps, so we need to generate them:
 
 * Access the `User.list` view by selecting *Users* from the application menu.
-* Select the `admin` user in the *DataGrid* and click the *Edit* button. Then, fill *Joining Date* field, generate onboarding steps and save the changes.
+* Select the `admin` user in the *DataGrid* and click the *Edit* button. Then, fill in the *Joining Date* field, generate onboarding steps, and save the changes.
 * Access the `MyCalendar` view by selecting *My Calendar* from the application menu.
 
 image::getting-started-data-binding-result.png[align="center",width="1358"]

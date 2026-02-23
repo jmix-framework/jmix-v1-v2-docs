@@ -69,7 +69,7 @@ include::example$/ext/src/main/resources/com/company/sample/ext/view/department/
 
 You don't have to repeat all elements and attributes of the base view, only the changed part is required. The resulting XML will be merged from the base and extended descriptors - see more about it <<descriptor-extension,below>>.
 
-In our case, one of extended attributes (`manager`) is a reference to another entity. This reference will be loaded on demand due to the automatic xref:data-access:fetching.adoc#lazy-loading[lazy loading], but you may want to include the reference to the xref:data-access:fetching.adoc#fetch-plan[fetch plan] of the view to avoid the possible "N+1 queries" problem:
+In our case, one of the extended attributes (`manager`) is a reference to another entity. This reference will be loaded on demand due to the automatic xref:data-access:fetching.adoc#lazy-loading[lazy loading], but you may want to include the reference in the xref:data-access:fetching.adoc#fetch-plan[fetch plan] of the view to avoid the possible "N+1 queries" problem:
 
 [source,xml,indent=0]
 ----
@@ -127,7 +127,7 @@ Extension of XML descriptors doesn't take into account the semantics of the view
 
 . All attributes from the extending element are copied to the overridden or added element. If attribute names match, the value is taken from the extending element.
 
-. By default, the new element is added to the end of the list of adjacent elements. In order to add a new element to the beginning or with an arbitrary index, do the following:
+. By default, the new element is added to the end of the list of adjacent elements. In order to add a new element to the beginning or at an arbitrary index, do the following:
 
 .. Define an additional namespace in the extending descriptor: `xmlns:ext="http://jmix.io/schema/flowui/view-ext"`.
 

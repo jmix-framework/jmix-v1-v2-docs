@@ -316,7 +316,7 @@ You have learned that:
 
 * To show a reference attribute in an entity list or detail view, it should be included in the xref:data-access:fetching.adoc#fetch-plan[fetch plan] of the view.
 
-* The xref:data-model:entities.adoc#instance-name[instance name] is used to show a reference in UI.
+* The xref:data-model:entities.adoc#instance-name[instance name] is used to show a reference in the UI.
 
 * The xref:flow-ui:vc/components/entityPicker.adoc[] component is used by default to select a reference in a generated detail view.
 

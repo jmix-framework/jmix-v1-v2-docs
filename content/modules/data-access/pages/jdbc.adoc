@@ -4,7 +4,7 @@ While Jmix primarily uses JPA for data access, there are several scenarios where
 
 TIP: We recommend using xref:data-manager.adoc[DataManager] and fall back to JDBC only when required.
 
-You can use `JdbcTemplate` or `JdbcClient` classes provided by Spring to execute requests on the JDBC level.
+You can use `JdbcTemplate` or `JdbcClient` classes provided by Spring to execute operations at the JDBC level.
 
 Both `JdbcTemplate` and `JdbcClient` automatically participate in Spring-managed xref:transactions.adoc[transactions], so you can use them alongside JPA operations within the same transaction.
 
@@ -49,9 +49,9 @@ include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcServ
 [[stored-procedures]]
 == Calling Stored Procedures
 
-You can use the Spring's `SimpleJdbcCall` class to execute stored procedures. It provides better parameter handling and database metadata support than `JdbcTemplate`.
+You can use Spring's `SimpleJdbcCall` class to execute stored procedures. It provides better parameter handling and database metadata support than `JdbcTemplate`.
 
-The following example shows how to call a PostgresSQL stored procedure located in the main data store.
+The following example shows how to call a PostgreSQL stored procedure located in the main data store.
 
 [source,sql]
 ----

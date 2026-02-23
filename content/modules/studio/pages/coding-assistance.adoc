@@ -114,7 +114,7 @@ Inspections::
 
 ** Check property names and paths in `dataGrid`, and other components.
 ** Check the `dataContainer` and `itemsContainer` attributes.
-They should reference the existing data container in the current view or one of the views which includes the current one as a frame.
+They should reference the existing data container in the current view or in one of the views that include the current one as a frame.
 ** Check the following aspects of Jmix view descriptors:
 
 *** `expand` attribute;

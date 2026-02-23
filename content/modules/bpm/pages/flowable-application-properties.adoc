@@ -121,7 +121,7 @@ flowable.dmn.servlet.name=Flowable DMN Rest API
 # The context path for the DMN rest servlet.
 flowable.dmn.servlet.path=/dmn-api
 
-# Set this to false if you want to ignore the decision table hit policy validity checks to result in an failed decision table state. A result is that intermediate results created up to the point the validation error occurs are returned.
+# Set this to false to ignore decision table hit policy validity checks. If validation fails, the decision table enters a failed state, and intermediate results created before the error are returned.
 flowable.dmn.strict-mode=true
 
 # IDM https://github.com/flowable/flowable-engine/tree/main/modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-autoconfigure/src/main/java/org/flowable/spring/boot/idm/FlowableIdmProperties.java
@@ -169,7 +169,7 @@ flowable.idm.ldap.attribute.user-id=
 # The base 'distinguished name' (DN) from which the searches for users and groups are started.
 flowable.idm.ldap.base-dn=
 
-# Allows to set the size of the {@link org.flowable.ldap.LDAPGroupCache}. This is an LRU cache that caches groups for users and thus avoids hitting the LDAP system each time the groups of a user needs to be known.
+# Sets the size of the {@link org.flowable.ldap.LDAPGroupCache}. This LRU cache stores groups for users and avoids calling the LDAP system each time user groups are needed.
 flowable.idm.ldap.cache.group-size=-1
 
 # Allows to set all LDAP connection parameters which do not have a dedicated setter. See for example http://docs.oracle.com/javase/tutorial/jndi/ldap/jndi.html for custom properties. Such properties are for example to configure connection pooling, specific security settings, etc.

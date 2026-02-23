@@ -34,7 +34,7 @@ POST http://localhost:8080/rest/entities/sample_Customer
 
 Alternatively, it is possible to define which attributes should be returned once the entity is created. This can be achieved through the URL query parameter `responseFetchPlan`.
 
-For example, the URL `/entities/sample_Order?responseFetchPlan=order-with-details` would return the complete order with all its details containing order lines, customer references etc.
+For example, the URL `/entities/sample_Order?responseFetchPlan=order-with-details` would return the complete order with all its details containing order lines, customer references, etc.
 
 TIP: The HTTP response Header `Location` indicates also the URL to the newly created entity instance for further operations (like fetching, updating, or deleting).
 
@@ -43,12 +43,12 @@ TIP: The HTTP response Header `Location` indicates also the URL to the newly cre
 
 When an entity is created or updated, the regular entity validation is active and enforced by default. This means that invalid input (according to the entity validation annotations) from the API is rejected with the HTTP response status code `400 - Bad Request`.
 
-The API returns detailed error messages for each validation violation in the following form of a JSON array. Each entry follows the structure:
+The API returns detailed error messages for each validation violation in the form of a JSON array. Each entry follows the structure:
 
 message:: the (translated) human-readable error message of the violation
 messageTemplate:: the non-interpolated error message for this constraint violation
 path:: the attribute name (or property path) of the attribute that caused the violation
-invalidValue:: the value that was part of the request for the attribute, which causes the violation
+invalidValue:: the value that was part of the request for the attribute, which caused the violation
 
 
 The following request contains two errors in the request, as 1. the `customer` attribute is required and 2. the `date` should not be in the future.
@@ -131,7 +131,7 @@ public class Product {
 }
 ----
 
-In the request, the `ProductTag` entity instances are references by their ids. This time, the JSON object is put into an array, as there are multiple product tags to reference.
+In the request, the `ProductTag` entity instances are referenced by their IDs. This time, the JSON object is put into an array, as there are multiple product tags to reference.
 
 [source, http request]
 .Request with `M:N` references
@@ -235,7 +235,7 @@ POST http://localhost:8080/rest/entities/sample_Order
 [[bulk-creation]]
 == Bulk Creation
 
-The Create-Entity API also allows you to create multiple entities within one request. For this the JSON request body should contain an array of JSON objects representing each entity.
+The Create-Entity API also allows you to create multiple entities within one request. For this, the JSON request body should contain an array of JSON objects representing each entity.
 
 [source, http request]
 .Bulk Creation Request
@@ -267,7 +267,7 @@ POST http://localhost:8080/rest
 ]
 ----
 
-In case of a violation of an entity validation, the entities will not be created, and a corresponding Error message will be returned. See  <<Entity Validation, Entity Validation>> for further details.
+In case of a violation of an entity validation, the entities will not be created, and a corresponding error message will be returned. See <<Entity Validation, Entity Validation>> for further details.
 
 ////
 NOTE: All entities of the Bulk API are processed as part of one database transaction. This means if there is a validation violation in at least one of the entities, none of the entities will be created at all.

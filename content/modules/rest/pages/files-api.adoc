@@ -1,18 +1,18 @@
 = Files API
 
-This API uses the xref:files:index.adoc[Files mechanism] provided by Jmix and exposes it through the REST API to let client applications upload and download files to/from a Jmix application.
+This API uses the xref:files:index.adoc[Files mechanism] provided by Jmix and exposes it through the REST API to let client applications upload and download files to and from a Jmix application.
 
 [[uploading-files]]
 == Uploading Files
 
-The Upload Files API endpoint `/files` used with a `POST` HTTP method allows you to transfer a file to the Jmix application.
+The Upload Files API endpoint `/files`, used with the `POST` HTTP method, allows you to transfer a file to the Jmix application.
 
 There are two different ways of transferring the data:
 
 1. Using `multipart/form-data`
 2. Using different content types with the body containing the binary data
 
-Depending on the use case either of those two options might be a better fit. In both situations, the API returns `201 - Created` to indicate that the file was successfully stored.
+Depending on the use case, either of those two options might be a better fit. In both situations, the API returns `201 - Created` to indicate that the file was successfully stored.
 
 NOTE: To upload a file, the user must have a role with the `rest.fileUpload.enabled` xref:security:resource-roles.adoc#specific-policy[specific policy].
 
@@ -37,7 +37,7 @@ Content-Type: image/jpeg
 --WebAppBoundary--
 ----
 <1> The `Content-Type` of the HTTP request is `multipart/form-data`
-<2> The `Content-Disposition` part with the name `file` expresses the file to upload. The filename there as well.
+<2> The `Content-Disposition` part with the name `file` expresses the file to upload. The filename is also there.
 <3> `< ./cat.jpg` stands for the binary data of the file (_the actual binary content is not displayed here_).
 
 [source, json]
@@ -66,7 +66,7 @@ spring.servlet.multipart.max-file-size=10MB
 
 It is also possible to upload a file without using the `multipart/form-data` content type. Instead, you can use the content type of the file directly. The body of the HTTP request contains the binary file content directly in this case. You need to provide the URL parameter `name` to indicate which filename to use for the file.
 
-In this example you can see how to use the Direct Request to upload a file:
+In this example you can see how to use the direct request to upload a file:
 
 [source, http request]
 .Upload File as Direct Request
@@ -93,7 +93,7 @@ Content-Type: image/jpeg // <2>
 [[downloading-files]]
 == Downloading Files
 
-Files that are already uploaded in your Jmix application, can also be downloaded or displayed.
+Files that are already uploaded in your Jmix application can also be downloaded or displayed.
 
 For this you should use the Downloading Files endpoint: `/files?fileRef=:fileRef` via HTTP `GET`. The API returns `200 - OK` if the file exists together with the file binary content as part of the HTTP body. Otherwise, `404 - Not Found` is returned.
 
@@ -110,7 +110,7 @@ GET http://localhost:8080/rest
 
 [NOTE]
 ====
-The `fileRef` parameter should always be URL encoded in order to prevent any issues special characters. So the actual URL from above should look like this when requested from the API:
+The `fileRef` parameter should always be URL encoded in order to prevent any issues with special characters. So the actual URL from above should look like this when requested from the API:
 
 `fileRef=fs%3A%2F%2F2021%2F03%2F12%2F2266c97c-cf23-c202-481d-04d972e185b4.jpg%3Fname%3Dcat-via-direct-request.jpg`
 ====

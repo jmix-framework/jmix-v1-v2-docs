@@ -76,7 +76,7 @@ server.port = 8443
 +
 [NOTE]
 ====
-The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be presented as a slash-separated path:
+The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be written as a slash-separated path:
 ----
 server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 ----

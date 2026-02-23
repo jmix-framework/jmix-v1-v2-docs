@@ -3,7 +3,7 @@
 
 This section introduces a minimal example of using the xref:index.adoc[] add-on. The goal is to create a newsfeed for application users. Such feed can be used to send announcements, updates, notifications, usage statistics, and other related information via email.
 
-To follow along, create a new Jmix project and xref:index.adoc#installation[install the add-on] .
+To follow along, create a new Jmix project and xref:index.adoc#installation[install the add-on].
 
 == Creating Entity and Views
 
@@ -16,7 +16,7 @@ First, create an entity to store news items along with simple CRUD views for man
 * `content` of type `String` with unlimited length.
 
 . Create entity list and detail views for this entity.
-. Open to the list view and add a new button and bind it to the email sending action:
+. Open the list view, add a new button, and bind it to the email sending action:
 +
 .news-item-list-view.xml
 [source,xml,indent=0]

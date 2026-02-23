@@ -175,7 +175,7 @@ image::bpmn-gateways/default-flow-example.png[,300]
 [[separate-forks-and-joins]]
 ==== Separate Forks and Joins
 
-Formally, BPMN specification allows to use one gateway in two roles, but such usage is highly not recommended.
+Formally, the BPMN specification allows you to use one gateway in two roles, but this usage is not recommended.
 
 So, avoid using an exclusive gateway as shown in the picture, where the gateway is fork and join at once:
 

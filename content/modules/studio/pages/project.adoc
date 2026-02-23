@@ -18,9 +18,9 @@ Configure the main project settings on this step:
 * Select *Use local Maven repository* if you want to use artifacts from the local repository.
 * Select the *Jmix version* to be used in the project. If you do not have any specific requirements, use the latest released version.
 +
-For beta-testing or early accessing new Jmix framework features, you might want to use one of unstable Jmix framework versions, ones that end with BETA or SNAPSHOT suffixes. To see them in the *Jmix version* drop-down list, you need to select the *Show unstable versions* checkbox.
+For beta testing or early access to new Jmix framework features, you might want to use one of the unstable Jmix framework versions, the ones that end with BETA or SNAPSHOT suffixes. To see them in the *Jmix version* drop-down list, select the *Show unstable versions* checkbox.
 +
-* In the *Project JDK* field, select JDK corresponding to `JAVA_HOME` which is set in your environment. If you see the `<No JDK>` value, click *Add JDK* in the list and select the folder, where JDK is installed.
+* In the *Project JDK* field, select the JDK that corresponds to `JAVA_HOME` in your environment. If you see the `<No JDK>` value, click *Add JDK* in the list and select the folder where the JDK is installed.
 +
 . On the next wizard step, select a template to be used for creating an empty project.
 +
@@ -62,9 +62,9 @@ image::new-project-build.png[align="center"]
 ====
 See also how to open a xref:studio:composite-projects.adoc#opening-composite-project[composite project] that organizes multiple related xref:modularity:creating-add-ons.adoc[add-ons] and applications into a single IDE project.
 ====
-. In the appeared dialog, select *Open as Project*.
+. In the dialog that appears, select *Open as Project*.
 +
-image::new-project-open.png[aligen="center", width="501"]
+image::new-project-open.png[align="center", width="501"]
 +
 Wait for Gradle synchronization and project indexing process to complete.
 +
@@ -76,7 +76,7 @@ If the project has been opened for the first time, open *File -> Project Structu
 
 image::new-project-structure.png[align="center",width="1007"]
 
-* Make sure that the *Project SDK* field has a value corresponding to `JAVA_HOME` which is set in your environment. If you see the `<No SDK>` value, select *Add SDK* from the list and select the folder where the JDK is installed, for example, `C:\Program Files\BellSoft\LibericaJDK-17` on Windows or `/Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home` on macOS.
+* Make sure that the *Project SDK* field has a value that corresponds to `JAVA_HOME` in your environment. If you see the `<No SDK>` value, select *Add SDK* from the list and select the folder where the JDK is installed, for example, `C:\Program Files\BellSoft\LibericaJDK-17` on Windows or `/Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home` on macOS.
 * Make sure that the *Project language level* field has a value corresponding to the JDK version. For example, if the JDK is `17`, the language level must be `17 - Sealed types, always-strict floating-point semantics`.
 
 Also, you can open a project from recent projects. You can do it in the welcome window of the IDE or open *File -> Open Recent* from the main menu.
@@ -100,9 +100,9 @@ image::upgrade-tool-window.png[align="center", width="307"]
 +
 image::upgrade-properties.png[align="center", width="912"]
 +
-. In the appeared dialog, choose the desired Jmix version from the drop-down list.
+. In the dialog that appears, choose the desired Jmix version from the drop-down list.
 +
-For the purpose of beta-testing or early accessing new Jmix platform features, you might want to use one of the unstable Jmix platform versions that end with SNAPSHOT, BETA, or RC suffixes. To see them in the platform version drop-down list, you need to select the *Show unstable versions* checkbox.
+For beta testing or early access to new Jmix platform features, you might want to use one of the unstable Jmix platform versions that end with SNAPSHOT, BETA, or RC suffixes. To see them in the platform version drop-down list, select the *Show unstable versions* checkbox.
 +
 image::upgrade-unstable.png[align="center", width="624"]
 +

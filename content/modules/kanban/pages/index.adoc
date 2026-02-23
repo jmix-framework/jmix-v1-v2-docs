@@ -13,7 +13,7 @@ image::overview-embedded-kanban.png[align="center",width="890"]
 Key features of the Kanban add-on:
 
 * *Visual Kanban board*: A fully customizable xref:kanban:kanban-component.adoc[kanban] board component that can be integrated into any Jmix view.
-* *Task management*: Manage tasks within the board, including assigning them to users, setting deadlines, and the priority.
+* *Task management*: Manage tasks within the board, including assigning them to users, setting deadlines, and priorities.
 * *Stage management*: Create and manage stages (xref:kanban:kanban-component.adoc#column[columns]) on the board, representing different phases of your workflow.
 * *Drag-and-drop functionality*: Move tasks between stages with ease, providing a user-friendly and intuitive experience.
 * *Customization options*: Customize the appearance and behavior of the board to suit your specific needs and preferences.

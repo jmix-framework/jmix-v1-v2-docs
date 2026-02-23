@@ -3,8 +3,8 @@
 The Jmix OpenID Connect add-on provides predefined Spring Security configurations and a set of services that allow you to easily implement the following features in your applications:
 
 * User authentication using an external OpenID Provider (e.g., Keycloak).
-* Mapping user attributes and roles from the OpenID Provider user to Jmix user.
-* Persisting user entity and role assignments after the user is successfully authenticated at the OpenID Provider.
+* Mapping user attributes and roles from an OpenID Provider user to a Jmix user.
+* Persisting the user entity and role assignments after the user is successfully authenticated by the OpenID Provider.
 
 The add-on leverages Spring Security support for OAuth2 and OpenID Connect 1.0. You may read about it in {spring-security-doc}/servlet/oauth2/index.html[Spring Security documentation^].
 
@@ -36,9 +36,9 @@ Use the standard Spring Security approach to configure the client. You can do it
 include::example$oidc-ex1/src/main/resources/application-doc1.properties[tags=client-properties]
 ----
 
-`keycloak` in the property key is the provider id. It may have any value, for example `okta`, so the property will be `spring.security.oauth2.client.registration.okta.client-id`.
+`keycloak` in the property key is the provider ID. It may have any value, for example `okta`, so the property will be `spring.security.oauth2.client.registration.okta.client-id`.
 
-Client ID and client secret values must be taken from the OpenID provider.
+Client ID and client secret values must be taken from the OpenID Provider.
 
 The `issuer-uri` property contains a path to the OpenID Provider https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig[Configuration Endpoint^].
 
@@ -54,9 +54,9 @@ include::example$oidc-ex1/src/main/resources/application-doc1.properties[tags=us
 
 After including the add-on in the project, configuring the client and <<configuring-local-keycloak-instance,setting up Keycloak>>, you may start the application. In this case, the default add-on configuration will do the following:
 
-* Non-authenticated users will be redirected to OpenID Provider login page.
-* After the user has authenticated in the OpenID Provider, an instance of `DefaultJmixOidcUser` will be created and set to the security context. No user attributes will be mapped. The user won't be stored in the database.
-* Collection of user role codes will be taken from the "roles" claim of the ID Token, and then resource and row-level roles with given codes will be set to the user authentication object.
+* Non-authenticated users will be redirected to the OpenID Provider login page.
+* After the user has authenticated with the OpenID Provider, an instance of `DefaultJmixOidcUser` will be created and set to the security context. No user attributes will be mapped. The user won't be stored in the database.
+* A collection of user role codes will be taken from the "roles" claim of the ID Token, and then resource and row-level roles with the given codes will be set to the user authentication object.
 
 The `DefaultJmixOidcUser` class implements the `JmixOidcUser` interface. The user class must always implement this interface because Jmix applications require the `UserDetails` interface, and Spring Security works with the `OidcUser` interface. `JmixOidcUser` just extends both these interfaces.
 
@@ -94,7 +94,7 @@ include::example$oidc-ex1/src/main/java/examples/oidcex1/mapper/MyClaimsRoleMapp
 [[working-with-user-jpa-entity]]
 == Working with User JPA Entity
 
-In order to work with Jmix OIDC add-on, the `User` JPA entity must implement the `io.jmix.oidc.user.JmixOidcUser` interface that in turns implements `org.springframework.security.oauth2.core.oidc.user.OidcUser` required by Spring Security.
+In order to work with the Jmix OIDC add-on, the `User` JPA entity must implement the `io.jmix.oidc.user.JmixOidcUser` interface that in turn implements `org.springframework.security.oauth2.core.oidc.user.OidcUser` required by Spring Security.
 
 The simplest way to make the `User` entity compatible with the OIDC add-on is to make this class a subclass of the `io.jmix.oidc.user.JmixOidcUserEntity` abstract class:
 
@@ -105,12 +105,12 @@ include::example$oidc-ex1/src/main/java/examples/oidcex1/entity/User.java[tags=j
 
 [NOTE]
 ====
-In case of Kotlin project it's required to make the following additional changes in `User` entity class:
+In a Kotlin project, you need to make the following additional changes in the `User` entity class:
 
 * Add annotation `@get:JvmName("getEmail_")` to `email` property.
 * Add overridden method `override fun getEmail(): String? = email`
 ====
-To store users in the database after they are logged in using OpenID Provider, you'll need to register a user mapper that extends the `SynchronizingOidcUserMapper` class. This superclass contains the behavior that stores/updates the user in the database. Optionally you may also store information about role assignments in the database.
+To store users in the database after they log in using an OpenID Provider, you'll need to register a user mapper that extends the `SynchronizingOidcUserMapper` class. This superclass contains the behavior that stores/updates the user in the database. Optionally, you may also store information about role assignments in the database.
 
 [source,java,indent=0]
 ----
@@ -120,7 +120,7 @@ include::example$oidc-ex1/src/main/java/examples/oidcex1/mapper/MySynchronizingO
 [[protecting-api]]
 == Protecting API
 
-Jmix application may work as a resource server. To specify which authorization server to use, define the following application property:
+A Jmix application may work as a resource server. To specify which authorization server to use, define the following application property:
 
 [source,properties,indent=0]
 ----
@@ -129,7 +129,7 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8180/realm
 
 The value of the property is the URL contained in the `iss` claim for JWT tokens that the authorization server will issue. See {spring-security-doc}/servlet/oauth2/resource-server/jwt.html#_specifying_the_authorization_server[Spring Security documentation^] for details.
 
-By default, the "sub" claim value is used as a username of Jmix user that is set to security context. If you want to change this, use the following application property:
+By default, the "sub" claim value is used as the username of the Jmix user that is set to the security context. If you want to change this, use the following application property:
 
 [source,properties,indent=0]
 ----
@@ -138,9 +138,9 @@ jmix.oidc.jwt-authentication-converter.username-claim=preferred_username
 
 In most cases the property value should be aligned with the value of the `spring.security.oauth2.client.provider.keycloak.user-name-attribute` property.
 
-Access tokens obtained from OpenID Provider may be used for accessing protected endpoints provided by the REST API add-on.
+Access tokens obtained from an OpenID Provider can be used to access protected endpoints provided by the REST API add-on.
 
-For local Keycloak instance access tokens may be obtained in the following way:
+For a local Keycloak instance, access tokens can be obtained as follows:
 
 [source,shell,indent=0]
 ----
@@ -205,7 +205,7 @@ One of the most popular OpenID Providers is https://www.keycloak.org/[Keycloak^]
 [[starting-keycloak-using-docker]]
 === Starting Keycloak Using Docker
 
-Use the following comment to start Keycloak instance using Docker on the port 8180:
+Use the following command to start a Keycloak instance using Docker on port 8180:
 
 [source,shell,indent=0]
 ----
@@ -228,7 +228,7 @@ You can read about configuring the Keycloak instance in the https://www.keycloak
 [[creating-a-realm]]
 === Creating a Realm
 
-Login to Keycloak admin console.
+Log in to the Keycloak admin console.
 
 Open the popup at the top of the left pane.
 

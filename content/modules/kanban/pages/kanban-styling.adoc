@@ -53,7 +53,7 @@ All these attributes can be added using the *Jmix UI* component inspector panel 
 include::../examples/kanban-ex2/src/main/resources/com/company/demo/view/kanbantasklist/kanban-task-list-view.xml[tags=kanban]
 ----
 
-Press *Ctrl/Cmd+S* and switch to the running application. The appearance of Kanban board will now be changed:
+Press *Ctrl/Cmd+S* and switch to the running application. The appearance of the Kanban board will now change:
 
 image::kanban-task-list-view-styled.png[align="center",width="1143"]
 

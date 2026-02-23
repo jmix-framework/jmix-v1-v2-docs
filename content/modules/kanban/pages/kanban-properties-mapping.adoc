@@ -14,12 +14,12 @@ Kanban task cards can display specific fields of a Kanban task entity. Here's a 
 * `id` - any standard identifier type. Required attribute.
 * `status` - String or enumeration type. Required attribute.
 * `text` - String type. Required attribute.
-* `color` - String type. The string value must be formatted in CSS color.
+* `color` - String type. The string value must be formatted as a CSS color.
 * `dueDate` - any standard date type.
 * `priority` - String or enumeration type.
 * `progress` - integer number type.
 * `swimlane` - String or enumeration type.
-* `tags` - String type. The string value must be a comma-separated sequence of tags without space symbols.
+* `tags` - String type. The string value must be a comma-separated sequence of tags without spaces.
 * `userAvatar` - `FileRef` or a byte array type.
 * `username` - String type.
 
@@ -31,7 +31,7 @@ Now you need to add attributes to the detail view. Use the *Add to Views* (image
 
 image::add-to-view-action.png[align="center",width="538"]
 
-The appeared dialog window will show all views that display the `KanbanTask` entity. Select only `KanbanTask.detail` view:
+The dialog window that appears will show all views that display the `KanbanTask` entity. Select only `KanbanTask.detail` view:
 
 image::add-to-view-action-2.png[align="center",width="561"]
 
@@ -78,7 +78,7 @@ Select `kanban` within the *Jmix UI* hierarchy panel or in the XML markup. Next,
 
 image::kanban-additional-attributes.png[align="center",width="1170"]
 
-Press *Ctrl/Cmd+S* and switch to the running application. The appearance of the cards will be changed.
+Press *Ctrl/Cmd+S* and switch to the running application. The appearance of the cards will change.
 
 image::kanban-task-list-view-updated.png[align="center",width="1143"]
 

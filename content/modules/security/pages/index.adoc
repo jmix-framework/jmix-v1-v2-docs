@@ -1,6 +1,6 @@
 = Security
 
-Jmix security subsystem provides an easily configurable access control mechanism for your application. It is based on Spring Security and adds the following features:
+The Jmix security subsystem provides an easily configurable access control mechanism for your application. It is based on Spring Security and adds the following features:
 
 * Integration with your data model.
 
@@ -30,7 +30,7 @@ include::example$/security-ex1/build.gradle[tags=dependencies]
 [[concepts]]
 == Concepts
 
-Below you can find a few diagrams that explain main concepts of the Jmix security subsystem.
+Below you can find a few diagrams that explain the main concepts of the Jmix security subsystem.
 
 [[containers]]
 === Containers
@@ -70,13 +70,13 @@ When a user works with the application, the access control component of the fram
 [[roles-and-policies]]
 === Roles and Policies
 
-Below is a diagram that shows relationship between users, roles and policies.
+Below is a diagram that shows the relationship between users, roles, and policies.
 
 image::jmix-security-user-roles-policies.drawio.svg[]
 
 A user can have multiple roles of two distinct types: resource and row-level.
 
-xref:resource-roles.adoc[Resource roles] give users permissions to specific objects and operations, that are denied by default. A user without resource roles has no permissions and cannot access the system.
+xref:resource-roles.adoc[Resource roles] give users permissions to specific objects and operations that are denied by default. A user without resource roles has no permissions and cannot access the system.
 
 xref:row-level-roles.adoc[Row-level roles], in contrast, restrict access to particular entity instances. A user without row-level roles has access to all instances of an entity (if it is permitted by resource roles).
 

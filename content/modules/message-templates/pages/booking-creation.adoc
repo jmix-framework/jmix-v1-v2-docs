@@ -43,7 +43,7 @@ Follow the suggested values at each step of the view creation wizard.
 
 After creating the entity and CRUD views for it, you can run the application to see the new feature in action.
 
-You’ll find the detailed steps for running application in the xref:tutorial:project-setup.adoc#run-app[Running Application from IDE] section of the Tutorial.
+You’ll find the detailed steps for running the application in the xref:tutorial:project-setup.adoc#run-app[Running Application from IDE] section of the Tutorial.
 
 Click the *Debug* button (image:start-debugger.svg[]) in the main toolbar.
 

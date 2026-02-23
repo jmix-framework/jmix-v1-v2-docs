@@ -132,7 +132,7 @@ Data binding refers to linking a visual component to a data container. Kanban ca
 [[collection-container]]
 === Collection Container
 
-Typically, you bind a `kanban` to data declaratively in the XML descriptor using the `dataContainer` attribute. This attribute should refer to a xref:flow-ui:data/collection-container.adoc[collection container], that holds the data you want to display. Please see the relevant <<basic, example>> in the previous section.
+Typically, you bind a `kanban` to data declaratively in the XML descriptor using the `dataContainer` attribute. This attribute should refer to a xref:flow-ui:data/collection-container.adoc[collection container] that holds the data you want to display. Please see the relevant <<basic, example>> in the previous section.
 
 [[key-value-containers-binding]]
 === Key-Value Container
@@ -204,9 +204,9 @@ Typically, you map a `kanban` to entity properties in the XML descriptor using t
 
 Note how the attribute's values are specified. The value can be an attribute of the root entity (`text = "text"`) or an attribute of its child entity (`username = "assignee.username"`) - use dot notation to traverse the object graph.
 
-The following example shows a `kanban` that is mapped to some field of its task entity:
+The following example shows a `kanban` that is mapped to some fields of its task entity:
 
-image::properties-mapping.png[align="center',width="800"]
+image::properties-mapping.png[align="center",width="800"]
 
 [source,xml,indent=0]
 ----
@@ -240,7 +240,7 @@ There are three ways to change data using the `kanban` component:
 
 * Change the attribute mapped to <<propertyStatus, status>> by dragging a kanban task card from one column to another.
 * Change the attribute mapped to <<propertyStatus, swimlane>> by dragging a kanban task card from one swimlane to another.
-* Change the attribute mapped to <<propertyPriority, priority>> by selection a different priority using the corresponding icon.
+* Change the attribute mapped to <<propertyPriority, priority>> by selecting a different priority using the corresponding icon.
 
 Visual components, including `kanban`, keep temporary changes in a data container until a confirmation action is triggered to commit them to the database.
 
@@ -281,7 +281,7 @@ image::kanban-actions.png[align="center",width="800"]
 
 [TIP]
 ====
-To add `action` in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#add-action[Add->Action] button in the *Jmix UI* inspector panel.
+To add an `action` in Jmix Studio, select the component in the view descriptor XML or in the *Jmix UI* structure panel and click on the xref:studio:screen-designer.adoc#add-action[Add->Action] button in the *Jmix UI* inspector panel.
 ====
 
 [[hierarchical-columns]]
@@ -319,7 +319,7 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 Displaying hierarchical columns is possible in two modes:
 
 * `COLUMNS` - sub-columns are represented as nested columns.
-* `TABS` - sub-columns are represented as texted tabs. In this case, it makes sense to specify the <<columnSelected, selected>> column attribute.
+* `TABS` - sub-columns are represented as text tabs. In this case, it makes sense to specify the <<columnSelected, selected>> column attribute.
 
 For example:
 
@@ -493,7 +493,7 @@ You can view and edit attributes applicable to the component in Jmix Studio usin
 |If `true`, adds column hiding actions to the column header context menu. The state of this attribute can be saved in the xref:flow-ui:facets/settings.adoc[user settings].
 |`true`
 |[[columnReorderingAllowed]]columnReorderingAllowed
-|If `true`, enables column reordering using drag and drop action. The state of this attribute can be saved in the xref:flow-ui:facets/settings.adoc[user settings].
+|If `true`, enables column reordering using drag-and-drop. The state of this attribute can be saved in the xref:flow-ui:facets/settings.adoc[user settings].
 |`false`
 |[[columnSummaryEnabled]]columnSummaryEnabled
 |If `true`, displays task count information in the header of each column. Information can also be displayed in the column footer. See <<columnFooterVisible, columnFooterVisible>>.
@@ -561,29 +561,29 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 |*Name*
 |*Description*
 |[[KanbanColumnClickEvent]]KanbanColumnClickEvent
-|`KanbanColumnClickEvent` fired when a column header is clicked. Corresponds to the `columnClick` DOM event.
+|`KanbanColumnClickEvent` is fired when a column header is clicked. Corresponds to the `columnClick` DOM event.
 |[[KanbanColumnDoubleClickEvent]]KanbanColumnDoubleClickEvent
-|`KanbanColumnDoubleClickEvent` fired when a column header is double-clicked. Corresponds to the `columnDoubleClick` DOM event.
+|`KanbanColumnDoubleClickEvent` is fired when a column header is double-clicked. Corresponds to the `columnDoubleClick` DOM event.
 |[[KanbanColumnCollapseEvent]]KanbanColumnCollapseEvent
-|`KanbanColumnCollapseEvent` fired when a column is collapsed using the column's actions menu, double-clicking the column header, or programmatically changing the <<columnCollapsed, column's collapsed>> property. Corresponds to the `columnCollapse` DOM event.
+|`KanbanColumnCollapseEvent` is fired when a column is collapsed using the column's actions menu, by double-clicking the column header, or by programmatically changing the <<columnCollapsed, column's collapsed>> property. Corresponds to the `columnCollapse` DOM event.
 |[[KanbanColumnExpandEvent]]KanbanColumnExpandEvent
-|`KanbanColumnExpandEvent` fired when a column is expanded using double-clicking the column header, or programmatically changing the <<columnCollapsed, column's collapse>> property. Corresponds to the `columnExpand` DOM event.
+|`KanbanColumnExpandEvent` is fired when a column is expanded by double-clicking the column header, or by programmatically changing the <<columnCollapsed, column's collapse>> property. Corresponds to the `columnExpand` DOM event.
 |[[KanbanColumnHideEvent]]KanbanColumnHideEvent
-|`KanbanColumnHideEvent` fired when a column is hidden using double-clicking the column header, or programmatically changing the <<columnCollapsed, column's collapsed>> property. Corresponds to the `columnHide` DOM event.
+|`KanbanColumnHideEvent` is fired when a column is hidden by double-clicking the column header, or by programmatically changing the <<columnCollapsed, column's collapsed>> property. Corresponds to the `columnHide` DOM event.
 |[[KanbanColumnReorderEvent]]KanbanColumnReorderEvent
-|`KanbanColumnReorderEvent` fired when the column order changes. Corresponds to the `columnReorder` DOM event.
+|`KanbanColumnReorderEvent` is fired when the column order changes. Corresponds to the `columnReorder` DOM event.
 |[[KanbanColumnShowEvent]]KanbanColumnShowEvent
-|`KanbanColumnShowEvent` fired when a column is shown using the column's actions menu, or programmatically changing the <<columnVisible, column's visible>> property. Corresponds to the `columnShow` DOM event.
+|`KanbanColumnShowEvent` is fired when a column is shown using the column's actions menu, or by programmatically changing the <<columnVisible, column's visible>> property. Corresponds to the `columnShow` DOM event.
 |[[KanbanDragEndEvent]]KanbanDragEndEvent
-|`KanbanDragEndEvent` fired when a task card is dropped. Corresponds to the `dragEnd` DOM event.
+|`KanbanDragEndEvent` is fired when a task card is dropped. Corresponds to the `dragEnd` DOM event.
 |[[KanbanDragStartEvent]]KanbanDragStartEvent
-|`KanbanDragStartEvent` fired when a task card is dragged. Corresponds to the `dragStart` DOM event.
+|`KanbanDragStartEvent` is fired when a task card is dragged. Corresponds to the `dragStart` DOM event.
 |[[KanbanTaskClickEvent]]KanbanTaskClickEvent
-|`KanbanTaskClickEvent` fired when a task is clicked. Corresponds to the `taskClick` DOM event.
+|`KanbanTaskClickEvent` is fired when a task is clicked. Corresponds to the `taskClick` DOM event.
 |[[KanbanTaskDoubleClickEvent]]KanbanTaskDoubleClickEvent
-|`KanbanTaskDoubleClickEvent` fired when a task is double-clicked. Corresponds to the `taskDoubleClick` DOM event.
+|`KanbanTaskDoubleClickEvent` is fired when a task is double-clicked. Corresponds to the `taskDoubleClick` DOM event.
 |[[saveDelegate]]saveDelegate
-| Adds a save delegate function which will be used to save data that has been updated using Kanban. Called when a task card is dragged across the board and when the task priority changes using the corresponding icon. See <<save-delegate, Save Delegate>>.
+|Adds a save delegate function that is used to save data updated with Kanban. It is called when a task card is dragged across the board and when the task priority changes using the corresponding icon. See <<save-delegate, Save Delegate>>.
 |===
 
 [[elements]]
@@ -675,7 +675,7 @@ The `dataField` must be unique within the Kanban and cannot be changed after it'
 |Specifies the orientation of the task cards inside the column with the following possible values: `VERTICAL`, `HORIZONTAL`.
 |`VERTICAL`
 |[[columnReorder]]reorder
-|If `true`, enabled the ability to reorder. The attribute works in conjunction with the <<columnReorderingAllowed, columnReorderingAllowed>> Kanban attribute.
+|If `true`, enables the ability to reorder. The attribute works in conjunction with the <<columnReorderingAllowed, columnReorderingAllowed>> Kanban attribute.
 |`true`
 |[[columnSelected]]selected
 |If `true`, selects the column in the tab hierarchy mode. Only applicable to sub-column when <<hierarchyMode, hierarchyMode>> is `TABS`.
@@ -693,7 +693,7 @@ The `dataField` must be unique within the Kanban and cannot be changed after it'
 
 CAUTION: This is a preview feature. Its look and feel, as well as implementation details, may change significantly in future releases.
 
-The `swimlaes` element can define a set of swimlanes to display, either explicitly or using an enumeration. Swimlanes are horizontal stripes that divide task cards into area of responsibility. Nested columns are not available when using swimlanes.
+The `swimlanes` element can define a set of swimlanes to display, either explicitly or using an enumeration. Swimlanes are horizontal stripes that divide task cards into areas of responsibility. Nested columns are not available when using swimlanes.
 
 [cols="1h,6", grid=none]
 |===
@@ -766,7 +766,7 @@ Kanban task cards can display specific fields of a Kanban task entity. The `prop
 |Attributes
 |<<propertyId, id>> -
 <<propertyStatus, status>> -
-<<propertyText, test>> -
+<<propertyText, text>> -
 <<propertyColor, color>> -
 <<propertyDueDate, dueDate>> -
 <<propertyPriority, priority>> -

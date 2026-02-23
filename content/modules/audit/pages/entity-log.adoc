@@ -35,7 +35,7 @@ To establish entity log configuration, click the *Create* button.
 
 * The *Export* and *Import* actions allow you to export and import configurations in JSON or ZIP format.
 
-Also, you can set up entity log by entering some records in the database if you want to include the configuration to the database initialization.
+Also, you can set up entity log by entering some records in the database if you want to include the configuration in database initialization.
 
 Logging configuration involves the `LoggedEntity` and `LoggedAttribute` entities, which correspond to the `AUDIT_LOGGED_ENTITY` and `AUDIT_LOGGED_ATTR` tables.
 

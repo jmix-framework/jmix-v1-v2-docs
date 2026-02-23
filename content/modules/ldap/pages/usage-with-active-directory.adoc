@@ -1,6 +1,6 @@
 = Usage with Active Directory
 
-The add-on provides a separate Security Configuration for using it with Active Directory. Since Active Directory supports its own non-standard authentication options, such as authentication with the domain username in the form `user@domain` instead of an LDAP distinguished name, Spring Security provides a separate `AuthenticationProvider`, which is customized for a typical Active Directory setup.
+The add-on provides a separate security configuration for using it with Active Directory. Since Active Directory supports its own non-standard authentication options, such as authentication with the domain username in the form `user@domain` instead of an LDAP distinguished name, Spring Security provides a separate `AuthenticationProvider`, which is customized for a typical Active Directory setup.
 
 If you are going to work with Active Directory, set the property:
 
@@ -9,7 +9,7 @@ If you are going to work with Active Directory, set the property:
 jmix.ldap.use-active-directory-configuration = true
 ----
 
-By setting this property you instruct the application to use the `ActiveDirectoryLdapAuthenticationProvider` which is more suitable for usage with Active Directory.
+By setting this property, you instruct the application to use the `ActiveDirectoryLdapAuthenticationProvider`, which is more suitable for use with Active Directory.
 
 You should specify the user search filter used by `ActiveDirectoryLdapAuthenticationProvider` for searching the user:
 
@@ -20,7 +20,7 @@ jmix.ldap.user-search-filter = (&(objectClass=user)(userPrincipalName={0}))
 
 In the example above users will enter their username in the form `username@domain`.
 
-Alternatively you may configure the authentication provider in the following way:
+Alternatively, you can configure the authentication provider in the following way:
 
 [source,properties,indent=0]
 ----

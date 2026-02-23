@@ -5,7 +5,7 @@ In our application, we already have roles _Employees_ and _HR Managers_. In this
 [[employees-resource-role]]
 == Resource Role for Employees
 
-An employee needs to read the `WebdavDocumentWrapper` entity instances to view them in UI.
+An employee needs to read the `WebdavDocumentWrapper` entity instances to view them in the UI.
 
 Double-click on *Security -> EmployeeRole* xref:security:resource-roles.adoc[resource role] in *Jmix tool* window.
 
@@ -45,7 +45,7 @@ If the employee has the role of _Employee_, display only WebDAV documents relate
 
 In the *Jmix* tool window, click *New* (image:add.svg[]) -> *Row-level Role*. In the *New Row-level Role* dialog, enter:
 
-* *Role name*: `WebDav documents department`
+* *Role name*: `WebDAV documents department`
 * *Role code*: `web-dav-documents-department`
 * *Class*: `com.company.onboarding.security.WebDavDocumentsDepartmentRole`
 
@@ -55,7 +55,7 @@ Studio will create and open an annotated interface:
 
 [source,java,indent=0]
 ----
-@RowLevelRole(name = "WebDav documents department", code = WebDavDocumentsDepartmentRole.CODE)
+@RowLevelRole(name = "WebDAV documents department", code = WebDavDocumentsDepartmentRole.CODE)
 public interface WebDavDocumentsDepartmentRole {
     String CODE = "web-dav-documents-department";
 }

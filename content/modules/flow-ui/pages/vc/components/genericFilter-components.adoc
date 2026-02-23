@@ -229,7 +229,7 @@ Determines whether a collection can be accepted and put inside the `IN` clause.
 
 Sets the label visibility.
 
-[[paramterClass]]
+[[parameterClass]]
 ==== parameterClass
 
 Specifies a class representing the desired parameter type. For example: `java.lang.String`.

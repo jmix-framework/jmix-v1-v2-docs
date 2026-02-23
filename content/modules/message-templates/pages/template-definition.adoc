@@ -7,7 +7,7 @@ We'll design the message for the booking creator to include a subject line and a
 
 Let’s create a template for the _subject_ of the message that will be sent to the creator of a booking. This template will dynamically include the booking title, making the subject line personalized and relevant.
 
-Navigate to the **Message Templates** view in your application. Click the *Create* button to start creating a new template.
+Navigate to the *Message Templates* view in your application. Click the *Create* button to start creating a new template.
 
 After clicking *Create*, the template designer will open. Here’s how to configure the template:
 
@@ -60,7 +60,7 @@ This template is formatted using the principles of the Apache FreeMarker Templat
 For example, let's break down the `${booking.startDate?datetime}` expression in Apache FreeMarker Template Engine:
 +
 ** `${...}`: This is the interpolation syntax in FreeMarker. It tells FreeMarker to evaluate the expression inside the curly braces and insert the result into the output. Think of it as a placeholder that will be replaced with a dynamic value.
-** `booking.startDate`: This is a variable reference. In this case, it's assumed that you have a variable named `booking` that is an object (JPA-entity) and that object has a property called `startDate`. FreeMarker uses dot notation to access properties of objects.
+** `booking.startDate`: This is a variable reference. In this case, it's assumed that you have a variable named `booking` that is an object (JPA entity) and that object has a property called `startDate`. FreeMarker uses dot notation to access object properties.
 ** `?datetime`: This is a built-in function in FreeMarker. It's used to format a value as a date and time. The `?` symbol is used to apply a built-in to the value to its left.
 +
 For more detailed information, please refer to the https://freemarker.apache.org/[FreeMarker^] documentation.

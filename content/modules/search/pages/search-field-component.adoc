@@ -159,7 +159,7 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 |`true`
 
 |[[searchSize]]searchSize
-|Limits the number of search results displayed on single page of search result.
+|Limits the number of search results displayed on a single page of search results.
 |Inherited from the application property xref:search:search-properties.adoc#jmix.search.searchResultPageSize[jmix.search.search-result-page-size].
 
 |[[searchStrategy]]searchStrategy

@@ -75,7 +75,7 @@ image::visual-components/components/check-box-group-basics-default.png[align="ce
 </div>
 ++++
 
-You can bind a component to an entity and its attributes hold in a xref:data/data-containers.adoc[data container].
+You can bind a component to an attribute of an entity held in a xref:data/data-containers.adoc[data container].
 
 To bind `checkBoxGroup` to an entity attribute:
 

@@ -1,29 +1,29 @@
 = Reference
 
-In this section, we will explore the details of Jmix Maps. We will delve into how xref:maps:layers-sources.adoc[layers] contribute to organizing data on a map and explore the sources that provide the visual content. Additionally, we will unravel the concept of xref:maps:geo-objects.adoc[geo-object] and explore its practical uses within the context of Jmix Maps.
+In this section, we will explore the details of Jmix Maps. We will look at how xref:maps:layers-sources.adoc[layers] help organize data on a map and explore the sources that provide visual content. We will also explain the concept of xref:maps:geo-objects.adoc[geo-object] and its practical uses in Jmix Maps.
 
 [[what-is]]
 == What is a map?
 
-Jmix Map is a component that displays geographical maps from various sources. It supports multiple layers, that allows effective data structuring and enables the implementation of distinct logic for each layer.
+Jmix Map is a component that displays geographical maps from various sources. It supports multiple layers, which allow effective data structuring and enable the implementation of distinct logic for each layer.
 
 There are two key concepts to understand when working with a map: **layers** and *data sources*.
 
 [[layer]]
 == Layer
 
-Layer – is a way to organize data on a map.
+Layer is a way to organize data on a map.
 
-Layers can be raster or vector. Raster layers consist of raster images which is a grid of pixels, while vector layers consist of vector geometries.
+Layers can be raster or vector. Raster layers consist of raster images, which are a grid of pixels, while vector layers consist of vector geometries.
 
-Raster layers represent the base map, vector layer are objects on the map that consist of one or more items, but are manipulated as a single unit. For example, vector layer may contain polygons describing districts or geographical points representing locations of customers or shops.
+Raster layers represent the base map. Vector layers are objects on the map that consist of one or more items but are manipulated as a single unit. For example, a vector layer may contain polygons describing districts or geographic points representing locations of customers or shops.
 
 image::structure.png[align="center", width="800"]
 
 The add-on supports the following types of layers:
 
 * *Tile layer* is used to display tiles provided by XYZ tiles services.
-* *Image layer* is used to work with static image or WMS (Web Map Service) image.
+* *Image layer* is used to work with a static image or a WMS (Web Map Service) image.
 * *Vector layer* contains geo-objects (entities with geometry attributes).
 
 Layers serve as a sort of wrapper because the displayed data depends on the <<source,Source>> being used.
@@ -60,15 +60,15 @@ Basically, geo-object is an entity that has a specific property of a geometry ty
 [[coordinates]]
 == Coordinates
 
-Coordinate reference systems (CRS) specifies every place on the Earth by a set of numbers, called coordinates. There are two particular groups of systems, the first one is projected coordinate reference systems (also called Cartesian or rectangular coordinate reference systems) and geographic coordinate reference systems.
+Coordinate reference systems (CRS) specify every place on Earth by a set of numbers called coordinates. There are two main groups: projected coordinate reference systems (also called Cartesian or rectangular coordinate reference systems) and geographic coordinate reference systems.
 
-Geographic coordinate system uses degrees of latitude and longitude and sometimes also a height value to describe a location on the earth’s surface. The most popular is called World Geodetic System - WGS 84 (EPSG:4326). GPS devices use it for defining position on Earth.
+A geographic coordinate system uses degrees of latitude and longitude, and sometimes also a height value, to describe a location on the Earth's surface. The most popular one is called the World Geodetic System - WGS 84 (EPSG:4326). GPS devices use it to define position on Earth.
 
 This is the default coordinate system for all coordinates passed to or received from the Jmix Map component.
 
 TIP: When dealing with EPSG:4326 coordinates in OpenLayers, put the longitude first, and then the latitude. For more detailed information, please refer to the https://openlayers.org/doc/faq.html#why-is-the-order-of-a-coordinate-lon-lat-and-not-lat-lon-[OpenLayers documentation].
 
-Once map data is projected onto a planar surface, the geographic system (latitude-longitude), which is based on angles measured on a sphere, is not valid anymore. Therefore, a Cartesian coordinate system is used. When a user inputs longitude and latitude coordinates into the Jmix Map component, it converts Geographic coordinate into the projected coordinates in meters used for raster tile generation in GIS and WM(T)S services.
+Once map data is projected onto a planar surface, the geographic system (latitude-longitude), which is based on angles measured on a sphere, is no longer valid. Therefore, a Cartesian coordinate system is used. When a user inputs longitude and latitude coordinates into the Jmix Map component, it converts geographic coordinates into projected coordinates in meters used for raster tile generation in GIS and WM(T)S services.
 
 [[markers]]
 == Markers

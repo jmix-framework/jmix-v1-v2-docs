@@ -17,7 +17,7 @@ In the visual designer, you can just drag menu items in the tree to change their
 [[menu-modes]]
 == Menu Modes
 
-By default, the *Composite mode* is selected. It means the menu contains items from `menu.xml` of the application, and all included add-ons as well as inherited from the framework. The inherited menu items can not be edited.
+By default, the *Composite mode* is selected. It means the menu contains items from `menu.xml` of the application, and all included add-ons as well as inherited from the framework. The inherited menu items cannot be edited.
 
 //image:menu-composite.png[align="center",width="351"]
 
@@ -48,4 +48,4 @@ You can create the following types of menu items:
 
 For more information on how to use View, and Bean types of menu items, see the xref:flow-ui:menu-config.adoc#item-attributes[Item Attributes] subsection of `MenuConfig`.
 
-After the menu item for opening a view is created, it is available to configure a set of xref:flow-ui:menu-config.adoc#item-properties[properties] to pass to the view’s public setters.
+After the menu item for opening a view is created, you can configure a set of xref:flow-ui:menu-config.adoc#item-properties[properties] to pass to the view’s public setters.

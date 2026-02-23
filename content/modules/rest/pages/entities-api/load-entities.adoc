@@ -4,9 +4,9 @@ The Entities API allows you to load entities through the API in various ways:
 
 * <<Load Entity by ID,Load Entity by ID>> loads a single entity by its unique identifier (ID).
 
-* <<Load List of Entities,Load List of Entities>> load all entities with pagination and sorting.
+* <<Load List of Entities,Load List of Entities>> loads all entities with pagination and sorting.
 
-* <<Load Entities via Search Filter,Load Entities via Search Filter>> allows you to filter for entities by filter criteria in the Request.
+* <<Load Entities via Search Filter,Load Entities via Search Filter>> allows you to filter entities by filter criteria in the request.
 
 * <<Load Entities via JPQL,Load Entities via JPQL>> loads entities via pre-configuring named JPQL queries.
 
@@ -77,7 +77,7 @@ GET http://localhost:8080/rest
 
 [TIP]
 ====
-Some attributes of the `Order` entity are missing in the JSON, as by default only local and persistent attributes of the entity are loaded. In case of reference attributes should also be included in the response you need to use <<Using Fetch Plans,Fetch Plans>> as described below.
+Some attributes of the `Order` entity are missing in the JSON, as by default only local and persistent attributes of the entity are loaded. If reference attributes should also be included in the response, you need to use <<Using Fetch Plans,Fetch Plans>> as described below.
 
 In case you want to include xref:dyn-attr:index.adoc[dynamic attributes] in the response, use the `dynamicAttributes` parameter to add a special hint to the query:
 
@@ -141,7 +141,7 @@ The Load Entities API supports the sorting of the result by entity attributes. Y
 
 NOTE: When the `sort` parameter is not specified, the default sort order depends on the database implementation. Normally databases sort by the timestamp of record creation, but this behavior is not guaranteed and can vary in different situations.
 
-Jmix has a special syntax to define the sort order. Ascending order is expressed through a `+` before the attribute name. This is optional though, as it is the default behavior sorting order. For descending order, you need to prefix the entity attribute with a `-` character.
+Jmix has a special syntax to define the sort order. Ascending order is expressed through a `+` before the attribute name. This is optional though, as it is the default sort order. For descending order, you need to prefix the entity attribute with a `-` character.
 
 The following example shows how you can sort Customers by their `name` attribute ascending.
 
@@ -218,7 +218,7 @@ Pagination is active by default, even if it is not explicitly requested by the c
 This default value is configurable globally via xref:app-properties.adoc#jmix.rest.default-max-fetch-size[jmix.rest.default-max-fetch-size] or on an entity-by-entity basis via xref:app-properties.adoc#jmix.rest.entity-max-fetch-size[jmix.rest.entityMaxFetchSize].
 ====
 
-The following example demonstrates how to load the third Page containing two `Customer` entities (5. & 6. entity):
+The following example demonstrates how to load the third page containing two `Customer` entities (5th and 6th entities):
 
 [source, http request]
 .Load Customer Request with Pagination
@@ -256,7 +256,7 @@ Both HTTP methods `GET` and `POST` are possible when interacting with the search
 
 The filter definition is a JSON structure that contains a set of conditions. A condition consists of the following attributes:
 
-property:: the entity attribute that is being filtered on (like `amount` on the Order entity).
+property:: the entity attribute that is being filtered by (like `amount` on the Order entity).
 +
 In case the attribute is a reference to another entity, it can also be a property path like `customer.name`
 
@@ -363,7 +363,7 @@ Another alternative to loading entities from the application is to use predefine
 [TIP]
 .When to use JPQL vs. Search Filter?
 ====
-Jmix provides various ways to load entity data generically. Use pre-defined JPQL queries when the search filter is not advanced enough to express the filter criterion. Also in case, the parameter should be pre-defined and not be adjustable by the API client.
+Jmix provides various ways to load entity data generically. Use pre-defined JPQL queries when the search filter is not advanced enough to express the filter criterion. Also use them when the parameter should be pre-defined and not adjustable by the API client.
 ====
 
 [[jpql-query-config]]
@@ -419,7 +419,7 @@ GET http://localhost:8080/rest
 [IMPORTANT]
 .URI Encoding
 ====
-The URL should only contain ASCII characters. This means the values of the parameters need to be URL encoded, as those values normally represent direct user input and therefore it cannot be ensured that non-ASCII characters are used.
+The URL should only contain ASCII characters. This means the values of the parameters need to be URL encoded, as those values normally represent direct user input and therefore it cannot be ensured that only ASCII characters are used.
 ====
 
 In the case of using `POST`, the query parameters are transferred in the JSON body containing each parameter as a key.
@@ -453,7 +453,7 @@ It is also possible to define a parameter as a collection type. In this case, th
 ----
 <1> The `ids` parameter is marked as collection of `UUID` type.
 
-When this parameter is used in a query, the corresponding  IDs have to be provided as a JSON array.
+When this parameter is used in a query, the corresponding IDs have to be provided as a JSON array.
 
 [source, http request]
 .Query API Collection Parameters Request
@@ -474,7 +474,7 @@ POST http://localhost:8080/rest/queries/sample_Order/ordersByIds
 
 By default, Jmix will remove empty values (`null`) from the JSON response, so that the attribute keys are not present in the JSON document.
 
-You can control this behavior by using the URL query parameter `returnNulls` and set its value to `true`. With that, Jmix will always add the attribute keys to the response, independent if the value is empty or not.
+You can control this behavior by using the URL query parameter `returnNulls` and setting its value to `true`. With that, Jmix will always add the attribute keys to the response, regardless of whether the value is empty or not.
 
 In the following example, a Customer is loaded by its ID and also requesting to contain all empty values:
 
@@ -508,7 +508,7 @@ GET http://localhost:8080/rest
 ----
 <1> The response contains the key `type` although it is empty
 
-NOTE: The Parameter `returnNulls` is present in all Entity Load APIs: Load by ID, Load List, Search and Load by Query.
+NOTE: The parameter `returnNulls` is present in all Entity Load APIs: Load by ID, Load List, Search, and Load by Query.
 
 [[fetch-plans]]
 == Using Fetch Plans
@@ -607,13 +607,13 @@ POST http://localhost:8080/rest/entities/sample_Order/search
 [[inline-fetch-plans]]
 === Inline Fetch Plans
 
-Since Jmix 2.5, the Entities API supports also inline fetch plans.
+Since Jmix 2.5, the Entities API also supports inline fetch plans.
 
 Inline fetch plans are passed with REST requests as JSON objects, representing the fetch plan structure. Local attributes of entities are specified by their names, references are specified by nested JSON objects consisting of the attribute name and its nested fetch plan. The `entity` property on the top level must specify the root entity name.
 
 If you make requests to generic REST from another Jmix application, you can use the `FetchPlanSerialization` bean for converting fetch plans to JSON strings.
 
-Inline fetch plan can be used in all endpoints accepting fetch plans. For example:
+Inline fetch plans can be used in all endpoints accepting fetch plans. For example:
 
 [source,http request]
 .Filter POST request with inline fetch plan

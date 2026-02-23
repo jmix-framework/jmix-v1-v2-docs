@@ -8,7 +8,7 @@ First, add the Generic REST add-on to your project according to the xref:index.a
 [[obtaining-access-token]]
 == Obtaining Access Token
 
-To access the protected resource the client must present a valid access token. The OAuth 2.1 specification provides several ways to get an access token from the authorization server. They are called grant types. In this example, we will use the {oauth-specification-page}#name-client-credentials-grant[Client Credentials grant^] which is suitable for confidential clients, such as backend integrations.
+To access a protected resource, the client must present a valid access token. The OAuth 2.1 specification provides several ways to get an access token from the authorization server. They are called grant types. In this example, we will use the {oauth-specification-page}#name-client-credentials-grant[Client Credentials grant^], which is suitable for confidential clients, such as backend integrations.
 
 The functionality responsible for issuing tokens and supporting OAuth 2.1 protocol features is located inside the Authorization Server add-on. You must add this add-on to your application. See the xref:authorization-server:index.adoc#installation[Authorization Server] add-on documentation for instructions on how to do this.
 
@@ -17,7 +17,7 @@ The functionality responsible for issuing tokens and supporting OAuth 2.1 protoc
 implementation 'io.jmix.authserver:jmix-authserver-starter'
 ----
 
-The idea is that in Jmix application we must register the client (e.g. an external application that needs to access Jmix REST API), define client id and secret, and then using these credentials we will be able to get the access token by a special HTTP request.
+The idea is that in a Jmix application we must register the client (for example, an external application that needs to access Jmix REST API), define a client ID and secret, and then use these credentials to get the access token by a special HTTP request.
 
 The simplest way to register a client is to add standard Spring Authorization Server application properties:
 
@@ -29,7 +29,7 @@ include::example$/rest-ex1/src/main/resources/application.properties[tags=my-cli
 The next set of application properties is Jmix-specific and defines which resource and row-level roles must be assigned to the access token issued to the client. In this example we will assign two resource roles:
 
 * `rest-minimal` (REST: minimal access) - to enable REST API endpoints access.
-* `user-management` (User management) - to allow operations with the User entity using REST API.
+* `user-management` (User management) - to allow operations with the User entity using the REST API.
 
 [source,properties,indent=0]
 ----
@@ -44,7 +44,7 @@ include::example$/rest-ex1/src/main/java/com/company/demo/security/UserManagemen
 ----
 <1> The API scope indicates the role will be applied for REST API requests
 
-After these properties are defined in the application it should be possible to obtain access tokens. In this example, we will use the `curl` command-line tool to interact with the REST API.
+After these properties are defined in the application, it should be possible to obtain access tokens. In this example, we will use the `curl` command-line tool to interact with the REST API.
 
 [source, bash]
 ----
@@ -98,7 +98,7 @@ curl -X GET http://localhost:8080/rest/entities/User \
 This request supposes that your project contains an entity named `User`.
 
 The entity name is either a Java class name or the value of `name` attribute in the `@Entity` or `@JmixEntity` annotation.
-If you have specified a *Project id* when created the project, the entity name is `<projectid>_User`.
+If you have specified a *Project id* when the project was created, the entity name is `<projectid>_User`.
 ====
 
 The response will contain all users that are available in the application:

@@ -2,7 +2,7 @@
 
 Jmix REST provides automatically generated API documentation in the OpenAPI Specification format.
 
-You can use the API documentation to visualize, test, or generate a client code for the REST API using tools like https://www.postman.com/[Postman^] or https://swagger.io/tools/[Swagger^].
+You can use the API documentation to visualize, test, or generate client code for the REST API using tools like https://www.postman.com/[Postman^] or https://swagger.io/tools/[Swagger^].
 
 By default, the documentation endpoints described below require xref:getting-started.adoc#rest-endpoints-security[authentication]. To make them available without authentication, set the xref:security:custom-endpoints.adoc#application-properties[jmix.resource-server.anonymous-url-patterns] application property:
 

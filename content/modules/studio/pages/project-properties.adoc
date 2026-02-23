@@ -9,7 +9,7 @@ In the *Jmix* tab, you can configure project repositories.
 image::prop-jmix.png[align="center",width="912"]
 
 * In the *Repository* field, you can choose one of the available repositories. If you want to use several repositories, select *Custom repository* and add them. In the table, you can choose repositories currently used in the project. Studio scans these repositories to discover what framework versions are available. You can also manually register any number of additional dependencies containing application components in the `build.gradle` script.
-* The *Jmix version* field displays version of the framework used in the project. The *Change*​ link located nearby allows you to xref:studio:project.adoc#upgrading-project[upgrade] the framework version, an automatic migration will be performed if required.
+* The *Jmix version* field displays the version of the framework used in the project. The *Change* link located nearby allows you to xref:studio:project.adoc#upgrading-project[upgrade] the framework version. An automatic migration will be performed if required.
 
 In the *Locales* tab, you can set locales used in your application. The editor also enables defining or overriding format strings for xref:data-model:datatype.adoc#localized-format-strings[parsing and formatting data].
 

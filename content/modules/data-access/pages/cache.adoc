@@ -37,9 +37,9 @@ For example, if entity cache is enabled for an entity (say, `Customer`), and you
 
 * ORM runs the query on the database.
 
-* Loaded `Customer` instances are placed to the entity cache.
+* Loaded `Customer` instances are placed in the entity cache.
 
-* A mapping of the query text and parameters to the list of identifiers of the returned instances is placed to the query cache.
+* A mapping of the query text and parameters to the list of identifiers of the returned instances is placed in the query cache.
 
 When you execute the same query with the same parameters the second time, the framework finds the query in the query cache and loads entity instances from the entity cache by identifiers. No database operations are performed.
 

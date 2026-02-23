@@ -137,7 +137,7 @@ Exporting functionality is provided by free xref:grid-export:index.adoc[] add-on
 
 image::groupdatagrid-export.png[align="center",width="1090"]
 
-The add-on provides three export options. It affects both the scope and the generated spreadsheet formating:
+The add-on provides three export options. It affects both the scope and the generated spreadsheet formatting:
 
 * *All Rows* – Exports all rows and flattens the grouping.
 * *Current Page* – Exports only the visible rows while *preserving the grouping structure as seen in the grid*.

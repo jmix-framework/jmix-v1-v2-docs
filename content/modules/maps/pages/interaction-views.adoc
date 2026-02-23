@@ -2,7 +2,7 @@
 
 The user ought to have the capability to modify and save the base location by clicking on the map marker. As of now, our application doesn't offer this functionality.
 
-Go to the `LocationLookupView` view controller and produce setter ang getter methods to pass the location we intend to display or save.
+Go to the `LocationLookupView` view controller and create setter and getter methods to pass the location we want to display or save.
 
 [source,java,indent=0]
 ----

@@ -1,6 +1,6 @@
 = REST DataStore
 
-The purpose of the REST data store is to provide an easy way of integrating Jmix applications. The result of the integration is the ability to access external entities from a remote Jmix application through the xref:data-access:data-manager.adoc[DataManager] interface in the same way as local JPA entities. The external entities can be displayed in UI, updated and saved back to the remote application using the standard CRUD functionality provided by Jmix, without writing any specific code.
+The purpose of the REST data store is to provide an easy way of integrating Jmix applications. The result of the integration is the ability to access external entities from a remote Jmix application through the xref:data-access:data-manager.adoc[DataManager] interface in the same way as local JPA entities. The external entities can be displayed in the UI, updated, and saved back to the remote application using the standard CRUD functionality provided by Jmix, without writing any specific code.
 
 This document provides reference information about the REST DataStore add-on. If you want to learn more about how to use it in various scenarios, refer to the following guides:
 
@@ -252,7 +252,7 @@ include::example$rest-ds-client/src/main/resources/com/company/clientapp/view/re
 [[entity-events]]
 == Entity Events
 
-REST data store sends xref:data-access:entity-events.adoc#saving-loading-events[EntitySavingEvent and EntityLoadingEvent] the same as `JpaDataStore`. But it doesn't send xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] because it cannot provide information about attributes changed since load. Instead of `EntityChangedEvent`, REST data store sends two specific events:
+REST data store sends xref:data-access:entity-events.adoc#saving-loading-events[EntitySavingEvent and EntityLoadingEvent] the same way as `JpaDataStore`. But it doesn't send xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] because it cannot provide information about attributes changed since load. Instead of `EntityChangedEvent`, REST data store sends two specific events:
 
 * `RestEntitySavedEvent` - sent after the entity is successfully saved to the service. It contains the saved entity instance with the state right before sending to the service.
 * `RestEntityRemovedEvent` - sent after the entity is removed from the service. It contains removed entity with the state right before sending to the service.
@@ -328,7 +328,7 @@ Methods of `@RemoteService` interfaces can have parameters and results of the fo
 * Simple type: primitive (`int`, `double`, etc.), wrapper (`Integer`, `Double`, etc.), `String`.
 * xref:data-model:entities.adoc[Entity]
 * xref:data-model:enumerations.adoc[Enumeration]
-* A type that have a corresponding xref:data-model:datatype.adoc[Datatype]. These include types supported in xref:data-model:entities.adoc#attributes[entity attributes], as well as custom data types.
+* A type that has a corresponding xref:data-model:datatype.adoc[Datatype]. These include types supported in xref:data-model:entities.adoc#attributes[entity attributes], as well as custom data types.
 * Arbitrary POJO or Java record with fields of all above types.
 * `java.util.List` parameterized with all above types.
 ====
@@ -347,7 +347,7 @@ You can also invoke any endpoints of the service application using the Spring's 
 
 You can share entity classes and service interfaces between applications integrated using the REST DataStore. This leads to tighter coupling between the applications, but reduces code duplication and development efforts.
 
-With this approach, the shared code is placed to a separate add-on that is used both by the client and service applications. The shared code may include JPA entities, business service interfaces, security roles, as well as any common utility classes.
+With this approach, the shared code is placed in a separate add-on that is used both by the client and service applications. The shared code may include JPA entities, business service interfaces, security roles, as well as any common utility classes.
 
 Below we will describe the necessary steps for sharing entities, service interfaces, and roles, using the Products and Orders applications as an example. The Products application exposes its `Product` and `ProductCategory` entities and `InventoryService` through the REST API. The Orders application uses these entities and invokes the service through the REST DataStore.
 

@@ -1,9 +1,9 @@
-= PivotTable onboarding
+= PivotTable Onboarding
 
-The PivotTable can be very useful for analysing data. Let's see an example of how we can use the component for this purpose. Suppose we are going to analyse tips dataset and determine whether the spending in a restaurant differs between smokers and non-smokers.
+The PivotTable can be very useful for analyzing data. Let's see an example of how we can use the component for this purpose. Suppose we want to analyze a tips dataset and determine whether spending in a restaurant differs between smokers and non-smokers.
 
-== Create entity TipInfo
-В соответствии с данными из csv файла создадим сущность.
+== Create TipInfo entity
+Based on the data in the CSV file, create an entity.
 
 [source,java,indent=0]
 ----
@@ -12,39 +12,38 @@ include::../examples/pivottable-onboarding/src/main/java/com/company/pivottableo
 
 == Export data
 
-Next, export tips dataset into the application by any way. For example, you can add `liquibase` changelog which runs export data from `tips.csv`.
+Next, load the tips dataset into the application in any way. For example, you can add a `liquibase` changelog that loads data from `tips.csv`.
 [source,xml,indent=0]
 ----
 include::../examples/pivottable-onboarding/src/main/resources/com/company/pivottableonboarding/liquibase/changelog/2024/10/21-02-init-tip-info-data.xml[tags=onboarding-tip-info-data-changelog]
 ----
 
 == Create UI
-Create blank view.
+Create a blank view.
 Specify the data container.
 [source,xml,indent=0]
 ----
 include::../examples/pivottable-onboarding/src/main/resources/com/company/pivottableonboarding/view/tipsanalyse/tips-analyse-view.xml[tags=onboarding-tip-info-dc]
 ----
 
-Add extension PivotTable. Through marketplace or manually.
+Add the PivotTable add-on through Marketplace or manually.
 
 
 Press Add Component and select PivotTable.
-Add dataContainer and configure properties.
+Add `dataContainer` and configure properties.
 [source,xml,indent=0]
 ----
 include::../examples/pivottable-onboarding/src/main/resources/com/company/pivottableonboarding/view/tipsanalyse/tips-analyse-view.xml[tags=onboarding-pivot-table]
 ----
 
 == Analyse
-Now you can run application and try to analyse data.
-We don't set any predefined rows, columns, aggregations and renderers.
-So we see component with all not used properties.
+Now you can run the application and analyze the data.
+We do not set any predefined rows, columns, aggregations, or renderers.
+So, the component shows all unused properties.
 
-Move `Smoker` to rows section and `Day` to columns section.
-Click on the `Day` and choose `Saturday` and `Sunday`.
-Select `Average` aggregation. Then if select `Tips` and after `Total bill` in the `Aggregation Property`, we can notice that `smokers` leave about the same tips as `non-smokers` `3.08` vs `3.14`, but spend 10% more `22.16` vs `20.13` at average.
-
+Move `Smoker` to the rows section and `Day` to the columns section.
+Click `Day` and choose `Saturday` and `Sunday`.
+Select `Average` aggregation. Then select `Tips` and then `Total bill` in `Aggregation Property`. You can see that `smokers` leave about the same tips as `non-smokers` (`3.08` vs `3.14`), but spend about 10% more on average (`22.16` vs `20.13`).
 
 
 

@@ -27,7 +27,7 @@ image::add-ons-installed.png[align="center",width="877"]
 
 Installed add-ons are grouped into two categories. *Marketplace Add-Ons* are installed from Marketplace. *Custom Add-Ons* are developed by third parties and hosted in third-party repositories, including local Maven.
 
-Also, you can use button next to *Install*, to add an add-on by coordinates.
+Also, you can use the button next to *Install* to add an add-on by coordinates.
 
 image::add-ons-button.png[align="center", width="877"]
 

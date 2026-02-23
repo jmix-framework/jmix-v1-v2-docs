@@ -47,7 +47,7 @@ Defines the authentication type.
 
 Default value: `basic`.
 
-Although not recommended, you can set a `digest` in this property and avoid setting up HTTPS on the server. In this case, remember to change the <<jmix.webdav.url-prefix>> property to generate links with the correct server protocol and port. Also, note that all users must have hashed passwords stored separately in the database. The add-on updates these passwords when you change a user's password, so you must do this for each user after setting up digest authentication.
+Although not recommended, you can set this property to `digest` and avoid setting up HTTPS on the server. In this case, remember to change the <<jmix.webdav.url-prefix>> property to generate links with the correct server protocol and port. Also, all users must have separately stored hashed passwords in the database. The add-on updates these passwords when you change a user's password, so you must do this for each user after setting up digest authentication.
 
 [[jmix.webdav.auto-generate-unique-resource-uri]]
 == jmix.webdav.auto-generate-unique-resource-uri
@@ -61,14 +61,14 @@ Default value: `true`.
 [[jmix.webdav.document-versions-cleaning-cron]]
 == jmix.webdav.document-versions-cleaning-cron
 
-This property allows you to change the schedule of xref:webdav:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] as http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^] expression if necessary.
+This property allows you to change the schedule of xref:webdav:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] as a http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^] expression if necessary.
 
 The default value is `0 0 0 1 * ? *` (once a month).
 
 [[jmix.webdav.expired-lock-cleaning-cron]]
 == jmix.webdav.expired-lock-cleaning-cron
 
-This property allows you to change the schedule of xref:webdav:configuration.adoc#expired-lock-cleaning-job[ExpiredLockCleaningJob] as http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^] expression if necessary.
+This property allows you to change the schedule of xref:webdav:configuration.adoc#expired-lock-cleaning-job[ExpiredLockCleaningJob] as a http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^] expression if necessary.
 
 The default value is `0 0 0/2 ? * *` (every two hours).
 
@@ -82,7 +82,7 @@ By default, the file storage returned by `FileStorageLocator.getDefault()` is us
 [[jmix.webdav.lock-timeout]]
 == jmix.webdav.lock-timeout
 
-Defines the default interval in milliseconds for a document xref:webdav:webdav-documents.adoc#lock-unlock[locking].
+Defines the default interval in milliseconds for document xref:webdav:webdav-documents.adoc#lock-unlock[locking].
 
 Default value: `600000`.
 
@@ -103,7 +103,7 @@ Default value: `true`.
 [[jmix.webdav.url-prefix]]
 == jmix.webdav.url-prefix
 
-Defines the prefix for WebDAV document link.
+Defines the prefix for a WebDAV document link.
 
 Default value: `\https://localhost:8443/webdav`.
 

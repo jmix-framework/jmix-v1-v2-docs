@@ -1,6 +1,6 @@
 = Creating Business Calendar
 
-You can create business calendars both at <<business-calendars-runtime,runtime>> using a special visual editor, or at <<business-calendars-design-time,design time>> with annotated Java interfaces.
+You can create business calendars both at <<business-calendars-runtime,runtime>> using a special visual editor, and at <<business-calendars-design-time,design time>> with annotated Java interfaces.
 
 [[business-calendars-runtime]]
 == Creating Business Calendar at Runtime
@@ -44,7 +44,7 @@ image::business-calendar-annual-holiday.png[align="center" width="484"]
 +
 image::business-calendar-cron-holiday.png[align="center" width="484"]
 +
-It can help adding some nontrivial holidays, like the _Third Friday of every month_ or the _First Monday of July_, etc.
+It can help add some nontrivial holidays, like the _Third Friday of every month_ or the _First Monday of July_.
 
 === Working Schedule
 
@@ -54,14 +54,14 @@ image::working-schedule-editor.png[align="center" width="1392"]
 
 === Additional Business Days
 
-On the *Additional business days* tab, you can set days that you want to always be treated business days. If such a date coincides with a holiday, it will still be a workday. There is an option to set different working hours.
+On the *Additional business days* tab, you can set days that you want to always be treated as business days. If such a date coincides with a holiday, it will still be a workday. There is an option to set different working hours.
 
 image::additional-business-day-editor.png[align="center" width="1392"]
 
 [[business-calendars-design-time]]
 == Creating Business Calendar at Design Time
 
-Use annotated Java interface to create a business calendar at design time. For example:
+Use an annotated Java interface to create a business calendar at design time. For example:
 
 [source,java,indent=0]
 ----
@@ -78,6 +78,6 @@ include::example$/calendars-ex1/src/main/java/com/company/calendarsex1/calendars
 <6> Specify scheduled business days.
 <7> Specify additional business days.
 
-A business calendar created at the design time is displayed in the list of all business calendars and is available only for viewing.
+A business calendar created at design time is displayed in the list of all business calendars and is available only for viewing.
 
 image::business-calendars.gif[align="center" width="1282"]

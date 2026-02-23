@@ -10,7 +10,7 @@ Default value: `true`
 [[jmix.search.defaultSearchStrategy]]
 == jmix.search.default-search-strategy
 
-Name of default xref:search-in-ui.adoc#search-strategies[search strategy].
+Name of the default xref:search-in-ui.adoc#search-strategies[search strategy].
 
 Default value: `anyTermAnyField`
 
@@ -31,21 +31,21 @@ Default value: none
 [[jmix.search.enqueueingSessionProcessingCron]]
 == jmix.search.enqueueing-session-processing-cron
 
-http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] that is used by default Enqueueing Session processing Quartz xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration].
+http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] used by the default Enqueueing Session processing Quartz xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration].
 
 Default value: `0/5 * * * * ?`
 
 [[jmix.search.indexingQueueProcessingCron]]
 == jmix.search.indexing-queue-processing-cron
 
-http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] that is used by default Indexing Queue processing Quartz xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration].
+http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] used by the default Indexing Queue processing Quartz xref:indexing-queue.adoc#default-quartz-configuration[scheduling configuration].
 
 Default value: `0/5 * * * * ?`
 
 [[jmix.search.indexSchemaManagementStrategy]]
 == jmix.search.index-schema-management-strategy
 
-The way of index schema synchronization. See xref:config-options.adoc#indexes-creation[Index Creation] for more detail.
+The way of index schema synchronization. See xref:config-options.adoc#indexes-creation[Index Creation] for more details.
 
 Default value: `create-or-recreate`
 
@@ -65,7 +65,7 @@ Default value: `8`.
 [[jmix.search.maxSearchPageCount]]
 == jmix.search.max-search-page-count
 
-Sets the max amount of result pages.
+Sets the maximum number of result pages.
 
 Default value: `100`
 
@@ -85,21 +85,21 @@ Default value: `3`
 [[jmix.search.processQueueBatchSize]]
 == jmix.search.process-queue-batch-size
 
-Sets the amount of queue items processed in single batch.
+Sets the number of queue items processed in a single batch.
 
 Default value: `100`
 
 [[jmix.search.reindexEntityEnqueueBatchSize]]
 == jmix.search.reindex-entity-enqueue-batch-size
 
-Sets the amount of entity instances enqueued in single batch during entity reindex process.
+Sets the number of entity instances enqueued in a single batch during the entity reindex process.
 
 Default value: `100`
 
 [[jmix.search.searchIndexNamePrefix]]
 == jmix.search.search-index-name-prefix
 
-Prefix for search index name. Index naming template: <prefix><entity_name>. See xref:getting-started.adoc#configure-index-naming[Configure Index Naming].
+Prefix for the search index name. Index naming template: `<prefix><entity_name>`. See xref:getting-started.adoc#configure-index-naming[Configure Index Naming].
 
 Default value: `search_index_`
 
@@ -113,7 +113,7 @@ Default value: `100`
 [[jmix.search.searchResultPageSize]]
 == jmix.search.search-result-page-size
 
-Sets the max amount of objects displayed on single page of search result.
+Sets the maximum number of objects displayed on a single page of search results.
 
 Default value: `100`
 
@@ -134,7 +134,7 @@ Default value: `true`
 [[jmix.search.server.url]]
 == jmix.search.server.url
 
-Defines URL of the Elasticsearch/OpenSearch service
+Defines the URL of the Elasticsearch/OpenSearch service.
 
 Default value: `localhost:9200`
 
@@ -160,7 +160,7 @@ Defines refresh policy that should be used with bulk requests to search service.
 Refresh makes recent changes available for searching.
 
 * `false` - bulk request will not cause refresh.
-Changes made by this request will be visible after refresh is performed via another causes - explicit refresh operation or periodical refresh (by default - every second).
+Changes made by this request will be visible after refresh is performed via another cause: an explicit refresh operation or periodic refresh (by default, every second).
 Recommended policy. Use other policies only if you must have the changes made by a request visible synchronously with the request.
 * `true` - refresh will be performed immediately after request execution.
 _This mode should be used only after careful verification because it can lead to performance issues._
@@ -181,7 +181,7 @@ Default value: none
 [[jmix.search.server.ssl.certificateAlias]]
 == jmix.search.server.ssl.certificate-alias
 
-Defines alias what will be used to store certificate to the Key Store.
+Defines the alias that will be used to store the certificate in the key store.
 
 Default value: `es_client_ca`
 

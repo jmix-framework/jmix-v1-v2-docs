@@ -5,7 +5,7 @@ Each non-reference entity attribute is associated with an implementation of the 
 
 The framework provides a set of `Datatype` implementations corresponding to standard data types of xref:data-model:entities.adoc#attributes[entity attributes].
 
-NOTE: We use term _datatype_ in all lowercase to refer to implementations of the `Datatype` interface.
+NOTE: We use the term _datatype_ in all lowercase to refer to implementations of the `Datatype` interface.
 
 [[localized-format-strings]]
 == Localized Format Strings
@@ -85,7 +85,7 @@ Instead, inject `ApplicationContext` and use its `getBean()` methods to locate r
 [[datatypeformatter]]
 == DatatypeFormatter
 
-`DatatypeFormatter` is an applied-purpose bean for programmatic formatting and parsing of values based on datatypes.  It automatically applies the <<localized-format-strings, localized format strings>> for the current user’s locale.
+`DatatypeFormatter` is a utility bean for programmatic formatting and parsing of values based on datatypes. It automatically applies the <<localized-format-strings, localized format strings>> for the current user's locale.
 
 Example usage:
 
@@ -127,7 +127,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/GeoPoin
 <1> A unique identifier of the datatype.
 <2> Java class handled by the datatype.
 <3> `defaultForClass = true` means that the datatype will be automatically applied to all entity attributes of `GeoPoint` type.
-<4> The `@Ddl` annotation specifies that Studio should generate `varchar(255)` column in the database for attributes of this type. See <<ddl-annotation,below>> for more information.
+<4> The `@Ddl` annotation specifies that Studio should generate a `varchar(255)` column in the database for attributes of this type. See <<ddl-annotation,below>> for more information.
 <5> Formatting without current user's locale. This method is called for system-level conversion.
 <6> Formatting considering current user's locale. This method is called in the UI.
 <7> Parsing without current user's locale. This method is called for system-level conversion.

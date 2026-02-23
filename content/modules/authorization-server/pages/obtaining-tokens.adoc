@@ -123,7 +123,7 @@ The access token you will get later as a result of all steps will be associated 
 
 If credentials are valid, you should be redirected to the Redirect URI https://oauthdebugger.com/debug[^] that was defined in `application.properties`. Authorization code must be added as a `code` URL parameter, e.g. `++https://oauthdebugger.com/debug?code=BdgQArzTaj_xna_a0-PoUIQwszMR0xPkToxcktd5wPe4SbO18qBYStqJePOPNaoe9cuIJe0nac0cw0yVC9Iv3SeofEYbMZhMKldoJQQwcBUnBTfp2AyQayDlaE8KPaCf&state=sujodv3j7eh++`
 
-To exchange this authorization code for access token you need to execute another HTTP request to the token endpoint of Jmix application. We will use the `curl` command line tools for this. Use the `code_verifier` value from the initial page of the https://oauthdebugger.com[^].
+To exchange this authorization code for an access token, you need to execute another HTTP request to the token endpoint of the Jmix application. We will use the `curl` command-line tool for this. Use the `code_verifier` value from the initial page of https://oauthdebugger.com[^].
 
 [source,bash]
 ----
@@ -286,7 +286,7 @@ The `refresh_token` grant type should be registered for the client:
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=myapp-client-registration-authorization-grant-type]
 ----
 
-To exchange the refresh token for a new access token you need to execute HTTP request to the token endpoint of Jmix application. We will use the `curl` command line tools for this.
+To exchange the refresh token for a new access token, you need to execute an HTTP request to the token endpoint of the Jmix application. We will use the `curl` command-line tool for this.
 
 [source,bash]
 ----

@@ -24,14 +24,14 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=mana
 
 The index schema synchronization is automatically performed on application startup. Besides, it can be manually performed using `synchronizeXXX` operations of xref:search:search-api.adoc#entity-indexing-mbean[EntityIndexing MBean].
 
-The EntityIndexing MBean also contains the `recreateIndex` operation. It drops and creates index without taking into account the current Index Schema Management Strategy, even if the target index has an actual configuration. All index data will be lost.
+The EntityIndexing MBean also contains the `recreateIndex` operation. It drops and creates an index without taking into account the current Index Schema Management Strategy, even if the target index has an actual configuration. All index data will be lost.
 
 [[index-naming]]
 == Index Naming
 
 Search indexes have the following naming template: `<prefix><entity_name>`.
 
-Default prefix is `search_index_`.
+The default prefix is `search_index_`.
 
 If multiple projects use the same Elasticsearch service, you should ensure that index names are unique: all projects should have unique entity names or projects should have different prefixes.
 
@@ -42,7 +42,7 @@ Prefixes can be configured by adding the following property to your `application
 include::example$/search-ex1/src/main/resources/application.properties[tags=prefix]
 ----
 
-Also you can specify full index name in `indexName` attribute of `@JmixEntitySearchIndex`.
+Also, you can specify a full index name in the `indexName` attribute of `@JmixEntitySearchIndex`.
 
 [[existing-data-indexing]]
 == Existing Data Indexing

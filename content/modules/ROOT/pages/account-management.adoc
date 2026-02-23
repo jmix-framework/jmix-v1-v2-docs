@@ -3,7 +3,7 @@
 [[account-registration]]
 == Account Registration
 
-You should register Jmix account to use Jmix Studio or to manage your subscriptions. You can make it both on website or right xref:studio:subscription.adoc#sign-in-to-account[in Studio].
+You should register a Jmix account to use Jmix Studio or to manage your subscriptions. You can do it both on the website and xref:studio:subscription.adoc#sign-in-to-account[in Studio].
 
 . Open https://store.jmix.io/account[^].
 +
@@ -101,14 +101,14 @@ image::store/buy-company-subscription-payment.png[align="center", width="1260"]
 +
 If you select the *Credit card*, add a valid payment card. Verify the total sum and click on the *Complete Purchase* button.
 +
-When using the *Wire transfer*, select the currency. Verify the total sum and click on the *Complete Purchase* button. The bank transfer invoice was sent to your email. Also, you can find it on your <<posted-invoices,account page>>. Please, make your payment to the bank account specified in the invoice.
+When using the *Wire transfer*, select the currency. Verify the total sum and click on the *Complete Purchase* button. The bank transfer invoice will be sent to your email. Also, you can find it on your <<posted-invoices,account page>>. Please make your payment to the bank account specified in the invoice.
 
-. After successful payment, visit the <<subscription-management,subscription management page>>. Assign licenses to your colleagues or to manage the parameters of your subscription.
+. After successful payment, visit the <<subscription-management,subscription management page>>. Assign licenses to your colleagues or manage the parameters of your subscription.
 
 [[individual]]
 === Individual
 
-An Individual license is an option for private individuals who purchase a license with their own funds and solely for their own use. Individual licenses are not to be purchased, refunded or in any way financed by companies.
+An Individual license is an option for private individuals who purchase a license with their own funds and solely for their own use. Individual licenses must not be purchased, refunded, or financed in any way by companies.
 
 To buy a Sprint, Enterprise, or BPM subscription:
 
@@ -130,7 +130,7 @@ image::store/get-idividual-license-dialog.png[align="center", width="521"]
 +
 image::store/buy-individual-subscription-request.png[align="center", width="1031"]
 
-. As soon as the Jmix team validates your data, they will email you with further instructions. Usually, it takes not more than one working days.
+. As soon as the Jmix team validates your data, they will email you with further instructions. Usually, it takes no more than one working day.
 
 . If your request has been confirmed, complete your purchase at the store. Go to the https://store.jmix.io/store[^].
 +
@@ -169,14 +169,14 @@ image::store/buy-academic-subscription-request.png[align="center", width="519"]
 +
 image::store/buy-individual-subscription-request.png[align="center", width="1031"]
 
-. As soon as the Jmix team validates your data, they will email you with further instructions. Usually, it takes not more than one working days.
+. As soon as the Jmix team validates your data, they will email you with further instructions. Usually, it takes no more than one working day.
 
 . If your request has been confirmed, visit the <<subscription-management,subscription management page>> to assign licenses to your colleagues.
 
 [[subscription-management]]
 == Subscription Management
 
-To view details of subscription, change plan, or cancel renewal:
+To view details of a subscription, change a plan, or cancel renewal:
 
 . Switch to the *Account* tab (https://store.jmix.io/account[^]).
 . Scroll down to the *Subscription* section.
@@ -209,14 +209,14 @@ image::store/assign-new-user.png[align="center", width="522"]
 You should select a role for this user. Available values are _Worker_ and _Admin_.
 +
 ** _Worker_ only sees his license key on the profile screen. If a user with the _Worker_ role buys a subscription, he becomes an _Admin_ and manages the purchased and other subscriptions of the company.
-** _Admin_ is a role with full access. Admin sees all the keys in the subscription in the company profile and can manage payments.
+** _Admin_ is a role with full access. An admin sees all the keys in the subscription in the company profile and can manage payments.
 +
 The instructions to register on the website and activate a license will be sent to the user by email. As soon as the invitation is confirmed, you will get a notification.
 
 . If the license key is assigned to the user, you can:
 
 * Re-assign this key
-* Email to the user with the instructions to activate a license
+* Send an email to the user with instructions to activate a license
 * View the license key.
 +
 NOTE: We recommend using the license key only for setting up CI/CD. To activate Jmix Studio, use your login and password.
@@ -230,7 +230,7 @@ To change the https://www.jmix.io/subscription-plans-and-prices/#plan[subscripti
 
 You can upgrade a plan and decrease or increase the number of users.
 
-NOTE: Pay attention, it is not possible to change the number of users and plan at the same time. You should do this in two steps.
+NOTE: It is not possible to change the number of users and the plan at the same time. You should do this in two steps.
 
 All calculations are displayed on the right.
 
@@ -270,7 +270,7 @@ image::store/add-user-dialog.png[align="center", width="521"]
 
 . After you have added a user, you can <<assign-license-key,assign the license key>> to this user.
 . To assign the role to the user, click on the *Edit* button in the *Team Member* section and change the role in the dropdown list.
-. To delete the user, click on the *Delete* button next to this user. If the user has a license key, you should unassign the license key from this user before deletion from team members.
+. To delete the user, click on the *Delete* button next to this user. If the user has a license key, you should unassign the license key from this user before deleting the user from team members.
 
 [[consulting]]
 == Consulting
@@ -302,7 +302,7 @@ image::store/buy-consulting-payment.png[align="center", width="1260"]
 +
 If you select the *Credit card*, add a valid payment card. Verify the total sum and click on the *Complete Purchase* button.
 +
-When using the *Wire transfer*, select the currency. Verify the total sum and click on the *Complete Purchase* button. The bank transfer invoice was sent to your email. Also, you can find it on your <<posted-invoices,account page>>. Please, make your payment to the bank account specified in the invoice.
+When using the *Wire transfer*, select the currency. Verify the total sum and click on the *Complete Purchase* button. The bank transfer invoice will be sent to your email. Also, you can find it on your <<posted-invoices,account page>>. Please make your payment to the bank account specified in the invoice.
 
 . The instructions on how to set up the communication channels between you and the Jmix team will be sent to your email.
 

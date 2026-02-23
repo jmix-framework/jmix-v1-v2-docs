@@ -5,9 +5,9 @@
 
 image:search:search_architecture.png[Architecture Diagram, align="center"]
 
-Search add-on includes the following components:
+The Search add-on includes the following components:
 
-* *Startup Index Synchronizer* - automatically validates and recreates irrelevant or missing indexes on application startup. Starts background process with enqueueing all instances of entities related to created indexes.
+* *Startup Index Synchronizer* - automatically validates and recreates irrelevant or missing indexes on application startup. Starts a background process that enqueues all instances of entities related to created indexes.
 * *Entity Tracking Listener* - tracks changes of indexed entities and enqueues corresponding queue items.
 * *Quartz Scheduler* - schedules job that periodically processes items of the Indexing Queue.
 * *Indexing Queue Manager* - enqueues items to the Indexing Queue. Processes previously enqueued items and performs corresponding actions via the Entity Indexer.
@@ -25,7 +25,7 @@ If you want to index/delete entity instances directly without enqueuing an event
 * `indexByEntityId(Id entityId)` - stores entity instance to index by a provided id.
 * `indexCollectionByEntityIds(Collection<Id> entityIds)` - stores entity instances to index by provided ids.
 * `delete(Object entityInstance)` - deletes a provided entity instance from index.
-* `deleteCollection(Collection<Object> entityInstances)` - deletes provided entity instances from index
+* `deleteCollection(Collection<Object> entityInstances)` - deletes provided entity instances from index.
 * `deleteByEntityId(Id entityId)` - deletes entity instance from the index by a provided id.
 * `deleteCollectionByEntityIds(Collection<Id> entityIds)` - deletes entity instances from index by provided ids.
 
@@ -44,15 +44,15 @@ If you want to enqueue instances to be indexed/deleted, use methods of `Indexing
 * `enqueueDeleteByEntityId(Id entityId)` - enqueues delete event for a provided entity id.
 * `enqueueDeleteCollectionByEntityIds(Collection<Id> entityIds)` - enqueues delete events for provided entity ids.
 * `processNextBatch()` - retrieves the next batch of items from the indexing queue and processes them.
-* `processNextBatch(int batchSize)` - retrieves the next batch (with size equals to `batchSize`) of items from the indexing queue and processes them.
-* `processEntireQueue()` - retrieves all items from indexing queue and processes them.
+* `processNextBatch(int batchSize)` - retrieves the next batch (with size equal to `batchSize`) of items from the indexing queue and processes them.
+* `processEntireQueue()` - retrieves all items from the indexing queue and processes them.
 
 [[searching-api]]
 == Searching API
 
 If you want to search entities in the index, use methods of `EntitySearcher`:
 
-* `SearchResult search(SearchContext searchContext, String searchStrategy)` - performs searching in search indexes according to provided `SearchContext` and search strategy name.
+* `SearchResult search(SearchContext searchContext, String searchStrategy)` - performs searching in search indexes according to the provided `SearchContext` and search strategy name.
 * `search(SearchContext searchContext)` - similar to the previous one but uses the default `SearchStrategy`.
 * `searchNextPage(SearchResult previousSearchResult)` - performs a search for the next page based on `SearchResult` of the previous search request. Returns its own `SearchResult` that can be used for the next invocation.
 
@@ -67,7 +67,7 @@ The returned `SearchResult` object contains the result data:
 
 * `SearchStrategy` - describes the way of `searchText` processing.
 
-Also, you can use `SearchResult` to load a collection of related entity instances. For that purpose, use methods of `SearchResultProcessor:`
+Also, you can use `SearchResult` to load a collection of related entity instances. For that purpose, use methods of `SearchResultProcessor`:
 
 * `Collection<Object> loadEntityInstances(SearchResult searchResult)`
 * `Collection<Object> loadEntityInstances(SearchResult searchResult, Map<String, FetchPlan> fetchPlans)`
@@ -87,8 +87,8 @@ The Search add-on provides an MBean with `jmix.search:type=EntityIndexing` objec
 * `processIndexingQueueNextBatch` - processes next batch of items in Indexing Queue.
 * `recreateIndex` - drops and creates index related to a provided entity. All data will be lost.
 * `recreateIndexes` - drops and creates all search indexes defined in the application. All data will be lost.
-* `synchronizeIndexSchema` - synchronizes schema of index related to a provided entity. This may cause deletion of this index with all data - depends on schema management strategy.
-* `synchronizeIndexSchemas` - synchronizes schemas of all search indexes defined in the application. This may cause deletion of indexes with all their data - depends on schema management strategy.
+* `synchronizeIndexSchema` - synchronizes the schema of the index related to a provided entity. This may cause deletion of this index with all data, depending on the schema management strategy.
+* `synchronizeIndexSchemas` - synchronizes schemas of all search indexes defined in the application. This may cause deletion of indexes with all their data, depending on the schema management strategy.
 * `validateIndex` - validates schema of search index related to a provided entity and displays a status.
 * `validateIndexes` - validates schemas of all search indexes defined in the application and displays status for all indexes.
 

@@ -1,6 +1,6 @@
 = Authorization Server
 
-The Authorization Server add-on allows Jmix applications to act as an {oauth-specification-page}#section-1.1[authorization server] role of the OAuth 2.1 framework. The add-on is responsible for issuing access tokens to users and external clients according to the {oauth-specification-page}[OAuth 2.1] specification.
+The Authorization Server add-on allows Jmix applications to act as an {oauth-specification-page}#section-1.1[authorization server] in the OAuth 2.1 framework. The add-on is responsible for issuing access tokens to users and external clients according to the {oauth-specification-page}[OAuth 2.1] specification.
 
 The Authorization Server add-on is based on the {spring-authorization-server-docs}/index.html[Spring Authorization Server^] framework.
 

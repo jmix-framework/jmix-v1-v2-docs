@@ -2,7 +2,7 @@
 
 A unit test is the narrowest variant of an automated test.
 
-The term "unit test" is used to describe different concepts, including the automated testing in general. We will refer to a unit test as an automated test that verifies behaviour on a particular class or set of classes without dependencies (that is mainly without Spring context and database).
+The term "unit test" is used to describe different concepts, including automated testing in general. We will refer to a unit test as an automated test that verifies behavior on a particular class or set of classes without dependencies (that is mainly without Spring context and database).
 
 Jmix automatically includes the https://junit.org/junit5/[JUnit 5^] test framework as well as https://site.mockito.org/[Mockito^] for mocking dependencies.
 
@@ -54,7 +54,7 @@ To achieve this, you need to control what `TimeSource` returns as now and simula
 
 Mockito is a mocking library that supports this kind of emulation. It is available in Jmix projects by default.
 
-Here is an example on how this test case could look like:
+Here is an example of how this test case could look:
 
 [source,java,indent=0]
 ----
@@ -64,7 +64,7 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/RecentOrdersCou
 <2> Invocation of `Mockito.when()` defines that when the method `now()` is called on the `TimeSource`, it should return `2020-03-01` as `ZonedDateTime`.
 <3> When instantiating the counter class, the mock (emulated instance) of the `TimeSource` is passed to the constructor.
 
-TIP: If you want to test your Spring components in unit tests, use constructor based injection instead of `@Autowired` on the class fields.
+TIP: If you want to test your Spring components in unit tests, use constructor-based injection instead of `@Autowired` on the class fields.
 
 More information about using Mockito can be found in its https://site.mockito.org/[documentation^].
 
@@ -89,7 +89,7 @@ include::example$/testing-ex1/src/test/java/assertj/AssertJAssertionExampleTest.
 
 Note that it is possible to chain multiple assertions that belong to the same result object.
 
-In case of a failing test, JUnit / AssertJ will provide a proper error message about the difference between the expectation and the actual behaviour:
+In case of a failing test, JUnit / AssertJ will provide a proper error message about the difference between the expectation and the actual behavior:
 
 ----
 Expecting actual:

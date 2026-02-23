@@ -61,9 +61,9 @@ The *Coding Assistance* page provides various tools and features that help devel
 * The *Use final modifier when generating code* option is `true` by default. This option enables using final modifier in fields, local variables and method parameters.
 * Select the *Use constructor injection* option if you want to use constructor injection in Spring beans.
 * The *Use protected access modifier* option applies when generating handlers in view controllers and injecting beans. With this option enabled, generated methods and fields will have the `protected` access modifier. If you disable it, methods will be `public` and fields will be `private`.
-* The *Enable injection by code completion* option is `true` by default. As soon as you enter a few characters inside a method body, you will get a code completion dropdown filled with available beans and UI components in addition to the existing local variables and class fields. The beans and UI components not yet injected into the class will be marked with italic font. If you select such an item, it will be injected into the constructor or into a field with the proper annotation (`@Autowired` or `@ViewComponent`) and the filed will be available for usage immediately at the cursor position.
+* The *Enable injection by code completion* option is `true` by default. As soon as you enter a few characters inside a method body, you will get a code completion dropdown filled with available beans and UI components in addition to the existing local variables and class fields. The beans and UI components not yet injected into the class will be marked with italic font. If you select such an item, it will be injected into the constructor or into a field with the proper annotation (`@Autowired` or `@ViewComponent`) and the field will be available for use immediately at the cursor position.
 +
-You can set turn off this feature by unchecking the checkbox.
+You can turn off this feature by unchecking the checkbox.
 * Using the input counter field, you can set the minimum number of characters to enter.
 * The *Suggest creating new data repositories* option is `false` by default. If you enable it, the IDE suggests creating non-existent data repositories for entity classes and instances.
 

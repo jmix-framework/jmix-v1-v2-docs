@@ -1,6 +1,6 @@
 = Delete Entities
 
-The Entities API finally allows you to delete entities that should be removed from the application. The corresponding endpoint is once again: `/entities/:entityName/:entityId` using the HTTP method `DELETE`.
+The Entities API also allows you to delete entities that should be removed from the application. The corresponding endpoint is once again: `/entities/:entityName/:entityId` using the HTTP method `DELETE`.
 
 [[delete-entity]]
 == Delete an Entity
@@ -23,10 +23,10 @@ TIP: The Entities API takes xref:data-model:soft-deletion.adoc[Soft Deletion] in
 [[bulk-delete]]
 == Bulk Delete
 
-The Delete-Entity API also allows you to delete multiple entities within one request. For this the JSON request body should contain an array of IDs representing each entity.
+The Delete-Entity API also allows you to delete multiple entities within one request. For this, the JSON request body should contain an array of IDs representing each entity.
 
 [source, http request]
-.Bulk Update Request
+.Bulk Delete Request
 ----
 DELETE http://localhost:8080/rest
             /entities

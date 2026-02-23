@@ -21,7 +21,7 @@ You can define any number of additional attributes required for your application
 [[management]]
 == User Management
 
-A new project contains the `010-init-user.xml` xref:data-model:db-migration.adoc#changelogs[database migration] script that creates a user with the `admin`/`admin` username/password and grants the user full access to the application by associating the entity with the `system-full-access` xref:resource-roles.adoc[role].
+A new project contains the `010-init-user.xml` xref:data-model:db-migration.adoc#changelogs[database migration] script that creates a user with the `admin`/`admin` username/password and grants the user full access to the application by associating the user with the `system-full-access` xref:resource-roles.adoc[role].
 
 A new project also contains the UI views for managing users, see *Application* -> *Users*. These views allow you to create, edit and remove users, change and reset their passwords. To assign roles to a user, click the *Role assignments* button in the user list view.
 
@@ -34,7 +34,7 @@ TIP: See the https://github.com/jmix-framework/jmix-samples-2/tree/main/user-reg
 
 Any Jmix application with the standard security subsystem has two built-in user objects:
 
-* _Anonymous_ user object corresponds to not authenticated users limiting them to the login view. By customizing this object, you can grant some permissions to users before they log in.
+* _Anonymous_ user object corresponds to unauthenticated users and limits them to the login view. By customizing this object, you can grant some permissions to users before they log in.
 +
 * _System_ user object is required for the xref:authentication.adoc#system[system authentication] mechanism. It is used when there is no real user interacting with the application, for example, when the application is starting up, or when a business method is called by a scheduler.
 
@@ -54,16 +54,16 @@ TIP: To simplify providing anonymous access to specific views, use xref:flow-ui:
 [[user-substitution]]
 == User Substitution
 
-The system administrator can give a user an ability to substitute another user. The substitution means the user has the xref:security:resource-roles.adoc[resource] and xref:security:row-level-roles.adoc[row-level] roles of the substituted user. For example, if Alice substitutes Bob, she logs in to the application as Alice but has the Bob's roles.
+The system administrator can give a user the ability to substitute another user. The substitution means the user has the xref:security:resource-roles.adoc[resource] and xref:security:row-level-roles.adoc[row-level] roles of the substituted user. For example, if Alice substitutes Bob, she logs in to the application as Alice but has Bob's roles.
 
 To see the feature in action, do the following:
 
 . Log in as `admin` and create at least one more user with the `UI: minimal access` role.
 . Select `admin` in the *Users* table and click *Additional -> User substitution*. You will see a list of users that `admin` can substitute.
 . Create a new record with the user who `admin` should be able to substitute, then click *OK* in the list view.
-. Now you will see that the current user name in the `userIndicator` component of the main view has changed to a dropdown list that contains the substituted user. If you select this user, the workspace will change as if you re-login as this user. But all audit features will still register `admin` - the logged-in user.
+. Now you will see that the current user name in the `userIndicator` component of the main view has changed to a dropdown list that contains the substituted user. If you select this user, the workspace will change as if you log in again as this user. But all audit features will still register `admin` - the logged-in user.
 
-The `CurrentUserSubstitution` bean can be used to obtain a currently substituted user, an authenticated user, or the effective user (which is substituted user in case of substitution, authenticated one otherwise).
+The `CurrentUserSubstitution` bean can be used to obtain a currently substituted user, an authenticated user, or the effective user (which is the substituted user in case of substitution, and the authenticated user otherwise).
 
 For example:
 

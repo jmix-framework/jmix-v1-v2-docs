@@ -71,7 +71,7 @@ To create the component, use the `pivotTable` XML element and bind it to xref:fl
 
 image::create-pivottable-component.png[align="center", width="664"]
 
-The new `pivotTable` element will be added in both the *Jmix UI* structure panel and in the XML. You can configure attributes like xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc., in the same way as it is done for other xref:flow-ui:vc/components.adoc[UI components].
+The new `pivotTable` element will be added in both the *Jmix UI* structure panel and in the XML. You can configure attributes like xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc., in the same way as for other xref:flow-ui:vc/components.adoc[UI components].
 
 [source,xml,indent=0]
 ----
@@ -154,7 +154,7 @@ include::../examples/pivottable-ex1/src/main/java/com/company/ex1/model/ShapeLis
 
 . *Set Up PivotTable in the Descriptor*:
 +
-In view XML descriptor, configure the `pivotTable` component to use your custom data model. For example:
+In the view XML descriptor, configure the `pivotTable` component to use your custom data model. For example:
 +
 .Show code
 [%collapsible]
@@ -214,9 +214,9 @@ image::auto-sort-unused-properties.png[align="center", width="646"]
 
 The `unusedPropertiesVertical` attribute controls the alignment of the unused properties.
 
-When `unusedPropertiesVertical` is set to `true`, the unused attributes area is displayed always vertically.
+When `unusedPropertiesVertical` is set to `true`, the unused attributes area is always displayed vertically.
 
-When `unusedPropertiesVertical` is set to `false`, the unused attributes area is displayed always horizontally.
+When `unusedPropertiesVertical` is set to `false`, the unused attributes area is always displayed horizontally.
 
 If set to a number (as is the default), the unused attributes are displayed vertically if the combined length of their names in characters exceeds the specified number. Otherwise, they are displayed horizontally.
 

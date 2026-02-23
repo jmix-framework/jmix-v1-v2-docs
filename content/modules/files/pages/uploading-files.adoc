@@ -1,6 +1,6 @@
 = Uploading Files
 
-This section explains how upload files from the user's computer using UI components. For information on how to upload files through REST API, see the xref:rest:files-api.adoc[Files API] section.
+This section explains how to upload files from the user's computer using UI components. For information on how to upload files through REST API, see the xref:rest:files-api.adoc[Files API] section.
 
 [[file-upload-components]]
 == File Upload Components

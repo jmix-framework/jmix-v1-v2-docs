@@ -25,7 +25,7 @@ include::example$/webdav-ex1/src/main/resources/com/company/onboarding/view/webd
 ----
 
 [[how-to-inject]]
-You can inject the UI component into the controller by utilizing the *Inject to Controller* action in the *Jmix UI* structure panel:
+You can inject the UI component into the controller by using the *Inject to Controller* action in the *Jmix UI* structure panel:
 
 image::inject-webdav-from-hierarchy.png[align="center", width="477"]
 
@@ -35,7 +35,7 @@ image::inject-webdav.png[align="center", width="851"]
 
 NOTE: For the component to be injectable into the controller, it must have the `id` attribute specified.
 
-Now you can interact with the webDAV UI component programmatically by accessing its methods directly:
+Now you can interact with the WebDAV UI component programmatically by accessing its methods directly:
 
 [source,java,indent=0]
 ----

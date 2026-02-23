@@ -31,7 +31,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/accordion-basic.png[align="center", width="555"]
 
-Each `accordionPanel` has a summary and a content area to put other components or layouts. The summary remains visible, even when the panel is collapsed. The component allows to provide longer summaries, as opposed to xref:vc/layouts/tabSheet.adoc[].
+Each `accordionPanel` has a summary and a content area to put other components or layouts. The summary remains visible, even when the panel is collapsed. The component allows you to provide longer summaries, as opposed to xref:vc/layouts/tabSheet.adoc[].
 
 [[attributes]]
 == Attributes

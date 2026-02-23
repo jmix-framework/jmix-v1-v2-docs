@@ -58,7 +58,7 @@ In some cases, it can affect performance.
 [[spring-bean-service-task]]
 === Spring Bean
 
-*Jmix BPM* allows to invoke from the service task a Spring bean method and provide parameter values for it.
+*Jmix BPM* allows you to invoke a Spring bean method from a service task and provide parameter values for it.
 
 You can select an existing bean and its associated method using the **Bean Name** and **Method** fields, respectively.
 

@@ -64,7 +64,7 @@ image::template-notifications-details.png[align="center", width="773"]
 [[adding-template-params]]
 == Adding Template Parameters
 
-Switch to the *Parameters* tab of template designer. Click the *Create* button. Provide the following parameter details:
+Switch to the *Parameters* tab of the template designer. Click the *Create* button. Provide the following parameter details:
 
 * *Name*: The name of the parameter as it will appear in the parameter input form: `Booking`.
 

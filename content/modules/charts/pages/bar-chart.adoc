@@ -37,7 +37,7 @@ include::example$charts-ex2/src/main/resources/com/company/onboarding/view/user/
 To pick your charts type you need the series attribute.
 Select the `chart` element in the *Jmix UI* structure panel or in the view XML descriptor, then click on the *Add* button in the inspector panel. Choose *Series -> Bar* from the drop-down list.
 
-To include the `line` series to your chart, choose the `series` element and pick *Add -> Line*. Add a name property for both chart types: `Salary` and `AssesmentTotal` respectively.
+To include the `line` series in your chart, choose the `series` element and pick *Add -> Line*. Add a name property for both chart types: `Salary` and `AssessmentTotal` respectively.
 
 [source,xml,indent=0]
 ----

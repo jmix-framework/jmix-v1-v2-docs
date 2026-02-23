@@ -8,7 +8,7 @@ To authenticate desktop applications, the server must have HTTPS enabled. Here a
 [[trusted-certificate]]
 === Generating Trusted Certificate
 
-Trusted  certificates can be obtained from SSL certificate providers or generated with `certbot`. But for the development purposes you can issue your own root certificate and sign development server's certificate with it. To simplify this task, we recommend using the `mkcert` tool.
+Trusted certificates can be obtained from SSL certificate providers or generated with `certbot`. But for development purposes, you can issue your own root certificate and sign the development server certificate with it. To simplify this task, we recommend using the `mkcert` tool.
 
 . Install `mkcert` by following the instructions provided in its repository: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
 
@@ -67,7 +67,7 @@ server.port = 8443
 +
 [NOTE]
 ====
-The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be presented as a slash-separated path:
+The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be written as a slash-separated path:
 ----
 server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 ----
@@ -114,7 +114,7 @@ Access restrictions for documents are set up using xref:security:resource-roles.
 
 The Jmix application with the WebDAV add-on includes two default resource roles:
 
-* *WebDAV: minimal access* - a fundamental WebDAV role necessary for all users utilizing WebDAV functionality.
+* *WebDAV: minimal access* - a fundamental WebDAV role required for all users who use WebDAV functionality.
 * *WebDAV: view document browser* - provides permission to access the xref:webdav-documents.adoc[WebDAV documents] view.
 
 // [[row-level-restrictions]]

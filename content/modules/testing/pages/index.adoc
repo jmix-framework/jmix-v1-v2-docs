@@ -1,7 +1,7 @@
 = Testing
 
-Automated testing is a core part of Jmix as it helps in development and maintaining application. Jmix provides various capabilities to create different types of automated tests.
+Automated testing is a core part of Jmix as it helps with developing and maintaining applications. Jmix provides various capabilities to create different types of automated tests.
 
 Since Jmix is based on Spring Boot, all {spring-boot-doc}/reference/testing/index.html[Spring Boot^] and {spring-framework-doc}/testing.html[Spring Framework^] testing approaches also apply to Jmix.
 
-This section covers only the main Spring Boot's testing features. Additionally, it delves into the Jmix-specific testing capabilities with more detailed explanations.
+This section covers only the main Spring Boot testing features. Additionally, it describes Jmix-specific testing capabilities in more detail.

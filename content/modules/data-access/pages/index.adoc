@@ -20,6 +20,6 @@ When we talk about `DataManager` and its capabilities in this manual, we mean th
 See also the xref:rest-ds:index.adoc[] section for how to work with DTO entities mapped to a generic xref:rest:index.adoc[] of another Jmix application.
 ====
 
-Another option for working with JPA entities is using JPA xref:entity-manager.adoc[EntityManager] directly. Some framework features are not compatible with the concept of "managed" entities, therefore `EntityManager` has some xref:entity-manager.adoc#limitations[limitations] comparing to `DataManager`.
+Another option for working with JPA entities is using JPA xref:entity-manager.adoc[EntityManager] directly. Some framework features are not compatible with the concept of "managed" entities, therefore `EntityManager` has some xref:entity-manager.adoc#limitations[limitations] compared to `DataManager`.
 
 If you need to execute complex SQL queries, perform batch operations, or invoke stored procedures, consider using xref:jdbc.adoc[JDBC] wrappers provided by Spring.

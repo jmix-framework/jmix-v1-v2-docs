@@ -1,9 +1,9 @@
 = Quartz
 
-This add-on allows you to manage https://www.quartz-scheduler.org/[Quartz^] jobs via user interface:
+This add-on allows you to manage https://www.quartz-scheduler.org/[Quartz^] jobs via the user interface:
 
 * Create new Quartz jobs from the existing implementation of `org.quartz.Job` interface.
-* Pause and resume jobs execution.
+* Pause and resume job execution.
 * Trigger immediate execution of inactive jobs.
 * Edit job triggers and parameters.
 * Delete jobs.
@@ -26,18 +26,18 @@ include::example$quartz-ex1/build.gradle[tags=dependencies]
 
 [NOTE]
 ====
-If URL of your main database is set as variable replacing the whole URL (e.g. `main.datasource.url = $\{DB_URL\}`)
-you may need to explicitly set the proper driver delegate class via `spring.quartz.properties.org.quartz.jobStore.driverDelegateClass` application property.
+If the URL of your main database is set as a variable that replaces the whole URL (for example, `main.datasource.url=$\{DB_URL\}`),
+you may need to explicitly set the proper driver delegate class with the `spring.quartz.properties.org.quartz.jobStore.driverDelegateClass` application property.
 
 Value depends on your database:
 
 * *PostgreSQL*: `org.quartz.impl.jdbcjobstore.PostgreSQLDelegate`
 * *Oracle*: `org.quartz.impl.jdbcjobstore.oracle.OracleDelegate`
 * *MS SQL*: `org.quartz.impl.jdbcjobstore.MSSQLDelegate`
-* Other database: skip this step - default value will be used
+* Other databases: skip this step, the default value will be used.
 
-If variable within `main.datasource.url` property doesn't include database prefix (e.g. `main.datasource.url = jdbc:postgresql://$\{DB_HOST\}/$\{DB_NAME\}`)
-or there are no variables at all – driver delegate class will be resolved automatically and this step can be skipped.
+If the database prefix is specified explicitly (for example, `main.datasource.url=jdbc:postgresql://$\{DB_HOST\}/$\{DB_NAME\}`),
+or variables are not used at all, the driver delegate class is resolved automatically and this step can be skipped.
 ====
 
 include::ROOT:single-menu-note.adoc[]
@@ -47,7 +47,7 @@ include::ROOT:single-menu-note.adoc[]
 
 To create and schedule a job for execution, do the following:
 
-. Create a class implementing the `org.quartz.Job` interface. It's `execute()` method will be invoked by the scheduler. For example:
+. Create a class implementing the `org.quartz.Job` interface. Its `execute()` method is invoked by the scheduler. For example:
 +
 [source,java,indent=0]
 ----
@@ -61,9 +61,9 @@ In the job class, you can inject Spring beans with `@Autowired`.
 --
 ** Enter an arbitrary unique name in the *Name* field and select your job class in the *Class* field.
 +
-The *Group* field is optional but can be used to group jobs in UI.
+The *Group* field is optional but can be used to group jobs in the UI.
 
-** Create at least one trigger for the job on the *Triggers* tab. You can select either *Cron expression* or *Simple* schedule type. In the former case, enter a http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] like `0/5 * * ? * * *` (each 5 sec). In the latter case, enter a repeat interval in milliseconds.
+** Create at least one trigger for the job on the *Triggers* tab. You can select either *Cron expression* or *Simple* schedule type. In the former case, enter a http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron expression^] like `0/5 * * ? * * *` (every 5 seconds). In the latter case, enter a repeat interval in milliseconds.
 --
 +
 After you save the trigger and the job, it is immediately scheduled for execution according to the trigger settings.
@@ -75,7 +75,7 @@ You can also execute any registered job immediately by clicking *Execute now*, e
 [[authentication]]
 === Authentication in Jobs
 
-The code executed by the scheduler is not authenticated, that is not associated with any user.
+The code executed by the scheduler is not authenticated, so it is not associated with any user.
 
 If you invoke operations that require authentication, for example working with data through `DataManager`, use xref:security:authentication.adoc#system[SystemAuthenticator] or `@Authenticated` annotation:
 
@@ -99,7 +99,7 @@ include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleParamet
 [[track-job-execution]]
 === Tracking Job Execution
 
-If you want to track execution of jobs, create a bean implementing the `JobListener` interface or extending the `JobListenerSupport` as follows:
+If you want to track execution of jobs, create a bean implementing the `JobListener` interface or extending `JobListenerSupport`, as follows:
 
 [source,java,indent=0]
 ----

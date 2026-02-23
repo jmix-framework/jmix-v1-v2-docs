@@ -55,7 +55,7 @@ To eagerly load this graph, the following fetch plan can be defined in the scree
 include::example$/data-access-ex1/src/main/resources/com/company/demo/view/order/order-list-view.xml[tags=fetch-plan]
 ----
 
-As a result, the framework executes a single SQL query with the join between the order and customer tables, and related customers are eagerly loaded together with orders. It eliminates the N+1 problem that would arise if the customers were loading lazily.
+As a result, the framework executes a single SQL query with the join between the order and customer tables, and related customers are eagerly loaded together with orders. It eliminates the N+1 problem that would arise if the customers were loaded lazily.
 
 Also, as the fetch plan defines individual local attributes, the SQL result set includes only these attributes and omits the `customer.email` field. This field is not fetched from the database and does not consume server memory in the entity instance. This is good for performance, but such <<partial-entities,partially loaded>> entity instances must be handled with care.
 
@@ -90,7 +90,7 @@ TIP: You could select individual local attributes instead of the `_base` fetch p
 [[partial-entities]]
 === Partial Entities
 
-If you use a fetch plan that doesn't include some local attributes of the entity, the entity will be loaded partially. The attributes absent in the fetch plan  will be empty in the entity instance. If you access such an attribute by invoking its getter/setter or by using it in a UI component, the framework throws an exception like this:
+If you use a fetch plan that doesn't include some local attributes of the entity, the entity will be loaded partially. The attributes absent in the fetch plan will be empty in the entity instance. If you access such an attribute by invoking its getter/setter or by using it in a UI component, the framework throws an exception like this:
 
 [source,text]
 ----

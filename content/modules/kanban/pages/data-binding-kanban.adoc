@@ -30,7 +30,7 @@ The `KanbanTask` entity has the following attributes:
 
 image::assignee-attribute.png[align="center", width="862"]
 
-Define the `text` attribute for generation an xref:studio:entity-designer.adoc#creating-instance-name[instance name].
+Define the `text` attribute for generating an xref:studio:entity-designer.adoc#creating-instance-name[instance name].
 
 Create _detail view_ for the `KanbanTask` entity. You'll find the detailed steps for generating entity list and detail views in the xref:tutorial:simple-crud.adoc#create-views[Creating CRUD Views] section of the Tutorial.
 
@@ -56,7 +56,7 @@ Click *Add Component* in the actions panel, then find the `CollectionContainer` 
 
 image::create-kanban-task-collection-container.png[align="center", width="647"]
 
-In the dialog that opens, select the `KanbanTask` entity. The new `collectonContainer` element will be added to both the *Jmix UI* hierarchy panel and the XML.
+In the dialog that opens, select the `KanbanTask` entity. The new `collectionContainer` element will be added to both the *Jmix UI* hierarchy panel and the XML.
 
 To ensure the `dataLoader` automatically loads data when the view opens, you need to add the xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet. Click *Add Component* in the action panel, then find the `DataLoadCoordinator` item and double-click it:
 
@@ -121,7 +121,7 @@ Specify the actions you want to add. For example: `list_create`, `list_edit`, `l
 
 image::create-kanban-actions2.png[align="center", width="563"]
 
-Click the *OK* button. The `action` elements will be added in both the *Jmix UI* hierarchy panel and in the XML. Next, to use these actions, you need to create buttons panel.
+Click the *OK* button. The `action` elements will be added in both the *Jmix UI* hierarchy panel and in the XML. Next, to use these actions, you need to create a buttons panel.
 
 Place the cursor before the `kanban` element. Next, click *Add Component* in the actions panel, then find the `hbox` item and double-click it. To add the required styles, add the `classNames` attribute with the value `buttons-panel` to the `hbox`:
 
@@ -130,7 +130,7 @@ Place the cursor before the `kanban` element. Next, click *Add Component* in the
 <hbox classNames="buttons-panel"/>
 ----
 
-Select `hbox` within the *Jmix UI* hierarchy panel or in the view XML descriptor, and then click the *Add Component* button in the actions  panel, then find the `button` item and double-click it.
+Select `hbox` within the *Jmix UI* hierarchy panel or in the view XML descriptor, and then click the *Add Component* button in the actions panel, then find the `button` item and double-click it.
 
 Use the component inspector panel to assign an action to the `button`. Create and assign buttons for each action.
 

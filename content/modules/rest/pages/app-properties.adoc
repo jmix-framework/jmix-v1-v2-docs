@@ -44,7 +44,7 @@ Default value: `true`
 [[jmix.rest.json-transformation-config]]
 === jmix.rest.json-transformation-config
 
-Property defining a file that contains a list of JSON transformations configurations used by the REST API when the client needs data in the format of some particular data model version.
+A property that defines a file containing a list of JSON transformation configurations used by the REST API when the client needs data in the format of a particular data model version.
 
 The file is loaded using the Resources interface, so it can be located in the classpath or the configuration directory.
 
@@ -71,7 +71,7 @@ Default value: `false`
 [[jmix.rest.queries-config]]
 === jmix.rest.queries-config
 
-Property defining a file that contains a list of JPQL queries available as part of the xref:rest:entities-api/load-entities.adoc#load-list-jpql[Entities API].
+A property that defines a file containing a list of JPQL queries available as part of the xref:rest:entities-api/load-entities.adoc#load-list-jpql[Entities API].
 
 [source,properties]
 ----
@@ -87,7 +87,7 @@ Default value: `none`
 [[jmix.rest.services-config]]
 === jmix.rest.services-config
 
-Property defining a file that contains a list of Service methods that are exposed via the xref:rest:business-logic.adoc#services-api[Services API].
+A property that defines a file containing a list of service methods that are exposed via the xref:rest:business-logic.adoc#services-api[Services API].
 
 [source,properties]
 ----

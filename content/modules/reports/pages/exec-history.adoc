@@ -1,7 +1,7 @@
 [[execution_history]]
 = Report Execution History
 
-The Reports add-on provides a mechanism of a report execution history management with the following features:
+The Reports add-on provides a report execution history management mechanism with the following features:
 
 . Save execution history for each report. The system administrator can use the report execution history to find out how often a report is executed, how much processing time is spent on a report, by which user and when a report was run, what errors occurred during the execution.
 . Clean outdated report execution history.
@@ -40,12 +40,12 @@ When the action is performed, a modal **Execution history** dialog will open whe
 
 "Cancelled" flag means that the user launched the report as a background task, and then canceled it.
 
-Execution history is also recorded even for reports which are not yet saved to the database, but launched from the report detail view (by clicking the *Run* button).
+Execution history is also recorded even for reports that are not yet saved to the database but are launched from the report detail view (by clicking the *Run* button).
 
 [[history_output_documents]]
 == Output Documents
 
-The mechanism provides an ability to save output documents - report results files - in the xref:files:index.adoc[file storage]. This feature consumes a file storage disk space; it is configured separately and is disabled by default. To enable it, define the xref:configuration.adoc#jmix.reports.save-output-documents-to-history[jmix.reports.save-output-documents-to-history] application property to `true`:
+The mechanism provides the ability to save output documents - report result files - in the xref:files:index.adoc[file storage]. This feature consumes file storage disk space; it is configured separately and is disabled by default. To enable it, define the xref:configuration.adoc#jmix.reports.save-output-documents-to-history[jmix.reports.save-output-documents-to-history] application property to `true`:
 
 [source, properties,indent=0]
 ----

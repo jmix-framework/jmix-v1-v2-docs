@@ -35,7 +35,7 @@ include::example$/ex1/src/main/java/bpm/ex1/listener/TaskAssignedNotificationSen
 
 <1> Declares that the method is an event listener.
 <2> The listener is fired each time the `UserTaskAssignedEvent` is published.
-<3> Gets `User` entity to receive a user first name and email address.The `UserTaskAssignedEvent` contains a `username` of a user who is the task assigned to.
+<3> Gets `User` entity to get the user's first name and email address. The `UserTaskAssignedEvent` contains the `username` of the user to whom the task is assigned.
 <4> The `UserTaskAssignedEvent` contains a `Task` object which holds information about the user task.
 <5> Creates and sends email. See the xref:email:index.adoc[Email Sending Guide] for details.
 

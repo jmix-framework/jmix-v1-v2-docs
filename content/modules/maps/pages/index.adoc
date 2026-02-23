@@ -8,14 +8,14 @@
 </div>
 ++++
 
-The Map add-on provides the `GeoMap` component and functionalities that enable developers to integrate interactive maps and geospatial features into their web applications.
+The Maps add-on provides the `GeoMap` component and features that enable developers to integrate interactive maps and geospatial features into their web applications.
 
 image::overview-map.png[align="center", width="598"]
 
 [[overview]]
 == Overview
 
-The add-on helps you to enrich your application with visual representation and intuitive manipulation for spatial data. You can use a preferable map provider that meets your needs.
+The add-on helps you enrich your application with visual representation and intuitive manipulation of spatial data. You can use a map provider that meets your needs.
 
 The add-on is based on the https://openlayers.org/[OpenLayers^] JavaScript library (8.2.0 version). By default, all API works with CRS - https://epsg.io/4326[EPSG:4326^].
 

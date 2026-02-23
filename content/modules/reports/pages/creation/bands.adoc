@@ -160,7 +160,7 @@ e.create_ts < ${createTs2}
 [[structure_jpql]]
 === JPQL Dataset
 
-*JPQL* dataset is produced as a result of JPQL query execution. The resulted query fields must have aliases provided using the `as` operator. Similar to SQL query, you can use report input parameters and parent bands fields in the JPQL query.
+*JPQL* dataset is produced as a result of JPQL query execution. The resulting query fields must have aliases provided using the `as` operator. Similar to an SQL query, you can use report input parameters and parent band fields in the JPQL query.
 
 Below is an example of a JPQL query with a `groupId` parameter, obtained from the `group` parent band and an external `enabled` parameter:
 
@@ -209,7 +209,7 @@ def groupId = parentBand.getParameterValue('groupId')
 def user = currentAuthentication.getUser()
 ----
 
-* `metadata` - an object of the `io.jmix.core.Metadata` type, providing access the application metadata. For example:
+* `metadata` - an object of the `io.jmix.core.Metadata` type, providing access to the application metadata. For example:
 +
 [source, groovy,indent=0]
 ----
@@ -329,9 +329,9 @@ For more details on JsonPath expressions, see the http://goessner.net/articles/J
 
 [CAUTION]
 ====
-Fields outputted by the report that have `Date`, `DateTime`, or `Time` data types do not support the format defined by `java.text.SimpleDateFormat`. To set the correct format, you should write a Groovy script.
+Fields output by the report that have `Date`, `DateTime`, or `Time` data types do not support the format defined by `java.text.SimpleDateFormat`. To set the correct format, you should write a Groovy script.
 
-To do this, switch to the **Value formats** tab of the report detail view and open the xref:creation/value-formats.adoc[formatter] dialog. For example, for the field `bookPublication.dateTime` Groovy-script will look like this:
+To do this, switch to the **Value formats** tab of the report detail view and open the xref:creation/value-formats.adoc[formatter] dialog. For example, for the field `bookPublication.dateTime`, the Groovy script looks like this:
 
 [source, groovy,indent=0]
 ----
@@ -359,6 +359,6 @@ Usually, design-time reports use datasets of the `DELEGATE` type. In this case, 
 [[data-set-delegate]]
 === @DataSetDelegate Annotation
 
-The `@DataSetDelegate` annotation allows you to define a method that returns a delegate for executing a dataset logic. It has the `name` attributes, which should be equal to the name of the corresponding dataset.
+The `@DataSetDelegate` annotation allows you to define a method that returns a delegate for executing dataset logic. It has the `name` attribute, which should be equal to the name of the corresponding dataset.
 
 The annotated method must not have any parameters and should return the `ReportDataLoader` functional interface.

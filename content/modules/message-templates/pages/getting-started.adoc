@@ -1,11 +1,11 @@
 = Getting Started with Message Templates
 
-This tutorial will guide you through the process of integrating Message Templates add-on into your application.
+This tutorial will guide you through the process of integrating the Message Templates add-on into your application.
 
 [[project-setup]]
 == Project Setup
 
-We are developing a Room Booking Application that demonstrates the use of the Message Template add-on in a Jmix project with the provided `Booking` entity. This application will showcase how to create, manage, and use message templates for notifications related to bookings.
+We are developing a Room Booking Application that demonstrates the use of the Message Templates add-on in a Jmix project with the provided `Booking` entity. This application will show how to create, manage, and use message templates for booking notifications.
 
 Application administrators define message templates that are used to notify users after a meeting room reservation is made. Users receive both an email and a direct in-app notification following their booking.
 

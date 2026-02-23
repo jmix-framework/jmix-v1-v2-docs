@@ -1,8 +1,8 @@
 = Layers and Sources
 
-Layer – is a way to organize data on a map.
+Layer is a way to organize data on a map.
 
-Layers can be raster or vector. Raster layers consist of raster images which is a grid of pixels, while vector layers consist of vector geometries.
+Layers can be raster or vector. Raster layers consist of raster images, which are a grid of pixels, while vector layers consist of vector geometries.
 
 [[tile-layer]]
 == TileLayer
@@ -20,7 +20,7 @@ For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_layer_Til
 [[osm-source]]
 === OsmSource
 
-Source for the loading tiles from an https://www.openstreetmap.org[OpenStreetMap^] tile server and from xref:maps:map-services.adoc#xyz-tiles[XYZ tile] services. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_OSM-OSM.html[OSM documentation^].
+Source for loading tiles from an https://www.openstreetmap.org[OpenStreetMap^] tile server and from xref:maps:map-services.adoc#xyz-tiles[XYZ tile] services. For more details, see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_OSM-OSM.html[OSM documentation^].
 
 The following example demonstrates how to display an OpenStreetMap tile layer.
 
@@ -65,7 +65,7 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers
 
 Source for displaying a single, static image. For more details see https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_ImageStatic-Static.html[Static documentation^].
 
-Example of showing image from URL. This example is taken from https://openlayers.org/en/latest/examples/static-image.html[OpenLayers -> Examples -> Static image^].
+Example of showing an image from a URL. This example is taken from https://openlayers.org/en/latest/examples/static-image.html[OpenLayers -> Examples -> Static image^].
 
 [source,xml,indent=0]
 ----
@@ -126,7 +126,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/Laye
 [[data-vector-source]]
 === DataVectorSource
 
-`DataVectorSource` allows data binding to Jmix data containers through the `dataContainer` and `property` attributes. The `property` attribute can take both simple property and property path.
+`DataVectorSource` allows data binding to Jmix data containers through the `dataContainer` and `property` attributes. The `property` attribute can take both a simple property and a property path.
 
 [source,xml,indent=0]
 ----

@@ -3,7 +3,7 @@
 In this chapter, you will create:
 
 * The `WebdavDocumentWrapper` entity with the `WebdavDocument` attribute type.
-* CRUD views including UI component for uploading the WebDAV document.
+* CRUD views including a UI component for uploading the WebDAV document.
 
 You will make the necessary adjustments to enable the opening and editing of uploaded WebDAV files in desktop office applications (Word, Excel, LibreOffice, etc.).
 
@@ -191,7 +191,7 @@ Choose the `Webdav document wrappers` item from the `Application` menu. You will
 
 image::wd-wrapper-list.png[align="center", width="1330"]
 
-The *Webdav document* column contains a link to the WebDav document and a button allowing you to open the standard *WebDAV document versions* view. The *Last modified by* column displays the author of the latest modifications to the WebDav file, while the *Last modified date* column shows the date of the last modifications to the WebDav file.
+The *Webdav document* column contains a link to the WebDAV document and a button allowing you to open the standard *WebDAV document versions* view. The *Last modified by* column displays the author of the latest modifications to the WebDAV file, while the *Last modified date* column shows the date of the latest modifications to the WebDAV file.
 
 [[configuration]]
 == Configuration
@@ -276,7 +276,7 @@ server.port = 8443
 +
 [NOTE]
 ====
-The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be presented as a slash-separated path:
+The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be written as a slash-separated path:
 ----
 server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 ----

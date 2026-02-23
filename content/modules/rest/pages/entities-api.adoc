@@ -2,5 +2,4 @@
 
 The Entities API provides different capabilities to interact with entity instances. This API mainly consists of CRUD operations that can be performed on the entities. The ability to load entity data is extended by different ways of filtering and JPQL.
 
-NOTE: When performing operations on entities through this generic API, the regular Jmix security permissions are applied from the user obtained the authentication token.
-
+NOTE: When performing operations on entities through this generic API, the regular Jmix security permissions are applied for the user who obtained the authentication token.

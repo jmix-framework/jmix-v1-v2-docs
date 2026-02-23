@@ -1,11 +1,11 @@
 = Transaction Management
 
-Jmix supports both standard ways to control transactions in Spring applications: declarative (with annotations) and programmatic.
+Jmix supports two standard ways to control transactions in Spring applications: declarative (with annotations) and programmatic.
 
 [[declarative-transactions]]
 == Declarative Transaction Management
 
-The most straightforward way of transaction management in Jmix applications is to use the `@org.springframework.transaction.annotation.Transactional` annotation. This annotation indicates a method that should run inside a database transaction. When used on the class level, `@Transactional` applies to all methods of this class and its subclasses.
+The most straightforward way to manage transactions in Jmix applications is to use the `@org.springframework.transaction.annotation.Transactional` annotation. This annotation indicates a method that should run inside a database transaction. When used on the class level, `@Transactional` applies to all methods of this class and its subclasses.
 
 The `@Transactional` annotation will automatically create a transaction when the method is called, and the commit or rollback will be managed implicitly by Spring. Thus, the declarative transaction management allows you to reduce the amount of boilerplate code.
 
@@ -50,7 +50,7 @@ Now you can inject `TransactionTemplate` in any bean of your application:
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=transaction-template-inject]
 ----
 
-Additional data stores, if any, require their own `TransactionTemplate` instances. If you create an additional data store with Studio, the data store's Spring configuration class will be created automatically with some beans in it. Add a new one for creating `TransactionTemplate` with the `Qualifier` annotation in the following way:
+Additional data stores, if any, require their own `TransactionTemplate` instances. If you create an additional data store with Studio, the data store's Spring configuration class will be created automatically with some beans in it. Add a new bean for creating `TransactionTemplate` with the `Qualifier` annotation as follows:
 
 [source,java,indent=0]
 ----
@@ -83,7 +83,7 @@ Use the `execute()` method to run a block of code inside a transaction. This met
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderService.java[tags=transaction-template-execute]
 ----
 
-If you don't need to return any result from the transactional code block, you can use the `executeWithoutResult()` method which is derived from `execute()` but uses the `TransactionCallbackWithoutResult` callback interface:
+If you don't need to return any result from the transactional code block, you can use the `executeWithoutResult()` method, which is based on `execute()` but uses the `TransactionCallbackWithoutResult` callback interface:
 
 [source,java,indent=0]
 ----

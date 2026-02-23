@@ -1,6 +1,6 @@
 = Styling
 
-The `Style` object enable developers to customize the color, size, font, and other visual properties of map xref:maps:features-geometries.adoc[features].
+The `Style` object enables developers to customize the color, size, font, and other visual properties of map xref:maps:features-geometries.adoc[features].
 
 Styles can also be applied at the xref:maps:layers-sources.adoc[layer] level, defining a consistent appearance for all features within a layer.
 
@@ -26,7 +26,7 @@ Using text instead of an image for the `PointFeature` allows you to display text
 
 When utilizing text for `PointFeature`, you can customize the appearance of the text by adjusting properties like `font`, `fill`, `textAlign`, etc.
 
-The example below demonstrates using textual label instead of an image for the `PointFeature`:
+The example below demonstrates using a text label instead of an image for the `PointFeature`:
 
 [source,java,indent=0]
 ----
@@ -49,7 +49,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 +
 image::styles-font-icons.png[align="center", width="288"]
 +
-NOTE: To use icon fonts, like Font Awesome, you must include them in your project
+NOTE: To use icon fonts, like Font Awesome, you must include them in your project.
 
 . *SVG Icons*
 +
@@ -108,7 +108,7 @@ image::styles-icon-name.png[align="center", width="257"]
 [[styling-marker-features]]
 == Styling Marker Features
 
-To change the marker icon, refer the following example:
+To change the marker icon, refer to the following example:
 
 [source,java,indent=0]
 ----

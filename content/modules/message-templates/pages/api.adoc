@@ -133,7 +133,7 @@ Key features:
 [[freemarker-config]]
 == Using Freemarker Configuration
 
-The Message Templates add-on allows for customizable message generation. To further refine this process, you can create and apply custom FreeMarker configurations. This enables you to tailor how FreeMarker processes your templates. Here's an example of how to create a basic custom configuration:
+The Message Templates add-on allows customizable message generation. To further refine this process, you can create and apply custom FreeMarker configurations. This enables you to control how FreeMarker processes your templates. Here's an example of how to create a basic custom configuration:
 
 [source,java,indent=0]
 ----

@@ -4,7 +4,7 @@ At this stage of development, the application has the Steps and Departments mana
 
 In this chapter, you will do the following:
 
-* Add `department` and `joiningDate` attributes to the `User` entity and show them in UI.
+* Add `department` and `joiningDate` attributes to the `User` entity and show them in the UI.
 * Create the `UserStep` entity which links a user with an onboarding step.
 * Add a collection of `UserStep` entities to the `User` entity and show it on the `User.edit` screen.
 * Implement the generation and saving of `UserStep` instances in the `User.detail` view.
@@ -16,7 +16,7 @@ image::data-in-ui/data-in-ui-diagram.svg[align="center"]
 [[ref-attr]]
 == Adding Reference Attribute
 
-You've already done a similar task when created the xref:references.adoc#create-reference-attr[HR Manager attribute] of the `Department` entity as a reference to `User`. Now you need to create a link in the opposite direction: a User should have a reference to Department.
+You've already done a similar task when you created the xref:references.adoc#create-reference-attr[HR Manager attribute] of the `Department` entity as a reference to `User`. Now you need to create a link in the opposite direction: a User should have a reference to a Department.
 
 image::data-in-ui/data-in-ui-diagram-2.svg[align="center"]
 
@@ -40,7 +40,7 @@ Select the new `department` attribute and click the *Add to Views* (image:common
 
 image::data-in-ui/add-attr-2.png[align="center", width="490"]
 
-The appeared dialog window will show `User.detail` and `User.list` views. Select both screens and click *OK*.
+The dialog window that appears will show `User.detail` and `User.list` views. Select both views and click *OK*.
 
 Studio will add the `department` attribute to the `dataGrid` component of the `User.list` view and to the `formLayout` component of the `User.detail` view.
 
@@ -364,7 +364,7 @@ image::data-in-ui/joining-date-1.png[align="center"]
 
 Click *OK*.
 
-Select the newly created `joiningDate` attribute and click the *Add to Views* (image:common/add-attribute-to-screens.svg[]) button in the *Attributes* toolbar. Select both `User.detail` and `User.list` views in the appeared dialog and click *OK*.
+Select the newly created `joiningDate` attribute and click the *Add to Views* (image:common/add-attribute-to-screens.svg[]) button in the *Attributes* toolbar. Select both `User.detail` and `User.list` views in the dialog window that appears and click *OK*.
 
 Click the *Debug* button (image:common/start-debugger.svg[]) in the main toolbar.
 

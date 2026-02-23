@@ -25,7 +25,7 @@ Provides a submenu to switch between theme variants: *light*, *dark* and *system
 
 image::actions/standard-actions/user-menu-theme-switch-action.png[align="center",width="400"]
 
-`userMenu_themeSwitch` requires import of the JavaScript file provides code that applies a theme variant to an HTML document depending on the value in the Web Local Storage and subscribes to the https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme[prefers-color-scheme^] to update the theme variant if the user indicates their preference through an operating system setting (e.g., light or dark mode) or the user agent's settings.
+`userMenu_themeSwitch` requires importing a JavaScript file that applies a theme variant to an HTML document depending on the value in Web Local Storage and subscribes to the https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme[prefers-color-scheme^] to update the theme variant if the user indicates their preference through an operating system setting (e.g., light or dark mode) or the user agent's settings.
 
 You need to import it into the main application class:
 

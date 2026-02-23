@@ -1,6 +1,6 @@
 = Metadata
 
-Each entity with its attributes is reflected in the application metadata which is used by the framework mechanisms to get a comprehensive information about the data model. For example, if some attribute is marked as read-only in metadata, corresponding UI components will be disabled.
+Each entity with its attributes is reflected in the application metadata, which is used by framework mechanisms to get comprehensive information about the data model. For example, if an attribute is marked as read-only in metadata, corresponding UI components will be disabled.
 
 [NOTE]
 ====
@@ -11,14 +11,14 @@ See the xref:concepts:features.adoc#data-model-and-metadata[Key Features] sectio
 
 The main entry point to the metadata API is the `Metadata` bean. It gives you access to the information about entities in the form of `MetaClass` and `MetaProperty` objects.
 
-In the example below we print out the details of the `Order` entity attributes:
+In the example below, we print out the details of the `Order` entity attributes:
 
 [source,java,indent=0]
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=metadata]
 ----
 
-<1> `Metadata.getClass(javaClass)` method return a `MetaClass` object corresponding to the entity Java class.
+<1> `Metadata.getClass(javaClass)` method returns a `MetaClass` object corresponding to the entity Java class.
 <2> `MetaClass.getProperties()` method returns a collection of `MetaProperty` objects corresponding to all entity attributes.
 <3> `MetaProperty.getName()` method returns the entity attribute name.
 <4> `MetaProperty.getType()` method returns the attribute type: `DATATYPE`, `ENUM`, `ASSOCIATION`, `COMPOSITION`.

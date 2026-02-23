@@ -4,7 +4,7 @@
 
 TIP: We recommend using xref:data-manager.adoc[DataManager] for working with entities and fall back to `EntityManager` only if you really need it.
 
-For information on the `EntityManager` methods refer to the https://jakarta.ee/specifications/persistence/3.1/apidocs/jakarta.persistence/jakarta/persistence/entitymanager[jakarta.persistence.EntityManager^] API documentation.
+For information on the `EntityManager` methods, refer to the https://jakarta.ee/specifications/persistence/3.1/apidocs/jakarta.persistence/jakarta/persistence/entitymanager[jakarta.persistence.EntityManager^] API documentation.
 
 You can use `EntityManager` in Jmix applications for working with xref:data-model:entities.adoc#jpa[JPA entities] mostly in the same way as in any Spring application. However, Jmix provides its own implementation of the standard interface, which has some specific features.
 
@@ -63,7 +63,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/EntityMana
 
 . xref:data-access:entity-events.adoc#saving-loading-events[EntitySavingEvent and EntityLoadingEvent] are not sent when saving and loading entities with `EntityManager`.
 
-. xref:fetching.adoc#lazy-loading[Lazy loading] of references outside of the transaction loaded the root entity doesn't work. You will get a "java.lang.IllegalStateException: Cannot get unfetched attribute ...'`' exception if you access such a reference.
+. xref:fetching.adoc#lazy-loading[Lazy loading] of references outside of the transaction where the root entity was loaded doesn't work. You will get a `java.lang.IllegalStateException: Cannot get unfetched attribute ...` exception if you access such a reference.
 
 . xref:data-model:entities.adoc#cross-data-store-ref[Cross-datastore references] are not maintained.
 

@@ -135,7 +135,7 @@ You can find a more detailed description with examples in the xref:vc/components
 [[validation]]
 == Validation
 
-To check values entered into the `integerField` component, you can use a xref:vc/miscellaneous/validator.adoc[validator] in a nested `validators` element.
+To check values entered into the `emailField` component, you can use a xref:vc/miscellaneous/validator.adoc[validator] in a nested `validators` element.
 
 The following predefined validators are available for `emailField`:
 

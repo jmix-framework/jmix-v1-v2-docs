@@ -2,11 +2,11 @@
 
 == Features
 
-Feature refers to a basic building block that represents some element on a map. Features can include points, lines, polygons, or other geometries that provide spatial information on the map.
+A feature is a basic building block that represents an element on a map. Features can include points, lines, polygons, or other geometries that provide spatial information on the map.
 
 //Each feature typically contains attributes or properties that describe the characteristics of the geographical entity it represents.
 
-Features can be styled, clicked on for interaction. They play a central role in creating dynamic and interactive maps by allowing developers to represent and manipulate geographic data efficiently.
+Features can be styled and clicked for interaction. They play a central role in creating dynamic and interactive maps by allowing developers to represent and manipulate geographic data efficiently.
 
 // , and used for various spatial operations and analyses
 
@@ -23,7 +23,7 @@ Features can be styled, clicked on for interaction. They play a central role in 
 [[marker-feature]]
 === MarkerFeature
 
-Marker feature represents a marker element with predefined <<point-geometry,PointGeometry>>. It is displayed with marker icon in a map component.
+A marker feature represents a marker element with predefined <<point-geometry,PointGeometry>>. It is displayed with a marker icon in a map component.
 
 The following example demonstrates how to create and place a marker on a map:
 

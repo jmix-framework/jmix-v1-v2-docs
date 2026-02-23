@@ -106,7 +106,7 @@ Open the terminal in the project root folder and execute the following command:
 gradlew "-Pvaadin.productionMode=true" bootBuildImage
 ----
 
-By default, the image will be created with the name of your project and tag which is equal to you project's version.
+By default, the image will be created with the name of your project and a tag that is equal to your project's version.
 
 For example, if you specified the following in your `settings.gradle`:
 

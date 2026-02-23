@@ -9,7 +9,7 @@ An SVG sprite is a collection of SVG images loaded into an application as a sing
 
 Follow the steps below to add an icon set:
 
-. Create a JavaScript file for your icon set in the `/frontend/icons/` directory. Use the following code as an example of a creating an icon set with three icons:
+. Create a JavaScript file for your icon set in the `/frontend/icons/` directory. Use the following code as an example of creating an icon set with three icons:
 
 +
 .my-icons.js

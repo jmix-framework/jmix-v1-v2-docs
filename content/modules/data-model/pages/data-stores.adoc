@@ -31,7 +31,7 @@ implementation 'org.liquibase:liquibase-core:4.25.0!!'
 See issue https://github.com/jmix-framework/jmix/issues/3888[#3888^] for more information.
 ====
 
-If you need to connect a relational database not supported in Jmix out-of-the-box, follow instructions in the xref:studio:data-stores.adoc#unsupported-database[Studio: Connecting to Unsupported Databases] section.
+If you need to connect a relational database not supported in Jmix out-of-the-box, follow the instructions in the xref:studio:data-stores.adoc#unsupported-database[Studio: Connecting to Unsupported Databases] section.
 
 A non-relational database can be used by creating a <<custom, custom data store>> or directly as described in the xref:mongodb-integration-guide:index.adoc[] guide.
 
@@ -102,7 +102,7 @@ Let's consider the process of creating a custom data store. Imagine a transient 
 include::example$/data-model-ex1/src/main/java/com/company/demo/store/InMemoryStore.java[tags=custom-store-1;custom-store-2]
 ----
 
-. Create a class that implements the `StoreDescriptor` interface. It must be a Spring singleton bean, and its `getBeanName()` method must return the name of the data store implementation bean created on the previous step:
+. Create a class that implements the `StoreDescriptor` interface. It must be a Spring singleton bean, and its `getBeanName()` method must return the name of the data store implementation bean created in the previous step:
 +
 [source,java,indent=0]
 ----

@@ -1,6 +1,6 @@
 = Entity Information Action
 
-The Data Tools add-on provides a UI xref:flow-ui:actions.adoc[action] that displays a system information about a selected entity. It includes the entity name, Java class, database table, identifier, and values of system attributes that constitute the entity xref:data-model:entities.adoc#traits[traits].
+The Data Tools add-on provides a UI xref:flow-ui:actions.adoc[action] that displays system information about a selected entity. It includes the entity name, Java class, database table, identifier, and values of system attributes that constitute the entity xref:data-model:entities.adoc#traits[traits].
 
 For example:
 

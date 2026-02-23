@@ -167,7 +167,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <6> In the close listener, we can check what action was used by the user.
 <7> The close event contains entered values that can be obtained using parameter identifiers.
 
-[[custom-paramters]]
+[[custom-parameters]]
 === Custom Parameters
 
 The following example illustrates creating a custom parameter that lets the user select a value from a combobox:

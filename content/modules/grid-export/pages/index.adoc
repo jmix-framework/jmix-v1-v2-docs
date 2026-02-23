@@ -1,6 +1,6 @@
 = Grid Export Actions
 
-The add-on is a useful feature that enhances the functionality of a grid components within a web application. This add-on typically provides users with the ability to export data displayed in a grid to various file formats such as Excel, or JSON.
+The add-on is a useful feature that enhances the functionality of grid components within a web application. This add-on typically provides users with the ability to export data displayed in a grid to various file formats such as Excel or JSON.
 
 The add-on provides xref:grid-export:actions.adoc[actions], that triggers the export functionality.
 

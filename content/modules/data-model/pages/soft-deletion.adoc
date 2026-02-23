@@ -4,7 +4,7 @@ In the _Soft Deletion_ mode, the remove operation on JPA entities just marks dat
 
 Soft deletion can help you to reduce the risk of data loss caused by incorrect user actions. It also allows users to make certain records inaccessible instantly even if there are references to them from other tables.
 
-Soft deletion mechanism in Jmix is transparent for application developers. If you define the xref:entities.adoc#soft-delete-trait[Soft Delete trait] for an entity, the framework marks database records for deleted entity instances, and loads deleted instances according to the following rules:
+The soft deletion mechanism in Jmix is transparent for application developers. If you define the xref:entities.adoc#soft-delete-trait[Soft Delete trait] for an entity, the framework marks database records of deleted entity instances and loads deleted instances according to the following rules:
 
 * Soft-deleted instances are not returned when loading by Id and are filtered out from results of JPQL queries.
 
@@ -17,7 +17,7 @@ For example, imagine a Customer - Order - OrderLine data model. Initially, an Or
 
 When a normal (hard deleted) entity is deleted, foreign keys in the database define handling of references to this entity. By default, you cannot delete an entity if it has references from other entities. To delete the referencing entity together with your entity, or to set the reference to null, you define `ON DELETE CASCADE` or `ON DELETE SET NULL` rules for the foreign key.
 
-For soft deleted entities foreign keys also exist, but they cannot affect the deletion because there is no deletion from the database standpoint. So by default, when an entity instance is soft deleted, it doesn't affect any linked entities.
+For soft-deleted entities, foreign keys also exist, but they cannot affect the deletion because there is no deletion from the database standpoint. So by default, when an entity instance is soft-deleted, it does not affect any linked entities.
 
 Jmix offers xref:entities.adoc#on-delete[@OnDelete] and xref:entities.adoc#on-delete-inverse[@OnDeleteInverse] annotations to handle references between soft-deleted entities.
 
@@ -39,7 +39,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Order.jav
 
 The annotations can have one of the following values:
 
-* `DeletePolicy.DENY` – to throw an exception on attempt to delete an entity if the reference is not null.
+* `DeletePolicy.DENY` – to throw an exception on an attempt to delete an entity if the reference is not null.
 
 * `DeletePolicy.CASCADE` – to delete the linked entities together.
 
@@ -57,7 +57,7 @@ The problem is solved differently for different databases. Follow the recommenda
 
 For PostgreSQL, we recommend using partial indexes.
 
-Define a unique constraint for the desired column. The index definition in entity should look as follows:
+Define a unique constraint for the desired column. The index definition in the entity should look as follows:
 
 [source]
 ----
@@ -93,7 +93,7 @@ create unique index IDX_CUSTOMER_UNQ_EMAIL on CUSTOMER (EMAIL) where DELETED_DAT
 
 Oracle and Microsoft SQL Server permit only one null value in a composite index. In this case, we recommend using a composite index including the `DELETED_DATE` column.
 
-Define a unique constraint for the desired column. The index definition in entity should look as follows:
+Define a unique constraint for the desired column. The index definition in the entity should look as follows:
 
 [source]
 ----
@@ -192,7 +192,7 @@ By default, soft deletion is on for all entities having the xref:entities.adoc#s
 include::example$/data-model-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=data-manager;load-hard-deleted]
 ----
 +
-Results will include soft deleted instances.
+Results will include soft-deleted instances.
 
 * When removing entities using `DataManager`:
 +

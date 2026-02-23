@@ -91,7 +91,7 @@ Default value: `true`
 [[jmix.core.trigger-files-process-interval]]
 === jmix.core.trigger-files-process-interval
 
-Period of <<jmix.core.trigger-files-enabled,trigger files>> searching and processing in milliseconds.
+Period for searching and processing <<jmix.core.trigger-files-enabled,trigger files>> in milliseconds.
 
 Default value: `5000`
 
@@ -102,7 +102,7 @@ Indicates the name of the host on which the application is running.
 
 This property can be used by various application subsystems. If the property is needed for a subsystem, it should be mentioned in its documentation.
 
-NOTE: This property doesn't affect actual server address on which the application is running. To bind to a specific address, use `server.address` Spring Boot property.
+NOTE: This property doesn't affect the actual server address on which the application is running. To bind to a specific address, use the `server.address` Spring Boot property.
 
 [[jmix.core.web-port]]
 === jmix.core.web-port
@@ -111,7 +111,7 @@ Indicates the port on which the application is running.
 
 This property can be used by various application subsystems. If the property is needed for a subsystem, it should be mentioned in its documentation.
 
-NOTE: This property doesn't affect actual server port on which the application is running. To bind to a specific port, use `server.port` Spring Boot property.
+NOTE: This property doesn't affect the actual server port on which the application is running. To bind to a specific port, use the `server.port` Spring Boot property.
 
 [[jmix.core.work-dir]]
 === jmix.core.work-dir
@@ -154,7 +154,7 @@ Default value: `*`
 [[jmix.cors.allowed-origins]]
 === jmix.cors.allowed-origins
 
-Defines a comma-separated list of origins for which cross-origin requests are allowed. Use special value `*` for all origins.
+Defines a comma-separated list of origins for which cross-origin requests are allowed. Use the special value `*` for all origins.
 
 For example:
 

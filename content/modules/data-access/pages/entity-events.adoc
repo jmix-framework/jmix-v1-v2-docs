@@ -40,7 +40,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderL
 
 To handle `EntityChangedEvent` after the changes are saved to the database and the transaction is committed, create a bean method annotated with `@TransactionalEventListener`.
 
-Note that exceptions occurred in an "after commit" event listener are not propagated to the calling code and not logged. So it is recommended to wrap your code in the try-catch clause.
+Note that exceptions that occur in an "after commit" event listener are not propagated to the calling code and are not logged. So it is recommended to wrap your code in a try-catch clause.
 
 If you need to load or save any data in an "after commit" event listener, always start a new transaction.
 
@@ -70,7 +70,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderE
 
 [CAUTION]
 ====
-You should access only local attributes of the entity that comes to a `EntitySavingEvent` or `EntityLoadingEvent` listener.
+You should access only local attributes of the entity that comes to an `EntitySavingEvent` or `EntityLoadingEvent` listener.
 
 For references, the framework does not guarantee the presence of the referenced instances in `EntitySavingEvent` listener and cascading of events when references are loaded from an `EntityLoadingEvent` listener.
 ====

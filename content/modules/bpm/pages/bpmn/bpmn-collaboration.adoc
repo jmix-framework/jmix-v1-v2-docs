@@ -61,7 +61,7 @@ While message flows are useful for visualizing interactions between processes, t
 [[examples]]
 == Examples
 
-You can use collaborations in different scenarios. In the first case, using the collaboration allows to place the main process and its subprocess on the single diagram:
+You can use collaborations in different scenarios. In the first case, using the collaboration allows you to place the main process and its subprocess on a single diagram:
 
 image::bpmn-collaboration/collaboration-example-1.png[,800]
 

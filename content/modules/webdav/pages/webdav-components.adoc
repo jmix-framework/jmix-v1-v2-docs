@@ -1,11 +1,11 @@
-= 2. Working with WebDav Components
+= 2. Working with WebDAV Components
 
 At this stage of development, the application features a knowledge base management system represented by the `Knowledge base` view.
 
 In this chapter, you will:
 
-* Enhance the webDav document wrapper data grid to display a link to the WebDAV document instead of the document identifier.
-* Utilize the xref:webdav:ui-components.adoc#webdav-document-upload-field[webdavDocumentUpload] component on the webDav document wrapper detail view to upload the WebDAV document into the system.
+* Enhance the WebDAV document wrapper data grid to display a link to the WebDAV document instead of the document identifier.
+* Use the xref:webdav:ui-components.adoc#webdav-document-upload-field[webdavDocumentUpload] component on the WebDAV document wrapper detail view to upload the WebDAV document into the system.
 
 [[add-webdavDocumentUploadField]]
 == Adding WebdavDocumentUploadField on View
@@ -58,7 +58,7 @@ Select the `webdavDocument` column, switch to the *Handlers* tab of the componen
     }
 ----
 
-Inject `UiComponents` object into controller class:
+Inject the `UiComponents` object into the controller class:
 
 [source,java,indent=0]
 ----
@@ -80,7 +80,7 @@ include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdoc
 [[running-application]]
 == Running the Application
 
-Let’s run the application to observe the new feature in action.
+Let's run the application to observe the new feature in action.
 
 Navigate to `++http://localhost:8080++` using your web browser and sign in to the application with the credentials `admin/admin`.
 
@@ -88,7 +88,7 @@ Choose the `Knowledge base` item from the `Application` menu. You will see the `
 
 image::wd-wrapper-list.png[align="center", width="1271"]
 
-The *Webdav document* column contains a link to the WebDav document and a button allowing you to open the standard *WebDAV document versions* view.
+The *Webdav document* column contains a link to the WebDAV document and a button allowing you to open the standard *WebDAV document versions* view.
 
 Click *Create*. The `Webdav document wrappers.detail` view will open. Besides the text field used for a file description, and the picker for a department, you may notice the built-in WebDAV add-on component for file upload. Try uploading a file using this component:
 
@@ -112,7 +112,7 @@ In this section, you have learned how to utilize components provided by the WebD
 You have learned that:
 
 * The xref:ui-components.adoc#webdav-document-upload-field[WebDAVDocumentUploadField] component includes convenient built-in tools for viewing and uploading WebDAV documents.
-* You can use the xref:ui-components.adoc#webdav-document-link[WebDavDocumentLink] component in a data grid by providing a xref:flow-ui:vc/components/dataGrid.adoc#component-renderer[ComponentRenderer] for a column.
+* You can use the xref:ui-components.adoc#webdav-document-link[WebdavDocumentLink] component in a data grid by providing a xref:flow-ui:vc/components/dataGrid.adoc#component-renderer[ComponentRenderer] for a column.
 
 // [[improving-webdav-document-wrapper-data-grid]]
 // == Improving WebdavDocumentWrapper Data Grid

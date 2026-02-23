@@ -143,7 +143,7 @@ Alternatively, you can inject the action into the view controller and customize 
 include::example$/gridexport-ex1/src/main/java/com/company/demo/view/customer/CustomerListView.java[tags=jsonExport;onInit]
 ----
 
-[[limatations]]
+[[limitations]]
 == Limitations
 
 * When exporting `TreeDataGrid`, the column containing the hierarchy property will not include any padding.

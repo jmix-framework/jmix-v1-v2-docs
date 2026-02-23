@@ -12,7 +12,7 @@ In the *Jmix* tool window, click *New* (image:common/add.svg[]) -> *Resource Rol
 
 image::security/employee-role-1.png[align="center", width="348"]
 
-In the *New Resource Role* dialog, enter `Employee` to *Role name* field and select `UI` in *Security scope* dropdown:
+In the *New Resource Role* dialog, enter `Employee` into the *Role name* field and select `UI` in the *Security scope* dropdown:
 
 image::security/employee-role-2.png[align="center", width="662"]
 
@@ -90,7 +90,7 @@ Now let's assign the role to a user. Open the *Users* list view and create a new
 
 image::security/assign-role-1.png[align="center"]
 
-In the *Role assignments* view, click *Add* button in the *Resource roles* panel.
+In the *Role assignments* view, click the *Add* button in the *Resource roles* panel.
 
 In the *Select resource roles* dialog, select `Employee` and `UI: minimal access` roles:
 
@@ -117,7 +117,7 @@ image::security/assign-role-5.png[align="center"]
 
 In the *Jmix* tool window, click *New* (image:common/add.svg[]) -> *Role*.
 
-In the *New Role* dialog, enter `HR Manager` to *Role name* field, set *Role code* to `hr-manager` and select `UI` in *Security scope* dropdown:
+In the *New Role* dialog, enter `HR Manager` into the *Role name* field, set *Role code* to `hr-manager`, and select `UI` in the *Security scope* dropdown:
 
 image::security/manager-role-1.png[align="center", width="667"]
 

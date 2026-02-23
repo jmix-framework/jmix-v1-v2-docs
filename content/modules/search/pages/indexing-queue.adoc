@@ -24,7 +24,7 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=cron
 
 The default configuration creates and schedules a job with the `IndexingQueueProcessing` identity.
 
-[[custom-qurtz-configuration]]
+[[custom-quartz-configuration]]
 == Custom Quartz Configuration
 
 If you prefer to utilize a custom Quartz configuration, follow these steps:

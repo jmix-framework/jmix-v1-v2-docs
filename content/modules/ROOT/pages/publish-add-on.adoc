@@ -1,6 +1,6 @@
 = Publishing an Add-on
 
-This guide will help you to set up everything you need for publishing your open-source add-on to the Jmix https://www.jmix.io/marketplace/[marketplace^].
+This guide will help you set up everything you need to publish your open-source add-on to the Jmix https://www.jmix.io/marketplace/[marketplace^].
 
 [NOTE]
 ====
@@ -16,7 +16,7 @@ You can create your new Jmix add-on project through the Jmix Studio Project wiza
 
 NOTE: Please don't use `io.jmix.*` as a base package and artifact group of your add-on. This name is reserved for Jmix core add-ons. Ideally, the base package should be a reverse-DNS notation of your own internet domain.
 
-To interact well with the GitHub Actions workflows we will see later, you should change the repository settings for publishing add-on artifacts to GitHub Packages:
+To work well with the GitHub Actions workflows described later, you should change the repository settings for publishing add-on artifacts to GitHub Packages:
 
 [source, groovy]
 .build.gradle
@@ -71,9 +71,9 @@ Once you have picked a license, put the license file into the root directory of 
 [[continuous-integration]]
 == Set up CI
 
-GitHub offers a built-in CI system, that compiles the code, runs tests, performs releases, etc. for free for open-source projects.
+GitHub offers a built-in CI system that compiles the code, runs tests, performs releases, etc. for free for open-source projects.
 
-By adding the following GitHub action workflow files into your GitHub repository, the CI system will perform compilation and execution of automated tests. You will need to create the directory `.github/workflows` manually in the repository.
+By adding the following GitHub Actions workflow files to your GitHub repository, the CI system will perform compilation and execution of automated tests. You will need to create the directory `.github/workflows` manually in the repository.
 
 [source,yaml]
 .test.yml
@@ -140,7 +140,7 @@ With those two files in place GitHub Actions will perform the following tasks:
 * compile the code
 * run unit / integration tests
 * store test results
-* publishes a new version for newly created releases
+* publish a new version for newly created releases
 
 [[create-release]]
 == Create Release
@@ -151,7 +151,7 @@ To create a GitHub release through the CLI use the following command: `gh releas
 
 TIP: We propose to follow https://semver.org/[semantic versioning], which defines how to increase version numbers based on the type of change you performed in this release. It allows users to more easily understand the potential impact of a version update.
 
-Once the release is created, GitHub actions will create the artifact and release it accordingly.
+Once the release is created, GitHub Actions will create the artifact and release it accordingly.
 
 [[register-in-marketplace]]
 == Register Add-on in Marketplace
@@ -159,9 +159,9 @@ Once the release is created, GitHub actions will create the artifact and release
 [[create-issue]]
 === Create Issue
 
-To publish an add-on to the Jmix Marketplace, you need to create an issue in the https://github.com/jmix-framework/jmix-website-content/issues/new/choose[jmix-website-content^] repository. Select "Publish Add-on to Marketplace" and enter the add-on name and the Github repository it is located in.
+To publish an add-on to the Jmix Marketplace, you need to create an issue in the https://github.com/jmix-framework/jmix-website-content/issues/new/choose[jmix-website-content^] repository. Select "Publish Add-on to Marketplace" and enter the add-on name and the GitHub repository it is located in.
 
-After you created the issue, we will check the add-on and, if the add-on artifacts are published on GitHub Packages, create proxies to allow users to download the artifacts from the standard Jmix repositories `global.repo.jmix.io` and `nexus.jmix.io`.
+After you create the issue, we will check the add-on and, if the add-on artifacts are published on GitHub Packages, create proxies to allow users to download the artifacts from the standard Jmix repositories `global.repo.jmix.io` and `nexus.jmix.io`.
 
 [[submit-description]]
 === Submit Description
@@ -206,5 +206,5 @@ api 'my.new.jmix.addon:my-add-on-starter:1.0.0'
 When a new major or minor Jmix version is released (for example, 5.5.0), its BOM doesn't contain any third-party add-ons because they are not tested for compatibility with the new version.
 
 You should create a new issue or submit a PR for the corresponding release branch (for example, `release_5_5`) to include your add-on in the new BOM.
-Until your add-on is not in the BOM, users can still use your add-on with the new Jmix version if they explicitly specify the add-on version in their build scripts.
+Until your add-on is included in the BOM, users can still use your add-on with the new Jmix version if they explicitly specify the add-on version in their build scripts.
 ====

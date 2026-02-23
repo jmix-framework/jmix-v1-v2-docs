@@ -1,6 +1,6 @@
 = Metadata API
 
-It is possible to introspect the entity structure and relationships between entities in Jmix via the xref:data-model:metadata.adoc[Metadata] mechanism. You can access these capabilities through the REST API endpoints starting with `/metadata`
+It is possible to introspect the entity structure and relationships between entities in Jmix via the xref:data-model:metadata.adoc[Metadata] mechanism. You can access these capabilities through the REST API endpoints starting with `/metadata`.
 
 The Metadata API consists of the following endpoints:
 
@@ -96,7 +96,7 @@ GET http://localhost:8080/rest
 [[fetch-plans]]
 == Fetch Plans
 
-The Fetch Plan Metadata API exposes information of the structure of the available xref:data-access:fetching.adoc[fetch plans] for a given entity. It consists of the two endpoints:
+The Fetch Plan Metadata API exposes information about the structure of the available xref:data-access:fetching.adoc[fetch plans] for a given entity. It consists of two endpoints:
 
 `/metadata/entities/:entityName/fetchPlans`:: All available fetch plans of the given entity
 `/metadata/entities/:entityName/fetchPlans/:fetchPlanName`:: Information about a particular fetch plan
@@ -171,7 +171,7 @@ The Enum Metadata API provides information about possible values for Enums.
 `/metadata/enums`:: Names and values of all enums
 `/metadata/enums/:enumClassName`:: Names and values of a given enum
 
-NOTE: The parameter `:enumClassName` should contain the full qualified class name of the enum. Example: `rest.sample.entity.CustomerType` instead of just `CustomerType`.
+NOTE: The parameter `:enumClassName` should contain the fully qualified class name of the enum. Example: `rest.sample.entity.CustomerType` instead of just `CustomerType`.
 
 In the following example information about the `rest.sample.entity.CustomerType` enum is requested:
 

@@ -8,13 +8,13 @@ Welcome to the https://www.jmix.io[Jmix^] documentation!
 
 *Jmix* is a high-level full-stack framework for enterprise web applications. It comes with advanced tooling and a rich set of functional modules.
 
-Jmix is intended for fast development of web applications with a large data model and complex UI aimed at internal users of an organization. There are various types of applications in this category, including just CRUD, an admin UI for a website, a business automation tool, a CRM or an ERP-class system. Anything that involves working with tens or hundreds of interconnected entities in hundreds or thousands of screens, while using mostly standard UI components like fields, forms and tables.
+Jmix is intended for fast development of web applications with a large data model and complex UI aimed at internal users of an organization. There are various types of applications in this category, including just CRUD, an admin UI for a website, a business automation tool, a CRM, or an ERP-class system. Anything that involves working with tens or hundreds of interconnected entities in hundreds or thousands of screens, while using mostly standard UI components like fields, forms, and tables.
 
-Jmix is based on Spring Boot, which is a de-facto standard for creating enterprise Java web applications. It means that you can use a lot of third-party libraries and frameworks with minimal configuration, in addition to the functionality provided by Jmix.
+Jmix is based on Spring Boot, which is a de facto standard for creating enterprise Java web applications. It means that you can use many third-party libraries and frameworks with minimal configuration, in addition to the functionality provided by Jmix.
 
 Jmix is an open-source framework, giving developers full control over their applications. Applications built with Jmix are owned entirely by the developers, with no vendor lock-in or proprietary restrictions, ensuring complete freedom to customize, deploy, and scale as needed.
 
-*Jmix Studio* is a plugin for IntelliJ IDEA that helps you at all stages of the application development: creating and configuring a project, defining data model, generating database migration scripts, developing UI views in a visual editor. It provides advanced navigation, code completion and inspections specific to Jmix projects.
+*Jmix Studio* is a plugin for IntelliJ IDEA that helps you at all stages of application development: creating and configuring a project, defining the data model, generating database migration scripts, and developing UI views in a visual editor. It provides advanced navigation, code completion, and inspections specific to Jmix projects.
 
 [[getting-started]]
 == Getting Started

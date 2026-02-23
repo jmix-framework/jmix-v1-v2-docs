@@ -80,7 +80,7 @@ After that, the modal **Run report** dialog will open where reports related to t
 [[run-single-entity-report-action]]
 === RunSingleEntityReportAction
 
-`io.jmix.reportsflowui.action.RunSingleEntityReportAction` is an action associated with an entity detail view. The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the edited entity type. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to user for selection.
+`io.jmix.reportsflowui.action.RunSingleEntityReportAction` is an action associated with an entity detail view. The action only selects reports having an external parameter of the *Entity* or the *List of entities* type and where the parameter entity type matches the edited entity type. If only one report is available as a result of selection, it is invoked immediately. If several reports are available, their list is offered to the user for selection.
 
 The external parameter value - edited entity instance - is passed into the report. If the parameter has the *List of entities* type, then a list containing a single item is passed.
 

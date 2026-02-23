@@ -67,9 +67,9 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/CustomerService
 
 In the example above, the `DataManager` stores a test customer in the database. Since all tests share the same database instance by default, it means that this test data will also be available for the next test. This is not a problem in this example, but in other cases, it might be. For example, consider that there is a unique constraint on the email address field of the `Customer` entity. If you write a test that creates a customer with a specific email address, and another test that searches for a customer by email address - assuming it is not there, the second test would fail, because it would find the customer created by the first test.
 
-There are several ways of cleaning up the test data. The first one is to keep references to entities that were created during the test. In the example above, you could keep a reference to the customer that was created in the test and delete it after the test has finished using `dataManager.remove(customer)`. This is a valid approach, but it requires some additional code in the test. Additionally, it is not always possible to keep a reference to data that were created during the test. For example, if a new entity is created in the production code, you cannot get a reference to it in the test. Furthermore, in case of an exception during the test, the cleanup code might not be executed.
+There are several ways of cleaning up the test data. The first one is to keep references to entities that were created during the test. In the example above, you could keep a reference to the customer that was created in the test and delete it after the test has finished using `dataManager.remove(customer)`. This is a valid approach, but it requires some additional code in the test. Additionally, it is not always possible to keep a reference to data that was created during the test. For example, if a new entity is created in the production code, you cannot get a reference to it in the test. Furthermore, in case of an exception during the test, the cleanup code might not be executed.
 
-The second option would be to perform more general database cleanup. In the following example a `JdbcTemplate` performs the SQL statement `DELETE FROM CUSTOMER` to delete all customers from the database:
+The second option would be to perform more general database cleanup. In the following example, a `JdbcTemplate` performs the SQL statement `DELETE FROM CUSTOMER` to delete all customers from the database:
 
 [source,java,indent=0,title='CustomerServiceTest.java']
 ----
@@ -82,7 +82,7 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/CustomerService
 [[security-context-in-tests]]
 == Security Context in Tests
 
-Jmix allows code to be executed on behalf of a specified user, which is often necessary for testing functionalities that rely on user roles and permissions. This can be achieved by using the xref:security:authentication.adoc#system[SystemAuthenticator].
+Jmix allows code to be executed on behalf of a specified user, which is often necessary for testing functionality that relies on user roles and permissions. This can be achieved by using the xref:security:authentication.adoc#system[SystemAuthenticator].
 
 Let's consider an example of testing a `CustomerService` method that behaves differently depending on the role of the user who executes it:
 
@@ -101,7 +101,7 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/CustomerService
 <2> `SystemAuthenticator` executes the code under test on behalf of the newly created user.
 <3> The `CustomerService` performs a database lookup of customers by email with the security context of that user.
 
-As the user has no roles, the customer service returns an empty `Optional`.
+As the user has no roles, the `CustomerService` returns an empty `Optional`.
 
 [[authenticated-as-admin]]
 === AuthenticatedAsAdmin
@@ -113,12 +113,12 @@ Instead of setting up the security context for particular parts of the test, you
 include::example$/testing-ex1/src/test/java/com/company/demo/app/CustomerServiceTest.java[tags=authenticated-as-admin]
 ----
 
-It is also possible to combine the `AuthenticatedAsAdmin` extension with the `SystemAuthenticator` to execute the test code as a particular user. By annotating the test class the default security context is set to the admin. But within the test case, you can use the `SystemAuthenticator` to execute the code as a particular user.
+It is also possible to combine the `AuthenticatedAsAdmin` extension with the `SystemAuthenticator` to execute the test code as a particular user. By annotating the test class, the default security context is set to the admin. But within the test case, you can use the `SystemAuthenticator` to execute the code as a particular user.
 
 [[overriding-application-behavior]]
 == Overriding Application Behavior
 
-Sometimes even for integration tests it is required to mock out certain parts of the application. In those cases, it is possible to combine the functionalities of `@SpringBooTest` with Mockito and mock out particular beans, but still use the overall Spring context.
+Sometimes, even in integration tests, it is necessary to mock out certain parts of the application. In those cases, it is possible to combine the functionalities of `@SpringBootTest` with Mockito and mock out particular beans, but still use the overall Spring context.
 
 Let's consider a `NotificationService` that as part of its business logic uses the `Emailer` API from the xref:email:index.adoc[] add-on. An integration test for this service should not actually send out emails, so the email functionality should be mocked.
 
@@ -135,7 +135,7 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/NotificationSer
 The `@MockBean` annotation replaces the bean in the application context with a mock. This enables two things:
 
 . To prevent the email from actually being sent.
-. To simulate failure scenario where email sending did not work.
+. To simulate a failure scenario in which email sending did not work.
 
 [[test-configuration]]
 === @TestConfiguration
@@ -149,6 +149,6 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/NotificationSer
 <1> The inner static class annotated with `@TestConfiguration` will be picked up by Spring when executing the test case.
 <2> A bean with the name `emailer` of type `Emailer` is declared. It overrides the standard bean of this type.
 <3> A mock instance is created.
-<4> The behaviour of the mock is specified and the configured mock is returned.
+<4> The behavior of the mock is specified and the configured mock is returned.
 
 The production code interacting with the `Emailer` bean will now use the mock instead of the standard implementation.

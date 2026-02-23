@@ -29,7 +29,7 @@ Default value: `app`
 [[jmix.ldap.urls]]
 == jmix.ldap.urls
 
-Spesifies LDAP server URLs. LDAP URLs (SSL-secured) may be used as well, considering that Spring Security can connect to the server. Note that these URLs must not include the base DN. Multiple URLs can be specified in the comma-separated list. In this case, a connection will be established to any of the provided LDAP server URLs.
+Specifies LDAP server URLs. LDAP URLs (SSL-secured) may be used as well, considering that Spring Security can connect to the server. Note that these URLs must not include the base DN. Multiple URLs can be specified in the comma-separated list. In this case, a connection will be established to any of the provided LDAP server URLs.
 
 Example: `ldap://ldap.company.com:389`
 
@@ -78,7 +78,7 @@ Default value: `cn`
 [[jmix.ldap.group-search-base]]
 == jmix.ldap.group-search-base
 
-Defines a search base for group searches. 
+Defines a search base for group searches.
 
 The default value is an empty string.
 
@@ -106,7 +106,7 @@ Default value: `false`
 [[jmix.ldap.active-directory-domain]]
 == jmix.ldap.active-directory-domain
 
-Used only with the ActiveDirectory configuration. Specifies the Active Directory domain name.
+Used only with the Active Directory configuration. Specifies the Active Directory domain name.
 
 Example: `mydomain.com`
 

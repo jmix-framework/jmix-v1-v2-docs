@@ -25,7 +25,7 @@ The test itself is a regular Spring Boot integration test. It starts the complet
 
 NOTE: By default, the tests use the same database as the application when running locally.
 
-Jmix Studio uses IntelliJ IDEA's capabilities to execute tests. When you open the `UserTest.java` class in Jmix Studio, you can run the test cases by clicking the play button on the line of the test class. The IDE will show the result of the test execution and if the test was successful or not.
+Jmix Studio uses IntelliJ IDEA's capabilities to execute tests. When you open the `UserTest.java` class in Jmix Studio, you can run the test cases by clicking the play button on the line of the test class. The IDE will show the result of the test execution and whether the test was successful.
 
 See more information on how to run tests in the https://www.jetbrains.com/help/idea/performing-tests.html[IntelliJ documentation^].
 

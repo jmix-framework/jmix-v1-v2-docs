@@ -62,7 +62,7 @@ include::example$/charts-ex2/src/main/resources/com/company/onboarding/view/user
 [[data-binding]]
 == Data Binding Using Data Container
 
-For your radar chart, you can use the `emloyeesDc` data container you've set in the xref:charts:bar-chart.adoc#data-binding[bar chart] section.
+For your radar chart, you can use the `employeesDc` data container you've set in the xref:charts:bar-chart.adoc#data-binding[bar chart] section.
 
 To include the fetched data to the chart, select the `chart` component and add a `dataSet` attribute manually.
 
@@ -78,7 +78,7 @@ Inside the `dataSet` tag, choose the `employeesDc` container for your `source` a
 include::example$/charts-ex2/src/main/resources/com/company/onboarding/view/user/user-list-view.xml[tags=radarTitle]
 ----
 
-Once you complete these steps, your bar chart XML configuration will be as follows.
+Once you complete these steps, your radar chart XML configuration will be as follows.
 
 [source,xml,indent=0]
 ----

@@ -1,6 +1,6 @@
 = Database Schema Migration
 
-_Database schema migration_, or database migration for short, is a process of updating the database schema in accordance with changes of your application data model.
+_Database schema migration_, or database migration for short, is a process of updating the database schema in accordance with changes to your application data model.
 
 Jmix uses https://www.liquibase.org[Liquibase^] as a database migration tool.
 
@@ -20,7 +20,7 @@ Add-ons that your application depends on can also contain Liquibase changelog fi
 [[changelogs]]
 == Changelog Files Structure
 
-Studio generates changelog files in the `src/main/resources/<base_package>/liquibase` directory of the application project. In this directory, Studio creates the `changelog` directory for the main data store, and `<store>-changelog` directories for additional data stores. Changelog files are created in subdirectories corresponding to the year and month of the current date. Name of each file includes a current day, a sequence number within the day, and a random character sequence to avoid conflicts if multiple developers work on the same project.
+Studio generates changelog files in the `src/main/resources/<base_package>/liquibase` directory of the application project. In this directory, Studio creates the `changelog` directory for the main data store, and `<store>-changelog` directories for additional data stores. Changelog files are created in subdirectories corresponding to the year and month of the current date. The name of each file includes the current day, a sequence number within the day, and a random character sequence to avoid conflicts if multiple developers work on the same project.
 
 .src/main/resources/com/company/demo/
 [source,text]
@@ -62,7 +62,7 @@ The root Liquibase changelog for the main data store contains `include` directiv
 
 Studio maintains the includes automatically when you add or remove add-ons. Also, when you start the application, it checks that includes in the root changelog correspond to the add-ons used in the project. If it finds a mismatch, Studio shows a notification dialog and suggests adding or removing includes. You can ignore some paths, and the notification won’t be shown again for the ignored items.
 
-You can write Liquibase changelog files manually and put them into the structure described above. Liquibase executes included changelogs in the alphabetical order considering the whole path, so give your files appropriate names.
+You can write Liquibase changelog files manually and put them into the structure described above. Liquibase executes included changelogs in alphabetical order considering the whole path, so give your files appropriate names.
 
 WARNING: Never remove the root `changelog.xml` file, it is required to start the migration process. Also, don't remove `changelog/010-init-user.xml` unless you want to implement security in a non-standard way.
 

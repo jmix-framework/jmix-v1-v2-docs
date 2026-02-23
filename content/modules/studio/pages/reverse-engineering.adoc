@@ -22,11 +22,11 @@ The wizard displays the list of tables that have no corresponding entities in th
 
 image::generate-data-model-step1.png[align="center",width="936"]
 
-Select tables that you want to map to the data model. Some tables depend on others through foreign keys, so when you select a table, all tables that it depends on are also become selected. If you deselect a table, all dependent tables become deselected too.
+Select tables that you want to map to the data model. Some tables depend on others through foreign keys, so when you select a table, all tables that it depends on also become selected. If you deselect a table, all dependent tables become deselected too.
 
 You can click on the image:icons/selectall.svg[Select All] and image:icons/unselectall.svg[Deselect All] checkboxes to select or deselect all available tables.
 
-Optional step: click image:icons/gear.svg[Settings] to set up a Java package where to create new entities, and default mappings for system attributes.
+Optional step: click image:icons/gear.svg[Settings] to set up a Java package for new entities and default mappings for system attributes.
 
 For example, if all or most of the tables in your database contain `Modified` and `ModifiedBy` columns, you can map them to `lastModifiedDate` and `lastModifiedBy` attributes of created entities. In this case, you don’t need to map them individually for each table. Use the *Exclude columns from mapping* list to not map certain columns automatically for all tables.
 

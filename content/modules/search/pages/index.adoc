@@ -40,13 +40,13 @@ To connect to the Elasticsearch/OpenSearch service, specify the following proper
 * `jmix.search.server.password` - the user password used to connect to the service.
 
 [[version-compatibility]]
-== Versions Compatibility
+== Version Compatibility
 
-Java API clients for Elasticsearch/OpenSearch are forward-compatible with server version.
+Java API clients for Elasticsearch/OpenSearch are forward-compatible with server versions.
 
-The add-on uses Elasticsearch Java API client v8.10.4 that supports ES 8.10+ (but also should support older versions till the oldest version is still supported by Elastic - 7.17.x)
+The version of the Elasticsearch Java API used by the add-on is determined by the Spring Boot. See `co.elastic.clients:elasticsearch-java` version at {spring-boot-doc}/appendix/dependency-versions/coordinates.html[^].
 
-With OpenSearch, the add-on uses Java API client v2.10.3.
+With OpenSearch, the add-on uses Java API client v2.13.
 
 CAUTION: Note that the Search add-on is not currently compatible with the Elasticsearch service offered by AWS.
 

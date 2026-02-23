@@ -80,7 +80,7 @@ The Groovy script should provide a new parameter value. The script receives the 
 
 Here is an illustration of a recalculation script utilizing the `EntityValues` class:
 
-image::calculated.png[align=align="center",width="962"]
+image::calculated.png[align="center",width="962"]
 
 An example of a recalculation script using the `dynamicAttributes` map:
 

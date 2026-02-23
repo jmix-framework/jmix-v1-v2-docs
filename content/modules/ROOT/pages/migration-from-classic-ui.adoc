@@ -118,4 +118,4 @@ At this point, you have a working application based on Jmix {page-component-disp
 
 The next step is to create CRUD views for your data model entities using the xref:studio:view-wizard.adoc[].
 
-As a result, you will have the application with the old data model and backend logic and a new user interface that allows you to manage data through the standard list/detail views. After that, you will need to customize the user interface using the xref:flow-ui:index.adoc[Flow UI] API and set of components.
+As a result, you will have the application with the old data model and backend logic and a new user interface that allows you to manage data through the standard list/detail views. After that, you will need to customize the user interface using the xref:flow-ui:index.adoc[Flow UI] API and the set of components.

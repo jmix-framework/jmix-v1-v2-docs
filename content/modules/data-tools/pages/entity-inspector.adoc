@@ -6,7 +6,7 @@ Entity Inspector respects data access constraints imposed by xref:security:index
 
 Open the *Data tools -> Entity inspector* view and select an entity from the *Entity type* list.
 
-image::entity-browser.png[algne=centre]
+image::entity-browser.png[align="center"]
 
 In case the entity is soft-deleted, the *Show mode* dropdown allows you to view removed entities and restore or wipe them out.
 

@@ -2,7 +2,7 @@
 
 In the previous chapters, you implemented management of Steps and Departments. Your application also has the default User management which came from the project template.
 
-In this chapter, you will add the `onboardingStatus` attribute to the `User` entity and show it in UI. This attribute can have one of three values: `Not started`, `In progress`, `Completed`.
+In this chapter, you will add the `onboardingStatus` attribute to the `User` entity and show it in the UI. This attribute can have one of three values: `Not started`, `In progress`, `Completed`.
 
 [[create-enum]]
 == Creating Enumeration
@@ -58,7 +58,7 @@ Select the `onboardingStatus` attribute and click the *Add to Views* (image:comm
 
 image::enumerations/attribute-3.png[align="center", width="491"]
 
-The appeared dialog window will show all views that display the `User` entity. Select both `User.detail` and `User.list` views:
+The dialog window that appears will show all views that display the `User` entity. Select both `User.detail` and `User.list` views:
 
 image::enumerations/attribute-4.png[align="center", width="589"]
 

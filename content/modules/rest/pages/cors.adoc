@@ -2,7 +2,7 @@
 
 For security reasons, browsers don't allow JavaScript network calls to resources outside the current origin. Cross-Origin Resource Sharing or CORS solves this restriction, as it lets you specify which cross-domain requests are allowed.
 
-By default, all cross-origin requests to the REST API are allowed. To restrict the origins list you can define the xref:ROOT:app-properties.adoc#jmix.cors.allowed-origins[jmix.cors.allowed-origins] application property and other xref::app-properties.adoc#cors[CORS properties].
+By default, all cross-origin requests to the REST API are allowed. To restrict the origins list, you can define the xref:ROOT:app-properties.adoc#jmix.cors.allowed-origins[jmix.cors.allowed-origins] application property and other xref::app-properties.adoc#cors[CORS properties].
 
 CORS settings are automatically applied to the following URLs:
 

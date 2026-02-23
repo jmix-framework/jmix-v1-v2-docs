@@ -39,7 +39,7 @@ Now only matched properties are displayed.
 
 == Parameters Ordering and Deletion
 
-When the element property may have several parameters like *Input dialog form*, the BPMN Inspector allows to move them up and down in the list.
+When the element property may have several parameters like *Input dialog form*, the BPMN Inspector allows you to move them up and down in the list.
 
 image::process-modeling/parameters-ordering.png[,400]
 

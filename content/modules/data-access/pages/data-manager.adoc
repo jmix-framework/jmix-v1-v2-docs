@@ -36,7 +36,7 @@ The identifier can also be specified using `Id<E>` class which contains informat
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=load-by-generic-id]
 ----
 
-If the entity with the given identifier may not exist, instead of `one()` terminal method use `optional()` which returns `Optional<E>`. In the example below, if the entity not found, a new instance is created and returned:
+If the entity with the given identifier may not exist, instead of `one()` terminal method use `optional()` which returns `Optional<E>`. In the example below, if the entity is not found, a new instance is created and returned:
 
 [source,java,indent=0]
 ----
@@ -131,13 +131,13 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 
 Besides entity instances, `DataManager` can load scalar and aggregate values in the form of xref:data-model:entities.adoc#key-value[key-value entities].
 
-The `loadValues(String query)` method loads a list of `KeyValueEntity` instances populated with a given query results. For example:
+The `loadValues(String query)` method loads a list of `KeyValueEntity` instances populated with the given query result. For example:
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderService.java[tags=load-values]
 ----
-<1> Specify data store where the requested entities are located. Omit this method if the entity is located in the main data store.
+<1> Specify the data store where the requested entities are located. Omit this method if the entity is located in the main data store.
 <2> Specify names of the resulting key-value entity attributes. The order of the properties must correspond to the columns in the query result set.
 <3> Get loaded values from the key-value entity attributes.
 
@@ -148,7 +148,7 @@ The `loadValue(String query, Class valueType)` method loads a single value of th
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderService.java[tags=load-value]
 ----
 <1> The type of the returned value.
-<2> Specify data store where the requested entities are located. Omit this method if the entity is located in the main data store.
+<2> Specify the data store where the requested entities are located. Omit this method if the entity is located in the main data store.
 
 [[load-scalars-limitations]]
 ==== Limitations
@@ -243,7 +243,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerSe
 
 The `saveWithoutReload()` method also accepts multiple instances and collections. Use it instead of `save()` and `saveAll()` if you don't need the saved entities for further actions.
 
-The most powerful form of the `save()` method accepts `SaveContext` object that can be used to add multiple instances and specify additional parameters of saving. In the example below, we save a collection of entities using `SaveContext`:
+The most powerful form of the `save()` method accepts a `SaveContext` object that can be used to add multiple instances and specify additional parameters of saving. In the example below, we save a collection of entities using `SaveContext`:
 
 [source,java,indent=0]
 ----
@@ -336,7 +336,7 @@ When loading data using the fluent API, you can use the `joinTransaction(false)`
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/CustomerService.java[tags=load-in-separate-transaction]
 ----
 
-When saving entities, use the `setJoinTransaction(false)` method of `SaveContext` to to begin and commit a separate transaction for the operation with this context:
+When saving entities, use the `setJoinTransaction(false)` method of `SaveContext` to begin and commit a separate transaction for the operation with this context:
 
 [source,java,indent=0]
 ----

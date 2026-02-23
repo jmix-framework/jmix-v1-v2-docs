@@ -371,7 +371,7 @@ If you need to implement a complicated logic when setting candidate groups, bett
 
 image::bpmn-user-task/selecting-user-group-provider.png[,450]
 
-It allows to select one of previously created Java beans provided with the `@UserGroupListProvider` annotation.
+It allows you to select one of the previously created Java beans provided with the `@UserGroupListProvider` annotation.
 This bean must implement one or more methods returning `List<String>` containing user group codes.
 
 The `@UserGroupListProvider` annotation has two attributes:

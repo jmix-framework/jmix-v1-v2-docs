@@ -24,7 +24,7 @@ The User Info Endpoint allows you to fetch information about the current user: `
 
 The `/permissions` endpoint allows you to retrieve information about current user's permissions on entities and entity attributes.
 
-The returned `entities` array contain a list of targets for the CRUD operations on entities like `sample_Customer:read` with a value describing the corresponding permission:
+The returned `entities` array contains a list of targets for the CRUD operations on entities like `sample_Customer:read` with a value describing the corresponding permission:
 
 
 .Entity Values

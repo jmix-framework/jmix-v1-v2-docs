@@ -41,7 +41,7 @@ repositories {
 implementation 'io.jmix.tabbedmode:jmix-tabbedmode-flowui-starter'
 ----
 
-. Change base class of the `MainView.java` from `StandardMainView` to `StandardTabbedModeMainView`.
+. Change the base class of `MainView.java` from `StandardMainView` to `StandardTabbedModeMainView`.
 +
 [source,java,indent=0]
 ----

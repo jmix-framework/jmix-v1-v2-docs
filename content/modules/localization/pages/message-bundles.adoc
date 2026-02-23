@@ -11,7 +11,7 @@ CAUTION: Message bundle files must have the UTF-8 encoding.
 [[setting-locales]]
 == Setting Up Locales
 
-When you create a new project using Studio, you can set up the list of supported locales in the *Locales* field of the project wizard. This field allows you to select a languages and their codes.
+When you create a new project using Studio, you can set up the list of supported locales in the *Locales* field of the project wizard. This field allows you to select languages and their codes.
 
 Studio writes the list of language codes to the xref:ROOT:app-properties.adoc#jmix.core.available-locales[jmix.core.available-locales] application property and language names to the corresponding `messages_<language>.properties` files with `localeDisplayName.<language>` key. You can later edit these properties manually or use the *Locales* tab of the *Project Properties* window in Studio.
 

@@ -5,7 +5,7 @@ This section describes annotations that can be added to a view controller to pro
 [[tabbed-mode-view-properties]]
 == TabbedModeViewProperties
 
-The `@TabbedModeViewProperties` annotation defines parameters of a view specific for the Tabbed Application Mode. It provides the following properties:
+The `@TabbedModeViewProperties` annotation defines parameters of a view specific to the Tabbed Application Mode. It provides the following properties:
 
 * `closeable` - whether a view can be closed by standard operations like a tab close button, xref:main-tab-sheet.adoc[close tab actions], `io.jmix.tabbedmode.Views.OpenedViews` and `io.jmix.tabbedmode.Views.ViewStack` methods. This means that a view can only be closed by invoking the xref:flow-ui:views/view-methods.adoc#methods-of-all-views[close()] method of the view.
 
@@ -14,4 +14,4 @@ The `@TabbedModeViewProperties` annotation defines parameters of a view specific
 [[multiple-open]]
 == MultipleOpen
 
-The `@MultipleOpen` annotation indicates that the view can be opened from the main menu multiple times. By default, when a user clicks a main menu item, the framework checks if the view of the same class and id is already opened on top of the work area tab. If such view is found, it is closed and the new instance of the view is opened in a new tab. When the `@MultipleOpen` annotation is present, no checks are performed and a new instance of the screen is simply opened in a new tab.
+The `@MultipleOpen` annotation indicates that the view can be opened from the main menu multiple times. By default, when a user clicks a main menu item, the framework checks if the view of the same class and id is already opened on top of the work area tab. If such view is found, it is closed and the new instance of the view is opened in a new tab. When the `@MultipleOpen` annotation is present, no checks are performed and a new instance of the view is simply opened in a new tab.

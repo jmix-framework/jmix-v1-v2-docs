@@ -50,7 +50,7 @@ These states allow users to easily determine which tab is currently active and w
 [[labels]]
 == Labels
 
-Individual tabs can nest almost any components within them. This allows to compose visually distinctive tab labels:
+Individual tabs can nest almost any components within them. This allows you to compose visually distinctive tab labels:
 
 image::visual-components/components/tabs-basic2.png[align="center", width="394"]
 

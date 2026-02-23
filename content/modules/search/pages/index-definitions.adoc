@@ -21,7 +21,7 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDe
 Attributes
 
 * `entity` - specifies the entity class associated with this Index Definition. Mandatory.
-* `indexName` - specifies the full name of index that will be used for that entity. Optional. If not set index name is based on xref:search-properties.adoc#jmix.search.searchIndexNamePrefix[prefix and entity name].
+* `indexName` - specifies the full name of the index that will be used for that entity. Optional. If not set, the index name is based on xref:search-properties.adoc#jmix.search.searchIndexNamePrefix[prefix and entity name].
 
 Indexed entity properties are specified using methods within the interface. These methods must adhere to the following guidelines:
 
@@ -159,7 +159,7 @@ In case of multiple values:
 [[file-attributes]]
 === Files
 
-These are attributes of the `FileRef` type referring files in xref:files:file-storage.adoc[File Storage]. By default, both the file name and content are utilized as indexed values. If you wish to index only the file name, you must adjust the `indexFileContent` parameter of `@AutoMappedField` to `false`:
+These are attributes of the `FileRef` type referring to files in xref:files:file-storage.adoc[File Storage]. By default, both the file name and content are utilized as indexed values. If you wish to index only the file name, you must adjust the `indexFileContent` parameter of `@AutoMappedField` to `false`:
 
 [source,java,indent=0]
 ----
@@ -223,7 +223,7 @@ For instance, imagine a root entity with a `customer` attribute linked to the em
 
 You can specify nested properties using the dot notation: `refProperty.nestedRefProperty.targetDataProperty`.
 
-Furthermore, the system supports collection attributes, which includes nested collections at various levels. In such cases, the index consolidates all attribute values at the lowest level. For instance, a property like `collectionOfReferences.nestedCollectionOfAnotherReferences.name` is stored in the following format:
+Furthermore, the system supports collection attributes, which include nested collections at various levels. In such cases, the index consolidates all attribute values at the lowest level. For instance, a property like `collectionOfReferences.nestedCollectionOfAnotherReferences.name` is stored in the following format:
 
 [source,json]
 ----
@@ -259,7 +259,7 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/CustomerInde
 <2> You can pass Spring beans as parameters for custom mapping configuration.
 <3> The list of properties that should be indexed. Here the `*` wildcard is used to include all local properties of the indexed `Customer` entity.
 <4> The list of properties that should not be indexed.
-<5> The `FieldMappingStrategy` implementation class that should be used to map properties. The mapping strategy can also be defined as instance using the `withFieldMappingStrategy()` method with the strategy instance as a parameter.
+<5> The `FieldMappingStrategy` implementation class that should be used to map properties. The mapping strategy can also be defined as an instance using the `withFieldMappingStrategy()` method with the strategy instance as a parameter.
 <6> An explicit property value extractor. For example, a `FilePropertyValueExtractor` instance can be used for processing attributes of the `FileRef` type.
 
 There is an option to define a text configuration for property mapping, for example:
@@ -338,8 +338,8 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDe
 [[indexable-predicate]]
 == Indexable Predicate
 
-Indexing process can have additional instance-level condition.
-It can be added by configuring Indexable Predicate. This predicate applies to each entity instance during indexing and defines if it should be indexed or not.
+The indexing process can have an additional instance-level condition.
+It can be added by configuring an Indexable Predicate. This predicate applies to each entity instance during indexing and defines whether it should be indexed.
 
 It doesn't apply during deletion.
 

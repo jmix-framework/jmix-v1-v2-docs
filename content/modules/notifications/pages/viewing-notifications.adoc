@@ -1,4 +1,4 @@
-= Viewing Notifications 
+= Viewing Notifications
 
 To show notifications sent to the in-app channel, add the `notificationsIndicator` UI component to an application screen as described in the xref:configuration.adoc#in-app-channel[Configuration] section.
 

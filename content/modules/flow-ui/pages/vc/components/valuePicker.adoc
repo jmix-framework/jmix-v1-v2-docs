@@ -7,7 +7,7 @@
 </div>
 ++++
 
-`valuePicker` displays a value of any type. It consists of the text field and the set of buttons defined by actions.
+`valuePicker` displays a value of any type. It consists of a text field and a set of buttons defined by actions.
 
 [cols="1h,6", grid=none]
 |===

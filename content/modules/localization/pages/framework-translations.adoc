@@ -5,7 +5,7 @@ The Jmix framework subsystems come with `messages.properties` files containing m
 [[translation-add-ons]]
 == Translation Add-ons
 
-With the help of our community, we provide translations of the framework messages for several languages in the form of _translation add-ons_. A translation add-on is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation add-ons created by the Jmix team and community members on the Jmix marketplace: open the *Jmix* tool window in Studio, select *Add-ons* item and click *Marketplace* in its context menu. In the opened *Add-ons* window, filter the add-ons by the *Localization* tag.
+With the help of our community, we provide translations of the framework messages for several languages in the form of _translation add-ons_. A translation add-on is a set of message files packed together in a JAR that can be added to your project as a dependency. You can find the translation add-ons created by the Jmix team and community members on the Jmix marketplace: open the *Jmix* tool window in Studio, select the *Add-ons* item and click *Marketplace* in its context menu. In the *Add-ons* window, filter the add-ons by the *Localization* tag.
 
 To install translation add-ons manually, add dependencies from the following list to your `build.gradle`:
 
@@ -31,7 +31,7 @@ implementation 'io.jmix.translations:jmix-translations-zh-cn'   // Simplified Ch
 
 If you need to translate the framework messages to a different language, you can do it right in your project. Below is the recommended way to do it:
 
-* Clone https://github.com/jmix-framework/jmix[https://github.com/jmix-framework/jmix^] repository and checkout a branch corresponding to the Jmix version used in your project.
+* Clone https://github.com/jmix-framework/jmix[https://github.com/jmix-framework/jmix^] repository and check out a branch corresponding to the Jmix version used in your project.
 
 * Depending on the set of add-ons used in your project, copy all or some of the `messages.properties` files from the `jmix-translations/content` folder to the same paths under your project's `src/main/resources` folder.
 

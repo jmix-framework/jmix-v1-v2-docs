@@ -43,12 +43,12 @@ For example, in the previous example, we excluded the `duration` column from the
 [[hideAllEnabled]]
 === hideAllEnabled
 
-The `hideAllEnabled` attribute is used to control the visibility of a *Hide all* item a dropdown menu of `gridColumnVisibility`.
+The `hideAllEnabled` attribute is used to control the visibility of a *Hide all* item in the dropdown menu of `gridColumnVisibility`.
 
 [[showAllEnabled]]
 === showAllEnabled
 
-The `showAllEnabled` attribute is used to control the visibility of a *Show all* item a dropdown menu of `gridColumnVisibility`.
+The `showAllEnabled` attribute is used to control the visibility of a *Show all* item in the dropdown menu of `gridColumnVisibility`.
 
 [[attributes]]
 == Attributes

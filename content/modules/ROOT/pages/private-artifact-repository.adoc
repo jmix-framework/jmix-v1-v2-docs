@@ -1,12 +1,12 @@
 = Private Artifact Repository
 
-This section describes how to set up a private Maven repository and use it instead of the Jmix public repositories for caching the framework artifacts and their transitive dependencies. It is recommended if you have an unstable or slow connection to the internet. Despite the fact that Gradle caches downloaded artifacts on the developer’s machine, you may need to connect to the artifact repository from time to time, for example when you run build for the first time or switch to a newer version of the framework.
+This section describes how to set up a private Maven repository and use it instead of the Jmix public repositories for caching the framework artifacts and their transitive dependencies. It is recommended if you have an unstable or slow connection to the internet. Despite the fact that Gradle caches downloaded artifacts on the developer’s machine, you may need to connect to the artifact repository from time to time, for example when you run a build for the first time or switch to a newer version of the framework.
 
 == Installing Repository Manager
 
 First, install and run the repository manager on a computer located in your network.
 
-The instructions below assume that the computer works under Linux operating system.
+The instructions below assume that the computer runs Linux.
 
 . Download Nexus OSS repository manager from https://help.sonatype.com/repomanager3/product-information/download/download-archives---repository-manager-3[^] and unpack it to the `~/work/nexus` folder.
 
@@ -32,7 +32,7 @@ The `INSTALL4J_JAVA_HOME` variable pointing to the JDK 8 installation folder is 
 
 . Click *Sign in* in the top right corner.
 
-. Enter with `admin` username and the password stored in the `~/work/nexus/sonatype-work/nexus3/admin.password` file.
+. Sign in with the `admin` username and the password stored in the `~/work/nexus/sonatype-work/nexus3/admin.password` file.
 
 . Change the password.
 
@@ -45,7 +45,7 @@ After the repository manager is up and running, configure proxy repositories usi
 
 . Go to the administration section ("gear" icon on top) and open the *Repositories* menu.
 
-. Create proxy for the public Jmix repository:
+. Create a proxy for the public Jmix repository:
 
 ** Click *Create repository* button.
 
@@ -58,7 +58,7 @@ After the repository manager is up and running, configure proxy repositories usi
 
 ** Click *Create repository* button at the bottom of the page.
 
-. Create proxy for the premium Jmix repository:
+. Create a proxy for the premium Jmix repository:
 
 ** Click *Create repository* button.
 

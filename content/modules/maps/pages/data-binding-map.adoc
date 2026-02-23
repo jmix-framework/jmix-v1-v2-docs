@@ -9,7 +9,7 @@ In this chapter, you will create:
 [[entity-and-views-creation]]
 == Create Location Entity and Views
 
-To start, we'll generate a `LocationType` enumeration consisting of two values: `Office` and `Coworking`. The detailed instructions for creating enumerations can be found in the xref:tutorial:enumerations.adoc[Using Enumerations] section of Tutorial.
+To start, we'll generate a `LocationType` enumeration consisting of two values: `Office` and `Coworking`. The detailed instructions for creating enumerations can be found in the xref:tutorial:enumerations.adoc[Using Enumerations] section of the Tutorial.
 
 image::enumeration-location-type.png[align="center", width="591"]
 
@@ -81,11 +81,9 @@ Prior to launching the application, Studio compares the project data model with 
 
 image::changelog-location.png[align="center", width="1036"]
 
-Once the application is up and running, navigate to http://localhost:8080 using your web browser and sign in to the application with the credentials admin/admin.
-
 Click *Save and run*.
 
-Studio will carry out the changelog on your database, followed by building and running the application:
+Studio will run the changelog on your database, then build and run the application:
 
 image::run-app.png[align="center", width="1101"]
 
@@ -157,7 +155,7 @@ include::example$/maps-ex1/src/main/resources/com/company/onboarding/view/locati
 [[saving-coordinates]]
 == Save Coordinates to Building Attribute
 
-When HR manager creates a location, they click on a spot on the map, which is then stored in the `Location` entity as a `Point` with coordinates.
+When an HR manager creates a location, they click a spot on the map, which is then stored in the `Location` entity as a `Point` with coordinates.
 
 Let's proceed to add a `ClickEvent` for our map.
 
@@ -171,7 +169,7 @@ Add the logic of obtaining and storing the user's selected coordinates to the `m
 ----
 include::example$/maps-ex1/src/main/java/com/company/onboarding/view/location/LocationDetailView.java[tags=view;geometryFactory;MapClickEvent]
 ----
-<1> To obtain `GeometryFactory` use `GeometryUtils` - a specialized utility class with functions related to the JTS library.
+<1> To obtain `GeometryFactory`, use `GeometryUtils` - a utility class with functions related to the JTS library.
 <2> Convert the coordinates obtained from an `event` into a `Point` object by employing the `GeometryFactory` method.
 <3> Use the `getEditedEntity()` method of the base `StandardDetailView` class to get the `Location` being edited.
 

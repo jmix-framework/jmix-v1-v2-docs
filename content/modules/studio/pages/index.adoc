@@ -13,5 +13,4 @@ Jmix Studio is based on an open-source https://www.jetbrains.com/opensource/idea
 * Hot (re)deploy.
 * Easy migration to new versions of Jmix framework and add-ons.
 
-IntelliJ Platform provides a strong foundation for the Jmix Studio. It contains many features that boost Jmix developer productivity, such as ergonomic user interface, smart completion, safe code refactorings, background inspections, built-in version control, and integration with Gradle. If you have not used IntelliJ IDEA before, we highly recommend you to visit https://www.jetbrains.com/idea/resources/[Learn & Support^] section of the IntelliJ IDEA website to get a quick tour of its basic features.
-
+IntelliJ Platform provides a strong foundation for the Jmix Studio. It contains many features that boost Jmix developer productivity, such as ergonomic user interface, smart completion, safe code refactorings, background inspections, built-in version control, and integration with Gradle. If you have not used IntelliJ IDEA before, we highly recommend visiting the https://www.jetbrains.com/idea/resources/[Learn & Support^] section of the IntelliJ IDEA website to get a quick tour of its basic features.

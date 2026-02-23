@@ -92,7 +92,7 @@ include::example$/ex1/k8s/balancer.yaml[]
 ----
 
 [[hazelcast-rbac-config]]
-=== Hazelcast Access Control Confguration
+=== Hazelcast Access Control Configuration
 
 .k8s/hazelcast-rbac.yaml
 [source,yaml,indent=0]
@@ -112,7 +112,7 @@ docker -v
 +
 If the command fails, see https://docs.docker.com/get-docker[Docker documentation^] for how to install and run Docker.
 
-. Install Minikube as described in its https://minikube.sigs.k8s.io/docs/start[installation instruction^].
+. Install Minikube as described in its https://minikube.sigs.k8s.io/docs/start[installation instructions^].
 
 . Run Minikube:
 +

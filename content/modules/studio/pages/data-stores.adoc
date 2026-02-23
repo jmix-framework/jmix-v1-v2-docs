@@ -41,7 +41,7 @@ Studio resolves the placeholders and uses the resulting values for all operation
 [[additional-data-store]]
 == Additional Data Store
 
-To create additional data store, use <<data-store-actions,an action>> from the context menu. Another way is to select the one from  *Advanced*:
+To create an additional data store, use <<data-store-actions,an action>> from the context menu. Another way is to select one from *Advanced*:
 
 image::new.png[align="center",width="427"]
 

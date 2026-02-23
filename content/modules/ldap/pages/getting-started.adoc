@@ -1,13 +1,13 @@
 = Getting Started with LDAP
 
-Let's consider we will use LDAP authentication and maintain users in the application.
+Let's assume we will use LDAP authentication and maintain users in the application.
 
 First, add the LDAP add-on to your project according to the xref:ldap:index.adoc#installation[installation] section.
 
 [[configuring-main-properties]]
 == Configuring Main Properties
 
-Now, add the main LDAP properties. We will use a test LDAP server - `\ldap://ldap.forumsys.com:389/` that have some https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/[test users^].
+Now, add the main LDAP properties. We will use a test LDAP server, `\ldap://ldap.forumsys.com:389/`, that has some https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/[test users^].
 
 [source,properties,indent=0]
 ----
@@ -30,7 +30,7 @@ You can find out more about the meaning of each property in the xref:ldap:proper
 
 Now we need to describe the way we want users to be synchronized.
 
-We will implement the default scenario when the add-on authenticates users from the application against LDAP. If a user is successfully authenticated in LDAP, but it does not have `UserDetails` in the application, it will be automatically synchronized, and `UserDetails` will be created in accordance with the corresponding LDAP entry.
+We will implement the default scenario when the add-on authenticates users from the application against LDAP. If a user is successfully authenticated in LDAP, but does not have `UserDetails` in the application, it will be automatically synchronized, and `UserDetails` will be created in accordance with the corresponding LDAP entry.
 
 Let's declare a bean implementing the `LdapUserDetailsSynchronizationStrategy` interface. The add-on comes with a basic abstract implementation: `AbstractLdapUserDetailsSynchronizationStrategy`, so in a simple case the strategy can be declared by only specifying a concrete `User` class and implementing a simple mapping:
 
@@ -45,4 +45,4 @@ So, let's set the xref:ldap:properties.adoc#jmix.ldap.synchronize-role-assignmen
 
 After the synchronization strategy is declared, users will be synchronized on every login. If you want to disable user synchronization on login, set the xref:ldap:properties.adoc#jmix.ldap.synchronize-user-on-login[jmix.ldap.synchronize-user-on-login] to `false`.
 
-If you want to manage users fully in LDAP and not maintain them in the application, see the xref:ldap:in-memory-user-management.adoc[In memory user management] section.
+If you want to manage users fully in LDAP and not maintain them in the application, see the xref:ldap:in-memory-user-management.adoc[In-memory User Management] section.

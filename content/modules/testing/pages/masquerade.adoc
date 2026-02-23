@@ -31,11 +31,11 @@ Use the same dependency:
 testImplementation 'io.jmix.masquerade:jmix-masquerade:<JMIX_VERSION>'
 ----
 
-Replace the `<JMIX_VERSION>` with the version of Jmix framework of the target project (e.g., 2.6.2). After syncing Gradle, Masquerade will be ready for use.
+Replace the `<JMIX_VERSION>` with the version of the Jmix framework of the target project (e.g., 2.6.2). After syncing Gradle, Masquerade will be ready for use.
 
 == Using Selenide
 Masquerade is based on Selenide, so you can use any of its methods.
-Consider an example, typical of test automation, that logs in to a Jmix application:
+Consider a typical test automation example that logs in to a Jmix application:
 
 [source,java,indent=0]
 ----
@@ -54,7 +54,7 @@ Masquerade emphasizes the use of <<wrappers,wrappers>> for various Jmix componen
 
 A basic Jmix project includes a login view from the start. Create a <<view_wrapper,view wrapper>> to represent this view and its components under test:
 
-* In the `src/test/java` directory, within the `com.company.testproject` package create a new package named `view`. Then, create a Java class named `LoginView`:
+* In the `src/test/java` directory, within the `com.company.testproject` package, create a new package named `view`. Then, create a Java class named `LoginView`:
 +
 ----
 TestProject/
@@ -79,7 +79,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_su
 
 The test class will invoke methods from the wrapper to go through the login scenario. Follow the steps below to create it:
 
-* In the `src/test/java` directory, within the `com.company.testproject` package create a new package named `ui-autotest`. Then create a Java class named `LoginUiTest`:
+* In the `src/test/java` directory, within the `com.company.testproject` package, create a new package named `ui-autotest`. Then create a Java class named `LoginUiTest`:
 +
 ----
 TestProject/
@@ -108,7 +108,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_auto
 == Jmix Test IDs
 
 Masquerade may assist you in generating a special `j-test-id` (Jmix test ID) attribute for each component created with the `UiComponents` factory.
-Such ids simplify identifying elements on the page. To enable this feature, set xref:flow-ui:ui-properties.adoc#jmix.ui.ui-test-mode[jmix.ui.ui-test-mode] to true:
+Such IDs simplify identifying elements on the page. To enable this feature, set xref:flow-ui:ui-properties.adoc#jmix.ui.ui-test-mode[jmix.ui.ui-test-mode] to true:
 
 .application.properties
 [source,properties]
@@ -122,7 +122,7 @@ The default test id value will match the id already given to a component:
 
 image::testing:masquerade-j-test-id.png[align="center", width = 848]
 
-If a component had no id, its test id will be generated based on its data binding, `action`, or `text` attribute.
+If a component has no id, its test id will be generated based on its data binding, `action`, or `text` attribute.
 
 To work with an element directly by its `j-test-id`, use the `Masquerade.$j` method:
 
@@ -155,7 +155,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_su
 include::example$/masquerade-ex1/src/main/java/com/company/masqueradeex1/view/mytest/MyView.java[tags=view-controller-id]
 ----
 +
-If you don't specify an ID, then the simple class name for this view will be used as id.
+If you don't specify an ID, then the simple class name for this view will be used as the id.
 <2> Extend the `io.jmix.masquerade.sys.View` class with typing on itself. This is necessary to provide fluent API for writing tests.
 
 [[component_wrapper]]
@@ -193,14 +193,14 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_su
 
 === Notification Wrapper
 
-Notification wrapper is a special type of component wrapper. Consider the following example working with a notification:
+A notification wrapper is a special type of component wrapper. Consider the following example working with a notification:
 
 [source,java,indent=0]
 ----
 include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/NotificationUiTest.java[tags=NotificationTest]
 ----
 
-If you have multiple notifications open, you can select the one you want by xpath:
+If you have multiple notifications open, you can select the one you want by XPath:
 
 [source,java,indent=0,opts=novalidate]
 ----
@@ -209,9 +209,9 @@ $j(Notification.class, xpath("{xpath-to-notification}"));
 
 === Composite Wrapper
 
-Composite wrapper encapsulates a part of a view, also referred to as fragment. The way you access a fragment will vary depending on whether it is present in a view wrapper or not.
+A composite wrapper encapsulates a part of a view, also referred to as fragment. The way you access a fragment will vary depending on whether it is present in a view wrapper or not.
 
-Assume we have a view composed of two fragments, but only one is added to the corresponding view wrapper:
+Assume that we have a view composed of two fragments, but only one is added to the corresponding view wrapper:
 
 [source,java,indent=0]
 ----

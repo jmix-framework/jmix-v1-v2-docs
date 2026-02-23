@@ -14,11 +14,11 @@ The case when maintaining users in the application is described in the xref:ldap
 [[ldap-user-repository]]
 == LDAP User Repository
 
-When users are primarily managed in LDAP, they can be placed in the application where you need to choose a user or find a user in `SuggestionField`. For this purpose, the addon comes with the LDAP implementation of `UserRepository`. This user repository provides access to users from LDAP, but it does not provide `system` or `anonymous` users. Also, you may want users from the database to be searchable as well.
+When users are primarily managed in LDAP, you may need to choose or find them in the application using `SuggestionField`. For this purpose, the add-on comes with the LDAP implementation of `UserRepository`. This user repository provides access to users from LDAP, but it does not provide `system` or `anonymous` users. Also, you may want users from the database to be searchable as well.
 
-To achieve this, declare the `CompositeUserRepository` bean, which comprises all instances of `UserRepository` in the application, for example, `LdapUserRepository` and `DatabaseUserRepository`. 
+To achieve this, declare the `CompositeUserRepository` bean, which comprises all instances of `UserRepository` in the application, for example, `LdapUserRepository` and `DatabaseUserRepository`.
 
-Remove the `@Primary` annotation from the `DatabaseUserRepository` not to conflict with the composite repository. Make this `UserRepository` primary in the application:
+Remove the `@Primary` annotation from the `DatabaseUserRepository` to avoid conflict with the composite repository. Make this `UserRepository` primary in the application:
 
 [source,java,indent=0]
 ----

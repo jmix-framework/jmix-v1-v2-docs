@@ -1,11 +1,11 @@
 = Messages API
 
-When interacting with a frontend or mobile application, it is often needed to display localized messages of the application. As those translated values are already defined in the Jmix `.messages` files, the Messages API provides the ability to expose those values to the client application.
+When interacting with a frontend or mobile application, it is often necessary to display localized messages of the application. Since those translated values are already defined in the Jmix `.messages` files, the Messages API provides the ability to expose those values to the client application.
 
 The Messages API provides the following two endpoints:
 
 * <<Entity Translations>> provides translations for Entities and Entity attributes.
-* <<Enum Translations>> provides translations for Enums and its values.
+* <<Enum Translations>> provides translations for Enums and their values.
 
 NOTE: The Messages API by default uses the locale setting of the user obtaining the authorization token and returns the translated values accordingly.
 
@@ -58,7 +58,7 @@ The Enum Translations endpoint allows retrieving information about the enum name
 `/messages/enums`:: Translation for the enum name and values of all enums.
 `/messages/enums/:enumClassName`:: Translation for the enum name and values of the given enum.
 
-NOTE: The parameter `enumClassName` is the full qualified name of the enum including the package name. So use `rest.sample.entity.CustomerType` instead of just `CustomerType`.
+NOTE: The parameter `enumClassName` is the fully qualified name of the enum including the package name. So use `rest.sample.entity.CustomerType` instead of just `CustomerType`.
 
 In the following example, you can see how to request translated values for the `CustomerType` enum through the API:
 

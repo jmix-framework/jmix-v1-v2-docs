@@ -1,11 +1,11 @@
 = Geo-objects
 
-A geo-object, short for geospatial object, refers to an entity having a property of a geometry type. The add-on supports the following geo-specific types that comes from the JTS Topology Suite (JTS) library:
+A geo-object, short for geospatial object, refers to an entity with a property of a geometry type. The add-on supports the following geo-specific types that come from the JTS Topology Suite (JTS) library:
 
 |===
 | *Datatype* | *Java type*
 | GeoMultiPoint         | org.locationtech.jts.geom.MultiPoint
-| GeoMultiPolygone      | org.locationtech.jts.geom.MultiPolygon
+| GeoMultiPolygon      | org.locationtech.jts.geom.MultiPolygon
 | GeoMultiPolyline       | org.locationtech.jts.geom.MultiLineString
 | GeoPoint         | org.locationtech.jts.geom.Point
 | GeoPolygon       | org.locationtech.jts.geom.Polygon
@@ -23,7 +23,7 @@ An example of geo-object `Location`:
 include::example$/maps-ex1/src/main/java/com/company/onboarding/entity/Location.java[tags=Location]
 ----
 
-As you can see, `Location` is a simple entity, one of which properties building is of the `org.locationtech.jts.geom.Point` type.
+As you can see, `Location` is a simple entity, and one of its properties, `building`, is of the `org.locationtech.jts.geom.Point` type.
 
 To bind geo-objects to a vector layer, you need to use xref:maps:layers-sources.adoc#data-vector-source[DataVectorSource].
 

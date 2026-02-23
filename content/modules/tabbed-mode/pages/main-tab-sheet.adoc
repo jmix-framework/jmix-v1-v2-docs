@@ -47,7 +47,7 @@ include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/m
 [[actions]]
 == Actions
 
-The `mainTabSheet` component implements the `HasActions` interface and can contain both standard and custom actions. Actions are invoked from the context menu that appears on the right click on the tabs area.
+The `mainTabSheet` component implements the `HasActions` interface and can contain both standard and custom actions. Actions are invoked from the context menu that appears on right-click on the tabs area.
 
 image::main-tab-sheet/tabsheet-context-menu.png[align="center", width="500"]
 
@@ -79,7 +79,7 @@ Closes all currently open tabs in the `mainTabSheet`.
 
 `mainTabSheet` supports dragging and dropping tabs. This feature can be used, for example, to rearrange tabs.
 
-By changing the `tabsDraggable` attribute value, you can set whether the tabs are draggable by the user. Default value is `false`.
+By changing the `tabsDraggable` attribute value, you can set whether the tabs are draggable by the user. The default value is `false`.
 
 image::main-tab-sheet/tabs-reordering.gif[align="center"]
 
@@ -105,7 +105,7 @@ TIP: To generate handler method stubs in the Studio, use the *Generate Handler* 
 
 Whenever the user opens or closes views, which leads to the creation of a new tab or the removal of an existing one, the `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.TabsCollectionChangeEvent` is fired. Create an event handler to execute custom code in response to the tabs collection change.
 
-The following code will send a notification on every tabs collection change:
+The following code will send a notification on every tab collection change:
 
 [source,java,indent=0]
 ----

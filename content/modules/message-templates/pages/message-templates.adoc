@@ -35,7 +35,7 @@ For more advanced customization and detailed instructions on using the editor, r
 
 Placeholders are dynamic variables within your message templates that are replaced with actual data at runtime. These placeholders are enclosed in FreeMarker's variable interpolation syntax (typically `++${variableName}++`).
 
-The data used to populate these placeholders can be derived from various sources, such as: template <<parameters,parameters>> defined within the template itself, and parameters passed programmatically from the application code.
+The data used to populate these placeholders can be derived from various sources, such as <<parameters,parameters>> defined within the template itself and parameters passed programmatically from the application code.
 
 Beyond simple value insertion, FreeMarker offers a rich set of built-in functions to format and manipulate data within placeholders. You can use functions for date formatting, number formatting, string manipulation (uppercase, lowercase, substring), and more. For example, `${date?string["MM/dd/yyyy"]}` would format a date value as `MM/dd/yyyy`.
 
@@ -57,7 +57,7 @@ The button panel located at the top of the HTML editor provides essential tools 
 
 Parameters of the template can be created and configured in the *Parameters* tab.
 
-After you click on the *Create* button the *Template parameter* dialog is displayed.
+After you click the *Create* button, the *Template parameter* dialog is displayed.
 
 image::template-parameter.png[align="center", width="641"]
 

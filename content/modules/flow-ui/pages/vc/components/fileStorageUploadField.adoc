@@ -374,7 +374,7 @@ This event signals the beginning of a file upload process, immediately after a u
 
 This event confirms the successful completion of a file upload, indicating that the file has been fully received and processed by the server without errors.
 
-Here is an example of using `fileStorageUploadField` for `.xls` и `.xlsx` files, and then processing those files in `FileUploadSucceededEvent`.
+Here is an example of using `fileStorageUploadField` for `.xls` and `.xlsx` files, and then processing those files in `FileUploadSucceededEvent`.
 
 [source,java,indent=0]
 ----

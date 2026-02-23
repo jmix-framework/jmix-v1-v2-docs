@@ -270,7 +270,7 @@ Process forms can accept external parameters to adjust their behavior or appeara
 
 TIP: Form parameters are declared with the <<processform,@ProcessForm>> annotation and its `params` attribute. They are linked to a class field using the `@ProcessFormParam` annotation.
 
-To illustrate, let's consider the scenario where you need a form for selecting the next process actor. This form should feature an `EntityPicker` component to select a user that is then saved to a process variable. Also, this form will be reused at various steps in the process, so it would be nice to parametrize caption for the entity picker.
+To illustrate, let's consider the scenario where you need a form for selecting the next process actor. This form should feature an `EntityPicker` component to select a user that is then saved to a process variable. Also, this form will be reused at various steps in the process, so it is useful to set the entity picker's caption through a parameter.
 
 There will be two form parameters overall:
 

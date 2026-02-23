@@ -67,7 +67,7 @@ To restrict the input to a specific date range, specify the minimum and maximum 
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datepicker/date-picker-view.xml[tags=range]
 ----
 
-Or specify an adaptable data range within the view controller:
+Or specify a dynamic date range within the view controller:
 
 [source,java,indent=0]
 ----

@@ -4,7 +4,7 @@ The add-on provides an easy way to enable LDAP authentication in Jmix applicatio
 
 Also, the add-on supports the case when users are managed only in LDAP, and you don't store a user entity in the database.
 
-The add-on uses the Spring Security LDAP and provides a ready-to-go security configuration that could be easily enabled by including the add-on in the application. The process and main settings of the LDAP authentication are described in the {spring-security-doc}/servlet/authentication/passwords/ldap.html[Spring Security documentation^].
+The add-on uses Spring Security LDAP and provides a ready-to-go security configuration that can be easily enabled by including the add-on in the application. The process and main settings of LDAP authentication are described in the {spring-security-doc}/servlet/authentication/passwords/ldap.html[Spring Security documentation^].
 
 [[installation]]
 == Installation

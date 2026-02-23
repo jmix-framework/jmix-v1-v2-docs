@@ -37,20 +37,20 @@ include::example$/data-access-ex1/src/test/java/com/company/demo/repository/Cust
 [[jmix-data-repository-features]]
 == JmixDataRepository Features
 
-The `JmixDataRepository` interface extends the standard Spring Data https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/PagingAndSortingRepository.html[PagingAndSortingRepository^]. It provides a few own methods considering Jmix specifics:
+The `JmixDataRepository` interface extends the standard Spring Data https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/PagingAndSortingRepository.html[PagingAndSortingRepository^]. It provides a few methods specific to Jmix:
 
 * Load methods, such as `findById()` or `findAll()`, can accept a xref:data-access:fetching.adoc#fetch-plan[fetch plan].
 * `create()` method xref:data-model:entities.adoc#instantiation[instantiates] a new entity.
 * `getById()` method with the non-optional result loads an entity by id and throws the exception if the entity is not found.
 * `getDataManager()` method returns xref:data-access:data-manager.adoc[DataManager] to use in default methods.
-* `save()` method persists the provided entity and returns saved instance, loaded with the specified fetch plan. The method accepts the entity to be saved and fetch plan to apply when reloading the saved entity. The entity cannot be null, and fetch plan must be applicable to the entity.
+* `save()` method persists the provided entity and returns the saved instance, loaded with the specified fetch plan. The method accepts the entity to be saved and fetch plan to apply when reloading the saved entity. The entity cannot be null, and fetch plan must be applicable to the entity.
 
 [[JmixDataRepositoryContext]]
 === JmixDataRepositoryContext
 
 Load methods of repositories inherited from `JmixDataRepository` support an additional argument of the `JmixDataRepositoryContext` type. It allows you to pass the filtering, paging and sorting parameters collected from UI components to the `LoadContext` object. As a result, all the features of xref:flow-ui:vc/components/genericFilter.adoc[], xref:flow-ui:vc/components/simplePagination.adoc[] and xref:flow-ui:vc/components/dataGrid.adoc[] components will work seamlessly with data repositories.
 
-Use the `JmixDataRepositoryUtils.buildRepositoryContext()` static method to convert `LoadContext` to `JmixDataRepositoryContext`.
+Use the `JmixDataRepositoryUtils.buildRepositoryContext()` static method to convert a `LoadContext` to `JmixDataRepositoryContext`.
 
 [[ApplyConstraints]]
 === Security Constraints

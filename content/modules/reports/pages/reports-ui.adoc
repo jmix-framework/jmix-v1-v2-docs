@@ -27,9 +27,9 @@ image::report-list-view.png[align="center", width="1074"]
 +
 image::import-report-dialog.png[align="center", width="482"]
 +
-Click *Upload File* to select a ZIP file to upload to the system. This can also be done by dragging and dropping a required file to the drop zone. If you clear the *Import roles* checkbox, the imported reports will be xref:creation/permissions.adoc[available to all users].
+Click *Upload File* to select a ZIP file to upload to the system. This can also be done by dragging and dropping the file into the drop zone. If you clear the *Import roles* checkbox, the imported reports will be xref:creation/permissions.adoc[available to all users].
 +
-If the report is compatible with the data model of the project, it should correctly work after the import. It means that you can create reports in your development environment and use them in the production system afterward.
+If the report is compatible with the data model of the project, it should work correctly after the import. This means that you can create reports in your development environment and use them in the production system afterward.
 +
 TIP: You can also import reports _programmatically_ using the xref:report-import-export.adoc#report-import-export[ReportImportExport] bean provided by the framework.
 

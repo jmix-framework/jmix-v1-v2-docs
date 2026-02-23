@@ -107,7 +107,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <2> Fetch plan extended to retrieve a collection of `Hobby` instances that will be available for selection.
 <3> `CollectionContainer` for the `Hobby` entity.
 <4> Data load coordinator to automatically supply the component with instances to select from.
-<5> `multiSelectComboBoxPicker` gets `hobbiesDc` as an items container so that the list of hobbies drop-downs.
+<5> `multiSelectComboBoxPicker` gets `hobbiesDc` as an items container to show a drop-down list of hobbies.
 <6> Adding a predefined action to clear the selection.
 <7> Adding a predefined action to open the lookup view.
 

@@ -22,9 +22,9 @@ If you don't have IntelliJ IDEA installed yet, download *Community* edition from
 After IntelliJ IDEA has been installed, do the following:
 
 . Start IntelliJ IDEA ({minimal-idea-version} or newer).
-. On the startup screen of the IDE click the *Plugins* button. 
+. On the startup screen of the IDE, click the *Plugins* button.
 +
-If you have any project opened, use the main menu: *File* -> *Settings* (on Windows and Linux) or *IntelliJ IDEA* -> *Preferences* (on macOS). Then switch to the *Plugins* section.
+If you have any project open, use the main menu: *File* -> *Settings* (on Windows and Linux) or *IntelliJ IDEA* -> *Preferences* (on macOS). Then switch to the *Plugins* section.
 . Switch to the *Marketplace* tab.
 . Enter "jmix" into the search field. You will see the Jmix plugin in the search results.
 . Click *Install* and follow the further instructions of the IDE.
@@ -33,7 +33,7 @@ image::install-plugin.png[align="center"]
 
 In case you need to configure internet access via a proxy server or install non-standard Studio builds, visit the xref:studio:install.adoc#installation[Studio installation] section. 
 
-NOTE: To have access to the premium Studio features, configure subscription in the xref:studio:subscription.adoc[subscription] dialog window.
+NOTE: To access premium Studio features, configure a subscription in the xref:studio:subscription.adoc[subscription] dialog window.
 
 [[jdk]]
 == Install Java Development Kit (JDK)
@@ -44,7 +44,7 @@ Download JDK version 17 or 21 (for example, https://adoptium.net/temurin/release
 
 NOTE: With Jmix {page-component-display-version}, you can build applications using Java 17 or 21 from any vendor. However, we don't recommend an OpenJ9-based JDK due to the problems it has caused in the past.
 
-To run Jmix applications from the terminal, set `JAVA_HOME` environment variable as described below.
+To run Jmix applications from the terminal, set the `JAVA_HOME` environment variable as described below.
 
 * On *Windows*, create the `JAVA_HOME` variable with the path to the installed JDK root directory at *Computer* -> *Properties* -> *Advanced System Settings* -> *Advanced* -> *Environment variables*. The variable should be added to the *System variables* list.
 
@@ -57,7 +57,7 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
 
 * Restart the computer to make sure the environment variable has taken effect.
 
-* Check correctness of the environment variable by running the following command in the console:
+* Check that the environment variable is set correctly by running the following command in the console:
 +
 --
 

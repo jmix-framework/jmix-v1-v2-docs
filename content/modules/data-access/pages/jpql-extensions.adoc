@@ -53,7 +53,7 @@ select c from Customer c where c.name like :name
 
 If you pass the `(?i)%doe%` string as a value of the `name` parameter, the query will return `John Doe` if such a record exists in the database, even though the case of characters is different. It will happen because the framework will run the SQL query with the `lower(C.NAME) like ?` condition and `%doe%` parameter value.
 
-Note that such search will not use the index on the `name` field, even if such exists in the database.
+Note that such search will not use the index on the `name` field, even if one exists in the database.
 
 [[functions]]
 == Functions
@@ -369,7 +369,7 @@ Example:
 select d from Doc where @dateEquals(d.createTs, :param)
 ----
 
-You can pass the current date using the `now` parameter. To set an offset in days, use `now`  with `+` or `-`, for example:
+You can pass the current date using the `now` parameter. To set an offset in days, use `now` with `+` or `-`, for example:
 
 [source, jpql]
 ----
@@ -388,7 +388,7 @@ Example:
 select d from Doc where @dateBefore(d.createTs, :param, user_timezone)
 ----
 
-You can pass the current date using the `now` attribute. To set an offset in days, use `now`  with `+` or `-`, for example:
+You can pass the current date using the `now` attribute. To set an offset in days, use `now` with `+` or `-`, for example:
 
 [source, jpql]
 ----
@@ -407,7 +407,7 @@ Example:
 select d from Doc where @dateAfter(d.createTs, :param)
 ----
 
-You can pass the current date using the `now` attribute. To set an offset in days, use `now`  with `+` or `-`, for example:
+You can pass the current date using the `now` attribute. To set an offset in days, use `now` with `+` or `-`, for example:
 
 [source, jpql]
 ----

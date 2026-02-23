@@ -35,7 +35,7 @@ image::report-template-detail-view.png[align="center",width="642"]
 --
 * `params` - parameters map is available by alias `params`.
 
-* `rootBand` - an object of the `BandData` type that provide access to band datasets.
+* `rootBand` - an object of the `BandData` type that provides access to band datasets.
 
 * `applicationContext` - an object of the `ApplicationContext` type that provides access to managed beans.
 --
@@ -59,11 +59,11 @@ TIP: You can find examples of various template types in the xref:reports-guide:i
 You can create XLS(X) templates using *Microsoft Office* or *LibreOffice*.
 
 [[template_xls_regions]]
-Each xref:creation/bands.adoc[report band] must have a corresponding region in the template, which is named the same as the band. For instance, a report has two bands - `Header` and `Data`. This means that the template should also have `Header` and `Data` named ranges. To create named regions, select the desired cell ranges and enter the name in the field in the application's top left corner. To edit existing named regions, use the *Formulas* -> *Name Manager* menu command in Microsoft Office, and the *Insert* -> *Names* -> *Manage* command in LibreOffice. Vice versa, each part of the sheet you want to show should have a band in a report (at least an empty band).
+Each xref:creation/bands.adoc[report band] must have a corresponding region in the template, which is named the same as the band. For instance, a report has two bands - `Header` and `Data`. This means that the template should also have `Header` and `Data` named ranges. To create named regions, select the desired cell ranges and enter the name in the field in the application's top-left corner. To edit existing named regions, use the *Formulas* -> *Name Manager* menu command in Microsoft Office, and the *Insert* -> *Names* -> *Manage* command in LibreOffice. At the same time, each part of the sheet you want to show should have a band in a report (at least an empty band).
 
 The bands are output in the order specified in the xref:creation/bands.adoc[band hierarchy].
 
-Bands can be horizontally and vertically oriented. If the band is horizontal, the suitable named region will grow downward, vertical will grow rightward. Horizontal bands may be organized in a tree-like structure and contain sub-bands (nested or children bands). Therefore, for sub-bands, you need to create named regions directly under the regions that correspond to the parent bands.
+Bands can be horizontally and vertically oriented. If the band is horizontal, the named region will grow downward; if it is vertical, it will grow rightward. Horizontal bands may be organized in a tree-like structure and contain sub-bands (nested or child bands). Therefore, for sub-bands, you need to create named regions directly under the regions that correspond to the parent bands.
 
 XLSX formatter will render children bands using the following algorithm:
 
@@ -91,7 +91,7 @@ To activate automatic row height calculation in manually created XLSX templates,
 
 For XLSX reports generated using the xref:getting-started.adoc#creating-report-at-runtime[report wizard], this named region is automatically added for each configured report region.
 
-When a report is executed, cell whose content exceeds the available space for a single line will automatically become multi-line, with the row height adjusting accordingly to display the entire contents.
+When a report is executed, a cell whose content exceeds the available space for a single line will automatically become multi-line, with the row height adjusting accordingly to display the entire content.
 ====
 
 [NOTE]
@@ -106,7 +106,7 @@ XLSX reports can be automatically converted to CSV and PDF format. xref:configur
 
 You can create CSV templates using *Microsoft Office* or *LibreOffice*.
 
-Bands in the CSV template should only be horizontally oriented, so the suitably named region will grow downward. Also, bands should belong to the first level of data, that is, be the children of the `Root` band. In all other respects, the same principles as for <<template_xls,XLS(X) templates>> should be used.
+Bands in the CSV template should only be horizontally oriented, so the named region will grow downward. Also, bands should belong to the first level of data, that is, be the children of the `Root` band. In all other respects, the same principles as for <<template_xls,XLS(X) templates>> should be used.
 
 image::csv_template.png[align="center"]
 
@@ -121,9 +121,9 @@ image::csv-report-editor.png[align="center",width="642"]
 
 You can create DOC(X) templates using *Microsoft Office* or *LibreOffice*.
 
-A template of DOC(X) type can include document text and optionally one or more tables. The document text outputs the data from the first rows of arbitrary bands. While in a table, you can output an arbitrary number of band rows.
+A DOC(X) template can include document text and optionally one or more tables. The document text outputs data from the first rows of arbitrary bands. In a table, you can output an arbitrary number of band rows.
 
-To place a field in the document text, you should use a string having `++${band_name.field_name}++` format, where `++band_name++` is the band name, `++field_name++` - name of a band's field.
+To place a field in the document text, use a string in the `++${band_name.field_name}++` format, where `++band_name++` is the band name and `++field_name++` is the name of a band field.
 
 To output data into a table, you should link it to a band. This is done by specifying `++##band=band_name++` in the table's first cell, where `++band_name++` is the band name. The table fields are placed using `++${field_name}++` format, where `++field_name++` is the field name of the band associated with the table. You can use the band name prefix to access fields of other bands, same as in the document text fields. You can output several fields in a single table cell.
 
@@ -516,7 +516,7 @@ Below is an example of a simple class-defined template. It creates an HTML docum
 include::example$/library/src/main/java/com/company/library/reports/BookReport.java[]
 ----
 
-In the report template dialog check the *Is custom* checkbox, select *Class* in the *Defined by* field and set the fully qualified name of the Java class as the custom definition:
+In the report template dialog, check the *Is custom* checkbox, select *Class* in the *Defined by* field, and set the fully qualified name of the Java class as the custom definition:
 
 image::class-defined-template.png[align="center",width="642"]
 
@@ -548,7 +548,7 @@ The Reports add-on allows you to run a report of an external service, such as Mi
 * Select *URL* in the *Defined by* field.
 * In the *Custom definition* field, specify the URL of the external report. Report parameters can be passed to the URL as `${param Alias}`.
 +
-* Configure xref:configuration.adoc#jmix.reports.curl-path[jmix.reports.curl-path] application property, set it the path to the command line *curl* tool.
+* Configure the xref:configuration.adoc#jmix.reports.curl-path[jmix.reports.curl-path] application property and set it to the path to the command line `curl` tool.
 
 [[output_format_compliance]]
 == Output Format Compliance Matrix

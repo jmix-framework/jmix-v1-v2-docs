@@ -126,7 +126,7 @@ To create a new row-level role, click *New → Row-level Role* in the xref:studi
 
 //image::row-level-role-open.png[align="center", width="248"]
 
-Enter role parameters in the appeared dialog.
+Enter role parameters in the dialog that appears.
 
 image::row-level-role-create.png[align="center", width="636"]
 

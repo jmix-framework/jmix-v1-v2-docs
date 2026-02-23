@@ -2,7 +2,7 @@
 
 The {oauth-specification-page}#section-1.1[resource server^] security is defined in the auto-configuration of the Authorization Server add-on. This configuration provides extension points that can be used to define any URL pattern as protected. See the xref:security:custom-endpoints.adoc#token-based-authentication[Token Based Authentication] section for details on how to configure protected resources.
 
-[[sendiong-access-token]]
+[[sending-access-token]]
 == Sending Access Token
 
 After the above configuration is defined, all requests to `pass:[/greeting/**]` endpoints will need an access token in the `Authorization` header. The header value must contain the word `Bearer` followed by the access token value. For example:
@@ -26,7 +26,7 @@ To configure token-based authentication you need to define the following applica
 include::example$/authserver-ex1/src/main/resources/application.properties[tags=rest-authenticated-url-patterns]
 ----
 
-To access REST endpoints you need to obtain an access token and pass it in the `Authorization` header of the HTTP request. The header value must contain the word `Bearer` followed by the access token value. For example:
+To access REST endpoints, you need to obtain an access token and pass it in the `Authorization` header of the HTTP request. The header value must contain the word `Bearer` followed by the access token value. For example:
 
 [source]
 ----

@@ -8,7 +8,7 @@ The Search add-on provides two UI components: xref:search-field-component.adoc[S
 [[search-strategies]]
 == Search Strategies
 
-A search strategy defines how the search term is processed. Basically it configures search request with some query.
+A search strategy defines how the search term is processed. Basically, it configures a search request with a query.
 
 The xref:search-field-component.adoc[SearchField] and xref:full-text-filter-component.adoc[FullTextFilter] components support the following built-in search strategies:
 
@@ -71,7 +71,7 @@ Then you need to implement 2 methods:
 
 * `String getName()` - should return a unique strategy name.
 
-* `void configureRequest(SearchRequest.Builder requestBuilder, SearchContext searchContext)` - configure you search request using provided builder according to your requirements.
+* `void configureRequest(SearchRequest.Builder requestBuilder, SearchContext searchContext)` - configure your search request using the provided builder according to your requirements.
 
 [source,java,indent=0]
 ----

@@ -6,7 +6,7 @@ An add-on can be easily created using the *Add-On* template of the Studio projec
 
 By default, the functional module will contain dependencies on the Jmix data access and UI subsystems. You should create all functionality in this module.
 
-The starter module contains Spring Boot auto-configuration for your add-on. To use the add-on in an application or in another add-on, you will add dependency on the starter module artifact to the `build.gradle` file of the target project, for example:
+The starter module contains Spring Boot auto-configuration for your add-on. To use the add-on in an application or in another add-on, you will add a dependency on the starter module artifact to the `build.gradle` file of the target project, for example:
 
 [source,groovy]
 ----
@@ -29,7 +29,7 @@ If some base feature supports override, the hierarchy enables predictable end re
 
 The application itself always depends on all included subsystems. Therefore, Liquibase changelogs of the application project are always executed last, and a property value defined in the application overrides values coming from any add-ons.
 
-The application is placed at the bottom of the hierarchy automatically, because it  can be uniquely identified by the presence of a class annotated with `@SpringBootApplication`. Dependencies between add-ons need an explicit declaration which is described below.
+The application is placed at the bottom of the hierarchy automatically, because it can be uniquely identified by the presence of a class annotated with `@SpringBootApplication`. Dependencies between add-ons need an explicit declaration, which is described below.
 
 [[jmix-module]]
 == @JmixModule
@@ -47,7 +47,7 @@ Usually, base packages of add-ons are unique, so the `id` attribute is not neede
 include::example$/base/base/src/test/java/com/company/sample/base/BaseTestConfiguration.java[tags=package;class]
 ----
 
-* `dependsOn` - declares modules on which this module depends on. The attribute should contain an array of configuration classes of the modules.
+* `dependsOn` - declares modules on which this module depends. The attribute should contain an array of configuration classes of the modules.
 +
 For example, if an add-on depends on Core, Data Access and UI subsystems, that is contains the following dependencies in `build.gradle`:
 +
@@ -63,7 +63,7 @@ then its `@JmixModule` annotation should declare dependencies to `EclipselinkCon
 include::example$/base/base/src/main/java/com/company/sample/base/BaseConfiguration.java[tags=jmix-module;class]
 ----
 +
-The dependency on the Core subsystem is brought transitively, you can check it if you look at the definition of the `EclipselinkConfiguration` or the `FlowuiConfiguration` class.
+The dependency on the Core subsystem is added transitively. You can check it if you look at the definition of the `EclipselinkConfiguration` or the `FlowuiConfiguration` class.
 
 When a Jmix application starts, it outputs to the log an INFO message from the `io.jmix.core.JmixModulesProcessor` logger with the result of topological sort of the hierarchy of modules. For example:
 

@@ -13,7 +13,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/kvsa
 
 Besides, you can configure key-value containers using their Java API which includes the following methods:
 
-* `addProperty()` - allows you to define the entity attributes (keys). The method accepts a name of the attribute and its type in the form of a xref:data-model:datatype.adoc[Datatype] or a Java class. In the latter case, the class should be either an entity class or a class supported by one of the datatypes. This method is used by the framework under the hood when you define properties of the key-value container declartively in XML as explained above.
+* `addProperty()` - allows you to define the entity attributes (keys). The method accepts a name of the attribute and its type in the form of a xref:data-model:datatype.adoc[Datatype] or a Java class. In the latter case, the class should be either an entity class or a class supported by one of the datatypes. This method is used by the framework under the hood when you define properties of the key-value container declaratively in XML as explained above.
 
 * `setIdName()` is an optional method that allows you to define one of the attributes as an identifier attribute of the entity. It means that `KeyValueEntity` instances stored in this container will have identifiers obtained from the given attribute. Otherwise, `KeyValueEntity` instances get randomly generated UUIDs.
 

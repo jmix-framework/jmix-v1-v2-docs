@@ -1,6 +1,6 @@
 = Setting up OAuth for Google and Microsoft
 
-Jmix application can use OAuth 2.0 token-based authorization to work with email service providers. This method offers enhanced security compared to basic authentication with login and password. Many providers are gradually deprecating support of basic authentication, leaving OAuth as the only viable authentication type.
+Jmix application can use OAuth 2.0 token-based authorization to work with email service providers. This method offers enhanced security compared to basic authentication with login and password. Many providers are gradually deprecating support for basic authentication, leaving OAuth as the only viable authentication type.
 
 This section describes the process to obtain OAuth credentials for Google and Microsoft, along with the setup steps for Jmix application.
 
@@ -14,7 +14,7 @@ NOTE: The instructions below are based on the Google Developer documentation for
 
 . Sign in to the https://console.cloud.google.com/[Google Cloud console].
 . In the top bar, click *Select a project*.
-. Click *New project* and enter you project information.
+. Click *New project* and enter your project information.
 +
 image:google-oauth-project.png[align="center", width="550"]
 +

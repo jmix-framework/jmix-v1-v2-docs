@@ -1,6 +1,6 @@
 = 3. Display Features on Map
 
-Let's go back to the `Location` entity and include the following attributes to it:
+Let's go back to the `Location` entity and add the following attributes:
 
 . `buildingEntrance` with `GeoPoint` type. This attribute stores the coordinates of the building's entrance.
 . `pathToBuilding` with `GeoPolyline` type. This attribute stores the path to the building.
@@ -40,7 +40,7 @@ POLYGON ((13.347878609736783 52.553551482547135,
 [[add-vector-layer]]
 == Add Vector Layers
 
-A vector layer is utilized to work with geometries. It's possible to add multiple vector layers to a map.
+A vector layer is used to work with geometries. It's possible to add multiple vector layers to a map.
 
 To showcase polygons, polylines, and points, you need to append vector layers onto a map.
 
@@ -171,6 +171,6 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/locationloo
 
 Let's launch the application to see the new feature in action. Now, when you choose the location, the map will zoom in and center itself according to the location’s coordinates.
 
-The building's entrance is exhibited as a black dot on the map. The path to the building is depicted as a dashed line, while the polygon demonstrates the building's boundary.
+The building entrance is shown as a black dot on the map. The path to the building is shown as a dashed line, while the polygon shows the building boundary.
 
 image::map-with-features.png[align="center", width="1090"]

@@ -4,14 +4,14 @@ Java Bean Validation is a specification for validating data in Java applications
 
 Using Bean Validation brings the following benefits to your project:
 
-* Validation logic is located next to your domain model: defining value, method, bean constraint is done naturally.
-* Bean Validation standard gives you tens of https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-defineconstraints-spec[validation annotations^] out-of-the-box, like `@NotNull`, `@Size`, `@Min`, `@Max`, `@Pattern`, `@Email`, `@Past`, less standard like `@URL`, `@Length`, and many others.
+* Validation logic is located next to your domain model: defining value, method, and bean constraints is natural.
+* The Bean Validation standard gives you tens of https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-defineconstraints-spec[validation annotations^] out-of-the-box, like `@NotNull`, `@Size`, `@Min`, `@Max`, `@Pattern`, `@Email`, `@Past`, and less standard ones like `@URL`, `@Length`.
 * You are not limited by predefined constraints and can define your own constraint annotations. You can also make a new annotation by combining a couple of others, or create a new one and define a Java class that will serve as a validator.
 +
 For example, you can define a <<custom-constraints,class-level>> annotation `@ValidPassportNumber` to check that passport number follows the right format, which depends on the `location` field value.
 * You can put constraints not only on fields and classes but also on methods and method parameters. It is called <<validation-by-contract,"validation by contract">>.
 
-Bean Validation is automatically invoked in xref:flow-ui:views/view-validation.adoc[UI views] when user submits data, and in the xref:rest:index.adoc[generic REST API].
+Bean Validation is automatically invoked in xref:flow-ui:views/view-validation.adoc[UI views] when a user submits data, and in the xref:rest:index.adoc[generic REST API].
 
 [[defining-constraints]]
 == Defining Constraints
@@ -51,11 +51,11 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Person.ja
 <3> A person's height should be larger than 0.
 <4> A person's height should be less than or equal to 300.
 
-Let’s check how bean validation is running automatically, when user submits data in UI.
+Let’s check how bean validation runs automatically when a user submits data in the UI.
 
 image::validation-ui.png[align="center"]
 
-As you can see, our application not just shows error messages to a user but also highlights form fields that have not passed single-field bean validations with red lines.
+As you can see, our application not only shows error messages to a user but also highlights form fields that have failed single-field bean validation with red lines.
 
 [[custom-constraints]]
 ==== Custom Constraints
@@ -117,7 +117,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/service/PersonAp
 If you perform some custom programmatic validation in a service, use `CustomValidationException` to inform clients about validation errors in the same format as the standard bean validation does. It can be particularly relevant for REST API clients.
 
 [NOTE]
-Bean validation is inheritable. If you annotate some class or field or method with a constraint, all descendants that extend or implement this class or interface would be affected by the same constraint check.
+Bean validation is inheritable. If you annotate a class, field, or method with a constraint, all descendants that extend or implement this class or interface are affected by the same constraint check.
 
 [[constraint-groups]]
 === Constraint Groups
@@ -129,7 +129,7 @@ The framework passes the following constraint groups to the validation mechanism
 * `RestApiChecks` - bean validation constraint group used by xref:jmix:rest:index.adoc[REST API] for data validation.
 * `UiComponentChecks` - bean validation constraint group used by UI for fields validation.
 * `UiCrossFieldChecks` - bean validation constraint group used by UI for cross-field validation.
-* `jakarta.validation.groups.Default` - this group is always passed, except saving the entity detail view.
+* `jakarta.validation.groups.Default` - this group is always passed, except when saving the entity detail view.
 
 [[validation-messages]]
 === Validation Messages

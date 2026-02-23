@@ -6,5 +6,5 @@ See the description of the xref:bpm:modeler-studio.adoc[BPMN Modeler] in Studio.
 
 [NOTE]
 ====
-This feature requires a BPM xref:studio:subscription.adoc#enterprise-subscription[subscription]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise+BPM Trial] section for how to get a trial version.
+This feature requires a BPM xref:studio:subscription.adoc#enterprise-subscription[subscription]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise+BPM Trial] section to learn how to get a trial version.
 ====
