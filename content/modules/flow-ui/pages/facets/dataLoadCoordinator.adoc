@@ -71,7 +71,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/face
 [[semi-automatic-mode]]
 === Полуавтоматический режим
 
-Фасет можно установить в полуаавтоматический режим. В этом режиме координатор автоматически запускает загрузчики (с `auto = "true"`), *но* также учитывает любые добавленные вами ручные правила.
+Фасет можно установить в полуавтоматический режим. В этом режиме координатор автоматически запускает загрузчики (с `auto = "true"`), *но* также учитывает любые добавленные вами ручные правила.
 
 Пример использования:
 
@@ -80,7 +80,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/face
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/semiautomaticmode/semiautomatic-mode-view.xml[tags=semiautomatic-mode]
 ----
 
-<1> *Фасет в полуаавтоматическом режиме* – фасет будет автоматически запускать загрузчики, если для них не определены иные правила.
+<1> *Фасет в полуавтоматическом режиме* – фасет будет автоматически запускать загрузчики, если для них не определены иные правила.
 <2> *Элемент <refresh>* – переопределяет автоматическое поведение, указывая, что загрузчик `citiesDl` должен запускаться в момент генерации события xref:flow-ui:views/view-events.adoc#ready-event[ReadyEvent].
 
 [[attributes]]
