@@ -3,6 +3,7 @@
 ** xref:security:resource-roles.adoc[]
 ** xref:security:row-level-roles.adoc[]
 ** xref:security:combining-roles.adoc[]
+** xref:security:export-import-roles.adoc[]
 ** xref:security:authentication.adoc[]
 ** xref:security:authorization.adoc[]
 ** xref:security:custom-endpoints.adoc[]

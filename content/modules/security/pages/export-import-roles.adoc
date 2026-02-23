@@ -1,0 +1,7 @@
+= Export and Import Roles
+
+Roles created at runtime are stored in the database and can be exported as ZIP or JSON files, or imported as ZIP. This applies to both resource roles and row-level roles.
+
+The related UI views provide *Export* and *Import* options for these tasks.
+
+image:export-import-roles.png[width=1392]
