@@ -246,14 +246,3 @@ bootRun {
 org.gradle.java.home = /Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home
 ----
 . В окне инструмента Gradle нажмите *Reload All Gradle Projects*, чтобы обновить конфигурацию проекта Gradle.
-
-[[troubleshooting]]
-== Устранение неполадок
-
-Если вы столкнулись с какими-либо проблемами во время работы над проектом, попробуйте закрыть его и открыть снова. Если это не помогло, попробуйте сбросить кэши и перезапустить IDE:
-
-. Выберите пункт *File → Invalidate Caches* в главном меню.
-. Включите флажок *Delete Jmix Studio templates and artifacts caches*.
-. Нажмите *Invalidate and Restart*.
-
-Обратите внимание, что при последующем открытии проекта переиндексация зависимостей может занять некоторое время.

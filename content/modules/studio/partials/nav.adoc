@@ -3,6 +3,7 @@
 ** xref:studio:update.adoc[]
 ** xref:studio:subscription.adoc[]
 ** xref:studio:project.adoc[]
+** xref:studio:troubleshooting.adoc[]
 ** xref:studio:studio-ui.adoc[]
 *** Основные инструменты разработки
 **** xref:studio:ai-assistant.adoc[]
