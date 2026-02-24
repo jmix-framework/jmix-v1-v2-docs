@@ -37,7 +37,7 @@ TIP: Префиксы по умолчанию можно изменить с п�
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/automaticmode/automatic-mode-view.xml[tags=automatic-mode]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/automaticmode/automatic-mode-view.xml[tags=automatic-mode]
 ----
 
 <1> *Контейнер данных* – содержит сущность `City`. Его значение будет использовано в параметре `:container_citiesDc`.
