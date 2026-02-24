@@ -37,7 +37,7 @@ Usage example:
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/automaticmode/automatic-mode-view.xml[tags=automatic-mode]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/automaticmode/automatic-mode-view.xml[tags=automatic-mode]
 ----
 
 <1> *Data container* – holds the `City` entity. Its value is used as the `:container_citiesDc` parameter.
