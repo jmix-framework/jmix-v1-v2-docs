@@ -246,14 +246,3 @@ To use a non-default JDK in your project without touching global system settings
 org.gradle.java.home = /Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home
 ----
 . In the Gradle tool window click *Reload All Gradle Projects* to refresh the Gradle project configuration.
-
-[[troubleshooting]]
-== Troubleshooting
-
-If you experience any problems while working on a project, try closing it and opening it again. If it doesn’t help, try to invalidate caches and restart the IDE:
-
-. Open *File → Invalidate Caches* from the main menu.
-. Select the *Delete Jmix Studio templates and artifacts caches* checkbox.
-. Click *Invalidate and Restart*.
-
-Note that after reopening the project, reindexing project dependencies may take some time.
