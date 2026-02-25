@@ -1,12 +1,12 @@
 plugins {
-    id 'io.jmix' version '2.7.0'
+    id 'io.jmix' version '2.8.0-M2'
     id 'java'
 }
 
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '2.7.0'
+    bomVersion = '2.8.999-SNAPSHOT'
 }
 
 group = 'com.company'

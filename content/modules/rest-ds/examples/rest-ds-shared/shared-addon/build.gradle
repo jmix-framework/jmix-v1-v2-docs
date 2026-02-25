@@ -23,7 +23,7 @@ subprojects {
     }
 
     jmix {
-        bomVersion = '2.7.0'
+        bomVersion = '2.8.999-SNAPSHOT'
         projectId = 'shared'
     }
 

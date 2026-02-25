@@ -13,152 +13,24 @@
 
 * Обновляет версию Jmix BOM, которая, в свою очередь, определяет версии всех зависимостей.
 * Обновляет версию Jmix Gradle plugin.
-* Если ваш проект включает дополнение Authorization Server или OpenID Connect, Studio добавляет свойство приложения `jmix.resource-server.force-api-security-scope.enabled=false` по причине, объясненной <<resource-role-api-scope,ниже>>.
 
 См. полный список <<breaking-changes,критических изменений>>, которые могут затронуть ваш проект после обновления.
-
-[[updated-dependencies]]
-== Обновленные зависимости
-
-Vaadin обновлен до версии https://github.com/vaadin/platform/releases/tag/24.9.0[24.9^].
 
 [[new-features]]
 == Новая и улучшенная функциональность
 
-[[studio]]
-=== Улучшения в Studio
-
-* xref:studio:role-designer.adoc#resource-role-designer[Дизайнер ресурсных ролей] теперь отбражает иерархию наследования ролей и позволяет выбирать базовые роли. Разрешения, унаследованные от базовых ролей, отображаются в виде элементов только для чтения. На вкладке разрешений *Entities* теперь доступные и недоступные элементы выделяются разными цветами.
-
-* Действие *Add attribute from DB* в xref:studio:entity-designer.adoc[дизайнере сущностей] позволяет использовать подход «database-first» при разработке модели данных. Вы можете сначала создать колонку в таблице базы данных, а затем импортировать ее в модель данных в качестве атрибута, отображенного на колонку.
-
-* Если включить новый флажок *Create Data Repository* в диалоговом окне *New JPA Entity*, Studio автоматически создаст репозиторий данных для новой сущности и запомнит состояние флажка для следующего создания сущности. При создании экранов для сущности с помощью мастера *Create Jmix View*, Studio теперь автоматически выбирает флажок *Use Data Repositories*, если для этой сущности существует репозиторий данных.
-
-[[groupdatagrid-component]]
-=== Компонент GroupDataGrid
-
-Компонент `groupDataGrid` — это таблица данных, которая позволяет группировать строки по значениям в одном или нескольких колонках.
-
-Документация по дополнению xref:groupdatagrid:index.adoc[] содержит полную информацию об установке и использовании компонента.
-
-[[card-component]]
-=== Компонент Card
-
-Компонент xref:flow-ui:vc/layouts/card.adoc[] — это контейнер, предназначенный для представления содержимого в формате карточки. Он предоставляет возможности настройки компоновки и внешнего вида, позволяя организовать связанное содержимое и действия.
-
-[[gridlayout-component]]
-=== Компонент GridLayout
-
-Компонент xref:flow-ui:vc/layouts/gridLayout.adoc[] размещает дочерние компоненты в адаптивной, двухмерной системе сетки на основе CSS Grid Layout. Он позволяет отображать отдельные компоненты, <<card-component,карточки>> или фрагменты и может быть удачной альтернативой таблиц данных.
-
-[[usermenu-component]]
-=== Компонент UserMenu
-
-Новый компонент xref:flow-ui:vc/components/userMenu.adoc[userMenu] позволяет наглядно и визуально привлекательно отображать данные вошедшего в систему пользователя вместе с такими связанными действиями, как *Замещение пользователя* и *Выход*.
-
-Раскрывающееся меню компонента может содержать предопределенные и пользовательские действия, а также вложенные элементы и другие UI-компоненты.
-
-Новый шаблон проекта теперь включает компонент `userMenu` в главный экран.
-
-[[date-filtering]]
-=== Фильтрация по дате
-
-Компоненты `genericFilter` и `propertyFilter` теперь предоставляют новую операцию сравнения: xref:flow-ui:vc/components/propertyFilter.adoc#date-equals[date equals]. Она игнорирует время в значениях даты и времени и позволяет пользователям легко проверять, попадает ли значение даты и времени в определенную дату.
-
-Диалоговое окно xref:flow-ui:vc/components/propertyFilter.adoc#date-interval[Date Interval] поддерживает произвольные начальную и конечную даты и может использоваться вместо создания двух условий `>=` и `<` при проверке, находится ли значение даты и времени в пределах диапазона.
-
-[[data-repositories]]
-=== Репозитории данных
-
-* Интерфейс `JmixDataRepository` теперь расширяет `org.springframework.data.repository.ListCrudRepository`, и все его методы `findAll()`, которые ранее возвращали `Iterable`, теперь возвращают `List`.
-
-* Репозитории данных Jmix теперь поддерживают запросы, возвращающие скалярные значения и агрегаты. См. примеры использования аннотации xref:data-access:data-repositories.adoc#query-annotation[@Query].
-
-* Методы `JmixDataRepository`, возвращающие `Page`, выполняют дополнительный `count` запрос к базе данных, чтобы предоставить общее количество элементов и страниц в объекте `Page`. Если количество страниц не требуется в вашей логике, используйте новые методы `findAllSlice()`, возвращающие `Slice`. Это снизит нагрузку на базу данных.
-
-* Новые обработчики xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] и xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] упрощают использование репозиториев данных в экранах. Они позволяют вызывать репозитории данных напрямую без преобразования параметров из объекта `LoadContext`. Если вы установите флажок *Use Data Repositories* в xref:studio:view-wizard.adoc#creating-entity-based-views[Мастере создания экранов], созданный экран будет использовать новые делегаты.
-
-[[design-time-reports]]
-=== Отчеты времени разработки
-
-Дополнение xref:reports:index.adoc[] теперь поддерживает определение структуры отчета в аннотированных Java-классах во время разработки. Этот подход дает следующие преимущества:
-
-* Определения отчетов управляются системой контроля версий (Git).
-* Обновления отчетов включаются в новую версию приложения.
-* Разработчики могут использовать пошаговый отладчик и другие инструменты IDE при работе над загрузкой данных и другой логикой отчета.
-
-Недостаток по сравнению с отчетами времени выполнения заключается в том, что пользователи не могут изменять отчет в работающем приложении.
-
-Примеры создания отчетов во время разработки смотрите в руководстве xref:reports-guide:index.adoc[].
-
-[[rest-data-store]]
-=== REST DataStore
-
-Дополнение REST DataStore теперь позволяет совместно использовать сущности и интерфейсы сервисов между интегрированными приложениями. Это приводит к более тесной связи между приложениями, но сокращает дублирование кода и усилия по разработке.
-
-Более подробную информацию смотрите в разделе xref:rest-ds:index.adoc#sharing-code[REST DataStore: Выделение общего кода приложений].
-
-[[entity-log]]
-=== Entity Log
-
-xref:audit:entity-log.adoc[] теперь может отслеживать изменения в атрибутах many-to-many на xref:data-modeling-many-to-many-guide:index.adoc#owning-side[владеющей стороне].
 
 [[breaking-changes]]
 == Критические изменения
 
-[[jmixdatarepository-method-overriding]]
-=== Переопределенные методы JmixDataRepository
-
-Если вы переопределили методы `findAll` из `JmixDataRepository`, которые ранее возвращали `Iterable`, вам следует изменить тип результата на `List`. Например:
-
-[source,java]
-----
-public interface OrderRepository extends JmixDataRepository<Order, UUID> {
-
-    // before
-    @Override
-    Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
-
-    // after
-    @Override
-    List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
-}
-----
-
-Причина в том, что теперь `JmixDataRepository` реализует `ListCrudRepository`, как упоминалось <<data-repositories,выше>>.
-
-[[required-report-code]]
-=== Обязательный код отчета
-
-Код отчета стал обязательным полем. Если вы редактируете отчет без кода, вам придется ввести значение, которое уникально для всех отчетов времени выполнения и времени разработки.
-
-[[entity-values-comparator]]
-=== EntityValuesComparator перемещен
-
-Класс `io.jmix.flowui.model.impl.EntityValuesComparator` перемещен в пакет `io.jmix.core.comparator`. Если вы используете этот класс в своем коде, обновите инструкции импорта.
-
-[[resource-role-api-scope]]
-=== Исправлен API scope в ресурсных ролях
-
-В связи с исправлением проблемы https://github.com/jmix-framework/jmix/issues/4425[#4425^], API scope в ресурсных ролях теперь работает правильно. Следовательно, пользователи API, которым ранее были предоставлены разрешения через не API-роли, больше не получат эти разрешения.
-
-Вы можете установить свойство приложения `jmix.resource-server.force-api-security-scope.enabled` в значение false, чтобы восстановить поведение, существовавшее до исправления проблемы. Это обеспечит функционирование всех клиентов API на имеющейся конфигурации ролей.
 
 [[changelog]]
 == Список изменений
 
 * Решенные проблемы в Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.4[2.7.4^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.3[2.7.3^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.2[2.7.2^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.1[2.7.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
-+
-В версии 2.7.0 есть регрессии https://github.com/jmix-framework/jmix/issues/4850[#4850^] и https://github.com/jmix-framework/jmix/issues/4852[#4852^], затрагивающие проекты, в которых используется только фронтенд. См. комментарии в тикетах для временных обходных решений.
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.8.0[2.8.0^]
 
 * Решенные проблемы в Jmix Studio:
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.2[2.7.2^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.1[2.7.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.0,-2.6.*%20Affected%20versions:%20-SNAPSHOT[2.7.0^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.8.0,-2.7.*%20Affected%20versions:%20-SNAPSHOT[2.8.0^]
