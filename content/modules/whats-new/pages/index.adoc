@@ -16,157 +16,24 @@ See xref:studio:project.adoc#upgrading-project[Upgrading Project] section for ho
 
 * Updates the version of Jmix BOM which in turn defines versions of all dependencies.
 * Updates the version of Jmix Gradle plugin.
-* If your project includes Authorization Server or OpenID Connect add-ons, Studio adds the `jmix.resource-server.force-api-security-scope.enabled=false` application property for the reason explained <<resource-role-api-scope,below>>.
 
 See also the full list of <<breaking-changes,breaking changes>> that can affect your project after the upgrade.
-
-[[updated-dependencies]]
-== Updated Dependencies
-
-Vaadin has been updated to https://github.com/vaadin/platform/releases/tag/24.9.0[24.9^].
 
 [[new-features]]
 == New Features and Improvements
 
-[[studio]]
-=== Studio Improvements
-
-* The xref:studio:role-designer.adoc[] now visualizes and manages the role inheritance hierarchy. It shows permissions inherited from base roles as read-only elements. The *Entity* permissions tab now highlights enabled and disabled elements using different colors.
-
-* The *Add attribute from DB* action in the xref:studio:entity-designer.adoc[] allows you to use the "database-first" approach when developing your data model. You can first create a column in a database table, and then import it to the data model as an attribute mapped to the column.
-
-* If you select the new *Create Data Repository* checkbox in the *New JPA Entity* dialog, Studio creates a data repository for the new entity automatically, and remembers the state of the checkbox for the next entity creation. When creating views for an entity using the *Create Jmix View* wizard, Studio now automatically selects the *Use Data Repositories* checkbox if a data repository for this entity exists.
-
-[[groupdatagrid-component]]
-=== GroupDataGrid Component
-
-The `groupDataGrid` component is a data grid that enables the grouping of rows based on the values in one or more columns.
-
-See the xref:groupdatagrid:index.adoc[] add-on section for information on how to install and use the component.
-
-[[card-component]]
-=== Card Component
-
-The xref:flow-ui:vc/layouts/card.adoc[] component is a container designed to present content in a card format. It provides customization options for layout and appearance, allowing for the organization of related content and actions.
-
-[[gridlayout-component]]
-=== GridLayout Component
-
-The xref:flow-ui:vc/layouts/gridLayout.adoc[] component arranges child components in a responsive, two-dimensional grid system based on the CSS Grid Layout. It allows you to render individual components, <<card-component,cards>> or fragments, and can be a viable alternative to data grids.
-
-[[usermenu-component]]
-=== UserMenu Component
-
-The new xref:flow-ui:vc/components/userMenu.adoc[userMenu] component allows you to visualize the logged-in user along with related actions such as *Substitute user* and *Log out* in a clear and visually appealing manner.
-
-The dropdown menu of the component can contain predefined and custom actions, as well as nested items and other UI components.
-
-The new project template now includes the `userMenu` component in the main view.
-
-[[date-filtering]]
-=== Date Filtering
-
-The `genericFilter` and `propertyFilter` components now provides a new comparison operation: xref:flow-ui:vc/components/propertyFilter.adoc#date-equals[date equals]. It omits time in datetime values and allows users to easily test if a datetime value is within a particular date.
-
-The xref:flow-ui:vc/components/propertyFilter.adoc#date-interval[Date Interval] dialog now supports arbitrary start and end date, and can be used instead of creating two conditions `>=` and `<` when checking if a datetime value is within a range.
-
-[[data-repositories]]
-=== Data Repositories
-
-* The `JmixDataRepository` interface now extends `org.springframework.data.repository.ListCrudRepository`, and all its `findAll()` methods that previously returned `Iterable` now return `List`.
-
-* Jmix data repositories now support queries returning scalar values and aggregates. See the xref:data-access:data-repositories.adoc#query-annotation[@Query] annotation usage examples.
-
-* The `JmixDataRepository` methods returning `Page` perform additional `count` request to the database to provide total number of items and pages in the `Page` object. If you don't need the number of pages in your logic, use the new `findAllSlice()` methods returning `Slice`. This will reduce the load on the database.
-
-* The new xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] and xref:flow-ui:vc/components/simplePagination.adoc#totalCountByRepositoryDelegate[totalCountByRepositoryDelegate] handlers simplify usage of data repositories in views. They allow you to invoke data repositories directly without converting parameters from the `LoadContext` object. If you select the *Use Data Repositories* checkbox in the xref:studio:view-wizard.adoc#creating-entity-based-views[
-View Creation Wizard], the created view will use the new delegates.
-
-[[design-time-reports]]
-=== Design-Time Reports
-
-The xref:reports:index.adoc[] add-on now supports defining report structure in annotated Java classes at design time. This approach brings the following benefits:
-
-* Report definitions are managed by the version control system (Git).
-* Updates to the reports are included in the new version of the application.
-* Developers can use step-by-step debugger and other IDE tools when working on data loading and other report logic.
-
-The downside comparing to runtime reports is that users cannot modify the report in the running application.
-
-See xref:reports-guide:index.adoc[] guide for examples of creating reports at design time.
-
-[[rest-data-store]]
-=== REST DataStore
-
-The REST DataStore add-on now lets you share entities and service interfaces between integrated applications. This leads to tighter coupling between the applications, but reduces code duplication and development efforts.
-
-See xref:rest-ds:index.adoc#sharing-code[REST DataStore: Sharing Code Between Applications] for more information.
-
-[[entity-log]]
-=== Entity Log
-
-The xref:audit:entity-log.adoc[] now can track changes in many-to-many attributes on the xref:data-modeling-many-to-many-guide:index.adoc#owning-side[owning side].
 
 [[breaking-changes]]
 == Breaking Changes
 
-[[jmixdatarepository-method-overriding]]
-=== JmixDataRepository Method Overriding
-
-If you have overridden `findAll` methods of `JmixDataRepository` that previously returned `Iterable`, you should change the result type to `List`. For example:
-
-[source,java]
-----
-public interface OrderRepository extends JmixDataRepository<Order, UUID> {
-
-    // before
-    @Override
-    Iterable<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
-
-    // after
-    @Override
-    List<Order> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
-}
-----
-
-The reason is that now `JmixDataRepository` implements `ListCrudRepository` as mentioned <<data-repositories,above>>.
-
-[[required-report-code]]
-=== Required Report Code
-
-The report code has become a mandatory field. If you edit a report without a code, you will have to enter a value that is unique across all runtime and design-time reports.
-
-[[entity-values-comparator]]
-=== Moved EntityValuesComparator
-
-The `io.jmix.flowui.model.impl.EntityValuesComparator` class has been moved to the `io.jmix.core.comparator` package. If you are using this class in your code, update the import statements.
-
-[[resource-role-api-scope]]
-=== Fixed API Scope in Resource Roles
-
-Due to the resolution of issue https://github.com/jmix-framework/jmix/issues/4425[#4425^], the API scope in resource roles is now functioning correctly. Consequently, API users who were previously granted permissions through non-API roles will no longer retain those permissions.
-
-You can set the `jmix.resource-server.force-api-security-scope.enabled` application property to false to restore the behavior that existed prior to the resolution of the issue. It will ensure that all API clients continue to function exactly as before.
 
 [[changelog]]
 == Changelog
 
 * Resolved issues in Jmix Framework:
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.4[2.7.4^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.3[2.7.3^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.2[2.7.2^]
-+
-Version 2.7.2 has a regression in the Brazilian Portuguese translation add-on. See https://github.com/jmix-framework/jmix/issues/4980#issuecomment-3680596429[#4980^] for a workaround.
-
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.1[2.7.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.0[2.7.0^]
-+
-Version 2.7.0 has regressions https://github.com/jmix-framework/jmix/issues/4850[#4850^] and https://github.com/jmix-framework/jmix/issues/4852[#4852^], affecting frontend-only projects. See the issue comments for temporary workarounds.
-
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.8.0[2.8.0^]
 
 * Resolved issues in Jmix Studio:
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.2[2.7.2^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.1[2.7.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.7.0,-2.6.*%20Affected%20versions:%20-SNAPSHOT[2.7.0^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.8.0,-2.7.*%20Affected%20versions:%20-SNAPSHOT[2.8.0^]
