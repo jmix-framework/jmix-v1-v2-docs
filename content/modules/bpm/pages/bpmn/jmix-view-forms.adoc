@@ -118,11 +118,9 @@ NOTE: `@ProcessFormParam` can take a `name` attribute. If no name is explicitly 
 [[processvariable]]
 == @ProcessVariable
 
-`@ProcessVariable` can be set on class fields and view components. It indicates that the process variable's value will be set to that field when the process form opens.
+Place `@ProcessVariable` on class fields and view components to set a process process variable's value when the process form opens.
 
 NOTE: The variable becomes available in xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent]. It is not accessible in xref:flow-ui:views/view-events.adoc#init-event[InitEvent].
-
-In the case of a view component, the variable's value will be set in that component.
 
 [source,java,indent=0]
 ----
@@ -130,6 +128,18 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProce
 ----
 
 If no `name` is explicitly specified, the default process variable name is derived from the field name.
+
+[[loading-dynamic-attributes]]
+=== Loading Dynamic Attributes
+
+xref:dyn-attr:index.adoc[] values are not loaded (and therefore not shown) in the process form by default. If the process variable is an entity that has dynamic attributes, you can load and display those attributes by adding `@ProcessVariableParam` in the `params` array and setting the `ProcessVariableConstants.LOAD_DYN_ATTR_PARAM` key to `true`. For example:
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/documentprocessform/DocumentProcessForm.java[tags=process-variable-param-example]
+----
+
+When enabled, the process form automatically renders visual components for each dynamic attribute — you don’t need to create them manually.
 
 [[process-form-context]]
 == ProcessFormContext
@@ -299,9 +309,3 @@ To get a full list of process form parameters, use the `ProcessFormContext` obje
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=param-list]
 ----
 ====
-
-
-
-
-
-

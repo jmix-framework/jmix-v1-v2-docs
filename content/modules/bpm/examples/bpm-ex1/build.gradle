@@ -38,6 +38,9 @@ configurations.implementation {
 
 // tag::dependencies[]
 dependencies {
+    implementation 'io.jmix.dynattr:jmix-dynattr-starter'
+    implementation 'io.jmix.dynattr:jmix-dynattr-flowui-starter'
+
     //...
     // end::dependencies[]
     implementation 'io.jmix.core:jmix-core-starter'

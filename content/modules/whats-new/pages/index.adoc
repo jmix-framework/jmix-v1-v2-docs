@@ -37,6 +37,11 @@ To create an element collection attribute in Studio, select `ELEMENT_COLLECTION`
 
 See also https://github.com/jmix-framework/jmix/issues/1271[#1271^].
 
+[[dynamic-attributes-process-forms]]
+=== Dynamic Attributes in Process Forms
+
+Dynamic attributes can now be loaded and displayed in process forms based on Jmix views. You can enable this behavior with the `@ProcessVariableParam` annotation. See xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes] for details.
+
 [[breaking-changes]]
 == Breaking Changes
 
