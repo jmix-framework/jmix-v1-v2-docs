@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:dynattr="http://jmix.io/schema/dynattr/flowui"
+      title="msg://documentProcessForm.title">
+    <data>
+        <instance id="documentDc" class="com.company.bpmex1.entity.Document">
+            <loader id="documentDl"/>
+            <fetchPlan extends="_base"/>
+        </instance>
+    </data>
+    <facets>
+        <dynattr:dynamicAttributes/>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <formLayout id="form" dataContainer="documentDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="nameField" property="name"/>
+            <textField id="descriptionField" property="description"/>
+            <fileStorageUploadField id="attachmentField" property="attachment"/>
+        </formLayout>
+        <hbox id="actionsPanel">
+            <button id="submitBtn" icon="CHECK" text="msg://documentProcessForm.outcome.submit" themeNames="primary"/>
+            <button id="rejectBtn" icon="BAN" text="msg://documentProcessForm.outcome.reject"/>
+        </hbox>
+    </layout>
+</view>

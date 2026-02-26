@@ -38,12 +38,17 @@ include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=dynamicAttributesPanel]
 ----
-+
+// +
 // You can specify the number of columns to display dynamic attributes using the `cols` parameter. Or you can use the `rows` parameter to specify the number of rows (in this case, the number of columns will be calculated automatically). By default, all attributes will be displayed in one column.
 // +
 // image::dynamic-attribute-panel.gif[align=centre]
 // +
 // NOTE: On the xref:dyn-attr:dynattr-managing.adoc#attributes-location[Attributes location] tab of the category editor, you can more flexibly customize the position of the dynamic attributes. In this case, the values of the cols and rows parameters will be ignored.
+
+[[adding-to-business-process-forms]]
+== Добавление в форму бизнес‑процесса
+
+С дополнением xref:bpm:index.adoc[] динамические атрибуты можно загружать и отображать в процессных формах. Подробности и пример см. в разделе xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Загрузка динамических атрибутов].
 
 // TODO commented out until https://github.com/jmix-framework/jmix/issues/965 is fixed
 // == Adding Specific Attributes Explicitly

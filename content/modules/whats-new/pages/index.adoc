@@ -34,6 +34,11 @@
 
 См. также https://github.com/jmix-framework/jmix/issues/1271[#1271^].
 
+[[dynamic-attributes-process-forms]]
+=== Динамические атрибуты в формах процесса
+
+Процессные формы на базе экранов Jmix поддерживают загрузку и отображение динамических атрибутов. Для этого используйте аннотацию `@ProcessVariableParam`. Подробнее см. в разделе xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes].
+
 [[breaking-changes]]
 == Критические изменения
 
