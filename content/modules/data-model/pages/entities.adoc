@@ -29,7 +29,7 @@ A JPA entity is a Java class annotated according to JPA rules. JPA entities are 
 JPA annotations define mapping between database table fields and entity attributes. Jmix imposes the following restrictions on mapping annotations:
 
 * Attribute annotations must be placed only on fields (`AccessType.FIELD`).
-* Not supported: `@IdClass`, `@ElementCollection`.
+* `@IdClass` is not supported.
 
 Below is an example of a typical JPA entity class:
 
@@ -247,30 +247,31 @@ NOTE: There is another term for entity attributes: _entity properties_. It's oft
 
 Each entity attribute should have an appropriate type. Jmix supports the following types out-of-the-box:
 
-* `java.lang.String`
-* `java.lang.Character`
-* `java.lang.Boolean`
-* `java.lang.Integer`
-* `java.lang.Long`
-* `java.lang.Double`
-* `java.math.BigDecimal`
-* `java.util.Date`
-* `java.time.LocalDate`
-* `java.time.LocalTime`
-* `java.time.LocalDateTime`
-* `java.time.OffsetTime`
-* `java.time.OffsetDateTime`
-* `java.sql.Date`
-* `java.sql.Time`
-* `java.util.UUID`
-* `java.net.URI`
-* `byte[]` (byte array)
+* Basic types:
+** `java.lang.String`
+** `java.lang.Character`
+** `java.lang.Boolean`
+** `java.lang.Integer`
+** `java.lang.Long`
+** `java.lang.Double`
+** `java.math.BigDecimal`
+** `java.util.Date`
+** `java.time.LocalDate`
+** `java.time.LocalTime`
+** `java.time.LocalDateTime`
+** `java.time.OffsetTime`
+** `java.time.OffsetDateTime`
+** `java.sql.Date`
+** `java.sql.Time`
+** `java.util.UUID`
+** `java.net.URI`
+** `byte[]` (byte array)
 * xref:files:file-storage.adoc[io.jmix.core.FileRef]
+* xref:datatype.adoc#custom-type[Custom type]
+* `List` or `Set` of a basic type, `FileRef` or a custom type (an <<element-collections,element collection>>)
 * xref:enumerations.adoc[Enumeration]
 * Entity (a <<references,reference>> attribute)
 * `List` or `Set` of entities (a reference collection attribute)
-
-You can use a type not from the list above if you create an appropriate xref:datatype.adoc[Datatype] implementation and make sure your type is supported by the underlying xref:data-stores.adoc[data store].
 
 [CAUTION]
 ====
@@ -335,6 +336,37 @@ Do not initialize fields of collection attributes with the new `ArrayList` or `H
 private List<UserStep> steps = new NotInstantiatedList<>();
 ----
 ====
+
+[[element-collections]]
+== Element Collections
+
+An entity attribute can be a collection (`List` or `Set`) of a basic type, xref:files:file-storage.adoc[FileRef], or a xref:datatype.adoc#custom-type[custom type].
+
+For JPA entities, element collections are stored in separate database tables. The mapping is defined using the following JPA annotations:
+
+* `@ElementCollection`
+* `@CollectionTable`
+* `@OrderColumn`
+
+For example:
+
+[source,java,indent=0]
+----
+include::example$data-model-ex1/src/main/java/com/company/demo/entity/Product.java[tags=element-collection]
+----
+
+`URI`, `FileRef`, and custom datatypes require an explicit converter:
+
+[source,java,indent=0]
+----
+include::example$data-model-ex1/src/main/java/com/company/demo/entity/Product.java[tags=file-collection]
+----
+
+The following are *not supported* as element collection attributes:
+
+* `Map`
+* Collection of embeddable entities
+* Collection of enums
 
 [[references]]
 == References

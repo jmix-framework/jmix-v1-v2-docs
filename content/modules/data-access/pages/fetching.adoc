@@ -2,7 +2,7 @@
 
 In this section, we describe how and when data is fetched into memory in the process of loading entities from the database.
 
-The data model entities often have references to other entities, for example `Order` has a related `Customer` in the `Order.customer` attribute. Jmix allows you to access related entities by navigating the reference attributes in Java code using getters, for example `order.getCustomer().getName()`, and in data-aware UI components using dot notation, for example `order.customer.name`.
+The data model entities often have xref:data-model:entities.adoc#references[references] to other entities, for example `Order` has a related `Customer` in the `Order.customer` attribute. Jmix allows you to access related entities by navigating the reference attributes in Java code using getters, for example `order.getCustomer().getName()`, and in data-aware UI components using dot notation, for example `order.customer.name`.
 
 In general, there are two strategies of loading related entities:
 
@@ -12,7 +12,7 @@ In general, there are two strategies of loading related entities:
 [[lazy-loading]]
 == Lazy Loading
 
-Jmix supports lazy loading of references for JPA entities loaded using xref:data-manager.adoc[DataManager]. It means that if you have used `DataManager` or UI xref:flow-ui:data/data-loaders.adoc[data loaders] for loading an entity, you can access its reference attributes to get the related entities, and Jmix will load them from the database on demand. This process is recursive, so you can traverse the whole object graph just by accessing the reference attributes.
+Jmix supports lazy loading of references and xref:data-model:entities.adoc#element-collections[element collections] for JPA entities loaded using xref:data-manager.adoc[DataManager]. It means that if you have used `DataManager` or UI xref:flow-ui:data/data-loaders.adoc[data loaders] for loading an entity, you can access its reference attributes to get the related entities, and Jmix will load them from the database on demand. This process is recursive, so you can traverse the whole object graph just by accessing the reference attributes.
 
 For example:
 [source,java,indent=0]
@@ -34,7 +34,7 @@ When you face a performance issue with lazy loading, introduce eager loading wit
 
 A _fetch plan_ defines what object graph should be eagerly loaded from the database in a particular operation. It can be used in xref:data-manager.adoc[DataManager] and UI xref:flow-ui:data-components.adoc[data components] for performance optimization, and in xref:rest:index.adoc[REST API] for defining the shape of returned data without creating a separate set of DTOs.
 
-TIP: Fetch plans are fully compatible with lazy loading of related entities. It means that you can load some part of a graph with a fetch plan, and then load other related entities lazily by navigating references.
+TIP: Fetch plans are fully compatible with lazy loading of related entities and element collections. It means that you can load some part of a graph with a fetch plan, and then load other related entities lazily by navigating references.
 
 [[fetch-plan-example]]
 === Fetch Plan Usage Example

@@ -22,6 +22,20 @@ See also the full list of <<breaking-changes,breaking changes>> that can affect 
 [[new-features]]
 == New Features and Improvements
 
+[[element-collections]]
+=== Support for Element Collections
+
+The Jmix data model now supports collections of basic types, `FileRef` objects or custom types. In JPA entities, these collection attributes are annotated with `@ElementCollection` and stored in separate database tables.
+
+See the xref:data-model:entities.adoc#element-collections[Entities] section for how to define element collections and xref:data-access:data-manager.adoc#element-collections[Using DataManager] for how to use them in queries.
+
+Element collection attributes are xref:data-access:fetching.adoc#lazy-loading[lazily loaded] by default and can be included in fetch plans when needed.
+
+Element collection attributes can be used in the xref:flow-ui:vc/components/genericFilter.adoc[] component conditions and can be bound as values of xref:flow-ui:vc/components/multiValuePicker.adoc[], xref:flow-ui:vc/components/multiSelectComboBox.adoc[] and xref:flow-ui:vc/components/multiSelectComboBoxPicker.adoc[] components.
+
+To create an element collection attribute in Studio, select `ELEMENT_COLLECTION` in the *Attribute type* dropdown of the *New Attribute* dialog.
+
+See also https://github.com/jmix-framework/jmix/issues/1271[#1271^].
 
 [[breaking-changes]]
 == Breaking Changes

@@ -148,7 +148,7 @@ public class CustomerRepositoryTest {
         List<KeyValueEntity> keyValueEntities = customerRepository2.getCountGroupByGrade();
         assertThat(keyValueEntities).isNotEmpty();
         KeyValueEntity keyValueEntity = keyValueEntities.get(0);
-        assertThat((Object) keyValueEntity.getValue("grade")).isInstanceOf(CustomerGrade.class);
+        assertThat((Object) keyValueEntity.getValue("grade")).isInstanceOf(String.class);
         assertThat((Object) keyValueEntity.getValue("count")).isInstanceOf(Long.class);
     }
 

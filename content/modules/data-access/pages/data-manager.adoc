@@ -161,6 +161,76 @@ The `loadValues()` and `loadValue()` have the following limitations:
 
 . These methods are not implemented in xref:rest-ds:index.adoc[].
 
+[[element-collections]]
+=== Element Collections
+
+Take into account the following information when working with xref:data-model:entities.adoc#element-collections[element collection] attributes.
+
+[[element-collection-queries]]
+==== Queries with Element Collections
+
+Use `join` to query entities by an item value:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag]
+----
+
+An abbreviated query should include the `from` clause:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag-like]
+----
+
+This is how you can find empty collections:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-empty-tags]
+----
+
+Use `join` when loading element collections as scalar values. The following method will return the list of `KeyValue` entities with the "name -> tag" pairs:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-values]
+----
+
+All collection items can be loaded using the following query:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-value]
+----
+
+[CAUTION]
+====
+*Not supported*:
+
+* Element collection as a scalar value. The following query will fail: `select p.name, p.tags from sample_Product p`
+* `in` operator. The following query will fail: `select p from sample_Product p where :tag in (p.tags)`
+====
+
+[[element-collection-conditions]]
+==== Conditions with Element Collections
+
+When using `PropertyCondition`, the `[NOT_]EQUAL`, `GREATER[_OR_EQUAL]`, `LESS[_OR_EQUAL]`, `CONTAINS`, `[STARTS|ENDS]_WITH` operations compare elements of the collection.
+
+For example, the following method actually executes the `select e from sample_Product e join e.tags t where t = :tag` query and returns products that contain a given value in their `tags` collection:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag-using-condition]
+----
+
+This is how you can find empty collections using `PropertyCondition`:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-empty-tags-using-condition]
+----
+
 [[paging-and-sorting]]
 === Paging and Sorting
 
