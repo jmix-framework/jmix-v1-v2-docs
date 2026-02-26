@@ -161,6 +161,76 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 
 . Данные методы не реализованы в xref:rest-ds:index.adoc[].
 
+[[element-collections]]
+=== Коллекции элементов
+
+Учитывайте следующую информацию при работе с xref:data-model:entities.adoc#element-collections[коллекциями элементов].
+
+[[element-collection-queries]]
+==== Запросы с коллекциями элементов
+
+Используйте `join` для запроса сущностей по значению элемента:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag]
+----
+
+Сокращенный запрос должен включать предложение `from`:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag-like]
+----
+
+Так можно найти пустые коллекции:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-empty-tags]
+----
+
+Используйте `join` при загрузке коллекций элементов как скалярных значений. Следующий метод вернет список `KeyValueEntity` с парами "имя -> тег":
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-values]
+----
+
+Все элементы коллекции можно загрузить с помощью следующего запроса:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-value]
+----
+
+[CAUTION]
+====
+*Не поддерживается*:
+
+* Коллекция элементов как скалярное значение. Следующий запрос вызовет ошибку: `select p.name, p.tags from sample_Product p`
+* Оператор `in`. Следующий запрос вызовет ошибку: `select p from sample_Product p where :tag in (p.tags)`
+====
+
+[[element-collection-conditions]]
+==== Условия с коллекциями элементов
+
+При использовании `PropertyCondition` операции `[NOT_]EQUAL`, `GREATER[_OR_EQUAL]`, `LESS[_OR_EQUAL]`, `CONTAINS`, `[STARTS|ENDS]_WITH` сравнивают элементы коллекции.
+
+Например, следующий метод фактически выполняет запрос `select e from sample_Product e join e.tags t where t = :tag` и возвращает продукты, содержащие заданное значение в своей коллекции `tags`:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag-using-condition]
+----
+
+Так можно найти пустые коллекции с помощью `PropertyCondition`:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-empty-tags-using-condition]
+----
+
 [[paging-and-sorting]]
 === Пейджинг и сортировка
 

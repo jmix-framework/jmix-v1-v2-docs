@@ -19,6 +19,20 @@
 [[new-features]]
 == Новая и улучшенная функциональность
 
+[[element-collections]]
+=== Поддержка коллекций элементов
+
+Модель данных Jmix теперь поддерживает коллекции базовых типов, объектов `FileRef` или кастомных типов. В JPA-сущностях эти атрибуты-коллекции аннотируются с помощью `@ElementCollection` и хранятся в отдельных таблицах базы данных.
+
+См. раздел xref:data-model:entities.adoc#element-collections[Сущности] о том, как определять коллекции элементов, и xref:data-access:data-manager.adoc#element-collections[Работа с DataManager] о том, как использовать их в запросах.
+
+Атрибуты-коллекции элементов по умолчанию xref:data-access:fetching.adoc#lazy-loading[загружаются лениво] и могут быть включены в фетч-планы при необходимости.
+
+Атрибуты-коллекции элементов могут использоваться в условиях компонента xref:flow-ui:vc/components/genericFilter.adoc[] и могут быть привязаны как значения компонентов xref:flow-ui:vc/components/multiValuePicker.adoc[], xref:flow-ui:vc/components/multiSelectComboBox.adoc[] и xref:flow-ui:vc/components/multiSelectComboBoxPicker.adoc[].
+
+Чтобы создать атрибут-коллекцию элементов в Studio, выберите `ELEMENT_COLLECTION` в раскрывающемся списке *Attribute type* диалога *New Attribute*.
+
+См. также https://github.com/jmix-framework/jmix/issues/1271[#1271^].
 
 [[breaking-changes]]
 == Критические изменения

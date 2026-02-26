@@ -9,6 +9,7 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
@@ -39,6 +40,12 @@ public class Product {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.DATE)
     private Date deletedDate;
+
+    @ElementCollection
+    @CollectionTable(name = "PRODUCT_TAGS", joinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    @Column(name = "TAG")
+    @OrderColumn(name = "TAG_ORDER")
+    private List<String> tags;
 
     public Date getDeletedDate() {
         return deletedDate;
@@ -86,5 +93,13 @@ public class Product {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

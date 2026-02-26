@@ -29,7 +29,7 @@ JPA сущность – это класс Java, аннотированный в
 Аннотации JPA определяют отображение между полями таблицы базы данных и атрибутами сущности. Jmix налагает следующие ограничения на аннотации JPA:
 
 * Аннотации атрибутов должны размещаться только в полях (`AccessType.FIELD`).
-* Не поддерживаются: `@IdClass`, `@ElementCollection`.
+* `@IdClass` не поддерживается.
 
 Ниже приведен пример типичного класса сущности JPA:
 
@@ -247,30 +247,31 @@ NOTE: Существует еще один термин для атрибуто�
 
 Каждый атрибут сущности должен иметь соответствующий тип. Jmix поддерживает следующие типы "из коробки":
 
-* `java.lang.String`
-* `java.lang.Character`
-* `java.lang.Boolean`
-* `java.lang.Integer`
-* `java.lang.Long`
-* `java.lang.Double`
-* `java.math.BigDecimal`
-* `java.util.Date`
-* `java.time.LocalDate`
-* `java.time.LocalTime`
-* `java.time.LocalDateTime`
-* `java.time.OffsetTime`
-* `java.time.OffsetDateTime`
-* `java.sql.Date`
-* `java.sql.Time`
-* `java.util.UUID`
-* `java.net.URI`
-* `byte[]` (массив байтов)
+* Базовые типы:
+** `java.lang.String`
+** `java.lang.Character`
+** `java.lang.Boolean`
+** `java.lang.Integer`
+** `java.lang.Long`
+** `java.lang.Double`
+** `java.math.BigDecimal`
+** `java.util.Date`
+** `java.time.LocalDate`
+** `java.time.LocalTime`
+** `java.time.LocalDateTime`
+** `java.time.OffsetTime`
+** `java.time.OffsetDateTime`
+** `java.sql.Date`
+** `java.sql.Time`
+** `java.util.UUID`
+** `java.net.URI`
+** `byte[]` (байтовый массив)
 * xref:files:file-storage.adoc[io.jmix.core.FileRef]
+* xref:datatype.adoc#custom-type[Кастомный тип]
+* `List` или `Set` базового типа, `FileRef` или кастомного типа (<<element-collections,коллекция элементов>)
 * xref:enumerations.adoc[Перечисление]
 * Сущность (<<references,ссылочный>> атрибут)
 * `List` или `Set` сущностей (ссылочный атрибут-коллекция)
-
-Вы можете использовать тип, не указанный в приведенном выше списке, если создадите соответствующую реализацию xref:datatype.adoc[Datatype] и убедитесь, что ваш тип поддерживается базовым xref:data-stores.adoc[хранилищем данных].
 
 [CAUTION]
 ====
@@ -335,6 +336,37 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/User.java
 private List<UserStep> steps = new NotInstantiatedList<>();
 ----
 ====
+
+[[element-collections]]
+== Коллекции элементов
+
+Атрибут сущности может представлять собой коллекцию (`List` или `Set`) базового типа, xref:files:file-storage.adoc[FileRef] или xref:datatype.adoc#custom-type[кастомного типа].
+
+Для JPA-сущностей коллекции элементов хранятся в отдельных таблицах базы данных. Маппинг определяется с помощью следующих JPA-аннотаций:
+
+* `@ElementCollection`
+* `@CollectionTable`
+* `@OrderColumn`
+
+Например:
+
+[source,java,indent=0]
+----
+include::example$data-model-ex1/src/main/java/com/company/demo/entity/Product.java[tags=element-collection]
+----
+
+`URI`, `FileRef` и кастомные типы данных требуют явного указания конвертера:
+
+[source,java,indent=0]
+----
+include::example$data-model-ex1/src/main/java/com/company/demo/entity/Product.java[tags=file-collection]
+----
+
+Следующее *не поддерживается* в качестве коллекций элементов:
+
+* `Map`
+* Коллекция встраиваемых сущностей
+* Коллекция перечислений
 
 [[references]]
 == Ссылки
