@@ -2,3 +2,4 @@
 ** xref:data-tools:security-roles.adoc[]
 ** xref:data-tools:entity-inspector.adoc[]
 ** xref:data-tools:entity-info-action.adoc[]
+** xref:data-tools:data-model.adoc[]
