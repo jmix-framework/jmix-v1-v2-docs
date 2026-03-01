@@ -37,6 +37,11 @@ To create an element collection attribute in Studio, select `ELEMENT_COLLECTION`
 
 See also https://github.com/jmix-framework/jmix/issues/1271[#1271^].
 
+[[data-model-visualization]]
+=== Data Model Visualization in Data Tools
+
+The xref:data-tools:index.adoc[] add-on now includes a xref:data-tools:data-model.adoc[] view to show entities and their attributes in the running application. Additionally, the view lets you create a data model diagram (for all entities or a chosen subset) using a public or self-hosted PlantUML server.
+
 [[dynamic-attributes-process-forms]]
 === Dynamic Attributes in Process Forms
 
