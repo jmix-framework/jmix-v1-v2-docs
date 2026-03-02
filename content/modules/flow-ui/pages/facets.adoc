@@ -38,12 +38,45 @@ include::facets/facet-tip.adoc[]
 [[custom]]
 == Custom Facets
 
-The application or an add-on can provide its own facets. To create a custom facet, follow the steps below:
+Applications or add-ons can provide their own facets. To create a custom facet, follow the steps below:
 
-1. Create an interface extending `io.jmix.flowui.facet.Facet`.
-2. Create an implementation class based on `io.jmix.flowui.facet.impl.AbstractFacet`.
-3. Create a Spring bean implementing the `io.jmix.flowui.xml.facet.FacetProvider` interface parameterized by the type of your facet.
-4. Create an XSD to be used in view XML.
-5. Optionally, create an annotated interface to add support for the facet in the *Jmix UI* inspector panel of the Studio view designer.
+. Create an interface extending `io.jmix.flowui.facet.Facet`.
+. Create an implementation class based on `io.jmix.flowui.facet.impl.AbstractFacet`.
+. Register the facet using the new `FacetRegistrationBuilder` (see details below).
+. Create an XSD schema to use the facet in view XML descriptors.
+. Optionally, create an annotated interface to add support for the facet in the *Jmix UI* inspector panel of the Studio view designer.
 
 The `DataLoadCoordinator` and `UrlQueryParametersFacet` classes of the framework can be good examples of creating a facet.
+
+[[registering-custom-facet]]
+=== Registering a Custom Facet
+
+The facet registration mechanism consists of three main components:
+
+* Implementation - the class that implements the facet logic.
+* Loader - a class that reads the facet configuration from XML and creates the facet instance.
+* Tag - the XML element name used to declare the facet in a view.
+
+You can register new facet combinations using the `FacetRegistrationBuilder`.
+
+Example of registering a custom timer facet:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/facets/timer/FacetConfiguration.java[tags=register]
+----
+<1> Specifies the class that implements the facet.
+<2> Is used if your facet should replace an existing framework facet (for example, the standard `Timer`). This call substitutes all usages of the original facet in views with your custom implementation.
+<3> Associates an XML tag (for example, `"timer"`) with a loader class. The loader must extend `io.jmix.flowui.xml.facet.loader.FacetLoader` and know how to create the facet from XML.
+
+If your facet does not replace an existing one, you can omit `replaceFacet()` and simply provide a loader:
+
+[source,java,indent=0]
+----
+@Bean
+    public FacetRegistration customTimerFacet() {
+        return FacetRegistrationBuilder.create(TimerExtImpl.class)
+                .withFacetLoader("customTimer", TimerFacetExtLoader.class)
+                .build();
+    }
+----
