@@ -42,6 +42,26 @@
 [[breaking-changes]]
 == Критические изменения
 
+[[facet-registration]]
+=== Facet Registration and Loading Mechanism
+
+The `FacetProvider` mechanism for facet registration is now deprecated and will be removed in a future version. Existing custom facets registered with `FacetProvider` continue to work due to backward compatibility. However, migration to the new `FacetRegistrationBuilder` API is strongly recommended. See xref:flow-ui:facets.adoc#custom[Custom Facets].
+
+A breaking change affects standard Jmix facet overrides. If you previously overrode framework facets using the old mechanism, these overrides will no longer work after upgrading. Such custom implementations must be redefined using the new API:
+
+[source,java,indent=0]
+----
+  @Configuration
+  public class FacetConfiguration {
+
+      @Bean
+      public FacetRegistration extTimerFacet() {
+          return FacetRegistrationBuilder.create(MyOverridenFacet.class)
+                  .replaceFacet(OriginalFacet.class)
+                  .build();
+      }
+  }
+----
 
 [[changelog]]
 == Список изменений
