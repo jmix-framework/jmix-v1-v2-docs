@@ -153,6 +153,7 @@ You can set the `jmix.resource-server.force-api-security-scope.enabled` applicat
 
 * Resolved issues in Jmix Framework:
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.5[2.7.5^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.4[2.7.4^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.3[2.7.3^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.7.2[2.7.2^]
