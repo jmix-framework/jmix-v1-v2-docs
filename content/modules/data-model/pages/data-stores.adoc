@@ -17,6 +17,7 @@ The following databases are supported in Jmix out-of-the-box:
 * MariaDB
 * Microsoft SQL Server 2008+
 * Oracle
+* H2 (experimental support)
 
 The xref:studio:data-stores.adoc[data store editor] in Studio automatically configures connection properties and adds an appropriate JDBC driver to the list of dependencies in `build.gradle`.
 

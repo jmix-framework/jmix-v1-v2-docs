@@ -47,6 +47,44 @@ The xref:data-tools:index.adoc[] add-on now includes a xref:data-tools:data-mode
 
 Dynamic attributes can now be loaded and displayed in process forms based on Jmix views. You can enable this behavior with the `@ProcessVariableParam` annotation. See xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes] for details.
 
+[[h2-database]]
+=== Support for H2 Database (Experimental)
+
+Added experimental support for the H2 database. You can now select *H2 File* or *H2 Server* in the *Database type* dropdown of the data store properties editor.
+
+Add `spring.h2.console.enabled=true` application property to enable the web-based database console in development environment. The console will be available at `++http://localhost:8080/h2-console++`.
+
+[[custom-update-services]]
+=== Custom Update Services (Experimental)
+
+The xref:rest:index.adoc[Generic REST API], xref:data-tools:entity-inspector.adoc[Entity Inspector] and xref:bpm:bpmn/jmix-entity-data-task.adoc[BPM Entity Data Task] now can delegate save and remove operations to a custom application service instead of calling the `DataManager` directly. It allows you to place your entity update logic in a service and be sure that it will be invoked from the generic functions of the framework. Previously you had to use xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] listeners for this.
+
+The following interfaces should be implemented by your custom service to be called by the framework:
+
+[source,java]
+----
+public interface SaveDelegate<E> {
+
+    /**
+     * Called by generic framework mechanisms instead of {@code DataManager} when saving entities of type {@code E}.
+     *
+     * @param entity entity to save
+     * @param saveContext the whole save context
+     * @return saved entity
+     */
+    E save(E entity, SaveContext saveContext);
+}
+
+public interface RemoveDelegate<E> {
+    /**
+     * Called by generic framework mechanisms instead of {@code DataManager} when removing entities of type {@code E}.
+     *
+     * @param entity entity to remove
+     */
+    void remove(E entity);
+}
+----
+
 [[breaking-changes]]
 == Breaking Changes
 
