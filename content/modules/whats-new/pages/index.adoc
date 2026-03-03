@@ -44,6 +44,44 @@
 
 Процессные формы на базе экранов Jmix поддерживают загрузку и отображение динамических атрибутов. Для этого используйте аннотацию `@ProcessVariableParam`. Подробнее см. в разделе xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Загрузка динамических атрибутов].
 
+[[h2-database]]
+=== Поддержка H2 Database (Experimental)
+
+Добавлена экспериментальная поддержка базы данных H2. Теперь вы можете выбрать *H2 File* или *H2 Server* в выпадающем списке *Database type* редактора свойств хранилища данных.
+
+Во время разработки можно использовать свойство приложения `spring.h2.console.enabled=true` для включения веб-консоли базы данных. Консоль будет доступна по адресу `++http://localhost:8080/h2-console++`.
+
+[[custom-update-services]]
+=== Кастомные сервисы обновления (Experimental)
+
+xref:rest:index.adoc[Универсальный REST API], xref:data-tools:entity-inspector.adoc[Инспектор сущностей] и xref:bpm:bpmn/jmix-entity-data-task.adoc[BPM Entity Data Task] теперь могут делегировать операции сохранения и удаления кастомному сервису приложения вместо прямого вызова `DataManager`. Это позволяет поместить логику обновления сущностей в сервис и быть уверенным, что она будет вызвана из общих функций фреймворка. Ранее для этого приходилось использовать слушатели xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent].
+
+Для вызова фреймворком кастомный сервис должен реализовывать следующие интерфейсы:
+
+[source,java]
+----
+public interface SaveDelegate<E> {
+
+    /**
+     * Called by generic framework mechanisms instead of {@code DataManager} when saving entities of type {@code E}.
+     *
+     * @param entity entity to save
+     * @param saveContext the whole save context
+     * @return saved entity
+     */
+    E save(E entity, SaveContext saveContext);
+}
+
+public interface RemoveDelegate<E> {
+    /**
+     * Called by generic framework mechanisms instead of {@code DataManager} when removing entities of type {@code E}.
+     *
+     * @param entity entity to remove
+     */
+    void remove(E entity);
+}
+----
+
 [[breaking-changes]]
 == Критические изменения
 
