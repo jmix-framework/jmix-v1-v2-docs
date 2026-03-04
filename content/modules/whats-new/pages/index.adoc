@@ -109,6 +109,15 @@ A breaking change affects standard Jmix facet overrides. If you previously overr
   }
 ----
 
+[[role-scopes-in-oidc-and-authorization-server]]
+=== Role Scopes in OIDC and Authorization Server
+
+Fixed handling of xref:security:resource-roles.adoc#role-scope[role scopes] in OpenID Connect add-on. You can use xref:oidc:index.adoc#jmix.oidc.filter-chain.force-ui-scope-enabled[jmix.oidc.filter-chain.force-ui-scope-enabled] and xref:oidc:index.adoc#jmix.oidc.filter-chain.force-api-scope-enabled[jmix.oidc.filter-chain.force-api-scope-enabled] application properties to revert to the previous behavior.
+
+If you have used the `jmix.resource-server.force-api-security-scope.enabled` property in Jmix 2.7, replace it with the xref:authorization-server:configuration.adoc#jmix.authserver.filter-chain.force-api-scope-enabled[jmix.authserver.filter-chain.force-api-scope-enabled] property set to `false`.
+
+See https://github.com/jmix-framework/jmix/pull/5094[#5094^] for more information.
+
 [[changelog]]
 == Changelog
 

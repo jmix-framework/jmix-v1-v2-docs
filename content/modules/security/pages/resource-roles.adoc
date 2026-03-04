@@ -20,7 +20,8 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/FullAcces
 <1> The `@ResourceRole` annotation indicates that the interface defines a resource role.
 <2> A user-friendly name of the role.
 <3> The role's code.
-<4> The interface can have one or more methods to define policy annotations (see below). Different methods are used just to group related policies. Method names can be arbitrary, they are displayed as *Policy group* when the role is shown in UI.
+<4> The role's <<role-scope,scope>> (optional).
+<5> The interface can have one or more methods to define policy annotations (see below). Different methods are used just to group related policies. Method names can be arbitrary, they are displayed as *Policy group* when the role is shown in UI.
 
 [[policies]]
 == Resource Policies
@@ -120,6 +121,23 @@ If you want to enable all existing specific policies, use `*` value in the `@Spe
 === UI Component Policy
 
 UI component policies define permissions for UI elements such as fields, buttons, and actions within specific views. This policy support is offered through the separate xref:uiconstraints:index.adoc[UI Constraints] add-on.
+
+[[role-scope]]
+== Role Scope
+
+A role scope defines the areas where the role is effective. There are two built-in scopes:
+
+* `UI`: the application xref:flow-ui:index.adoc[UI] based on Vaadin.
+* `API`: the generic xref:rest:index.adoc[REST API].
+
+Scopes allow you to grant a user different sets of roles depending on how
+they access the application. API roles are usually more restrictive.
+
+For example, if the user `bob` is assigned the following roles in the application: `R1(scope=UI,API)`, `R2(scope=UI)`, and `R3(scope=API)`, then when he logs into the UI, he has `R1` and `R2` roles, and when he authenticates with the REST API, he has `R1` and `R3` roles.
+
+If the scope is not specified for a role, the role is active for all scopes.
+
+You can use the string constants of the `io.jmix.security.model.SecurityScope` interface to define built-in role scopes.
 
 [[role-granularity]]
 == Role Granularity

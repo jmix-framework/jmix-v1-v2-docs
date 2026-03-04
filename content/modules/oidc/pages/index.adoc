@@ -177,6 +177,20 @@ include::example$oidc-ex1/src/main/resources/application-resserver.properties[ta
 [[oidc-properties]]
 == OIDC Properties
 
+[[jmix.oidc.filter-chain.force-api-scope-enabled]]
+=== jmix.oidc.filter-chain.force-api-scope-enabled
+
+A toggle for compatibility with pre-2.8 versions. Set this property to `false` to ignore xref:security:resource-roles.adoc#role-scope[role scopes] when authenticating users in REST API.
+
+Default value: `true`
+
+[[jmix.oidc.filter-chain.force-ui-scope-enabled]]
+=== jmix.oidc.filter-chain.force-ui-scope-enabled
+
+A toggle for compatibility with pre-2.8 versions. Set this property to `false` to ignore xref:security:resource-roles.adoc#role-scope[role scopes] when authenticating users in UI.
+
+Default value: `true`
+
 [[jmix.oidc.use-default-configuration]]
 === jmix.oidc.use-default-configuration
 
