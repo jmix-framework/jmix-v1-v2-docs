@@ -106,6 +106,15 @@ A breaking change affects standard Jmix facet overrides. If you previously overr
   }
 ----
 
+[[role-scopes-in-oidc-and-authorization-server]]
+=== Области действия ролей в OIDC и Authorization Server
+
+Исправлена обработка xref:security:resource-roles.adoc#role-scope[областей действия ролей] в дополнении OpenID Connect. Вы можете использовать свойства приложения xref:oidc:index.adoc#jmix.oidc.filter-chain.force-ui-scope-enabled[jmix.oidc.filter-chain.force-ui-scope-enabled] и xref:oidc:index.adoc#jmix.oidc.filter-chain.force-api-scope-enabled[jmix.oidc.filter-chain.force-api-scope-enabled] для возврата к предыдущему поведению.
+
+Если вы использовали свойство `jmix.resource-server.force-api-security-scope.enabled` в Jmix 2.7, замените его на свойство xref:authorization-server:configuration.adoc#jmix.authserver.filter-chain.force-api-scope-enabled[jmix.authserver.filter-chain.force-api-scope-enabled] со значением `false`.
+
+См. https://github.com/jmix-framework/jmix/pull/5094[#5094^] для получения дополнительной информации.
+
 [[changelog]]
 == Список изменений
 

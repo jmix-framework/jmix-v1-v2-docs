@@ -3,6 +3,13 @@
 [[application-properties]]
 == Свойства приложения
 
+[[jmix.authserver.filter-chain.force-api-scope-enabled]]
+=== jmix.authserver.filter-chain.force-api-scope-enabled
+
+Переключатель для совместимости с версиями до 2.8. Установите данное свойство в `false`, чтобы игнорировать xref:security:resource-roles.adoc#role-scope[области действия ролей] при аутентификации пользователей.
+
+Значение по умолчанию: `true`
+
 [[jmix.authserver.post-logout-url-redirect-parameter-name]]
 === jmix.authserver.post-logout-url-redirect-parameter-name
 
