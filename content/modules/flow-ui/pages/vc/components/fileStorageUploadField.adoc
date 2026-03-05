@@ -389,3 +389,4 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 == Элементы
 
 xref:vc/components/tooltip.adoc[tooltip]
+xref:icons/custom-icons.adoc[uploadIcon]

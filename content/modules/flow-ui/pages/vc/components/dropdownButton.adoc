@@ -129,6 +129,10 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 Элемент `separator` используется для визуального разделения элементов в выпадающем меню.
 
+[[icon]]
+=== icon
+The `icon` element adds a xref:icons/custom-icons.adoc[custom icon].
+
 [[theme-variants]]
 == Варианты оформления
 

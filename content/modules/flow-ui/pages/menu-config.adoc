@@ -13,10 +13,6 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 
 Существует два xref:studio:menu-designer.adoc#menu-modes[режима] загрузки файлов, определяющих структуру меню: составной (по умолчанию) и одиночный. Используйте свойство xref:flow-ui:ui-properties.adoc#jmix.ui.composite-menu[jmix.ui.composite-menu], чтобы переключать эти режимы.
 
-Давайте подробно рассмотрим файл `menu.xml`.
-
-`menu-config` - это корневой элемент XML. Элементы `menu-config` образуют структуру дерева, где элементы `menu` являются ветвями, а элементы `item` и `separator` - листьями.
-
 [[menu-attributes]]
 == Атрибуты меню
 //todo: add Icons and Themes links
@@ -37,6 +33,11 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[tags=menu]
 ----
+
+[[menu-elements]]
+== Элементы меню
+
+Элемент `menu` может содержать дочерние элементы: `items`, `separators` и `icon` (для добавления xref:icons/custom-icons.adoc[пользовательской иконки]).
 
 [[item-attributes]]
 == Атрибуты элемента
@@ -119,6 +120,10 @@ include::example$onboarding/src/main/resources/application.properties[tags=menu-
 //См. xref:ui:icons.adoc[Значки] для подробностей.
 * `className` - определяет имя класса для элемента меню.
 //См. xref:jmix:ui:themes.adoc[Темы] для подробностей.
+
+[[item-icons]]
+== Иконка для пункта меню
+Элемент `item` может задавать xref:icons/custom-icons.adoc[пользовательскую иконку] внутри вложенного элемента `icon`.
 
 [[item-properties]]
 == Свойства элемента меню

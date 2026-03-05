@@ -51,6 +51,9 @@ xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 <<StartedEvent,StartedEvent>> -
 <<SucceededEvent,SucceededEvent>> -
 <<receiver,receiver>>
+|Elements
+|xref:icons/custom-icons.adoc[uploadIcon] -
+xref:icons/custom-icons.adoc[dropLabelIcon]
 |===
 
 == Основы

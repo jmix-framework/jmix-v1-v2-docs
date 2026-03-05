@@ -55,6 +55,13 @@ image::actions/declarative-actions-1.png[align="center",width="601"]
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/actions/actions-view.xml[tags=shortcut]
 ----
 
+[[elements]]
+== Action Elements
+
+The `action` element may contain the following elements:
+
+* `icon` – adds a xref:icons/custom-icons.adoc[custom icon]. A linked button will display it.
+
 [[obtaining-action-in-controller]]
 == Получение ссылок на действия в контроллере
 

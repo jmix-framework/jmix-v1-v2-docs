@@ -74,4 +74,5 @@ include::../handler-generation-tip.adoc[]
 
 == Элементы
 
-xref:vc/components/tooltip.adoc[tooltip]
+xref:vc/components/tooltip.adoc[tooltip] -
+xref:icons/custom-icons.adoc[icon]

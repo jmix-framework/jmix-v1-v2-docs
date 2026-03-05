@@ -136,4 +136,10 @@ include::../handler-generation-tip.adoc[]
 
 `io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` возникает, когда происходит `SucceededEvent` компонента `Upload`.
 
-Смотрите пример использования выше <<FileUploadSucceededEvent-example,выше>> в разделе *Основы*.
+Смотрите пример использования <<FileUploadSucceededEvent-example,выше>> в разделе *Основы*.
+
+[[elements]]
+== Элементы
+
+xref:vc/components/tooltip.adoc[tooltip]
+xref:icons/custom-icons.adoc[uploadIcon]

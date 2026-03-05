@@ -1,6 +1,6 @@
 = Пользовательские иконки
 
-Дополнительные иконки можно добавить в виде SVG-спрайта или отдельных иконок и использовать вместе со встроенными наборами.
+Дополнительные значки можно добавить тремя способами: как SVG-спрайт, как отдельные SVG-файлы или как иконочный шрифт. Их можно использовать вместе со встроенными наборами иконок.
 
 [[icon-set]]
 == Набор иконок
@@ -41,23 +41,30 @@ image::icons/sprite-icons.png[align="center", width="125"]
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-sprite]
 ----
 
-[[standalone-icon]]
-== Отдельная иконка
+[[standalone-svg-images]]
+== Отдельная SVG иконка
 
-Отдельные иконки можно добавить в директорию статического контента. По умолчанию Spring Boot обслуживает статические ресурсы из следующих путей в classpath: `/static`, `/public`, `/resources` или `/META-INF/resources`. Для удобства организации иконок можно создать подкаталог `META-INF/resources/icons`.
+Отдельные иконки можно добавить в директорию статического контента. По умолчанию Spring Boot использует статические ресурсы из следующих путей в classpath: `/static`, `/public`, `/resources` или `/META-INF/resources`. Для удобства организации иконок можно создать подкаталог `META-INF/resources/icons`.
 
-Чтобы использовать статический ресурс, воспользуйтесь компонентом `svgIcon`:
+Чтобы добавить такую иконку, воспользуйтесь компонентом `svgIcon`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-1]
 ----
 
-Чтобы установить иконку для компонента, используйте его xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[префиксные или суффиксные] элементы. Например, чтобы разместить иконку перед текстом кнопки:
+Чтобы установить иконку в компонент, используйте его вложенный элемент `icon`:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-2]
+----
+
+Если компонент поддерживает xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[префикс или суффикс], разместите значок там, чтобы разместить его относительно содержимого. Например, чтобы поместить значок перед текстом кнопки:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-3]
 ----
 
 Или воспользуйтесь программным подходом:
@@ -66,3 +73,80 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/icon
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-standalone]
 ----
+
+[[icon-fonts]]
+== Иконочные шрифты
+
+Иконочный шрифт предоставляет набор значков в виде шрифта. Вы можете использовать компонент fontIcon для отображения значков из шрифта, указав семейство шрифтов и либо код символа, либо лигатуру значка.
+
+Чтобы добавить собственный иконочный шрифт, потребуется следующее:
+
+* Файл шрифта – в современных браузерах используются `.woff` или `.woff2`; `.ttf` или `.eot` можно предоставить для старых браузеров.
+* Определение `@font-face` – как правило, содержится в файле стилей, который вы импортируете в главный файл стилей вашей темы (`styles.css`).
+* Опционально, файл стилей с CSS-классами для иконок — обычно добавляется вместе с определением `@font-face` и также импортируется в `styles.css`.
+
+=== Пример: Добавление Material иконок
+
+Рассмотрим добавление Material иконок в тему приложения.
+
+image:flow-ui:icons/material-icons.png[width=298]
+
+Папка темы включает новую директорию, содержащую два файла:
+
+* `material-icons-outlined.woff2`
+* `outlined.css` – в котором содержится опредление `@font-face` и CSS-класс для иконок:
++
+.outlined.css
+----
+@font-face {
+  font-family: "Material Icons Outlined";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("./material-icons-outlined.woff2") format("woff2");
+}
+.material-icons-outlined {
+  font-family: "Material Icons Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+}
+----
+
+В главный файл стилей темы необходимо добавить следующую строку:
+
+.styles.css
+----
+@import url('material/outlined.css');
+----
+
+Чтобы создать иконку, используйте компонент `fontIcon`, указав название семейства шрифтов (`fontFamily`) (совпадающее с названием определенным в `@font-face`) и либо код символа, либо лигатуру:
+
+[source,xml,indent=0]
+----
+<fontIcon fontFamily="Material Icons Outlined" charCode="e8b6"/>
+<fontIcon fontFamily="Material Icons Outlined" ligature="search"/>
+----
+
+Компонент `fontIcon` можно вложить в элементы `prefix`, `suffix`, или `icon`.
+
+[TIP]
+====
+Стандартные наборы иконок (например, Lumo icons) используют тот же механизм и могут быть использованы с помощью компонента `fontIcon` через код символа или лигатуру.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=font-icon-1]
+----
+====

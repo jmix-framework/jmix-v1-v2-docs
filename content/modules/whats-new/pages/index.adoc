@@ -82,6 +82,26 @@ public interface RemoveDelegate<E> {
 }
 ----
 
+[[custom-icons-in-components]]
+=== Поддержка пользовательских иконок в компонентах
+
+Многие компоненты теперь позволяют добавлять пользовательские иконки через вложенные элементы. Эти элементы обозначают конкретные слоты для иконок в компоненте — например, `<icon>`, `<uploadIcon>`, `<dropdownIcon>`. Пользовательские иконки могут быть добавлены в виде SVG файлов, иконочных шрифтов или изображений.
+
+Например:
+
+[source,xml,indent=0]
+----
+<button text="Download">
+    <icon>
+        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+    </icon>
+</button>
+----
+
+Список компонентов: `action`, `button`, `dropdownButton`, `comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (и `<menu>` и `<item>` поддерживают `<icon>`).
+
+Подробнее см. в разделе the xref:flow-ui:icons.adoc[].
+
 [[breaking-changes]]
 == Критические изменения
 
