@@ -137,3 +137,9 @@ include::../handler-generation-tip.adoc[]
 `io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` is fired when the `Upload` component fires `SucceededEvent`.
 
 See the usage example <<FileUploadSucceededEvent-example,above>> in the *Basics* section.
+
+[[elements]]
+== Elements
+
+xref:vc/components/tooltip.adoc[tooltip]
+xref:icons/custom-icons.adoc[uploadIcon]

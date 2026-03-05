@@ -53,6 +53,8 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent]
 |Elements
 |xref:vc/components/dropdownButton.adoc#actionItem[actionItem] -
 xref:vc/components/dropdownButton.adoc#componentItem[componentItem] -
+xref:icons/custom-icons.adoc[dropdownIcon] -
+xref:icons/custom-icons.adoc[icon] -
 xref:vc/components/dropdownButton.adoc#separator[separator] -
 xref:vc/components/dropdownButton.adoc#textItem[textItem]
 |===

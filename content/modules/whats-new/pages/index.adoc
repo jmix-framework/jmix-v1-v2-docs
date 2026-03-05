@@ -85,6 +85,26 @@ public interface RemoveDelegate<E> {
 }
 ----
 
+[[custom-icons-in-components]]
+=== Support for Custom Icons in Components
+
+Multiple components now support custom icons through nested elements. These elements represent specific icon slots in a component — for example `<icon>`, `<uploadIcon>`, or `<dropdownIcon>` and allow you to provide your own icon. You can supply icons as SVGs, font icons, or images.
+
+For example:
+
+[source,xml,indent=0]
+----
+<button text="Download">
+    <icon>
+        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+    </icon>
+</button>
+----
+
+List of components: `action`, `button`, `dropdownButton`,`comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (both `<menu>` and `<item>` support `<icon>`).
+
+See the xref:flow-ui:icons.adoc[] section for details.
+
 [[breaking-changes]]
 == Breaking Changes
 

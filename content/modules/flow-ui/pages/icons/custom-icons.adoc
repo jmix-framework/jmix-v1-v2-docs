@@ -1,6 +1,6 @@
-= Custom Icons
+= Using Third-Party Icons
 
-Additional icons can be added as an SVG sprite or standalone icons and used alongside the built-in sets.
+Additional icons can be provided in three ways: as an SVG sprite, as standalone SVG files, or as an icon font. These custom icons may be used together with the built‑in icon sets.
 
 [[icon-set]]
 == Icon Set
@@ -42,28 +42,112 @@ Or set it to a component in the Java code:
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-sprite]
 ----
 
-[[standalone-icon]]
-== Standalone Icon
+[[standalone-svg-images]]
+== Standalone SVG Images
 
-Standalone icons can be added to the static content directory. By default, Spring Boot serves static resources from the following locations in the classpath: `/static`, `/public`, `/resources`, or `/META-INF/resources`. To help organize icons, you may set a subfolder `META-INF/resources/icons`.
+SVG files can be added to your static content directory. By default, Spring Boot serves static resources from the following locations in the classpath: `/static`, `/public`, `/resources`, or `/META-INF/resources`. To organize icons, you can use a subfolder such as `META-INF/resources/icons`.
 
-To serve a static resource, use the `svgIcon` component:
+To serve SVGs, use the `svgIcon` component:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-1]
 ----
 
-To set the icon to a component, use its xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[prefix or suffix] elements.  For example, to put the icon before the button text:
+To set the icon to a component, use its nested `icon` element:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-2]
 ----
 
-Or, use the programmatic approach:
+If the component supports xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[prefix or suffix], place the icon there to position it relative to content. For example, to put the icon before the button text:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-3]
+----
+
+You can also set SVG icons programmatically:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-standalone]
 ----
+
+[[icon-fonts]]
+== Icon Fonts
+
+An icon font provides a collection of icons delivered as a font. You can use a `fontIcon` component to render icons from a font by specifying the font-family together with either a character code or an icon ligature.
+
+To add your own icon font, you will need the following:
+
+* A font file – modern browsers use `.woff` or `.woff2`; `.ttf` or `.eot` can be provided as fallbacks for older browsers.
+* A `@font-face` declaration – normally provided in stylesheet that you import into your theme’s master stylesheet (`styles.css`).
+* Optionally, a stylesheet with icon CSS classes — this is often added alongside the `@font-face` declaration and also imported into `styles.css`.
+
+=== Example: Adding Material Icons
+
+Let's illustrate by adding material icons to the application theme.
+
+image:flow-ui:icons/material-icons.png[width=298]
+
+The theme folder includes a new directory that contains:
+
+* `material-icons-outlined.woff2`
+* `outlined.css` – includes the `@font-face` declaration and the CSS class for icons:
++
+.outlined.css
+----
+@font-face {
+  font-family: "Material Icons Outlined";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("./material-icons-outlined.woff2") format("woff2");
+}
+.material-icons-outlined {
+  font-family: "Material Icons Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+}
+----
+
+The theme's master stylesheet must include the following line:
+
+.styles.css
+----
+@import url('material/outlined.css');
+----
+
+To create an icon, use `fontIcon` component providing the font family name (matching the `@font-face` declaration), and either a character code or ligature:
+
+[source,xml,indent=0]
+----
+<fontIcon fontFamily="Material Icons Outlined" charCode="e8b6"/>
+<fontIcon fontFamily="Material Icons Outlined" ligature="search"/>
+----
+
+The `fontIcon` component can be nested within the `prefix`, `suffix`, or `icon` elements.
+
+[TIP]
+====
+Standard icon sets (for example, Lumo icons) use the same mechanism internally and can be served with `fontIcon` component by character code or ligature.
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=font-icon-1]
+----
+====

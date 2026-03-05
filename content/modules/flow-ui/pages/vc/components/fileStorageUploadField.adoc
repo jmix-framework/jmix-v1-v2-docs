@@ -389,3 +389,4 @@ You can also find an example of `FileUploadSucceededEvent` in the <<fileStorageP
 == Elements
 
 xref:vc/components/tooltip.adoc[tooltip]
+xref:icons/custom-icons.adoc[uploadIcon]

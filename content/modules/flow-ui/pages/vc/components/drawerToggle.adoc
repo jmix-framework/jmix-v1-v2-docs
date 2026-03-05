@@ -74,4 +74,5 @@ The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicke
 
 == Elements
 
-xref:vc/components/tooltip.adoc[tooltip]
+xref:vc/components/tooltip.adoc[tooltip] -
+xref:icons/custom-icons.adoc[icon]

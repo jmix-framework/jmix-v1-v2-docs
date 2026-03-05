@@ -55,6 +55,13 @@ If the `type` attribute is not set, the framework creates an instance of the `Ba
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/actions/actions-view.xml[tags=shortcut]
 ----
 
+[[elements]]
+== Action Elements
+
+The `action` element may contain the following elements:
+
+* `icon` – adds a xref:icons/custom-icons.adoc[custom icon]. A linked button will display it.
+
 [[obtaining-action-in-controller]]
 == Obtaining Action in Controller
 

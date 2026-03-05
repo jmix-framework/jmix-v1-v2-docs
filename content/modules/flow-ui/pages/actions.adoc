@@ -1,6 +1,6 @@
 = Actions
 
-`Action` is an interface that abstracts an action (in other words, some function) from a visual component. It is particularly useful when the same action can be invoked from different visual components (for example, both from a button and a table context menu). `Action` also defines some common properties, such as caption, keyboard shortcuts, flags of accessibility and visibility, etc.
+`Action` is an interface that abstracts an action (in other words, some function) from a visual component. It is particularly useful when the same action can be invoked from different visual components (for example, both from a button and a table context menu). `Action` also defines some common properties, such as caption, icon, keyboard shortcuts, flags of accessibility and visibility, etc.
 
 == Creating Actions
 

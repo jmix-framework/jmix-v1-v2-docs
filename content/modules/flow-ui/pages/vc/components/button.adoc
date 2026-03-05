@@ -312,7 +312,8 @@ To register the event handler programmatically, use the `addSingleClickListener(
 
 xref:vc/components/tooltip.adoc[tooltip] -
 xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
-xref:vc/miscellaneous/prefix-suffix.adoc[suffix]
+xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
+xref:icons/custom-icons.adoc[icon]
 
 == See Also
 

@@ -13,10 +13,6 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 
 There are two xref:studio:menu-designer.adoc#menu-modes[modes] of loading files that define menu structure: composite (default) and single. Use the xref:flow-ui:ui-properties.adoc#jmix.ui.composite-menu[jmix.ui.composite-menu] property to switch these modes.
 
-Let’s consider the `menu.xml` file in detail.
-
-`menu-config` is the root XML element. Elements of `menu-config` form a tree structure where `menu` elements are branches and `item` and `separator` elements are leaves.
-
 [[menu-attributes]]
 == Menu Attributes
 //todo: add Icons and Themes links
@@ -37,6 +33,11 @@ For example:
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[tags=menu]
 ----
+
+[[menu-elements]]
+== Menu Elements
+
+A `menu` element may contain child elements such as `items`, `separators`, and an `icon` (for a xref:icons/custom-icons.adoc[custom icon]).
 
 [[item-attributes]]
 == Item Attributes
@@ -120,6 +121,10 @@ include::example$onboarding/src/main/resources/application.properties[tags=menu-
 //See xref:ui:icons.adoc[Icons] for details.
 * `className` -- defines a class name for the menu item.
 //See xref:jmix:ui:themes.adoc[Themes] for details.
+
+[[item-icons]]
+== Item Icons
+An `item` element can set a xref:icons/custom-icons.adoc[custom icon] within a nested `icon` element.
 
 [[item-properties]]
 == Item Properties

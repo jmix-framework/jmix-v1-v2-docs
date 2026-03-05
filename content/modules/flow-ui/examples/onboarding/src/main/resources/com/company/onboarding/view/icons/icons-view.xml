@@ -32,14 +32,42 @@
 
         <!-- tag::declarative-standalone-2[] -->
         <button text="Click!">
+            <icon>
+                <svgIcon resource="/icons/tree.svg"/>
+            </icon>
+        </button>
+        <!-- end::declarative-standalone-2[] -->
+
+        <!-- tag::declarative-standalone-3[] -->
+        <button text="Click!">
             <prefix>
                 <svgIcon resource="/icons/tree.svg"/>
             </prefix>
         </button>
-        <!-- end::declarative-standalone-2[] -->
+        <!-- end::declarative-standalone-3[] -->
 
         <!-- tag::programmatic-standalone[] -->
         <button id="standaloneIconButton" text="Click!"/>
         <!-- end::programmatic-standalone[] -->
+
+        <!-- tag::font-icon-1[] -->
+        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+        <!-- end::font-icon-1[] -->
+
+        <!-- tag::font-icon-2[] -->
+        <button text="Download">
+            <icon>
+                <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+            </icon>
+        </button>
+        <!-- end::font-icon-2[] -->
+
+        <!-- tag::font-icon-3[] -->
+        <button text="Download">
+            <suffix>
+                <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+            </suffix>
+        </button>
+        <!-- end::font-icon-3[] -->
     </layout>
 </view>
