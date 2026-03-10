@@ -61,7 +61,9 @@ To see the feature in action, do the following:
 . Log in as `admin` and create at least one more user with the `UI: minimal access` role.
 . Select `admin` in the *Users* table and click *Additional -> User substitution*. You will see a list of users that `admin` can substitute.
 . Create a new record with the user who `admin` should be able to substitute, then click *OK* in the list view.
-. Now you will see that the current user name in the `userIndicator` component of the main view has changed to a dropdown list that contains the substituted user. If you select this user, the workspace will change as if you log in again as this user. But all audit features will still register `admin` - the logged-in user.
+. If your project's main view includes the xref:flow-ui:vc/components/userMenu.adoc[] component with the xref:flow-ui:actions/user-menu-actions.adoc#sec_userMenuSubstituteUser[sec_userMenuSubstituteUser] action, the component's dropdown will show a menu item with the substituted user.
+. If your project's main view includes the `userIndicator` component, the current user's name will change to a dropdown list that contains the substituted user.
+. When you select a substituted user in `userMenu` or `userIndicator`, the workspace will change as if you log in again as this user. But all audit features will still register `admin` (the logged-in user).
 
 The `CurrentUserSubstitution` bean can be used to obtain a currently substituted user, an authenticated user, or the effective user (which is the substituted user in case of substitution, and the authenticated user otherwise).
 
