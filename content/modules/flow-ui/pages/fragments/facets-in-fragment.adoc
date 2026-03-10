@@ -1,15 +1,15 @@
-= Facets in Fragments
+= Фасеты во фрагментах
 
-Fragments support the same facet mechanism as views. You can use framework-provided facets inside fragments to add reusable functionality. For a general introduction to facets, see xref:flow-ui:facets.adoc[Facets].
+Фрагменты поддерживают тот же механизм фасетов, что и экраны. Вы можете использовать предоставляемые фреймворком фасеты внутри фрагментов для добавления переиспользуемой функциональности. Общее введение в фасеты смотрите в разделе xref:flow-ui:facets.adoc[Фасеты].
 
-The following facets are available for use in fragments:
+Следующие фасеты доступны для использования во фрагментах:
 
-* `timer` – creates a client-side timer that can trigger periodic actions.
-* `fragmentSettings` – saves UI component settings for a specific user.
-* `fragmentDataLoadCoordinator` – controls how data is loaded into the fragment.
-* `urlQueryParameters` – persists the state of UI components in the URL.
+* `timer` – создает клиентский таймер, который может инициировать периодические действия.
+* `fragmentSettings` – сохраняет настройки UI-компонентов для конкретного пользователя.
+* `fragmentDataLoadCoordinator` – управляет загрузкой данных во фрагмент.
+* `urlQueryParameters` – сохраняет состояние UI-компонентов в URL.
 
-For example:
+Например:
 
 [source,xml,indent=0]
 ----
@@ -35,34 +35,34 @@ For example:
 [[facets-with-required-id]]
 [CAUTION]
 ====
-Some facets require the fragment to have an ID. You can set it either in XML using the `id` attribute, or programmatically in the view controller.
+Некоторые фасеты требуют, чтобы фрагмент имел идентификатор (ID). Вы можете установить его либо в XML с помощью атрибута `id`, либо программно в контроллере экрана.
 
 [source,xml,indent=0]
 .settings-fragment-view.xml
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/usingfacetfragment/settings-fragment-view.xml[tags=xml-fragment]
 ----
-<1> Include the fragment in a view using the `fragment` element with the `class` attribute specifying the fragment class FQN, and the `id` attribute that will be set to the fragment.
-<2> The `details` layout for programmatically defining the fragment in the view controller.
+<1> Включите фрагмент в экран, используя элемент `fragment` с атрибутом `class`, указывающим полное имя класса фрагмента, и атрибутом `id`, который будет присвоен фрагменту.
+<2> Контейнер `details` для программного определения фрагмента в контроллере экрана.
 
-The same fragment can be created programmatically using the `Fragments` bean. The ID is set in the `create()` method:
+Тот же фрагмент может быть создан программно с использованием бина `Fragments`. ID устанавливается в методе `create()`:
 
 .SettingsFragmentView.java
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/usingfacetfragment/SettingsFragmentView.java[tags=view]
 ----
-<1> Injects the `Fragments` bean which is used to create fragments.
-<2> Creates the fragment instance using its controller class and an ID that will be set to the fragment.
-<3> Adds the fragment instance to the `details` layout component.
+<1> Инжектирует бин `Fragments`, который используется для создания фрагментов.
+<2> Создает экземпляр фрагмента, используя его класс контроллера и ID, который будет присвоен фрагменту.
+<3> Добавляет экземпляр фрагмента в компонент-контейнер `details`.
 ====
 
 [[timer]]
-== Timer Facet
+== Фасет Timer
 
-The `timer` facet creates a client-side timer element. It uses the same implementation as the view-level xref:flow-ui:facets/timer.adoc[timer], so all properties and events work the same in fragments.
+Фасет `timer` создает клиентский элемент таймера. Он использует ту же реализацию, что и xref:flow-ui:facets/timer.adoc[таймер] на уровне экрана, поэтому все свойства и события работают одинаково во фрагментах.
 
-Fragment XML example:
+Пример XML фрагмента:
 
 [source,xml,indent=0]
 .timer-fragment.xml
@@ -70,7 +70,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/timerfragment/timer-fragment.xml[tags=timer-fragment]
 ----
 
-Fragment controller example:
+Пример контроллера фрагмента:
 
 .TimerFragment.java
 [source,java,indent=0]
@@ -79,20 +79,20 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments
 ----
 
 [[fragmentSettings]]
-== Fragment Settings Facet
+== Фасет Fragment Settings
 
-The `fragmentSettings` facet saves settings for visual components. Saving occurs when the view is closed, similar to the xref:flow-ui:facets/settings.adoc[setting] facet for views.
+Фасет `fragmentSettings` сохраняет настройки для визуальных компонентов. Сохранение происходит при закрытии экрана, аналогично фасету xref:flow-ui:facets/settings.adoc[setting] для экранов.
 
-CAUTION: A fragment using `fragmentSettings` *must have* an ID. You can set it in <<facets-with-required-id,XML or programmatically>>.
+CAUTION: Фрагмент, использующий `fragmentSettings`, *должен иметь* идентификатор (ID). Вы можете установить его <<facets-with-required-id,в XML или программно>>.
 
-Key differences from view settings:
+Ключевые отличия от настроек экрана:
 
-* Settings are applied at the `HostView.ReadyEvent` event in the fragment lifecycle (instead of `ReadyEvent` for views).
-* This ensures settings are applied at the latest possible moment in both view and fragment lifecycles.
-* Each fragment on a view stores its own separate set of settings.
-* A dedicated XML tag `fragmentSettings` is used.
+* Настройки применяются на событии `HostView.ReadyEvent` в жизненном цикле фрагмента (вместо `ReadyEvent` для экранов).
+* Это гарантирует, что настройки будут применены в максимально поздний момент жизненного цикла как экрана, так и фрагмента.
+* Каждый фрагмент на экране хранит свой собственный отдельный набор настроек.
+* Используется выделенный XML-тег `fragmentSettings`.
 
-Fragment XML example:
+Пример XML фрагмента:
 
 [source,xml,indent=0]
 .settings-fragment.xml
@@ -100,7 +100,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/settingsfragment/settings-fragment.xml[tags=xml-fragment]
 ----
 
-Fragment controller example:
+Пример контроллера фрагмента:
 
 .SettingsFragment.java
 [source,java,indent=0]
@@ -109,20 +109,20 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments
 ----
 
 [[fragmentDataLoadCoordinator]]
-== Fragment Data Load Coordinator Facet
+== Фасет Fragment Data Load Coordinator
 
-The `fragmentDataLoadCoordinator` facet controls data loading within a fragment. For example, you can set a loading trigger on specific fragment lifecycle events.
+Фасет `fragmentDataLoadCoordinator` управляет загрузкой данных во фрагменте. Например, вы можете установить триггер загрузки на определенные события жизненного цикла фрагмента.
 
-Available lifecycle events for fragments:
+Доступные события жизненного цикла для фрагментов:
 
 * `Fragment.ReadyEvent`
 * `HostView.InitEvent`
 * `HostView.BeforeShowEvent`
 * `HostView.ReadyEvent`
 
-The rest of the functionality works the same as the xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet for views.
+Остальная функциональность работает так же, как и фасет xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] для экранов.
 
-Fragment XML example:
+Пример XML фрагмента:
 
 [source,xml,indent=0]
 .data-load-coordinator-fragment.xml
@@ -130,7 +130,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/dataloadcoordinatorfragment/data-load-coordinator-fragment.xml[]
 ----
 
-Fragment controller example:
+Пример контроллера фрагмента:
 
 .DataLoadCoordinatorFragment.java
 [source,java,indent=0]
@@ -139,15 +139,15 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments
 ----
 
 [[urlQueryParameters]]
-== Url Query Parameters Facet
+== Фасет Url Query Parameters
 
-The `urlQueryParameters` facet persists component state in the URL. This is useful when using the URL-first approach – leaving and returning to a view preserves information like filter states.
+Фасет `urlQueryParameters` сохраняет состояние компонента в URL. Это полезно при использовании подхода "сначала URL" (URL-first) – выход из экрана и возврат в него сохраняет такую информацию, как состояния фильтров.
 
-CAUTION: The fragment *must have* an ID, as its value is used for serialization. You can set the ID in <<facets-with-required-id,XML or programmatically>>.
+CAUTION: Фрагмент *должен иметь* идентификатор (ID), так как его значение используется для сериализации. Вы можете установить ID <<facets-with-required-id,в XML или программно>>.
 
-The working principle is similar to the xref:flow-ui:facets/urlQueryParameters.adoc[urlQueryParameters] facet for views.
+Принцип работы аналогичен фасету xref:flow-ui:facets/urlQueryParameters.adoc[urlQueryParameters] для экранов.
 
-Fragment XML example:
+Пример XML фрагмента:
 
 [source,xml,indent=0]
 .url-query-parameters-fragment.xml
@@ -155,7 +155,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/urlqueryparametersfragment/url-query-parameters-fragment.xml[]
 ----
 
-Fragment controller example:
+Пример контроллера фрагмента:
 
 .UrlQueryParametersFragment.java
 [source,java,indent=0]

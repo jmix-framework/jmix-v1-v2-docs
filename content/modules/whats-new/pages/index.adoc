@@ -86,11 +86,11 @@ public interface RemoveDelegate<E> {
 == Критические изменения
 
 [[facet-registration]]
-=== Facet Registration and Loading Mechanism
+=== Механизм регистрации и загрузки фасетов
 
-The `FacetProvider` mechanism for facet registration is now deprecated and will be removed in a future version. Existing custom facets registered with `FacetProvider` continue to work due to backward compatibility. However, migration to the new `FacetRegistrationBuilder` API is strongly recommended. See xref:flow-ui:facets.adoc#custom[Custom Facets].
+Механизм `FacetProvider` для регистрации фасетов теперь объявлен устаревшим (deprecated) и будет удален в одной из будущих версий. Существующие пользовательские фасеты, зарегистрированные с помощью `FacetProvider`, продолжают работать благодаря обратной совместимости. Однако настоятельно рекомендуется выполнить миграцию на новый API `FacetRegistrationBuilder`. Смотрите xref:flow-ui:facets.adoc#custom[Пользовательские фасеты].
 
-A breaking change affects standard Jmix facet overrides. If you previously overrode framework facets using the old mechanism, these overrides will no longer work after upgrading. Such custom implementations must be redefined using the new API:
+Критическое изменение затрагивает стандартные переопределения фасетов Jmix. Если вы ранее переопределяли фасеты фреймворка, используя старый механизм, эти переопределения перестанут работать после обновления. Такие пользовательские реализации необходимо переопределить заново, используя новый API:
 
 [source,java,indent=0]
 ----
@@ -107,49 +107,49 @@ A breaking change affects standard Jmix facet overrides. If you previously overr
 ----
 
 [[facet-api-changes]]
-=== Facet API Changes
+=== Изменения в API фасетов
 
-This release introduces several improvements to the facet API to better support fragments and provide cleaner abstractions.
+Этот релиз включает несколько улучшений API фасетов для лучшей поддержки фрагментов и предоставления более чистых абстракций.
 
-==== Facet Owner Type Changes
+==== Изменения типа владельца фасета
 
-The `Facet.getOwner()` and `Facet.setOwner()` methods have been updated to support fragment owners:
+Методы `Facet.getOwner()` и `Facet.setOwner()` были обновлены для поддержки фрагментов в качестве владельцев:
 
-* `Facet.getOwner()` now returns `<T extends Composite<?> & FacetOwner> T` (previously `View<?>`)
-* `Facet.setOwner()` signature changed to `<T extends Composite<?> & FacetOwner> void setOwner(@Nullable T owner)` (previously void `setOwner(@Nullable View<?> owner)`)
+* `Facet.getOwner()` теперь возвращает `<T extends Composite<?> & FacetOwner> T` (ранее возвращал `View<?>`)
+* Сигнатура `Facet.setOwner()` изменена на `<T extends Composite<?> & FacetOwner> void setOwner(@Nullable T owner)` (ранее `void setOwner(@Nullable View<?> owner)`)
 
-Previously, a facet owner could only be a `View`. Now any component implementing both `Composite<?>` and `FacetOwner` can serve as a facet owner. This change enables xref:flow-ui:fragments/facets-in-fragment.adoc[facets to work with fragments], as `Fragment` implements both interfaces.
+Ранее владельцем фасета мог быть только `View`. Теперь любой компонент, реализующий оба интерфейса `Composite<?>` и `FacetOwner`, может выступать в роли владельца фасета. Это изменение позволяет xref:flow-ui:fragments/facets-in-fragment.adoc[фасетам работать с фрагментами], так как `Fragment` реализует оба интерфейса.
 
-If your code directly calls these methods, update the types accordingly.
+Если ваш код напрямую вызывает эти методы, обновите типы соответствующим образом.
 
-==== Facet Class Refactoring
+==== Рефакторинг классов фасетов
 
-Concrete implementation classes (`*Impl`) have been replaced with abstract base classes:
+Конкретные классы реализации (`*Impl`) были заменены на абстрактные базовые классы:
 
 * `DataLoadCoordinatorImpl` → `AbstractDataLoadCoordinator`
 * `SettingsFacetImpl` → `AbstractSettingsFacet<S extends UiComponentSettings<S>>`
 
-If you previously instantiated these classes directly, migrate to using dependency injection or the new abstract classes.
+Если вы ранее создавали экземпляры этих классов напрямую, перейдите на использование внедрения зависимостей или новых абстрактных классов.
 
-==== Settings Interface Parameterization
+==== Параметризация интерфейсов настроек
 
-The settings interfaces are now parameterized to improve type safety:
+Интерфейсы настроек теперь параметризованы для повышения безопасности типов:
 
 * `SettingsFacet` -> `SettingsFacet<S extends UiComponentSettings<S>>`
 * `SettingsContext` -> `SettingsContext<S extends UiComponentSettings<S>>`
 
-If you implement a custom `SettingsFacet` or use `SettingsContext`, add the generic parameter:
+Если вы реализуете пользовательский `SettingsFacet` или используете `SettingsContext`, добавьте обобщенный параметр:
 
 [source,java,indent=0]
 ----
-// Before:
+// До:
 public class MySettingsFacet implements SettingsFacet
 
-// After:
+// После:
 public class MySettingsFacet implements SettingsFacet<MyUiComponentSettings>
 ----
 
-For more details, see the corresponding issue: https://github.com/jmix-framework/jmix/issues/4185[#4185^].
+Для получения более подробной информации смотрите соответствующий тикет: https://github.com/jmix-framework/jmix/issues/4185[#4185^].
 
 [[role-scopes-in-oidc-and-authorization-server]]
 === Области действия ролей в OIDC и Authorization Server
