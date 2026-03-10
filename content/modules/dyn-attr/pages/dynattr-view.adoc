@@ -9,14 +9,48 @@
 
 Фасет `dynamicAttributes` позволяет отображать динамические атрибуты в `DataGrid` или `FormLayout`, связанных с контейнером данных, содержащим сущности с динамическими атрибутами.
 
-Добавьте фасет `dynamicAttributes` в раздел `facets` XML-дескриптора экрана:
+=== В экранах
+
+Чтобы использовать динамические атрибуты в экране, включите фасет `dynamicAttributes` в раздел `facets` XML-дескриптора экрана:
 
 [source,xml,indent=0]
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=dynamicAttributes]
 ----
 
-Впоследствии вы можете выбрать этот экран в *Category attribute details* на вкладке xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility].
+После добавления фасета вы можете выбрать этот экран в диалоге *Category attribute details* на вкладке xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility].
+
+[[dynamicAttributes]]
+=== Во фрагментах
+
+Фасет `dynamicAttributes` также может использоваться в xref:flow-ui:fragments/fragments.adoc[фрагментах].
+
+Добавьте фасет в XML фрагмента:
+
+[source,xml,indent=0]
+.dynamic-attributes-fragment.xml
+----
+include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/dynamicattributesfragment/dynamic-attributes-fragment.xml[]
+----
+
+Пример контроллера фрагмента:
+
+.DynamicAttributesFragment.java
+[source,java,indent=0]
+----
+include::example$/dyn-attr-ex1/src/main/java/com/company/demo/view/dynamicattributesfragment/DynamicAttributesFragment.java[tags=fragment-java]
+----
+
+Затем создайте экран, который использует этот фрагмент.
+
+[CAUTION]
+====
+Фрагмент, использующий фасет `dynamicAttributes`, *должен иметь* идентификатор (ID). Вы можете установить его в xref:flow-ui:fragments/facets-in-fragment.adoc#facets-with-required-id[XML или программно].
+
+При настройке xref:dyn-attr:dynattr-managing.adoc#visibility[видимости] динамических атрибутов идентификатор для экрана, использующего фрагмент, следует шаблону: `<view_ID>.<fragment_ID>`. Например, если экран с ID `DynAttrFacetView` содержит фрагмент с ID `xmlFragment`, полный идентификатор будет `DynAttrFacetView.xmlFragment`.
+
+image::dyn-attr-facet.png[align=centre]
+====
 
 [[dynamic-attributes-panel]]
 == Использование DynamicAttributesPanel

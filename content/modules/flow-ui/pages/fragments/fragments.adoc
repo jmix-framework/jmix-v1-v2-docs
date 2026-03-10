@@ -16,9 +16,7 @@
 * В XML фрагмента можно определить xref:flow-ui:actions.adoc[действия] и xref:flow-ui:data-components.adoc[компоненты данных] (контейнеры и загрузчики). Компоненты данных можно пометить как `provided` для их получения из экрана-владельца.
 * Студия предлагает шаблон xref:studio:view-wizard.adoc#creating-blank-fragment[Blank fragment] для генерации фрагментов, отображает их в окне инструментов Jmix и позволяет использовать xref:studio:view-designer.adoc[визуальный дизайнер] так же, как для экранов.
 
-Фрагменты в настоящее время не поддерживают xref:flow-ui:facets.adoc[фасеты].
-
-TIP: Fragments can be used to render items within certain UI components, such as xref:vc/components/virtualList.adoc[virtualList], or xref:vc/components/dataGrid.adoc[dataGrid] columns. This is achieved using a nested xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] element. The `fragmentRenderer` element specifies a Java class that extends `io.jmix.flowui.fragmentrenderer.FragmentRenderer`. This class is responsible for taking a data item and rendering it within the fragment's template.
+TIP: Фрагменты могут использоваться для отрисовки элементов внутри некоторых UI-компонентов, таких как xref:vc/components/virtualList.adoc[virtualList] или xref:vc/components/dataGrid.adoc[столбцы dataGrid]. Это достигается с помощью вложенного элемента xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer]. Элемент `fragmentRenderer` указывает Java-класс, который расширяет `io.jmix.flowui.fragmentrenderer.FragmentRenderer`. Этот класс отвечает за получение элемента данных и его отрисовку внутри шаблона фрагмента.
 
 [[fragment-content]]
 == Содержимое фрагмента

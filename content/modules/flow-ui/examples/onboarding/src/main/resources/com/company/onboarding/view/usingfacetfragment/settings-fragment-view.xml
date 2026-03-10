@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- tag::xml-fragment[] -->
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://fragmentsettingsfragmentview.title">
+    <layout>
+        <details id="xmlFacetDetails"
+                 summaryText="XML Facet"
+                 opened="true"
+                 width="100%">
+            <fragment id="xmlFragment"
+                      class="com.company.onboarding.view.fragments.settingsfragment.SettingsFragment"/> <!--1-->
+        </details>
+        <details id="javaFacetDetails"
+                 summaryText="Java Facet"
+                 opened="true"
+                 width="100%"/><!--2-->
+    </layout>
+</view>
+        <!-- end::xml-fragment[] -->

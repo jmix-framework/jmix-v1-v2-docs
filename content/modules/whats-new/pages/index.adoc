@@ -106,6 +106,51 @@ A breaking change affects standard Jmix facet overrides. If you previously overr
   }
 ----
 
+[[facet-api-changes]]
+=== Facet API Changes
+
+This release introduces several improvements to the facet API to better support fragments and provide cleaner abstractions.
+
+==== Facet Owner Type Changes
+
+The `Facet.getOwner()` and `Facet.setOwner()` methods have been updated to support fragment owners:
+
+* `Facet.getOwner()` now returns `<T extends Composite<?> & FacetOwner> T` (previously `View<?>`)
+* `Facet.setOwner()` signature changed to `<T extends Composite<?> & FacetOwner> void setOwner(@Nullable T owner)` (previously void `setOwner(@Nullable View<?> owner)`)
+
+Previously, a facet owner could only be a `View`. Now any component implementing both `Composite<?>` and `FacetOwner` can serve as a facet owner. This change enables xref:flow-ui:fragments/facets-in-fragment.adoc[facets to work with fragments], as `Fragment` implements both interfaces.
+
+If your code directly calls these methods, update the types accordingly.
+
+==== Facet Class Refactoring
+
+Concrete implementation classes (`*Impl`) have been replaced with abstract base classes:
+
+* `DataLoadCoordinatorImpl` → `AbstractDataLoadCoordinator`
+* `SettingsFacetImpl` → `AbstractSettingsFacet<S extends UiComponentSettings<S>>`
+
+If you previously instantiated these classes directly, migrate to using dependency injection or the new abstract classes.
+
+==== Settings Interface Parameterization
+
+The settings interfaces are now parameterized to improve type safety:
+
+* `SettingsFacet` -> `SettingsFacet<S extends UiComponentSettings<S>>`
+* `SettingsContext` -> `SettingsContext<S extends UiComponentSettings<S>>`
+
+If you implement a custom `SettingsFacet` or use `SettingsContext`, add the generic parameter:
+
+[source,java,indent=0]
+----
+// Before:
+public class MySettingsFacet implements SettingsFacet
+
+// After:
+public class MySettingsFacet implements SettingsFacet<MyUiComponentSettings>
+----
+
+For more details, see the corresponding issue: https://github.com/jmix-framework/jmix/issues/4185[#4185^].
+
 [[role-scopes-in-oidc-and-authorization-server]]
 === Области действия ролей в OIDC и Authorization Server
 

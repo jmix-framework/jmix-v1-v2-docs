@@ -188,6 +188,14 @@
         <item view="HostView4" title="Provided data"/>
         <item view="CustomerFragmentHostView"
               title="msg://com.company.onboarding.view.customer/customerFragmentHostView.title"/>
+        <item view="TimerFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/timerFragmentView.title"/>
+        <item view="SettingsFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/fragmentsettingsfragmentview.title"/>
+        <item view="DataLoadCoordinatorFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/dataLoadCoordinatorFragmentView.title"/>
+        <item view="UrlQueryParametersFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/urlQueryParametersFragmentView.title"/>
     </menu>
 
     <!-- tag::menu[] -->
