@@ -7,16 +7,50 @@ Another method to show dynamic attributes in views is by employing the <<dynamic
 [[using-dynamicattributes-facet]]
 == Using dynamicAttributes Facet
 
-`dynamicAttributes` facet enables the display of dynamic attributes in `DataGrid` or `FormLayout` associated with a data container containing entities with dynamic attributes.
+The `dynamicAttributes` facet enables the display of dynamic attributes in `DataGrid` or `FormLayout` components that are associated with a data container containing entities with dynamic attributes.
 
-Include the `dynamicAttributes` facet to the `facets` section of the view XML descriptor:
+=== In Views
+
+To use dynamic attributes in a view, include the `dynamicAttributes` facet in the `facets` section of the view XML descriptor:
 
 [source,xml,indent=0]
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=dynamicAttributes]
 ----
 
-Subsequently, you can choose this view within the *Category attribute details* on the xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility] tab.
+After adding the facet, you can select this view in the *Category attribute details* dialog on the xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility] tab.
+
+[[dynamicAttributes]]
+=== In Fragments
+
+The `dynamicAttributes` facet can also be used in xref:flow-ui:fragments/fragments.adoc[fragments].
+
+Add the facet to the fragment XML:
+
+[source,xml,indent=0]
+.dynamic-attributes-fragment.xml
+----
+include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/dynamicattributesfragment/dynamic-attributes-fragment.xml[]
+----
+
+Fragment controller example:
+
+.DynamicAttributesFragment.java
+[source,java,indent=0]
+----
+include::example$/dyn-attr-ex1/src/main/java/com/company/demo/view/dynamicattributesfragment/DynamicAttributesFragment.java[tags=fragment-java]
+----
+
+Then create a view that uses this fragment.
+
+[CAUTION]
+====
+A fragment using the `dynamicAttributes` facet *must have* an ID. You can set it in xref:flow-ui:fragments/facets-in-fragment.adoc#facets-with-required-id[XML or programmatically].
+
+When configuring dynamic attribute xref:dyn-attr:dynattr-managing.adoc#visibility[visibility], the identifier for a view that uses a fragment follows this pattern: `<view_ID>.<fragment_ID>`. For example, if a view with ID `DynAttrFacetView` contains a fragment with ID `xmlFragment`, the full identifier would be `DynAttrFacetView.xmlFragment`.
+
+image::dyn-attr-facet.png[align=centre]
+====
 
 [[dynamic-attributes-panel]]
 == Using DynamicAttributesPanel

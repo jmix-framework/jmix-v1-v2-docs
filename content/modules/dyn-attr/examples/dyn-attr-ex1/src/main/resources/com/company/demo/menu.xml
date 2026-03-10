@@ -4,5 +4,7 @@
     <menu id="application" title="msg://com.company.demo/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.demo.view.user/UserListView.title"/>
         <item view="Car.list" title="msg://com.company.demo.view.car/carListView.title"/>
+        <item view="DynamicAttributesFragmentView"
+              title="msg://com.company.demo.view.dynamicattributesfragment/dynamicAttributesFragmentView.title"/>
     </menu>
 </menu-config>

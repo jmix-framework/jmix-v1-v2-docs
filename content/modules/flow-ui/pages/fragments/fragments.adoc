@@ -16,8 +16,6 @@ A _fragment_ is a UI building block that can be used as a part of views and othe
 * You can define xref:flow-ui:actions.adoc[actions] and xref:flow-ui:data-components.adoc[data components] (data containers and loaders) in the fragment's XML. Data components can be marked as `provided` to obtain them from the host view.
 * Studio offers the xref:studio:view-wizard.adoc#creating-blank-fragment[Blank fragment] template to generate fragments, shows them in the Jmix tool window and allows you to use the xref:studio:view-designer.adoc[visual designer] the same as for views.
 
-Fragments currently do not support xref:flow-ui:facets.adoc[facets].
-
 TIP: Fragments can be used to render items within certain UI components, such as xref:vc/components/virtualList.adoc[virtualList], or xref:vc/components/dataGrid.adoc[dataGrid] columns. This is achieved using a nested xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] element. The `fragmentRenderer` element specifies a Java class that extends `io.jmix.flowui.fragmentrenderer.FragmentRenderer`. This class is responsible for taking a data item and rendering it within the fragment's template.
 
 [[fragment-content]]

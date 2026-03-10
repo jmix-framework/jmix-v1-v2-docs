@@ -1,0 +1,12 @@
+<!-- tag::timer-fragment[] -->
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <facets>
+        <timer id="timer" delay="1000" repeating="true" autostart="true"/>
+    </facets>
+    <content>
+        <vbox id="root">
+            <textField id="displayField" readOnly="true"/>
+        </vbox>
+    </content>
+</fragment>
+        <!-- end::timer-fragment[] -->

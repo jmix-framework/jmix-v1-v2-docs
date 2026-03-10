@@ -7,6 +7,7 @@
 *** xref:flow-ui:views/opening-views.adoc[]
 *** xref:flow-ui:views/view-validation.adoc[]
 ** xref:flow-ui:fragments/fragments.adoc[]
+*** xref:flow-ui:fragments/facets-in-fragment.adoc[]
 *** xref:flow-ui:fragments/using-fragments.adoc[]
 ** xref:flow-ui:visual-components.adoc[]
 *** xref:flow-ui:vc/components.adoc[]

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:dynattr="http://jmix.io/schema/dynattr/flowui"
+      title="msg://dynamicAttributesFragmentView.title">
+    <facets>
+        <dynattr:dynamicAttributes/>
+    </facets>
+    <layout>
+        <details id="xmlFacetDetails" summaryText="XML Facet" opened="true" width="100%">
+            <fragment id="xmlFragment" class="com.company.demo.view.dynamicattributesfragment.DynamicAttributesFragment"/>
+        </details>
+    </layout>
+</view>

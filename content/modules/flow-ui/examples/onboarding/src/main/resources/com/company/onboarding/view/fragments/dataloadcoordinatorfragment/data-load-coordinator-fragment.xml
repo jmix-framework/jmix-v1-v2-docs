@@ -1,0 +1,44 @@
+
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <data>
+        <collection id="usersDc"
+                    class="com.company.onboarding.entity.User">
+            <fetchPlan extends="_base"/>
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e order by e.username]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <fragmentDataLoadCoordinator auto="true"/>
+    </facets>
+    <content>
+        <vbox id="root">
+            <details id="details" summaryText="Nested details">
+                <avatar abbreviation="Jmix"/>
+            </details>
+            <genericFilter id="genericFilter"
+                           dataLoader="usersDl">
+                <properties include=".*"/>
+            </genericFilter>
+            <simplePagination id="pagination" dataLoader="usersDl"
+                              itemsPerPageVisible="true" itemsPerPageItems="1, 2, 5, 10"/>
+            <dataGrid id="usersDataGrid"
+                      width="100%"
+                      columnReorderingAllowed="true"
+                      minHeight="20em"
+                      dataContainer="usersDc">
+                <columns resizable="true">
+                    <column property="username" filterable="true"/>
+                    <column property="firstName" filterable="true"/>
+                    <column property="lastName" filterable="true"/>
+                    <column property="email" filterable="true"/>
+                    <column property="timeZoneId" filterable="true"/>
+                    <column property="active" filterable="true"/>
+                </columns>
+            </dataGrid>
+        </vbox>
+    </content>
+</fragment>
