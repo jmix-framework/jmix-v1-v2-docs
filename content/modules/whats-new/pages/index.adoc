@@ -100,7 +100,7 @@ public interface RemoveDelegate<E> {
 
 Список компонентов: `action`, `button`, `dropdownButton`, `comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (и `<menu>` и `<item>` поддерживают `<icon>`).
 
-Подробнее см. в разделе the xref:flow-ui:icons.adoc[].
+Подробнее см. в разделе xref:flow-ui:icons.adoc[].
 
 [[breaking-changes]]
 == Критические изменения
