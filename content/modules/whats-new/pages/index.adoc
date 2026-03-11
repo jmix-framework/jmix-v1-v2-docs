@@ -85,6 +85,13 @@ List of components: `action`, `button`, `dropdownButton`,`comboButton`, `drawerT
 
 See the xref:flow-ui:icons.adoc[] section for details.
 
+[[override-default-icons]]
+=== Mechanism to Easily Override Default Icons
+
+You can now override icons across your entire application. The new `JmixFontIcon` enum unifies Vaadin, Lumo (missing from Vaadin), and Jmix-specific icons into a single, consistent set. The `Icons` bean provides a central way to create UI components representing icons. Change icons by redefining CSS variables or by swapping the icon font.
+
+See xref:flow-ui:icons/override-icons.adoc[] for details.
+
 [[h2-database]]
 === Support for H2 Database (Experimental)
 
@@ -236,6 +243,16 @@ Do not use `main.liquibase.clear-checksums=true` for subsequent launches.
 ----
 
 See https://github.com/jmix-framework/jmix/issues/4838[#4838^] for more information.
+
+[[deprecated-get-icon-methods]]
+=== Deprecated `getIcon()` methods that return `Icon`
+
+This release adds the `Icons` bean to support <<override-default-icons, overriding default icons>>. When resolving XML icon attributes, the bean treats values without a collection name as font icons and produces a `FontIcon`; values that include a collection name produce an `Icon`. For example:
+
+* `icon="CHECK"` creates a `FontIcon` component,
+* `icon="vaadin:check"` creates an `Icon` component.
+
+Because of this, components with a `getIcon()` method that returns an `Icon` are deprecated. If you declare the icon without a collection name such methods will return `null`. Use `getIconComponent()` to obtain the actual icon component in all cases.
 
 [[changelog]]
 == Changelog

@@ -57,7 +57,7 @@ Dimensions of the default exception handler dialog can be customized using CSS v
 
 [source,css]
 ----
-include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=exception-dialog]
+include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=html;exception-dialog]
 ----
 
 By default, `ExceptionDialog` appears as a modal window. This behavior can be customized by setting the xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] property in the `application.properties` file.

@@ -1,24 +1,14 @@
 = Icons
 
-This section explains using the built-in icon sets and adding custom icons. In Jmix, icons can be added in numerous places.
+This section explains using the built-in icon sets and adding custom icons.
 
-== Standalone Icons
+== Where Icons Are Used
 
-When an icon has a meaning on its own, use the dedicated xref:vc/components/icon.adoc[], `svgIcon`, or `fontIcon` component to place it anywhere on the view.
+In Jmix, icons can appear in several places in the UI:
 
-== Icons in Visual Components
-
-Visual components can have icons added in three declarative ways:
-
-* *Attributes:* Many components accept icons via attributes; certain components include several such attributes for different slots (for example `icon`, `uploadIcon`, `downloadButtonIcon`, `dropLabelIcon`). This is the easiest way, but it does not support custom icons.
-* *Nested element:* Some components support nesting an element (for example `<icon>`, `<uploadIcon>`, `<dropdownIcon>`) that lets you provide xref:icons/custom-icons.adoc[custom icons] – SVGs, font icons, or images.
-* *Prefix and suffix:* Components may have xref:vc/miscellaneous/prefix-suffix.adoc[prefix and suffix] elements that can contain both standard and xref:icons/custom-icons.adoc[custom icons].
-
-Icons can also be added programmatically.
-
-== Other Places
-
-Other UI parts that commonly use icons include:
-
-* xref:actions.adoc[]
-* xref:menu-config.adoc[Main menu] section headers and items
+* Dedicated components: `icon`, `svgIcon`, or `fontIcon`.
+* UI component attributes such as `icon`, `uploadIcon`, `downloadButtonIcon`.
+* Nested elements such as `<icon>` or `<uploadIcon>`.
+* xref:vc/miscellaneous/prefix-suffix.adoc[] slots in components.
+* xref:actions.adoc[].
+* xref:menu-config.adoc[Main menu] section headers and items.

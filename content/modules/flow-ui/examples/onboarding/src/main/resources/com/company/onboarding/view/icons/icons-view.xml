@@ -3,15 +3,55 @@
       title="msg://iconsView.title">
     <layout>
         <hbox>
-            <!-- tag::declarative[] -->
+            <!-- tag::declarative-1[] -->
+            <icon icon="USER"/>
+            <button text="Approve" icon="CHECK"/>
+            <fileUploadField uploadText="Upload file" uploadIcon="UPLOAD"/>
+            <!-- end::declarative-1[] -->
+        </hbox>
+        <hbox>
+            <!-- tag::declarative-2[] -->
             <icon icon="vaadin:user"/>
-            <icon icon="lumo:user"/>
-            <!-- end::declarative[] -->
+            <button text="Approve" icon="lumo:checkmark"/>
+            <fileUploadField uploadText="Upload file" uploadIcon="vaadin:upload"/>
+            <!-- end::declarative-2[] -->
+        </hbox>
+
+        <hbox>
+            <!-- tag::declarative-3[] -->
+            <button text="Approve">
+                <icon>
+                    <icon icon="CHECK"/>
+                </icon>
+            </button>
+            <button text="Start">
+                <icon>
+                    <svgIcon resource="/icons/jmix-icon.svg"/>
+                </icon>
+            </button>
+            <button text="Download">
+                <prefix>
+                    <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+                </prefix>
+            </button>
+            <button text="Create">
+                <icon>
+                    <image resource="/icons/icon.png" width="24px"/>
+                </icon>
+            </button>
+            <!-- end::declarative-3[] -->
         </hbox>
 
         <!-- tag::programmatic[] -->
-        <button id="iconButton1" text="Default Icon"/>
-        <button id="iconButton2" text="Default Icon"/>
+        <button id="helperButton" text="Help"/>
+        <button id="editorButton" text="Edit"/>
+
+        <dropdownButton id="settingsButton" text="Settings menu">
+            <items>
+                <textItem id="saveItem" text="Save"/>
+                <textItem id="deleteItem" text="Delete"/>
+            </items>
+        </dropdownButton>
         <!-- end::programmatic[] -->
 
         <hbox>
@@ -49,6 +89,11 @@
         <!-- tag::programmatic-standalone[] -->
         <button id="standaloneIconButton" text="Click!"/>
         <!-- end::programmatic-standalone[] -->
+
+        <!-- tag::font-icon[] -->
+        <fontIcon fontFamily="Material Icons Outlined" charCode="e8b6"/>
+        <fontIcon fontFamily="Material Icons Outlined" ligature="search"/>
+        <!-- end::font-icon[] -->
 
         <!-- tag::font-icon-1[] -->
         <fontIcon fontFamily="lumo-icons" charCode="ea17"/>

@@ -1,2 +1,5 @@
 @import url('./onboarding.css');
 @import url('./vc/user-menu.css');
+/* tag::import-material[] */
+@import url('material/outlined.css');
+/* end::import-material[] */

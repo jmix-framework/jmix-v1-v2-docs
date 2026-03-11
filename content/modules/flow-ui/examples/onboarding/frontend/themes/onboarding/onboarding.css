@@ -16,10 +16,15 @@
   }
   /* end::overlay-select[] */
 
-/* tag::exception-dialog[] */
+/* tag::html[] */
 html {
+/* end::html[] */
+    /* tag::exception-dialog[] */
     --jmix-exception-dialog-width: 30em;
     --jmix-exception-dialog-expanded-width: 40em;
     --jmix-exception-dialog-expanded-height: 30em;
+    /* end::exception-dialog[] */
+
+/* tag::html[] */
 }
-/* end::exception-dialog[] */
+/* end::html[] */
