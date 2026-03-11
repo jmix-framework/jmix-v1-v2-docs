@@ -57,7 +57,7 @@ databaseUniqueConstraintViolation.IDX_DEPARTMENT_UNQ_NAME=Отдел с таки
 
 [source,css]
 ----
-include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=exception-dialog]
+include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=html;exception-dialog]
 ----
 
 По умолчанию `ExceptionDialog` отображается как модальное окно. Это поведение можно настроить, установив свойство xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] в файле `application.properties`.

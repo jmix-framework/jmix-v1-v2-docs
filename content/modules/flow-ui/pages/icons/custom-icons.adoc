@@ -1,15 +1,63 @@
-= Пользовательские иконки
+= Добавление иконок
 
-Дополнительные значки можно добавить тремя способами: как SVG-спрайт, как отдельные SVG-файлы или как иконочный шрифт. Их можно использовать вместе со встроенными наборами иконок.
+Дополнительные иконки можно добавить тремя способами: в виде иконочного шрифта, SVG-спрайта или отдельных SVG‑файлов.
 
-[[icon-set]]
-== Набор иконок
+[[icon-fonts]]
+== Иконочный шрифт
 
-SVG-спрайт — это коллекция SVG-изображений, загружаемых в приложение как единый файл, что обеспечивает лучшую производительности. Вы можете создать спрайт вручную или с помощью сторонних инструментов.
+Иконочный шрифт — это набор иконок, поставляемый как шрифт. Иконки отображаются как символы этого шрифта.
 
-Чтобы добавить набор иконок, выполните следующие шаги:
+TIP: Иконочный шрифт можно использовать для замены стандартных иконок приложения. Подробности см. xref:icons/override-icons.adoc[].
 
-. Создайте JavaScript-файл для вашего набора иконок в директории `/frontend/icons/`. Используйте следующий код как пример создания набора, содержащего три иконки:
+Для добавления иконочного шрифта потребуются:
+
+* Файл шрифта – обычно `.woff` или `.woff2`, либо старые форматы, такие как `.ttf` или `.eot`.
+* Определение `@font-face` – как правило, содержится в файле стилей, который необходимо импортировать в основной файл стилей вашей темы (`styles.css`).
+* Опционально, файл стилей с CSS-классами для иконок — обычно добавляется вместе с определением `@font-face` и также импортируется в `styles.css`.
+
+=== Пример: Добавление Material иконок
+
+Рассмотрим добавление Material иконок в xref:flow-ui:themes/themes.adoc#application-theme[тему приложения].
+
+image:flow-ui:icons/material-icons.png[width=298]
+
+Создайте в папке темы каталог, содержащий:
+
+* `material-icons-outlined.woff2`
+* `outlined.css` – содержит определение `@font-face` и CSS-класс для иконок:
++
+.outlined.css
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/material/outlined.css[tags=material-font-face;material-css]
+----
+Импортируйте этот файл в основной файл стилей:
++
+.styles.css
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/styles.css[tags=import-material]
+----
+
+Чтобы создать иконку, используйте компонент `fontIcon`, указав название семейства шрифтов (`fontFamily`) (совпадающее с названием определенным в `@font-face`) и либо код символа, либо лигатуру:
+
+[source,xml,indent=0]
+----
+
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=font-icon]
+----
+
+TIP: Компонент `fontIcon` можно вложить в элементы `prefix`, `suffix`, или `icon`.
+
+[[svg-sprite]]
+== SVG-спрайт
+
+SVG-спрайт — это коллекция SVG-изображений, загружаемых в приложение как единый файл. Вы можете создать спрайт вручную или с помощью сторонних инструментов.
+
+Чтобы использовать SVG‑спрайт как набор иконок:
+
+. . Создайте JavaScript-файл для вашего набора иконок в директории `/frontend/icons/`. Пример ниже определяет спрайт с тремя иконками:
+
 +
 .my-icons.js
 [source,javascript,indent=0]
@@ -34,7 +82,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/icon
 
 image::icons/sprite-icons.png[align="center", width="125"]
 
-Или установить их для компонента в Java-коде:
+Чтобы установить их для компонента в Java-коде:
 
 [source,java,indent=0]
 ----
@@ -73,80 +121,3 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/icon
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-standalone]
 ----
-
-[[icon-fonts]]
-== Иконочные шрифты
-
-Иконочный шрифт предоставляет набор значков в виде шрифта. Вы можете использовать компонент fontIcon для отображения значков из шрифта, указав семейство шрифтов и либо код символа, либо лигатуру значка.
-
-Чтобы добавить собственный иконочный шрифт, потребуется следующее:
-
-* Файл шрифта – в современных браузерах используются `.woff` или `.woff2`; `.ttf` или `.eot` можно предоставить для старых браузеров.
-* Определение `@font-face` – как правило, содержится в файле стилей, который вы импортируете в главный файл стилей вашей темы (`styles.css`).
-* Опционально, файл стилей с CSS-классами для иконок — обычно добавляется вместе с определением `@font-face` и также импортируется в `styles.css`.
-
-=== Пример: Добавление Material иконок
-
-Рассмотрим добавление Material иконок в тему приложения.
-
-image:flow-ui:icons/material-icons.png[width=298]
-
-Папка темы включает новую директорию, содержащую два файла:
-
-* `material-icons-outlined.woff2`
-* `outlined.css` – в котором содержится опредление `@font-face` и CSS-класс для иконок:
-+
-.outlined.css
-----
-@font-face {
-  font-family: "Material Icons Outlined";
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url("./material-icons-outlined.woff2") format("woff2");
-}
-.material-icons-outlined {
-  font-family: "Material Icons Outlined";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "liga";
-}
-----
-
-В главный файл стилей темы необходимо добавить следующую строку:
-
-.styles.css
-----
-@import url('material/outlined.css');
-----
-
-Чтобы создать иконку, используйте компонент `fontIcon`, указав название семейства шрифтов (`fontFamily`) (совпадающее с названием определенным в `@font-face`) и либо код символа, либо лигатуру:
-
-[source,xml,indent=0]
-----
-<fontIcon fontFamily="Material Icons Outlined" charCode="e8b6"/>
-<fontIcon fontFamily="Material Icons Outlined" ligature="search"/>
-----
-
-Компонент `fontIcon` можно вложить в элементы `prefix`, `suffix`, или `icon`.
-
-[TIP]
-====
-Стандартные наборы иконок (например, Lumo icons) используют тот же механизм и могут быть использованы с помощью компонента `fontIcon` через код символа или лигатуру.
-
-[source,xml,indent=0]
-----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=font-icon-1]
-----
-====

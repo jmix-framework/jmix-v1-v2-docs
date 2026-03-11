@@ -1,0 +1,101 @@
+= Замена стандартных иконок
+
+Jmix предоставляет централизованный механизм для замены иконок, используемых в приложении. Это можно сделать разными способами в зависимости от масштаба изменения:
+
+* Заменить отдельные иконки.
+* Заменить иконочный шрифт для всех иконок сразу.
+
+== Как работают иконки по умолчанию
+
+Иконки по умолчанию определены в перечислении `JmixFontIcon`, которое объединяет все иконки Vaadin, иконки Lumo (отсутствующие в Vaadin) и специфичные иконки Jmix. Каждая иконка объявлена с использованием CSS‑переменной и двух CSS‑классов.
+
+Например:
+
+.jmix-font-icons.css
+----
+html {
+    --jmix-font-icon-user: "user";
+}
+
+.jmix-font-icon {
+    font-family: var(--jmix-font-icon-font-family);
+}
+
+.jmix-font-icon-user:before {
+    content: var(--jmix-font-icon-user);
+}
+----
+
+Кроме того, есть три иконки, которые определяют дополнительный CSS‑класс, изменяющий значение `font-family`:
+
+.jmix-font-icons.css
+----
+.jmix-font-icon.jmix-font-icon-lumo {
+    font-family: lumo-icons;
+}
+----
+
+При создании иконки с помощью бина `Icons`, он пытается создать компонент `FontIcon` с соответствующим CSS‑классом. Если имя иконки состоит из двух частей, разделённых `:` (например, `vaadin:user`), создаётся компонент `Icon`, где первая часть имени определяет коллекцию, а вторая — имя иконки.
+
+== Переназначение иконки
+
+Иконку можно переназначить, переопределив соответствующую CSS‑переменную. Например, добавьте следующую строку в файл xref:flow-ui:themes/themes.adoc#application-theme[кастомных стилей]:
+
+[source,css]
+----
+html {
+    --jmix-font-icon-edit-action: var(--jmix-font-icon-edit);
+}
+----
+
+В этом случае вместо иконки `edit-action` будет использована иконка `edit`.
+
+== Переназначение на иконку из другого иконочного шрифта
+
+Вы также можете переназначить иконку на иконку из другого шрифта. Добавьте следующее в файл xref:flow-ui:themes/themes.adoc#application-theme[кастомных стилей]:
+
+[source,css]
+----
+.jmix-font-icon-refresh {
+    font-family: "lumo-icons";
+}
+
+.jmix-font-icon-refresh:before {
+    content: var(--lumo-icons-reload);
+}
+----
+
+Этот пример изменяет шрифт для иконки `refresh` и назначает для неё иконку `reload` из шрифта `lumo-icons`.
+
+== Использование другого иконочного шрифта
+
+Можно полностью заменить шрифт иконок в приложении. Для этого необходимо выполнить следующие шаги:
+
+. Добавить иконочный шрифт.
+. Переопределить --jmix-font-icon-font-family, чтобы использовать новый шрифт.
+. Сопоставить переменные иконок с кодами символов из нового шрифта.
+
+Например, если вы добавили шрифт Material следуя xref:icons/custom-icons.adoc#icon-fonts[этой инструкции], вы можете переопределить иконки в файле xref:flow-ui:themes/themes.adoc#application-theme[кастомных стилей] :
+
+[source,css]
+----
+html {
+    --jmix-font-icon-font-family: "Material Icons Outlined";
+    --jmix-font-icon-plus: "\e8b6";
+    --jmix-font-icon-home: "\e88a";
+    ...
+    --jmix-font-icon-menu: "\e5d2";
+}
+----
+
+[[overriding-icons-bean]]
+== Переопределение бина `Icons`
+
+Вы можете переопределить bean `Icons`, чтобы сопоставить иконки самостоятельно. Это полезно, если нужного набора нет в виде иконочного шрифта или вам необходимо использовать SVG.
+
+Например, если вы добавили SVG‑спрайт, следуя xref:icons/custom-icons.adoc#svg-sprite[этой инструкции], переопределив бин вы сможете использовать эти SVG‑иконки в наборе иконок по умолчанию:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/icons/AppIcons.java[tags=app-icons]
+----

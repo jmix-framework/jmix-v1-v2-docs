@@ -6,28 +6,71 @@
 </div>
 ++++
 
-Есть два стандартных набора иконок: Vaadin и Lumo. Вы можете увидеть все доступные иконки из этих наборов, посетив https://demo.jmix.ru/ui-samples/sample/icon-all[демо-приложение^].
+Jmix включает более 600 стандартных иконок, организованных в три набора:
 
-[[declarative-usage]]
-== Декларативное использование
+[cols="1h,6", grid=none, border=none]
+|===
+|Jmix
+|Набор иконок по умолчанию. Объединяет все иконки Vaadin, иконки Lumo, отсутствующие в Vaadin, и иконки, специфичные для Jmix.
+|Vaadin
+|Иконки, предоставляемые фреймворком Vaadin.
+|Lumo
+|Иконки из дизайн-системы Lumo.
+|===
 
-Установите иконку для компонента с помощью атрибута `icon`. Используйте префиксы `vaadin:` и `lumo:` для разных наборов иконок. Если префикс отсутствует, используется набор Vaadin.
+[[icon-attribute]]
+== Задание иконки через атрибут
+
+Многие UI-компоненты позволяют добавлять иконки через атрибуты. Некоторые компоненты предоставляют несколько таких атрибутов для разных слотов иконки, например `icon`, `uploadIcon`, `downloadButtonIcon`, `dropLabelIcon`.
+
+Например:
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-1]
 ----
 
-При установке через инспектор компонентов Studio появляется диалоговое окно *Choose Icon*, которое отображает названия иконок и их превью для удобного выбора:
+Чтобы использовать иконки из конкретного набора, добавьте соответствующий префикс:
 
-image::icons/choose-icon-dialog.png[align="center", width="512"]
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-2]
+----
+
+[TIP]
+====
+Иконки можно просматривать и выбирать в Studio. В панели инспектора нажмите на атрибут иконки, чтобы открыть диалог *Choose Icon*. В диалоге отобразятся доступные наборы иконок.
+
+image::icons/choose-icon-dialog.png[align="center", width="592"]
+====
+
+[[icon-nested-element]]
+== Задание иконки через вложенный элемент
+
+Некоторые компоненты поддерживают добавление иконок с помощью вложенных элементов, соответствующих определённым слотам иконок, таким как `<icon>`, `<uploadIcon>`, `<dropdownIcon>`, <prefix>, или <suffix>. Такой подход позволяет использовать как встроенные, так и xref:icons/custom-icons.adoc[собственные иконки], включая SVG, иконочные шрифты и изображения.
+
+Например:
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-3]
+----
 
 [[programmatic-usage]]
-== Программное использование
+== Программное задание иконки
 
-Иконку для компонента можно установить программно:
+Иконки можно задавать в коде. Рекомендуется использовать `Icons` бин как центральный интерфейс для создания компонентов UI, представляющих иконки. Это обеспечивает согласованное поведение (`Icons` также применяется при разборе XML) и упрощает централизованную xref:icons/override-icons.adoc[замену иконок].
+
+Например:
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-1]
+----
+
+Либо, можно обойти разбор имён иконок через бин и создавать иконки напрямую из конкретного набора:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-2]
 ----
