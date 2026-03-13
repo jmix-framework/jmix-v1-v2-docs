@@ -42,7 +42,35 @@
 [[dynamic-attributes-process-forms]]
 === Динамические атрибуты в формах процесса
 
-Процессные формы на базе экранов Jmix поддерживают загрузку и отображение динамических атрибутов. Для этого используйте аннотацию `@ProcessVariableParam`. Подробнее см. в разделе xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Загрузка динамических атрибутов].
+В дополнении BPM, процессные формы на базе экранов Jmix поддерживают загрузку и отображение динамических атрибутов. Для этого используйте аннотацию `@ProcessVariableParam`. Подробнее см. в разделе xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Загрузка динамических атрибутов].
+
+[[facets-in-fragments]]
+=== Фасеты во фрагментах
+
+Фрагменты теперь поддерживают фасеты. См. раздел xref:flow-ui:fragments/facets-in-fragment.adoc[] об их использовании, и информацию о связанных критических изменениях ниже:
+
+* <<facet-registration>>
+* <<facet-api-changes>>
+
+[[custom-icons-in-components]]
+=== Поддержка пользовательских иконок в компонентах
+
+Многие компоненты теперь позволяют добавлять пользовательские иконки через вложенные элементы. Эти элементы обозначают конкретные слоты для иконок в компоненте — например, `<icon>`, `<uploadIcon>`, `<dropdownIcon>`. Пользовательские иконки могут быть добавлены в виде SVG файлов, иконочных шрифтов или изображений.
+
+Например:
+
+[source,xml,indent=0]
+----
+<button text="Download">
+    <icon>
+        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+    </icon>
+</button>
+----
+
+Список компонентов: `action`, `button`, `dropdownButton`, `comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (и `<menu>` и `<item>` поддерживают `<icon>`).
+
+Подробнее см. в разделе xref:flow-ui:icons.adoc[].
 
 [[h2-database]]
 === Поддержка H2 Database (Experimental)
@@ -81,26 +109,6 @@ public interface RemoveDelegate<E> {
     void remove(E entity);
 }
 ----
-
-[[custom-icons-in-components]]
-=== Поддержка пользовательских иконок в компонентах
-
-Многие компоненты теперь позволяют добавлять пользовательские иконки через вложенные элементы. Эти элементы обозначают конкретные слоты для иконок в компоненте — например, `<icon>`, `<uploadIcon>`, `<dropdownIcon>`. Пользовательские иконки могут быть добавлены в виде SVG файлов, иконочных шрифтов или изображений.
-
-Например:
-
-[source,xml,indent=0]
-----
-<button text="Download">
-    <icon>
-        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
-    </icon>
-</button>
-----
-
-Список компонентов: `action`, `button`, `dropdownButton`, `comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (и `<menu>` и `<item>` поддерживают `<icon>`).
-
-Подробнее см. в разделе xref:flow-ui:icons.adoc[].
 
 [[breaking-changes]]
 == Критические изменения
@@ -179,6 +187,42 @@ public class MySettingsFacet implements SettingsFacet<MyUiComponentSettings>
 Если вы использовали свойство `jmix.resource-server.force-api-security-scope.enabled` в Jmix 2.7, замените его на свойство xref:authorization-server:configuration.adoc#jmix.authserver.filter-chain.force-api-scope-enabled[jmix.authserver.filter-chain.force-api-scope-enabled] со значением `false`.
 
 См. https://github.com/jmix-framework/jmix/pull/5094[#5094^] для получения дополнительной информации.
+
+[[mariadb-uuid]]
+=== MariaDB UUID
+
+Для совместимости со всеми предыдущими и текущими версиями MariaDB и Liquibase, для атрибутов `UUID` теперь явно используется `char(36)`.
+
+Если вы используете MariaDB, следуйте инструкциям ниже после обновления вашего проекта до Jmix 2.8.
+
+. Чтобы избежать ошибки контрольной суммы Liquibase для выполненных changelog, запустите ваше приложение один раз со свойством `main.liquibase.clear-checksums=true`. Например, если ваше основное хранилище данных использует MariaDB, выполните следующую команду:
++
+[source,shell]
+----
+./gradlew bootRun --args='--main.liquibase.clear-checksums=true'
+----
++
+После выполнения Liquibase на вашей базе данных с этой опцией контрольные суммы в БД будут обновлены и совместимы с changelog'ами, расположенными в вашем исходном коде.
++
+Не используйте `main.liquibase.clear-checksums=true` для последующих запусков.
+
+. Убедитесь, что корневой changelog (например, `com/company/sample/liquibase/changelog.xml`) включает в себя следующее свойство:
++
+[source,xml]
+----
+<property name="uuid.type" dbms="mariadb" value="char(36)"/>
+----
+
+. Убедитесь, что новые сгенерированные changelog используют `${uuid.type}` или `char(36)` для атрибутов `UUID`. Например:
++
+[source,xml]
+----
+<changeSet id="1" author="sample">
+    <createTable tableName="FOO">
+        <column name="ID" type="${uuid.type}">
+----
+
+См. https://github.com/jmix-framework/jmix/issues/4838[#4838^] для получения дополнительной информации.
 
 [[changelog]]
 == Список изменений
