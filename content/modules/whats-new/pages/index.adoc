@@ -45,7 +45,35 @@ The xref:data-tools:index.adoc[] add-on now includes a xref:data-tools:data-mode
 [[dynamic-attributes-process-forms]]
 === Dynamic Attributes in Process Forms
 
-Dynamic attributes can now be loaded and displayed in process forms based on Jmix views. You can enable this behavior with the `@ProcessVariableParam` annotation. See xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes] for details.
+In the BPM add-on, dynamic attributes can now be loaded and displayed in process forms based on Jmix views. You can enable this behavior with the `@ProcessVariableParam` annotation. See xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes] for details.
+
+[[facets-in-fragments]]
+=== Facets in Fragments
+
+Fragments now support facets. See xref:flow-ui:fragments/facets-in-fragment.adoc[] for how to use them and the information on the related breaking changes below:
+
+* <<facet-registration>>
+* <<facet-api-changes>>
+
+[[custom-icons-in-components]]
+=== Support for Custom Icons in Components
+
+Multiple components now support custom icons through nested elements. These elements represent specific icon slots in a component — for example `<icon>`, `<uploadIcon>`, or `<dropdownIcon>` and allow you to provide your own icon. You can supply icons as SVGs, font icons, or images.
+
+For example:
+
+[source,xml,indent=0]
+----
+<button text="Download">
+    <icon>
+        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+    </icon>
+</button>
+----
+
+List of components: `action`, `button`, `dropdownButton`,`comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (both `<menu>` and `<item>` support `<icon>`).
+
+See the xref:flow-ui:icons.adoc[] section for details.
 
 [[h2-database]]
 === Support for H2 Database (Experimental)
@@ -84,26 +112,6 @@ public interface RemoveDelegate<E> {
     void remove(E entity);
 }
 ----
-
-[[custom-icons-in-components]]
-=== Support for Custom Icons in Components
-
-Multiple components now support custom icons through nested elements. These elements represent specific icon slots in a component — for example `<icon>`, `<uploadIcon>`, or `<dropdownIcon>` and allow you to provide your own icon. You can supply icons as SVGs, font icons, or images.
-
-For example:
-
-[source,xml,indent=0]
-----
-<button text="Download">
-    <icon>
-        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
-    </icon>
-</button>
-----
-
-List of components: `action`, `button`, `dropdownButton`,`comboButton`, `drawerToggle`, `fileUploadField`, `fileStorageUploadField`, `upload`, `notificationsIndicator`, `webdavDocumentUpload`, `menu.xml` (both `<menu>` and `<item>` support `<icon>`).
-
-See the xref:flow-ui:icons.adoc[] section for details.
 
 [[breaking-changes]]
 == Breaking Changes
@@ -182,6 +190,42 @@ Fixed handling of xref:security:resource-roles.adoc#role-scope[role scopes] in O
 If you have used the `jmix.resource-server.force-api-security-scope.enabled` property in Jmix 2.7, replace it with the xref:authorization-server:configuration.adoc#jmix.authserver.filter-chain.force-api-scope-enabled[jmix.authserver.filter-chain.force-api-scope-enabled] property set to `false`.
 
 See https://github.com/jmix-framework/jmix/pull/5094[#5094^] for more information.
+
+[[mariadb-uuid]]
+=== MariaDB UUID
+
+For compatibility with all previous and current versions of MariaDB and Liquibase, `char(36)` is now explicitly used for `UUID` attributes.
+
+If you are using MariaDB, follow the instructions below after updating your project to Jmix 2.8.
+
+. To avoid Liquibase checksum error for executed changelogs, run your application once with `main.liquibase.clear-checksums=true` property. For example, if your main data store uses MariaDB, execute the following command:
++
+[source,shell]
+----
+./gradlew bootRun --args='--main.liquibase.clear-checksums=true'
+----
++
+After running Liquibase on your database with this option, the checksums in the database will be updated and compatible with the changelogs located in your source code.
++
+Do not use `main.liquibase.clear-checksums=true` for subsequent launches.
+
+. Make sure the root changelog (e.g. `com/company/sample/liquibase/changelog.xml`) includes the following property:
++
+[source,xml]
+----
+<property name="uuid.type" dbms="mariadb" value="char(36)"/>
+----
+
+. Make sure newly generated changelogs use `${uuid.type}` or `char(36)` for `UUID` attributes. For example:
++
+[source,xml]
+----
+<changeSet id="1" author="sample">
+    <createTable tableName="FOO">
+        <column name="ID" type="${uuid.type}">
+----
+
+See https://github.com/jmix-framework/jmix/issues/4838[#4838^] for more information.
 
 [[changelog]]
 == Changelog
