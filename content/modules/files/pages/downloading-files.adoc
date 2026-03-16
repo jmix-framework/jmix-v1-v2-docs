@@ -5,9 +5,14 @@ This section explains how to download files to the user's computer or display fi
 [[downloader]]
 == Using Downloader
 
-The `Downloader` bean is designed to download files to the user's computer. It has a number of `download()` methods that accept different parameters defining downloaded content.
+The `Downloader` bean is designed to download files to the user's computer. It has a number of `download()` methods that accept different parameters defining the downloaded content.
 
 The file can be either downloaded or shown by the browser in a new tab. It depends on the file type and the value of the xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] property. The file type is determined by the `DownloadFormat` parameter, or, if it is not provided, by the file name extension. You can also force showing the content instead of downloading it regardless of the type by invoking the `setShowNewWindow(true)` method of `Downloader`.
+
+[NOTE]
+====
+To control browser caching behavior for downloaded files, you can use the xref:flow-ui:ui-properties.adoc#jmix.ui.file-downloader-cache-max-age-sec[jmix.ui.file-downloader-cache-max-age-sec] application property. Setting it to `0` ensures that the browser always fetches the latest version from the server, which is particularly useful for dynamically generated files like PDF files.
+====
 
 [[download-from-storage]]
 === Downloading from File Storage

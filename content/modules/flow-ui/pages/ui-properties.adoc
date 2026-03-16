@@ -86,6 +86,17 @@ Default value: `true`.
 
 See also xref:flow-ui:exception-handlers.adoc[Exception Handlers].
 
+[[jmix.ui.file-downloader-cache-max-age-sec]]
+=== jmix.ui.file-downloader-cache-max-age-sec
+
+Sets the maximum time (in seconds) that a downloaded file is considered fresh by the browser's cache. This property is particularly useful for ensuring that the built-in PDF viewer in Google Chrome displays the most recent version of a file.
+
+The property sets the `max-age` directive in the Cache-Control HTTP response header. See the https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#response_directives[MDN documentation^] for details.
+
+Default value: `3600`.
+
+See also xref:files:downloading-files.adoc#downloader[Using Downloader].
+
 [[jmix.ui.main-view-id]]
 === jmix.ui.main-view-id
 
