@@ -86,6 +86,17 @@ jmix.ui.entity-page-size.Customer = 500
 
 Смотрите также xref:flow-ui:exception-handlers.adoc[Обработчики исключений].
 
+[[jmix.ui.file-downloader-cache-max-age-sec]]
+=== jmix.ui.file-downloader-cache-max-age-sec
+
+Устанавливает максимальное время (в секундах), в течение которого загруженный файл считается актуальным для кэша браузера. Это свойство особенно полезно для обеспечения отображения самой последней версии файла во встроенном средстве просмотра PDF в Google Chrome.
+
+Свойство устанавливает директиву `max-age` в HTTP-заголовке ответа Cache-Control. Подробности смотрите в https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#response_directives[документации MDN^].
+
+Значение по умолчанию: `3600`.
+
+Смотрите также xref:files:downloading-files.adoc#downloader[Использование Downloader].
+
 [[jmix.ui.main-view-id]]
 === jmix.ui.main-view-id
 
