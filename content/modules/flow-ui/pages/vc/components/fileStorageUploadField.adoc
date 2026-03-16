@@ -291,9 +291,22 @@ CAUTION: The xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentVal
 </div>
 ++++
 
-Specifies the maximum file size in bytes allowed to upload. Notice that it is a client-side constraint, which will be checked before sending the request.
+Specifies the maximum file size in bytes allowed for upload. Note that this is a client-side constraint, which is checked before sending the request to the server.
 
-NOTE: If `MultipartProperties` is available, the default value will be set from `MultipartProperties#getMaxFileSize()` that is equal to 1Mb. To increase maximum file size for all fields in the application use `MultipartProperties#getMaxFileSize()` property.
+[NOTE]
+====
+If `MultipartProperties` is available, the default value is taken from `MultipartProperties#getMaxFileSize()` (which defaults to `1MB`).
+
+To increase the maximum file size for all fields globally, use the following Spring Boot application properties:
+
+* https://docs.spring.io/spring-boot/appendix/application-properties/index.html#application-properties.web.spring.servlet.multipart.max-file-size[spring.servlet.multipart.max-file-size^] – sets the maximum allowed size of an uploaded file (for example, `10MB`)
+
+* https://docs.spring.io/spring-boot/appendix/application-properties/index.html#application-properties.web.spring.servlet.multipart.max-request-size[spring.servlet.multipart.max-request-size^] – sets the maximum allowed size of the entire multipart request (for example, `10MB`)
+
+For more options, refer to the Spring Boot documentation.
+
+CAUTION: These properties apply to JAR deployment. For WAR deployment, you may need to configure the file size limits in your application server settings.
+====
 
 [[uploadIcon]]
 === uploadIcon
