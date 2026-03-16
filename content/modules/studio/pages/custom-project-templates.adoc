@@ -17,7 +17,7 @@ Studio ищет стандартный (`io.jmix.templates.studio:jmix-studio-te
 group = 'com.company.templates'
 ----
 
-. Измените свойство `version` в `build.gradle` на значение желаемой версии Jmix BOM, например:
+. Измените свойство `version` в `gradle.properties` на значение желаемой версии Jmix BOM, например:
 +
 [source,properties]
 ----
