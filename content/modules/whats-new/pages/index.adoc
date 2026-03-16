@@ -19,6 +19,16 @@
 [[new-features]]
 == Новая и улучшенная функциональность
 
+[[studio-improvements]]
+=== Studio Improvements
+
+[[env-support]]
+==== Environment Variables Support with .env Files
+
+Jmix Studio now supports using `.env` files to externalize configuration. You can store environment-specific variables separately from `application.properties` and use them with placeholders like `++${DB_URL}++`.
+
+See the xref:studio:external-config-with-env.adoc[] section for details.
+
 [[element-collections]]
 === Поддержка коллекций элементов
 

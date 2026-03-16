@@ -24,6 +24,7 @@
 **** xref:studio:welcome.adoc[]
 **** xref:studio:tool-window.adoc[]
 **** xref:studio:project-properties.adoc[]
+**** xref:studio:external-config-with-env.adoc[]
 **** xref:studio:marketplace.adoc[]
 **** xref:studio:plugin-settings.adoc[]
 **** xref:studio:composite-projects.adoc[]
