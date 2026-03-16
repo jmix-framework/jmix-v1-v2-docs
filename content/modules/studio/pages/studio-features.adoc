@@ -35,7 +35,7 @@ The Jmix Studio features can be broadly categorized into the following areas:
 | xref:plugin-settings.adoc[]
 | xref:composite-projects.adoc[]
 | xref:profile-specific-properties.adoc[]
-|
+| xref:external-config-with-env.adoc[]
 |
 |===
 
