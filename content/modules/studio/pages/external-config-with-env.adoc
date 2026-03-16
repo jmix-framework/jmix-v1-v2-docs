@@ -51,5 +51,3 @@ main.datasource.password=${DB_PASSWORD}
 ----
 
 When a `.env` file is connected via `spring.config.import`, Jmix Studio displays it in the *Jmix Tool Window* under the *Configuration* node, making it easily accessible for editing.
-
-For more information, refer to the https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.importing-extensionless[Spring Boot documentation on external configuration^].
