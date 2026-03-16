@@ -291,9 +291,22 @@ CAUTION: Событие xref:vc/common-handlers.adoc#ComponentValueChangeEvent[C
 </div>
 ++++
 
-Указывает максимальный размер файла в байтах, разрешенный для загрузки. Обратите внимание, что это ограничение на стороне клиента, которое будет проверено перед отправкой запроса.
+Определяет максимально допустимый размер файла в байтах для загрузки. Обратите внимание, что это ограничение на стороне клиента, которое проверяется перед отправкой запроса на сервер.
 
-NOTE: Если доступен `MultipartProperties`, значение по умолчанию будет установлено из `MultipartProperties#getMaxFileSize()`, которое равно 1 МБ. Чтобы увеличить максимальный размер файла для всех полей в приложении, используйте свойство `MultipartProperties#getMaxFileSize()`.
+[NOTE]
+====
+Если доступен `MultipartProperties`, значение по умолчанию берется из `MultipartProperties#getMaxFileSize()` (значение по умолчанию — `1 МБ`).
+
+Чтобы глобально увеличить максимальный размер файла для всех полей, используйте следующие свойства приложения Spring Boot:
+
+* https://docs.spring.io/spring-boot/appendix/application-properties/index.html#application-properties.web.spring.servlet.multipart.max-file-size[spring.servlet.multipart.max-file-size^] – устанавливает максимально допустимый размер загружаемого файла (например, `10 МБ`)
+
+* https://docs.spring.io/spring-boot/appendix/application-properties/index.html#application-properties.web.spring.servlet.multipart.max-request-size[spring.servlet.multipart.max-request-size^] – устанавливает максимально допустимый размер всего многокомпонентного (multipart) запроса (например, `10 МБ`)
+
+Для получения дополнительных параметров обратитесь к документации Spring Boot.
+
+CAUTION: Эти свойства применимы для развертывания в виде JAR. Для развертывания в виде WAR вам может потребоваться настроить ограничения размера файлов в настройках вашего сервера приложений.
+====
 
 [[uploadIcon]]
 === uploadIcon
