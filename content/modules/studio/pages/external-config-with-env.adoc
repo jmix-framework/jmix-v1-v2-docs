@@ -1,20 +1,20 @@
-= External Configuration with .env Files
+= Внешняя конфигурация с использованием .env файлов
 
-Jmix Studio provides support for using `.env` files to externalize configuration. This allows you to store environment-specific variables separately from your `application.properties` file, making it easier to manage different configurations across development, testing, and production environments.
+Jmix Studio обеспечивает поддержку использования `.env` файлов для вынесения конфигурации за пределы приложения. Это позволяет хранить переменные, специфичные для окружения, отдельно от вашего файла `application.properties`, что упрощает управление различными конфигурациями для сред разработки, тестирования и производства.
 
 [[studio-resolve-placeholders]]
-== How Studio Resolves Placeholders
+== Как Studio разрешает плейсхолдеры
 
-Studio resolves placeholders from properties files in the following order (each step overrides the previous step when a value is successfully resolved):
+Studio разрешает плейсхолдеры из файлов свойств в следующем порядке (каждый следующий шаг переопределяет предыдущий, когда значение было успешно разрешено):
 
-. System environment variables
-. References to another application property (if that property contains a placeholder, the process returns to step 1)
-. Additional configuration files specified via the `spring.config.import` property
+. Переменные окружения системы
+. Ссылки на другое свойство приложения (если это свойство содержит плейсхолдер, процесс возвращается к шагу 1)
+. Дополнительные файлы конфигурации, указанные через свойство `spring.config.import`
 
 [[working-with-env]]
-== Working with .env Files
+== Работа с .env файлами
 
-Place your `.env` file in the *project root directory* (not in resources) and add the following property to your `application.properties`:
+Поместите ваш `.env` файл в _корневой каталог проекта_ (не в resources) и добавьте следующее свойство в ваш `application.properties`:
 
 .application.properties
 [source,properties,indent=0]
@@ -22,11 +22,11 @@ Place your `.env` file in the *project root directory* (not in resources) and ad
 spring.config.import=optional:file:.env[.properties]
 ----
 
-NOTE: You can also add this property to a xref:studio:profile-specific-properties.adoc[profile-specific configuration file], for example `application-local.properties`, and Studio will resolve it correctly.
+NOTE: Вы также можете добавить это свойство в xref:studio:profile-specific-properties.adoc[конфигурационный файл для конкретного профиля], например `application-local.properties`, и Studio правильно его разрешит.
 
-TIP: For more details about the `spring.config.import` mechanism, refer to the https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.importing[Spring Boot documentation^].
+TIP: Для получения более подробной информации о механизме `spring.config.import` обратитесь к https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.importing[документации Spring Boot^].
 
-Example of the `.env` file:
+Пример файла `.env`:
 
 .env
 [source,properties,indent=0]
@@ -36,9 +36,9 @@ DB_USERNAME=root
 DB_PASSWORD=secret
 ----
 
-NOTE: The `.env` file can be named either `.env` or `.env.properties`. Both extensions are supported.
+NOTE: `.env` файл может называться либо `.env`, либо `.env.properties`. Поддерживаются оба расширения.
 
-Example of the `application.properties` file:
+Пример файла `application.properties`:
 
 .application.properties
 [source,properties,indent=0]
@@ -50,6 +50,4 @@ main.datasource.username=${DB_USERNAME}
 main.datasource.password=${DB_PASSWORD}
 ----
 
-When a `.env` file is connected via `spring.config.import`, Jmix Studio displays it in the *Jmix Tool Window* under the *Configuration* node, making it easily accessible for editing.
-
-For more information, refer to the https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.importing-extensionless[Spring Boot documentation on external configuration^].
+Когда `.env` файл подключен через `spring.config.import`, Jmix Studio отображает его в Окне инструментов Jmix в узле *Configuration*, что обеспечивает легкий доступ для редактирования.
