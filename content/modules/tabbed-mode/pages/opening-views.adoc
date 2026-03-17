@@ -142,7 +142,7 @@ Let's examine the first approach: closing a view with a standard outcome and tes
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!closeAction]
 ----
 <1> Clicking the *Save* button sets a result state and closes the view with the `StandardOutcome.SAVE` enum value.
-<2> Clicking the *Close* button closes the view with `StandardOutcome.SAVE`.
+<2> Clicking the *Close* button closes the view with `StandardOutcome.CLOSE`.
 
 In the `AfterCloseEvent` listener, you can use the `closedWith()` method of the event to check how the view was closed. If needed, you can also read the result value:
 
