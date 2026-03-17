@@ -282,6 +282,9 @@ image::add-data-load-coordinator.png[align="center", width="770"]
             </loader>
         </collection>
     </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
     <layout>
         <entityPicker id="currentLocationField"
                       metaClass="Location"
