@@ -75,6 +75,7 @@
 **** xref:flow-ui:vc/layouts/gridLayout.adoc[]
 **** xref:flow-ui:vc/layouts/hbox.adoc[]
 **** xref:flow-ui:vc/layouts/initialLayout.adoc[]
+**** xref:flow-ui:vc/layouts/sidePanelLayout.adoc[]
 **** xref:flow-ui:vc/layouts/split.adoc[]
 **** xref:flow-ui:vc/layouts/scroller.adoc[]
 **** xref:flow-ui:vc/layouts/tabSheet.adoc[]

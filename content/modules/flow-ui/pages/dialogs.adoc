@@ -227,6 +227,156 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> In the validator, parameter values can be obtained from the context object.
 <3> The validator returns validation errors if no parameters are entered.
 
+[[side-dialog]]
+== Side Dialog
+
+A dialog that slides in from one side of the view.
+
+image::dialogs/side-dialog.png[align="center", width = 1155]
+
+The dialog can be opened using the `Dialogs` bean:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;inject-message-bundle;side-dialog]
+----
+
+=== Position and Size
+
+Use `withSideDialogPosition()` to define where the dialog appears. Possible values are `RIGHT`, `TOP`, `BOTTOM`, `LEFT`, `INLINE_START`, and `INLINE_END`. The default value is `RIGHT`. `INLINE_START` and `INLINE_END` follow the text direction (LTR/RTL).
+
+The dialog size is configured differently depending on its orientation.
+
+For horizontal dialogs (`LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+
+* `setHorizontalSize()`
+* `setHorizontalMaxSize()`
+* `setHorizontalMinSize()`
+
+For vertical dialogs (`TOP`, `BOTTOM`):
+
+* `setVerticalSize()`
+* `setVerticalMaxSize()`
+* `setVerticalMinSize()`
+
+=== Content
+
+You can define dialog content using providers:
+
+[cols="1h,4", grid=rows]
+|===
+|Method |Description
+|`withContentComponents()`
+|Provides components for the dialog content area.
+|`withHeaderProvider()`
+|Provides custom components for the header.
+|`withFooterProvider()`
+|Provides custom components for the footer.
+|===
+
+=== Events
+
+The following events are available:
+
+[cols="1h,4", grid=rows]
+|===
+|Event |Description
+|`SideDialogOpenedChangeEvent`
+|Fired when the dialog is opened or closed.
+|`SideDialogCloseActionEvent`
+|Fired when the user presses `Esc` or clicks outside the dialog. You can use this event to control whether the dialog should close.
+|===
+
+=== Styling
+
+Side dialog appearance and sizing can be customized using CSS.
+
+==== Sizing
+
+You can configure dialog size globally using CSS variables. These values are applied to all `SideDialog` instances.
+
+NOTE: If sizes are set programmatically with Java API, they take precedence over CSS variables.
+
+Horizontal sizing (for `LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+
+[cols="2h,3,1", grid=rows]
+|===
+|Variable |Description |Default
+|`--jmix-side-dialog-horizontal-size`
+|Base horizontal size of the dialog.
+|`auto`
+|`--jmix-side-dialog-horizontal-max-size`
+|Maximum horizontal size.
+|`50%`
+|`--jmix-side-dialog-horizontal-min-size`
+|Minimum horizontal size.
+|`16em`
+|===
+
+Vertical sizing (for `TOP`, `BOTTOM`):
+
+[cols="2h,3,1", grid=rows]
+|===
+|Variable |Description |Default
+|`--jmix-side-dialog-vertical-size`
+|Base vertical size of the dialog.
+|`auto`
+|`--jmix-side-dialog-vertical-max-size`
+|Maximum vertical size.
+|`50vh`
+|`--jmix-side-dialog-vertical-min-size`
+|Minimum vertical size.
+|`16em`
+|===
+
+==== Appearance
+
+[cols="2h,3,1", grid=rows]
+|===
+|Variable |Description |Default
+|`--jmix-side-dialog-transition-duration`
+|Animation duration of dialog opening and closing.
+|`200ms`
+|===
+
+==== Parts
+
+The side dialog exposes the following xref:themes/styling-ui-components.adoc#stylable-parts[stylable parts]:
+
+[cols="2h,3", grid=rows]
+|===
+|Part |Description
+|`jmix-side-dialog-overlay::part(backdrop)`
+|Modality curtain (background overlay behind the dialog).
+|`jmix-side-dialog-overlay::part(overlay)`
+|Dialog overlay (main container).
+|`jmix-side-dialog-overlay::part(header)`
+|Header section of the dialog.
+|`jmix-side-dialog-overlay::part(title)`
+|Title wrapper element.
+|`jmix-side-dialog-overlay > [slot="title"]`
+|Title element.
+|`jmix-side-dialog-overlay::part(header-content)`
+|Container for custom header content.
+|`jmix-side-dialog-overlay::part(content)`
+|Main content area.
+|`jmix-side-dialog-overlay::part(footer)`
+|Footer section.
+|===
+
+==== States
+
+The side dialog exposes the following xref:themes/styling-ui-components.adoc#component-states[states]:
+
+[cols="2h,3", grid=rows]
+|===
+|State |Description
+|`jmix-side-dialog-overlay[side-dialog-position='right']`
+|Applied according to dialog position, for example `left`, `top`, or `bottom`.
+|`jmix-side-dialog-overlay[fullscreen]`
+|Applied when the dialog is displayed in fullscreen mode on small devices.
+|===
+
 [[dialog-configuration]]
 == Dialog Configuration
 

@@ -116,6 +116,8 @@
         <item view="GridLayoutView" title="msg://com.company.onboarding.view.layout.gridlayout/gridLayoutView.title"/>
         <item view="HboxView" title="msg://com.company.onboarding.view.layout.hbox/hboxView.title"/>
         <item view="ScrollerView" title="msg://com.company.onboarding.view.layout.scroller/scrollerView.title"/>
+        <item view="SidePanelLayoutView"
+              title="msg://com.company.onboarding.view.layout.sidepanellayout/sidePanelLayoutView.title"/>
         <item view="SplitView" title="msg://com.company.onboarding.view.layout.split/splitView.title"/>
         <item view="TabsheetView" title="msg://com.company.onboarding.view.layout.tabsheet/tabSheetView.title"/>
         <item view="VboxView" title="msg://com.company.onboarding.view.layout.vbox/vboxView.title"/>
