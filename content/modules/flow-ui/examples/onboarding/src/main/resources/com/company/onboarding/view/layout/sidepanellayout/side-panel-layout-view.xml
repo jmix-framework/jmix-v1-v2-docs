@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://sidePanelLayoutView.title">
+    <layout>
+        <button id="toggleButton" text="Toggle Side Panel"/>
+        <!-- tag::basics[] -->
+        <sidePanelLayout id="sidePanelLayout"
+                         width="100%"
+                         height="100%">
+
+            <vbox id="contentBox">
+                <!-- Main content -->
+            </vbox>
+
+            <vbox id="sidePanelBox" width="100%" height="100%">
+
+                <hbox id="headerBox" width="100%"> <!--1-->
+                    <h2 text="Customer information"/>
+                    <sidePanelLayoutCloser/>
+                </hbox>
+
+                <!-- Side panel content -->
+
+            </vbox>
+        </sidePanelLayout>
+        <!-- end::basics[] -->
+    </layout>
+</view>

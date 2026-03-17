@@ -5,9 +5,20 @@ import com.company.onboarding.entity.User;
 import com.company.onboarding.view.main.MainView;
 import com.google.common.base.Strings;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.card.Card;
+import com.vaadin.flow.component.card.CardVariant;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.virtuallist.VirtualList;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.LumoIcon;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.datatype.DatatypeRegistry;
 import io.jmix.flowui.Dialogs;
@@ -21,6 +32,7 @@ import io.jmix.flowui.backgroundtask.BackgroundTask;
 import io.jmix.flowui.backgroundtask.TaskLifeCycle;
 import io.jmix.flowui.component.combobox.EntityComboBox;
 import io.jmix.flowui.component.datepicker.TypedDatePicker;
+import io.jmix.flowui.component.sidedialog.SideDialog;
 import io.jmix.flowui.component.validation.ValidationErrors;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
@@ -33,16 +45,21 @@ import static io.jmix.flowui.app.inputdialog.InputParameter.*;
 @Route(value = "DialogsSampleView", layout = MainView.class)
 @ViewController("DialogsSampleView")
 @ViewDescriptor("dialogs-sample-view.xml")
-public class DialogsSampleView extends StandardView {
+public class DialogsSampleView extends StandardListView {
     // tag::inject-dialogs[]
     @Autowired
     private Dialogs dialogs;
+    // end::inject-dialogs[]
+
     @Autowired
     private DatatypeRegistry datatypeRegistry;
     @Autowired
     private Notifications notifications;
 
-    // end::inject-dialogs[]
+    // tag::inject-message-bundle[]
+    @ViewComponent
+    private MessageBundle messageBundle;
+    // end::inject-message-bundle[]
 
     // tag::messageDialog-1[]
     @Subscribe("messageDialogButton")
@@ -268,6 +285,46 @@ public class DialogsSampleView extends StandardView {
                 })
                 .open();
     }
+
+    // tag::side-dialog[]
+
+    @Subscribe(id = "sideDialogButton", subject = "clickListener")
+    public void onSimpleSideDialogButtonClick(final ClickEvent<JmixButton> event) {
+        dialogs.createSideDialog()
+                .withHorizontalSize("14em")
+                .withHeaderProvider(this::createHeader)
+                .withContentComponents(createContent())
+                .open();
+    }
+
+    private HorizontalLayout createHeader(SideDialog sideDialog) {
+        HorizontalLayout header = new HorizontalLayout();
+        header.setWidthFull();
+        header.add(new H2(messageBundle.getMessage("sideDialogHeader")));
+        header.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+        Button closeButton = new Button(LumoIcon.CROSS.create(), event -> sideDialog.close());
+        closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_ICON);
+        header.add(closeButton);
+
+        return header;
+    }
+
+    private Component createContent() {
+        VirtualList<String> list = new VirtualList<>();
+        list.setWidthFull();
+        list.setItems("Item 1", "Item 2", "Item 3");
+        list.setRenderer(new ComponentRenderer<>((item -> {
+            Card root = new Card();
+            root.setTitle(item);
+            root.setHeaderSuffix(LumoIcon.CROSS.create());
+            root.add(messageBundle.getMessage("activityDescription"));
+            root.addThemeVariants(CardVariant.LUMO_HORIZONTAL);
+            root.addClassName(LumoUtility.Margin.Bottom.MEDIUM);
+            return root;
+        })));
+        return list;
+    }
+    // end::side-dialog[]
 
     // tag::basic-config[]
     @Subscribe(id = "configDialogButton", subject = "clickListener")

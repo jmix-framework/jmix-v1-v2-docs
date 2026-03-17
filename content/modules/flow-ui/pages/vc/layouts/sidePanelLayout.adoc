@@ -1,0 +1,267 @@
+= sidePanelLayout
+
+Компонент компоновки с боковой панелью. Панель может открываться с разных сторон и либо перекрывать основное содержимое, либо сдвигать его. Подходит для отображения фильтров, дополнительной информации или форм редактирования одновременно с основным содержимым.
+
+TIP: Боковую панель можно создать программно при помощи xref:flow-ui:dialogs.adoc#side-dialog[Side Dialog].
+
+[cols="1h,6", grid=none]
+|===
+|XML Элемент
+|`sidePanelLayout`
+|Java Класс
+|`SidePanelLayout`
+|Атрибуты
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] -
+<<modal,modal>> -
+<<closeOnOutsideClick,closeOnOutsideClick>> -
+<<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
+xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Position:*
+xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:flow-ui:vc/common-attributes.adoc#justifySelf[justifySelf] -
+xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Size:* <<sidePanelHorizontalSize,sidePanelHorizontalSize>> -
+<<sidePanelHorizontalMinSize,sidePanelHorizontalMinSize>> -
+<<sidePanelHorizontalMaxSize,sidePanelHorizontalMaxSize>> -
+<<sidePanelVerticalSize,sidePanelVerticalSize>> -
+<<sidePanelVerticalMinSize,sidePanelVerticalMinSize>> -
+<<sidePanelVerticalMaxSize,sidePanelVerticalMaxSize>> -
+xref:flow-ui:vc/common-attributes.adoc#height[height] -
+xref:flow-ui:vc/common-attributes.adoc#width[width] -
+xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#css[css] -
+<<sidePanelOverlay,sidePanelOverlay>> -
+<<sidePanelPosition,sidePanelPosition>>
+|
+|*Other:* <<closeOnOutsideClick,closeOnOutsideClick>> -
+<<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
+<<modal, modal>> -
+<<overlayAriaLabel, overlayAriaLabel>>
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+<<ModalityCurtainClickEvent,ModalityCurtainClickEvent>> -
+<<SidePanelBeforeOpenEvent,SidePanelBeforeOpenEvent>> -
+<<SidePanelAfterOpenEvent,SidePanelAfterOpenEvent>> -
+<<SidePanelCloseEvent,SidePanelCloseEvent>>
+|===
+
+[[basics]]
+== Основы
+
+`SidePanelLayout` делит экран на две части:
+
+* **Основная область** – содержащая основной контент страницы.
+* **Боковая панель** — появляется сбоку.
+
+image:flow-ui:visual-components/layouts/side-panel-layout-basic.png[width=1150]
+
+В XML компонент задаётся элементом `sidePanelLayout`. Он должен содержать два дочерних элемента:
+
+[source,xml]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/sidepanellayout/side-panel-layout-view.xml[tags=basics]
+----
+
+<1> Обычно в панели присутствует кнопка закрытия. Для этого используйте специальный компонент `sidePanelLayoutCloser`.
+
+[[opening-closing]]
+== Открытие боковой панели
+
+Панель открывается по действию пользователя, например, по нажатию кнопки. Используйте метод `toggleSidePanel()`:
+
+[source,java]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/sidepanellayout/SidePanelLayoutView.java[tags=toggle-panel]
+----
+
+[[detail-view-side]]
+== Редактирование в панели
+
+Используйте `SidePanelLayout` для реализации паттерна master-detail, где основная область содержит список сущностей, а боковая панель используется для редактирования выбранного экземпляра.
+
+image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
+
+[[styling]]
+== Стилизация
+
+Вы можете настроить внешний вид и размеры `SidePanelLayout` с помощью CSS-переменных и селекторов темы.
+
+=== Размеры через CSS-переменные
+
+Следующие переменные задают размеры боковой панели. Они применяются ко всем экземплярам `SidePanelLayout`.
+
+NOTE: Значения, заданные в XML или через Java API, имеют приоритет над CSS-переменными.
+
+Горизонтальные панели (`LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+
+[cols="3h,2,1", grid=rows]
+|===
+|Переменная |Описание |По умолчанию
+|`--jmix-side-panel-layout-horizontal-size`
+|Предпочтительная ширина панели.
+|`auto`
+|`--jmix-side-panel-layout-horizontal-max-size`
+|Максимальная ширина.
+|`50%`
+|`--jmix-side-panel-layout-horizontal-min-size`
+|Минимальная ширина.
+|`14em`
+|===
+
+Вертикальные панели (`TOP`, `BOTTOM`):
+
+[cols="3h,2,1", grid=rows]
+|===
+|Переменная |Описание |По умолчанию
+|`--jmix-side-panel-layout-vertical-size`
+|Предпочтительная высота панели.
+|`auto`
+|`--jmix-side-panel-layout-vertical-max-size`
+|Максимальная высота.
+|`50%`
+|`--jmix-side-panel-layout-vertical-min-size`
+|Минимальная высота.
+|`10em`
+|===
+
+=== Внешний вид
+
+[cols="4h,3,1", grid=rows]
+|===
+|Переменная |Описание |По умолчанию
+|`--jmix-side-panel-layout-transition-duration`
+|Длительность анимации открытия и закрытия.
+|`200ms`
+|===
+
+=== Части
+
+`SidePanelLayout` предоставляет следующие xref:themes/styling-ui-components.adoc#stylable-parts[стилизируемые части]:
+
+[cols="4h,4", grid=rows]
+|===
+|Часть |Описание
+|`jmix-side-panel-layout::part(layout)`
+|Контейнер для содержимого, боковой панели и модального фона.
+|`jmix-side-panel-layout::part(content)`
+|Основное содержимое.
+|`jmix-side-panel-layout::part(modalityCurtain)`
+|Модальный фон.
+|`jmix-side-panel-layout::part(sidePanelContent)`
+|Контейнер содержимого боковой панели.
+|===
+
+=== Состояния
+
+Компонент поддерживает следующие xref:themes/styling-ui-components.adoc#component-states[состояния]:
+
+[cols="4h,4", grid=rows]
+|===
+|Состояние |Описание
+|`jmix-side-panel-layout[side-panel-opened]`
+|Применяется, когда панель открыта
+|`jmix-side-panel-layout[modal]`
+|Применяется, когда панель модальная
+|`jmix-side-panel-layout[side-panel-position='left']`
+|Соответствует текущей позиции панели (`right`, `top` и т.д.)
+|`jmix-side-panel-layout[side-panel-overlay]`
+|Применяется, когда панель перекрывает содержимое, а не сдвигает его
+|===
+
+[[attributes]]
+== Атрибуты
+
+xref:vc/common-attributes.adoc[Общие атрибуты] имеют одинаковое назначение для всех компонентов. Ниже приведены атрибуты, специфичные для `sidePanelLayout`.
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Имя*
+|*Описание*
+|*По умолчанию*
+
+|[[sidePanelPosition]]sidePanelPosition
+|Определяет сторону, с которой появляется панель. Возможные значения: `LEFT`, `RIGHT`, `TOP`, `BOTTOM`, `INLINE_START`, `INLINE_END`.
+
+`INLINE_START` и `INLINE_END` учитывают направление чтения страницы (LTR или RTL).
+|`RIGHT`
+
+|[[sidePanelOverlay]]sidePanelOverlay
+|Определяет, как боковая панель взаимодействует с основным содержимым.
+
+Если `true`, панель перекрывает содержимое, не изменяя его компоновку.
+Если `false`, панель сдвигает содержимое при открытии.
+|`true`
+
+|[[modal]]modal
+|Если `true`, за боковой панелью отображается модальный фон (modal curtain), который блокирует взаимодействие с основным содержимым до закрытия панели.
+|`true`
+
+|[[closeOnOutsideClick]]closeOnOutsideClick
+|Если `true`, щелчок по модальному фону закрывает боковую панель.
+
+Этот атрибут действует только при включённом <<modal,modal>>.
+|`true`
+
+|[[overlayAriaLabel]]overlayAriaLabel
+|Sets the accessible label for the overlay element.
+|–
+
+|[[displayAsOverlayOnSmallDevices]]displayAsOverlayOnSmallDevices
+|Если `true`, на устройствах с маленьким экраном панель отображается как полноэкранное наложение, что улучшает удобство использования на мобильных устройствах.
+|`true`
+
+|[[sidePanelHorizontalSize]]sidePanelHorizontalSize
+|Определяет горизонтальный размер панели, если она расположена слева или справа.
+
+Значение может быть любым допустимым CSS-размером, например `400px`, `30%` или `auto`.
+|`auto`
+
+|[[sidePanelHorizontalMinSize]]sidePanelHorizontalMinSize
+|Определяет минимальный горизонтальный размер панели при расположении слева или справа.
+|–
+
+|[[sidePanelHorizontalMaxSize]]sidePanelHorizontalMaxSize
+|Определяет максимальный горизонтальный размер панели при расположении слева или справа.
+|–
+
+|[[sidePanelVerticalSize]]sidePanelVerticalSize
+|Определяет вертикальный размер панели, если она появляется сверху или снизу.
+|`auto`
+
+|[[sidePanelVerticalMinSize]]sidePanelVerticalMinSize
+|Определяет минимальный вертикальный размер панели.
+|–
+
+|[[sidePanelVerticalMaxSize]]sidePanelVerticalMaxSize
+|Определяет максимальный вертикальный размер панели.
+|–
+|===
+
+== Обработчики
+
+xref:vc/common-handlers.adoc[Общие обработчики] настраиваются одинаково для всех компонентов. Ниже приведены обработчики, специфичные для `sidePanelLayout`.
+
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Имя*
+|*Описание*
+
+|[[ModalityCurtainClickEvent]]ModalityCurtainClickEvent
+|Срабатывает при клике пользователя по модальному фону.
+
+|[[SidePanelBeforeOpenEvent]]SidePanelBeforeOpenEvent
+|Срабатывает перед открытием боковой панели.
+
+|[[SidePanelAfterOpenEvent]]SidePanelAfterOpenEvent
+|Срабатывает после полного открытия панели.
+
+|[[SidePanelCloseEvent]]SidePanelCloseEvent
+|Срабатывает при закрытии боковой панели.
+|===

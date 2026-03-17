@@ -10,6 +10,7 @@
         <button id="customParameterButton" text="Custom Parameter"/>
         <button id="validationButton" text="Custom Validator"/>
         <button id="backgroundTaskButton" text="Background Task"/>
+        <button id="sideDialogButton" text="Side Dialog"/>
         <button id="customParameterRequiredButton" text="Custom Required Parameter"/>
         <button id="customParamRequiredButton" text="Custom Required Parameter"/>
         <button id="configDialogButton" text="Basic Configuration"/>

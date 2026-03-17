@@ -227,6 +227,157 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <2> В валидаторе можно получить значения параметров из объекта контекста.
 <3> Валидатор возвращает ошибки валидации, если параметры не введены.
 
+[[side-dialog]]
+== Side Dialog
+
+Диалог, который появляется с одной из сторон экрана.
+
+image::dialogs/side-dialog.png[align="center", width = 1155]
+
+Диалог можно создать с помощью бина `Dialogs`:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;inject-message-bundle;side-dialog]
+----
+
+=== Расположение и размер
+
+Используйте `withSideDialogPosition()`, чтобы задать сторону появления диалога. Возможные значения: `RIGHT`, `TOP`, `BOTTOM`, `LEFT`, `INLINE_START`, `INLINE_END`.
+`INLINE_START` и `INLINE_END` учитывают направление чтения экрана (LTR/RTL).
+
+Размер диалога настраивается по-разному в зависимости от его ориентации:
+
+Для горизонтальных диалогов (`LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+
+* `setHorizontalSize()`
+* `setHorizontalMaxSize()`
+* `setHorizontalMinSize()`
+
+Для вертикальных диалогов (`TOP`, `BOTTOM`):
+
+* `setVerticalSize()`
+* `setVerticalMaxSize()`
+* `setVerticalMinSize()`
+
+=== Содержимое
+
+Содержимое диалога определяется через провайдеры:
+
+[cols="1h,4", grid=rows]
+|===
+|Метод |Описание
+|`withContentComponents()`
+|Задаёт компоненты для основной области диалога.
+|`withHeaderProvider()`
+|Задаёт пользовательские компоненты для заголовка.
+|`withFooterProvider()`
+|Задаёт пользовательские компоненты для футера.
+|===
+
+=== События
+
+Доступны следующие события:
+
+[cols="1h,4", grid=rows]
+|===
+|Событие |Описание
+|`SideDialogOpenedChangeEvent`
+|Срабатывает при открытии или закрытии диалога.
+|`SideDialogCloseActionEvent`
+|Срабатывает при нажатии `ESC` или клике вне диалога; можно использовать, чтобы отменить закрытие.
+|===
+
+=== Стилизация
+
+Внешний вид и размеры диалога можно настроить с помощью CSS.
+
+==== Размеры
+
+Размер диалога можно задать глобально через CSS-переменные. Эти значения применяются ко всем экземплярам `SideDialog`.
+
+NOTE: Если размеры заданы программно через Java API, они имеют приоритет над CSS.
+
+Горизонтальные размеры (для `LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+
+[cols="2h,3,1", grid=rows]
+|===
+|Переменная |Описание |По умолчанию
+|`--jmix-side-dialog-horizontal-size`
+|Базовая ширина диалога.
+|`auto`
+|`--jmix-side-dialog-horizontal-max-size`
+|Максимальная ширина.
+|`50%`
+|`--jmix-side-dialog-horizontal-min-size`
+|Минимальная ширина.
+|`16em`
+|===
+
+Вертикальные размеры (для `TOP`, `BOTTOM`):
+
+[cols="2h,3,1", grid=rows]
+|===
+|Переменная |Описание |По умолчанию
+|`--jmix-side-dialog-vertical-size`
+|Базовая высота диалога.
+|`auto`
+|`--jmix-side-dialog-vertical-max-size`
+|Максимальная высота.
+|`50vh`
+|`--jmix-side-dialog-vertical-min-size`
+|Минимальная высота.
+|`16em`
+|===
+
+==== Внешний вид
+
+[cols="2h,3,1", grid=rows]
+|===
+|Переменная |Описание |По умолчанию
+|`--jmix-side-dialog-transition-duration`
+|Длительность анимации открытия и закрытия.
+|`200ms`
+|===
+
+==== Части
+
+Side dialog включает следующие xref:themes/styling-ui-components.adoc#stylable-parts[стилизируемые части]:
+
+[cols="2h,3", grid=rows]
+|===
+|Часть |Описание
+|`jmix-side-dialog-overlay::part(backdrop)`
+|Модальный фон (затемнение за диалогом).
+|`jmix-side-dialog-overlay::part(overlay)`
+|Основной контейнер диалога.
+|`jmix-side-dialog-overlay::part(header)`
+|Заголовок диалога.
+|`jmix-side-dialog-overlay::part(title)`
+|Обёртка заголовка.
+|`jmix-side-dialog-overlay > [slot="title"]`
+|Элемент заголовка.
+|`jmix-side-dialog-overlay::part(header-content)`
+|Контейнер пользовательского заголовка.
+|`jmix-side-dialog-overlay::part(content)`
+|Основная область содержимого.
+|`jmix-side-dialog-overlay::part(footer)`
+|Нижняя часть диалога.
+|===
+
+==== Состояния
+
+Side dialog поддерживает следующие xref:themes/styling-ui-components.adoc#component-states[состояния]:
+
+[cols="2h,3", grid=rows]
+|===
+|Состояние |Описание
+|`jmix-side-dialog-overlay[side-dialog-position='right']`
+|Применяется в зависимости от позиции диалога (например, `left`, `top`, `bottom`)
+|`jmix-side-dialog-overlay[fullscreen]`
+|Применяется, когда диалог отображается в полноэкранном режиме
+|===
+
 [[dialog-configuration]]
 == Настройка диалогов
 
