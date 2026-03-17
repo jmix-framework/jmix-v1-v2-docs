@@ -282,6 +282,9 @@ At this point, the view XML should appear as shown below:
             </loader>
         </collection>
     </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
     <layout>
         <entityPicker id="currentLocationField"
                       metaClass="Location"
