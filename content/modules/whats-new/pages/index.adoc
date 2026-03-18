@@ -16,6 +16,7 @@ See xref:studio:project.adoc#upgrading-project[Upgrading Project] section for ho
 
 * Updates the version of Jmix BOM which in turn defines versions of all dependencies.
 * Updates the version of Jmix Gradle plugin.
+* Updates Gradle wrapper to 8.14.4
 
 See also the full list of <<breaking-changes,breaking changes>> that can affect your project after the upgrade.
 
