@@ -199,6 +199,25 @@ public class MySettingsFacet implements SettingsFacet<MyUiComponentSettings>
 
 For more details, see the corresponding issue: https://github.com/jmix-framework/jmix/issues/4185[#4185^].
 
+[[deprecated-get-icon-methods]]
+=== Deprecated `getIcon()` methods that return `Icon`
+
+This release adds the `Icons` bean to support <<override-default-icons, overriding default icons>>. When resolving XML icon attributes, the bean treats values without a collection name as font icons and produces a `FontIcon`; values that include a collection name produce an `Icon`. For example:
+
+* `icon="CHECK"` creates a `FontIcon` component,
+* `icon="vaadin:check"` creates an `Icon` component.
+
+Because of this, components with a `getIcon()` method that returns an `Icon` are deprecated. If you declare the icon without a collection name such methods will return `null`. Use `getIconComponent()` to obtain the actual icon component in all cases.
+
+[[view-routes]]
+=== View Routes
+
+Routes of all views provided by the Jmix subsystems are changed to kebab-case. For example: `sec/resourcerolemodels` -> `sec/resource-role-models`. For backward compatibility, old routes are defined as aliases, so all saved external links should work.
+
+If you have overridden a framework view and copied the `@Route` annotation to your view class, remove it. Otherwise, the view will fail to register and the application won't start.
+
+See https://github.com/jmix-framework/jmix/issues/4841[#4841^] for more information.
+
 [[role-scopes-in-oidc-and-authorization-server]]
 === Role Scopes in OIDC and Authorization Server
 
@@ -243,16 +262,6 @@ Do not use `main.liquibase.clear-checksums=true` for subsequent launches.
 ----
 
 See https://github.com/jmix-framework/jmix/issues/4838[#4838^] for more information.
-
-[[deprecated-get-icon-methods]]
-=== Deprecated `getIcon()` methods that return `Icon`
-
-This release adds the `Icons` bean to support <<override-default-icons, overriding default icons>>. When resolving XML icon attributes, the bean treats values without a collection name as font icons and produces a `FontIcon`; values that include a collection name produce an `Icon`. For example:
-
-* `icon="CHECK"` creates a `FontIcon` component,
-* `icon="vaadin:check"` creates an `Icon` component.
-
-Because of this, components with a `getIcon()` method that returns an `Icon` are deprecated. If you declare the icon without a collection name such methods will return `null`. Use `getIconComponent()` to obtain the actual icon component in all cases.
 
 [[changelog]]
 == Changelog
