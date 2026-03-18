@@ -21,17 +21,6 @@
 
 xref:studio:data-stores.adoc[Редактор хранилищ данных] в Studio автоматически настраивает свойства подключения и добавляет соответствующий JDBC-драйвер в список зависимостей в `build.gradle`.
 
-[IMPORTANT]
-====
-При использовании MariaDB с Jmix 2.4 - 2.6 понизьте версию Liquibase, добавив следующий код в ваш `build.gradle`:
-
-[source,groovy]
-----
-implementation 'org.liquibase:liquibase-core:4.25.0!!'
-----
-Подробнее см. в тикете https://github.com/jmix-framework/jmix/issues/3888[#3888^].
-====
-
 Если вам необходимо подключить реляционную базу данных, не поддерживаемую в Jmix из коробки, следуйте инструкциям в разделе xref:studio:data-stores.adoc#unsupported-database[Studio: Подключение к неподдерживаемым базам данных].
 
 Нереляционная база данных может быть использована путем создания <<custom, нестандартного хранилища>> или напрямую, как описано в руководстве xref:mongodb-integration-guide:index.adoc[].
