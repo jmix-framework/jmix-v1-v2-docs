@@ -21,17 +21,6 @@ The following databases are supported in Jmix out-of-the-box:
 
 The xref:studio:data-stores.adoc[data store editor] in Studio automatically configures connection properties and adds an appropriate JDBC driver to the list of dependencies in `build.gradle`.
 
-[IMPORTANT]
-====
-When using MariaDB with Jmix 2.4 - 2.6, downgrade Liquibase by adding the following code to your `build.gradle`:
-
-[source,groovy]
-----
-implementation 'org.liquibase:liquibase-core:4.25.0!!'
-----
-See issue https://github.com/jmix-framework/jmix/issues/3888[#3888^] for more information.
-====
-
 If you need to connect a relational database not supported in Jmix out-of-the-box, follow the instructions in the xref:studio:data-stores.adoc#unsupported-database[Studio: Connecting to Unsupported Databases] section.
 
 A non-relational database can be used by creating a <<custom, custom data store>> or directly as described in the xref:mongodb-integration-guide:index.adoc[] guide.
