@@ -37,7 +37,7 @@ xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth]
 |
 |*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#css[css] -
 <<sidePanelOverlay,sidePanelOverlay>> -
-<<sidePanelPosition,sidePanelPosition>> -
+<<sidePanelPosition,sidePanelPosition>>
 |
 |*Other:* <<closeOnOutsideClick,closeOnOutsideClick>> -
 <<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
