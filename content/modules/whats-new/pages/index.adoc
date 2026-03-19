@@ -93,6 +93,13 @@ You can now override icons across your entire application. The new `JmixFontIcon
 
 See xref:flow-ui:icons/override-icons.adoc[] for details.
 
+[[tracing]]
+=== Tracing
+
+Jmix now uses Micrometer Observation API to create spans for framework operations, such as data access, UI view and fragment lifecycle, UI actions. Jmix can also enrich observations with the current user and tenant context.
+
+See xref:features:observability.adoc#tracing[Observability: Tracing] for details.
+
 [[h2-database]]
 === Support for H2 Database (Experimental)
 
