@@ -1,0 +1,186 @@
+= Наблюдаемость
+
+Наблюдаемость (observability) — это способность понимать поведение приложения с помощью трех типов сигналов: логов, метрик и трейсов. Вместе они помогают исследовать сбои, анализировать производительность и понимать, как запросы перемещаются по системе.
+
+Jmix не вводит собственную модель наблюдаемости. Вместо этого он использует стандартную экосистему Spring Boot, в первую очередь Spring Boot Actuator, Micrometer и Micrometer Observation / Tracing.
+
+Наблюдаемость отличается от xref:audit:index.adoc[Аудита]. Аудит используется для отслеживания того, кто и когда изменил бизнес-данные. Наблюдаемость используется для анализа поведения приложения во время выполнения, производительности, сбоев и потока запросов.
+
+[[logging]]
+== Логирование
+
+Логи — это самый простой способ наблюдения за работающим приложением. Они полезны для поиска и устранения неисправностей, диагностики и расследования ошибок.
+
+В приложениях Jmix логирование настраивается так же, как и в Spring Boot. Уровни логирования обычно задаются в `application.properties`, глобально или для отдельных пакетов и классов. Например:
+
+[source,properties]
+.application.properties
+----
+logging.level.eclipselink.logging.sql=debug
+logging.level.io.jmix=debug
+logging.level.org.springframework=info
+----
+
+Эти настройки могут помочь сфокусироваться на конкретной части системы. Например, `eclipselink.logging.sql` показывает сгенерированный SQL, а `io.jmix` включает отладочный вывод для кода фреймворка Jmix.
+
+Используйте уровень логирования `DEBUG` в продакшене с осторожностью. Он часто полезен для кратковременного решения проблем, но его постоянное включение может привести к чрезмерному объему вывода и повлиять на производительность.
+
+Для получения подробной информации о настройке логирования и централизованном сборе логов обратитесь к следующим руководствам:
+
+* xref:application-logging-guide:index.adoc[]
+* xref:observability-logging-guide:index.adoc[]
+
+[[metrics-and-monitoring]]
+== Метрики и мониторинг
+
+Метрики — это числовые измерения, собираемые с течением времени. Они используются для наблюдения за пропускной способностью, задержками, частотой ошибок, потреблением ресурсов, а также внутренней активностью фреймворка и приложения. Мониторинг — это процесс сбора, хранения, визуализации и оповещения на основе этих метрик.
+
+Типичное приложение Spring Boot предоставляет метрики через Actuator и Micrometer. Эти метрики обычно включают данные о памяти и сборке мусора JVM, загрузке ЦП и процессах, пулах потоков, HTTP-запросах к серверу, пулах соединений с базами данных.
+
+Jmix добавляет метрики времени выполнения (таймеры) для важных операций фреймворка. Эти метрики записываются через `MeterRegistry` Micrometer.
+
+Jmix предоставляет стандартный bean `MeterRegistry`, а экспорт метрик зависит от конфигурации Spring Boot Actuator и реестра Micrometer.
+
+.Имена метрик и теги
+[cols="1,2,3"]
+|===
+|Имя |Теги |Описание
+
+|`jmix.ui.views`
+|`view`, `lifeCycle`
+|Длительность этапов жизненного цикла экрана UI (например, создание/показ/закрытие) для каждого экрана.
+
+|`jmix.ui.data`
+|`dataLoader`, `view`, `lifeCycle`
+|Длительность этапов жизненного цикла загрузчика данных внутри конкретного экрана.
+
+|`jmix.EmailSender.send`
+|Нет пользовательских тегов
+|Время, затраченное на отправку email-сообщения через почтовый отправитель фреймворка.
+
+|`jmix.JavaClassLoader.loadClass`
+|Нет пользовательских тегов
+|Время, затраченное на разрешение/загрузку Java-класса динамическим загрузчиком классов.
+|===
+
+Значения жизненного цикла UI включают:
+
+* Жизненный цикл экрана: `create`, `load`, `inject`, `init`, `beforeShow`, `ready`, `beforeClose`, `afterClose`
+* Жизненный цикл загрузчика данных: `preLoad`, `load`, `postLoad`
+
+Для типичной настройки мониторинга добавьте Spring Boot Actuator и реестр Micrometer для используемой в вашей инфраструктуре системы мониторинга. Например, чтобы предоставить метрики, совместимые с Prometheus, добавьте следующие зависимости:
+
+[source,groovy]
+.build.gradle
+----
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+implementation 'io.micrometer:micrometer-registry-prometheus'
+----
+
+Затем откройте эндпойнт Prometheus в приложении:
+
+[source,properties]
+.application.properties
+----
+management.endpoints.web.exposure.include=*
+management.endpoints.prometheus.enabled=true
+----
+
+После этого Prometheus сможет опрашивать эндпойнт `/actuator/prometheus`. В продакшене старайтесь, чтобы список открытых управляющих эндпойнтов был как можно меньше.
+
+Для получения дополнительной информации смотрите:
+
+* {spring-boot-doc}/reference/actuator/metrics.html[Spring Boot Actuator Metrics^]
+* {spring-boot-doc}/reference/actuator/observability.html[Spring Boot Observability^]
+* https://docs.micrometer.io/micrometer/reference/concepts/meters.html[Micrometer Meters^]
+
+[[tracing]]
+== Трассировка
+
+Трассировка (tracing) показывает, как запрос или операция перемещаются внутри приложения. Она помогает выявлять задержки, сбои и зависимости между компонентами. Трассировка становится особенно полезной, когда в обработке запроса участвуют несколько сервисов или уровней инфраструктуры.
+
+В типичной настройке трассировки приложение создает спаны (spans) для важных операций, передает контекст трассировки между сервисами и отправляет данные трассировки в систему-получатель для хранения и анализа. Идентификаторы трассировки также могут добавляться в логи для корреляции записей логов с трейсами.
+
+Jmix использует API Micrometer Observation для создания спанов для операций фреймворка. Встроенная трассировка охватывает следующие области:
+
+* Операции доступа к данным, такие как загрузка, подсчет и сохранение
+* События жизненного цикла экранов UI
+* События жизненного цикла фрагментов UI
+* Выполнение действий UI
+
+Jmix также может обогащать наблюдения (observations) контекстом текущего пользователя и арендатора (tenant).
+
+Чтобы включить трассировку в Jmix, установите следующие свойства:
+
+[source,properties]
+----
+jmix.core.data-observation-enabled=true
+jmix.ui.ui-observation-enabled=true
+----
+
+Чтобы включить информацию о текущем пользователе в атрибуты наблюдения, используйте:
+
+[source,properties]
+----
+jmix.core.use-user-info-for-observation=true
+----
+
+Свойство `jmix.core.use-user-info-for-observation` включено по умолчанию. Отключите его, если данные о пользователе или арендаторе не должны добавляться в наблюдения.
+
+.Имена спанов и атрибуты
+[cols="1,2,3"]
+|===
+|Имя |Ключевые атрибуты |Описание
+
+|`jmix.data.load`
+|`method`, `entity.name`; может включать `jpql.query`, `jpql.parameters`, `properties`
+|Операции чтения данных, выполняемые фреймворком (загрузка сущностей/значений и подсчет).
+
+|`jmix.data.save`
+|`method`, `dataStore`; может включать `entitiesToSave.count`, `entitiesToRemove.count`
+|Операции записи данных, выполняемые фреймворком при сохранении/удалении сущностей.
+
+|`jmix.ui.views`
+|`lifecycle.name`, `view.id`, `view.class`
+|События жизненного цикла экранов UI, представленные как спаны трассировки/наблюдения.
+
+|`jmix.ui.fragments`
+|`lifecycle.name`, `fragment.class`, опционально `fragment.id`
+|События жизненного цикла создания/готовности фрагментов UI, представленные как спаны.
+
+|`jmix.ui.actions`
+|`action.id`, опционально `target.id`
+|Выполнение действий UI (например, действия кнопок/меню), представленное как спаны.
+|===
+
+Когда обогащение контекста включено, наблюдения также могут включать:
+
+* `jmix.user.username`
+* `jmix.user.tenantId` в конфигурациях xref:multitenancy:index.adoc[мультиарендности]
+
+Для включения трассировки добавьте в приложение мост Micrometer Tracing и экспортер. Spring Boot Actuator затем сконфигурирует бин `ObservationRegistry` и свяжет его с трассировкой. Типичная настройка для приложения Jmix выглядит так:
+
+[source,groovy]
+.build.gradle
+----
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+----
+
+[source,properties]
+.application.properties
+----
+management.tracing.sampling.probability=1.0
+management.otlp.tracing.export.enabled=true
+management.otlp.tracing.endpoint=http://localhost:4318/v1/traces
+----
+
+Когда приложение выполняет исходящие HTTP-вызовы, создавайте клиенты из автоматически сконфигурированных `RestTemplateBuilder` или `RestClient.Builder`, чтобы заголовки трассировки добавлялись в запросы автоматически.
+
+Для получения дополнительной информации смотрите:
+
+* {spring-boot-doc}/reference/actuator/tracing.html[Spring Boot Tracing^]
+* {spring-boot-doc}/reference/actuator/observability.html[Spring Boot Observability^]
+* https://docs.micrometer.io/micrometer/reference/observation.html[Micrometer Observation^]
+* https://docs.micrometer.io/tracing/reference/index.html[Micrometer Tracing^]
