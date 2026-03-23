@@ -22,6 +22,8 @@ image::project-setup/create-project-1.png[align="center",width="912"]
 
 image::project-setup/create-project-2.png[align="center",width="914"]
 
+NOTE: Репозиторий *Jmix at nexus.jmix.io* является предпочтительным для пользователей в РФ.
+
 В поле *Project JDK* выберите JDK версии 17 или 21. Если в поле отображается `<No SDK>`, выберите *Download JDK* в выпадающем списке и следуйте дальнейшим инструкциям, чтобы загрузить JDK.
 
 Нажмите *Next*.
