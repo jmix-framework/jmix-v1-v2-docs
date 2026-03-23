@@ -118,6 +118,14 @@ Jmix now uses Micrometer Observation API to create spans for framework operation
 
 See xref:features:observability.adoc#tracing[Observability: Tracing] for details.
 
+[[business-calendar-day-marks]]
+=== Business Calendar: Day Marks
+
+Previously, the xref:business-calendar:index.adoc[] add-on only allowed adding descriptions to holidays. Now you can add a *mark* to any calendar entry. This makes it easier to categorize days and indicate why a date may have different working hours. New API methods are available to retrieve information about a specified day, including its assigned mark.
+
+See xref:business-calendar:creating.adoc[] for details.
+
+
 [[h2-database]]
 === Support for H2 Database (Experimental)
 

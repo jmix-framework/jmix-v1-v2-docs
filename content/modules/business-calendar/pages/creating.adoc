@@ -5,58 +5,41 @@ You can create business calendars both at <<business-calendars-runtime,runtime>>
 [[business-calendars-runtime]]
 == Creating Business Calendar at Runtime
 
-After the add-on is installed, use the main menu to open the *Business calendars* list view.
+After installing the add-on, open the *Business calendars* list view from the main menu.
 
 image::business-calendar-list.png[align="center" width="1392"]
 
-When on this page, click the *Create* button to open the *Business calendar editor*.
+Click *Create* to open the *Business calendar editor*.
 
 image::business-calendar-editor.png[align="center" width="1392"]
 
-Specify the following parameters:
+Provide these values:
 
-* *Name* – human-readable description of the given calendar.
-* *Code* – unique identifier of the given calendar.
+* *Name* – a human-readable description of the calendar.
+* *Code* – a unique identifier for the calendar.
 
-The next step is to define working days and hours while excluding non-working time, such as holidays, vacations, or any other time off work. For this, use the editor's tabs described below.
+Use the tabs in the editor to configure working days and hours, excluding non-working time such as holidays, vacations, and other time off.
+
+NOTE: Each calendar entry may include *Mark* — a value that can be used for categorization and to indicate why a day or time has different working hours. The mark is returned by the `getDayInfo()` methods.
 
 === Holidays
 
 On the *Holidays* tab, click *Create* to add holidays and weekends.
 
-image::business-calendar-holidays.png[align="center" width="1392"]
+Supported holiday types:
 
-The add-on supports the following types of holidays:
-
-* *Day of week* – allows to set holidays on certain days of week. For example, for many people, the standard weekend is Saturday and Sunday:
-+
-image::business-calendar-day-of-week.png[align="center" width="484"]
-
-* *Specific date holiday* – allows to set a holiday on an exact date. For example, some holidays fall on a different day every year to allow people a long weekend:
-+
-image::business-calendar-specific-date-holiday.png[align="center" width="484"]
-
-* *Annual holiday* – allows to schedule recurring holidays that are celebrated on the same day every year, such as _New Year's Day_.
-+
-image::business-calendar-annual-holiday.png[align="center" width="484"]
-
-* *Cron-based holiday* – allows specifying holidays in the quartz CRON format. See http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron trigger tutorial^] for more information.
-+
-image::business-calendar-cron-holiday.png[align="center" width="484"]
-+
-It can help add some nontrivial holidays, like the _Third Friday of every month_ or the _First Monday of July_.
+* *Day of week* – marks selected weekdays as holidays. For example, Saturday and Sunday can be set as weekends.
+* *Specific date holiday* – marks an exact date as a holiday.
+* *Annual holiday* – marks a holiday that recurs on the same date every year, such as _New Year's Day_.
+* *Cron-based holiday* – defines holidays using quartz CRON format. This is useful for more complex rules, such as the _Third Friday of every month_ or the _First Monday of July_.
 
 === Working Schedule
 
-On the *Working schedule* tab, you can specify working hours for each day of the week. There can be several working periods per day, but they should not overlap.
-
-image::working-schedule-editor.png[align="center" width="1392"]
+On the *Working schedule* tab, set working hours for each day of the week. A day can contain multiple working periods, but they must not overlap.
 
 === Additional Business Days
 
-On the *Additional business days* tab, you can set days that you want to always be treated as business days. If such a date coincides with a holiday, it will still be a workday. There is an option to set different working hours.
-
-image::additional-business-day-editor.png[align="center" width="1392"]
+On the *Additional business days* tab, define dates that must always be treated as business days. If one of these dates falls on a holiday, it is still considered a workday. You can also assign different working hours to it.
 
 [[business-calendars-design-time]]
 == Creating Business Calendar at Design Time
@@ -68,16 +51,18 @@ Use an annotated Java interface to create a business calendar at design time. Fo
 include::example$/calendars-ex1/src/main/java/com/company/calendarsex1/calendars/SampleBusinessCalendar.java[tags=business-calendar]
 ----
 
-<1> Annotated business calendar is an interface annotated with the `@BusinessCalendar` annotation. You should specify the following parameters for the `@BusinessCalendar` annotation:
+<1> Design-time business calendar is a Java interface annotated with `@BusinessCalendar`. This annotation requires two parameters:
++
 * `name` – a human-readable description of a given calendar;
 * `code` – a unique identifier of a given calendar.
-<2> Specify holiday in the quartz CRON format.
-<3> Specify holiday for days of the week.
-<4> Specify holiday for a specific date.
-<5> Specify holiday for an annually recurring date.
-<6> Specify scheduled business days.
-<7> Specify additional business days.
++
+<2> `@CronHoliday` defines holidays using Quartz CRON expressions. Useful for complex or recurring patterns. Use `mark` as a short tag. Add `description` to provide a human-readable explanation.
+<3> `@WeeklyHoliday` defines specific days of the week as holidays (e.g., weekends). Use `mark` as a short tag. Add `description` to provide a human-readable explanation.
+<4> `@FixedDayHoliday` defines holidays for specific dates. Use `mark` as a short tag. Add `description` to provide a human-readable explanation.
+<5> `@FixedYearlyHoliday` defines holiday that recur annually on the same date. Use `mark` as a short tag. Add `description` to provide a human-readable explanation.
+<6> `@ScheduledBusinessDay` sets regular working days, including start and end times. Use `mark` as a short tag.
+<7> `AdditionalBusinessDay` adds working days outside the regular schedule (e.g., shifted workdays). Use `mark` as a short tag.
 
-A business calendar created at design time is displayed in the list of all business calendars and is available only for viewing.
+NOTE: A business calendar created at design time is displayed in the list of all business calendars but cannot be edited.
 
 image::business-calendars.gif[align="center" width="1282"]

@@ -4,13 +4,15 @@
 
 `BusinessCalendarRepository` defines convenient methods to fetch business calendars configured in the system.
 
-* The `getBusinessCalendarByCode()` method returns the business calendar with the provided code.
-* The `getAllBusinessCalendars()` method returns all business calendars configured in the system.
+* `getBusinessCalendarByCode(String code)` returns the business calendar identified by the specified code.
+* `getAllBusinessCalendars()` returns all configured business calendars.
 
 == BusinessCalendar
 
-`BusinessCalendar` provides methods for checking if a given date and time is within working hours, and for arithmetic operations with date and time considering the business hours defined by the calendar:
+`BusinessCalendar` provides methods for checking if a given date or time falls within working hours, and for arithmetic operations with date and time considering the business hours defined by the calendar:
 
+* `getDayInfo(LocalDate date)` returns information about the specified date, including whether it is a business day and the mark assigned to that day.
+* `getDayInfo(LocalDateTime dateTime)` returns information about the specified date and time, including whether it falls within business hours and the mark assigned to that day.
 * `isBusinessDay(LocalDate date)` checks if the provided date is a business day.
 * `isBusinessTime(LocalDateTime dateTime)` checks if the provided date and time belong to business time.
 * `plus(LocalDate date, int daysToAdd)` returns a copy of the provided date with the specified number of business days added.
@@ -19,5 +21,3 @@
 * `minus(LocalDateTime dateTime, int hoursToSubtract)` returns a copy of the provided date and time with the specified number of business hours subtracted.
 * `plus(LocalDateTime dateTime, Duration duration)` returns a copy of the provided date-time with the specified duration of working time added.
 * `minus(LocalDateTime dateTime, Duration duration)` returns a copy of the provided date-time with the specified duration of working time subtracted.
-
-
