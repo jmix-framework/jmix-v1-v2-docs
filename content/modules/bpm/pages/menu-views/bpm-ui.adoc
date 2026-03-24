@@ -1,25 +1,47 @@
 = User Interface
 
-After installing the add-on, a new *BPM* section appears in the main menu.
-
-image::bpm-menu-views/bpm-main menu.png[,250]
-
-See the respective article to learn about each view:
-
-* xref:menu-views/start-process-view.adoc[Start process]
-* xref:menu-views/my-tasks.adoc[My tasks]
-* xref:menu-views/modeler-web.adoc[Modeler]
-* xref:menu-views/process-definitions.adoc[Process definitions]
-* xref:menu-views/process-instances.adoc[Process instances]
-* xref:menu-views/user-groups.adoc[User groups]
-* xref:menu-views/user-tasks.adoc[User tasks]
-* xref:menu-views/decision-tables.adoc[Decision tables]
-* xref:menu-views/decision-table-modeler.adoc[Decision table modeler]
+After installing the add-on, a new *BPM* section appears in the main menu. Here is a short description for each view.
 
 [NOTE]
 ====
-To access these views, users must be granted appropriate roles:
+To access the views, users must be granted appropriate xref:security:resource-roles.adoc[]:
 
-* *BPM: process actor* -- to access the xref:menu-views/start-process-view.adoc[Start process] and xref:menu-views/my-tasks.adoc[My tasks] views.
-* *BPM: administrator* -- to access all views.
+* *BPM: process actor* – grants access to xref:menu-views/start-process-view.adoc[Start process] and xref:menu-views/my-tasks.adoc[My tasks] allowing users to start processes and work with their assigned tasks.
+* *BPM: administrator* – grants full access to all BPM views and management features.
 ====
+
+[cols="1,4", options="header", grid="none"]
+|===
+| View | Description
+
+| xref:menu-views/start-process-view.adoc[Start process]
+| Starts a new process instance based on available process definitions.
+
+| xref:menu-views/my-tasks.adoc[My tasks]
+| Displays tasks assigned to the current user and allows managing and completing them.
+
+| xref:menu-views/modeler-web.adoc[Modeler]
+| Provides a web-based BPMN editor for creating and modifying process diagrams.
+
+|xref:menu-views/process-drafts.adoc[]
+| Lists all available process drafts and shows a preview for each.
+
+| xref:menu-views/process-definitions.adoc[Process definitions]
+| Lists deployed process definitions and details for each.
+
+| xref:menu-views/process-instances.adoc[Process instances]
+| Shows running and completed process instances with their current state.
+
+| xref:menu-views/user-groups.adoc[User groups]
+| Manages user groups used for task assignment and access control.
+
+| xref:menu-views/user-tasks.adoc[User tasks]
+| Provides an overview of all user tasks across processes.
+
+| xref:menu-views/decision-tables.adoc[Decision tables]
+| Displays available decision tables used in process logic.
+
+| xref:menu-views/decision-table-modeler.adoc[Decision table modeler]
+| Allows creating and editing decision tables.
+
+|===

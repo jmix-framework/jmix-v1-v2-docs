@@ -1,42 +1,49 @@
 = Process Instances
 
-The *Process Instances* view displays a list of active and completed process instances. Use the *Completion State* field in the filter to switch between statuses.
+The *Process Instances* view displays a list of active and completed process instances.
 
 image::bpm-menu-views/process-instances-list.png[,800]
 
-By selecting an instance from the list, you can navigate to the *Process Instance Detail* view for more information about the instance.
+[[process-instance-list]]
+== Instance List Features
 
-[[process_instance_detail]]
+The following actions are available:
+
+* *Filtering instances* — Filter instances by process definitions, business key, or completion state (`Active` or `Completed`).
+* *Sorting instances* – Sort the list by *Start time* or *End time* or other table columns.
+* *Editing instance* – Select an instance in the list and click *Edit* to open the **Process instance detail** view.
+
+
+[[process-instance-detail]]
 == Process Instance Detail
 
-The *Process Instance Detail* view provides details about the process instance and allows you to perform various actions.
+The **Process instance detail** view shows detailed information about a selected process instance and allows you to manage it.
 
 image::bpm-menu-views/process-instance-detail.png[,800]
 
-* Click *Migrate* to xref:bpm:instance-migration.adoc[initiate migration] to a newer version of the process definition.
+The following actions are available:
 
-* Use the *Suspend* and *Delete* buttons to pause or remove the instance, respectively.
+* *Migrate* — initiates xref:bpm:instance-migration.adoc[migration of the process instance] to a newer version of the process definition.
+* *Suspend* – suspends the process instance.
+* *Delete* — permanently deletes the process instance.
+* *Runtime tab* — displays runtime information about the instance:
+** *Execution tree* — shows activities in the process instance as a tree.
+** *Variables tab* — allows creating, editing, and deleting process variables.
++
+image::bpm-menu-views/process-variable-editor.png[width=1204]
++
+** *Tasks tab* — displays active tasks and allows *reassigning* them to other users.
++
+image::bpm-menu-views/task-reassignment.png[width=1204]
++
+** *Failed jobs tab* — lists jobs that encountered errors, provides stack traces, and allows retrying them after resolving issues.
++
+image::bpm-menu-views/failed-job.png[width=1204]
++
+* *History tab* — shows all user tasks (active and completed), activities, and the latest values of process variables.
++
+image::bpm-menu-views/process-instance-history.png[width=986]
 
-* The *Runtime* tab (available only for active processes) contains information about the process state, including the execution tree, variable values, active user tasks, and any tasks that have failed.
-
-* Selecting elements in the execution tree updates the contents of the *Variables* and *Tasks* tabs, displaying only the objects related to the selected element.
-
-* In the *Variables* tab, you can create, modify, or delete process variables.
+* *Diagram tab* — visualizes the process diagram and highlights the currently active node. Supports panning and zooming.
 +
-image::bpm-menu-views/process-variable-editor.png[,900]
-+
-* The *Tasks* tab allows you to view the list of active tasks and reassign them to other users.
-+
-image::bpm-menu-views/task-reassignment.png[,900]
-+
-* The *Failed Jobs* tab contains a list of jobs that have encountered errors. For example, if a service task method throws an exception, that task will appear in the list of failed jobs. The UI allows you to view the exception stack trace and recover the failed job after resolving the issue.
-+
-image::bpm-menu-views/failed-job.png[,900]
-+
-* The *History* tab lists all user tasks (both completed and active), a complete record of actions taken, and the latest values of process variables. This tab is available for both active and completed process instances.
-+
-image::bpm-menu-views/process-instance-history.png[,900]
-+
-* The *Diagram* tab displays the process model. The active node is highlighted to indicate the current stage of execution.
-+
-image::bpm-menu-views/process-instance-diagram.png[,900]
+image::bpm-menu-views/process-instance-diagram.png[width=989]

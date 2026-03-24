@@ -1,35 +1,23 @@
 = Modeler
 
-The modeler view allows users to create and edit process models within the running application.
+The *Modeler* view provides a canvas for creating and editing BPMN process diagrams at runtime.
 
-image::bpm-menu-views/web-modeler.png[,800]
+image::bpm-menu-views/modeler-view.png[width=1392]
 
-* In the center, there is a canvas for modeling processes, with a BPMN element palette on the left. To add a new element, drag it from the palette onto the canvas.
+== Modeler Features
 
-* The properties panel on the right displays the properties of the process or the selected element.
+The following actions are available:
 
-* The toolbar contains actions for deploying the process, managing drafts, and importing or exporting models in XML format.
-
-[[model-drafts]]
-== Model Drafts
-
-Use the *Save Draft* button to save the model you want to edit later.
-
-image::bpm-menu-views/save-draft.png[,800]
-
-To open a draft, click the *Open Draft* button and select the model.
-
-image::bpm-menu-views/open-draft.png[]
-
-== Importing and Exporting Models
-
-To export a model, click the *Download* button. The XML model will be saved in a file with the `.bpmn20.xml` extension, using the process id as the file name.
-
-To import a model, click the *Upload* button and select the file. The imported model can be edited, deployed, or saved as a draft.
-
+* *Drag-and-drop* – Drag BPMN elements from the palette at the left to add them to the canvas.
+* *View properties* – Click the canvas to display process properties or click an element to display its properties; both are editable in the right panel.
+* *Deploy process* – Click image:quick-start/deploy-process-button.png[width="32"] to deploy the current process. Redeploying creates a newer version of the corresponding process definition.
+* *Open process draft* – Click image:quick-start/open-draft-button.png[width="32"] to open the xref:menu-views/process-drafts.adoc[] lookup view to browse and open saved drafts.
+* *Save draft* – Click image:quick-start/save-draft-button.png[width="32"] to save process as draft.
+* *Export* – Export the current process as a `.bpmn20.xml` file.
+* *Import* – Import a process from a `.bpmn` or `.bpmn20.xml` file.
++
 [IMPORTANT]
+.Exporting and importing models from other tools
 ====
-BPMN models created in third-party tools may not be compatible with Jmix BPM.
-
-Conversely, models created in Jmix BPM may have limitations in third-party tools: components specific to Jmix, such as the Entity Data task and Email Sending task, will be represented as standard Service Tasks. However, they will retain their properties.
+BPMN models created in third-party tools may not be fully compatible with Jmix BPM. Similarly, models created in Jmix BPM may have limitations in third-party tools; Jmix-specific elements (for example, xref:bpmn/jmix-entity-data-task.adoc[] and xref:bpmn/jmix-email-task.adoc[]), will appear as standard Service Task in other tools but retain their properties.
 ====
