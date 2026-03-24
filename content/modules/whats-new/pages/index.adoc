@@ -26,12 +26,34 @@ See also the full list of <<breaking-changes,breaking changes>> that can affect 
 [[studio-improvements]]
 === Studio Improvements
 
-[[env-support]]
-==== Environment Variables Support with .env Files
+[[additional-message-bundles]]
+==== Additional Message Bundles
 
-Jmix Studio now supports using `.env` files to externalize configuration. You can store environment-specific variables separately from `application.properties` and use them with placeholders like `++${DB_URL}++`.
+If you define xref:localization:message-bundles.adoc#additional-bundles[additional message bundles] in your project, Studio now allows you to select a bundle when editing a message in the *Localized Message* dialog.
+
+[[env-files]]
+==== Environment Variables in .env Files
+
+Studio now supports using `.env` files to externalize configuration. You can store environment-specific variables separately from `application.properties` and use them with placeholders like `++${DB_URL}++`.
 
 See the xref:studio:external-config-with-env.adoc[] section for details.
+
+[[business-calendar-day-marks]]
+=== Day Marks in Business Calendar
+
+Previously, the xref:business-calendar:index.adoc[] add-on only allowed adding descriptions to holidays. Now you can add a *mark* to any calendar entry. This makes it easier to categorize days and indicate why a date may have different working hours. New API methods are available to retrieve information about a specified day, including its assigned mark.
+
+See xref:business-calendar:creating.adoc[] for details.
+
+[[dynamic-attributes-process-forms]]
+=== Dynamic Attributes in Process Forms
+
+In the BPM add-on, dynamic attributes can now be loaded and displayed in process forms based on Jmix views. You can enable this behavior with the `@ProcessVariableParam` annotation. See xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes] for details.
+
+[[data-model-visualization]]
+=== Data Model Visualization
+
+The xref:data-tools:index.adoc[] add-on now includes a xref:data-tools:data-model.adoc[] view to show entities and their attributes in the running application. Additionally, the view lets you create a data model diagram (for all entities or a chosen subset) using a public or self-hosted PlantUML server.
 
 [[element-collections]]
 === Support for Element Collections
@@ -47,16 +69,6 @@ Element collection attributes can be used in the xref:flow-ui:vc/components/gene
 To create an element collection attribute in Studio, select `ELEMENT_COLLECTION` in the *Attribute type* dropdown of the *New Attribute* dialog.
 
 See also https://github.com/jmix-framework/jmix/issues/1271[#1271^].
-
-[[data-model-visualization]]
-=== Data Model Visualization in Data Tools
-
-The xref:data-tools:index.adoc[] add-on now includes a xref:data-tools:data-model.adoc[] view to show entities and their attributes in the running application. Additionally, the view lets you create a data model diagram (for all entities or a chosen subset) using a public or self-hosted PlantUML server.
-
-[[dynamic-attributes-process-forms]]
-=== Dynamic Attributes in Process Forms
-
-In the BPM add-on, dynamic attributes can now be loaded and displayed in process forms based on Jmix views. You can enable this behavior with the `@ProcessVariableParam` annotation. See xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[Loading Dynamic Attributes] for details.
 
 [[facets-in-fragments]]
 === Facets in Fragments
@@ -105,7 +117,7 @@ List of components: `action`, `button`, `dropdownButton`,`comboButton`, `drawerT
 See the xref:flow-ui:icons.adoc[] section for details.
 
 [[override-default-icons]]
-=== Mechanism to Easily Override Default Icons
+=== Ability to Override Default Icons
 
 You can now override icons across your entire application. The new `JmixFontIcon` enum unifies Vaadin, Lumo (missing from Vaadin), and Jmix-specific icons into a single, consistent set. The `Icons` bean provides a central way to create UI components representing icons. Change icons by redefining CSS variables or by swapping the icon font.
 
@@ -117,14 +129,6 @@ See xref:flow-ui:icons/override-icons.adoc[] for details.
 Jmix now uses Micrometer Observation API to create spans for framework operations, such as data access, UI view and fragment lifecycle, UI actions. Jmix can also enrich observations with the current user and tenant context.
 
 See xref:features:observability.adoc#tracing[Observability: Tracing] for details.
-
-[[business-calendar-day-marks]]
-=== Business Calendar: Day Marks
-
-Previously, the xref:business-calendar:index.adoc[] add-on only allowed adding descriptions to holidays. Now you can add a *mark* to any calendar entry. This makes it easier to categorize days and indicate why a date may have different working hours. New API methods are available to retrieve information about a specified day, including its assigned mark.
-
-See xref:business-calendar:creating.adoc[] for details.
-
 
 [[h2-database]]
 === Support for H2 Database (Experimental)
