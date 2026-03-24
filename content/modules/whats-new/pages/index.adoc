@@ -71,18 +71,18 @@ Fragments now support facets. See xref:flow-ui:fragments/facets-in-fragment.adoc
 
 The new `sidePanelLayout` component provides a declarative way to build layouts with a collapsible side panel. It allows displaying contextual content or actions without navigating away from the current view.
 
-image::jmix:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
+image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
 
-The side panel can open from different sides and can either overlay the main content or push it aside. See xref:jmix:flow-ui:vc/layouts/sidePanelLayout.adoc[] for details and usage examples.
+The side panel can open from different sides and can either overlay the main content or push it aside. See xref:flow-ui:vc/layouts/sidePanelLayout.adoc[] for details and usage examples.
 
 [[side-dialogs]]
 === Side Dialog
 
 The `Dialogs` API introduces side dialogs – a UI pattern similar to <<side-panel-layout,sidePanelLayout>>, but implemented programmatically. `SideDialog` creates an overlay attached to the side of the screen.
 
-image::jmix:flow-ui:dialogs/side-dialog.png[width=1155]
+image:flow-ui:dialogs/side-dialog.png[width=1155]
 
-Use it for temporary interactions that should not be embedded directly into the view layout. See xref:jmix:flow-ui:dialogs.adoc#side-dialog[SideDialog] for details and usage example.
+Use it for temporary interactions that should not be embedded directly into the view layout. See xref:flow-ui:dialogs.adoc#side-dialog[SideDialog] for details and usage example.
 
 [[custom-icons-in-components]]
 === Support for Custom Icons in Components
