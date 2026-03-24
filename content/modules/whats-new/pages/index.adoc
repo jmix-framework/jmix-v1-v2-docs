@@ -70,7 +70,7 @@ Jmix Studio теперь поддерживает использование `.e
 
 image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
 
-Боковая панель может открываться с разных сторон и либо перекрывать основной контент, либо сдвигать его. Подробности и примеры использования см. в xref:flow-ui:vc/layouts/sidePanelLayout.adoc[].adoc[].
+Боковая панель может открываться с разных сторон и либо перекрывать основной контент, либо сдвигать его. Подробности и примеры использования см. в xref:flow-ui:vc/layouts/sidePanelLayout.adoc[].
 
 [[side-dialogs]]
 === Боковое диалоговое окно
