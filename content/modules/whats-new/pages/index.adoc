@@ -42,6 +42,15 @@ Studio теперь поддерживает использование `.env` �
 
 Подробнее см. в xref:business-calendar:creating.adoc[].
 
+[[bpm-process-drafts]]
+=== Экран Process Drafts
+
+Дополнение xref:bpm:index.adoc[] теперь предоставляет специальный экран для предварительного просмотра черновиков процессов. Ранее черновики были доступны только через диалог в экране xref:bpm:menu-views/modeler-web.adoc[] и не поддерживали предварительный просмотр.
+
+image:bpm:bpm-menu-views/process-drafts-view.png[width=1392]
+
+Подробнее см. в xref:bpm:menu-views/process-drafts.adoc[].
+
 [[dynamic-attributes-process-forms]]
 === Динамические атрибуты в формах процесса
 

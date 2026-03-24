@@ -5,6 +5,7 @@
 *** xref:bpm:menu-views/start-process-view.adoc[]
 *** xref:bpm:menu-views/my-tasks.adoc[]
 *** xref:bpm:menu-views/modeler-web.adoc[]
+*** xref:bpm:menu-views/process-drafts.adoc[]
 *** xref:bpm:menu-views/process-definitions.adoc[]
 *** xref:bpm:menu-views/process-instances.adoc[]
 *** xref:bpm:menu-views/user-groups.adoc[]

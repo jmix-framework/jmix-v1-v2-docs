@@ -1,25 +1,47 @@
-= Экраны aдминистрирования
+= Экраны администрирования
 
-После установки дополнения в главном меню приложения появляется новая секция BPM.
-
-image::bpm-menu-views/bpm-main menu.png[,250]
-
-В этом разделе описаны доступные в ней экраны.
-
-* xref:menu-views/start-process-view.adoc[Start process]
-* xref:menu-views/my-tasks.adoc[My tasks]
-* xref:menu-views/modeler-web.adoc[Modeler]
-* xref:menu-views/process-definitions.adoc[Process definitions]
-* xref:menu-views/process-instances.adoc[Process instances]
-* xref:menu-views/user-groups.adoc[User groups]
-* xref:menu-views/user-tasks.adoc[User tasks]
-* xref:menu-views/decision-tables.adoc[Decision tables]
-* xref:menu-views/decision-table-modeler.adoc[Decision table modeler]
+После установки дополнения в главном меню появляется новый раздел *BPM*. Ниже приведено краткое описание каждого экрана.
 
 [NOTE]
 ====
-Для доступа к экранам, пользователю необходимо назначить соответствующую роль:
+Для доступа к экранам пользователям должны быть назначены соответствующие xref:security:resource-roles.adoc[]:
 
-* *BPM: process actor* – для доступа к экранам xref:menu-views/start-process-view.adoc[Start process] и xref:menu-views/my-tasks.adoc[My tasks].
-* *BPM: administrator* – для доступа ко всем экранам.
+* *BPM: process actor* — предоставляет доступ к экранам xref:menu-views/start-process-view.adoc[Start process] и xref:menu-views/my-tasks.adoc[My tasks], позволяя запускать процессы и работать с назначенными задачами.
+* *BPM: administrator* — предоставляет полный доступ ко всем экранам BPM и функциям управления.
 ====
+
+[cols="1,4", options="header", grid="none"]
+|===
+| Экран | Описание
+
+| xref:menu-views/start-process-view.adoc[Start process]
+| Запускает новый экземпляр процесса на основе доступных определений процессов.
+
+| xref:menu-views/my-tasks.adoc[My tasks]
+| Отображает задачи, назначенные текущему пользователю, и позволяет управлять ими и выполнять их.
+
+| xref:menu-views/modeler-web.adoc[Modeler]
+| Предоставляет веб-редактор BPMN для создания и изменения диаграмм процессов.
+
+| xref:menu-views/process-drafts.adoc[]
+| Отображает список всех доступных черновиков процессов и показывает предварительный просмотр для каждого.
+
+| xref:menu-views/process-definitions.adoc[Process definitions]
+| Отображает список развернутых определений процессов и сведения по каждому из них.
+
+| xref:menu-views/process-instances.adoc[Process instances]
+| Показывает запущенные и завершенные экземпляры процессов с их текущим состоянием.
+
+| xref:menu-views/user-groups.adoc[User groups]
+| Управляет группами пользователей, используемыми для назначения задач и контроля доступа.
+
+| xref:menu-views/user-tasks.adoc[User tasks]
+| Предоставляет обзор всех пользовательских задач по процессам.
+
+| xref:menu-views/decision-tables.adoc[Decision tables]
+| Отображает доступные таблицы решений, используемые в логике процессов.
+
+| xref:menu-views/decision-table-modeler.adoc[Decision table modeler]
+| Позволяет создавать и редактировать таблицы решений.
+
+|===
