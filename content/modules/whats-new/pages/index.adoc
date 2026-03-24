@@ -68,18 +68,18 @@ Jmix Studio теперь поддерживает использование `.e
 
 Новый компонент `sidePanelLayout` предоставляет декларативный способ создания компоновок с выдвижной боковой панелью. Он позволяет отображать вспомогательное содержимое или действия без перехода с текущего экрана.
 
-image::jmix:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
+image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
 
-Боковая панель может открываться с разных сторон и либо перекрывать основной контент, либо сдвигать его. Подробности и примеры использования см. в xref:jmix:flow-ui:vc/layouts/sidePanelLayout.adoc[].
+Боковая панель может открываться с разных сторон и либо перекрывать основной контент, либо сдвигать его. Подробности и примеры использования см. в xref:flow-ui:vc/layouts/sidePanelLayout.adoc[].adoc[].
 
 [[side-dialogs]]
 === Боковое диалоговое окно
 
 API `Dialogs` добавляет возможность использовать диалог в качестве боковой панели — UI-паттерн, похожий на <<side-panel-layout,sidePanelLayout>>, но создаваемый программно. `SideDialog` создает диалог, прикрепленный к одной из сторон экрана.
 
-image::jmix:flow-ui:dialogs/side-dialog.png[width=1155]
+image:flow-ui:dialogs/side-dialog.png[width=1155]
 
-Используйте его для взаимодействий, которые не требуют встраивания в основную компоновку экрана. Подробнее и пример использования см. в xref:jmix:flow-ui:dialogs.adoc#side-dialog[SideDialog].
+Используйте его для взаимодействий, которые не требуют встраивания в основную компоновку экрана. Подробнее и пример использования см. в xref:flow-ui:dialogs.adoc#side-dialog[SideDialog].
 
 [[custom-icons-in-components]]
 === Поддержка пользовательских иконок в компонентах
