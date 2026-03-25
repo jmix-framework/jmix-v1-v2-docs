@@ -7,7 +7,7 @@ Jmix provides a centralized mechanism to override icons used throughout an appli
 
 == How Default Icons Work
 
-The default icons are defined in the `JmixFontIcon` enum combining all Vaadin icons, Lumo icons (not present in Vaadin), and Jmix-specific icons. Each icon is declared with a CSS variable and two CSS classes.
+The default icons are defined in the `JmixFontIcon` enum combining all Vaadin icons, Lumo icons (not present in Vaadin), and Jmix-specific icons. Each icon is declared with a CSS variable and two CSS classes in `jmix-font-icons.css`.
 
 For example:
 
@@ -50,6 +50,13 @@ html {
 
 In this example, the `edit-action` icon is mapped to the `edit` icon.
 
+[TIP]
+====
+Use your browser's developer tools to inspect the element and identify the CSS variable for a specific icon.
+
+image:icons/inspect-icon.png[width=437]
+====
+
 == Remapping to an Icon from a Different Icon Font
 
 You can also remap an icon to an icon from a different icon font. Add the following line into your xref:flow-ui:themes/themes.adoc#application-theme[application theme] custom styles file:
@@ -88,10 +95,16 @@ html {
 }
 ----
 
+[TIP]
+.Locating variables and character codes.
+====
+CSS variables for the default Jmix icons are declared in `jmix-font-icons.css`. See the <<_how_default_icons_work, section above>> for how this file is structured. Character codes are supplied by the corresponding icon font.
+====
+
 [[overriding-icons-bean]]
 == Overriding the `Icons` bean
 
-You can override the `Icons` bean to provide a custom mapping. Override the bean when the icon set you need isn’t available as a font or when you must use SVG icons.
+You can override the `Icons` bean to provide a custom mapping. Override the bean when the icon set you need isn’t available as a font or when you want to use SVG icons.
 
 For example, given you followed xref:icons/custom-icons.adoc#svg-sprite[this instruction] to add an SVG sprite, you can create a mapping so those SVG icons are used in the default icon set:
 
@@ -99,3 +112,6 @@ For example, given you followed xref:icons/custom-icons.adoc#svg-sprite[this ins
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/icons/AppIcons.java[tags=app-icons]
 ----
+
+<1> The icon names (`STAR`, `HEART`, `CIRCLE`) correspond to values in `JmixFontIcons` enum. These three icons are replaced with custom SVGs.
+<2> All other icons continue to use the default icon set.

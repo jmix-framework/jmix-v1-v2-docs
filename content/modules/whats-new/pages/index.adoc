@@ -128,7 +128,7 @@ See the xref:flow-ui:icons.adoc[] section for details.
 [[override-default-icons]]
 === Ability to Override Default Icons
 
-You can now override icons across your entire application. The new `JmixFontIcon` enum unifies Vaadin, Lumo (missing from Vaadin), and Jmix-specific icons into a single, consistent set. The `Icons` bean provides a central way to create UI components representing icons. Change icons by redefining CSS variables or by swapping the icon font.
+You can now override icons across your entire application. The new `JmixFontIcon` enum combines Vaadin, Lumo (not present in Vaadin), and Jmix-specific icons into a single, consistent set. The `Icons` bean provides a central way to create UI components representing icons. Change icons by redefining CSS variables or by swapping the icon font.
 
 See xref:flow-ui:icons/override-icons.adoc[] for details.
 
