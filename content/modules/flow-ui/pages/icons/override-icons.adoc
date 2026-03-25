@@ -5,6 +5,7 @@ Jmix provides a centralized mechanism to override icons used throughout an appli
 * Replace only specific icons.
 * Replace the entire icon font used by the application.
 
+[[how-default-icons-work]]
 == How Default Icons Work
 
 The default icons are defined in the `JmixFontIcon` enum combining all Vaadin icons, Lumo icons (not present in Vaadin), and Jmix-specific icons. Each icon is declared with a CSS variable and two CSS classes in `jmix-font-icons.css`.
@@ -37,6 +38,7 @@ Besides there are currently three icons that declare an additional CSS class tha
 
 When you create an icon with the `Icons` bean, it attempts to create a `FontIcon` component with an appropriate CSS class name. If the given icon name contains of two parts separated with `:` (like `vaadin:user`) a new `Icon` component is created using the first part as collection and the second as icon name.
 
+[[remapping-icon]]
 == Remapping an Icon
 
 You can remap one icon to another by redefining the CSS variable. For example, add the following line into your xref:flow-ui:themes/themes.adoc#application-theme[application theme] custom styles file:
@@ -57,6 +59,7 @@ Use your browser's developer tools to inspect the element and identify the CSS v
 image:icons/inspect-icon.png[width=437]
 ====
 
+[[remapping-to-icon-from-different-font]]
 == Remapping to an Icon from a Different Icon Font
 
 You can also remap an icon to an icon from a different icon font. Add the following line into your xref:flow-ui:themes/themes.adoc#application-theme[application theme] custom styles file:
@@ -74,6 +77,7 @@ You can also remap an icon to an icon from a different icon font. Add the follow
 
 This examples changes the font used by the `refresh` icon and maps it to the `reload` icon from the `lumo-icons` font.
 
+[[using-different-icon-font]]
 == Using a Different Icon Font
 
 You can use an entirely different font in your application. This typically involves the following steps:
@@ -98,7 +102,7 @@ html {
 [TIP]
 .Locating variables and character codes.
 ====
-CSS variables for the default Jmix icons are declared in `jmix-font-icons.css`. See the <<_how_default_icons_work, section above>> for how this file is structured. Character codes are supplied by the corresponding icon font.
+CSS variables for the default Jmix icons are declared in `jmix-font-icons.css`. See the <<how-default-icons-work, section above>> for how this file is structured. Character codes are supplied by the corresponding icon font.
 ====
 
 [[overriding-icons-bean]]
