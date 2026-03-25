@@ -52,6 +52,8 @@ The xref:bpm:index.adoc[] add-on now provides a dedicated view to browse and pre
 
 image:bpm:bpm-menu-views/process-drafts-view.png[width=1392]
 
+See xref:bpm:menu-views/process-drafts.adoc[] for details.
+
 [[dynamic-attributes-process-forms]]
 === Dynamic Attributes in Process Forms
 
