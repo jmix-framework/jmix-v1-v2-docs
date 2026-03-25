@@ -12,10 +12,10 @@ public class AppIcons extends IconsImpl {
     @Override
     protected Component createIconByName(String iconName) {
         return switch (iconName) {
-            case "STAR" -> MyIcons.STAR.create();
+            case "STAR" -> MyIcons.STAR.create(); //<1>
             case "HEART" -> MyIcons.HEART.create();
             case "CIRCLE" -> MyIcons.CIRCLE.create();
-            default -> super.createIconByName(iconName);
+            default -> super.createIconByName(iconName); //<2>
         };
     }
 }
