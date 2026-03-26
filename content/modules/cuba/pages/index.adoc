@@ -1,9 +1,0 @@
-= Migration from CUBA Platform
-
-Migration from CUBA Platform to Jmix {page-component-display-version} requires several steps:
-
-. Migrate the project to Jmix 1.5 with Classic UI by following https://docs.jmix.io/jmix/1.5/cuba/index.html[this guide^]. You may ignore problems in the UI layer on this step because the whole UI layer should be replaced anyway.
-
-. Remove the `jmix-cuba` compatibility module and update the usage of Jmix API accordingly.
-
-. Follow recommendations in the xref:ROOT:migration-from-classic-ui.adoc[] section.
