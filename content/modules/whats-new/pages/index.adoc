@@ -51,6 +51,15 @@ image:bpm:bpm-menu-views/process-drafts-view.png[width=1392]
 
 Подробнее см. в xref:bpm:menu-views/process-drafts.adoc[].
 
+[[highlighting-executed-path-in-process-instance-diagrams]]
+=== Визуализация прогресса на диаграммах экземпляров процесса
+
+Дополнение xref:bpm:index.adoc[] выделяет завершённые действия на диаграммах экземпляров процесса зелёным цветом, делая прогресс выполнения более наглядным.
+
+image:bpm:bpm-menu-views/process-instance-diagram.png[width=1260]
+
+Диаграмма доступна на экране xref:bpm:menu-views/process-instances.adoc[].
+
 [[dynamic-attributes-process-forms]]
 === Динамические атрибуты в формах процесса
 

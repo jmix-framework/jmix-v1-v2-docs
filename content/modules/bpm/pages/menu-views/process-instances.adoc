@@ -44,6 +44,9 @@ image::bpm-menu-views/failed-job.png[width=1204]
 +
 image::bpm-menu-views/process-instance-history.png[width=986]
 
-* *Diagram tab* — визуализирует диаграмму процесса и выделяет текущий активный узел. Поддерживает навигацию и масштабирование.
+* *Diagram tab* — отображает диаграмму процесса с визуальной индикацией прогресса выполнения.
 +
-image::bpm-menu-views/process-instance-diagram.png[width=989]
+image::bpm-menu-views/process-instance-diagram.png[width=1260]
++
+** Выполненные действия подсвечены зелёным.
+** Активный элемент подсвечен синим.
