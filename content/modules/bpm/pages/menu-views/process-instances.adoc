@@ -44,6 +44,9 @@ image::bpm-menu-views/failed-job.png[width=1204]
 +
 image::bpm-menu-views/process-instance-history.png[width=986]
 
-* *Diagram tab* — visualizes the process diagram and highlights the currently active node. Supports panning and zooming.
+* *Diagram tab* — displays a process diagram with visual indication of executed path.
 +
-image::bpm-menu-views/process-instance-diagram.png[width=989]
+image::bpm-menu-views/process-instance-diagram.png[width=1260]
++
+** Completed activities are highlighted in green.
+** Active element is highlighted in blue.

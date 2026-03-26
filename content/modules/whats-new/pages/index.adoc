@@ -54,6 +54,15 @@ image:bpm:bpm-menu-views/process-drafts-view.png[width=1392]
 
 See xref:bpm:menu-views/process-drafts.adoc[] for details.
 
+[[highlighting-executed-path-in-process-instance-diagrams]]
+=== Highlighting Executed Path in Process Instance Diagrams
+
+The xref:bpm:index.adoc[] add-on enhances process instance diagrams to highlight completed activities in green, making the executed path easy to follow.
+
+image:bpm:bpm-menu-views/process-instance-diagram.png[width=1260]
+
+The diagram is available on the xref:bpm:menu-views/process-instances.adoc[] view.
+
 [[dynamic-attributes-process-forms]]
 === Dynamic Attributes in Process Forms
 
