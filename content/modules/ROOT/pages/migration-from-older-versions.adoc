@@ -24,4 +24,4 @@ The recommended workflow is as follows:
 
 Perform the work in this sequence: entities, fetch plans, business logic, fragments, and then views. For large applications, each phase should be split into smaller tasks, for example by functional package.
 
-This approach is preferable because the target project is created according to current Jmix conventions from the start, while the AI agent transfers and adapts source code incrementally. In other words, instead of trying to upgrade incompatible project structures automatically, you rebuild the application on top of a clean Jmix {page-component-version} foundation and use the source project as the specification.
+With this approach the target project is created according to current Jmix conventions from the start, while the AI agent transfers and adapts source code incrementally. In other words, you rebuild the application on top of a clean Jmix {page-component-version} foundation and use the source project as the specification.
