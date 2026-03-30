@@ -1,1 +1,3 @@
 * xref:saml:index.adoc[]
+** xref:saml:keycloak-saml.adoc[]
+** xref:saml:saml-properties.adoc[]

@@ -1,0 +1,162 @@
+= Настройка SAML в Keycloak
+
+https://www.keycloak.org/[Keycloak^] это решение с открытым исходным кодом для управления идентификацией и доступом, поддерживающее федерацию пользователей, протоколы OAuth, SAML и OpenID Connect. Ниже приведены инструкции по настройке Keycloak вместе с приложением Jmix с использованием SAML, чтобы пользователи могли входить в систему с учётными данными Keycloak.
+
+NOTE: Инструкции были протестированы с Keycloak 26.5.6. В других, особенно более старых, версиях Keycloak названия элементов и расположение некоторых настроек в административной консоли могут отличаться, однако конфигурация SAML должна оставаться той же.
+
+[[prerequisites]]
+== Предварительные требования
+
+* Приложение Jmix, доступное по стабильному URL-адресу (например, `\https://jmix-app.com`). В инструкции URL приложения обозначено плейсхолдером `your-app-url`.
+* Сервер Keycloak (например, `\https://keycloak.test.com`), к которому у вас есть административный доступ. В инструкции сервер обозначен плейсхолдером `your-keycloak-server`.
+* Realm в Keycloak (например, `master`). В инструкции realm обозначен плейсхолдером `your-realm`.
+
+[[configure-jmix-application]]
+== Настройка приложения Jmix
+
+В вашем приложении Jmix:
+
+. xref:saml:index.adoc#installation[Установите дополнение].
+. Настройте приложение как SAML service provider с помощью свойств Spring Security:
++
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.entity-id=https://<your-app-url>/saml/sp
+spring.security.saml2.relyingparty.registration.keycloak.acs.location=https://<your-app-url>/login/saml2/sso/keycloak
+spring.security.saml2.relyingparty.registration.keycloak.assertingparty.metadata-uri=https://<your-keycloak-server>/realms/<your-realm>/protocol/saml/descriptor
+spring.security.saml2.relyingparty.registration.keycloak.singlelogout.url=https://<your-keycloak-server>/realms/<your-realm>/protocol/saml
+spring.security.saml2.relyingparty.registration.keycloak.singlelogout.response-url=https://<your-app-url>/logout/saml2/slo
+----
+
+NOTE: `keycloak` в ключе свойства — это идентификатор провайдера. Он может иметь любое значение.
+
+[[configure-keycloak-client]]
+== Настройка клиента Keycloak
+
+В Keycloak создайте или выберите realm, который будет управлять аутентификацией для вашего приложения Jmix.
+
+. Выберите или создайте realm, который будет управлять аутентификацией для вашего приложения Jmix.
+. В этом realm создайте новый клиент со следующими значениями:
+** *Сlient type:* `SAML`.
+** *Client ID:* `\https://<your-app-url>/saml/sp` (то же значение, что и в свойстве `entity-id`).
+** *Root URL:* базовый URL вашего приложения, например `\https://jmix-app.com`.
+** *Valid redirect URIs:* допустимые шаблоны URI перенаправления, например `\https://jmix-app.com/*`.
+** *Valid post logout redirect URIs:* допустимые шаблоны URI перенаправления после выхода из приложения, например `\https://jmix-app.com/*`.
+
+Эти значения связывают клиент Keycloak с конфигурацией Jmix service provider из предыдущего шага.
+
+[[configure-user-access]]
+== Настройка доступа пользователей к приложению
+
+Используйте роли Keycloak и сопоставления ролей пользователей, чтобы управлять тем, какие пользователи получат доступ к приложению и какие роли Jmix им назначаются.
+
+[[create-roles]]
+=== Создание ролей
+
+Создайте роли, которые должны быть назначены пользователям:
+
+. Перейдите в *Realm roles* и создайте новую роль.
+. Укажите *Role name*. Если вы используете стандартное сопоставление ролей Jmix, оно должно совпадать с кодом роли Jmix, например `system-full-access`.
+
+[[create-and-configure-users]]
+=== Создание и настройка пользователей
+
+Создайте пользователя Keycloak:
+
+. Перейдите в *Users* и создайте нового пользователя.
+. Выберите созданного пользователя и перейдите на вкладку *Credentials*, чтобы задать пароль.
+. Перейдите на вкладку *Role Mapping*, чтобы назначить ранее созданные realm roles.
+
+[[add-saml-attributes]]
+=== Добавление атрибутов SAML
+
+Настройте отправку SAML-атрибутов, которые требуются вашему приложению. Их необходимо сопоставить с помощью мапперов:
+
+. Перейдите в *Client* -> *Client Scopes* -> `\https://<your-app-url>/saml/sp-dedicated` -> *Configure a new mapper*.
+. Выберите подходящий тип маппера. Для встроенных свойств (например, email, firstName, lastName) выберите *User Property* и укажите значения:
+** *Name:* описательное имя маппера, например `FirstName mapper`
+** *Property:* имя свойства в провайдере удостоверений: `firstName`
+** *SAML Attribute Name:* имя атрибута в SAML Assertion: `FirstName`
+
+Повторите те же шаги, чтобы добавить другие атрибуты.
+
+[[signing-and-certificates]]
+== Настройки signing и сертификатов
+
+Чтобы включить signing, вам понадобятся публичный и приватный ключи. Вы можете сгенерировать их вручную с помощью openssl. Также можно сгенерировать их с помощью Keycloak:
+
+. Перейдите в ваш *Client* и откройте вкладку *Keys*.
+. Включите *Client signature required*.
+. Сгенерируйте новый ключ и экспортируйте его как pkcs12 keystore. Запомните store password, который вы зададите.
+. Извлеките закрытый ключ и сертификат:
++
+----
+openssl pkcs12 -in keystore.p12 -nodes -nocerts -out private.key -passin pass:<STORE_PASSWORD>
+openssl pkcs12 -in keystore.p12 -nodes -nokeys -out public.crt -passin pass:<STORE_PASSWORD>
+----
++
+[NOTE]
+====
+Если извлечение не удалось, добавьте параметр `-legacy` к обеим командам. В этом случае вам также потребуется преобразовать извлеченный закрытый ключ в формат pkcs8:
+
+----
+openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in private.key -out private-pkcs8.key
+----
+====
++
+. Поместите файлы в расположение, доступное приложению, например в `src/main/resources`, и укажите их через свойства:
++
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].private-key-location=classpath:private-pkcs8.key
+spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].certificate-location=classpath:public.crt
+----
+
+[[signing-algorithm]]
+== (Опционально) Указание алгоритма подписи
+
+Если требуется конкретный алгоритм подписи, укажите его явно. Например:
+
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].algorithm=http://www.w3.org/2001/04/xmldsig-more#rsa-sha256
+----
+
+[[verification-certificate]]
+== (Опционально) Указание сертификата проверки
+
+В некоторых окружениях также может потребоваться сертификат проверки. Чтобы указать сертификат:
+
+. Откройте дескриптор метаданных Keycloak по адресу `https://<your-keycloak-server>/realms/<your-realm>/protocol/saml/descriptor`
+. Скопируйте значение `X509Certificate`.
+. Сохраните его в файл, например `keycloak-signing.crt`, в следующем формате:
++
+----
+-----BEGIN CERTIFICATE-----
+<value>
+-----END CERTIFICATE-----
+----
++
+. Поместите файл в расположение, доступное приложению, например в `src/main/resources`, и добавьте его через свойство:
++
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.assertingparty.verification.credentials[0].certificate-location=classpath:keycloak-signing.crt
+----
+
+[[test-connection]]
+== Проверка подключения
+
+После настройки приложения Jmix и Keycloak запустите приложение и проверьте работу SSO.
+
+Убедитесь, что:
+
+* Пользователь перенаправляется на страницу входа Keycloak.
+* Аутентификация успешно выполняется.
+* Необходимые атрибуты присутствуют в SAML assertion.
+* Пользователям приложения назначаются необходимые роли.
+* Выход из системы работает корректно, если настроен SLO.
