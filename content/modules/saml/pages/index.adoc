@@ -1,0 +1,27 @@
+= SAML
+
+NOTE: This section is currently in progress and will be completed soon.
+
+The Jmix SAML add-on enables SAML 2.0 authentication in Jmix applications.
+
+[[installation]]
+== Installation
+
+For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+
+For manual installation, add the following dependencies to your `build.gradle`:
+
+[source,groovy,indent=0]
+----
+implementation 'io.jmix.saml:jmix-saml-starter'
+----
+
+[[setup]]
+== Setup
+
+TBA
+
+[[jmix-saml-properties]]
+== Jmix SAML Properties
+
+TBA

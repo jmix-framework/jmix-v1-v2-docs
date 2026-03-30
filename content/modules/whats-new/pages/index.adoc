@@ -43,6 +43,13 @@ See the xref:studio:external-config-with-env.adoc[] section for details.
 
 Studio now respects JPA constraint modes when generating changelogs for associations. When you set `ConstraintMode.NO_CONSTRAINT` in `@JoinColumn`, the generated changelog does not include the foreign key constraint. See xref:data-model:db-migration.adoc#ignoring-foreign-key-constraint[Ignoring Foreign Key Constraints] for details.
 
+[[saml-add-on]]
+=== SAML Add-on
+
+The Jmix SAML add-on enables SAML 2.0 authentication in Jmix applications. With this add-on, a Jmix application can act as a service provider (SP) and rely on an external identity provider (IdP), such as Keycloak, Okta, Microsoft Entra ID, and others, to authenticate users.
+
+Setup and configuration details will be available soon in the xref:saml:index.adoc[SAML add-on] section.
+
 [[business-calendar-day-marks]]
 === Day Marks in Business Calendar
 
