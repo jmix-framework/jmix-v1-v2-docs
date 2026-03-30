@@ -171,7 +171,7 @@ implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
 [source,properties]
 .application.properties
 ----
-management.tracing.sampling.probability=1.0
+management.tracing.sampling.probability=0.1
 management.otlp.tracing.export.enabled=true
 management.otlp.tracing.endpoint=http://localhost:4318/v1/traces
 ----
