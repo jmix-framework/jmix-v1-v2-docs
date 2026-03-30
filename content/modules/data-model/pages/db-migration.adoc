@@ -101,3 +101,17 @@ By default, Jmix Studio compares all tables of the database with the data model,
 ----
 main.datasource.studio.liquibase.exclude-prefixes = abc_,foo,bar
 ----
+
+[[ignoring-foreign-key-constraint]]
+=== Ignoring Foreign Key Constraint
+
+Jmix Studio respects JPA constraint modes when generating the changelog. If you need a reference column without a database foreign key (for example, when working with a legacy database schema), set `ConstraintMode.NO_CONSTRAINT` in `@JoinColumn` on the owning-side:
+
+[source,java]
+----
+@JoinColumn(name = "AUTHOR_ID",
+        foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+private Author author;
+----
+
+When you use `ConstraintMode.NO_CONSTRAINT`, the generated changelog still includes the column and index, but it does not add a foreign key constraint.

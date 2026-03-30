@@ -38,6 +38,11 @@ Studio now supports using `.env` files to externalize configuration. You can sto
 
 See the xref:studio:external-config-with-env.adoc[] section for details.
 
+[[ignoring-foreign-key-constraint]]
+==== Ignoring Foreign Key Constraint
+
+Studio now respects JPA constraint modes when generating changelogs for associations. When you set `ConstraintMode.NO_CONSTRAINT` in `@JoinColumn`, the generated changelog does not include the foreign key constraint. See xref:data-model:db-migration.adoc#ignoring-foreign-key-constraint[Ignoring Foreign Key Constraints] for details.
+
 [[business-calendar-day-marks]]
 === Day Marks in Business Calendar
 
