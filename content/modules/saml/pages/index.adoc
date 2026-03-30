@@ -1,0 +1,25 @@
+= SAML
+
+NOTE: Этот раздел находится в работе и вскоре будет завершён.
+
+Дополнение Jmix SAML предоставляет аутентификацию SAML 2.0 в приложениях Jmix.
+
+[[installation]]
+== Установка
+
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
+
+Для ручной установки добавьте следующие зависимости в ваш build.gradle:
+
+[source,groovy,indent=0]
+implementation 'io.jmix.saml:jmix-saml-starter'
+
+[[setup]]
+== Настройка
+
+TBA
+
+[[jmix-saml-properties]]
+== Свойства Jmix SAML
+
+TBA

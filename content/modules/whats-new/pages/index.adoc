@@ -40,6 +40,13 @@ Studio теперь поддерживает использование `.env` �
 
 Studio теперь учитывает ограничения JPA при генерации changelog для ассоциаций. Если задать `ConstraintMode.NO_CONSTRAINT` в `@JoinColumn`, внешний ключ не будет добавлен в сгенерированный changelog. Подробнее см. в разделе xref:data-model:db-migration.adoc#ignoring-foreign-key-constraint[Игнорирование внешнего ключа].
 
+[[saml-add-on]]
+=== Дополнение SAML
+
+Дополнение Jmix SAML добавляет аутентификацию SAML 2.0 в приложениях Jmix. С этим дополнением приложение Jmix может выступать в роли поставщика услуг (service provider) и использовать внешний поставщик удостоверений (identity provider), такой как Keycloak, Okta, Microsoft Entra ID и другие, для аутентификации пользователей.
+
+Подробности по настройке и конфигурации скоро будут доступны в разделе xref:saml:index.adoc[Дополнение SAML].
+
 [[business-calendar-day-marks]]
 === Метки дней в бизнес-календаре
 
