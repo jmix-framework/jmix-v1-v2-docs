@@ -35,6 +35,11 @@ Studio теперь поддерживает использование `.env` �
 
 Подробнее смотрите в разделе xref:studio:external-config-with-env.adoc[].
 
+[[ignoring-foreign-key-constraint]]
+==== Игнорирование внешнего ключа в changelog
+
+Studio теперь учитывает ограничения JPA при генерации changelog для ассоциаций. Если задать `ConstraintMode.NO_CONSTRAINT` в `@JoinColumn`, внешний ключ не будет добавлен в сгенерированный changelog. Подробнее см. в разделе xref:data-model:db-migration.adoc#ignoring-foreign-key-constraint[Игнорирование внешнего ключа].
+
 [[business-calendar-day-marks]]
 === Метки дней в бизнес-календаре
 

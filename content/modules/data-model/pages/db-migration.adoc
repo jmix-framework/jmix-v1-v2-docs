@@ -99,3 +99,17 @@ second.liquibase.change-log=com/company/demo/liquibase/second-changelog.xml
 ----
 main.datasource.studio.liquibase.exclude-prefixes = abc_,foo,bar
 ----
+
+[[ignoring-foreign-key-constraint]]
+=== Игнорирование внешнего ключа
+
+Jmix Studio учитывает ограничения JPA при генерации changelog файлов. Если вам нужен столбец без внешнего ключа (например, при работе с устаревшей схемой базы данных), установите `ConstraintMode.NO_CONSTRAINT` в `@JoinColumn` на стороне владельца:
+
+[source,java]
+----
+@JoinColumn(name = "AUTHOR_ID",
+        foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+private Author author;
+----
+
+Если указан `ConstraintMode.NO_CONSTRAINT` в сгенерированном changelog будут скрипты для создания колонки и индекса, но не для внешнего ключа.
