@@ -1,0 +1,12 @@
+= Additional Setup
+
+The instructions below explain extending the xref:saml:index.adoc#default-configuration[Default Jmix SAML Configuration].
+
+
+== Mapping User Attributes and Roles
+
+TBA
+
+== Persisting Users in the Database
+
+TBA

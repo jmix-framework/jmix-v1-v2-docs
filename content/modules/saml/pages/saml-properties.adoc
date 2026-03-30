@@ -1,0 +1,37 @@
+= Jmix SAML Properties
+
+[[jmix.saml.use-default-configuration]]
+== jmix.saml.use-default-configuration
+Defines whether to apply the entire default auto-configuration (Default: true)
+
+[[jmix.saml.use-default-ui-configuration]]
+== jmix.saml.use-default-ui-configuration
+Defines whether to apply the default Spring Security configuration (Default: true)
+
+[[jmix.saml.max-concurrent-user-mapping]]
+== jmix.saml.max-concurrent-user-mapping
+Maximum number of concurrent user mapping processes within io.jmix.saml.mapper.user.BaseSamlUserMapper. (Default: 128)
+
+[[jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute]]
+== jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute
+Name of SAML assertion attribute that contains roles (default: Role)
+
+[[jmix.saml.default-saml-assertion-roles-mapper.resource-role-prefix]]
+== jmix.saml.default-saml-assertion-roles-mapper.resource-role-prefix
+Prefix that can be used to recognize a resource role from the authorization server (Default: empty)
+
+[[jmix.saml.default-saml-assertion-roles-mapper.row-level-role-prefix]]
+== jmix.saml.default-saml-assertion-roles-mapper.row-level-role-prefix
+Prefix that can be used to recognize a row-level role from the authorization server (Default: empty)
+
+[[jmix.saml.filter-chain.force-ui-scope-enabled]]
+== jmix.saml.filter-chain.force-ui-scope-enabled
+Whether the forced UI scope is enabled for Security filter chains provided via jmix.saml.filter-chain.ui-scope-security-filter-chain-names. (Default: true)
+
+[[jmix.saml.filter-chain.ui-scope-security-filter-chain-names]]
+== jmix.saml.filter-chain.ui-scope-security-filter-chain-names
+Represents a list of security filter chain names which should be customized by `io.jmix.saml.filter.SamlVaadinSecurityFilterChainCustomizer` (Default: VaadinSecurityFilterChainBean)
+
+[[jmix.saml.force-redirect-binding-logout]]
+== jmix.saml.force-redirect-binding-logout
+Whether to force 'redirect' binding for logout requests. If true, logout requests will always use the 'redirect' binding. Otherwise, the binding will be determined based on the RelyingPartyRegistration. (Default: true)
