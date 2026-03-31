@@ -746,7 +746,7 @@ include::../handler-generation-tip.adoc[]
 |[[ItemDoubleClickEvent]]ItemDoubleClickEvent
 |`com.vaadin.flow.component.grid.ItemDoubleClickEvent` - событие, которое возникает при двойном клике на элемент таблицы данных. Соответствует событию DOM `item-double-click`.
 |[[SortEvent]]SortEvent
-|`com.vaadin.flow.data.event.SortEvent` - событие, описывающее изменение сортировки в `DataProvider`. Генерируется объектами, реализующими интерфейс `SortNotifier`.
+|`com.vaadin.flow.data.event.SortEvent` - событие, описывающее изменение сортировки в `DataProvider`. Генерируется объектами, реализующими интерфейс `SortNotifier`. См. https://demo.jmix.ru/ui-samples/sample/data-grid-sort-event?tab=DataGridSortEvent.java[онлайн демо^].
 |[[dataGenerator]]dataGenerator
 |Добавляет генератор данных для таблицы. Если генератор уже был добавлен, действие не выполняется. Подробнее см. в интерфейсе `com.vaadin.flow.data.provider.HasDataGenerators`.
 |[[dragFilter]]dragFilter
