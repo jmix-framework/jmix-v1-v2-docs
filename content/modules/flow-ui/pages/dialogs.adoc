@@ -13,6 +13,12 @@ The `createMessageDialog()`, `createOptionDialog()`, and `createInputDialog()` m
 [[message-dialog]]
 == Message Dialog
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/message-dialog" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 A message dialog shows a message to the user.
 
 image::dialogs/message-dialog.png[align="center", width = 399]
@@ -53,6 +59,12 @@ The following methods allow you to customize the look and behavior of the messag
 [[option-dialog]]
 == Option Dialog
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/option-dialog" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 The option dialog displays a message and a set of buttons for user reaction.
 
 image::dialogs/option-dialog.png[align="center", width = 400]
@@ -90,6 +102,12 @@ The following methods allow you to customize the look and behavior of the option
 
 [[background-task-dialog]]
 == Background Task Dialog
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/background-task-dialog" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
 
 Background task dialog provides a user-friendly experience for long-running tasks, where the user can monitor progress and cancel the operation if needed.
 
@@ -130,6 +148,12 @@ The following methods allow you to customize the look and behavior of the backgr
 
 [[input-dialog]]
 == Input Dialog
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/input-dialog" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
 
 Input dialog is a versatile tool that allows you to construct input forms using API and often saves you from creating screens for trivial data input. It enables entering values of different types, validates the input, and provides different actions to be selected by the user.
 
@@ -229,6 +253,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 
 [[side-dialog]]
 == Side Dialog
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/side-dialog" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
 
 A dialog that slides in from one side of the view.
 

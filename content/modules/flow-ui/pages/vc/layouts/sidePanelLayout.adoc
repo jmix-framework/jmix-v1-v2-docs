@@ -1,5 +1,11 @@
 = sidePanelLayout
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
 A layout component that adds a panel can open from different sides and either overlay the main content or push it aside. Use it for contextual information, filters, or editors that need to appear alongside the primary content.
 
 TIP: A side panel can be also created programmatically using xref:flow-ui:dialogs.adoc#side-dialog[`Side Dialog`].
@@ -83,6 +89,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/si
 
 [[detail-view-side]]
 == Side Panel Editor
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-master-detail" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
 
 Use `SidePanelLayout` for master-detail pattern where the main area contains a list of entities and the side panel is used for editing a selected instance.
 
