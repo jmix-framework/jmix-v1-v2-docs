@@ -13,7 +13,13 @@
 [[message-dialog]]
 == Диалог сообщения
 
-Диалога сообщения отображает сообщение пользователю.
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/message-dialog" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
+Диалог сообщения отображает сообщение пользователю.
 
 image::dialogs/message-dialog.png[align="center", width = 399]
 
@@ -53,6 +59,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 [[option-dialog]]
 == Диалог с вариантами
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/option-dialog" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 Диалог с вариантами отображает сообщение и набор кнопок для выбора пользователем.
 
 image::dialogs/option-dialog.png[align="center", width = 400]
@@ -90,6 +102,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 
 [[background-task-dialog]]
 == Диалог фоновой задачи
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/background-task-dialog" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
 
 Диалог фоновой задачи обеспечивает удобный для пользователя опыт для длительных задач, где пользователь может отслеживать прогресс и отменять операцию при необходимости.
 
@@ -130,6 +148,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 
 [[input-dialog]]
 == Диалог ввода
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/input-dialog" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
 
 Диалог ввода - универсальный инструмент, который позволяет создавать формы ввода с использованием API и часто позволяет избежать создания экранов для ввода тривиальных данных. Он позволяет вводить значения разных типов, выполнять проверку ввода и предоставлять различные действия, доступные для выбора пользователем.
 
@@ -229,6 +253,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 
 [[side-dialog]]
 == Side Dialog
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/side-dialog" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
 
 Диалог, который появляется с одной из сторон экрана.
 

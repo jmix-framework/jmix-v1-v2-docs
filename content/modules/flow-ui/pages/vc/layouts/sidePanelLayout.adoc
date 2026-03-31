@@ -1,5 +1,11 @@
 = sidePanelLayout
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/side-panel-layout-simple" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 Компонент компоновки с боковой панелью. Панель может открываться с разных сторон и либо перекрывать основное содержимое, либо сдвигать его. Подходит для отображения фильтров, дополнительной информации или форм редактирования одновременно с основным содержимым.
 
 TIP: Боковую панель можно создать программно при помощи xref:flow-ui:dialogs.adoc#side-dialog[Side Dialog].
@@ -83,6 +89,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/si
 
 [[detail-view-side]]
 == Редактирование в панели
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/side-panel-layout-master-detail" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
 
 Используйте `SidePanelLayout` для реализации паттерна master-detail, где основная область содержит список сущностей, а боковая панель используется для редактирования выбранного экземпляра.
 
