@@ -1,0 +1,443 @@
+= Dynamic Attributes in Search
+
+== Overview
+
+The Search add-on supports indexing of xref:dyn-attr:index.adoc[dynamic attributes] of entities.
+
+Dynamic attributes allow extending the data model without changing the database schema, and their values can participate in full-text search alongside static attributes.
+
+The *Dynamic Attributes* add-on must be present in the project.
+
+[[indexing-dynamic-attributes]]
+== Indexing Dynamic Attributes
+
+[[dyn-attr-annotation]]
+=== @DynamicAttributes Annotation
+
+Add the `@DynamicAttributes` annotation to any method in the xref:search:index-definitions.adoc#interface[index definition interface]. In its basic form, it includes all dynamic attributes of the entity in the index without any exclusions:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @AutoMappedField(includeProperties = {"firstName", "lastName"}) // <1>
+    @DynamicAttributes // <2>
+    void mapping();
+}
+----
+<1> Indexing static attributes of the entity.
+<2> Indexing all dynamic attributes of the entity.
+
+The `@DynamicAttributes` annotation is repeatable — multiple annotations can be placed on the same method, or spread across different methods:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @AutoMappedField(includeProperties = {"firstName", "lastName"})
+    void mapping();
+
+    @DynamicAttributes(excludeCategories = {"Internal"})
+    @DynamicAttributes(excludeAttributes = {"*secret*"}, analyzer = "english")
+    void dynamicMapping();
+}
+----
+
+[CAUTION]
+====
+When using multiple `@DynamicAttributes` annotations, be careful with overlaps: if the same attribute matches the conditions of more than one annotation, it will cause a conflict and an exception at application startup. See <<multiple-groups-with-different-settings>> for details on conflicts and how to resolve them.
+====
+
+[[parameters]]
+=== Annotation Parameters
+
+* `excludeCategories` — an array of dynamic attribute category names to exclude from indexing. Wildcard `+*+` patterns are supported.
++
+The category name is the value of the *Name* field defined when xref:dyn-attr:dynattr-managing.adoc#create-category[creating a category] in *Administration > Dynamic attributes*.
++
+[source,java]
+----
+@DynamicAttributes(excludeCategories = {"Internal", "Archive"})
+void mapping();
+----
++
+[NOTE]
+====
+A pattern cannot consist solely of `+*+` characters — for example, `+*+` or `+**+` will be rejected. Multiple `+*+` characters combined with other text are allowed: `+*abc+`, `+abc*+`, `+a*b*c+`, `+a**b+`.
+====
+
+* `excludeAttributes` — an array of dynamic attribute codes to exclude from indexing. Wildcard `+*+` patterns are supported.
++
+The attribute code is the value of the *System code* field defined when xref:dyn-attr:dynattr-managing.adoc#create-attribute[creating a dynamic attribute] in *Administration -> Dynamic attributes*. It is specified *without* the `+` prefix (the prefix is used only internally within the Jmix metamodel).
++
+[source,java]
+----
+@DynamicAttributes(excludeAttributes = {"*String*", "dynamicEnumAttr*", "dynamicAttribute"})
+void mapping();
+----
++
+[NOTE]
+====
+The `+.+` and `+++` characters are forbidden in attribute codes. A pattern cannot consist solely of `+*+` characters — for example, `+*+` or `+**+` will be rejected. Multiple `+*+` characters combined with other text are allowed: `+*String*+`, `+attr*Code*+`, `+a**b+`.
+====
+
+* `referenceAttributesIndexingMode` — the indexing mode for dynamic attributes of type `Entity` (references to other entities). Allowed values:
++
+[cols="1,3"]
+|===
+| Value | Description
+
+| `INSTANCE_NAME_ONLY` (default)
+| Only the instance name of the referenced entity is indexed. Individual static or dynamic attributes of the referenced entity are not traversed or indexed.
+
+| `NONE`
+| Reference dynamic attributes are not indexed at all.
+|===
++
+[source,java]
+----
+@DynamicAttributes(referenceAttributesIndexingMode = ReferenceAttributesIndexingMode.NONE)
+void mapping();
+----
+
+* `analyzer` — the name of the Elasticsearch/OpenSearch analyzer to apply to dynamic attribute fields. The analyzer is applied to all supported attribute types, since all of them are indexed as `text` fields: `STRING` attributes, `ENUMERATION` attributes, and the instance name (`_instance_name`) of `ENTITY`-type attributes.
++
+An analyzer tokenizes text during indexing and search: it splits text into words, lowercases tokens, removes stop words, etc.
++
+By default, the `standard` analyzer is used. It splits text at Unicode word boundaries and lowercases all tokens. It works well for most Western European languages but does not handle morphology — for example, it cannot stem words to their root form. For morphologically rich languages such as Finnish, use a language-specific analyzer.
++
+[source,java]
+----
+@DynamicAttributes(analyzer = "finnish")
+void mapping();
+----
+
+[[combine-annotations]]
+=== Combining with Other Annotations
+
+`@DynamicAttributes` can be combined with `@AutoMappedField` on the same method:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Order.class)
+public interface OrderIndexDefinition {
+
+    @AutoMappedField(includeProperties = {"number", "product", "customer.lastName"})
+    @DynamicAttributes(
+        excludeCategories = {"Internal"},
+        referenceAttributesIndexingMode = ReferenceAttributesIndexingMode.NONE,
+        analyzer = "english"
+    )
+    void mapping();
+}
+----
+
+[[programmatic-index-definition]]
+== Programmatic Index Definition
+
+When the xref:search:index-definitions.adoc#programmatic-mapping[programmatic mapping approach] via `@ManualMappingDefinition` is used, `DynamicAttributesGroupConfiguration` is used for dynamic attributes.
+
+A dynamic attributes group is a set of indexing settings (analyzer, reference handling mode, category and attribute exclusions) applied to a subset of the entity's dynamic attributes. Each call to `addDynamicAttributesGroup()` defines one group. If different attributes need to be indexed with different settings, multiple groups can be declared.
+
+[WARNING]
+====
+Since groups are defined through *exclusions*, the same attribute can easily end up in more than one group. If this happens and both groups have the same `order` value, an exception will be thrown at application startup:
+
+ Conflicted mapping fields: '+attrCode' and '+attrCode'. Specify the different values of order for them.
+
+The default `order` value is taken from the field mapping strategy: for example, `AutoMappingStrategy` returns `0`. This means that two groups using the same strategy without an explicit `withOrder` will *always* conflict on overlapping attributes.
+
+To resolve a conflict, assign different `order` values to the conflicting groups. The group with the *higher* value wins:
+
+[source,java]
+----
+.addDynamicAttributesGroup(
+        DynamicAttributesGroupConfiguration.builder()
+                .excludeProperties("private*")
+                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                .withOrder(0) // <1>
+                .build()
+)
+.addDynamicAttributesGroup(
+        DynamicAttributesGroupConfiguration.builder()
+                .addParameter("analyzer", "english")
+                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                .withOrder(1) // <2>
+                .build()
+)
+----
+<1> The lower-priority group.
+<2> This group wins for attributes that fall into both groups.
+
+It is recommended to design groups so that each attribute explicitly falls into only one of them — using `excludeProperties` or `excludeCategories`.
+====
+
+[[minimal-configuration]]
+=== Minimal Configuration
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup( // <1>
+                        DynamicAttributesGroupConfiguration.builder()
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Adding a dynamic attributes group with no additional restrictions.
+
+[[indexing-reference-attributes-by-instance-name]]
+=== Indexing Reference Attributes by Instance Name
+
+By default, dynamic reference attributes are indexed in `INSTANCE_NAME_ONLY` mode — only the instance name of the referenced entity is included in the index:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(
+                        DynamicAttributesGroupConfiguration.builder()
+                                .withReferenceAttributesIndexingMode(   // <1>
+                                        ReferenceAttributesIndexingMode.INSTANCE_NAME_ONLY)
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> The default mode; can be omitted. Only the `_instance_name` of the referenced entity is indexed — its own attributes are not indexed.
+
+[[excluding-reference-attributes-from-the-index]]
+=== Excluding Reference Attributes from the Index
+
+If reference attributes should not be indexed, use `NONE`:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(
+                        DynamicAttributesGroupConfiguration.builder()
+                                .withReferenceAttributesIndexingMode(   // <1>
+                                        ReferenceAttributesIndexingMode.NONE)
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Reference dynamic attributes are completely excluded from the index. Only `STRING` and `ENUMERATION` attributes are indexed.
+
+[[multiple-groups-with-different-settings]]
+=== Multiple Groups with Different Settings
+
+Multiple dynamic attribute groups can be added, each with its own rules. This is useful when some attributes need one analyzer and others need a different reference indexing mode:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(   // <1>
+                        DynamicAttributesGroupConfiguration.builder()
+                                .excludeProperties("private*")
+                                .withReferenceAttributesIndexingMode(
+                                        ReferenceAttributesIndexingMode.INSTANCE_NAME_ONLY)
+                                .addParameter("analyzer", "english")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(   // <2>
+                        DynamicAttributesGroupConfiguration.builder()
+                                .excludeCategories("Internal")
+                                .withReferenceAttributesIndexingMode(
+                                        ReferenceAttributesIndexingMode.NONE)
+                                .addParameter("analyzer", "english")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> First group: attributes with code matching `private*` are excluded, reference attributes are indexed by instance name, the `english` analyzer is applied.
+<2> Second group: the `Internal` category is excluded, reference attributes are not indexed, the `english` analyzer is applied.
+
+[[combining-category-attribute-exclusions]]
+=== Combining Category and Attribute Exclusions
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(
+                        DynamicAttributesGroupConfiguration.builder()
+                                .excludeCategories("Internal", "Archive") // <1>
+                                .excludeProperties("*secret*", "attr4")   // <2>
+                                .withReferenceAttributesIndexingMode(
+                                        ReferenceAttributesIndexingMode.NONE)
+                                .addParameter("analyzer", "english")      // <3>
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Excluding categories by name. The `.` and `+` characters are not restricted for category names; a standalone `*` is not allowed.
+<2> Excluding attributes by code with wildcard support. The `.` and `+` characters are forbidden; a standalone `*` is not allowed.
+<3> The analyzer is applied to all `text` fields of dynamic attributes: `STRING`, `ENUMERATION`, and `_instance_name` of `ENTITY`-type attributes.
+
+[NOTE]
+====
+All limitations described in the <<limitations>> section apply to programmatic configuration as well: supported attribute types, reference indexing rules, attribute chain restrictions, and composite key constraints.
+====
+
+[[dynamicAttributesGroupConfiguration-builder-methods]]
+=== DynamicAttributesGroupConfiguration Builder Methods
+
+[cols="2,3"]
+|===
+| Method | Description
+
+| `excludeCategories(String... categories)`
+| Excludes dynamic attribute categories by name. A pattern cannot consist solely of `+*+` characters; multiple `+*+` combined with other text are allowed (`+*abc+`, `+abc*+`, `+a**b+`).
+
+| `excludeProperties(String... properties)`
+| Excludes dynamic attributes by code. The `+.+` and `+++` characters are forbidden. A pattern cannot consist solely of `+*+` characters; multiple `+*+` combined with other text are allowed (`+*String*+`, `+attr*Code*+`, `+a**b+`).
+
+| `withReferenceAttributesIndexingMode(ReferenceAttributesIndexingMode mode)`
+| Sets the indexing mode for reference dynamic attributes: `INSTANCE_NAME_ONLY` (default) or `NONE`. With `INSTANCE_NAME_ONLY`, only the instance name of the referenced entity is indexed.
+
+| `withFieldMappingStrategyClass(Class<? extends FieldMappingStrategy> cls)`
+| Sets the field mapping strategy class.
+
+| `withFieldMappingStrategy(FieldMappingStrategy strategy)`
+| Sets a field mapping strategy instance (takes precedence over the class).
+
+| `addParameter(String key, Object value)`
+| Adds an arbitrary configuration parameter, for example, `"analyzer"`.
+
+| `withPropertyValueExtractor(PropertyValueExtractor extractor)`
+| Sets a custom property value extractor.
+
+| `withOrder(int order)`
+| Sets the priority of the group. Used to resolve conflicts when the same attribute falls into multiple groups: the group with the *higher* value wins. If not set explicitly, the value is taken from the field mapping strategy (for example, `AutoMappingStrategy` returns `0`).
+|===
+
+[[change-tracking]]
+== Change Tracking
+
+The Search add-on automatically tracks changes to dynamic attributes of indexed entities. When a dynamic attribute value changes, the entity is added to the indexing queue and re-indexed during the next queue processing.
+
+This behavior requires no additional configuration — it is enabled automatically when dynamic attributes are present in the index definition.
+
+[NOTE]
+====
+If a dynamic reference attribute value changes on the referenced entity instance, the owning entity instance is also automatically re-indexed.
+====
+
+[[limitations]]
+== Limitations
+
+[[supported-types]]
+=== Supported Dynamic Attribute Types
+
+Only the following dynamic attribute types are indexed:
+
+[cols="1,3"]
+|===
+| Type | Description
+
+| `STRING`
+| String attributes.
+
+| `ENUMERATION`
+| Enumeration attributes. Localized values for all available locales are indexed.
+
+| `ENTITY`
+| Reference attributes (a link to another entity). Behavior is controlled by the `referenceAttributesIndexingMode` parameter.
+|===
+
+Attributes of other types (`INTEGER`, `DOUBLE`, `DECIMAL`, `DATE`, `DATE_WITHOUT_TIME`, `BOOLEAN`) are not indexed and are silently ignored.
+
+[[reference-attribute-indexing-limitations]]
+=== Reference Attribute Indexing Limitations
+
+The following limitations apply to dynamic attributes of type `ENTITY`:
+
+* With `INSTANCE_NAME_ONLY` mode, only the **instance name** of the referenced entity is indexed. Individual static or dynamic attributes of the referenced entity are not included in the index.
+* `INSTANCE_NAME_ONLY` is the only mode in which reference attributes are indexed. Deeper indexing through a dynamic reference is not supported.
+* Entities referenced via dynamic attributes **do not support composite primary keys**.
+
+Only two modes are available due to a framework limitation. Jmix does not support FetchPlan for dynamic attributes: when loading an entity instance, only the `LOAD_DYN_ATTR` hint is available, which loads all dynamic attributes in full. Dynamic properties are intentionally excluded from FetchPlan and loaded separately via this hint. Since there is no way to specify which fields of the referenced entity instance should be loaded when traversing a dynamic reference attribute, the instance name — computed uniformly for any entity — is the only practically feasible indexing option.
+
+[[attribute-chain-limitations]]
+=== Attribute Chain Limitations
+
+* *Dynamic attributes via static references* — dynamic attributes of entity instances linked to the root entity through a static reference attribute (for example, `customer.+dynamicAttr`) are not indexed. Only dynamic attributes directly on the root entity instance are indexed.
+* *Static attributes via dynamic references* — static attributes of an entity instance referenced by an `ENTITY`-type dynamic attribute are not indexed. Only the instance name of that entity instance is available.
+
+[[other-limitations]]
+=== Other Limitations
+
+* The `.` (dot) and `+` (plus) characters are forbidden in attribute codes (`excludeAttributes`). There are no such restrictions for category names (`excludeCategories`).
+* A pattern cannot consist solely of `+*+` characters — for example, `+*+` or `+**+` will be rejected. Multiple `+*+` characters combined with other text are allowed: `+*abc+`, `+abc*+`, `+a*b*c+`, `+a**b+`.
+* The *Dynamic Attributes* add-on (`jmix-dynattr`) must be present in the project.
