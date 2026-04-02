@@ -1,0 +1,443 @@
+= Динамические атрибуты в поиске
+
+== Обзор
+
+Дополнение Search поддерживает индексацию xref:dyn-attr:index.adoc[динамических атрибутов] сущностей.
+
+Динамические атрибуты позволяют расширять модель данных без изменения схемы базы данных, и их значения могут участвовать в полнотекстовом поиске наряду со статическими атрибутами.
+
+Для использования этой функциональности требуется наличие в проекте дополнения *Dynamic Attributes* (`jmix-dynattr`).
+
+[[indexing-dynamic-attributes]]
+== Индексация динамических атрибутов
+
+[[dyn-attr-annotation]]
+=== Аннотация @DynamicAttributes
+
+Добавьте аннотацию `@DynamicAttributes` к любому методу в xref:search:index-definitions.adoc#interface[интерфейсе определения индекса]. В своей базовой форме она включает все динамические атрибуты сущности в индекс без каких-либо исключений:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @AutoMappedField(includeProperties = {"firstName", "lastName"}) // <1>
+    @DynamicAttributes // <2>
+    void mapping();
+}
+----
+<1> Индексация статических атрибутов сущности.
+<2> Индексация всех динамических атрибутов сущности.
+
+Аннотация `@DynamicAttributes` является повторяемой — несколько аннотаций могут быть размещены на одном методе или распределены по разным методам:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @AutoMappedField(includeProperties = {"firstName", "lastName"})
+    void mapping();
+
+    @DynamicAttributes(excludeCategories = {"Internal"})
+    @DynamicAttributes(excludeAttributes = {"*secret*"}, analyzer = "english")
+    void dynamicMapping();
+}
+----
+
+[CAUTION]
+====
+При использовании нескольких аннотаций `@DynamicAttributes` будьте внимательны с пересечениями: если один и тот же атрибут соответствует условиям более чем одной аннотации, это вызовет конфликт и исключение при запуске приложения. Смотрите <<multiple-groups-with-different-settings>> для получения подробной информации о конфликтах и способах их разрешения.
+====
+
+[[parameters]]
+=== Параметры аннотации
+
+* `excludeCategories` — массив названий категорий динамических атрибутов, которые следует исключить из индексации. Поддерживаются шаблоны с подстановочным знаком `+*+`.
++
+Название категории — это значение поля *Name*, определенное при xref:dyn-attr:dynattr-managing.adoc#create-category[создании категории] в разделе *Administration -> Dynamic attributes*.
++
+[source,java]
+----
+@DynamicAttributes(excludeCategories = {"Internal", "Archive"})
+void mapping();
+----
++
+[NOTE]
+====
+Шаблон не может состоять только из символов `+*+` — например, `+*+` или `+**+` будут отклонены. Несколько символов `+*+` в сочетании с другим текстом разрешены: `+*abc+`, `+abc*+`, `+a*b*c+`, `+a**b+`.
+====
+
+* `excludeAttributes` — массив кодов динамических атрибутов, которые следует исключить из индексации. Поддерживаются шаблоны с подстановочным знаком `+*+`.
++
+Код атрибута — это значение поля *System code*, определенное при xref:dyn-attr:dynattr-managing.adoc#create-attribute[создании динамического атрибута] в разделе *Administration -> Dynamic attributes*. Он указывается *без* префикса `+` (префикс используется только внутренне в метамодели Jmix).
++
+[source,java]
+----
+@DynamicAttributes(excludeAttributes = {"*String*", "dynamicEnumAttr*", "dynamicAttribute"})
+void mapping();
+----
++
+[NOTE]
+====
+Символы `+.+` и `+++` запрещены в кодах атрибутов. Шаблон не может состоять только из символов `+*+` — например, `+*+` или `+**+` будут отклонены. Несколько символов `+*+` в сочетании с другим текстом разрешены: `+*String*+`, `+attr*Code*+`, `+a**b+`.
+====
+
+* `referenceAttributesIndexingMode` — режим индексации для динамических атрибутов типа `Entity` (ссылки на другие сущности). Допустимые значения:
++
+[cols="1,3"]
+|===
+| Значение | Описание
+
+| `INSTANCE_NAME_ONLY` (по умолчанию)
+| Индексируется только имя экземпляра (instance name) связанной сущности. Отдельные статические или динамические атрибуты связанной сущности не обходятся и не индексируются.
+
+| `NONE`
+| Ссылочные динамические атрибуты вообще не индексируются.
+|===
++
+[source,java]
+----
+@DynamicAttributes(referenceAttributesIndexingMode = ReferenceAttributesIndexingMode.NONE)
+void mapping();
+----
+
+* `analyzer` — имя анализатора Elasticsearch/OpenSearch, применяемого к полям динамических атрибутов. Анализатор применяется ко всем поддерживаемым типам атрибутов, поскольку все они индексируются как текстовые поля: атрибуты `STRING`, атрибуты `ENUMERATION` и имя экземпляра (`instance_name`) атрибутов типа `ENTITY`.
++
+Анализатор токенизирует текст во время индексации и поиска: он разбивает текст на слова, приводит токены к нижнему регистру, удаляет стоп-слова и т.д.
++
+По умолчанию используется анализатор `standard`. Он разбивает текст по границам слов Unicode и приводит все токены к нижнему регистру. Он хорошо работает для большинства западноевропейских языков, но не обрабатывает морфологию — например, не приводит слова к корневой форме. Для морфологически богатых языков, таких как финский, используйте специфичный для языка анализатор.
++
+[source,java]
+----
+@DynamicAttributes(analyzer = "finnish")
+void mapping();
+----
+
+[[combine-annotations]]
+=== Комбинирование с другими аннотациями
+
+`@DynamicAttributes` можно комбинировать с `@AutoMappedField` в одном методе:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Order.class)
+public interface OrderIndexDefinition {
+
+    @AutoMappedField(includeProperties = {"number", "product", "customer.lastName"})
+    @DynamicAttributes(
+        excludeCategories = {"Internal"},
+        referenceAttributesIndexingMode = ReferenceAttributesIndexingMode.NONE,
+        analyzer = "english"
+    )
+    void mapping();
+}
+----
+
+[[programmatic-index-definition]]
+== Программное определение индекса
+
+Когда используется xref:search:index-definitions.adoc#programmatic-mapping[программный подход к маппингу] через `@ManualMappingDefinition`, для динамических атрибутов применяется `DynamicAttributesGroupConfiguration`.
+
+Группа динамических атрибутов — это набор настроек индексации (анализатор, режим обработки ссылок, исключения категорий и атрибутов), применяемый к подмножеству динамических атрибутов сущности. Каждый вызов `addDynamicAttributesGroup()` определяет одну группу. Если разные атрибуты должны индексироваться с разными настройками, можно объявить несколько групп.
+
+[WARNING]
+====
+Поскольку группы определяются через *исключения*, один и тот же атрибут может легко попасть более чем в одну группу. Если это произойдет, и обе группы имеют одинаковое значение `order`, при запуске приложения будет выброшено исключение:
+
+ Conflicted mapping fields: '+attrCode' and '+attrCode'. Specify the different values of order for them.
+
+Значение `order` по умолчанию берется из стратегии маппинга полей: например, `AutoMappingStrategy` возвращает `0`. Это означает, что две группы, использующие одну и ту же стратегию без явного указания `withOrder`, *всегда* будут конфликтовать на перекрывающихся атрибутах.
+
+Чтобы разрешить конфликт, присвойте конфликтующим группам разные значения `order`. Группа с *большим* значением побеждает:
+
+[source,java]
+----
+.addDynamicAttributesGroup(
+        DynamicAttributesGroupConfiguration.builder()
+                .excludeProperties("private*")
+                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                .withOrder(0) // <1>
+                .build()
+)
+.addDynamicAttributesGroup(
+        DynamicAttributesGroupConfiguration.builder()
+                .addParameter("analyzer", "english")
+                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                .withOrder(1) // <2>
+                .build()
+)
+----
+<1> Группа с более низким приоритетом.
+<2> Эта группа побеждает для атрибутов, попадающих в обе группы.
+
+Рекомендуется проектировать группы так, чтобы каждый атрибут явно попадал только в одну из них — используя `excludeProperties` или `excludeCategories`.
+====
+
+[[minimal-configuration]]
+=== Минимальная конфигурация
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup( // <1>
+                        DynamicAttributesGroupConfiguration.builder()
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Добавление группы динамических атрибутов без дополнительных ограничений.
+
+[[indexing-reference-attributes-by-instance-name]]
+=== Индексация ссылочных атрибутов по имени экземпляра
+
+По умолчанию динамические ссылочные атрибуты индексируются в режиме `INSTANCE_NAME_ONLY` — в индекс включается только имя экземпляра связанной сущности:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(
+                        DynamicAttributesGroupConfiguration.builder()
+                                .withReferenceAttributesIndexingMode(   // <1>
+                                        ReferenceAttributesIndexingMode.INSTANCE_NAME_ONLY)
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Режим по умолчанию, может быть опущен. Индексируется только `instance_name` связанной сущности — ее собственные атрибуты не индексируются.
+
+[[excluding-reference-attributes-from-the-index]]
+=== Исключение ссылочных атрибутов из индекса
+
+Если ссылочные атрибуты не должны индексироваться, используйте `NONE`:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(
+                        DynamicAttributesGroupConfiguration.builder()
+                                .withReferenceAttributesIndexingMode(   // <1>
+                                        ReferenceAttributesIndexingMode.NONE)
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Ссылочные динамические атрибуты полностью исключены из индекса. Индексируются только атрибуты `STRING` и `ENUMERATION`.
+
+[[multiple-groups-with-different-settings]]
+=== Несколько групп с разными настройками
+
+Может быть добавлено несколько групп динамических атрибутов, каждая со своими правилами. Это полезно, когда одним атрибутам нужен один анализатор, а другим — другой режим индексации ссылок:
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(   // <1>
+                        DynamicAttributesGroupConfiguration.builder()
+                                .excludeProperties("private*")
+                                .withReferenceAttributesIndexingMode(
+                                        ReferenceAttributesIndexingMode.INSTANCE_NAME_ONLY)
+                                .addParameter("analyzer", "english")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(   // <2>
+                        DynamicAttributesGroupConfiguration.builder()
+                                .excludeCategories("Internal")
+                                .withReferenceAttributesIndexingMode(
+                                        ReferenceAttributesIndexingMode.NONE)
+                                .addParameter("analyzer", "english")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Первая группа: атрибуты с кодом, соответствующим `private*`, исключены, ссылочные атрибуты индексируются по имени экземпляра, применяется анализатор `english`.
+<2> Вторая группа: категория `Internal` исключена, ссылочные атрибуты не индексируются, применяется анализатор `english`.
+
+[[combining-category-attribute-exclusions]]
+=== Комбинирование исключений категорий и атрибутов
+
+[source,java]
+----
+@JmixEntitySearchIndex(entity = Customer.class)
+public interface CustomerIndexDefinition {
+
+    @ManualMappingDefinition
+    default MappingDefinition mapping() {
+        return MappingDefinition.builder()
+                .addStaticAttributesGroup(
+                        StaticAttributesGroupConfiguration.builder()
+                                .includeProperties("*")
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .addDynamicAttributesGroup(
+                        DynamicAttributesGroupConfiguration.builder()
+                                .excludeCategories("Internal", "Archive") // <1>
+                                .excludeProperties("*secret*", "attr4")   // <2>
+                                .withReferenceAttributesIndexingMode(
+                                        ReferenceAttributesIndexingMode.NONE)
+                                .addParameter("analyzer", "english")      // <3>
+                                .withFieldMappingStrategyClass(AutoMappingStrategy.class)
+                                .build()
+                )
+                .build();
+    }
+}
+----
+<1> Исключение категорий по имени. Символы `.` и `+` не ограничены для имен категорий; отдельно стоящий `*` не разрешен.
+<2> Исключение атрибутов по коду с поддержкой подстановочных знаков. Символы `.` и `+` запрещены; отдельно стоящий `*` не разрешен.
+<3> Анализатор применяется ко всем текстовым полям динамических атрибутов: `STRING`, `ENUMERATION` и `instance_name` атрибутов типа `ENTITY`.
+
+[NOTE]
+====
+Все ограничения, описанные в разделе <<limitations>>, применяются и к программной конфигурации: поддерживаемые типы атрибутов, правила индексации ссылок, ограничения цепочек атрибутов и ограничения составных ключей.
+====
+
+[[dynamicAttributesGroupConfiguration-builder-methods]]
+=== Методы билдера DynamicAttributesGroupConfiguration
+
+[cols="2,3"]
+|===
+| Метод | Описание
+
+| `excludeCategories(String... categories)`
+| Исключает категории динамических атрибутов по имени. Шаблон не может состоять только из символов `+*+`; несколько `+*+` в сочетании с другим текстом разрешены (`+*abc+`, `+abc*+`, `+a**b+`).
+
+| `excludeProperties(String... properties)`
+| Исключает динамические атрибуты по коду. Символы `+.+` и `+++` запрещены. Шаблон не может состоять только из символов `+*+`; несколько `+*+` в сочетании с другим текстом разрешены (`+*String*+`, `+attr*Code*+`, `+a**b+`).
+
+| `withReferenceAttributesIndexingMode(ReferenceAttributesIndexingMode mode)`
+| Устанавливает режим индексации для ссылочных динамических атрибутов: `INSTANCE_NAME_ONLY` (по умолчанию) или `NONE`. В режиме `INSTANCE_NAME_ONLY` индексируется только имя экземпляра связанной сущности.
+
+| `withFieldMappingStrategyClass(Class<? extends FieldMappingStrategy> cls)`
+| Устанавливает класс стратегии маппинга полей.
+
+| `withFieldMappingStrategy(FieldMappingStrategy strategy)`
+| Устанавливает экземпляр стратегии маппинга полей (имеет приоритет над классом).
+
+| `addParameter(String key, Object value)`
+| Добавляет произвольный параметр конфигурации, например, `"analyzer"`.
+
+| `withPropertyValueExtractor(PropertyValueExtractor extractor)`
+| Устанавливает пользовательский извлекатель значения свойства.
+
+| `withOrder(int order)`
+| Устанавливает приоритет группы. Используется для разрешения конфликтов, когда один и тот же атрибут попадает в несколько групп: группа с большим значением побеждает. Если не задано явно, значение берется из стратегии маппинга полей (например, `AutoMappingStrategy` возвращает `0`).
+|===
+
+[[change-tracking]]
+== Отслеживание изменений
+
+Дополнение Search автоматически отслеживает изменения динамических атрибутов индексируемых сущностей. Когда значение динамического атрибута изменяется, сущность добавляется в очередь индексации и переиндексируется во время следующей обработки очереди.
+
+Это поведение не требует дополнительной настройки — оно включается автоматически, когда динамические атрибуты присутствуют в определении индекса.
+
+[NOTE]
+====
+Если значение динамического ссылочного атрибута изменяется у экземпляра связанной сущности, владеющий экземпляр сущности также автоматически переиндексируется.
+====
+
+[[limitations]]
+== Ограничения
+
+[[supported-types]]
+=== Поддерживаемые типы динамических атрибутов
+
+Индексируются только следующие типы динамических атрибутов:
+
+[cols="1,3"]
+|===
+| Тип | Описание
+
+| `STRING`
+| Строковые атрибуты.
+
+| `ENUMERATION`
+| Атрибуты-перечисления. Индексируются локализованные значения для всех доступных локалей.
+
+| `ENTITY`
+| Ссылочные атрибуты (ссылка на другую сущность). Поведение контролируется параметром `referenceAttributesIndexingMode`.
+|===
+
+Атрибуты других типов (`INTEGER`, `DOUBLE`, `DECIMAL`, `DATE`, `DATE_WITHOUT_TIME`, `BOOLEAN`) не индексируются и молча игнорируются.
+
+[[reference-attribute-indexing-limitations]]
+=== Ограничения индексации ссылочных атрибутов
+
+Для динамических атрибутов типа `ENTITY` применяются следующие ограничения:
+
+* В режиме `INSTANCE_NAME_ONLY` индексируется только *имя экземпляра* связанной сущности. Отдельные статические или динамические атрибуты связанной сущности не включаются в индекс.
+* `INSTANCE_NAME_ONLY` — единственный режим, в котором индексируются ссылочные атрибуты. Более глубокая индексация через динамическую ссылку не поддерживается.
+* Сущности, на которые ссылаются через динамические атрибуты, *не поддерживают составные первичные ключи*.
+
+Доступны только два режима из-за ограничения фреймворка. Jmix не поддерживает FetchPlan для динамических атрибутов: при загрузке экземпляра сущности доступна только подсказка `LOAD_DYN_ATTR`, которая загружает все динамические атрибуты полностью. Динамические свойства намеренно исключены из FetchPlan и загружаются отдельно через эту подсказку. Поскольку нет способа указать, какие поля экземпляра связанной сущности должны быть загружены при обходе динамического ссылочного атрибута, имя экземпляра, вычисляемое единообразно для любой сущности, является единственным практически осуществимым вариантом индексации.
+
+[[attribute-chain-limitations]]
+=== Ограничения цепочек атрибутов
+
+* *Динамические атрибуты через статические ссылки* — динамические атрибуты экземпляров сущностей, связанных с корневой сущностью через статический ссылочный атрибут (например, `customer.+dynamicAttr`), не индексируются. Индексируются только динамические атрибуты непосредственно самого экземпляра корневой сущности.
+* *Статические атрибуты через динамические ссылки* — статические атрибуты экземпляра сущности, на который ссылается динамический атрибут типа `ENTITY`, не индексируются. Доступно только имя экземпляра этого экземпляра сущности.
+
+[[other-limitations]]
+=== Прочие ограничения
+
+* Символы `.` (точка) и `+` (плюс) запрещены в кодах атрибутов (`excludeAttributes`). Для имен категорий (`excludeCategories`) таких ограничений нет.
+* Шаблон не может состоять только из символов `+*+` — например, `+*+` или `+**+` будут отклонены. Несколько символов `+*+` в сочетании с другим текстом разрешены: `+*abc+`, `+abc*+`, `+a*b*c+`, `+a**b+`.
+* Дополнение *Dynamic Attributes* (`jmix-dynattr`) должно присутствовать в проекте.
