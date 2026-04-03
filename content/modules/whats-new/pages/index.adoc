@@ -299,16 +299,30 @@ public class MySettingsFacet implements SettingsFacet<MyUiComponentSettings>
 
 Если вы используете MariaDB, следуйте инструкциям ниже после обновления вашего проекта до Jmix 2.8.
 
-. Чтобы избежать ошибки контрольной суммы Liquibase для выполненных changelog, запустите ваше приложение один раз со свойством `main.liquibase.clear-checksums=true`. Например, если ваше основное хранилище данных использует MariaDB, выполните следующую команду:
+. Устраните ошибки контрольной суммы Liquibase для выполненных changelog. Это можно сделать одним из двух следующих способов:
+
+.. Запустите ваше приложение один раз со свойством `main.liquibase.clear-checksums=true`. Например, если ваше основное хранилище данных использует MariaDB, выполните следующую команду:
 +
 [source,shell]
 ----
 ./gradlew bootRun --args='--main.liquibase.clear-checksums=true'
 ----
 +
+В качестве альтернативы можно добавить `main.liquibase.clear-checksums=true` в файл `application.properties` и собрать специальную версию вашего приложения, чтобы запустить его один раз на продакшен базе данных.
++
 После выполнения Liquibase на вашей базе данных с этой опцией контрольные суммы в БД будут обновлены и совместимы с changelog'ами, расположенными в вашем исходном коде.
 +
 Не используйте `main.liquibase.clear-checksums=true` для последующих запусков.
+
+.. Вместо очистки контрольных сумм вы можете установить валидные значения в changelog-файлах. Для каждого changeset, использующего переменную `uuid.type`, установите `validCheckSum` в значение, которое в настоящее время присутствует в колонке `MD5SUM` таблицы `DATABASECHANGELOG`. Например:
++
+[source,xml]
+----
+<changeSet id="1" author="admin">
+    <validCheckSum>9:c2f20bd9d8765d4c2554826e5eb376a8</validCheckSum>
+    <!--...-->
+</changeSet>
+----
 
 . Убедитесь, что корневой changelog (например, `com/company/sample/liquibase/changelog.xml`) включает в себя следующее свойство:
 +
