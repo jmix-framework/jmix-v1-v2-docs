@@ -302,16 +302,30 @@ For compatibility with all previous and current versions of MariaDB and Liquibas
 
 If you are using MariaDB, follow the instructions below after updating your project to Jmix 2.8.
 
-. To avoid Liquibase checksum error for executed changelogs, run your application once with `main.liquibase.clear-checksums=true` property. For example, if your main data store uses MariaDB, execute the following command:
+. Eliminate Liquibase checksum errors for executed changelogs. You can do it using one of two options:
+
+.. Run your application once with `main.liquibase.clear-checksums=true` property. For example, if your main data store uses MariaDB, execute the following command:
 +
 [source,shell]
 ----
 ./gradlew bootRun --args='--main.liquibase.clear-checksums=true'
 ----
 +
+Alternatively, you can add `main.liquibase.clear-checksums=true` to your `application.properties` file and build a special version of your application to run once against your production database.
++
 After running Liquibase on your database with this option, the checksums in the database will be updated and compatible with the changelogs located in your source code.
 +
 Do not use `main.liquibase.clear-checksums=true` for subsequent launches.
+
+.. Instead of clearing checksums, you can set valid values in the changelog files. For each changeset that uses the `uuid.type` variable, set `validCheckSum` to the value currently present in the `MD5SUM` column of the `DATABASECHANGELOG` table. For example:
++
+[source,xml]
+----
+<changeSet id="1" author="admin">
+    <validCheckSum>9:c2f20bd9d8765d4c2554826e5eb376a8</validCheckSum>
+    <!--...-->
+</changeSet>
+----
 
 . Make sure the root changelog (e.g. `com/company/sample/liquibase/changelog.xml`) includes the following property:
 +
