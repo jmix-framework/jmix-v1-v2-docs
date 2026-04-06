@@ -243,3 +243,47 @@ include::example$/onboarding/src/main/java/com/company/onboarding/OnboardingAppl
 
 image::themes/theme-switcher.gif[align="center" width="1169"]
 
+[[customize-lumo-theme-variants]]
+== Customizing Component Styles for Theme Variants
+
+When you allow users to switch between light and dark theme variants at runtime (as described above), you may need to define specific styles for each variant to ensure proper contrast and visual appearance.
+
+To apply styles conditionally based on the active theme variant, use the theme attribute on the `html` element in your CSS. When a theme variant is applied, Jmix adds a corresponding theme attribute to the root `html` element.
+
+* For the light variant, the attribute is `theme="light"`.
+* For the dark variant, the attribute is `theme="dark"`.
+
+You can use these selectors in your theme's CSS files (for example, in `my-project.css` or `styles.css`) to override component styles for a specific variant.
+
+Suppose you have a button with the custom style name `my-button` and you want it to have different text colors in light and dark modes.
+
+[source,css]
+----
+/* Default style for light mode */
+vaadin-button.my-button {
+    color: navy;
+}
+
+/* Override for dark mode */
+html[theme='dark'] vaadin-button.my-button {
+    color: lightskyblue;
+}
+----
+
+You can also override Lumo's built-in CSS properties (variables) for specific variants. This provides a way to consistently change the appearance of many components at once.
+
+For example, to change the primary color for the dark variant only:
+
+[source,css]
+----
+html[theme='dark'] {
+    --lumo-primary-color: rgb(100, 200, 255);
+    --lumo-primary-text-color: rgb(100, 200, 255);
+}
+----
+
+[NOTE]
+====
+* Place these variant-specific styles in your theme's main CSS file (for example, `my-project.css`). The `html[theme='dark']` selector will only match when the dark variant is active.
+* Ensure that your styles for the dark variant do not conflict with or unintentionally override styles in the light variant.
+====
