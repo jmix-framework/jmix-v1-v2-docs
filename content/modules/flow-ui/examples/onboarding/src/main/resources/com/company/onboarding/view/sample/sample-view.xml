@@ -20,6 +20,11 @@
             <vbox>
                 <button id="openDialogWindow" text="Open DialogWindow"/>
             </vbox>
+            <vbox>
+                <button id="dialogSizeWindow" text="Open Sized DialogWindow"/>
+                <button id="dialogSizeWindow2" text="Open Sized DialogWindow"/>
+                <button id="dialogSizeWindow3" text="Open Sized DialogWindow"/>
+            </vbox>
         </formLayout>
     </layout>
 </view>

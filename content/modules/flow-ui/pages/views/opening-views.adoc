@@ -124,12 +124,55 @@ http://localhost:8080/FancyMessageView
 
 Бин `DialogWindows` предоставляет удобный интерфейс для открытия экранов в диалоговых окнах. Его терминальные методы предоставляют доступ к экземпляру открываемого экрана, что позволяет передавать входные параметры непосредственно в экземпляр экрана и добавлять слушатели для получения результатов из открываемого экрана после его закрытия.
 
+[[basic]]
+=== Базовое открытие
+
 Чтобы открыть экран в виде диалогового окна, инжектируйте бин `DialogWindows` и вызовите метод `view()`, передав ему текущий экран и класс открываемого экрана. Затем вызовите терминальный метод `open()`:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openView]
 ----
+
+[[dialog-size]]
+=== Установка размера диалога
+
+Существует несколько способов установить размер окна диалога:
+
+. *Использование аннотации `@DialogMode`*
++
+Добавьте аннотацию `@DialogMode` к классу экрана, который открывается как диалог. Это устанавливает размер по умолчанию для диалога при открытии экрана.
++
+[source,java,indent=0]
+----
+@ViewController("MyOnboardingView")
+@ViewDescriptor("my-onboarding-view.xml")
+@DialogMode(width = "50em", height = "40em")
+public class MyOnboardingView extends StandardView {
+    // some code
+}
+----
+. *Установка размера внутри открываемого экрана*
++
+Вы можете изменить размер диалога из контроллера самого экрана. Это полезно, когда требуемый размер зависит от условий времени выполнения, например, от показа или скрытия полей.
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/myonboarding/MyOnboardingView.java[tags=onBeforeShow;set-size]
+----
++
+TIP: Метод `findDialog()` возвращает `null` , если текущий экран не открыт как диалог. Всегда проверяйте значение на `null` перед вызовом методов у возвращенного экземпляра диалога.
+. *Установка размера при открытии диалога*
++
+При использовании бина `DialogWindows` вы можете установить размер после построения окна диалога, но перед его открытием.
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openViewWithSize]
+----
+
+[[passing-parameters-into-dialog]]
+=== Передача параметров
 
 Если вам нужно передать параметры в открываемый экран, вызовите терминальный метод `build()`, задайте параметры для экрана, затем откройте диалоговое окно:
 
@@ -139,6 +182,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 ----
 
 NOTE: Когда вы вызываете метод `build()`, в экране генерируется событие xref:views/view-events.adoc#init-event[InitEvent]. Если вы открываете диалоговое окно для создания новой сущности, при вызове метода `build()` также будет сгенерировано событие xref:views/view-events.adoc#init-entity-event[InitEntityEvent]. Остальные xref:views/view-events.adoc[события жизненного цикла] экрана срабатывают при вызове метода `open()`.
+
+[[handling-results]]
+=== Обработка результатов
 
 Чтобы получить результат из открываемого экрана после его закрытия, добавьте в диалоговое окно слушатель `AfterCloseEvent`:
 
@@ -156,6 +202,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openViewWithResults]
 ----
 
+[[entity-selection]]
+=== Выбор сущности
+
 Чтобы выбрать сущности из экрана списка, откройте экран, используя метод `lookup()`:
 
 [source,java,indent=0]
@@ -164,6 +213,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 ----
 
 Используйте метод `withSelectHandler()`, чтобы предоставить лямбду, которая принимает коллекцию экземпляров сущностей, выбранных в открываемом экране.
+
+[[creating-editing-entities]]
+=== Создание и редактирование сущностей
 
 Чтобы создать новый экземпляр сущности в экране деталей, укажите класс экрана и вызовите метод `newEntity()`. Используйте слушатель `AfterCloseEvent`, чтобы получить созданную сущность. Например:
 
