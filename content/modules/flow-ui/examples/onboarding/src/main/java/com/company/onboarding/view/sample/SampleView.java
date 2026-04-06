@@ -246,4 +246,24 @@ public class SampleView extends StandardView {
                 dialogWindows.view(this, DepartmentListView.class).build();
         window.open();
     }
+
+    @Subscribe(id = "dialogSizeWindow", subject = "clickListener")
+    public void onDialogSizeWindowClick(final ClickEvent<JmixButton> event) {
+        dialogWindows.view(this, MyOnboardingView.class).open();
+    }
+
+    @Subscribe(id = "dialogSizeWindow2", subject = "clickListener")
+    public void onDialogSizeWindow2Click(final ClickEvent<JmixButton> event) {
+        openViewWithSize();
+    }
+
+    // tag::openViewWithSize[]
+    private void openViewWithSize() {
+        DialogWindow<MyOnboardingView> window =
+                dialogWindows.view(this, MyOnboardingView.class).build();
+        window.setWidth("40em");
+        window.setHeight("30em");
+        window.open();
+    }
+    // end::openViewWithSize[]
 }

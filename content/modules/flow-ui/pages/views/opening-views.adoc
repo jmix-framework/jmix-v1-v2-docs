@@ -125,12 +125,55 @@ This approach is simpler and allows you to pass complex types, but the downside 
 
 The `DialogWindows` bean provides a fluent interface for opening views in dialog windows. Its terminal methods give access to the opened view instance. It allows you to pass input parameters directly to the view instance and add listeners for getting results back from the opened view after it is closed.
 
+[[basic]]
+=== Basic Opening
+
 To open a view as a dialog, inject the `DialogWindows` bean and invoke the `view()` method passing the current view and the opened view class to it. Then invoke the `open()` terminal method:
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openView]
 ----
+
+[[dialog-size]]
+=== Setting Dialog Size
+
+There are several ways to set the size of a dialog window:
+
+. *Using the `@DialogMode` annotation*
++
+Add the `@DialogMode` annotation to the view class that is opened as a dialog. This sets the default size for the dialog when the view is opened.
++
+[source,java,indent=0]
+----
+@ViewController("MyOnboardingView")
+@ViewDescriptor("my-onboarding-view.xml")
+@DialogMode(width = "50em", height = "40em")
+public class MyOnboardingView extends StandardView {
+    // some code
+}
+----
+. *Setting size inside the opened view*
++
+You can change the dialog size from within the view controller. This is useful when the required size depends on runtime conditions, such as showing or hiding fields.
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/myonboarding/MyOnboardingView.java[tags=onBeforeShow;set-size]
+----
++
+TIP: The `findDialog()` method returns `null` if the current view is not opened as a dialog. Always check for `null` before calling methods on the returned dialog instance.
+. *Setting size when opening the dialog*
++
+When using the `DialogWindows` bean, you can set the size after building the dialog window but before opening it.
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openViewWithSize]
+----
+
+[[passing-parameters-into-dialog]]
+=== Passing Parameters
 
 If you need to pass parameters to the opened view, invoke the `build()` terminal method, set parameters to the view, then open the window:
 
@@ -140,6 +183,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 ----
 
 NOTE: When you invoke the `build()` method, the xref:views/view-events.adoc#init-event[InitEvent] is fired. If you open a dialog window to create a new entity, the xref:views/view-events.adoc#init-entity-event[InitEntityEvent] will also be fired when you call the `build()` method. The rest of the xref:views/view-events.adoc[lifecycle events] for the view are triggered when you call the `open()` method.
+
+[[handling-results]]
+=== Handling Results
 
 To get a result from the opened view after it is closed, add `AfterCloseEvent` listener to the dialog window:
 
@@ -157,6 +203,9 @@ You can also add `AfterCloseEvent` listener using the fluent interface:
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openViewWithResults]
 ----
 
+[[entity-selection]]
+=== Entity Selection
+
 To select entities from a list view, open the view using the `lookup()` method:
 
 [source,java,indent=0]
@@ -165,6 +214,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 ----
 
 Use the `withSelectHandler()` method to provide a lambda which accepts the collection of entity instances selected in the opened view.
+
+[[creating-editing-entities]]
+=== Creating and Editing Entities
 
 To create a new entity instance in a detail view, specify the view class and invoke `newEntity()`. Use `AfterCloseEvent` listener to get the created entity. For example:
 
