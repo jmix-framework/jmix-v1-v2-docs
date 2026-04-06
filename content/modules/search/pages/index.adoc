@@ -3,7 +3,7 @@
 The Search add-on provides full-text search functionality for your application.
 It allows you to configure indexing of entities and uploaded files, as well as providing API and UI components for searching the indexed data. The search results are filtered based on the xref:security:index.adoc[data access] permissions of the current user.
 
-The add-on utilizes https://www.elastic.co[Elasticsearch^] or https://opensearch.org[OpenSearch^] (since Jmix 2.3) as its search engine. It can work with only one of them at the same time.
+The add-on utilizes https://www.elastic.co[Elasticsearch^] or https://opensearch.org[OpenSearch^] as its search engine. It can work with only one of them at the same time.
 
 For more information about the internal search and indexing mechanisms, please refer to the https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html[Elasticsearch^] or https://opensearch.org/docs/latest[OpenSearch^] documentation.
 
@@ -48,7 +48,7 @@ The version of the Elasticsearch Java API used by the add-on is determined by th
 
 With OpenSearch, the add-on uses Java API client v2.13.
 
-CAUTION: Note that the Search add-on is not currently compatible with the Elasticsearch service offered by AWS.
+NOTE: On AWS, use Amazon OpenSearch Service. The legacy Elasticsearch service is not supported.
 
 // In case you use a local service, you may not specify the properties above.
 
