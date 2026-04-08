@@ -41,6 +41,17 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/loginform/login-form-view.xml[tags=basic]
 ----
 
+[[remember-me]]
+=== Запоминание пользователя
+
+Флажок *Remember me* ("Запомнить меня") позволяет пользователю сохранять состояние своего входа в систему в течение длительного периода времени, превышающего время жизни HTTP-сессии. Это состояние сохраняется даже после перезапуска сервера.
+
+Когда пользователь устанавливает флажок *Remember me* при входе в систему, система сохраняет постоянный токен в cookie браузера. При последующих посещениях пользователь автоматически аутентифицируется без повторного ввода учетных данных.
+
+Для обработки состояния `Remember me` в логике входа в систему используйте событие <<RememberMeChangedEvent,RememberMeChangedEvent>>.
+
+Смотрите https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html[документацию Spring Security Remember-Me^] для получения дополнительной информации.
+
 [[authentication]]
 == Аутентификация
 
@@ -116,7 +127,9 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[rememberMeVisible]]
 === rememberMeVisible
 
-Устанавливает видимость флажка **Remember me** ("Запомнить меня").
+Устанавливает видимость флажка *Remember me* ("Запомнить меня"). Если значение `true`, пользователи могут выбрать опцию оставаться в системе между сеансами браузера.
+
+Значение по умолчанию — `false`.
 
 == Обработчики
 
