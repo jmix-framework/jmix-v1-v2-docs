@@ -59,6 +59,8 @@ Create roles that your users should receive:
 . Go to *Realm roles* and create a new role.
 . Provide the *Role name*. If you use the default Jmix role mapping it should match the Jmix role code, for example `system-full-access`.
 
+//Add note that custom logic for role mapping is described in another section.
+
 [[create-and-configure-users]]
 === Create and Configure Users
 
@@ -69,9 +71,11 @@ Create a Keycloak user:
 . Go to the *Role Mapping* tab to assign the realm roles created previously.
 
 [[add-saml-attributes]]
-=== Adding SAML Attributes
+=== (Optional) Add SAML Attributes
 
-Configure sending the SAML attributes your application requires. For that, you need to map them:
+NOTE: This step only adds attributes to the SAML assertion. The application will not use them automatically. To fill application user attributes from these values, you must also configure xref:saml:additional-setup.adoc#_adding_extra_saml_attributes[attribute mapping] in the application.
+
+If you need to include any extra SAML attributes, add them in Keycloak as follows:
 
 . Go to your *Client* -> *Client Scopes* -> `\https://<your-app-url>/saml/sp-dedicated` -> *Configure a new mapper*.
 . Select appropriate mapper type. For built-in properties, (such as email, firstName, lastName) select *User Property* and provide values:
@@ -115,7 +119,7 @@ spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].
 ----
 
 [[signing-algorithm]]
-== (Optional) Specify a Signing Algorithm
+== Specify a Signing Algorithm
 
 If a specific signing algorithm is required, configure it explicitly:
 
@@ -160,3 +164,4 @@ Validate that:
 * Expected attributes are present in the SAML assertion.
 * Expected roles are granted in the application.
 * Logout works correctly, if SLO is configured.
+
