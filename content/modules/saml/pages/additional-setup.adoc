@@ -1,12 +1,84 @@
 = Расширенные настройки
 
-Ниже приведены инструкции по расширению xref:saml:index.adoc#default-configuration[стандартной конфигурации Jmix SAML].
+Следующие инструкции описывают, как расширить xref:saml:index.adoc#default-configuration[конфигурацию Jmix SAML по умолчанию]. Используйте их после выполнения xref:saml:keycloak-saml.adoc[Настройки SAML в Keycloak] или аналогичной базовой настройки для другого провайдера.
 
+[[mapping-saml-attributes]]
+== Сопоставление SAML атрибутов
 
-== Сопоставление атрибутов и ролей пользователя
+NOTE: Прежде чем сопоставлять атрибуты в приложении, убедитесь, что они включены в SAML assertion. См. xref:saml:keycloak-saml.adoc#add-saml-attributes[добавление атрибутов SAML в Keycloak] или аналогичные шаги для вашего провайдера.
 
-TBA
+Если SAML assertion содержит информацию о пользователе, такую как имя, должность, отдел или другие данные профиля, вы можете сделать ее доступной в приложении во время пользовательской сессии.
 
+Для этого:
+
+. Создайте класс, расширяющий `DefaultJmixSamlUserDetails`:
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MyUser.java[tags=MyUser]
+----
++
+<1> Дополнительное поле, соответствующее дополнительному атрибуту SAML.
++
+. Создайте Spring бин, который преобразует входящий SAML assertion в объект пользователя Jmix. Самый простой способ — расширить `BaseSamlUserMapper` и переопределить его методы:
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlUserMapper.java[tags=MySamlUserMapper]
+----
++
+<1> Этот метод создает объект пользователя Jmix, который будет представлять аутентифицированного пользователя.
+<2> Здесь значения из SAML `Assertion` копируются в ваш объект пользователя. В примере атрибут `Position` из `Assertion` сохраняется в поле `position` объекта `MyUser`.
+<3> В этом методе пользователю назначаются authorities. Вместо прямой реализации этой логики, пример делегирует ее интерфейсу `SamlAssertionRolesMapper` и, следовательно, реализации по умолчанию `DefaultSamlAssertionRolesMapper`.
+
+[[using-different-roles-attribute]]
+== Использование другого атрибута для ролей
+
+По умолчанию `DefaultSamlAssertionRolesMapper` ищет атрибут с именем `Role` в SAML `Assertion`. Ожидается, что этот атрибут содержит коллекцию имен ролей. Для каждого имени роли Jmix ищет ресурсные роли и роли уровня строк с соответствующими кодами. При совпадении кода – соответствующие разрешения добавляются пользователю.
+
+Если ваш провайдер отправляет роли в атрибуте, отличном от `Role`, вы можете указать необходимый атрибут с помощью следующего xref:saml:saml-properties.adoc[свойства Jmix SAML]:
+
+.application.properties
+----
+jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute=MyRole
+----
+
+Маппер по умолчанию будет читать имена ролей из `MyRole` вместо `Role`.
+
+[[creating-custom-role-mapper]]
+== Создание собственного маппера ролей
+
+Если требуется больше контроля, вы можете создать собственный маппер ролей. Это полезно, когда провайдер не отправляет коды ролей Jmix напрямую, а вместо этого отправляет другие значения, которые вы хотите преобразовать в подходящие роли.
+
+Например, значение `Manager` может приходить из атрибута `Position`, и ваш маппер может использовать его для назначения подходящих ролей Jmix. Для этого расширьте `BaseSamlAssertionRolesMapper` и переопределите методы `getResourceRolesCodes()` и `getRowLevelRolesCodes()`:
+
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlAssertionRolesMapper.java[tags=MySamlAssertionRolesMapper]
+----
+
+В этом примере значение `Position` пользователя определяет, какие ресурсные Jmix будут назначены:
+
+* если `Position` содержит значение `Manager`, пользователь получает роли `edit-contracts` и `view-archive`.
+* в противном случае пользователь получает роль `view-contracts`.
+
+[[persist-users-to-database]]
 == Сохранение пользователей в базе данных
 
-TBA
+По умолчанию конфигурация Jmix SAML хранит аутентифицированных пользователей только в памяти. Если вы хотите, чтобы пользователи SAML сохранялись в базе данных, выполните следующие шаги:
+
+. Сделайте сущность xref:security:users.adoc#entity[User] совместимой с дополнение Jmix SAML, расширив абстрактный класс `JmixSamlUserEntity`:
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/entity/User.java[tags=extends-JmixSamlUserEntity]
+----
++
+. Зарегистрируйте маппер пользователей на основе `SynchronizingSamlUserMapper`; этот суперкласс сохраняет и обновляет пользователя в базе данных, а также может синхронизировать назначения ролей с базой данных:
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySynchronizingSamlUserMapper.java[tags=MySynchronizingSamlUserMapper]
+----
++
+<1> Если установлено значение `true`, назначения ролей также сохраняются в базе данных.
