@@ -14,7 +14,7 @@ A form for entering authentication credentials.
 
 == Basics
 
-Basic `loginForm` includes username and password fields and a button that the user clicks to attempt logging in. The form can also include optional elements such as a locales combobox, "Remember me" checkbox and "Forgot password" button.
+Basic `loginForm` includes username and password fields and a button that the user clicks to attempt logging in. The form can also include optional elements such as a locales combobox, *Remember me* checkbox and *Forgot password* button.
 
 image::visual-components/components/login-form.png[align="center", width="320"]
 
@@ -34,12 +34,23 @@ The example above also adds an optional `errorMessage` element to display a mess
 
 === Optional Elements
 
-Show or hide optional elements such as a locales combobox, "Remember me" checkbox and "Forgot password" button by using the appropriate attributes:
+Show or hide optional elements such as a locales combobox, *Remember me* checkbox and *Forgot password* button by using the appropriate attributes:
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/loginform/login-form-view.xml[tags=basic]
 ----
+
+[[remember-me]]
+=== Remember Me Functionality
+
+The *Remember me* checkbox allows the user to maintain their login state for a long period of time, longer than the lifespan of an HTTP session. This state remains even after the server restarts.
+
+When the user selects the *Remember me* checkbox during login, the system stores a persistent token in a browser cookie. On subsequent visits, the user is automatically authenticated without entering credentials again.
+
+To handle the `Remember me` state in your login logic, use the <<RememberMeChangedEvent,RememberMeChangedEvent>>.
+
+See https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html[Spring Security Remember-Me documentation^] for more information.
 
 [[authentication]]
 == Authentication
@@ -106,7 +117,7 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[forgotPasswordButtonVisible]]
 === forgotPasswordButtonVisible
 
-Sets the visibility of the **Forgot password** button.
+Sets the visibility of the *Forgot password* button.
 
 [[localesVisible]]
 === localesVisible
@@ -116,7 +127,9 @@ Sets the visibility of the locales combobox.
 [[rememberMeVisible]]
 === rememberMeVisible
 
-Sets the visibility of the **Remember me** checkbox.
+Sets the visibility of the *Remember me* checkbox. When `true`, users can choose to stay logged in across browser sessions.
+
+Default value is `false`.
 
 == Handlers
 
@@ -133,7 +146,7 @@ include::../handler-generation-tip.adoc[]
 [[ForgotPasswordEvent]]
 === ForgotPasswordEvent
 
-`ForgotPasswordEvent` is sent when the **Forgot password** button is clicked. Add a handler to this event to provide users with password recovery instructions.
+`ForgotPasswordEvent` is sent when the *Forgot password* button is clicked. Add a handler to this event to provide users with password recovery instructions.
 
 [[LocaleChangedEvent]]
 === LocaleChangedEvent
@@ -148,7 +161,7 @@ include::../handler-generation-tip.adoc[]
 [[RememberMeChangedEvent]]
 === RememberMeChangedEvent
 
-`RememberMeChangedEvent` is sent when the state of the **Remember me** checkbox changes.
+`RememberMeChangedEvent` is sent when the state of the *Remember me* checkbox changes.
 
 [[localeItemLabelGenerator]]
 === localeItemLabelGenerator
