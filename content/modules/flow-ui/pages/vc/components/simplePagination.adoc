@@ -21,7 +21,7 @@ It can also have a <<items-per-page,drop-down list>> for the number of items per
 
 image::visual-components/components/simple-pagination.png[align="center", width="818"]
 
-By default, Jmix Studio generates `simplePagination` when creating xref:flow-ui:views/views.adoc#standard-list-view[StandardListView] for an entity.
+By default, Jmix Studio generates `simplePagination` when creating xref:flow-ui:views/view-classes.adoc#standard-list-view[StandardListView] for an entity.
 
 [source,xml,indent=0]
 ----
@@ -89,6 +89,11 @@ xref:vc/common-attributes.adoc#visible[visible]
 
 The `autoLoad` attribute determines whether the item count should be automatically loaded. When `autoLoad` is disabled, the component doesn't know the total item count and shows a button with a question mark `[?]`. When it's enabled, the component makes a query to get the total item count and displays it. The default value is `false`.
 
+[NOTE]
+====
+When `autoLoad` is set to `true`, the <<totalCountDelegate,totalCountDelegate>> may be invoked from a `BackgroundTask`. In that case, UI updates inside the delegate are not allowed.
+====
+
 [[dataLoader]]
 === dataLoader
 
@@ -130,6 +135,13 @@ Sets delegate which is used to get the total count of items. For example:
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/simplepagination/SimplePaginationView.java[tags=dataManager;totalCountDelegate]
 ----
+
+[IMPORTANT]
+====
+When `simplePagination` has `autoLoad="true"`, the `totalCountDelegate` may be invoked from a `BackgroundTask`. This means that code inside the `totalCountDelegate` handler **cannot update UI components** (such as calling `setText()` on a `TextField` or other UI modifications). Attempting to do so will cause an `IllegalStateException`.
+
+Do not update UI components inside `totalCountDelegate`. Use this handler only for calculating and returning the total count.
+====
 
 [[totalCountByRepositoryDelegate]]
 === totalCountByRepositoryDelegate
