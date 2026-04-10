@@ -289,3 +289,8 @@ Notice that the `name` attribute of the `Resource` element defines the JNDI name
 . Copy an appropriate JDBC driver file (for example, `postgresql-42.2.9.jar`) to `tomcat/lib`.
 
 When you start Tomcat, the application will use the data source defined in the `tomcat/conf/Catalina/localhost/demo.xml` file.
+
+[[reverse-proxy]]
+== Reverse Proxy
+
+Refer to the {vaadin-docs}/flow/production/reverse-proxy[Vaadin reverse proxy guide^] for instructions on configuring *Apache HTTPD* or *nginx* in front of a Jmix application. This guide includes details on forwarding headers, WebSocket support, and path rewriting for various deployment layouts.
