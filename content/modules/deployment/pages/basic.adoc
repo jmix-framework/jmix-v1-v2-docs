@@ -285,3 +285,8 @@ CATALINA_OPTS="-Dspring.profiles.active=prod"
 . Скопируйте соответствующий файл JDBC-драйвера (например, ``postgresql-42.2.9.jar`) в `tomcat/lib`.
 
 При запуске Tomcat приложение будет использовать источник данных, определенный в файле `tomcat/conf/Catalina/localhost/demo.xml`.
+
+[[reverse-proxy]]
+== Reverse Proxy
+
+Обратитесь к {vaadin-docs}/flow/production/reverse-proxy[руководству Vaadin по обратному прокси^] для инструкций по настройке *Apache HTTPD* или *nginx*, установленного перед приложением Jmix. Это руководство включает в себя информацию о переадресации заголовков, поддержке WebSocket и переписывании путей для различных вариантов развертывания.
