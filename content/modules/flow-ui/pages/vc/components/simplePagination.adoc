@@ -89,6 +89,11 @@ xref:vc/common-attributes.adoc#visible[visible]
 
 Атрибут `autoLoad` определяет, должно ли количество элементов загружаться автоматически. Когда `autoLoad` отключен, компонент не знает общее количество элементов и отображает кнопку с вопросительным знаком `[?]`. При включении компонент выполняет запрос для получения общего количества элементов и отображает его. Значение по умолчанию: `false`.
 
+[NOTE]
+====
+Когда для `autoLoad` установлено значение `true`, делегат <<totalCountDelegate,totalCountDelegate>> может быть вызван из `BackgroundTask`. В этом случае обновления пользовательского интерфейса внутри делегата не допускаются.
+====
+
 [[dataLoader]]
 === dataLoader
 
@@ -130,6 +135,13 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/simplepagination/SimplePaginationView.java[tags=dataManager;totalCountDelegate]
 ----
+
+[IMPORTANT]
+====
+Когда для `simplePagination` установлено `autoLoad="true"`, делегат `totalCountDelegate` может быть вызван из `BackgroundTask`. Это означает, что код внутри обработчика `totalCountDelegate` не может обновлять UI-компоненты (например, вызывать `setText()` для `TextField` или выполнять другие модификации UI). Попытка сделать это вызовет `IllegalStateException`.
+
+Не обновляйте UI-компоненты внутри `totalCountDelegate`. Используйте этот обработчик только для вычисления и возврата общего количества элементов.
+====
 
 [[totalCountByRepositoryDelegate]]
 === totalCountByRepositoryDelegate
