@@ -73,7 +73,7 @@ Create a Keycloak user:
 [[add-saml-attributes]]
 === (Optional) Add SAML Attributes
 
-NOTE: This step only adds attributes to the SAML assertion. The application will not use them automatically. To fill application user attributes from these values, you must also configure xref:saml:additional-setup.adoc#_adding_extra_saml_attributes[attribute mapping] in the application.
+NOTE: This step only adds attributes to the SAML assertion. The application will not use them automatically. To fill application user attributes from these values, you must also configure xref:saml:additional-setup.adoc#mapping-saml-attributes[attribute mapping] in the application.
 
 If you need to include any extra SAML attributes, add them in Keycloak as follows:
 

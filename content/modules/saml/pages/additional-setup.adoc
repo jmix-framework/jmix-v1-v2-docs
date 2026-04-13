@@ -2,6 +2,7 @@
 
 The following instructions describe how to extend the xref:saml:index.adoc#default-configuration[default Jmix SAML configuration]. Use them after completing xref:saml:keycloak-saml.adoc[] or the equivalent basic configuration for another identity provider.
 
+[[mapping-saml-attributes]]
 == Mapping SAML Attributes
 
 NOTE: Before you map attributes in the application, make sure they are included in the SAML assertion. See xref:saml:keycloak-saml.adoc#add-saml-attributes[Add SAML attributes in Keycloak] or the equivalent steps for your identity provider.
@@ -31,6 +32,7 @@ include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlUserMa
 <2> Here, values from the SAML `Assertion` are copied into your user object. In the example, the `Position` attribute from the `Assertion` is stored in the `position` field of `MyUser`.
 <3> In this method authorities are assigned to the user. Instead of implementing that logic directly, the example delegates it to the `SamlAssertionRolesMapper` interface and, therefore, to the default implementation, which is `DefaultSamlAssertionRolesMapper`.
 
+[[using-different-roles-attribute]]
 == Using Different Roles Attribute
 
 By default, `DefaultSamlAssertionRolesMapper` looks for an attribute named `Role` in the SAML `Assertion`. That attribute is expected to contain a collection of role names. For each role name, Jmix searches for matching resource roles and row-level roles. If matching roles are found, the corresponding granted authorities are added to the user.
@@ -44,6 +46,7 @@ jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute=MyRole
 
 This tells the default mapper to read role names from `MyRole` instead of `Role`.
 
+[[creating-custom-role-mapper]]
 == Creating Custom Role Mapper
 
 If you need more control, you can create your own role mapper. This is useful when your identity provider does not send Jmix role codes directly, but instead sends some other values that you want to translate into appropriate roles.
@@ -61,6 +64,7 @@ In this example, the user's `Position` value determines which Jmix resource role
 - if `Position` is `Manager`, the user receives the `edit-contracts` and `view-archive` roles.
 - otherwise, the user receives the `view-contracts` role.
 
+[[persist-users-to-database]]
 == Persist Users to Database
 
 By default, the Jmix SAML setup keeps authenticated users in memory only. If you want SAML users to be stored in the database, complete the following steps:
