@@ -2,6 +2,29 @@
 
 The following instructions describe how to extend the xref:saml:index.adoc#default-configuration[default Jmix SAML configuration]. Use them after completing xref:saml:keycloak-saml.adoc[] or the equivalent basic configuration for another identity provider.
 
+[[user-menu-visibility]]
+== User menu visibility for in-memory SAML users
+
+With the default SAML configuration, SAML users exist only in memory. They are not backed by a persistent `User` entity, so the main view may not be able to show their name or avatar unless you handle SAML assertion attributes explicitly.
+
+To make in-memory SAML users visible in the user menu:
+
+. Include the `FirstName` and `LastName` attributes in the SAML assertion.
+. Adjust the `generateUserName` method so it can build the display name from either the persistent `User` entity or SAML assertion attributes for in-memory users:
++
+.MainView.java
+[source,java]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=generateUserName]
+----
++
+Then use that generated name when rendering the user menu button and header:
++
+[source,java]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=buttonRenderer;headerRenderer]
+----
+
 [[mapping-saml-attributes]]
 == Mapping SAML Attributes
 
