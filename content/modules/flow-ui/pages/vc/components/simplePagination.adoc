@@ -69,6 +69,23 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 Максимально допустимый размер выборки для всех сущностей определяется свойством xref:flow-ui:ui-properties.adoc#jmix.ui.default-max-fetch-size[jmix.ui.default-max-fetch-size] (по умолчанию 10000). Для конкретной сущности можно задать отдельное ограничение через xref:flow-ui:ui-properties.adoc#jmix.ui.entity-max-fetch-size[jmix.ui.entity-max-fetch-size].
 ====
 
+[[items-per-page-empty-label]]
+=== Надпись пустого элемента
+
+Когда <<itemsPerPageUnlimitedItemVisible,itemsPerPageUnlimitedItemVisible>>=`"true"`, в выпадающем списке отображается пустой элемент, который позволяет загрузить все данные (ограниченные максимальным размером выборки). По умолчанию этот элемент отображается как пустая строка.
+
+Вы можете настроить надпись для этого пустого элемента, добавив ключ сообщения в ваш xref:localization:message-bundles.adoc[пакет сообщений]:
+
+[source,properties]
+----
+pagination.itemsPerPage.emptySelectionCaption=Show all
+----
+
+[NOTE]
+====
+Если ключ сообщения `pagination.itemsPerPage.emptySelectionCaption` присутствует в пакете сообщений, его значение будет отображаться вместо пустого элемента в выпадающем списке. Если ключ не найден, элемент остается пустым.
+====
+
 == Атрибуты
 
 xref:vc/common-attributes.adoc#id[id] -
