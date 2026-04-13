@@ -31,20 +31,21 @@ public class MainView extends StandardMainView {
     @Autowired
     private CurrentUserSubstitution currentUserSubstitution;
 
+    // tag::buttonRenderer[]
     @Install(to = "userMenu", subject = "buttonRenderer")
-    private Component userMenuButtonRenderer(UserDetails userDetails) {
-        UserMenuInfo userMenuInfo = buildUserMenuInfo(userDetails);
-        if (userMenuInfo == null) {
-            return null;
-        }
+    private Component userMenuButtonRenderer(final UserDetails userDetails) {
+
+        String userName = generateUserName(userDetails);
+        Avatar avatar = createAvatar(userName);
+        //...
+        // end::buttonRenderer[]
 
         Div content = uiComponents.create(Div.class);
         content.setClassName("user-menu-button-content");
 
-        Avatar avatar = createAvatar(userMenuInfo.getDisplayName());
 
         Span name = uiComponents.create(Span.class);
-        name.setText(userMenuInfo.getDisplayName());
+        name.setText(userName);
         name.setClassName("user-menu-text");
 
         content.add(avatar, name);
@@ -53,140 +54,90 @@ public class MainView extends StandardMainView {
             Span subtext = uiComponents.create(Span.class);
             subtext.setText(messages.getMessage("userMenu.substituted"));
             subtext.setClassName("user-menu-subtext");
+
             content.add(subtext);
         }
 
         return content;
+
+        // tag::buttonRenderer[]
     }
 
-    @Install(to = "userMenu", subject = "headerRenderer")
-    private Component userMenuHeaderRenderer(UserDetails userDetails) {
-        UserMenuInfo userMenuInfo = buildUserMenuInfo(userDetails);
-        if (userMenuInfo == null) {
-            return null;
-        }
+    // end::buttonRenderer[]
 
+
+    // tag::headerRenderer[]
+    @Install(to = "userMenu", subject = "headerRenderer")
+    private Component userMenuHeaderRenderer(final UserDetails userDetails) {
+
+        String name = generateUserName(userDetails);
+        Avatar avatar = createAvatar(name);
+
+        // ...
+        // end::headerRenderer[]
+
+        avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
         Div content = uiComponents.create(Div.class);
         content.setClassName("user-menu-header-content");
 
-        Avatar avatar = createAvatar(userMenuInfo.getDisplayName());
-        avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
 
         Span text = uiComponents.create(Span.class);
-        text.setText(userMenuInfo.getDisplayName());
+        text.setText(name);
         text.setClassName("user-menu-text");
 
         content.add(avatar, text);
 
-        if (userMenuInfo.getDisplayName().equals(userMenuInfo.getUsername())) {
+        if (name.equals(userDetails.getUsername())) {
             text.addClassNames("user-menu-text-subtext");
         } else {
             Span subtext = uiComponents.create(Span.class);
-            subtext.setText(userMenuInfo.getUsername());
+            subtext.setText(userDetails.getUsername());
             subtext.setClassName("user-menu-subtext");
+
             content.add(subtext);
         }
 
         return content;
+        // tag::headerRenderer[]
     }
-
-    private UserMenuInfo buildUserMenuInfo(UserDetails userDetails) {
-        if (userDetails == null) {
-            return null;
-        }
-
-        if (userDetails instanceof User) {
-            User user = (User) userDetails;
-            String displayName = generatePersistentUserName(user);
-            return new UserMenuInfo(displayName, user.getUsername());
-        }
-
-        if (userDetails instanceof Saml2AuthenticatedPrincipal) {
-            Saml2AuthenticatedPrincipal samlPrincipal = (Saml2AuthenticatedPrincipal) userDetails;
-            String username = userDetails.getUsername();
-            String displayName = generateInMemorySamlUserName(samlPrincipal, username);
-            return new UserMenuInfo(displayName, username);
-        }
-
-        String username = userDetails.getUsername();
-        return new UserMenuInfo(username, username);
-    }
+    // end::headerRenderer[]
 
     private Avatar createAvatar(String fullName) {
         Avatar avatar = uiComponents.create(Avatar.class);
         avatar.setName(fullName);
         avatar.getElement().setAttribute("tabindex", "-1");
         avatar.setClassName("user-menu-avatar");
+
         return avatar;
     }
 
-    private String generatePersistentUserName(User user) {
-        String userName = String.format("%s %s",
-                        Strings.nullToEmpty(user.getFirstName()),
-                        Strings.nullToEmpty(user.getLastName()))
-                .trim();
+    // tag::generateUserName[]
+    private String generateUserName(UserDetails userDetails) {
+        if (userDetails instanceof User user) {
+            String userName = String.format("%s %s",
+                            Strings.nullToEmpty(user.getFirstName()),
+                            Strings.nullToEmpty(user.getLastName()))
+                    .trim();
 
-        if (userName.isEmpty()) {
-            return user.getUsername();
+            return userName.isEmpty() ? user.getUsername() : userName;
         }
-        return userName;
-    }
 
-    private String generateInMemorySamlUserName(Saml2AuthenticatedPrincipal samlPrincipal, String username) {
-        String firstName = getSamlAttribute(samlPrincipal,
-                "FirstName", "firstName", "givenName");
-        String lastName = getSamlAttribute(samlPrincipal,
-                "LastName", "lastName", "surname", "sn");
+        if (userDetails instanceof Saml2AuthenticatedPrincipal samlUser) {
+            String userName = String.format("%s %s",
+                            Strings.nullToEmpty(samlUser.getFirstAttribute("FirstName")),
+                            Strings.nullToEmpty(samlUser.getFirstAttribute("LastName")))
+                    .trim();
 
-        String userName = String.format("%s %s",
-                        Strings.nullToEmpty(firstName),
-                        Strings.nullToEmpty(lastName))
-                .trim();
-
-        if (userName.isEmpty()) {
-            return username;
+            return userName.isEmpty() ? userDetails.getUsername() : userName;
         }
-        return userName;
-    }
 
-    private String getSamlAttribute(Saml2AuthenticatedPrincipal samlPrincipal, String... attributeNames) {
-        int i;
-        for (i = 0; i < attributeNames.length; i++) {
-            Object value = samlPrincipal.getFirstAttribute(attributeNames[i]);
-            if (value != null) {
-                String text = value.toString().trim();
-                if (!text.isEmpty()) {
-                    return text;
-                }
-            }
-        }
-        return null;
+        return userDetails.getUsername();
     }
+    // end::generateUserName[]
 
     private boolean isSubstituted(UserDetails userDetails) {
-        if (userDetails == null) {
-            return false;
-        }
-
         UserDetails authenticatedUser = currentUserSubstitution.getAuthenticatedUser();
-        return !authenticatedUser.getUsername().equals(userDetails.getUsername());
+        return userDetails != null && !authenticatedUser.getUsername().equals(userDetails.getUsername());
     }
 
-    private static class UserMenuInfo {
-        private final String displayName;
-        private final String username;
-
-        public UserMenuInfo(String displayName, String username) {
-            this.displayName = displayName;
-            this.username = username;
-        }
-
-        public String getDisplayName() {
-            return displayName;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-    }
 }

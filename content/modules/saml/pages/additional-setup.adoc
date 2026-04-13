@@ -2,6 +2,29 @@
 
 Следующие инструкции описывают, как расширить xref:saml:index.adoc#default-configuration[конфигурацию Jmix SAML по умолчанию]. Используйте их после выполнения xref:saml:keycloak-saml.adoc[Настройки SAML в Keycloak] или аналогичной базовой настройки для другого провайдера.
 
+[[user-menu-visibility]]
+== Отображение User Menu для пользователей хранящихся в памяти
+
+При конфигурации SAML по умолчанию пользователи хранятся в памяти приложения. Они не связаны с сущностью xref:security:users.adoc#entity[User], поэтому элемент `userMenu` на главном экране может не отображать имя пользователя и аватар.
+
+Чтобы имя пользователя и аватар отображались:
+
+. Включите атрибуты `FirstName` и `LastName` в SAML assertion.
+. Измените метод `generateUserName`, чтобы он мог формировать отображаемое имя либо из сущности `User`, либо из атрибутов SAML:
++
+.MainView.java
+[source,java]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=generateUserName]
+----
++
+Используйте это сгенерированное имя при рендеринге кнопки и заголовка:
++
+[source,java]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=buttonRenderer;headerRenderer]
+----
+
 [[mapping-saml-attributes]]
 == Сопоставление SAML атрибутов
 
