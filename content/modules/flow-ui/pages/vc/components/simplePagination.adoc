@@ -69,6 +69,23 @@ When the null option is selected in the `comboBox`, the component will try to lo
 The maximum fetch size for all entities is defined by xref:flow-ui:ui-properties.adoc#jmix.ui.default-max-fetch-size[jmix.ui.default-max-fetch-size] UI property. Its default value is 10000. A particular entity may have different maximum fetch size, set with xref:flow-ui:ui-properties.adoc#jmix.ui.entity-max-fetch-size[jmix.ui.entity-max-fetch-size].
 ====
 
+[[items-per-page-empty-label]]
+=== Empty Item Label
+
+When <<itemsPerPageUnlimitedItemVisible,itemsPerPageUnlimitedItemVisible>>=`"true"`, the dropdown list shows an empty item that allows loading all data (limited by the maximum fetch size). By default, this item is displayed as an empty string.
+
+You can customize the label for this empty item by adding a message key to your xref:localization:message-bundles.adoc[message bundle]:
+
+[source,properties]
+----
+pagination.itemsPerPage.emptySelectionCaption=Show all
+----
+
+[NOTE]
+====
+If the message key `pagination.itemsPerPage.emptySelectionCaption` is present in the message bundle, its value will be displayed instead of an empty item in the dropdown list. If the key is not found, the item remains empty.
+====
+
 == Attributes
 
 xref:vc/common-attributes.adoc#id[id] -
