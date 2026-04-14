@@ -1,0 +1,83 @@
+= Using JDBC
+
+While Jmix primarily uses JPA for data access, there are several scenarios where direct JDBC access might be necessary, such as executing complex SQL queries, performing batch operations, or invoking stored procedures.
+
+TIP: We recommend using xref:data-manager.adoc[DataManager] and fall back to JDBC only when required.
+
+You can use `JdbcTemplate` or `JdbcClient` classes provided by Spring to execute operations at the JDBC level.
+
+Both `JdbcTemplate` and `JdbcClient` automatically participate in Spring-managed xref:transactions.adoc[transactions], so you can use them alongside JPA operations within the same transaction.
+
+[[jdbc-template]]
+== Using JdbcTemplate
+
+`JdbcTemplate` is a classic Spring Framework class that simplifies JDBC operations by handling resource management and exception translation.
+
+To use `JdbcTemplate` for accessing the xref:data-model:data-stores.adoc#main[main data store], simply inject it into your bean:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=jdbc-template]
+----
+
+If you need to access an xref:data-model:data-stores.adoc#additional[additional data store], inject the corresponding `javax.sql.DataSource` and create a new instance of `JdbcTemplate`. In the following example, `JdbcTemplate` is created for the `db1` data store:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcService.java[tags=inject-ds;jdbc-template]
+----
+
+[[jdbc-client]]
+== Using JdbcClient
+
+`JdbcClient`, introduced in Spring Framework 6.1, provides a more modern and fluent API for JDBC operations.
+
+To use `JdbcClient` for accessing the xref:data-model:data-stores.adoc#main[main data store], simply inject it into your bean:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=jdbc-client]
+----
+
+If you need to access an xref:data-model:data-stores.adoc#additional[additional data store], inject the corresponding `javax.sql.DataSource` and create a new instance of `JdbcClient`. In the following example, `JdbcClient` is created for the `db1` data store:
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcService.java[tags=inject-ds;jdbc-client]
+----
+
+[[stored-procedures]]
+== Calling Stored Procedures
+
+You can use Spring's `SimpleJdbcCall` class to execute stored procedures. It provides better parameter handling and database metadata support than `JdbcTemplate`.
+
+The following example shows how to call a PostgreSQL stored procedure located in the main data store.
+
+[source,sql]
+----
+CREATE OR REPLACE FUNCTION get_customer_stats(
+    p_customer_id UUID,
+    OUT total_orders INTEGER,
+    OUT total_amount DECIMAL(19,2)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    SELECT
+        COUNT(*),
+        COALESCE(SUM(AMOUNT), 0)
+    INTO
+        total_orders,
+        total_amount
+    FROM ORDER_
+    WHERE CUSTOMER_ID = p_customer_id;
+END;
+$$;
+----
+
+[source,java,indent=0]
+----
+include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=stored-procedure]
+----
+
+If you need to call a procedure from an additional data store, create the `JdbcTemplate` instance for the corresponding `javax.sql.DataSource` as described <<jdbc-template,above>>.

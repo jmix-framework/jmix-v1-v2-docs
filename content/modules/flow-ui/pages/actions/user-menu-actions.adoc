@@ -1,0 +1,35 @@
+= User Menu Actions
+:page-aliases: actions/standard-actions/user-menu-substitute-user-action.adoc,actions/standard-actions/user-menu-theme-switch-action.adoc
+
+User menu actions work with xref:vc/components/userMenu.adoc[] component through xref:vc/components/userMenu.adoc#actionItem[actionItem].
+
+Below are the standard user menu action types.
+
+[[sec_userMenuSubstituteUser]]
+== sec_userMenuSubstituteUser
+
+Action class: `UserMenuSubstituteUserAction`
+
+Depending on the number of substituted users, either opens a lookup view to select a substituted user or shows a submenu with the substituted users.
+
+image::actions/standard-actions/user-menu-substitute-user-action.png[align="center",width="474"]
+
+TIP: You can define the maximum number of users that can be substituted by the currently authenticated user, which shows a submenu instead of opening a lookup view using the `jmix.security.ui.substitute-user-action-max-substitutions` application property. The default value is 5.
+
+[[userMenu_themeSwitch]]
+== userMenu_themeSwitch
+
+Action class: `UserMenuThemeSwitchAction`
+
+Provides a submenu to switch between theme variants: *light*, *dark* and *system*.
+
+image::actions/standard-actions/user-menu-theme-switch-action.png[align="center",width="400"]
+
+`userMenu_themeSwitch` requires importing a JavaScript file that applies a theme variant to an HTML document depending on the value in Web Local Storage and subscribes to the https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme[prefers-color-scheme^] to update the theme variant if the user indicates their preference through an operating system setting (e.g., light or dark mode) or the user agent's settings.
+
+You need to import it into the main application class:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/OnboardingApplication.java[tags=js-file-import;main-class]
+----

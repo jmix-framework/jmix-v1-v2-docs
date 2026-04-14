@@ -1,0 +1,4 @@
+[NOTE]
+====
+The `itemsQuery` does not support using the `container_` or `component_` prefixes to automatically bind parameters to containers or visual components; this declarative binding is only supported by xref:facets/dataLoadCoordinator.adoc[] facet.
+====

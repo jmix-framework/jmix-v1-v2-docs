@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- tag::custom[] -->
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://customStartForm.title">
+    <layout>
+        <button id="startProcessBtn" text="msg://startProcessBtn.caption"/>
+    </layout>
+</view>
+<!-- end::custom[] -->

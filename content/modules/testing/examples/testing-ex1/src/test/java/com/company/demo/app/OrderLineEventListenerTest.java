@@ -83,7 +83,7 @@ public class OrderLineEventListenerTest {
     void tearDown() {
         JdbcTemplate jdbc = new JdbcTemplate(dataSource);
         jdbc.execute("delete from ORDER_LINE");
-        jdbc.execute("delete from ORDER");
+        jdbc.execute("delete from ORDER_");
         jdbc.execute("delete from PRODUCT");
     }
 

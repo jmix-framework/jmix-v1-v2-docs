@@ -1,0 +1,278 @@
+= sidePanelLayout
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+A layout component that adds a panel can open from different sides and either overlay the main content or push it aside. Use it for contextual information, filters, or editors that need to appear alongside the primary content.
+
+TIP: A side panel can be also created programmatically using xref:flow-ui:dialogs.adoc#side-dialog[`Side Dialog`].
+
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`sidePanelLayout`
+|Java Class
+|`SidePanelLayout`
+|Attributes
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] -
+<<modal,modal>> -
+<<closeOnOutsideClick,closeOnOutsideClick>> -
+<<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
+xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Position:*
+xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:flow-ui:vc/common-attributes.adoc#justifySelf[justifySelf] -
+xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Size:* <<sidePanelHorizontalSize,sidePanelHorizontalSize>> -
+<<sidePanelHorizontalMinSize,sidePanelHorizontalMinSize>> -
+<<sidePanelHorizontalMaxSize,sidePanelHorizontalMaxSize>> -
+<<sidePanelVerticalSize,sidePanelVerticalSize>> -
+<<sidePanelVerticalMinSize,sidePanelVerticalMinSize>> -
+<<sidePanelVerticalMaxSize,sidePanelVerticalMaxSize>> -
+xref:flow-ui:vc/common-attributes.adoc#height[height] -
+xref:flow-ui:vc/common-attributes.adoc#width[width] -
+xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#css[css] -
+<<sidePanelOverlay,sidePanelOverlay>> -
+<<sidePanelPosition,sidePanelPosition>>
+|
+|*Other:* <<closeOnOutsideClick,closeOnOutsideClick>> -
+<<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
+<<modal, modal>> -
+<<overlayAriaLabel, overlayAriaLabel>>
+|Handlers
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+<<ModalityCurtainClickEvent,ModalityCurtainClickEvent>> -
+<<SidePanelBeforeOpenEvent,SidePanelBeforeOpenEvent>> -
+<<SidePanelAfterOpenEvent,SidePanelAfterOpenEvent>> -
+<<SidePanelCloseEvent,SidePanelCloseEvent>>
+|===
+
+[[basics]]
+== Basics
+
+`SidePanelLayout` divides the content into two areas:
+
+* **Main content** – the primary layout area.
+* **Side panel content** – a panel that slides in from one side.
+
+image:flow-ui:visual-components/layouts/side-panel-layout-basic.png[width=1150]
+
+To define the component in XML, use the `sidePanelLayout` element and provide two root elements.
+
+[source,xml]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/sidepanellayout/side-panel-layout-view.xml[tags=basics]
+----
+
+<1> A side panel typically includes a close button. Use the dedicated `sidePanelLayoutCloser` component to add that button.
+
+[[opening-closing]]
+== Opening the Side Panel
+
+The side panel opens in response to user actions such as clicking a button. Call the `toggleSidePanel()` method:
+
+[source,java]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/sidepanellayout/SidePanelLayoutView.java[tags=toggle-panel]
+----
+
+[[detail-view-side]]
+== Side Panel Editor
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-master-detail" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+Use `SidePanelLayout` for master-detail pattern where the main area contains a list of entities and the side panel is used for editing a selected instance.
+
+image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
+
+== Styling
+
+You can customize the appearance and size of `SidePanelLayout` using CSS variables and theme selectors.
+
+=== Sizing with CSS Variables
+
+The following variables define the side panel size. They are applied globally to all `SidePanelLayout` instances.
+
+NOTE: Values set in XML or using the Java API override CSS variables.
+
+Horizontal side panels (`LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+
+[cols="3h,2,1", grid=rows]
+|===
+|Variable |Description |Default
+|`--jmix-side-panel-layout-horizontal-size`
+|Preferred width of the side panel.
+|`auto`
+|`--jmix-side-panel-layout-horizontal-max-size`
+|Maximum width.
+|`50%`
+|`--jmix-side-panel-layout-horizontal-min-size`
+|Minimum width.
+|`14em`
+|===
+
+Vertical side panels (`TOP`, `BOTTOM`):
+
+[cols="3h,2,1", grid=rows]
+|===
+|Variable |Description |Default
+|`--jmix-side-panel-layout-vertical-size`
+|Preferred height of the side panel.
+|`auto`
+|`--jmix-side-panel-layout-vertical-max-size`
+|Maximum height.
+|`50%`
+|`--jmix-side-panel-layout-vertical-min-size`
+|Minimum height.
+|`10em`
+|===
+
+=== Appearance
+
+[cols="4h,3,1", grid=rows]
+|===
+|Variable |Description |Default
+|`--jmix-side-panel-layout-transition-duration`
+|Controls how long the open and close animation takes.
+|`200ms`
+|===
+
+=== Parts
+
+`SidePanelLayout` exposes the following xref:themes/styling-ui-components.adoc#stylable-parts[stylable parts]:
+
+[cols="4h,4", grid=rows]
+|===
+|Part |Description
+|`jmix-side-panel-layout::part(layout)`
+|Container for content, side panel, and modality curtain.
+|`jmix-side-panel-layout::part(content)`
+|Main layout content.
+|`jmix-side-panel-layout::part(modalityCurtain)`
+|Modality curtain.
+|`jmix-side-panel-layout::part(sidePanelContent)`
+|Side panel content container.
+|===
+
+=== States
+
+The component exposes the following xref:themes/styling-ui-components.adoc#component-states[states]:
+[cols="4h,4", grid=rows]
+|===
+|State |Description
+|`jmix-side-panel-layout[side-panel-opened]`
+|Applied when the side panel is open
+|`jmix-side-panel-layout[modal]`
+|Applied when the side panel is modal
+|`jmix-side-panel-layout[side-panel-position='left']`
+|Matches the current side panel position (`right`, `top`, etc.)
+|`jmix-side-panel-layout[side-panel-overlay]`
+|Applied when the panel overlays content instead of pushing it
+|===
+
+== Attributes
+
+xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components. The following attributes are specific to `sidePanelLayout`.
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+
+|[[sidePanelPosition]]sidePanelPosition
+|Defines the side from which the panel appears. Possible values are `LEFT`, `RIGHT`, `TOP`, `BOTTOM`, `INLINE_START`, and `INLINE_END`.
+
+`INLINE_START` and `INLINE_END` follow the reading direction of the page (LTR or RTL).
+
+|`RIGHT`
+
+|[[sidePanelOverlay]]sidePanelOverlay
+|Determines how the side panel interacts with the main content.
+
+If `true`, the panel overlays the content without changing its layout.
+If `false`, the panel pushes the content aside as it opens.
+
+|`true`
+
+|[[modal]]modal
+|When `true` a modality curtain appears behind the side panel and prevents interaction with the main content until the panel is closed.
+|`true`
+
+|[[closeOnOutsideClick]]closeOnOutsideClick
+|When `true`, clicking the modality curtain closes the side panel.
+
+This attribute only has an effect when <<modal,modal>> is enabled.
+|`true`
+
+|[[overlayAriaLabel]]overlayAriaLabel
+|Sets the accessible label for the overlay element.
+|–
+
+|[[displayAsOverlayOnSmallDevices]]displayAsOverlayOnSmallDevices
+|If `true`, the side panel is displayed as a full-screen overlay on small devices, ensuring that the content remains usable on mobile layouts.
+|`true`
+
+|[[sidePanelHorizontalSize]]sidePanelHorizontalSize
+|Defines the horizontal size of the side panel when it is positioned on the left or right side of the layout.
+
+The value can be any valid CSS size such as `400px`, `30%`, or `auto`.
+|`auto`
+
+|[[sidePanelHorizontalMinSize]]sidePanelHorizontalMinSize
+|Defines the minimum horizontal size of the side panel when it is positioned on the left or right side.
+|–
+
+|[[sidePanelHorizontalMaxSize]]sidePanelHorizontalMaxSize
+|Defines the maximum horizontal size of the side panel when it is positioned on the left or right side.
+|–
+
+|[[sidePanelVerticalSize]]sidePanelVerticalSize
+|Defines the vertical size of the side panel when it appears from the top or bottom.
+|`auto`
+
+|[[sidePanelVerticalMinSize]]sidePanelVerticalMinSize
+|Defines the minimum vertical size of the side panel.
+|–
+
+|[[sidePanelVerticalMaxSize]]sidePanelVerticalMaxSize
+|Defines the maximum vertical size of the side panel.
+|–
+|===
+
+== Handlers
+
+xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components. The following handlers are specific to `sidePanelLayout`.
+
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+
+|[[ModalityCurtainClickEvent]]ModalityCurtainClickEvent
+|Fired when the user clicks on the modality curtain.
+
+|[[SidePanelBeforeOpenEvent]]SidePanelBeforeOpenEvent
+|Fired before the side panel is opened, before it is displayed and before the opening animation starts. Use this event to update the side panel content before it becomes visible.
+
+|[[SidePanelAfterOpenEvent]]SidePanelAfterOpenEvent
+|Fired after the side panel is fully opened and the opening animation is finished.
+
+|[[SidePanelCloseEvent]]SidePanelCloseEvent
+|Fired when the side panel is closed.
+|===

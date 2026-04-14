@@ -1,0 +1,27 @@
+= Migration from Older Versions
+:page-aliases: cuba:index.adoc, migration-from-classic-ui.adoc
+
+There are two different migration scenarios for Jmix applications.
+
+If your project is already based on Jmix 2.x, you can easily upgrade it to the latest version with Jmix Studio. Studio supports changing the platform version and applies the required project updates for feature releases, so migrating from any earlier 2.x version to the current one is the recommended path. For detailed instructions, see xref:studio:project.adoc#upgrading-project[Upgrading Project].
+
+Migration from CUBA Platform or from Jmix 1.x Classic UI is a different case. Automatic upgrade is not possible because these platforms differ significantly in architecture and UI technology. The main reason is the transition from the older UI stack based on Vaadin 8 to Flow UI based on newer Vaadin versions.
+
+For these older applications, we recommend creating a new Jmix {page-component-version} project and migrating the application incrementally with the help of an AI coding agent. Jmix provides two template repositories that describe this approach:
+
+* https://github.com/jmix-framework/jmix-migration-from-cuba-platform[jmix-framework/jmix-migration-from-cuba-platform^] is for migration from CUBA Platform 7.2
+* https://github.com/jmix-framework/jmix-migration-from-v1[jmix-framework/jmix-migration-from-v1^] if for migration from Jmix 1.x
+
+== Recommended Migration Approach
+
+The recommended workflow is as follows:
+
+. Create a new target project in Jmix Studio using the current Jmix version. Use the same base package as in the source application.
+. Install the latest Jmix agent guidelines in the target project from the https://github.com/jmix-framework/jmix-agent-guidelines[jmix-framework/jmix-agent-guidelines^] repository: copy the `AGENTS.md` file to the target project and make the `skills/` directory available to your AI agent.
+. Keep the source project and the new target project side by side in one workspace.
+. Open both projects in IntelliJ IDEA and enable the IntelliJ IDEA MCP Server so the AI agent can inspect code, project structure, and IDE analysis results.
+. Ask the agent to migrate the application in small, controlled steps instead of trying to convert everything at once.
+
+Perform the work in this sequence: entities, fetch plans, business logic, fragments, and then views. For large applications, each phase should be split into smaller tasks, for example by functional package.
+
+With this approach the target project is created according to current Jmix conventions from the start, while the AI agent transfers and adapts source code incrementally. In other words, you rebuild the application on top of a clean Jmix {page-component-version} foundation and use the source project as the specification.

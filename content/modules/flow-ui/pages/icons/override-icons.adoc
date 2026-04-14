@@ -1,0 +1,121 @@
+= Overriding Default Icons
+
+Jmix provides a centralized mechanism to override icons used throughout an application. This can be done in several ways depending on the scope of the change:
+
+* Replace only specific icons.
+* Replace the entire icon font used by the application.
+
+[[how-default-icons-work]]
+== How Default Icons Work
+
+The default icons are defined in the `JmixFontIcon` enum combining all Vaadin icons, Lumo icons (not present in Vaadin), and Jmix-specific icons. Each icon is declared with a CSS variable and two CSS classes in `jmix-font-icons.css`.
+
+For example:
+
+.jmix-font-icons.css
+----
+html {
+    --jmix-font-icon-user: "user";
+}
+
+.jmix-font-icon {
+    font-family: var(--jmix-font-icon-font-family);
+}
+
+.jmix-font-icon-user:before {
+    content: var(--jmix-font-icon-user);
+}
+----
+
+Besides there are currently three icons that declare an additional CSS class that changes `font-family` value:
+
+.jmix-font-icons.css
+----
+.jmix-font-icon.jmix-font-icon-lumo {
+    font-family: lumo-icons;
+}
+----
+
+When you create an icon with the `Icons` bean, it attempts to create a `FontIcon` component with an appropriate CSS class name. If the given icon name contains of two parts separated with `:` (like `vaadin:user`) a new `Icon` component is created using the first part as collection and the second as icon name.
+
+[[remapping-icon]]
+== Remapping an Icon
+
+You can remap one icon to another by redefining the CSS variable. For example, add the following line into your xref:flow-ui:themes/themes.adoc#application-theme[application theme] custom styles file:
+
+[source,css]
+----
+html {
+    --jmix-font-icon-edit-action: var(--jmix-font-icon-edit);
+}
+----
+
+In this example, the `edit-action` icon is mapped to the `edit` icon.
+
+[TIP]
+====
+Use your browser's developer tools to inspect the element and identify the CSS variable for a specific icon.
+
+image:icons/inspect-icon.png[width=437]
+====
+
+[[remapping-to-icon-from-different-font]]
+== Remapping to an Icon from a Different Icon Font
+
+You can also remap an icon to an icon from a different icon font. Add the following line into your xref:flow-ui:themes/themes.adoc#application-theme[application theme] custom styles file:
+
+[source,css]
+----
+.jmix-font-icon-refresh {
+    font-family: "lumo-icons";
+}
+
+.jmix-font-icon-refresh:before {
+    content: var(--lumo-icons-reload);
+}
+----
+
+This examples changes the font used by the `refresh` icon and maps it to the `reload` icon from the `lumo-icons` font.
+
+[[using-different-icon-font]]
+== Using a Different Icon Font
+
+You can use an entirely different font in your application. This typically involves the following steps:
+
+. Add an icon font.
+. Override `--jmix-font-icon-font-family` to use the new font.
+. Map icon variables to character codes from the new font.
+
+For example, given you followed xref:icons/custom-icons.adoc#icon-fonts[this instruction] to add the *Material* icon font, you can override icons in your xref:flow-ui:themes/themes.adoc#application-theme[application theme] custom styles file:
+
+[source,css]
+----
+html {
+    --jmix-font-icon-font-family: "Material Icons Outlined";
+    --jmix-font-icon-plus: "\e8b6";
+    --jmix-font-icon-home: "\e88a";
+    ...
+    --jmix-font-icon-menu: "\e5d2";
+}
+----
+
+[TIP]
+.Locating variables and character codes.
+====
+CSS variables for the default Jmix icons are declared in `jmix-font-icons.css`. See the <<how-default-icons-work, section above>> for how this file is structured. Character codes are supplied by the corresponding icon font.
+====
+
+[[overriding-icons-bean]]
+== Overriding the `Icons` bean
+
+You can override the `Icons` bean to provide a custom mapping. Override the bean when the icon set you need isn’t available as a font or when you want to use SVG icons.
+
+For example, given you followed xref:icons/custom-icons.adoc#svg-sprite[this instruction] to add an SVG sprite, you can create a mapping so those SVG icons are used in the default icon set:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/icons/AppIcons.java[tags=app-icons]
+----
+
+<1> The icon names (`STAR`, `HEART`, `CIRCLE`) correspond to values in `JmixFontIcons` enum. These three icons are replaced with custom SVGs.
+<2> All other icons continue to use the default icon set.

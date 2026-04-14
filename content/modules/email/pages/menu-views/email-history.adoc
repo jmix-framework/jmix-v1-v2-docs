@@ -1,0 +1,16 @@
+= Email History
+
+The *Email History* view displays information about all emails that are sent, queued, or not sent. Select an email in the table to view its content — recipient addresses, subject, body, attachments — as well as sending information: creation and sending dates, status, number of attempts, and deadline.
+
+image::email-history.png[align="center"]
+
+You can change or add recipients when resending emails.
+
+image::resend.png[align="center"]
+
+Also, you can download email attachments using the corresponding button.
+
+[NOTE]
+====
+Grant the *Email: view history* resource role to allow access to this view to non-administrator users.
+====

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://myOnboardingView.title">
+    <data>
+        <collection class="com.company.onboarding.entity.UserStep" id="userStepsDc">
+            <fetchPlan extends="_base">
+                <property name="step" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="userStepsDl">
+                <query>
+                    <![CDATA[select e from UserStep e
+                    where e.user = :user
+                    order by e.sortValue asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <vbox>
+            <span id="totalStepsLabel"/>
+            <span id="completedStepsLabel"/>
+            <span id="overdueStepsLabel"/>
+        </vbox>
+        <dataGrid width="100%" dataContainer="userStepsDc" id="userStepsDataGrid" classNames="onboarding-steps">
+            <columns>
+                <column key="completed" sortable="false" width="4em" flexGrow="0"/>
+                <column property="step.name"/>
+                <column property="dueDate"/>
+                <column property="completedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox>
+            <button id="saveButton" text="Save" themeNames="primary"/>
+            <button id="discardButton" text="Discard"/>
+        </hbox>
+    </layout>
+</view>

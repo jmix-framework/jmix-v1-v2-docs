@@ -1,0 +1,247 @@
+= Setting up OAuth for Google and Microsoft
+
+Jmix application can use OAuth 2.0 token-based authorization to work with email service providers. This method offers enhanced security compared to basic authentication with login and password. Many providers are gradually deprecating support for basic authentication, leaving OAuth as the only viable authentication type.
+
+This section describes the process to obtain OAuth credentials for Google and Microsoft, along with the setup steps for Jmix application.
+
+== Google
+
+To enable OAuth with Google, register your OAuth application and generate credentials. Then, set up your Jmix application using obtained credentials.
+
+NOTE: The instructions below are based on the Google Developer documentation for https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow[setting up OAuth for web Applications^]. Please check this link for the most up-to-date procedures and any use case specifics.
+
+=== Create a Project
+
+. Sign in to the https://console.cloud.google.com/[Google Cloud console].
+. In the top bar, click *Select a project*.
+. Click *New project* and enter your project information.
++
+image:google-oauth-project.png[align="center", width="550"]
++
+. Click *Create*.
+
+=== Create an OAuth 2.0 application
+
+. Select the project created previously.
+. Click the menu button in the top left corner, and select *APIs & Services -> OAuth consent screen*.
+. Click *Get Started*.
+. Complete the form:
++
+image:google-oauth-app.png[align="center", width="685"]
++
+. Click *Create*
+
+=== Enable API for your project
+
+To send emails, your application needs Gmail API:
+
+. Open https://console.developers.google.com/apis/library[the API Library^]. If prompted, select your project.
+. Search for the Gmail API and enable it.
++
+image:google-oauth-1.png[align="center", width="1280"]
+
+=== Create authorization credentials
+
+To access the API, your application must have authorization credentials:
+
+. Go to the https://console.developers.google.com/auth/clients[Clients page].
+. If prompted, select your project.
+. Click *Create client*.
+. Select the *Web application* application type.
+. Complete the form:
+* *Name*: (Provide any descriptive name.)
+* *Authorized JavaScript origins*: http://localhost:8080 (Use the address of your Jmix application. The origins identify the domains from which your application can send requests to the OAuth 2.0 server.)
+* *Authorized redirect URIs*:
+** http://localhost:8080 (Use the address of your Jmix application.)
+** https://developers.google.com/oauthplayground (Add this URI to access the Google Developers OAuth2 playground in order to obtain a token in the next step)
++
+image:google-oauth-2.png[align="center", width="550"]
++
+. Click *Create*.
+. Copy or download the *Client ID* and *Client secret* and store it securely. You will need this information later.
++
+image:google-oauth-3.png[align="center", width="427"]
+
+=== Obtain Refresh Token
+
+Token will be obtained via Authorization Code flow using Google Developers OAuth2 playground.
+
+TIP: You can use other approaches to go through Authorization Code flow, such as using Postman, https://oauthdebugger.com[oauthdebugger], or manual requests.
+
+. Go to https://developers.google.com/oauthplayground[Google Developers OAuth2 Playground].
+. Open OAuth 2.0 configuration (gear icon).
++
+image:google-oauth-4.png[align="center", width="421"]
++
+* Select the *Use your own OAuth credentials* checkbox.
+* Input your *Client ID* and *Client Secret*.
+. In the list of scopes on the left select *Gmail API* -> *https://mail.google.com/*
+. Click *Authorize APIs* and go through consent screens.
+. Now you have *Authorization code*. Click *Exchange authorization code for tokens*.
++
+image:google-oauth-5.png[align="center", width="492"]
++
+. Copy *Refresh token*.
+
+=== Configure application properties
+
+Use the credentials to configure the `application.properties` file of your Jmix application:
+
+.application.properties
+[source,properties,indent=0]
+----
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.protocol=smtp
+spring.mail.username=<account_name>
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.ssl.trust=smtp.gmail.com
+spring.mail.properties.mail.smtp.auth.mechanisms=XOAUTH2
+spring.mail.properties.mail.smtp.sasl.enable=true
+spring.mail.properties.mail.smtp.sasl.mechanisms=XOAUTH2
+spring.mail.properties.mail.smtp.auth.login.disable=true
+spring.mail.properties.mail.smtp.auth.xoauth2.disable=false
+
+jmix.email.oauth2.enabled=true
+jmix.email.oauth2.provider=google
+jmix.email.oauth2.client-id=<client_id>
+jmix.email.oauth2.secret=<client_secret>
+jmix.email.oauth2.refresh-token=<refresh_token>
+----
+
+Where `<account_name>` is the email address used for configuration. And `<client_id>`, `<client_secret>`, `<refresh_token>` are values obtained during the configuration process.
+
+IMPORTANT: Alternatively, you can provide or change the refresh token value at runtime via *Email* -> *xref:menu-views/oauth-token.adoc[]* view.
+
+=== Add gradle dependency
+
+Add the following dependency to your `build.gradle`:
+
+[source,groovy,indent=0]
+----
+implementation 'com.google.auth:google-auth-library-oauth2-http'
+----
+
+== Microsoft
+
+To enable OAuth with Microsoft, register your OAuth application and generate credentials. Then, set up your Jmix application using obtained credentials.
+
+NOTE: The instructions below are based on the https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app[Microsoft Entra documentation]. Please check this link for the most up-to-date procedures and any use case specifics.
+
+=== Register the application
+
+. Sign in to the https://portal.azure.com[Microsoft Azure portal^].
+. If you have multiple Azure Active Directory tenants, switch to the desired tenant.
+. Navigate to *App registrations*.
+. Click *New Registration* and provide the following information:
+* Enter a name for your app.
+* Under *Supported account types*, select the option applicable to your business scenario.
+* Under *Redirect URI*, choose *Web* in the *Select a platform* dropdown and set http://localhost:8080 (address of your Jmix application) as redirect URI.
++
+image:microsoft-oauth-app.png[align="center", width="971"]
++
+. Click *Register*.
+
+Your application is now available under *Home* -> *App Registrations*. Within the application you can view values for *Application (client) ID* and *Directory (tenant) ID*.
+
+=== Generate a Client Secret
+
+. Open your application and navigate to *Certificates & Secrets*.
+. Click *New Client Secret*.
+. Enter a description and an expiry period.
+. Click *Add* then copy the key *Value*. This is the OAuth 2.0 client secret.
++
+image:microsoft-oauth-1.png[align="center", width="1191"]
+
+
+=== Configuring API Permissions
+
+To send emails, your application needs certain permissions:
+
+. Open your application and navigate to *API permissions*.
+. Add SMTP.Send permission.
+
+=== Obtain Refresh Token
+
+Token will be obtained via authorization Code flow using the browser and CLI.
+
+TIP: You can use other approaches to go through Authorization Code flow, such as using Postman, https://oauthdebugger.com[oauthdebugger], or manual requests. The process described below uses browser and CLI.
+
+. Navigate to the following URL:
++
+----
+// Line breaks for legibility only
+
+https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize?
+client_id=<client_id>
+&response_type=code
+&redirect_uri=http://localhost:8080
+&response_mode=query
+&scope=offline_access%20https://outlook.office.com/SMTP.Send
+----
++
+This may require admin consent to get access to requested API permissions. Once the user authenticates and grants consent, the Microsoft identity platform returns a response. This example shows a successful response:
++
+----
+http://localhost:8080/?
+code=AwABAAAAvPM1KaPlrEqdFSBzjqfTGBCmLdgfSTLEMPGYuNHSUYBrq...
+&session_state=12345
+----
+
+. Save the value of the `code` parameter from the response.
+. Exchange code for token:
++
+----
+ curl -X POST https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "grant_type=authorization_code" \
+-d "client_id=<client_id>" \
+-d "client_secret=<client_secret>" \
+-d "code=<code_value>" \
+-d "redirect_uri=http://localhost:8080" \
+-d "scope=offline_access https://outlook.office.com/SMTP.Send email openid"
+----
++
+. A successful response contains a `refresh_token` value. Copy its value for future use.
+
+=== Configure application properties
+
+Use the credentials to configure the `application.properties` file of your Jmix application:
+
+.application.properties
+[source,properties,indent=0]
+----
+spring.mail.host=smtp.office365.com
+spring.mail.port=587
+spring.mail.protocol=smtp
+spring.mail.username=<account_name>
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.ssl.trust=smtp.office365.com
+spring.mail.properties.mail.smtp.auth.mechanisms=XOAUTH2
+spring.mail.properties.mail.smtp.sasl.enable=true
+spring.mail.properties.mail.smtp.sasl.mechanisms=XOAUTH2
+spring.mail.properties.mail.smtp.auth.login.disable=true
+spring.mail.properties.mail.smtp.auth.xoauth2.disable=false
+
+jmix.email.oauth2.enabled=true
+jmix.email.oauth2.provider=microsoft
+jmix.email.oauth2.client-id=<client_id>
+jmix.email.oauth2.secret=<client_secret>
+jmix.email.oauth2.tenant-id=<tenant_id>
+jmix.email.oauth2.refresh-token=<refresh_token>
+----
+
+Where `<account_name>` is the email address used for configuration. And `<client_id>`, `<client_secret>`, `<refresh_token>`, `<tenant_id>` are values obtained during the configuration process.
+
+IMPORTANT: Alternatively, you can provide or change the refresh token value at runtime via *Email* -> *xref:menu-views/oauth-token.adoc[]* view.
+
+=== Add gradle dependency
+
+Add the following dependency to your `build.gradle`:
+
+[source,groovy,indent=0]
+----
+implementation 'com.google.auth:google-auth-library-oauth2-http'
+----

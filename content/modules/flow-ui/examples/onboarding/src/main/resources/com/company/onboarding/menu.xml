@@ -60,6 +60,7 @@
         <item view="ListBoxView" title="msg://com.company.onboarding.view.component.listbox/listBoxView.title"/>
         <item view="ListMenuView" title="msg://com.company.onboarding.view.component.listmenu/listMenuView.title"/>
         <item view="LoginFormView" title="msg://com.company.onboarding.view.component.loginform/loginFormView.title"/>
+        <item view="MarkdownView" title="msg://com.company.onboarding.view.component.markdown/markdownView.title"/>
         <item view="MultiSelectComboBoxView"
               title="msg://com.company.onboarding.view.component.multiselectcombobox/multiSelectComboBoxView.title"/>
         <item view="MultiSelectComboBoxPickerView"
@@ -92,6 +93,7 @@
               title="msg://com.company.onboarding.view.component.twincolumn/twinColumnView.title"/>
         <item view="UploadView" title="msg://com.company.onboarding.view.component.upload/uploadView.title"/>
         <item view="ValuePickerView" title="msg://com.company.onboarding.view.component.valuepicker/valuePickerView.title"/>
+        <item view="UserMenuView" title="msg://com.company.onboarding.view.component.usermenu/userMenuView.title"/>
         <separator/>
         <item view="ValidatorView" title="msg://com.company.onboarding.view.component.validator/validatorView.title"/>
         <item view="FormatterView" title="msg://com.company.onboarding.view.component.formatter/formatterView.title"/>
@@ -107,11 +109,15 @@
 
     <menu id="layouts" title ="msg://com.company.onboarding/menu_config.layouts.title" >
         <item view="AccordionView" title="msg://com.company.onboarding.view.layout.accordion/accordionView.title"/>
+        <item view="CardView" title="msg://com.company.onboarding.view.layout.card/cardView.title"/>
         <item view="DetailsView" title="msg://com.company.onboarding.view.layout.details/detailsView.title"/>
         <item view="FlexLayoutView" title="msg://com.company.onboarding.view.layout.flexlayout/flexLayoutView.title"/>
         <item view="FormLayoutView" title="msg://com.company.onboarding.view.layout.formlayout/formLayoutView.title"/>
+        <item view="GridLayoutView" title="msg://com.company.onboarding.view.layout.gridlayout/gridLayoutView.title"/>
         <item view="HboxView" title="msg://com.company.onboarding.view.layout.hbox/hboxView.title"/>
         <item view="ScrollerView" title="msg://com.company.onboarding.view.layout.scroller/scrollerView.title"/>
+        <item view="SidePanelLayoutView"
+              title="msg://com.company.onboarding.view.layout.sidepanellayout/sidePanelLayoutView.title"/>
         <item view="SplitView" title="msg://com.company.onboarding.view.layout.split/splitView.title"/>
         <item view="TabsheetView" title="msg://com.company.onboarding.view.layout.tabsheet/tabSheetView.title"/>
         <item view="VboxView" title="msg://com.company.onboarding.view.layout.vbox/vboxView.title"/>
@@ -127,6 +133,8 @@
         <item view="H1H6View" title="msg://com.company.onboarding.view.htmlcomponent.h1h6/h1H6View.title"/>
         <item view="LabelView" title="msg://com.company.onboarding.view.htmlcomponent.label/labelView.title"/>
         <item view="SpanView" title="msg://com.company.onboarding.view.htmlcomponent.span/spanView.title"/>
+        <item view="IframeView" title="msg://com.company.onboarding.view.htmlcomponent.iframe/iframeView.title"/>
+        <item view="FieldsetView" title="msg://com.company.onboarding.view.htmlcomponent.fieldset/fieldsetView.title"/>
     </menu>
 
     <menu id="customComponents" title="Custom components">
@@ -141,6 +149,8 @@
               title="msg://com.company.onboarding.view.customcomponent.compositecomponent/compositeComponentView.title"/>
         <item view="SingleElementComponentView"
               title="msg://com.company.onboarding.view.customcomponent.singleelementcomponent/singleElementComponentView.title"/>
+        <item view="GenericComponentView"
+              title="msg://com.company.onboarding.view.customcomponent.genericcomponent/genericComponentView.title"/>
     </menu>
 
     <menu id="dialogsAndNotifications" title = "msg://com.company.onboarding/menu_config.dialogsAndNotifications.title">
@@ -159,12 +169,19 @@
         <item view="StandardListActionsView" title="msg://com.company.onboarding.view.actions/standardListActionsView.title"/>
         <item view="StandardPickerActionsView"
               title="msg://com.company.onboarding.view.actions/standardEntityPickerActionsView.title"/>
+        <item view="ProgrammaticActionView"
+              title="msg://com.company.onboarding.view.actions/programmaticActionView.title"/>
     </menu>
 
     <menu id="facets" title="Facets">
         <item view="UrlQueryParametersView"
               title="msg://com.company.onboarding.view.facets/urlQueryParametersView.title"/>
         <item view="SettingsFacetView" title="msg://com.company.onboarding.view.facets/settingsFacetView.title"/>
+        <item view="ManualModeView"
+              title="msg://com.company.onboarding.view.facets.dataloadcoordinator.manualmode/manualModeView.title"/>
+        <item view="AutomaticModeView" title="msg://com.company.onboarding.view.facets.dataloadcoordinator.automaticmode/automaticModeView.title"/>
+        <item view="SemiautomaticModeView"
+              title="msg://com.company.onboarding.view.facets.dataloadcoordinator.semiautomaticmode/semiautomaticModeView.title"/>
     </menu>
 
     <menu id="fragments" title="Fragments">
@@ -173,6 +190,14 @@
         <item view="HostView4" title="Provided data"/>
         <item view="CustomerFragmentHostView"
               title="msg://com.company.onboarding.view.customer/customerFragmentHostView.title"/>
+        <item view="TimerFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/timerFragmentView.title"/>
+        <item view="SettingsFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/fragmentsettingsfragmentview.title"/>
+        <item view="DataLoadCoordinatorFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/dataLoadCoordinatorFragmentView.title"/>
+        <item view="UrlQueryParametersFragmentView"
+              title="msg://com.company.onboarding.view.usingfacetfragment/urlQueryParametersFragmentView.title"/>
     </menu>
 
     <!-- tag::menu[] -->

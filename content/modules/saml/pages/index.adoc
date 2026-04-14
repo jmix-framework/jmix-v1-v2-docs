@@ -1,0 +1,27 @@
+= SAML
+
+The Jmix SAML add-on enables SAML 2.0 authentication in Jmix applications.
+
+[[installation]]
+== Installation
+
+For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+
+For manual installation add the following dependency to your `build.gradle`:
+
+[source,groovy,indent=0]
+----
+implementation 'io.jmix.saml:jmix-saml-starter'
+----
+
+[[default-configuration]]
+== Default Jmix SAML Configuration
+
+With the default Jmix SAML configuration:
+
+* Non-authenticated users are redirect to the identity provider login page.
+* A SAML-backed user is created in memory after authentication. An instance of `DefaultJmixSamlUserDetails` is placed in the security context; users are not persisted to the database.
+* User attributes are not mapped automatically.
+* User role codes are taken from the `Role` attribute in the SAML assertion. Resource and row-level roles with those codes are then applied to the user authentication object.
+
+Follow the xref:saml:keycloak-saml.adoc[] to configure this default behavior. See the xref:saml:additional-setup.adoc[additional setup] instructions extending the default configuration.

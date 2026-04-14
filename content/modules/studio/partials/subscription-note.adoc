@@ -1,4 +1,4 @@
 [NOTE]
 ====
-该功能在不多余 10 个实体和角色的小项目中可以免费使用。在大项目中，需要快速开发、企业 或 BPM 版xref:studio:subscription.adoc#subscription[订阅]。
+该功能在不超过 10 个实体和角色的小项目中可以免费使用。在大项目中，需要快速开发、企业 或 BPM 版xref:studio:subscription.adoc#subscription[订阅]。
 ====

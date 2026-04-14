@@ -1,9 +1,11 @@
 package com.company.demo.listener;
 
 import com.company.demo.entity.Order;
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(AuthenticatedAsAdmin.class)
 public class OrderEventListenerTest {
 
     @Autowired
@@ -27,7 +30,7 @@ public class OrderEventListenerTest {
     @AfterEach
     void tearDown() {
         JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-        jdbc.execute("delete from ORDER");
+        jdbc.execute("delete from ORDER_");
     }
 
     @Test

@@ -1,0 +1,36 @@
+<fragment xmlns="http://jmix.io/schema/flowui/fragment"
+          xmlns:dynattr="http://jmix.io/schema/dynattr/flowui">
+    <data>
+        <collection id="usersDc"
+                    class="com.company.demo.entity.User">
+            <fetchPlan extends="_base"/>
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e order by e.username]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dynattr:dynamicAttributes/>
+        <fragmentDataLoadCoordinator auto="true"/>
+    </facets>
+    <content>
+        <vbox id="root">
+            <dataGrid id="usersDataGrid"
+                      width="100%"
+                      columnReorderingAllowed="true"
+                      minHeight="20em"
+                      dataContainer="usersDc">
+                <columns resizable="true">
+                    <column property="username"/>
+                    <column property="firstName"/>
+                    <column property="lastName"/>
+                    <column property="email"/>
+                    <column property="timeZoneId"/>
+                    <column property="active"/>
+                </columns>
+            </dataGrid>
+        </vbox>
+    </content>
+</fragment>

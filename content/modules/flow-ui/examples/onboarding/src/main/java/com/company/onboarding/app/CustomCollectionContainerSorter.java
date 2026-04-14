@@ -2,12 +2,12 @@ package com.company.onboarding.app;
 
 import com.company.onboarding.entity.Department;
 import io.jmix.core.Sort;
+import io.jmix.core.comparator.EntityValuesComparator;
 import io.jmix.core.metamodel.model.MetaClass;
 import io.jmix.core.metamodel.model.MetaPropertyPath;
 import io.jmix.flowui.model.BaseCollectionLoader;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.impl.CollectionContainerSorter;
-import io.jmix.flowui.model.impl.EntityValuesComparator;
 import org.springframework.beans.factory.BeanFactory;
 
 import java.util.Comparator;

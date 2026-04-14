@@ -1,0 +1,109 @@
+= Additional Setup
+
+The following instructions describe how to extend the xref:saml:index.adoc#default-configuration[default Jmix SAML configuration]. Use them after completing xref:saml:keycloak-saml.adoc[] or the equivalent basic configuration for another identity provider.
+
+[[user-menu-visibility]]
+== User menu visibility for in-memory SAML users
+
+With the default SAML configuration, SAML users exist only in memory. They are not backed by a persistent `User` entity, so the main view may not be able to show their name or avatar unless you handle SAML assertion attributes explicitly.
+
+To make in-memory SAML users visible in the user menu:
+
+. Include the `FirstName` and `LastName` attributes in the SAML assertion.
+. Adjust the `generateUserName` method so it can build the display name from either the persistent `User` entity or SAML assertion attributes for in-memory users:
++
+.MainView.java
+[source,java]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=generateUserName]
+----
++
+Then use that generated name when rendering the user menu button and header:
++
+[source,java]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=buttonRenderer;headerRenderer]
+----
+
+[[mapping-saml-attributes]]
+== Mapping SAML Attributes
+
+NOTE: Before you map attributes in the application, make sure they are included in the SAML assertion. See xref:saml:keycloak-saml.adoc#add-saml-attributes[Add SAML attributes in Keycloak] or the equivalent steps for your identity provider.
+
+If the SAML assertion contains information about the user, such as their name, position, department, or other profile details, you can make it available in your application during the user session.
+
+In order to do that:
+
+. Create a class that extends `DefaultJmixSamlUserDetails`:
++
+
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MyUser.java[tags=MyUser]
+----
++
+<1> An extra field that corresponds to an additional SAML attribute.
++
+. Create a Spring bean to convert the incoming SAML assertion into a Jmix user object. The simplest approach is to extend `BaseSamlUserMapper` and override its methods.
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlUserMapper.java[tags=MySamlUserMapper]
+----
++
+<1> This method creates the Jmix user object that will represent the authenticated user.
+<2> Here, values from the SAML `Assertion` are copied into your user object. In the example, the `Position` attribute from the `Assertion` is stored in the `position` field of `MyUser`.
+<3> In this method authorities are assigned to the user. Instead of implementing that logic directly, the example delegates it to the `SamlAssertionRolesMapper` interface and, therefore, to the default implementation, which is `DefaultSamlAssertionRolesMapper`.
+
+[[using-different-roles-attribute]]
+== Using Different Roles Attribute
+
+By default, `DefaultSamlAssertionRolesMapper` looks for an attribute named `Role` in the SAML `Assertion`. That attribute is expected to contain a collection of role names. For each role name, Jmix searches for matching resource roles and row-level roles. If matching roles are found, the corresponding granted authorities are added to the user.
+
+If your identity provider sends roles in an attribute other than `Role`, you can change the attribute name with the following xref:saml:saml-properties.adoc[Jmix SAML property]:
+
+.application.properties
+----
+jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute=MyRole
+----
+
+This tells the default mapper to read role names from `MyRole` instead of `Role`.
+
+[[creating-custom-role-mapper]]
+== Creating Custom Role Mapper
+
+If you need more control, you can create your own role mapper. This is useful when your identity provider does not send Jmix role codes directly, but instead sends some other values that you want to translate into appropriate roles.
+
+For example, a value such as `Manager` might come from `Position` attribute, and your mapper can use it to assign the appropriate Jmix roles. To implement this, extend `BaseSamlAssertionRolesMapper` and override its `getResourceRolesCodes()` and `getRowLevelRolesCodes()` methods:
+
+
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlAssertionRolesMapper.java[tags=MySamlAssertionRolesMapper]
+----
+
+In this example, the user's `Position` value determines which Jmix resource roles are assigned:
+
+- if `Position` is `Manager`, the user receives the `edit-contracts` and `view-archive` roles.
+- otherwise, the user receives the `view-contracts` role.
+
+[[persist-users-to-database]]
+== Persist Users to Database
+
+By default, the Jmix SAML setup keeps authenticated users in memory only. If you want SAML users to be stored in the database, complete the following steps:
+
+. Make the xref:security:users.adoc#entity[User] entity compatible with the Jmix SAML add-on by extending the `JmixSamlUserEntity` abstract class:
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/entity/User.java[tags=extends-JmixSamlUserEntity]
+----
++
+. Register a user mapper based on `SynchronizingSamlUserMapper`; this superclass stores and updates the user in the database and can synchronize role assignments to the database:
++
+[source,java,indent=0]
+----
+include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySynchronizingSamlUserMapper.java[tags=MySynchronizingSamlUserMapper]
+----
++
+<1> When set to `true`, role assignments are also stored to the database.

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- tag::manual-mode[] -->
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://manualModeView.title">
+    <data>
+        <collection id="citiesDc" class="com.company.onboarding.entity.City"> <!--1-->
+            <loader id="citiesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from City e]]> <!--2-->
+                    <condition>
+                        <and>
+                            <jpql>
+                                <where>e.name like:name</where> <!--3-->
+                            </jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+        <collection id="customersDc"
+                    class="com.company.onboarding.entity.Customer">
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[
+                    select e from Customer e
+                    where e.city = :city]]> <!--4-->
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="false"> <!--5-->
+            <refresh loader="citiesDl">
+                <onViewEvent type="Init"/>
+                <onComponentValueChanged component="nameField"
+                                         likeClause="CASE_INSENSITIVE"
+                                         param="name"/> <!--6-->
+            </refresh>
+            <refresh loader="customersDl">
+                <onContainerItemChanged container="citiesDc"
+                                        param="city"/> <!--7-->
+            </refresh>
+        </dataLoadCoordinator>
+    </facets>
+    <layout>
+        <textField id="nameField"/> <!--8-->
+    </layout>
+</view>
+<!-- end::manual-mode[] -->

@@ -18,7 +18,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,18 +62,16 @@ public class Order {
     private String createdBy;
 
     @CreatedDate
-    @Temporal(TemporalType.DATE)
     @Column(name = "CREATED_DATE")
-    private Date createdDate;
+    private OffsetDateTime createdDate;
 
     @LastModifiedBy
     @Column(name = "LAST_MODIFIED_BY")
     private String lastModifiedBy;
 
     @LastModifiedDate
-    @Temporal(TemporalType.DATE)
     @Column(name = "LAST_MODIFIED_DATE")
-    private Date lastModifiedDate;
+    private OffsetDateTime lastModifiedDate;
     // end::audit-traits[]
 
     // tag::soft-delete-trait[]
@@ -82,9 +80,8 @@ public class Order {
     private String deletedBy;
 
     @DeletedDate
-    @Temporal(TemporalType.DATE)
     @Column(name = "DELETED_DATE")
-    private Date deletedDate;
+    private OffsetDateTime deletedDate;
     // end::soft-delete-trait[]
 
     // tag::on-delete[]
@@ -111,11 +108,11 @@ public class Order {
         this.lines = lines;
     }
 
-    public Date getDeletedDate() {
+    public OffsetDateTime getDeletedDate() {
         return deletedDate;
     }
 
-    public void setDeletedDate(Date deletedDate) {
+    public void setDeletedDate(OffsetDateTime deletedDate) {
         this.deletedDate = deletedDate;
     }
 
@@ -127,11 +124,11 @@ public class Order {
         this.deletedBy = deletedBy;
     }
 
-    public Date getLastModifiedDate() {
+    public OffsetDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(OffsetDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
@@ -143,11 +140,11 @@ public class Order {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public Date getCreatedDate() {
+    public OffsetDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(OffsetDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

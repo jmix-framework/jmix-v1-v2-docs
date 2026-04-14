@@ -1,9 +1,0 @@
-= 从 CUBA 平台迁移
-
-请按照下列步骤从 CUBA 平台迁移至 Jmix {page-component-display-version}：
-
-. 按照 https://docs.jmix.cn/jmix/1.5/cuba/index.html[迁移向导^] 将项目迁移至使用经典 UI 的 Jmix 1.5。在这一步可以忽略 UI 层的各种问题，因为所有的 UI 都需要替换。
-
-. 删除 `jmix-cuba` 兼容性模块，并升级使用到的 Jmix API。
-
-. 按照 xref:ROOT:migration-from-classic-ui.adoc[] 部分的介绍进行迁移。

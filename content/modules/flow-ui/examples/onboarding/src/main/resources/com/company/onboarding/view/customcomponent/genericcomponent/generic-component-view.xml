@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://genericComponentView.title">
+    <layout>
+        <!-- tag::button-component-xml[] -->
+        <component id="button" class="com.vaadin.flow.component.button.Button">
+            <properties>
+                <property name="text" value="Button"/>
+                <property name="icon" value="PLUS" type="ICON"/>
+            </properties>
+        </component>
+        <!-- end::button-component-xml[] -->
+        <!-- tag::test-component-xml[] -->
+        <component id="testComponent" class="com.company.onboarding.component.TestComponent">
+            <properties>
+                <property name="text" value="Button"/>
+                <property name="stringsList" value="a b ,c"/>
+                <property name="stringsSet" value="a b ,c"/>
+                <property name="stringsArray" value="a b ,c"/>
+                <property name="strings" value="a b ,c"/>
+                <property name="dataContainer" value="productsDc" type="CONTAINER_REF"/>
+            </properties>
+        </component>
+        <!-- end::test-component-xml[] -->
+    </layout>
+</view>

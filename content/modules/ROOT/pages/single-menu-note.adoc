@@ -1,0 +1,17 @@
+[CAUTION]
+====
+*Important Note for Single Menu Mode Applications*
+
+If your application uses xref:studio:menu-designer.adoc#menu-modes[Single menu mode], you should manually add menu items after installing an add-on.
+
+. Open xref:studio:menu-designer.adoc[] in Jmix Studio.
+. Navigate to the *Structure* tab.
+. Available menu items are displayed in the left panel.
++
+image::ROOT:addons/add-menu-items.png[align="center", width="958"]
+. To add items:
+* Select the desired items and click the `>` (*Add Selected*) button.
+* Or, drag-and-drop them from the left panel into the current menu structure on the right.
+
+This step is required because applications in *Single* menu mode do not automatically merge add-on menus with the existing structure.
+====

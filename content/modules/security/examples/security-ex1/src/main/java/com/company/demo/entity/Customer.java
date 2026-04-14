@@ -4,8 +4,8 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-
 import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -33,9 +33,20 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<CustomerDetail> details;
 
+    @Column(name = "ACTIVE")
+    private Boolean active;
+
     @Column(name = "CONFIDENTIAL_INFO")
     @Lob
     private String confidentialInfo;
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
     public String getRegion() {
         return region;

@@ -1,0 +1,50 @@
+= Reports Admin UI
+:page-aliases: report-view.adoc
+
+The Reports add-on provides administration views for configuring and running reports.
+
+[[reports-view]]
+== Reports View
+
+Open the *Reports -> Reports* menu item. The *Reports* list view displays the list of available reports and includes buttons for managing them.
+
+image::report-list-view.png[align="center", width="1074"]
+
+* There are two ways to create reports at runtime: using the report wizard or the report detail view.
+
+** Click on the *Create -> New* popup button to create a report manually. The xref:creation/details.adoc[report detail view] is opened.
+
+** To open the xref:getting-started.adoc#creating-report-at-runtime[report wizard], click on the *Create -> Using wizard* popup button.
+
+* Click on the *Copy* button to quickly create a new report based on the selected one. The new report will have the same structure, parameters, and templates.
+
+[[export-import]]
+* The add-on provides the ability to export and import reports.
+
+** Select the reports you want to export and click on the *Export* (image:download.png[width="18"]) button. The framework creates a ZIP archive containing all selected reports.
+
+** To import reports, click on the *Import* (image:upload.png[width="18"]) button. The *Import report* dialog is opened:
++
+image::import-report-dialog.png[align="center", width="482"]
++
+Click *Upload File* to select a ZIP file to upload to the system. This can also be done by dragging and dropping the file into the drop zone. If you clear the *Import roles* checkbox, the imported reports will be xref:creation/permissions.adoc[available to all users].
++
+If the report is compatible with the data model of the project, it should work correctly after the import. This means that you can create reports in your development environment and use them in the production system afterward.
++
+TIP: You can also import reports _programmatically_ using the xref:report-import-export.adoc#report-import-export[ReportImportExport] bean provided by the framework.
+
+* Click on the *Run* button to execute the selected report.
+
+* The *Execution history* button opens the xref:exec-history.adoc[Execution history view].
+
+[[report-groups-view]]
+== Report Groups View
+
+The *Reports -> Report groups* view allows users to create groups that facilitate the management of reports. Report groups are simply categories with arbitrary names and do not influence the availability or execution of reports.
+
+[[run-report-view]]
+== Run Report View
+
+The *Reports -> Run report* view allows users to find a report and run it.
+
+This view shows only reports available to the user according to the xref:creation/permissions.adoc[access permissions].

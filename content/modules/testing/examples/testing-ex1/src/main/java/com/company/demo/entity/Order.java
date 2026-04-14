@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "ORDER_")
-@Entity
+@Entity(name = "Order_")
 public class Order {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)

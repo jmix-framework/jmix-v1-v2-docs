@@ -6,12 +6,14 @@ import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.flowui.UiComponents;
+import io.jmix.flowui.component.UiComponentUtils;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
@@ -26,7 +28,7 @@ import java.time.LocalDate;
 @ViewController("MyOnboardingView")
 @ViewDescriptor("my-onboarding-view.xml")
 @Route(value = "my-onboarding", layout = MainView.class)
-@DialogMode(width = "AUTO", height = "AUTO")
+@DialogMode(width = "50em", height = "40em")
 public class MyOnboardingView extends StandardView {
     // end::annotations[]
     @Autowired
@@ -78,15 +80,25 @@ public class MyOnboardingView extends StandardView {
 
     }
 
+    // tag::onBeforeShow[]
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
+        // end::onBeforeShow[]
         User user = (User) currentAuthentication.getUser();
         userStepsDl.setParameter("user", user);
         userStepsDl.load();
 
         updateLabels();
+// tag::set-size[]
+        Dialog dialog = UiComponentUtils.findDialog(this);
+        if (dialog != null) {
+            dialog.setWidth("80em");
+            dialog.setHeight("60em");
+        }
+        // end::set-size[]
+        // tag::onBeforeShow[]
     }
-
+    // end::onBeforeShow[]
     @Subscribe(id = "userStepsDc", target = Target.DATA_CONTAINER)
     public void onUserStepsDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<UserStep> event) {
         updateLabels();

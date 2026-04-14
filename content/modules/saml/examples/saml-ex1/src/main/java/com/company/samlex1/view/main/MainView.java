@@ -1,0 +1,143 @@
+package com.company.samlex1.view.main;
+
+import com.company.samlex1.entity.User;
+import com.google.common.base.Strings;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.avatar.AvatarVariant;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.router.Route;
+import io.jmix.core.Messages;
+import io.jmix.core.usersubstitution.CurrentUserSubstitution;
+import io.jmix.flowui.UiComponents;
+import io.jmix.flowui.app.main.StandardMainView;
+import io.jmix.flowui.view.Install;
+import io.jmix.flowui.view.ViewController;
+import io.jmix.flowui.view.ViewDescriptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
+
+@Route("")
+@ViewController(id = "MainView")
+@ViewDescriptor(path = "main-view.xml")
+public class MainView extends StandardMainView {
+
+    @Autowired
+    private Messages messages;
+    @Autowired
+    private UiComponents uiComponents;
+    @Autowired
+    private CurrentUserSubstitution currentUserSubstitution;
+
+    // tag::buttonRenderer[]
+    @Install(to = "userMenu", subject = "buttonRenderer")
+    private Component userMenuButtonRenderer(final UserDetails userDetails) {
+
+        String userName = generateUserName(userDetails);
+        Avatar avatar = createAvatar(userName);
+        //...
+        // end::buttonRenderer[]
+
+        Div content = uiComponents.create(Div.class);
+        content.setClassName("user-menu-button-content");
+
+
+        Span name = uiComponents.create(Span.class);
+        name.setText(userName);
+        name.setClassName("user-menu-text");
+
+        content.add(avatar, name);
+
+        if (isSubstituted(userDetails)) {
+            Span subtext = uiComponents.create(Span.class);
+            subtext.setText(messages.getMessage("userMenu.substituted"));
+            subtext.setClassName("user-menu-subtext");
+
+            content.add(subtext);
+        }
+
+        return content;
+
+        // tag::buttonRenderer[]
+    }
+
+    // end::buttonRenderer[]
+
+
+    // tag::headerRenderer[]
+    @Install(to = "userMenu", subject = "headerRenderer")
+    private Component userMenuHeaderRenderer(final UserDetails userDetails) {
+
+        String name = generateUserName(userDetails);
+        Avatar avatar = createAvatar(name);
+
+        // ...
+        // end::headerRenderer[]
+
+        avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
+        Div content = uiComponents.create(Div.class);
+        content.setClassName("user-menu-header-content");
+
+
+        Span text = uiComponents.create(Span.class);
+        text.setText(name);
+        text.setClassName("user-menu-text");
+
+        content.add(avatar, text);
+
+        if (name.equals(userDetails.getUsername())) {
+            text.addClassNames("user-menu-text-subtext");
+        } else {
+            Span subtext = uiComponents.create(Span.class);
+            subtext.setText(userDetails.getUsername());
+            subtext.setClassName("user-menu-subtext");
+
+            content.add(subtext);
+        }
+
+        return content;
+        // tag::headerRenderer[]
+    }
+    // end::headerRenderer[]
+
+    private Avatar createAvatar(String fullName) {
+        Avatar avatar = uiComponents.create(Avatar.class);
+        avatar.setName(fullName);
+        avatar.getElement().setAttribute("tabindex", "-1");
+        avatar.setClassName("user-menu-avatar");
+
+        return avatar;
+    }
+
+    // tag::generateUserName[]
+    private String generateUserName(UserDetails userDetails) {
+        if (userDetails instanceof User user) {
+            String userName = String.format("%s %s",
+                            Strings.nullToEmpty(user.getFirstName()),
+                            Strings.nullToEmpty(user.getLastName()))
+                    .trim();
+
+            return userName.isEmpty() ? user.getUsername() : userName;
+        }
+
+        if (userDetails instanceof Saml2AuthenticatedPrincipal samlUser) {
+            String userName = String.format("%s %s",
+                            Strings.nullToEmpty(samlUser.getFirstAttribute("FirstName")),
+                            Strings.nullToEmpty(samlUser.getFirstAttribute("LastName")))
+                    .trim();
+
+            return userName.isEmpty() ? userDetails.getUsername() : userName;
+        }
+
+        return userDetails.getUsername();
+    }
+    // end::generateUserName[]
+
+    private boolean isSubstituted(UserDetails userDetails) {
+        UserDetails authenticatedUser = currentUserSubstitution.getAuthenticatedUser();
+        return userDetails != null && !authenticatedUser.getUsername().equals(userDetails.getUsername());
+    }
+
+}

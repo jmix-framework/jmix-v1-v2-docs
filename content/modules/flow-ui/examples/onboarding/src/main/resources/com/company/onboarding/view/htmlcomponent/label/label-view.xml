@@ -14,37 +14,47 @@
         <button id="button" text="Click"/>
         <!-- end::dynamic[] -->
 
-        <hbox>
-            <!-- tag::color[] -->
-            <nativeLabel text="default" themeNames="badge"/>
-            <nativeLabel text="success" themeNames="badge, success"/>
-            <nativeLabel text="error" themeNames="badge, error"/>
-            <nativeLabel text="contrast" themeNames="badge, contrast"/>
-            <!-- end::color[] -->
-        </hbox>
 
-        <hbox>
-            <!-- tag::color-primary[] -->
-            <nativeLabel text="default" themeNames="badge, primary"/>
-            <nativeLabel text="success" themeNames="badge, success, primary"/>
-            <nativeLabel text="error" themeNames="badge, error, primary"/>
-            <nativeLabel text="contrast" themeNames="badge, contrast, primary"/>
-            <!-- end::color-primary[] -->
-        </hbox>
+        <vbox>
 
-        <!-- tag::shape[] -->
-        <nativeLabel text="default" themeNames="badge, pill"/>
-        <nativeLabel text="success" themeNames="badge, success, pill"/>
-        <nativeLabel text="error" themeNames="badge, error, pill"/>
-        <nativeLabel text="contrast" themeNames="badge, contrast, pill"/>
-        <!-- end::shape[] -->
+            <hbox>
+                <!-- tag::color[] -->
+                <nativeLabel text="default" themeNames="badge"/>
+                <nativeLabel text="success" themeNames="badge, success"/>
+                <nativeLabel text="success" themeNames="badge, warning"/>
+                <nativeLabel text="error" themeNames="badge, error"/>
+                <nativeLabel text="contrast" themeNames="badge, contrast"/>
+                <!-- end::color[] -->
+            </hbox>
 
-        <hbox>
-            <!-- tag::size[] -->
-            <nativeLabel text="normal" themeNames="badge, normal"/>
-            <nativeLabel text="small" themeNames="badge, small"/>
-            <!-- end::size[] -->
-        </hbox>
+            <hbox>
+                <!-- tag::color-primary[] -->
+                <nativeLabel text="default" themeNames="badge, primary"/>
+                <nativeLabel text="success" themeNames="badge, success, primary"/>
+                <nativeLabel text="success" themeNames="badge, warning, primary"/>
+                <nativeLabel text="error" themeNames="badge, error, primary"/>
+                <nativeLabel text="contrast" themeNames="badge, contrast, primary"/>
+                <!-- end::color-primary[] -->
+            </hbox>
+
+            <hbox>
+            <!-- tag::shape[] -->
+            <nativeLabel text="default" themeNames="badge, pill"/>
+            <nativeLabel text="success" themeNames="badge, success, pill"/>
+            <nativeLabel text="success" themeNames="badge, warning, pill"/>
+            <nativeLabel text="error" themeNames="badge, error, pill"/>
+            <nativeLabel text="contrast" themeNames="badge, contrast, pill"/>
+            <!-- end::shape[] -->
+            </hbox>
+
+            <hbox>
+                <!-- tag::size[] -->
+                <nativeLabel text="normal" themeNames="badge, normal"/>
+                <nativeLabel text="small" themeNames="badge, small"/>
+                <!-- end::size[] -->
+            </hbox>
+        </vbox>
+
 
     </layout>
 </view>

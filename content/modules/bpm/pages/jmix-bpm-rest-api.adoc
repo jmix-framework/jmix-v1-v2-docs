@@ -1,0 +1,60 @@
+= Flowable REST API
+
+A Jmix application with the BPM add‑on can use Flowable REST APIs:
+
+* *BPMN REST API* includes endpoints for process definitions, runtime and historic instances, user tasks, and more (see https://www.flowable.com/open-source/docs/bpmn/ch14-REST[Flowable docs^] for the full list).
+
+* *DMN REST API* includes endpoints for managing decision tables (see the https://www.flowable.com/open-source/docs/dmn/ch07-REST[Flowable docs^] for the full list).
+
+[[gradle-dependencies]]
+== Gradle Dependencies
+
+To enable the APIs, add the appropriate dependencies to `build.gradle`:
+
+.build.gradle
+[source]
+----
+include::example$/bpm-ex1/build.gradle[tags=dependencies;flowable-bpmn-api-starter;flowable-dmn-api-starter]
+----
+
+[[base-path-configuration]]
+== Base Path Configuration
+
+The REST APIs are reachable under separate base paths. The default locations are:
+
+[cols="1h,1,4", grid=rows]
+|===
+| |Base Path |Example URL
+
+|BPMN REST API
+|`/process-api`
+|`\http://localhost:8080/process-api/repository/process-definitions`
+
+|DMN REST API
+|`/dmn-api`
+|`\http://localhost:8080/dmn-api/dmn-repository/deployments`
+|===
+
+[NOTE]
+====
+If a context path is set, prepend it to the URLs.
+For example, with `server.servlet.context-path=/app` the DMN URL becomes
+`\http://localhost:8080/app/rest/bpm/dmn/dmn-repository/deployments`
+====
+
+To change the default paths, set the desired values in `application.properties`:
+
+.application.properties
+[source,properties]
+----
+include::example$/bpm-ex1/src/main/resources/application.properties[tags=process-path;dmn-path]
+----
+
+[[security-configuration]]
+== Security Configuration
+
+After adding the dependencies, configure Spring Security for the Flowable REST endpoints in your Jmix project. The xref:security:custom-endpoints.adoc[] section provides sample code for the following scenarios:
+
+* Public endpoint
+* HTTP Basic Authentication
+* Token Based Authentication

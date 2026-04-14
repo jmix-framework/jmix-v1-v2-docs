@@ -1,0 +1,164 @@
+= Facets in Fragments
+
+Fragments support the same facet mechanism as views. You can use framework-provided facets inside fragments to add reusable functionality. For a general introduction to facets, see xref:flow-ui:facets.adoc[Facets].
+
+The following facets are available for use in fragments:
+
+* `timer` – creates a client-side timer that can trigger periodic actions.
+* `fragmentSettings` – saves UI component settings for a specific user.
+* `fragmentDataLoadCoordinator` – controls how data is loaded into the fragment.
+* `urlQueryParameters` – persists the state of UI components in the URL.
+
+For example:
+
+[source,xml,indent=0]
+----
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+<!-- some code -->
+    <facets>
+        <timer id="timer" delay="1000" autostart="true" repeating="true"/>
+        <fragmentSettings auto="true"/>
+        <fragmentDataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <dataGridFilter component="usersDataGrid"/>
+            <pagination component="simplePagination"/>
+            <propertyFilter component="propertyFilter"/>
+            <genericFilter component="genericFilter"/>
+        </urlQueryParameters>
+    </facets>
+    <content>
+        <!-- some code -->
+    </content>
+</fragment>
+----
+
+[[facets-with-required-id]]
+[CAUTION]
+====
+Some facets require the fragment to have an ID. You can set it either in XML using the `id` attribute, or programmatically in the view controller.
+
+[source,xml,indent=0]
+.settings-fragment-view.xml
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/usingfacetfragment/settings-fragment-view.xml[tags=xml-fragment]
+----
+<1> Include the fragment in a view using the `fragment` element with the `class` attribute specifying the fragment class FQN, and the `id` attribute that will be set to the fragment.
+<2> The `details` layout for programmatically defining the fragment in the view controller.
+
+The same fragment can be created programmatically using the `Fragments` bean. The ID is set in the `create()` method:
+
+.SettingsFragmentView.java
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/usingfacetfragment/SettingsFragmentView.java[tags=view]
+----
+<1> Injects the `Fragments` bean which is used to create fragments.
+<2> Creates the fragment instance using its controller class and an ID that will be set to the fragment.
+<3> Adds the fragment instance to the `details` layout component.
+====
+
+[[timer]]
+== Timer Facet
+
+The `timer` facet creates a client-side timer element. It uses the same implementation as the view-level xref:flow-ui:facets/timer.adoc[timer], so all properties and events work the same in fragments.
+
+Fragment XML example:
+
+[source,xml,indent=0]
+.timer-fragment.xml
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/timerfragment/timer-fragment.xml[tags=timer-fragment]
+----
+
+Fragment controller example:
+
+.TimerFragment.java
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments/timerfragment/TimerFragment.java[tags=fragment-java]
+----
+
+[[fragmentSettings]]
+== Fragment Settings Facet
+
+The `fragmentSettings` facet saves settings for visual components. Saving occurs when the view is closed, similar to the xref:flow-ui:facets/settings.adoc[setting] facet for views.
+
+CAUTION: A fragment using `fragmentSettings` *must have* an ID. You can set it in <<facets-with-required-id,XML or programmatically>>.
+
+Key differences from view settings:
+
+* Settings are applied at the `HostView.ReadyEvent` event in the fragment lifecycle (instead of `ReadyEvent` for views).
+* This ensures settings are applied at the latest possible moment in both view and fragment lifecycles.
+* Each fragment on a view stores its own separate set of settings.
+* A dedicated XML tag `fragmentSettings` is used.
+
+Fragment XML example:
+
+[source,xml,indent=0]
+.settings-fragment.xml
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/settingsfragment/settings-fragment.xml[tags=xml-fragment]
+----
+
+Fragment controller example:
+
+.SettingsFragment.java
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments/settingsfragment/SettingsFragment.java[tags=fragment-java]
+----
+
+[[fragmentDataLoadCoordinator]]
+== Fragment Data Load Coordinator Facet
+
+The `fragmentDataLoadCoordinator` facet controls data loading within a fragment. For example, you can set a loading trigger on specific fragment lifecycle events.
+
+Available lifecycle events for fragments:
+
+* `Fragment.ReadyEvent`
+* `HostView.InitEvent`
+* `HostView.BeforeShowEvent`
+* `HostView.ReadyEvent`
+
+The rest of the functionality works the same as the xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet for views.
+
+Fragment XML example:
+
+[source,xml,indent=0]
+.data-load-coordinator-fragment.xml
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/dataloadcoordinatorfragment/data-load-coordinator-fragment.xml[]
+----
+
+Fragment controller example:
+
+.DataLoadCoordinatorFragment.java
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments/dataloadcoordinatorfragment/DataLoadCoordinatorFragment.java[tags=fragment-java]
+----
+
+[[urlQueryParameters]]
+== Url Query Parameters Facet
+
+The `urlQueryParameters` facet persists component state in the URL. This is useful when using the URL-first approach – leaving and returning to a view preserves information like filter states.
+
+CAUTION: The fragment *must have* an ID, as its value is used for serialization. You can set the ID in <<facets-with-required-id,XML or programmatically>>.
+
+The working principle is similar to the xref:flow-ui:facets/urlQueryParameters.adoc[urlQueryParameters] facet for views.
+
+Fragment XML example:
+
+[source,xml,indent=0]
+.url-query-parameters-fragment.xml
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/urlqueryparametersfragment/url-query-parameters-fragment.xml[]
+----
+
+Fragment controller example:
+
+.UrlQueryParametersFragment.java
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments/urlqueryparametersfragment/UrlQueryParametersFragment.java[tags=fragment-java]
+----

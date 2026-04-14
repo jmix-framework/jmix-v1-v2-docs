@@ -1,0 +1,173 @@
+= SearchField Component
+
+The `SearchField` component presents a text input field with an accompanying button for executing searches. It also provides runtime configuration options accessible via a settings button.
+
+[cols="2h,8", grid=none]
+|===
+|XML Element
+|`searchField`
+|Java Class
+|`io.jmix.searchflowui.component.SearchField`
+|Attributes
+|xref:flow-ui:vc/common-attributes.adoc#id[id] -
+xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
+xref:flow-ui:vc/common-attributes.adoc#autofocus[autofocus] -
+xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] -
+xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] -
+xref:flow-ui:vc/common-attributes.adoc#css[css] -
+xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] -
+<<entities,entities>> -
+xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
+xref:flow-ui:vc/common-attributes.adoc#height[height] -
+xref:flow-ui:vc/common-attributes.adoc#helperText[helperText] -
+xref:flow-ui:vc/common-attributes.adoc#justifySelf[justifySelf] -
+xref:flow-ui:vc/common-attributes.adoc#label[label] -
+xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] -
+xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] -
+<<openMode,openMode>> -
+xref:flow-ui:vc/common-attributes.adoc#placeholder[placeholder] -
+<<searchButtonVisible,searchButtonVisible>> -
+<<searchSize,searchSize>> -
+<<searchStrategy,searchStrategy>> -
+<<settingsButtonVisible,settingsButtonVisible>> -
+xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex] -
+xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] -
+xref:flow-ui:vc/common-attributes.adoc#title[title] -
+xref:flow-ui:vc/common-attributes.adoc#value[value] -
+xref:flow-ui:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
+xref:flow-ui:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
+xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
+xref:flow-ui:vc/common-attributes.adoc#width[width]
+|Handlers
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
+xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
+xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
+xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
+xref:flow-ui:vc/common-handlers.adoc#InputEvent[InputEvent] -
+xref:flow-ui:vc/common-handlers.adoc#KeyDownEvent[KeyDownEvent] -
+xref:flow-ui:vc/common-handlers.adoc#KeyPressEvent[KeyPressEvent] -
+xref:flow-ui:vc/common-handlers.adoc#KeyUpEvent[KeyUpEvent] -
+<<searchCompletedHandler,searchCompletedHandler>>
+|===
+
+[[basic]]
+== Basics
+
+To add the component on the view, use Jmix Studio.
+
+Click *Add Component* in the actions panel, then find the `SearchField` item and double-click it.
+
+image::create-search-field-component.png[align="center", width="692"]
+
+The new `searchField` element will be added both in the *Jmix UI* structure panel and in the XML descriptor. You can configure standard attributes (xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc.) just like any other xref:flow-ui:vc/components.adoc[UI component].
+
+[source,xml,indent=0]
+----
+include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=search-field]
+----
+
+image::search-field.png[align="center", width="211"]
+
+If you don't use the view designer, declare the `search` namespace in your view's XML descriptor manually:
+
+[source,xml,indent=0]
+----
+include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns]
+----
+
+[[settings-button]]
+== Runtime Configuration
+
+The `searchField` includes a *settings button* (vertical ellipsis `⋮`) that opens a configuration dialog, allowing users to dynamically adjust search parameters without modifying the XML.
+
+image::search-settings-dialog.png[align="center", width="483"]
+
+Users can configure the following options at runtime:
+
+[cols="2,2,4", options="header"]
+|===
+| Configuration | Corresponding Attribute | Description
+
+| Search Strategy
+| <<searchStrategy,searchStrategy>>
+| Determines how the search term is processed
+
+| Size
+| <<searchSize,searchSize>>
+| Limits the number of search results
+
+| Entities
+| <<entities,entities>>
+| Specifies which entities to search (multiple entities can be selected)
+|===
+
+[[settings-button-visible]]
+=== Hiding the Settings Button
+
+You can hide the settings button using the `settingsButtonVisible` attribute:
+
+[source,xml,indent=0]
+----
+include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=settings-button-visible]
+----
+
+[[search-results-view]]
+== Search Results View
+
+By default, the `searchField` opens the built-in `SearchResultsView`. This view handles the search engine querying process and displays results either in the current navigation view or in a dialog, depending on the <<openMode,openMode>> attribute.
+
+[[searchCompletedHandler]]
+To modify this behavior, configure a `SearchCompletedHandler`. This can be done either declaratively using the `@Install` annotation or programmatically using `setSearchCompletedHandler()`.
+
+Example with `@Install`:
+
+[source,java,indent=0]
+----
+include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchView.java[tags=SearchCompletedEvent]
+----
+
+[[attributes]]
+== Attributes
+
+xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+The following attributes are specific to `searchField`:
+
+[cols="1h,7a,1",grid=rows,frame=none]
+|===
+|*Name*|*Description*|*Default*
+
+|[[entities]]entities
+| Specifies which entities to search. Multiple entities can be listed as a comma-separated sequence.
+
+[source,xml,indent=0]
+----
+include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
+----
+|-
+
+|[[openMode]]openMode
+| Specifies how the <<search-results-view,search results view>> is opened when a search is executed. `NAVIGATION` replaces the main content area; `DIALOG` opens a modal window.
+|`NAVIGATION`
+
+|[[searchButtonVisible]]searchButtonVisible
+|Shows or hides the search button.
+|`true`
+
+|[[searchSize]]searchSize
+|Limits the number of search results displayed on a single page of search results.
+|Inherited from the application property xref:search:search-properties.adoc#jmix.search.searchResultPageSize[jmix.search.search-result-page-size].
+
+|[[searchStrategy]]searchStrategy
+|Determines the search strategy applied. See xref:search:search-in-ui.adoc#search-strategies[Search Strategies].
+|`anyTermAnyField`
+
+|[[settingsButtonVisible]]settingsButtonVisible
+|Shows or hides the settings button (`⋮`). See <<settings-button,Runtime Configuration>>.
+|`true`
+
+|===

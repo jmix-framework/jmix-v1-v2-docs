@@ -1,0 +1,3 @@
+= User Interface
+
+Installing the add-on adds the *Email* section to the main menu. It contains two views: xref:email:menu-views/email-history.adoc[] and xref:email:menu-views/oauth-token.adoc[].

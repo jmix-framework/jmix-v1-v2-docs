@@ -1,0 +1,35 @@
+name: Test project
+
+on:
+  push:
+    branches:
+      - release_2_6
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Make wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: >
+          ./gradlew compileAll testAll 
+          -PpremiumRepoUser="${{ secrets.PREMIUM_REPO_USER }}" 
+          -PpremiumRepoPass="${{ secrets.PREMIUM_REPO_PASS }}" 
+          -Dorg.gradle.jvmargs=-Xmx2G
+
+      - name: Publish test report
+        uses: mikepenz/action-junit-report@v2
+        if: failure()
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'

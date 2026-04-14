@@ -1,0 +1,53 @@
+plugins {
+    id 'io.jmix' version '2.8.0-RC1'
+    id 'java'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
+}
+
+apply plugin: 'org.springframework.boot'
+
+jmix {
+    bomVersion = '2.8.0-RC1'
+}
+
+group = 'com.company'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://global.repo.jmix.io/repository/public'
+    }
+}
+
+// tag::dependencies[]
+dependencies {
+    implementation 'com.company:shared-starter:0.0.1-SNAPSHOT'
+    // end::dependencies[]
+
+    implementation 'io.jmix.core:jmix-core-starter'
+    implementation 'io.jmix.data:jmix-eclipselink-starter'
+    implementation 'io.jmix.rest:jmix-rest-starter'
+    implementation 'io.jmix.security:jmix-security-starter'
+    implementation 'io.jmix.security:jmix-security-data-starter'
+    implementation 'io.jmix.localfs:jmix-localfs-starter'
+    implementation 'io.jmix.authserver:jmix-authserver-starter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    runtimeOnly 'org.hsqldb:hsqldb'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+idea {
+    module {
+        excludeDirs.addAll(files '.jmix')
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

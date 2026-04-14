@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://cardView.title">
+    <layout>
+        <!-- tag::basics[] -->
+        <card id="productCard"
+              width="30em"
+              themeNames="elevated"> <!--1-->
+            <title>
+                <p text="msg://card.title"/> <!--2-->
+            </title>
+            <subtitle>
+                <p text="msg://card.subtitle"/> <!--3-->
+            </subtitle>
+            <media>
+                <image resource="icons/headphones.png"/> <!--4-->
+            </media>
+            <content>
+                <p text="msg://card.content.text"/><!--5-->
+            </content>
+            <footer> <!--6-->
+                <button id="addButton"
+                        text="msg://addButton.text"
+                        icon="EXTERNAL_LINK"
+                        themeNames="primary"
+                        iconAfterText="true"/>
+                <button id="detailsButton"
+                        text="msg://detailsButton.text"
+                        icon="QUESTION"
+                        iconAfterText="true"/>
+            </footer>
+        </card>
+        <!-- end::basics[] -->
+        <!-- tag::title[] -->
+        <card width="20em"
+              themeNames="elevated">
+            <title>
+                <div>
+                    <h2 text="msg://card.title"/>
+                    <div text="msg://card.subtitle"
+                         classNames="uppercase text-xs text-secondary"/>
+                </div>
+            </title>
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+        </card>
+        <!-- end::title[] -->
+        <!-- tag::title2[] -->
+        <card width="20em"
+              themeNames="elevated"
+              title="msg://card.title"
+              subtitle="msg://card.subtitle">
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+        </card>
+        <!-- end::title2[] -->
+        <!-- tag::subtitle[] -->
+        <card width="20em"
+              title="msg://card.title"
+              themeNames="elevated">
+            <subtitle>
+                <div text="msg://card.subtitle"/>
+            </subtitle>
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+        </card>
+        <!-- end::subtitle[] -->
+        <!-- tag::header[] -->
+        <card width="20em"
+              themeNames="elevated">
+            <header>
+                <div>
+                    <h2 text="msg://card.title"/>
+                    <div text="msg://card.subtitle"/>
+                </div>
+            </header>
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+        </card>
+        <!-- end::header[] -->
+        <!-- tag::headerPrefix[] -->
+        <card width="20em"
+              themeNames="elevated"
+              title="msg://card.title"
+              subtitle="msg://card.subtitle">
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+            <headerPrefix>
+                <icon icon="vaadin:headphones"/>
+            </headerPrefix>
+        </card>
+        <!-- end::headerPrefix[] -->
+        <!-- tag::headerSuffix[] -->
+        <card width="20em"
+              themeNames="elevated"
+              title="msg://card.title"
+              subtitle="msg://card.subtitle">
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+            <headerSuffix>
+                <span text="SALE!" themeNames="badge, error"/>
+            </headerSuffix>
+        </card>
+        <!-- end::headerSuffix[] -->
+        <!-- tag::media[] -->
+        <card width="20em"
+              themeNames="elevated, stretch-media"
+              title="msg://card.title"
+              subtitle="msg://card.subtitle">
+            <media>
+                <image resource="icons/headphones.png"/>
+            </media>
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+        </card>
+        <!-- end::media[] -->
+        <!-- tag::content[] -->
+        <card width="20em"
+              title="msg://card.title"
+              subtitle="msg://card.subtitle"
+              themeNames="outlined" titleHeadingLevel="4">
+            <content>
+                <p text="msg://card.content.text"/>
+                <vbox spacing="false" padding="false">
+                    <p text="Color:"/>
+                    <radioButtonGroup id="colorRBtn"
+                                      themeNames="vertical"/>
+                </vbox>
+            </content>
+        </card>
+        <!-- end::content[] -->
+        <!-- tag::footer[] -->
+        <card width="20em"
+              themeNames="elevated"
+              title="msg://card.title"
+              subtitle="msg://card.subtitle" titleHeadingLevel="1">
+            <content>
+                <p text="msg://card.content.text"/>
+            </content>
+            <footer>
+                <span text=" Delivery: 1-2 days"
+                      themeNames="badge, success"/>
+                <button id="buyButton"
+                        text="Buy Now"
+                        icon="vaadin:clock"
+                        iconAfterText="true"/>
+            </footer>
+        </card>
+        <!-- end::footer[] -->
+        <hbox>
+            <!-- tag::default[] -->
+            <card width="10em"
+                  title="Default">
+                <content>
+                    <p text="This is the default card style"/>
+                </content>
+            </card>
+            <!-- end::default[] -->
+            <!-- tag::outlined[] -->
+            <card width="10em"
+                  title="Outlined"
+                  themeNames="outlined">
+                <content>
+                    <p text="Applies a border around the card"/>
+                </content>
+            </card>
+            <!-- end::outlined[] -->
+            <card width="10em"
+                  title="Elevated"
+                  themeNames="elevated">
+                <content>
+                    <p text="Adds a shadow effect to create elevation"/>
+                </content>
+            </card>
+        </hbox>
+        <hbox>
+            <card width="10em"
+                  title="Horizontal"
+                  themeNames="horizontal">
+                <media>
+                    <icon icon="vaadin:headphones"/>
+                </media>
+                <content>
+                    <p text="Arranges the card content horizontally"/>
+                </content>
+            </card>
+        </hbox>
+        <hbox>
+            <card width="10em"
+                  title="Stretch Media" titleHeadingLevel="9"
+                  themeNames="stretch-media">
+                <media>
+                    <image resource="icons/headphones.png"/>
+                </media>
+                <content>
+                    <p text="Scales the media content to fill its container"/>
+                </content>
+            </card>
+            <card width="10em"
+                  title="Cover Media"
+                  themeNames="cover-media">
+                <media>
+                    <image resource="icons/headphones.png"/>
+                </media>
+                <content>
+                    <p text="Crops the media content to cover its container"/>
+                </content>
+            </card>
+        </hbox>
+        <vbox>
+            <p text="     "/>
+        </vbox>
+    </layout>
+</view>

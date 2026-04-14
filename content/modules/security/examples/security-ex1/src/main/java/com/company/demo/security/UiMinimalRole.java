@@ -10,16 +10,16 @@ import io.jmix.security.role.annotation.ResourceRole;
 import io.jmix.security.role.annotation.SpecificPolicy;
 import io.jmix.securityflowui.role.annotation.ViewPolicy;
 
-@ResourceRole(name = "Flow UI: minimal access", code = UiMinimalRole.CODE, scope = SecurityScope.UI)
+@ResourceRole(name = "UI: minimal access", code = UiMinimalRole.CODE, scope = SecurityScope.UI)
 public interface UiMinimalRole {
 
-    String CODE = "flowui-minimal";
+    String CODE = "ui-minimal";
 
     @ViewPolicy(viewIds = "MainView")
     void main();
 
     @ViewPolicy(viewIds = "LoginView")
-    @SpecificPolicy(resources = "flowui.loginToUi")
+    @SpecificPolicy(resources = "ui.loginToUi")
     void login();
 
     @EntityPolicy(entityClass = KeyValueEntity.class, actions = EntityPolicyAction.READ)

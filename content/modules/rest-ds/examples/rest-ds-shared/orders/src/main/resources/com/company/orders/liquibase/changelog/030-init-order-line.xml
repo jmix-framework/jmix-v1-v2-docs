@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="orders">
+        <createTable tableName="ORDER_LINE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ORDER_LINE"/>
+            </column>
+            <column name="QUANTITY" type="DOUBLE"/>
+            <column name="ORDER_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="orders">
+        <createIndex indexName="IDX_ORDER_LINE_ORDER" tableName="ORDER_LINE">
+            <column name="ORDER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="ORDER_LINE"
+                                 constraintName="FK_ORDER_LINE_ON_ORDER" onDelete="CASCADE" referencedColumnNames="ID"
+                                 referencedTableName="ORDER_"/>
+    </changeSet>
+</databaseChangeLog>

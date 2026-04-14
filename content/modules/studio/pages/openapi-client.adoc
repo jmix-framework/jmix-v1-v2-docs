@@ -1,0 +1,18 @@
+= OpenAPI Client Generation
+
+Studio provides tools to simplify integration of Jmix applications with external REST services. It allows you to:
+
+* Generate client code from an OpenAPI schema of the external service.
+* Generate Jmix entities and mappers to and from imported OpenAPI model classes.
+* Create application-level services that work with Jmix entities, convert them to external model classes and invoke the imported API endpoint classes.
+
+This creates a convenient abstraction layer of Jmix entities and Spring services. The application UI and business logic can interact with external data without directly using low-level model and API classes imported from the OpenAPI schema.
+
+.Integration with external REST service
+image::openapi-client/openapi-client.drawio.svg[]
+
+To start importing OpenAPI schema and generating client code, select *New (+) -> Advanced -> OpenAPI Client* in the Jmix tool window.
+
+See the xref:openapi-integration-guide:index.adoc[] guide for detailed instructions.
+
+include::partial$subscription-note.adoc[]

@@ -1,0 +1,29 @@
+= Getting Process Form Data
+
+The `io.jmix.bpm.processform.ProcessFormDataExtractor` bean provides programmatic access to process-form information. The following example demonstrates a REST controller that uses this bean to obtain the form data associated with a running process instance.
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/app/FormDataController.java[tags=form-data-controller]
+----
+<1> Supplying a `processDefinitionID` returns the data for the process's start form.
+<2> Supplying a `taskID` returns the data for that task’s form.
+
+**Success response body:**
+
+----
+{
+  "type": "jmix-screen",
+  "screenId": "FormExample",
+  "openMode": "DIALOG",
+  "businessKey": null,
+  "businessKeySource": null,
+  "allowedProcessKeys": [],
+  "fields": [],
+  "outcomes": [],
+  "formParams": [],
+  "outputVariables": []
+}
+----
+
+TIP: Make sure to secure application endpoints. Use the code samples in xref:security:custom-endpoints.adoc[] as a guide.

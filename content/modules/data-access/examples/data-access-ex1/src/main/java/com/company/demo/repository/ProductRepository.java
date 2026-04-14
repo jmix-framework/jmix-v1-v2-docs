@@ -16,7 +16,7 @@ import java.util.UUID;
 @ApplyConstraints(false)
 public interface ProductRepository extends JmixDataRepository<Product, UUID> {
     @Override
-    Iterable<Product> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
+    List<Product> findAll(Sort sort, @Nullable FetchPlan fetchPlan);
 
     @Override
     @ApplyConstraints

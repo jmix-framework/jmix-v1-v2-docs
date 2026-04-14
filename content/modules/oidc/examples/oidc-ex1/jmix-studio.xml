@@ -15,6 +15,19 @@
           </option>
         </ModuleSettings>
       </entry>
+      <entry key="oidc-ex1.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
     </moduleSettings>
   </component>
 </project>

@@ -1,0 +1,42 @@
+= Grouping Data Grid
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/group-data-grid" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+This add-on makes xref:groupdatagrid:groupdatagrid-component.adoc[groupDataGrid] available in the component palette. Use it as an alternative to xref:flow-ui:vc/components/dataGrid.adoc[] and xref:flow-ui:vc/components/treeDataGrid.adoc[] when column-based grouping is required.
+
+image::groupdatagrid-basic.png[align="center",width="1097"]
+
+Key features:
+
+* *Multi-level Grouping:* Group rows by multiple criteria.
+* *User-Controlled Grouping:* Users can group and change grouping order directly from the UI.
+* *Built-in Sorting:* Maintain sorting inside groups.
+* *Export to Excel:* Export with groups flattened or with original grouping structure.
+* *Flexible Styling:* Configure groups, headers, icons, and overall grid look.
+
+[[installation]]
+== Installation
+
+[NOTE]
+====
+This add-on requires the Enterprise https://www.jmix.io/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
+====
+
+For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+
+For manual installation, follow the steps below.
+
+. Configure access to the premium repository.
++
+include::ROOT:partial$premium-repo.adoc[]
+
+. Add dependency to your `build.gradle`:
++
+[source,groovy,indent=0]
+----
+implementation 'io.jmix.groupgrid:jmix-groupgrid-flowui-starter'
+----

@@ -34,7 +34,8 @@ public class SimplePaginationView extends StandardView {
     // end::BeforeRefreshEvent[]
     // tag::totalCountDelegate[]
     @Install(to = "simplePagination", subject = "totalCountDelegate")
-    private Integer simplePaginationTotalCountDelegate(final LoadContext<User> loadContext) {
+    private Integer simplePaginationTotalCountDelegate(
+            final LoadContext<User> loadContext) {
         return dataManager.loadValue("select count(e) from User e", Integer.class).one();
     }
 // end::totalCountDelegate[]

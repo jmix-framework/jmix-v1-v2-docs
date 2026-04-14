@@ -1,0 +1,54 @@
+= AI Assistant
+
+The Jmix AI Assistant is available for use in your https://ai-assistant.jmix.io/[browser^] as well as in Jmix Studio.
+
+To get started, click the image:icons/jmix_ai_big.svg[] icon in the IDE’s right-hand toolbar. Then, simply ask your question in natural language and <<code-attachments,attach code>> if needed.
+
+[[how-it-works]]
+== How It Works?
+
+The assistant relies on OpenAI models and makes use of Retrieval Augmented Generation (RAG). This technique improves the model's knowledge by including additional resources such as official documentation and https://demo.jmix.io/ui-samples/[UI samples^].
+
+The backend service source code is available on https://github.com/jmix-framework/jmix-ai-backend[GitHub^]. It is built with Spring AI and Jmix itself. The service provides a chat API and admin UI, making it easy to experiment with and use for your own projects.
+
+[[code-attachments]]
+== Code Attachments
+
+To provide more context to your question, you can do the following:
+
+* Attach code selection.
+* Attach a file or multiple files.
+
+image:ai-assistant-attachments.png[,1888]
+
+Attachments will show up below your question and will be sent with it. This will assist in providing the most accurate answer.
+
+[[disable]]
+== Disabling AI Assistant
+
+You can disable AI Assistant at any time. Just follow these steps:
+
+. Open *Settings*.
+. Select *Languages & Frameworks* -> *Jmix*.
+. Uncheck the *Enable Jmix AI* checkbox.
+. Click *OK*.
+
+image:ai-assistant-disable.png[]
+
+You can enable it again using the same process.
+
+NOTE: AI Assistant will never access any of your code unless you send it along with your question.
+
+[[limits]]
+== Limits
+
+The assistant is available for all registered users. The current limit is 100 requests per 30 days, regardless of license type. If you need more requests, please https://www.jmix.io/contacts/[contact us^].
+
+[[feedback]]
+== Feedback
+
+We are committed to making this tool better, and your feedback helps. Use the image:ai-assistant-feedback-buttons.png[,50] buttons beneath the answers to let us know what you think.
+
+IMPORTANT: Feedback is anonymized to ensure your privacy.
+
+Our team reviews all feedback to identify documentation gaps and ways to improve Jmix.

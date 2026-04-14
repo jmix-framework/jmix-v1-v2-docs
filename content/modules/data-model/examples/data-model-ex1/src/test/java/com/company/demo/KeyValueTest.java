@@ -2,11 +2,13 @@ package com.company.demo;
 
 import com.company.demo.entity.Customer;
 import com.company.demo.entity.Order;
+import com.company.demo.test_support.AuthenticatedAsAdmin;
 import io.jmix.core.DataManager;
 import io.jmix.core.entity.KeyValueEntity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,6 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ExtendWith(AuthenticatedAsAdmin.class)
 public class KeyValueTest {
 
     @Autowired

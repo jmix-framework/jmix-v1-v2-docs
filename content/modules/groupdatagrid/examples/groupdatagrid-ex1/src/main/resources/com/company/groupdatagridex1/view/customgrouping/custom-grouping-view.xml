@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
+      title="msg://customGroupingView.title">
+    <!-- tag::data[] -->
+    <data>
+        <!-- end::data[] -->
+        <!-- tag::customersDc[] -->
+        <collection id="customersDc" class="com.company.groupdatagridex1.entity.Customer">
+            <loader id="customersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Customer e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+        <!-- end::customersDc[] -->
+        <!-- tag::data[] -->
+    </data>
+    <!-- end::data[] -->
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <!-- tag::layout[] -->
+    <layout>
+        <!-- end::layout[] -->
+        <!-- tag::custom-grouping[] -->
+        <groupg:groupDataGrid id="customersGroupDataGrid"
+                              dataContainer="customersDc"
+                              minWidth="100px"
+                              width="100%">
+            <groupg:columns>
+                <groupg:groupColumn key="group" header="Full name"/> <!-- 1 -->
+                <groupg:column key="fullName" header="Full name"/>
+                <groupg:column property="email"/>
+                <groupg:column property="country"/>
+                <groupg:column property="grade"/>
+            </groupg:columns>
+        </groupg:groupDataGrid>
+        <!-- end::custom-grouping[] -->
+        <!-- tag::layout[] -->
+    </layout>
+    <!-- end::layout[] -->
+</view>

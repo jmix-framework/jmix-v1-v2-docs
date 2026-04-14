@@ -1,13 +1,14 @@
 plugins {
-    id 'io.jmix' version '2.6.0'
+    id 'io.jmix' version '2.8.0-RC1'
     id 'java'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.9'
 }
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.vaadin'
 
 jmix {
-    bomVersion = '2.6.0'
+    bomVersion = '2.8.0-RC1'
 }
 
 vaadin {
@@ -22,11 +23,6 @@ repositories {
     maven {
         url 'https://nexus.jmix.io/repository/public'
     }
-}
-
-configurations.implementation {
-    exclude group: 'com.vaadin', module: 'hilla'
-    exclude group: 'com.vaadin', module: 'hilla-dev'
 }
 
 dependencies {
@@ -62,6 +58,18 @@ dependencies {
     // end::reports-rest[]
     implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
     implementation 'io.jmix.quartz:jmix-quartz-starter'
+}
+
+configurations.implementation {
+    exclude group: 'com.vaadin', module: 'hilla'
+    exclude group: 'com.vaadin', module: 'hilla-dev'
+    exclude group: 'com.vaadin', module: 'copilot'
+}
+
+idea {
+    module {
+        excludeDirs.addAll(files '.jmix', 'node_modules', 'src/main/frontend/generated/', 'src/main/bundles')
+    }
 }
 
 test {

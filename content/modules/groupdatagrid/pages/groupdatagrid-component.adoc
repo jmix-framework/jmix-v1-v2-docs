@@ -1,0 +1,347 @@
+= GroupDataGrid Component
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/group-data-grid" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+The `groupDataGrid` component is a more capable version of the base data grid with powerful features for grouping rows. It can group rows by repeated column values into collapsible group blocks with support for multi-level grouping and drag-to-reorder controls.
+
+[cols="1h,6", grid=none]
+|===
+|XML Element
+|`groupDataGrid`
+|Java Class
+|`GroupDataGrid`
+|Attributes
+|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - <<aggregatable,aggregatable>> - <<columnReorderingAllowed,columnReorderingAllowed>> - <<emptyStateText,emptyStateText>> - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<selectionMode,selectionMode>> - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass]
+|
+|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|
+|*Other:* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<columnRendering,columnRendering>> - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - <<sortByGroupEnabled,sortByGroupEnabled>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
+|Handlers
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - <<CellFocusEvent,CellFocusEvent>> - <<CollapseEvent,CollapseEvent>> - <<ColumnReorderEvent,ColumnReorderEvent>> - <<ColumnResizeEvent,ColumnResizeEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<ExpandEvent,ExpandEvent>> - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - <<GridDragEndEvent,GridDragEndEvent>> - <<GridDragStartEvent,GridDragStartEvent>> - <<GridDropEvent,GridDropEvent>> - <<GroupItemClickEvent,GroupItemClickEvent>> - <<GroupItemDoubleClickEvent,GroupItemDoubleClickEvent>> - <<GroupingChangedEvent,GroupingChangedEvent>> - <<ItemClickEvent,ItemClickEvent>> - <<ItemDoubleClickEvent,ItemDoubleClickEvent>> - <<SelectionEvent,SelectionEvent>> - <<SortEvent,SortEvent>> - <<dataGenerator,dataGenerator>> - <<dragFilter,dragFilter>> - <<dropFilter,dropFilter>> - <<enterPressHandler,enterPressHandler>> - <<groupPartNameGenerator,groupPartNameGenerator>> - <<groupTooltipGenerator, groupTooltipGenerator>> - <<itemSelectableProvider,itemSelectableProvider>> - <<partNameGenerator,partNameGenerator>> - <<tooltipGenerator,tooltipGenerator>>
+|Elements
+|<<groupBy, groupBy>> - <<columnRef,columnRef>> - <<columns,columns>> - <<column,column>> - <<groupColumn,groupColumn>> - xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn]
+|===
+
+[[Basics]]
+== Basics
+
+To get started, xref:groupdatagrid:index.adoc#installation[install the add-on] and then add the component through the *Add Component* palette in Studio xref:studio:view-designer.adoc[View Designer].
+
+image::groupdatagrid-palette.png[align="center",width="765"]
+
+The following example groups customers based on their respective values in the *Grade* column.
+
+image::groupdatagrid-basic.png[align="center",width="1097"]
+
+.XML code
+[%collapsible%open]
+====
+[source,xml,indent=0]
+----
+include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/basicgroupgrid/basic-group-grid-view.xml[tags=view;data;facets;layout;customersDc;basics]
+----
+<1> If the component is added manually rather than through the *Add Component* palette, declare the `groupg` namespace.
+<2> Initial grouping is by the `grade` property; more groupings can be added.
+<3> Group column definition.
+====
+
+[[data-binding]]
+== Data Binding
+
+Data binding refers to linking a visual component to a data container. To bind a component to data use the `dataContainer` attribute and reference xref:flow-ui:data/collection-container.adoc[collection container]. See the example above.
+
+[[group-item]]
+== Group Item
+
+Group items are special records produced by grouping. They appear as rows that contain nothing but a group header.
+
+image::groupdatagrid-group-items.png[align="center",width="1097"]
+
+To render group items, the data-binding layer creates a temporary, empty entity or DTO instance. This instance is not added to the xref:flow-ui:data/collection-container.adoc[collection container] and exists only in memory for the duration of the grouping.
+
+[[hide-group-item-count]]
+=== Hide Group Item Count
+
+By default, group items display the number of descendants. Use the `displayItemCount` property of <<groupColumn,groupColumn>> to hide this number.
+
+image::groupdatagrid-hide-count.png[align="center",width="1097"]
+
+[[multi-level-grouping]]
+== Multi-level Grouping
+
+The component supports grouping by multiple columns. Click the grouping column icon to open the *Group by* dialog, then add or remove columns.
+
+image::groupdatagrid-multiple.png[align="center",width="1100"]
+
+[[disable-grouping]]
+== Disable Grouping
+
+To prevent users from grouping by a specific column, set its `groupAllowed` property to `false`. This removes the column from the  *Group by* dialog. In the example below, the *Country* column cannot be grouped:
+
+image::groupdatagrid-groupallowed.png[align="center",width="1100"]
+
+.XML code
+[%collapsible]
+====
+[source,xml,indent=0]
+----
+include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/disablegrouping/disable-grouping-view.xml[tags=disable-grouping]
+----
+====
+
+To turn off grouping entirely for users, set `displayColumnsGrouperOnIconClick="false"` on the <<groupColumn>> element.
+
+NOTE: Default grouping can still be declared with the <<groupBy>> element or applied programmatically via the `groupBy()` method.
+
+[[custom-grouping-column]]
+== Custom Grouping Column
+
+To use a custom grouping value, describe a new grouping property in the view controller. The following example introduces a new grouping property that combines first and last name.
+
+image::groupdatagrid-custom-column.png[align="center",width="1097"]
+
+.XML code
+[%collapsible]
+====
+[source,xml,indent=0]
+----
+include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/customgrouping/custom-grouping-view.xml[tags=custom-grouping]
+----
+====
+.Java code
+[%collapsible]
+====
+[source,java,indent=0]
+----
+include::example$/groupdatagrid-ex1/src/main/java/com/company/groupdatagridex1/view/customgrouping/CustomGroupingView.java[tags=custom-grouping;renderer]
+----
+<1> Describe a new grouping property that concatenates `firstName` and `lastName`.
+<2> Group by `fullName` by default.
+<3> Provide a render fallback for the Full Name column when it is not grouped; without this the column will appear empty.
+====
+
+[[export-to-excel]]
+== Export to Excel
+
+Exporting functionality is provided by free xref:grid-export:index.adoc[] add-on which supports all grid types: `groupDataGrid`, `dataGrid`, and `treeDataGrid`.
+
+image::groupdatagrid-export.png[align="center",width="1090"]
+
+The add-on provides three export options. It affects both the scope and the generated spreadsheet formatting:
+
+* *All Rows* – Exports all rows and flattens the grouping.
+* *Current Page* – Exports only the visible rows while *preserving the grouping structure as seen in the grid*.
+* *Selected Rows* – Exports the currently selected rows and flattens the grouping.
+
+[[Styling]]
+== Styling
+
+=== Themes
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-theme-variant" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+</div>
+++++
+
+Configure themes with the xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] property. Multiple themes can be applied simultaneously. The themes are the same ones as in xref:flow-ui:vc/components/dataGrid.adoc[].
+
+=== Group Icon
+
+The component shows `+` for a collapsed group and `-` for an expanded group. To customize, add your preferred icons to the application stylesheet. Replace the default `content` values for the desired icon character codes (e.g., `e7c1` and `e7bf` taken from https://github.com/vaadin/web-components/blob/main/packages/icons/assets/vaadin-font-icons.json[vaadin font icons^] collection):
+
+.application.css
+[source,css,indent=0]
+----
+vaadin-grid-tree-toggle.jmix-group-toggle {
+    &::part(toggle)::before {
+        content: "\e7c1";
+    }
+
+    &[expanded]::part(toggle)::before {
+        content: "\e7bf";
+    }
+}
+----
+
+image::groupdatagrid-groupicon.png[align="center",width="1097"]
+
+TIP: Learn more about xref:flow-ui:themes/styling-ui-components.adoc#stylable-parts[stylable parts of components].
+
+=== Group Column Icon
+
+The group column icon is customizable via the `groupIcon` attribute of the <<groupColumn,groupColumn>> element. To hide the icon, set `groupIconVisible` to `false`.
+
+== Attributes
+
+xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components. Below are the attributes shared with xref:flow-ui:vc/components/dataGrid.adoc[] and those unique to `groupDataGrid`:
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|*Default*
+|[[aggregatable]]aggregatable
+|If `true`, enables aggregating of columns. See xref:flow-ui:vc/components/dataGrid.adoc#aggregating[Aggregating].
+|`false`
+|[[columnReorderingAllowed]]columnReorderingAllowed
+|If `true`, enables users to change the order of columns.
+|`false`
+|[[emptyStateText]]emptyStateText
+|The text to display when the table is empty. Use null to remove the current empty state content. See xref:flow-ui:vc/components/dataGrid.adoc#empty-state[Empty State].
+|–
+|[[selectionMode]]selectionMode
+|Sets the selection mode. Possible values: `SINGLE`, `MULTI`.
+|`SINGLE`
+|[[aggregationPosition]]aggregationPosition
+|If the data in the component is <<aggregatable,aggregatable>>, determines whether the aggregation row is displayed above or below the other rows. Possible values: `TOP` or `BOTTOM`. See xref:flow-ui:vc/components/dataGrid.adoc#aggregating[Aggregating].
+|`BOTTOM`
+|[[allRowsVisible]]allRowsVisible
+|If `true`, the data grid will display all rows at once with no scroll bars, effectively disabling virtual scrolling. This means that instead of only rendering the visible rows and loading more as the user scrolls, the grid will render all the rows in the DOM simultaneously.
+
+*Using this feature is discouraged for a large number of items as it may cause performance issues.*
+| –
+|[[columnRendering]]columnRendering
+|Sets the column rendering mode. In `EAGER` mode, all columns are rendered upfront, regardless of their visibility within the viewport. In `LAZY` mode, body cells rendered only when the corresponding columns are inside the visible viewport.
+|`EAGER`
+|[[detailsVisibleOnClick]]detailsVisibleOnClick
+|If `true`, enables xref:flow-ui:vc/components/dataGrid.adoc#item-details[item details] to be revealed on mouse click.
+|`true`
+|[[dropMode]]dropMode
+|Determines rows where a drop can happen. Possible values: `BETWEEN`, `ON_TOP`, `ON_TOP_OR_BETWEEN`, `ON_GRID`. This feature might be used, for example, to reorder rows and to drag rows between grids.
+|–
+|[[editorBuffered]]editorBuffered
+|If `true`, activates buffered mode for xref:flow-ui:vc/components/dataGrid.adoc#inline-editing[inline editing],  meaning that the user must confirm making changes by clicking a confirm button. This mode also allows users to cancel their changes. In unbuffered mode changes are applied without the need for confirmation.
+|`false`
+|[[multiSort]]multiSort
+|If `true`, enables sorting by multiple columns.
+|`false`
+|[[multiSortOnShiftClickOnly]]multiSortOnShiftClickOnly
+|If `true`, multi-sorting is activated only when clicking on the column header while holding down the Shift key.
+|`false`
+|[[multiSortPriority]]multiSortPriority
+|Determines whether the clicked column is added to the end or beginning of the sorted columns list. Possible values: `PREPEND`, `APPEND`.
+|`PREPEND`
+|[[nestedNullBehavior]]nestedNullBehavior
+|Sets the behavior when parsing nested properties which may contain null values in the property chain. Possible values: `THROW`, `ALLOW_NULLS`.
+|`THROW`
+|[[pageSize]]pageSize
+|Determines the page size or the number of items that will be fetched from the data provider at a time.
+|`50`
+|[[rowsDraggable]]rowsDraggable
+|If `true`, enables users to drag rows in the grid.
+|`false`
+|[[sortByGroupEnabled]]sortByGroupEnabled
+a|If `true`:
+
+* sorting is enabled for the group column.
+* sorting by other columns rearranges rows within each group but initial group order remains fixed.
+
+If `false`:
+
+- sorting is disabled for the group column.
+- sorting by other columns reorders the groups accordingly.
+| `true`
+|===
+
+== Handlers
+
+xref:flow-ui:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components. Below are the handlers shared with xref:flow-ui:vc/components/dataGrid.adoc[] and those unique to `groupDataGrid`:
+
+include::flow-ui:vc/handler-generation-tip.adoc[]
+
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*Name*
+|*Description*
+|[[CellFocusEvent]]CellFocusEvent
+|`com.vaadin.flow.component.grid.CellFocusEvent` fired when a cell in the data grid is focused. Corresponds to the `grid-cell-focus` DOM event.
+|[[CollapseEvent]]CollapseEvent
+|Fired when a group is collapsed.
+|[[ColumnReorderEvent]]ColumnReorderEvent
+|`com.vaadin.flow.component.grid.ColumnReorderEvent` fired when the columns in the data grid are reordered. Corresponds to the `column-reorder-all-columns` DOM event.
+|[[ColumnResizeEvent]]ColumnResizeEvent
+|`com.vaadin.flow.component.grid.ColumnResizeEvent` fired when a data grid column is resized by the user. Corresponds to the `column-drag-resize` DOM event.
+|[[ExpandEvent]]ExpandEvent
+|Fired when a group is expanded.
+|[[GridDragEndEvent]]GridDragEndEvent
+|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - drag end event of dataGrid rows. Corresponds to the `grid-dragend` DOM event.
+|[[GridDragStartEvent]]GridDragStartEvent
+|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - drag start event of dataGrid rows. Corresponds to the `grid-dragstart` DOM event.
+|[[GridDropEvent]]GridDropEvent
+|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - drop event that occurs on the data grid or its rows. Corresponds to the `grid-drop` DOM event.
+|[[GroupItemClickEvent]]GroupItemClickEvent
+|Fired when a row that corresponds to a group item is clicked
+|[[GroupItemDoubleClickEvent]]GroupItemDoubleClickEvent
+|Fired when a row that corresponds to a group item is double-clicked.
+|[[GroupingChangedEvent]]GroupingChangedEvent
+|Fired when grouping changes — columns added or removed.
+|[[ItemClickEvent]]ItemClickEvent
+|`com.vaadin.flow.component.grid.ItemClickEvent` fired when a data grid item is clicked. Corresponds to the `item-click` DOM event.
+|[[ItemDoubleClickEvent]]ItemDoubleClickEvent
+|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` fired when a data grid item is double-clicked. Corresponds to the `item-double-click` DOM event.
+|[[SelectionEvent]]SelectionEvent
+|A selection event that unifies the way to access to selection event for multi selection and single selection components (in case when only one selected item is required).
+|[[SortEvent]]SortEvent
+|`com.vaadin.flow.data.event.SortEvent` - event describing a change in sorting of a DataProvider. Fired by `SortNotifiers`.
+|[[dataGenerator]]dataGenerator
+|Adds a data generator for the data grid. If the generator was already added, does nothing. See the `com.vaadin.flow.data.provider.HasDataGenerators` interface.
+|[[dragFilter]]dragFilter
+|Allows to control which specific rows can be dragged, rather than making all rows draggable with <<rowsDraggable, rowsDraggable>>.
+|[[dropFilter]]dropFilter
+|Allows to control which specific rows are valid drop targets.
+|[[enterPressHandler]]enterPressHandler
+|Handles the event when the user presses the Enter key.
+|[[groupPartNameGenerator]]groupPartNameGenerator
+|Generates parts of CSS class names for group items based on given conditions. This allows for customizing group items.
+|[[groupTooltipGenerator]]groupTooltipGenerator
+|Generates tooltip for the group based on given conditions.
+|[[itemSelectableProvider]]itemSelectableProvider
+|Sets a predicate to check whether a specific item in the grid may be selected or deselected by the user. The predicate receives an item instance and should return `true` if a user may change the selection state of that item, or `false` otherwise.
+|[[partNameGenerator]]partNameGenerator
+|Generates parts of CSS class names for cells based on given conditions. This allows for customizing cell appearance based on the data displayed.
+|[[tooltipGenerator]]tooltipGenerator
+|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|===
+
+== Elements
+
+[TIP]
+====
+To add an element to a selected component click the xref:studio:screen-designer.adoc#add-column[Add] button in the *Jmix UI* inspector panel.
+====
+
+[[groupBy]]
+=== groupBy
+
+The `groupBy` element contains one or more <<columnRef,columnRef>> elements specifying which columns to group by.
+
+[[columnRef]]
+=== columnRef
+
+The `columnRef` element identifies a column to use for grouping.
+
+[[columns]]
+=== columns
+
+The `columns` element contains individual `column` elements and defines a set of attributes shared by those columns.
+
+[[column]]
+=== column
+
+The `column` element declares an individual column. Attributes set for an individual `column` override those set for `columns`.
+
+[[groupColumn]]
+=== groupColumn
+
+The `groupColumn` element declares the column used for grouping and its relative position among other columns. The `key` attribute is required.

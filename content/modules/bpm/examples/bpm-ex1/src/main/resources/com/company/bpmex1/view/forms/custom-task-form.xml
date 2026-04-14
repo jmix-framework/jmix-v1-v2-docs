@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- tag::custom[] -->
 <view xmlns="http://jmix.io/schema/flowui/view"
-        title="msg://com.company.bpmex1.view.forms/customTaskForm.title">
+      title="msg://com.company.bpmex1.view.forms/customTaskForm.title">
     <layout>
         <button id="completeTaskBtn" text="msg://com.company.bpmex1.view.forms/completeTaskBtn.text"/>
     </layout>
 </view>
-        <!-- end::custom[] -->
+<!-- end::custom[] -->

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- tag::view[] -->
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:groupg="http://jmix.io/schema/groupgrid/ui"
+      title="msg://basicGroupGridView.title"> <!--1-->
+    <!-- end::view[] -->
+    <!-- tag::data[] -->
+    <data>
+        <!-- end::data[] -->
+        <!-- tag::customersDc[] -->
+        <collection id="customersDc"
+                    class="com.company.groupdatagridex1.entity.Customer"
+                    fetchPlan="_base">
+            <loader id="customersDl">
+                <query>
+                    <![CDATA[select e from Customer e]]>
+                </query>
+            </loader>
+        </collection>
+        <!-- end::customersDc[] -->
+        <!-- tag::data[] -->
+    </data>
+    <!-- end::data[] -->
+    <!-- tag::facets[] -->
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <!-- end::facets[] -->
+    <!-- tag::layout[] -->
+    <layout>
+        <!-- end::layout[] -->
+        <!-- tag::basics[] -->
+        <groupg:groupDataGrid id="customersGroupDataGrid"
+                              dataContainer="customersDc"
+                              minWidth="100px"
+                              width="100%">
+            <groupg:groupBy>
+                <groupg:columnRef key="grade"/> <!--2-->
+            </groupg:groupBy>
+            <groupg:columns>
+                <groupg:groupColumn header="Grade"/> <!--3-->
+                <groupg:column property="firstName"/>
+                <groupg:column property="lastName"/>
+                <groupg:column property="email"/>
+                <groupg:column property="country"/>
+                <groupg:column property="grade"/>
+            </groupg:columns>
+        </groupg:groupDataGrid>
+        <!-- end::basics[] -->
+        <!-- tag::layout[] -->
+    </layout>
+    <!-- end::layout[] -->
+    <!-- tag::view[] -->
+</view>
+        <!-- end::view[] -->

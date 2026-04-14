@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://dataLoadCoordinatorFragmentView.title">
+    <layout>
+        <details id="xmlFacetDetails" summaryText="XML Facet" opened="true" width="100%">
+            <fragment id="xmlFragment" class="com.company.onboarding.view.fragments.dataloadcoordinatorfragment.DataLoadCoordinatorFragment"/>
+        </details>
+    </layout>
+</view>

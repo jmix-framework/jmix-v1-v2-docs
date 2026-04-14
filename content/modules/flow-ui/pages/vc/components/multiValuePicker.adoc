@@ -65,7 +65,7 @@ xref:vc/components/tooltip.adoc[tooltip] -
 
 == 基本用法
 
-`multiValuePicker` is ideal for editing lists of values through actions, rather than typing directly in a text field.
+`multiValuePicker` 可以通过操作编辑列表值，而不是在文本字段内输入进行编辑。
 
 `multiValuePicker` 的基本用法示例：
 
@@ -79,7 +79,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 image::visual-components/components/multi-value-picker.gif[align="center",width="528"]
 
-NOTE: You can create a custom *Select Value* view. This view needs to implement the `MultiValueSelectView` interface and then be set to the `action` as either `viewClass` or `viewId`.
+NOTE: *Select Value* 视图可以自定义。该自定义视图需要实现 `MultiValueSelectView` 接口，然后通过操作的 `viewClass` 或 `viewId` 属性设置该视图。
 
 [[actions]]
 == 操作

@@ -1,0 +1,186 @@
+= Observability
+
+Observability is the ability to understand application behavior through three types of signals: logs, metrics, and traces. Together, they help you investigate failures, analyze performance, and understand how requests move through the system.
+
+Jmix does not introduce a separate observability model. Instead, it builds on the standard Spring Boot ecosystem, primarily Spring Boot Actuator, Micrometer, and Micrometer Observation / Tracing.
+
+Observability is different from xref:audit:index.adoc[Audit]. Audit is used to track who changed business data and when. Observability is used to analyze runtime behavior, performance, failures, and request flow.
+
+[[logging]]
+== Logging
+
+Logs are the simplest way to observe a running application. They are useful for troubleshooting, diagnostics, and investigating production errors.
+
+In Jmix applications, logging is configured in the same way as in Spring Boot. Log levels are usually set in `application.properties`, globally or for individual packages and classes. For example:
+
+[source,properties]
+.application.properties
+----
+logging.level.eclipselink.logging.sql=debug
+logging.level.io.jmix=debug
+logging.level.org.springframework=info
+----
+
+These settings can help focus on a particular part of the system. For example, `eclipselink.logging.sql` shows generated SQL, while `io.jmix` enables debug output for Jmix framework code.
+
+Use `DEBUG` logging carefully in production. It is often useful for short troubleshooting sessions, but keeping it enabled permanently can produce excessive output and affect performance.
+
+For detailed logging configuration and centralized log collection, see the following guides:
+
+* xref:application-logging-guide:index.adoc[]
+* xref:observability-logging-guide:index.adoc[]
+
+[[metrics-and-monitoring]]
+== Metrics and Monitoring
+
+Metrics are numeric measurements collected over time. They are used to observe throughput, latency, error rate, resource consumption, and internal framework and application activity. Monitoring is the process of collecting, storing, visualizing, and alerting on these metrics.
+
+A typical Spring Boot application exposes metrics through Actuator and Micrometer. These metrics usually include JVM memory and garbage collection, CPU and process data, thread pools, HTTP server requests, datasource pools.
+
+Jmix adds timer metrics for selected framework operations. These metrics are recorded through Micrometer `MeterRegistry`.
+
+Jmix provides a default `MeterRegistry` bean, and exporting metrics depends on the Spring Boot Actuator and Micrometer registry configuration.
+
+.Metric names and tags
+[cols="1,2,3"]
+|===
+|Name | Tags |Description
+
+|`jmix.ui.views`
+|`view`, `lifeCycle`
+|Duration of UI view lifecycle stages (for example create/show/close) per view.
+
+|`jmix.ui.data`
+|`dataLoader`, `view`, `lifeCycle`
+|Duration of UI data loader lifecycle stages inside a specific view.
+
+|`jmix.EmailSender.send`
+|No custom tags
+|Time spent sending an email message through the framework email sender.
+
+|`jmix.JavaClassLoader.loadClass`
+|No custom tags
+|Time spent resolving/loading a Java class by the dynamic class loader.
+|===
+
+UI lifecycle values include:
+
+* View lifecycle: `create`, `load`, `inject`, `init`, `beforeShow`, `ready`, `beforeClose`, `afterClose`
+* Data loader lifecycle: `preLoad`, `load`, `postLoad`
+
+For a typical monitoring setup, add Spring Boot Actuator and a Micrometer registry for the monitoring backend used in your infrastructure. For example, to expose Prometheus-compatible metrics, add the following dependencies:
+
+[source,groovy]
+.build.gradle
+----
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+implementation 'io.micrometer:micrometer-registry-prometheus'
+----
+
+Then expose the Prometheus endpoint in the application:
+
+[source,properties]
+.application.properties
+----
+management.endpoints.web.exposure.include=*
+management.endpoints.prometheus.enabled=true
+----
+
+Prometheus can then scrape the `/actuator/prometheus` endpoint. Keep the list of exposed management endpoints as small as possible in production.
+
+For additional information, see:
+
+* {spring-boot-doc}/reference/actuator/metrics.html[Spring Boot Actuator Metrics^]
+* {spring-boot-doc}/reference/actuator/observability.html[Spring Boot Observability^]
+* https://docs.micrometer.io/micrometer/reference/concepts/meters.html[Micrometer Meters^]
+
+[[tracing]]
+== Tracing
+
+Tracing shows how a request or operation moves through an application. It helps identify latency, failures, and dependencies between components. Tracing becomes especially useful when several services or infrastructure layers participate in request processing.
+
+In a typical tracing setup, the application creates spans for important operations, propagates trace context across service boundaries, and sends trace data to a backend for storage and analysis. Trace identifiers can also be added to logs to correlate log records with traces.
+
+Jmix uses Micrometer Observation API to create spans for framework operations. Built-in tracing covers the following areas:
+
+* Data access operations such as load, count, and save
+* UI view lifecycle events
+* UI fragment lifecycle events
+* UI action execution
+
+Jmix can also enrich observations with the current user and tenant context.
+
+To enable Jmix tracing, set the following properties:
+
+[source,properties]
+----
+jmix.core.data-observation-enabled=true
+jmix.ui.ui-observation-enabled=true
+----
+
+To include current user information in observation attributes, use:
+
+[source,properties]
+----
+jmix.core.use-user-info-for-observation=true
+----
+
+The `jmix.core.use-user-info-for-observation` property is enabled by default. Disable it if user or tenant data must not be added to observations.
+
+.Span names and attributes
+[cols="1,2,3"]
+|===
+|Name |Key attributes |Description
+
+|`jmix.data.load`
+|`method`, `entity.name`; may include `jpql.query`, `jpql.parameters`, `properties`
+|Data read operations performed by the framework (entity/value load and count flows).
+
+|`jmix.data.save`
+|`method`, `dataStore`; may include `entitiesToSave.count`, `entitiesToRemove.count`
+|Data write operations performed by the framework when saving/removing entities.
+
+|`jmix.ui.views`
+|`lifecycle.name`, `view.id`, `view.class`
+|UI view lifecycle events represented as tracing/observation spans.
+
+|`jmix.ui.fragments`
+|`lifecycle.name`, `fragment.class`, optional `fragment.id`
+|UI fragment creation/ready lifecycle events represented as spans.
+
+|`jmix.ui.actions`
+|`action.id`, optional `target.id`
+|Execution of UI actions (for example button/menu actions) represented as spans.
+|===
+
+When context enrichment is enabled, observations may also include:
+
+* `jmix.user.username`
+* `jmix.user.tenantId` in xref:multitenancy:index.adoc[multitenancy] setups
+
+For distributed tracing across service boundaries, add the Micrometer tracing bridge and an exporter to the application. Spring Boot Actuator then configures an `ObservationRegistry` bean and connects it to tracing. A typical setup for a Jmix application is:
+
+[source,groovy]
+.build.gradle
+----
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+----
+
+[source,properties]
+.application.properties
+----
+management.tracing.sampling.probability=0.1
+management.otlp.tracing.export.enabled=true
+management.otlp.tracing.endpoint=http://localhost:4318/v1/traces
+----
+
+When the application makes outbound HTTP calls, build clients from the auto-configured `RestTemplateBuilder` or `RestClient.Builder` so that trace headers are added to requests automatically.
+
+For additional information, see:
+
+* {spring-boot-doc}/reference/actuator/tracing.html[Spring Boot Tracing^]
+* {spring-boot-doc}/reference/actuator/observability.html[Spring Boot Observability^]
+* https://docs.micrometer.io/micrometer/reference/observation.html[Micrometer Observation^]
+* https://docs.micrometer.io/tracing/reference/index.html[Micrometer Tracing^]

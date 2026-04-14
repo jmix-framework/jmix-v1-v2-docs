@@ -63,6 +63,9 @@ includeBuild 'external/jmix-restds-oidc-sample'
 cloneOrPull('https://github.com/jmix-framework/jmix-observability-logging-sample', 'external/jmix-observability-logging-sample')
 includeBuild 'external/jmix-observability-logging-sample'
 
+cloneOrPull('https://github.com/jmix-framework/jmix-reports-sample', 'external/jmix-reports-sample')
+includeBuild 'external/jmix-reports-sample'
+
 includeBuild 'content/modules/audit/examples/audit-ex1'
 
 includeBuild 'content/modules/authorization-server/examples/authserver-ex1'
@@ -112,11 +115,15 @@ includeBuild 'content/modules/oidc/examples/oidc-ex1'
 includeBuild 'content/modules/pessimistic-lock/examples/pslock-ex1'
 
 includeBuild 'content/modules/reports/examples/library'
+includeBuild 'content/modules/reports/examples/reports-onboarding'
 
 includeBuild 'content/modules/rest/examples/rest-ex1'
 
 includeBuild 'content/modules/rest-ds/examples/rest-ds-client'
 includeBuild 'content/modules/rest-ds/examples/rest-ds-service'
+includeBuild 'content/modules/rest-ds/examples/rest-ds-shared/shared-addon'
+includeBuild 'content/modules/rest-ds/examples/rest-ds-shared/products'
+includeBuild 'content/modules/rest-ds/examples/rest-ds-shared/orders'
 
 includeBuild 'content/modules/search/examples/search-ex1'
 
@@ -139,3 +146,8 @@ includeBuild 'content/modules/message-templates/examples/messagetemplates-ex1'
 
 includeBuild 'content/modules/tabbed-mode/examples/tabbedmode-ex1'
 includeBuild 'content/modules/testing/examples/masquerade-ex1'
+includeBuild 'content/modules/groupdatagrid/examples/groupdatagrid-ex1'
+includeBuild 'content/modules/email/examples/email-ex1'
+includeBuild 'content/modules/quartz/examples/quartz-ex1'
+includeBuild 'content/modules/appsettings/examples/appsettings-ex1'
+includeBuild 'content/modules/saml/examples/saml-ex1'

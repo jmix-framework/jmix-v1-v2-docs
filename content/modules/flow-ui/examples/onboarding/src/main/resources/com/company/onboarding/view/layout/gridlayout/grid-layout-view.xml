@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://gridLayoutView.title">
+    <!-- tag::data[] -->
+    <data>
+        <collection id="usersDc" class="com.company.onboarding.entity.User"> <!--1-->
+            <fetchPlan extends="_base">
+                <property name="department" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/> <!--2-->
+    </facets>
+    <!-- end::data[] -->
+    <!-- tag::layout[] -->
+    <layout>
+        <!-- end::layout[] -->
+        <!-- tag::basics[] -->
+        <gridLayout id="gridLayout" width="100%">
+            <textField placeholder="City" label="Where from?"/>
+            <textField placeholder="City" label="Where to?"/>
+            <datePicker label="Depart"/>
+            <datePicker label="Return"/>
+            <button text="Search tickets" height="AUTO"/>
+        </gridLayout>
+        <!-- end::basics[] -->
+        <!-- tag::itemsContainer[] -->
+        <gridLayout width="100%"
+                    itemsContainer="usersDc"/> <!--3-->
+        <!-- end::itemsContainer[] -->
+        <!-- tag::itemsEnum[] -->
+        <gridLayout itemsEnum="com.company.onboarding.entity.DayOfWeek"
+                    width="100%"/>
+        <!-- end::itemsEnum[] -->
+        <gridLayout id="gridLayoutUsers"
+                    width="100%"
+                    itemsContainer="usersDc"/>
+        <gridLayout id="gridLtUsers"
+                    width="100%"
+                    itemsContainer="usersDc"/>
+        <!-- tag::fragmentRenderer[] -->
+        <gridLayout id="gridUsers"
+                    width="100%"
+                    itemsContainer="usersDc"
+                    gap="var(--lumo-space-m)">
+            <fragmentRenderer class="com.company.onboarding.view.layout.gridlayout.CardFragment"/>
+        </gridLayout>
+        <!-- end::fragmentRenderer[] -->
+        <!-- tag::layout[] -->
+    </layout>
+    <!-- end::layout[] -->
+</view>

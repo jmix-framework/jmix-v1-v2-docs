@@ -1,0 +1,167 @@
+= Keycloak SAML Setup
+
+https://www.keycloak.org/[Keycloak^] is an open-source identity and access management solution supporting user federation, OAuth, SAML, and OpenID Connect protocols. The below instructions explain how to configure Keycloak with Jmix application using SAML for users to log in with their Keycloak credentials.
+
+NOTE: The instructions were tested with Keycloak 26.5.6. Other, and particularly older, Keycloak versions may use different labels and place certain settings in different locations in the admin console, but the underlying SAML configuration should be the same.
+
+[[prerequisites]]
+== Prerequisites
+
+* A Jmix application available at stable URL (e.g., `\https://jmix-app.com`). This guide references the application URL using the placeholder `your-app-url`.
+* A Keycloak server (e.g., `\https://keycloak.test.com`) that you have administrative access to. This guide references the server using the placeholder `your-keycloak-server`.
+* A Keycloak realm (e.g., `master`). This guide references the realm using the placeholder `your-realm`.
+
+[[configure-jmix-application]]
+== Configure Jmix Application
+
+In your Jmix application:
+
+. xref:saml:index.adoc#installation[Install the add-on].
+. Configure the application as a SAML server provider using Spring Security properties:
++
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.entity-id=https://<your-app-url>/saml/sp
+spring.security.saml2.relyingparty.registration.keycloak.acs.location=https://<your-app-url>/login/saml2/sso/keycloak
+spring.security.saml2.relyingparty.registration.keycloak.assertingparty.metadata-uri=https://<your-keycloak-server>/realms/<your-realm>/protocol/saml/descriptor
+spring.security.saml2.relyingparty.registration.keycloak.singlelogout.url=https://<your-keycloak-server>/realms/<your-realm>/protocol/saml
+spring.security.saml2.relyingparty.registration.keycloak.singlelogout.response-url=https://<your-app-url>/logout/saml2/slo
+----
+
+NOTE: `keycloak` in the property key is the provider ID. It can be any value.
+
+[[configure-keycloak-client]]
+== Configure Keycloak Client
+
+In Keycloak, create or select the realm that will manage authentication for your Jmix application.
+
+. Select or create the realm that will manage authentication for your Jmix application.
+. In the realm, create a new client with these values:
+** *Client type:* `SAML`.
+** *Client ID:* `\https://<your-app-url>/saml/sp` (the same value as `entity-id` property).
+** *Root URL:* your application base URL, for example `\https://jmix-app.com`.
+** *Valid redirect URIs*: your allowed redirect patterns, for example `\https://jmix-app.com/*`.
+** *Valid post logout redirect URIs*: your allowed logout redirect patterns, for example `\https://jmix-app.com/*`.
+
+These values connect the Keycloak client to the Jmix service provider configuration from the previous step.
+
+[[configure-user-access]]
+== Configure User Access to the Application
+
+Use Keycloak roles and user role mappings to control which users receive access and which Jmix roles they get.
+
+[[create-roles]]
+=== Create Roles
+
+Create roles that your users should receive:
+
+. Go to *Realm roles* and create a new role.
+. Provide the *Role name*. If you use the default Jmix role mapping it should match the Jmix role code, for example `system-full-access`.
+
+//Add note that custom logic for role mapping is described in another section.
+
+[[create-and-configure-users]]
+=== Create and Configure Users
+
+Create a Keycloak user:
+
+. Go to *Users* and create a new user.
+. Select the created user and go to the *Credentials* tab to set a password.
+. Go to the *Role Mapping* tab to assign the realm roles created previously.
+
+[[add-saml-attributes]]
+=== (Optional) Add SAML Attributes
+
+NOTE: This step only adds attributes to the SAML assertion. The application will not use them automatically. To fill application user attributes from these values, you must also configure xref:saml:additional-setup.adoc#mapping-saml-attributes[attribute mapping] in the application.
+
+If you need to include any extra SAML attributes, add them in Keycloak as follows:
+
+. Go to your *Client* -> *Client Scopes* -> `\https://<your-app-url>/saml/sp-dedicated` -> *Configure a new mapper*.
+. Select appropriate mapper type. For built-in properties, (such as email, firstName, lastName) select *User Property* and provide values:
+** *Name:* descriptive mapper name, such as `FirstName mapper`
+** *Property:* property name within IdP: `firstName`
+** *SAML Attribute Name:* attribute name in the SAML Assertion: `FirstName`
+
+Follow the same steps to add more attributes.
+
+[[signing-and-certificates]]
+== Configure Signing and Certificates
+
+To enable signing you will need a public and a private keys. You can generate them manualy via openssl and then import to IdP. You can also generate those using Keycloak:
+
+. Go to your *Client* and open the *Keys* tab.
+. Enable *Client signature required*.
+. Generate new key and export it as pkcs12 keystore. Make note of the store password you set.
+. Extract the private key and certificate:
++
+----
+openssl pkcs12 -in keystore.p12 -nodes -nocerts -out private.key -passin pass:<STORE_PASSWORD>
+openssl pkcs12 -in keystore.p12 -nodes -nokeys -out public.crt -passin pass:<STORE_PASSWORD>
+----
++
+[NOTE]
+====
+If extraction fails, add the `-legacy` parameter to both commands. In this case you will also need to convert extracted private key to pkcs8 format:
+
+----
+openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in private.key -out private-pkcs8.key
+----
+====
++
+. Place the files somewhere accessible to the application, such as `src/main/resources`, and add them through properties:
++
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].private-key-location=classpath:private-pkcs8.key
+spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].certificate-location=classpath:public.crt
+----
+
+[[signing-algorithm]]
+== Specify a Signing Algorithm
+
+If a specific signing algorithm is required, configure it explicitly:
+
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.signing.credentials[0].algorithm=http://www.w3.org/2001/04/xmldsig-more#rsa-sha256
+----
+
+[[verification-certificate]]
+== (Optional) Provide Verification Certificate
+
+Some environments may also require a verification certificate. To provide a certificate:
+
+. Open the Keycloak metadata descriptor at `https://<your-keycloak-server>/realms/<your-realm>/protocol/saml/descriptor`
+. Copy the value of `X509Certificate`.
+. Save it to a file such as `keycloak-signing.crt` using this format:
++
+----
+-----BEGIN CERTIFICATE-----
+<value>
+-----END CERTIFICATE-----
+----
++
+. Place the file somewhere accessible to the application, such as `src/main/resources`, and add it through the property:
++
+.application.properties
+[source,properties]
+----
+spring.security.saml2.relyingparty.registration.keycloak.assertingparty.verification.credentials[0].certificate-location=classpath:keycloak-signing.crt
+----
+
+[[test-connection]]
+== Test the Connection
+
+After the application and Keycloak are configured, start the application and test the SSO flow.
+
+Validate that:
+
+* The user is redirected to the Keycloak login page.
+* Authentication succeeds.
+* Expected attributes are present in the SAML assertion.
+* Expected roles are granted in the application.
+* Logout works correctly, if SLO is configured.
+

@@ -17,6 +17,8 @@
               title="msg://com.company.mapssample.view.layers/selectModeView.title"/>
         <item view="SelectStyleView" title="msg://com.company.mapssample.view.style/selectStyleView.title"/>
         <item view="ModifyStyleView" title="msg://com.company.mapssample.view.style/modifyStyleView.title"/>
+        <item view="CustomProjectionView"
+              title="msg://com.company.mapssample.view.customprojection/customProjectionView.title"/>
     </menu>
 
 </menu-config>

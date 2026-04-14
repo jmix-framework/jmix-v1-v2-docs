@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://fieldsetView.title">
+    <layout>
+        <!-- tag::basics[] -->
+        <fieldSet legendText="Group" classNames="border rounded-m text-secondary flex flex-col">
+            <textField label="TextField"/>
+            <checkbox label="Checkbox"/>
+        </fieldSet>
+        <!-- end::basics[] -->
+    </layout>
+</view>

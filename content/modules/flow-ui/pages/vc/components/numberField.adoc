@@ -6,7 +6,7 @@
 </div>
 ++++
 
-`bigDecimalField` 与 xref:vc/components/textField.adoc[textField] 功能相似，但仅允许输入数字类型。
+`numberField` 与 xref:vc/components/textField.adoc[textField] 功能相似，但仅允许输入数字类型。
 [cols="1h,6", grid=none]
 |===
 |XML 元素

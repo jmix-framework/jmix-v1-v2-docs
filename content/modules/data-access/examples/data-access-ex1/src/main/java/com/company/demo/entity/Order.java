@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "ORDER")
+@Table(name = "ORDER_")
 @Entity(name = "sample_Order")
 public class Order {
     @JmixGeneratedValue

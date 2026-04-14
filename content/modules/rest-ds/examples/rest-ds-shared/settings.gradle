@@ -1,0 +1,5 @@
+rootProject.name = 'restds-shared-module-sample'
+
+includeBuild 'orders'
+includeBuild 'products'
+includeBuild 'shared-addon'

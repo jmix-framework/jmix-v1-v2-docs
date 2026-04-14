@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://markdownView.title">
+    <layout>
+        <!-- tag::content[] -->
+        <markdown content="msg://markdown.content"/>
+        <!-- end::content[] -->
+        <!-- tag::content-element[] -->
+        <markdown>
+            <content>
+## Getting Started
+Follow these steps to begin:
+1. Create an account
+2. Verify your email
+3. Start using the application
+
+*Important:* Make sure to read the [documentation](https://docs.example.com).
+            </content>
+        </markdown>
+        <!-- end::content-element[] -->
+    </layout>
+</view>

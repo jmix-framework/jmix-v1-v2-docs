@@ -69,7 +69,7 @@ public class EntitiesTest {
         geoPointEntity.setLongitude(50.098603);
 
         String instanceName = metadataTools.getInstanceName(geoPointEntity);
-        assertEquals("Latitude: 53.20076, Longitude: 50.098603", instanceName);
+        assertEquals("Latitude: 53.200760, Longitude: 50.098603", instanceName);
     }
 
     @Test
