@@ -44,6 +44,9 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 |1.6.0
 |8.0.2
 
+|1.7.2
+|8.12.1
+
 |2.1
 |8.2
 
@@ -56,8 +59,11 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 |2.4
 |8.10.2
 
-|2.5
+|2.5, 2.6, 2.7
 |8.12.1
+
+|2.8
+|8.14.4
 
 |===
 
@@ -75,7 +81,7 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 ** https://www.jmix.ru/studio-resources[^]
 --
 +
-Выберите наиболее свежую версию, соответствующую версии IDE. Например, если IDE версии 2024.3, то версия плагина оканчивается на `-243`
+Выберите наиболее свежую версию, соответствующую версии IDE. Например, если IDE версии 2025.3, то версия плагина оканчивается на `-253`
 
 Распакуйте все архивы, кроме плагина Jmix, в следующую файловую структуру:
 
@@ -108,8 +114,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 [source,bash]
 ----
 ./deptool resolve-jmix \
-  --jmix-version 2.5.1 \
-  --jmix-plugin-version 2.5.1 \
+  --jmix-version 2.7.6 \
+  --jmix-plugin-version 2.7.6 \
   --resolve-commercial-addons \
   --jmix-license-key 123456123456-abcdefabcdef \
   --commercial-subscription-plan
@@ -154,8 +160,8 @@ Jmix Dependencies Tool (`deptool`) - это утилита командной с
 [source,bash]
 ----
 ./deptool resolve-npm \
-  --jmix-version 2.5.1 \
-  --jmix-plugin-version 2.5.1 \
+  --jmix-version 2.7.6 \
+  --jmix-plugin-version 2.7.6 \
   --resolve-commercial-addons \
   --jmix-license-key 123456123456-abcdefabcdef \
   --commercial-subscription-plan
@@ -331,7 +337,7 @@ image::ROOT:new-project-repo.png[align="center",width="800"]
 +
 image::ROOT:gradle-location.png[align="center",width="1201"]
 
-* После сохранения настроек Gradle начнется импорт проекта и завершится с ошибкой вида `org.gradle.api.plugins.UnknownPluginException: Plugin [id: 'io.jmix', version: '2.5.1'] was not found ...`
+* После сохранения настроек Gradle начнется импорт проекта и завершится с ошибкой вида `org.gradle.api.plugins.UnknownPluginException: Plugin [id: 'io.jmix', version: '2.7.6'] was not found ...`
 +
 * Откройте на редактирование файл `settings.gradle` и добавьте следующие строки в его начало:
 +
