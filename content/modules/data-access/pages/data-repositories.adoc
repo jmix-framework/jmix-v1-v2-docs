@@ -50,7 +50,18 @@ The `JmixDataRepository` interface extends the standard Spring Data https://docs
 
 Load methods of repositories inherited from `JmixDataRepository` support an additional argument of the `JmixDataRepositoryContext` type. It allows you to pass the filtering, paging and sorting parameters collected from UI components to the `LoadContext` object. As a result, all the features of xref:flow-ui:vc/components/genericFilter.adoc[], xref:flow-ui:vc/components/simplePagination.adoc[] and xref:flow-ui:vc/components/dataGrid.adoc[] components will work seamlessly with data repositories.
 
+When you scaffold a view that works with a repository data loader, Studio generates a xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] handler with `Pageable` and `JmixDataRepositoryContext` parameters.
+
+==== Converting `LoadContext` to `JmixDataRepositoryContext`
+
 Use the `JmixDataRepositoryUtils.buildRepositoryContext()` static method to convert a `LoadContext` to `JmixDataRepositoryContext`.
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/view/order/OrderListView2.java[tags=load-context-to-repository-context]
+----
+
+TIP: Because context settings are preserved during conversion, you can modify `LoadContext` and then convert it to `JmixDataRepositoryContext`.
 
 [[ApplyConstraints]]
 === Security Constraints
@@ -82,7 +93,7 @@ You can use the following annotations on custom query methods:
 
 * `@io.jmix.core.repository.Query` defines a JPQL query string, similar to the Spring Data JPA `@Query` annotation.
 * `@io.jmix.core.repository.FetchPlan` defines a fetch plan to be used when loading data.
-* `@io.jmix.core.repository.QueryHints` and `@jakarta.persistence.QueryHint` allow you to specify hints for xref:data-model:soft-deletion.adoc#turn-soft-deletion-off[turning soft deletion off] and xref:cache.adoc#query-cache[using query cache].
+* `@io.jmix.core.repository.QueryHints` and `@jakarta.persistence.QueryHint` allow you to specify hints for xref:data-model:soft-deletion.adoc#turn-soft-deletion-off[turning soft deletion off], xref:cache.adoc#query-cache[using query cache], and xref:dyn-attr:dynattr-api.adoc#loading-and-saving[loading dynamic attributes].
 
 [NOTE]
 ====
@@ -176,3 +187,12 @@ A xref:cache.adoc#query-cache[cacheable] query can be specified using the `@io.j
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository3.java[tags=cacheable]
 ----
+
+You can also use `@io.jmix.core.repository.QueryHints` and `@jakarta.persistence.QueryHint` to load xref:dyn-attr:index.adoc[dynamic attributes] for entities returned by repository methods:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository4.java[tags=dynamic-attribute-query-hint]
+----
+
+Use it when your repository methods should always return entities with dynamic attributes initialized.

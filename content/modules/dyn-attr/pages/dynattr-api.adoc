@@ -27,6 +27,8 @@ Loading and saving dynamic attribute values is handled by `DataManager`. Use one
 * `setHint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` method of `LoadContext`.
 * `hint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` method of the fluent API.
 
+TIP: If you use xref:data-access:data-repositories.adoc[data repositories], set the same hint with `@QueryHints` and `@QueryHint` annotations on repository methods. See xref:data-access:data-repositories.adoc#jmix-specific-parameters[Jmix-Specific Parameters] for an example.
+
 By default, dynamic attributes are not loaded. At the same time, `DataManager` always saves dynamic attributes contained in entity instances passed to `save()`.
 
 Dynamic attribute values are available through `getValue()` / `setValue()` methods of `EntityValues`. Pass the attribute code with the `+` prefix to these methods, for example:
