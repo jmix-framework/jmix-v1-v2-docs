@@ -55,7 +55,18 @@ include::example$/data-access-ex1/src/test/java/com/company/demo/repository/Cust
 
 Методы загрузки репозиториев, унаследованных от `JmixDataRepository`, поддерживают дополнительный аргумент типа `JmixDataRepositoryContext`. Это позволяет передавать параметры фильтрации, пейджинга и сортировки, собранные в объект `LoadContext` из UI-компонентов. В результате все функции компонентов xref:flow-ui:vc/components/genericFilter.adoc[], xref:flow-ui:vc/components/simplePagination.adoc[] и xref:flow-ui:vc/components/dataGrid.adoc[] будут полноценно работать с репозиториями данных.
 
+Когда вы создаёте экран с загрузчиком данных репозитория, Studio автоматически генерирует обработчик xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] с параметрами `Pageable` и `JmixDataRepositoryContext`.
+
+==== Конвертация `LoadContext` в `JmixDataRepositoryContext`
+
 Используйте статический метод `JmixDataRepositoryUtils.buildRepositoryContext()` для конвертации `LoadContext` в `JmixDataRepositoryContext`.
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/view/order/OrderListView2.java[tags=load-context-to-repository-context]
+----
+
+TIP: Поскольку настройки контекста сохраняются, вы можете изменить `LoadContext`, а затем конвертировать его в `JmixDataRepositoryContext`.
 
 [[ApplyConstraints]]
 === Ограничения безопасности
@@ -87,7 +98,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 
 * `@io.jmix.core.repository.Query` задает строку JPQL аналогично аннотации `@Query` в Spring Data JPA.
 * `@io.jmix.core.repository.FetchPlan` задает фетч-план для загрузки данных.
-* `@io.jmix.core.repository.QueryHints` и `@jakarta.persistence.QueryHint` позволяют вам указать хинты для xref:data-model:soft-deletion.adoc#turn-soft-deletion-off[отключения мягкого удаления] и xref:cache.adoc#query-cache[использования кэша запросов].
+* `@io.jmix.core.repository.QueryHints` и `@jakarta.persistence.QueryHint` позволяют вам указать хинты для xref:data-model:soft-deletion.adoc#turn-soft-deletion-off[отключения мягкого удаления], xref:cache.adoc#query-cache[использования кэша запросов], и xref:dyn-attr:dynattr-api.adoc#loading-and-saving[загрузки динамических атрибутов].
 
 [NOTE]
 ====
@@ -159,7 +170,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 ----
 
 [[jmix-specific-parameters]]
-=== Параметры, специфичные для Jmix
+=== Параметры специфичные для Jmix
 
 Репозитории данных Jmix могут принимать xref:data-access:fetching.adoc#fetch-plan[фетч-план] как параметр методов запросов:
 
@@ -181,3 +192,12 @@ xref:cache.adoc#query-cache[Кэшируемый] запрос можно зад
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository3.java[tags=cacheable]
 ----
+
+Вы также можете использовать `@io.jmix.core.repository.QueryHints` и `@jakarta.persistence.QueryHint`, чтобы загружать xref:dyn-attr:index.adoc[динамические атрибуты] для сущностей, которые возвращают методы репозитория:
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository4.java[tags=dynamic-attribute-query-hint]
+----
+
+Используйте это, если методы репозитория должны всегда возвращать сущности с уже инициализированными динамическими атрибутами.

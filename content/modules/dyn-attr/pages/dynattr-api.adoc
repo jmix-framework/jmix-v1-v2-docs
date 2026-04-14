@@ -27,7 +27,11 @@ image::dynattr-diagram.svg[align="center"]
 * Метод `setHint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` объекта `LoadContext`.
 * Метод `hint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` fluent API.
 
+TIP: Если вы используете xref:data-access:data-repositories.adoc[репозитории данных], укажите аннотации `@QueryHints` и `@QueryHint` на методах репозитория. Смотрите пример в разделе xref:data-access:data-repositories.adoc#jmix-specific-parameters[Параметры специфичные для Jmix].
+
 По умолчанию динамические атрибуты не загружаются. В то же время `DataManager` всегда сохраняет динамические атрибуты, содержащиеся в экземплярах сущностей, переданных в `save()`.
+
+By default, dynamic attributes are not loaded. At the same time, `DataManager` always saves dynamic attributes contained in entity instances passed to `save()`.
 
 Значения динамических атрибутов доступны через методы `getValue()` / `setValue()` класса `EntityValues`. Передайте код атрибута с префиксом `+` в эти методы, например:
 

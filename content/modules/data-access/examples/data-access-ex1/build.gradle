@@ -27,6 +27,9 @@ configurations.implementation {
 }
 
 dependencies {
+    implementation 'io.jmix.dynattr:jmix-dynattr-starter'
+    implementation 'io.jmix.dynattr:jmix-dynattr-flowui-starter'
+
     implementation 'io.jmix.core:jmix-core-starter'
     // tag::dependencies[]
     implementation 'io.jmix.data:jmix-eclipselink-starter'
