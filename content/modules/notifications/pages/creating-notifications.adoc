@@ -5,14 +5,14 @@ You can create notifications through the administration UI or programmatically i
 [[administration-ui]]
 == Administration UI
 
-After the add-on is added to your application, the main menu contains the *Notifications* item. The *Notifications browser* provides a list of created notifications and buttons for managing them.
+After the add-on is added to your application, the main menu contains the *Notifications* item. The *Notifications* view provides a list of created notifications and buttons for managing them.
 
-image::ntf-list.png[align="center" width="1270"]
+image::ntf-list.png[align="center" width="1362"]
 
 [[ntf-editor]]
-The notification editor appears after clicking the *Create new notification* button.
+The notification editor appears after clicking the *Create notification* button.
 
-image::ntf-editor.png[align="center" width="480"]
+image::ntf-editor.png[align="center", width="482"]
 
 The dialog provides the following fields to fill in:
 
@@ -21,7 +21,7 @@ The dialog provides the following fields to fill in:
 * *Recipients* – a list of recipients of the notification. Start typing a username in the field, and select the appropriate users from the list.
 * *Channels* – channels used for the notification.
 ** *In-app channel* – the user will receive the notification in the application UI.
-** *Email channel* – the user will receive an email with the notification. (available with the xref:email:index.adoc[Email] add-on.)
+** *Email channel* – the user will receive an email with the notification (available with the xref:email:index.adoc[Email] add-on).
 * *Body* – body of the notification.
 
 [[programmatic-creation]]
