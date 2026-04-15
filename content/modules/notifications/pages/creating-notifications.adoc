@@ -7,12 +7,12 @@
 
 После добавления дополнения в ваше приложение в главном меню появляется пункт *Notifications*. Экран *Notifications* предоставляет список созданных уведомлений и кнопки для управления ими.
 
-image::ntf-list.png[align="center" width="1270"]
+image::ntf-list.png[align="center" width="1362"]
 
 [[ntf-editor]]
 Редактор уведомлений появляется после нажатия кнопки *Create notification*.
 
-image::ntf-editor.png[align="center" width="480"]
+image::ntf-editor.png[align="center", width="482"]
 
 В диалоговом окне доступны следующие поля для заполнения:
 
