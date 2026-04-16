@@ -46,7 +46,7 @@ Studio displays a status indicator icon in the top-right corner of hot-deployabl
 
 The primary purpose of this indicator is to continuously inform developers about the propagation of their latest source code changes to the running application. The icon's appearance changes to reflect whether the changes have been successfully deployed, are in the process of being deployed, or if any errors occurred during the deployment process, providing immediate visual feedback on the state of hot deployment.
 
-Let's examine the different states of the hot deploy indicator.
+Let's examine the different states of the hot-deploy indicator.
 
 . *Application not running*:
 +
@@ -71,3 +71,17 @@ image::hot-deploy-ind-4.png[align="center",width="333"]
 . *Hot deployment failed*: The indicator turns red, indicating that hot deployment was unsuccessful due to a compilation error or other issue.
 +
 image::hot-deploy-ind-5.png[align="center",width="760"]
+
+[[troubleshooting]]
+== Troubleshooting
+
+In some cases, for example, for non-standard multi-module project configurations, Jmix Studio may fail to determine the module compiler output path. This affects hot deploy because Studio cannot properly resolve the classpath needed for the hot-deploy compilation process.
+
+If you encounter this issue, you can manually specify the module compiler output path using a special property in your `build.gradle` script:
+
+[source,gradle,indent=0]
+----
+ext.jmixCompilerOutputPath = "build/classes/java/main"
+----
+
+The path should be specified relative to the folder containing the build script. Jmix Studio will resolve this value during Gradle sync and use it in the hot-deploy compilation process classpath.
