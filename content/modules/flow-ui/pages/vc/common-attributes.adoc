@@ -571,22 +571,34 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#propagate-values-eagerly-in-text-fields" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
-Устанавливает новый режим изменения значения для компонента.
+Задаёт режим изменения значения для компонента. Этот режим определяет, как часто отправляются изменения значения:
+
+* `EAGER` — при каждом изменении пользователем (например, при каждом нажатии клавиши).
+* `LAZY` — после того, как пользователь перестанет печатать на время, заданное тайм-аутом.
+* `TIMEOUT` — периодически во время ввода, с интервалом, заданным тайм-аутом.
+* `ON_BLUR` — когда компонент теряет фокус.
+* `ON_CHANGE` — когда значение фиксируется действием изменения.
+
+Для текстовых полей изменения обычно не отправляются при каждом нажатии клавиши.
+Используйте `EAGER` для мгновенной валидации, строк поиска и подобного реактивного поведения.
+Используйте <<valueChangeTimeout>> для настройки режимов `LAZY` и `TIMEOUT`.
 
 [[valueChangeTimeout]]
 == valueChangeTimeout
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#propagate-values-eagerly-in-text-fields" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
-Применяет тайм-аут изменения значения для данного <<valueChangeMode>>.
+Задаёт тайм-аут (в миллисекундах), используемый в <<valueChangeMode>>.
+
+Этот атрибут влияет только на режимы с задержкой (`LAZY`, `TIMEOUT`) и игнорируется в немедленных режимах или режимах с фиксацией значения (`EAGER`, `ON_BLUR`, `ON_CHANGE`)
 
 [[visible]]
 == visible
