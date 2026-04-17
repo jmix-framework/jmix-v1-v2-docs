@@ -572,22 +572,34 @@ Sets the value of the component. If the new value is not equal to `getValue()`, 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#propagate-values-eagerly-in-text-fields" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
-Sets a new value change mode for the component.
+Sets a value change mode for the component. The mode defines how often values changes are sent:
+
+* `EAGER` – on every user change (for example, each keystroke).
+* `LAZY` – after the user stops typing for the timeout period.
+* `TIMEOUT` – repeatedly while typing, using the timeout interval.
+* `ON_BLUR` – when the component loses focus.
+* `ON_CHANGE` – when the value is committed by a change action.
+
+For text inputs, updates are typically not sent on each keystroke by default.
+Use `EAGER` for instant validation, live search, and similar reactive behavior.
+Use <<valueChangeTimeout>> to configure `LAZY` and `TIMEOUT`.
 
 [[valueChangeTimeout]]
 == valueChangeTimeout
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#propagate-values-eagerly-in-text-fields" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
-Applies the value change timeout of the given <<valueChangeMode>>.
+Sets the timeout (in milliseconds) used by <<valueChangeMode>>.
+
+This attribute only affects delayed modes (`LAZY`, `TIMEOUT`) and is ignored by immediate or commit-based modes (`EAGER`, `ON_BLUR`, `ON_CHANGE`).
 
 [[visible]]
 == visible
