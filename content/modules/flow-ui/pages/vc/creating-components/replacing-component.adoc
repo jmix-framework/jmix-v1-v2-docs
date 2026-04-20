@@ -1,0 +1,22 @@
+= Замена стандартных компонентов
+
+Вы можете заменить стандартный компонент Flow UI, зарегистрировав новый компонент и используя `replaceComponent()`.
+
+Ниже показана полная настройка, которая заменяет `TypedDatePicker` во всём приложении
+на его предварительно настроенную версию, где определённые атрибуты заданы заранее. При этом сохраняются стандартный XML-элемент `datePicker` и загрузчик.
+
+Расширенный компонент `datePicker`:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/component/ExtendedDatePicker.java[tags=extended-date-picker]
+----
+
+Конфигурация регистрации:
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/ComponentRegistrationConfiguration.java[tags=component-registration-configuration;!theme-toggle-registration;!slider-registration]
+----
+
+Такой подход позволяет глобально настраивать поведение, сохраняя совместимость с существующими экранами и XML-дескрипторами.
