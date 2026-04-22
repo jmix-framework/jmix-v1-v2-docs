@@ -4,13 +4,13 @@ Jmix supports Hot Deploy technology that helps to apply project changes to the r
 
 The following classes and resources are hot deployed:
 
-* View descriptors and controllers;
-* Classes used by view controllers by instantiating them or via static methods;
-* Localized messages;
-* Menu;
-* Fetch plans;
-* Resource roles;
-* Row-level roles.
+* View descriptors and controllers
+* Classes used by view controllers by instantiating them or via static methods. Examples of such classes are described in the subsection <<examples,below>>.
+* Localized messages
+* Menu
+* Fetch plans
+* Resource roles
+* Row-level roles
 
 Entity classes and Spring beans are not hot deployed.
 
@@ -38,6 +38,39 @@ jmix {
 Studio also sends signals to the application to clear appropriate caches to make it load the changed resources. These are messages cache and the configurations of fetch plans, registered views and menu. Signals are implemented as trigger files created in the `.jmix/temp/triggers` directory (its location can be changed by the xref:ROOT:app-properties.adoc#jmix.core.temp-dir[jmix.core.temp-dir] property).
 
 NOTE: The application may require 2-3 seconds to reload classes and resources after saving them in Studio. If you don't see expected changes after opening a view, try to refresh the web page again.
+
+[[examples]]
+== Examples of Hot-Deployed Classes
+
+Here are some practical examples of classes that are hot-deployed when used by view controllers.
+
+=== Custom UI Components
+
+If you create a xref:flow-ui:vc/creating-components/creating-components.adoc[custom UI component] and use it in a view, changes to that component will be applied without restarting the application.
+
+An example of such a component can be found in xref:flow-ui:vc/creating-components/using-element-api.adoc[Using Element API].
+
+=== Utility Classes with Static Methods
+
+Utility classes that contain static methods are hot-deployed when called from view controllers.
+
+[source,java]
+----
+include::flow-ui:example$/onboarding/src/main/java/com/company/onboarding/util/DateUtils.java[tag=DateUtils]
+----
+
+In the view controller:
+
+[source,java,indent=0]
+----
+include::flow-ui:example$/onboarding/src/main/java/com/company/onboarding/view/component/textfield/TextFieldView.java[tag=use-utils]
+----
+
+=== Value Description Classes for Charts
+
+For example, classes that prepare or transform data for charts are hot-deployed.
+
+An example of such a class is `ValueDescription` in the https://demo.jmix.io/ui-samples/sample/simple-data-item?tab=SimpleDataItemSample.java[UI Samples^].
 
 [[indicator]]
 == Hot Deploy Indicator

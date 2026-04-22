@@ -1,5 +1,6 @@
 package com.company.onboarding.view.component.textfield;
 
+import com.company.onboarding.util.DateUtils;
 import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
@@ -10,6 +11,8 @@ import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.exception.ValidationException;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
 
 @Route(value = "TextFieldView", layout = MainView.class)
 @ViewController("TextFieldView")
@@ -50,4 +53,15 @@ public class TextFieldView extends StandardView {
         infoLabel.setText(statusContext.getDescription()); // <2>
     }
     // end::statusChangeHandler[]
+
+    // tag::use-utils[]
+    @ViewComponent
+    private TypedTextField<String> textField;
+
+    @Subscribe
+    public void onInit(final InitEvent event) {
+        String formattedDate = DateUtils.formatDate(LocalDate.now());
+        textField.setValue(formattedDate);
+    }
+// end::use-utils[]
 }

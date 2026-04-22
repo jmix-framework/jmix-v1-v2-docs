@@ -59,7 +59,9 @@
             <textField themeNames="small"/>
             <!-- end::size[] -->
         </hbox>
-
+        <hbox>
+            <textField id="textField"/>
+        </hbox>
         <!-- tag::layout[] -->
     </layout>
     <!-- end::layout[] -->
