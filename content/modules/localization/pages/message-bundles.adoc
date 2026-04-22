@@ -2,7 +2,7 @@
 
 本地化的最常见工作就是根据用户所在的语言环境提供本地化消息。因此，必须从代码中将消息抽取出来，并放置到特殊的属性文件内，一种语言建立一个文件。这样的一组文件被称为 _消息包_。
 
-除了消息之外，消息包还可以包含 xref:data-model:data-types.adoc#localized-format-strings[本地化数据格式字符串]。
+除了消息之外，消息包还可以包含 xref:data-model:datatype.adoc#localized-format-strings[本地化数据格式字符串]。
 
 项目中默认的消息包由一组 `messages_<language>.properties` 文件组成，位于 `src/main/resources` 目录下的根包目录内。
 

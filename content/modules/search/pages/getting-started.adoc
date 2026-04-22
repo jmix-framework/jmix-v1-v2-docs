@@ -91,6 +91,6 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 
 搜索结果在 *Search Result* 视图展示。
 
-image::search-result.png[align="center",width="1138"]
+image::search-result.png[align="center",width="1301"]
 
 点击一条结果，会打开实体详情视图。

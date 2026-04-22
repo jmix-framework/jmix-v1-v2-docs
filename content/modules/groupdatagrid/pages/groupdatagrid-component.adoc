@@ -1,96 +1,96 @@
-= GroupDataGrid Component
+= GroupDataGrid 组件
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/group-data-grid" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/group-data-grid" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-The `groupDataGrid` component is a more capable version of the base data grid with powerful features for grouping rows. It can group rows by repeated column values into collapsible group blocks with support for multi-level grouping and drag-to-reorder controls.
+`groupDataGrid` 组件是比基本的表格更强大的版本，能够进行行内分组。可以根据重复的列值将行分组成为可折叠的分组块，支持多层分组和拖动重排控制。
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`groupDataGrid`
-|Java Class
+|Java 类
 |`GroupDataGrid`
-|Attributes
-|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - <<aggregatable,aggregatable>> - <<columnReorderingAllowed,columnReorderingAllowed>> - <<emptyStateText,emptyStateText>> - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<selectionMode,selectionMode>> - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|XML 属性
+|*通用：* xref:flow-ui:vc/common-attributes.adoc#id[id] - <<aggregatable,aggregatable>> - <<columnReorderingAllowed,columnReorderingAllowed>> - <<emptyStateText,emptyStateText>> - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<selectionMode,selectionMode>> - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
 |
-|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass]
+|*数据绑定：* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass]
 |
-|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|*尺寸：* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
 |
-|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|*位置：* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
 |
-|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
 |
-|*Other:* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<columnRendering,columnRendering>> - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - <<sortByGroupEnabled,sortByGroupEnabled>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
-|Handlers
+|*其他：* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<columnRendering,columnRendering>> - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - <<sortByGroupEnabled,sortByGroupEnabled>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
+|事件和处理器
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - <<CellFocusEvent,CellFocusEvent>> - <<CollapseEvent,CollapseEvent>> - <<ColumnReorderEvent,ColumnReorderEvent>> - <<ColumnResizeEvent,ColumnResizeEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - <<ExpandEvent,ExpandEvent>> - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - <<GridDragEndEvent,GridDragEndEvent>> - <<GridDragStartEvent,GridDragStartEvent>> - <<GridDropEvent,GridDropEvent>> - <<GroupItemClickEvent,GroupItemClickEvent>> - <<GroupItemDoubleClickEvent,GroupItemDoubleClickEvent>> - <<GroupingChangedEvent,GroupingChangedEvent>> - <<ItemClickEvent,ItemClickEvent>> - <<ItemDoubleClickEvent,ItemDoubleClickEvent>> - <<SelectionEvent,SelectionEvent>> - <<SortEvent,SortEvent>> - <<dataGenerator,dataGenerator>> - <<dragFilter,dragFilter>> - <<dropFilter,dropFilter>> - <<enterPressHandler,enterPressHandler>> - <<groupPartNameGenerator,groupPartNameGenerator>> - <<groupTooltipGenerator, groupTooltipGenerator>> - <<itemSelectableProvider,itemSelectableProvider>> - <<partNameGenerator,partNameGenerator>> - <<tooltipGenerator,tooltipGenerator>>
-|Elements
+|XML 内部元素
 |<<groupBy, groupBy>> - <<columnRef,columnRef>> - <<columns,columns>> - <<column,column>> - <<groupColumn,groupColumn>> - xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn]
 |===
 
 [[Basics]]
-== Basics
+== 基本用法
 
-To get started, xref:groupdatagrid:index.adoc#installation[install the add-on] and then add the component through the *Add Component* palette in Studio xref:studio:view-designer.adoc[View Designer].
+首先，请 xref:groupdatagrid:index.adoc#installation[安装扩展组件]，然后通过 Studio xref:studio:view-designer.adoc[视图设计器] 的 *Add Component* 工具箱添加该组件。
 
 image::groupdatagrid-palette.png[align="center",width="765"]
 
-The following example groups customers based on their respective values in the *Grade* column.
+下面的例子中，用户按 *Grade* 列进行了分组：
 
 image::groupdatagrid-basic.png[align="center",width="1097"]
 
-.XML code
+.XML 代码
 [%collapsible%open]
 ====
 [source,xml,indent=0]
 ----
 include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/basicgroupgrid/basic-group-grid-view.xml[tags=view;data;facets;layout;customersDc;basics]
 ----
-<1> If the component is added manually rather than through the *Add Component* palette, declare the `groupg` namespace.
-<2> Initial grouping is by the `grade` property; more groupings can be added.
-<3> Group column definition.
+<1> 如果组件是手动添加而不是通过 *Add Component* 工具箱添加，则需要声明 `groupg` 命名空间。
+<2> 表格初始化是通过 `grade` 属性分组；也可以添加更多的分组配置。
+<3> 添加分组列。
 ====
 
 [[data-binding]]
-== Data Binding
+== 数据绑定
 
-Data binding refers to linking a visual component to a data container. To bind a component to data use the `dataContainer` attribute and reference xref:flow-ui:data/collection-container.adoc[collection container]. See the example above.
+数据绑定是指将组件与数据容器进行关联。将组件绑定数据时，使用 `dataContainer` 属性并引用 xref:flow-ui:data/collection-container.adoc[集合数据容器]。请参考上面的示例。
 
 [[group-item]]
-== Group Item
+== 分组项
 
-Group items are special records produced by grouping. They appear as rows that contain nothing but a group header.
+分组项是由分组产生的特殊记录。以行的形式出现，仅包含分组表头。
 
 image::groupdatagrid-group-items.png[align="center",width="1097"]
 
-To render group items, the data-binding layer creates a temporary, empty entity or DTO instance. This instance is not added to the xref:flow-ui:data/collection-container.adoc[collection container] and exists only in memory for the duration of the grouping.
+为了渲染分组项，数据绑定层会创建一个临时的空实体或 DTO 实例。该实例不会添加到 xref:flow-ui:data/collection-container.adoc[集合容器] 中，仅在分组时存在于内存中。
 
 [[hide-group-item-count]]
-=== Hide Group Item Count
+=== 隐藏分组项计数
 
-By default, group items display the number of descendants. Use the `displayItemCount` property of <<groupColumn,groupColumn>> to hide this number.
+默认情况下，分组项显示分组内条目的数量。使用 <<groupColumn,groupColumn>> 的 `displayItemCount` 属性可以隐藏该数字。
 
 image::groupdatagrid-hide-count.png[align="center",width="1097"]
 
 [[multi-level-grouping]]
-== Multi-level Grouping
+== 多层分组
 
-The component supports grouping by multiple columns. Click the grouping column icon to open the *Group by* dialog, then add or remove columns.
+组件支持按多列分组。点击分组列的图标可以打开 *Group by* 对话框，然后可以添加或移除列。
 
 image::groupdatagrid-multiple.png[align="center",width="1100"]
 
 [[disable-grouping]]
-== Disable Grouping
+== 禁用分组
 
-To prevent users from grouping by a specific column, set its `groupAllowed` property to `false`. This removes the column from the  *Group by* dialog. In the example below, the *Country* column cannot be grouped:
+如需禁止用于基于特定列进行分组，可以设置该列的 `groupAllowed` 属性为 `false`。这样就不会在 *Group by* 对话框中显示该列。下面的示例中，不允许按 *Country* 列分组：
 
 image::groupdatagrid-groupallowed.png[align="center",width="1100"]
 
-.XML code
+.XML 代码
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -99,18 +99,18 @@ include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagrid
 ----
 ====
 
-To turn off grouping entirely for users, set `displayColumnsGrouperOnIconClick="false"` on the <<groupColumn>> element.
+如需禁止终端用户使用分组功能，设置 <<groupColumn>> 元素的 `displayColumnsGrouperOnIconClick="false"`。
 
-NOTE: Default grouping can still be declared with the <<groupBy>> element or applied programmatically via the `groupBy()` method.
+NOTE: 默认的分组仍然可以通过 <<groupBy>> 元素声明或 `groupBy()` 方法编程式设置。
 
 [[custom-grouping-column]]
-== Custom Grouping Column
+== 自定义分组列
 
-To use a custom grouping value, describe a new grouping property in the view controller. The following example introduces a new grouping property that combines first and last name.
+如需使用自定义分组值，在视图控制器中添加新的分组属性描述。以下示例引入了一个将名字和姓氏结合的新分组属性。
 
 image::groupdatagrid-custom-column.png[align="center",width="1097"]
 
-.XML code
+.XML 代码
 [%collapsible]
 ====
 [source,xml,indent=0]
@@ -118,47 +118,47 @@ image::groupdatagrid-custom-column.png[align="center",width="1097"]
 include::example$/groupdatagrid-ex1/src/main/resources/com/company/groupdatagridex1/view/customgrouping/custom-grouping-view.xml[tags=custom-grouping]
 ----
 ====
-.Java code
+.Java 代码
 [%collapsible]
 ====
 [source,java,indent=0]
 ----
 include::example$/groupdatagrid-ex1/src/main/java/com/company/groupdatagridex1/view/customgrouping/CustomGroupingView.java[tags=custom-grouping;renderer]
 ----
-<1> Describe a new grouping property that concatenates `firstName` and `lastName`.
-<2> Group by `fullName` by default.
-<3> Provide a render fallback for the Full Name column when it is not grouped; without this the column will appear empty.
+<1> 描述一个新的分组属性，由 `firstName` 和 `lastName` 拼接而成。
+<2> 默认按 `fullName` 分组。
+<3> 为“全名”列提供一个渲染回调，可以在不分组时显示内容。否则，不分组时列显示为空。
 ====
 
 [[export-to-excel]]
-== Export to Excel
+== 导出 Excel
 
-Exporting functionality is provided by free xref:grid-export:index.adoc[] add-on which supports all grid types: `groupDataGrid`, `dataGrid`, and `treeDataGrid`.
+导出功能由免费的 xref:grid-export:index.adoc[] 扩展组件提供，该扩展组件支持所有表格类型：`groupDataGrid`、`dataGrid` 和 `treeDataGrid`。
 
 image::groupdatagrid-export.png[align="center",width="1090"]
 
-The add-on provides three export options. It affects both the scope and the generated spreadsheet formatting:
+该扩展组件提供三种导出选项。有不同的导出范围以及生成 Excel 的格式：
 
-* *All Rows* – Exports all rows and flattens the grouping.
-* *Current Page* – Exports only the visible rows while *preserving the grouping structure as seen in the grid*.
-* *Selected Rows* – Exports the currently selected rows and flattens the grouping.
+* *All Rows* – 导出所有行并展平分组。
+* *Current Page* – 仅导出当前可见行，同时 *保留表格中显示的分组结构*。
+* *Selected Rows* – 导出当前选中的行并展平分组。
 
 [[Styling]]
-== Styling
+== 样式
 
-=== Themes
+=== 主题
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-theme-variant" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-theme-variant" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-Configure themes with the xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] property. Multiple themes can be applied simultaneously. The themes are the same ones as in xref:flow-ui:vc/components/dataGrid.adoc[].
+不同的样式版本可以通过 xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] 属性配置。多个主题可以同时使用，样式版本与 xref:flow-ui:vc/components/dataGrid.adoc[] 一样。
 
-=== Group Icon
+=== 分组标签
 
-The component shows `+` for a collapsed group and `-` for an expanded group. To customize, add your preferred icons to the application stylesheet. Replace the default `content` values for the desired icon character codes (e.g., `e7c1` and `e7bf` taken from https://github.com/vaadin/web-components/blob/main/packages/icons/assets/vaadin-font-icons.json[vaadin font icons^] collection):
+组件中折叠的分组组显示 `+`，展开的分组显示 `-`。如需自定义图标，可以将图标添加到应用程序样式中。把默认的 `content` 值替换为所需的图标字符代码（例如，使用 https://github.com/vaadin/web-components/blob/main/packages/icons/assets/vaadin-font-icons.json[Vaadin 字体图标^] 集合中的 `e7c1` 和 `e7bf`）：
 
 .application.css
 [source,css,indent=0]
@@ -176,172 +176,172 @@ vaadin-grid-tree-toggle.jmix-group-toggle {
 
 image::groupdatagrid-groupicon.png[align="center",width="1097"]
 
-TIP: Learn more about xref:flow-ui:themes/styling-ui-components.adoc#stylable-parts[stylable parts of components].
+TIP: 参考 xref:flow-ui:themes/styling-ui-components.adoc#stylable-parts[组件的可样式化 parts]。
 
-=== Group Column Icon
+=== 分组列图标
 
-The group column icon is customizable via the `groupIcon` attribute of the <<groupColumn,groupColumn>> element. To hide the icon, set `groupIconVisible` to `false`.
+分组列图标可通过 <<groupColumn,groupColumn>> 元素的 `groupIcon` 属性进行自定义。如需隐藏图标，将 `groupIconVisible` 设置为 `false`。
 
-== Attributes
+== XML 属性
 
-xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components. Below are the attributes shared with xref:flow-ui:vc/components/dataGrid.adoc[] and those unique to `groupDataGrid`:
+xref:flow-ui:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。以下是与 xref:flow-ui:vc/components/dataGrid.adoc[] 共享的属性以及 `groupDataGrid` 特有的属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*名称*
+|*描述*
+|*默认值*
 |[[aggregatable]]aggregatable
-|If `true`, enables aggregating of columns. See xref:flow-ui:vc/components/dataGrid.adoc#aggregating[Aggregating].
+|如果为 `true`，则启用列的聚合。参阅 xref:flow-ui:vc/components/dataGrid.adoc#aggregating[聚合]。
 |`false`
 |[[columnReorderingAllowed]]columnReorderingAllowed
-|If `true`, enables users to change the order of columns.
+|如果为 `true`，则允许用户更改列的顺序。
 |`false`
 |[[emptyStateText]]emptyStateText
-|The text to display when the table is empty. Use null to remove the current empty state content. See xref:flow-ui:vc/components/dataGrid.adoc#empty-state[Empty State].
+|表格为空时显示的文本。使用 null 可移除当前的空状态内容。参阅 xref:flow-ui:vc/components/dataGrid.adoc#empty-state[空状态]。
 |–
 |[[selectionMode]]selectionMode
-|Sets the selection mode. Possible values: `SINGLE`, `MULTI`.
+|设置选择模式。支持：`SINGLE`、`MULTI`。
 |`SINGLE`
 |[[aggregationPosition]]aggregationPosition
-|If the data in the component is <<aggregatable,aggregatable>>, determines whether the aggregation row is displayed above or below the other rows. Possible values: `TOP` or `BOTTOM`. See xref:flow-ui:vc/components/dataGrid.adoc#aggregating[Aggregating].
+|如果组件中的数据是 <<aggregatable,可聚合>> 的，则决定聚合行显示在其他行的上方还是下方。支持：`TOP` 或 `BOTTOM`。参阅 xref:flow-ui:vc/components/dataGrid.adoc#aggregating[聚合]。
 |`BOTTOM`
 |[[allRowsVisible]]allRowsVisible
-|If `true`, the data grid will display all rows at once with no scroll bars, effectively disabling virtual scrolling. This means that instead of only rendering the visible rows and loading more as the user scrolls, the grid will render all the rows in the DOM simultaneously.
+|如果为 `true`，表格将一次显示所有行且不显示滚动条，从而有效禁用虚拟滚动。即表格会同时在 DOM 中渲染所有行，而不是仅渲染可见行并在用户滚动时加载更多行。
 
-*Using this feature is discouraged for a large number of items as it may cause performance issues.*
+*不建议在条目数量较大时使用此功能，因为可能会导致性能问题。*
 | –
 |[[columnRendering]]columnRendering
-|Sets the column rendering mode. In `EAGER` mode, all columns are rendered upfront, regardless of their visibility within the viewport. In `LAZY` mode, body cells rendered only when the corresponding columns are inside the visible viewport.
+|设置列渲染模式。在 `EAGER` 模式下，所有列都会预先渲染，无论其在视窗内是否可见。在 `LAZY` 模式下，仅当相应列位于可见视窗内时才渲染主体单元格。
 |`EAGER`
 |[[detailsVisibleOnClick]]detailsVisibleOnClick
-|If `true`, enables xref:flow-ui:vc/components/dataGrid.adoc#item-details[item details] to be revealed on mouse click.
+|如果为 `true`，则支持通过鼠标单击显示 xref:flow-ui:vc/components/dataGrid.adoc#item-details[条目详情]。
 |`true`
 |[[dropMode]]dropMode
-|Determines rows where a drop can happen. Possible values: `BETWEEN`, `ON_TOP`, `ON_TOP_OR_BETWEEN`, `ON_GRID`. This feature might be used, for example, to reorder rows and to drag rows between grids.
+|确定可以进行拖放的行。可选值：`BETWEEN`、`ON_TOP`、`ON_TOP_OR_BETWEEN`、`ON_GRID`。此特性可用于例如重新排序行以及在网格之间拖拽行。
 |–
 |[[editorBuffered]]editorBuffered
-|If `true`, activates buffered mode for xref:flow-ui:vc/components/dataGrid.adoc#inline-editing[inline editing],  meaning that the user must confirm making changes by clicking a confirm button. This mode also allows users to cancel their changes. In unbuffered mode changes are applied without the need for confirmation.
+|如果为 `true`，则为 xref:flow-ui:vc/components/dataGrid.adoc#inline-editing[内联编辑] 启用缓存模式，即用户必须通过点击确认按钮来确认所做的更改。此模式还支持用户取消更改。在非缓存模式下，更改无需确认即可生效。
 |`false`
 |[[multiSort]]multiSort
-|If `true`, enables sorting by multiple columns.
+|如果为 `true`，则启用按多列排序。
 |`false`
 |[[multiSortOnShiftClickOnly]]multiSortOnShiftClickOnly
-|If `true`, multi-sorting is activated only when clicking on the column header while holding down the Shift key.
+|如果为 `true`，则仅当按住 Shift 键点击列标题时才激活多列排序。
 |`false`
 |[[multiSortPriority]]multiSortPriority
-|Determines whether the clicked column is added to the end or beginning of the sorted columns list. Possible values: `PREPEND`, `APPEND`.
+|设置被点击的列是添加到已排序列列表的末尾还是开头。可选值：`PREPEND`、`APPEND`。
 |`PREPEND`
 |[[nestedNullBehavior]]nestedNullBehavior
-|Sets the behavior when parsing nested properties which may contain null values in the property chain. Possible values: `THROW`, `ALLOW_NULLS`.
+|设置当解析嵌套属性时（属性链中可能包含 null 值）的行为。可选值：`THROW`、`ALLOW_NULLS`。
 |`THROW`
 |[[pageSize]]pageSize
-|Determines the page size or the number of items that will be fetched from the data provider at a time.
+|设置页面大小，即一次从数据提供者获取的条目数量。
 |`50`
 |[[rowsDraggable]]rowsDraggable
-|If `true`, enables users to drag rows in the grid.
+|如果为 `true`，则允许用户在网格中拖拽行。
 |`false`
 |[[sortByGroupEnabled]]sortByGroupEnabled
-a|If `true`:
+a|如果为 `true`：
 
-* sorting is enabled for the group column.
-* sorting by other columns rearranges rows within each group but initial group order remains fixed.
+* 为分组列启用排序。
+* 按其他列排序会在每个分组内重新排列行，但初始分组顺序保持不变。
 
-If `false`:
+如果为 `false`：
 
-- sorting is disabled for the group column.
-- sorting by other columns reorders the groups accordingly.
+- 为分组列禁用排序。
+- 按其他列排序会相应地重新排列分组顺序。
 | `true`
 |===
 
-== Handlers
+== 事件和处理器
 
-xref:flow-ui:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components. Below are the handlers shared with xref:flow-ui:vc/components/dataGrid.adoc[] and those unique to `groupDataGrid`:
+xref:flow-ui:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。以下是与 xref:flow-ui:vc/components/dataGrid.adoc[] 共享的处理器以及 `groupDataGrid` 特有的处理器：
 
 include::flow-ui:vc/handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*名称*
+|*描述*
 |[[CellFocusEvent]]CellFocusEvent
-|`com.vaadin.flow.component.grid.CellFocusEvent` fired when a cell in the data grid is focused. Corresponds to the `grid-cell-focus` DOM event.
+|`com.vaadin.flow.component.grid.CellFocusEvent` 当表格中的单元格获得焦点时触发。对应 `grid-cell-focus` DOM 事件。
 |[[CollapseEvent]]CollapseEvent
-|Fired when a group is collapsed.
+|当分组折叠时触发。
 |[[ColumnReorderEvent]]ColumnReorderEvent
-|`com.vaadin.flow.component.grid.ColumnReorderEvent` fired when the columns in the data grid are reordered. Corresponds to the `column-reorder-all-columns` DOM event.
+|`com.vaadin.flow.component.grid.ColumnReorderEvent` 当表格中发生列重排时触发。对应 `column-reorder-all-columns` DOM 事件。
 |[[ColumnResizeEvent]]ColumnResizeEvent
-|`com.vaadin.flow.component.grid.ColumnResizeEvent` fired when a data grid column is resized by the user. Corresponds to the `column-drag-resize` DOM event.
+|`com.vaadin.flow.component.grid.ColumnResizeEvent` 当用户调整表格列的大小时触发。对应 `column-drag-resize` DOM 事件。
 |[[ExpandEvent]]ExpandEvent
-|Fired when a group is expanded.
+|当分组展开时触发。
 |[[GridDragEndEvent]]GridDragEndEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - drag end event of dataGrid rows. Corresponds to the `grid-dragend` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDragEndEvent` - 表格中行的拖拽结束事件。对应 `grid-dragend` DOM 事件。
 |[[GridDragStartEvent]]GridDragStartEvent
-|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - drag start event of dataGrid rows. Corresponds to the `grid-dragstart` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDragStartEvent` - 表格中行的拖拽开始事件。对应 `grid-dragstart` DOM 事件。
 |[[GridDropEvent]]GridDropEvent
-|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - drop event that occurs on the data grid or its rows. Corresponds to the `grid-drop` DOM event.
+|`com.vaadin.flow.component.grid.dnd.GridDropEvent` - 发生在表格或其行上的放置事件。对应 `grid-drop` DOM 事件。
 |[[GroupItemClickEvent]]GroupItemClickEvent
-|Fired when a row that corresponds to a group item is clicked
+|当单击分组项内的行时触发。
 |[[GroupItemDoubleClickEvent]]GroupItemDoubleClickEvent
-|Fired when a row that corresponds to a group item is double-clicked.
+|当双击分组项内的行时触发。
 |[[GroupingChangedEvent]]GroupingChangedEvent
-|Fired when grouping changes — columns added or removed.
+|当分组发生变化（添加或移除列）时触发。
 |[[ItemClickEvent]]ItemClickEvent
-|`com.vaadin.flow.component.grid.ItemClickEvent` fired when a data grid item is clicked. Corresponds to the `item-click` DOM event.
+|`com.vaadin.flow.component.grid.ItemClickEvent` 当单击表格项时触发。对应 `item-click` DOM 事件。
 |[[ItemDoubleClickEvent]]ItemDoubleClickEvent
-|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` fired when a data grid item is double-clicked. Corresponds to the `item-double-click` DOM event.
+|`com.vaadin.flow.component.grid.ItemDoubleClickEvent` 当双击表格项时触发。对应 `item-double-click` DOM 事件。
 |[[SelectionEvent]]SelectionEvent
-|A selection event that unifies the way to access to selection event for multi selection and single selection components (in case when only one selected item is required).
+|选择事件，统一了多选和单选事件（在只需要单个选中条目的情况下）。
 |[[SortEvent]]SortEvent
-|`com.vaadin.flow.data.event.SortEvent` - event describing a change in sorting of a DataProvider. Fired by `SortNotifiers`.
+|`com.vaadin.flow.data.event.SortEvent` - 描述 DataProvider 排序发生变化的事件。由 `SortNotifiers` 触发。
 |[[dataGenerator]]dataGenerator
-|Adds a data generator for the data grid. If the generator was already added, does nothing. See the `com.vaadin.flow.data.provider.HasDataGenerators` interface.
+|为表格添加数据生成器。如果该生成器已添加，则不执行任何操作。参考 `com.vaadin.flow.data.provider.HasDataGenerators` 接口。
 |[[dragFilter]]dragFilter
-|Allows to control which specific rows can be dragged, rather than making all rows draggable with <<rowsDraggable, rowsDraggable>>.
+|允许控制哪些特定行可以被拖拽，而不是通过 <<rowsDraggable, rowsDraggable>> 使所有行都可拖拽。
 |[[dropFilter]]dropFilter
-|Allows to control which specific rows are valid drop targets.
+|允许控制哪些特定行是有效的放置目标。
 |[[enterPressHandler]]enterPressHandler
-|Handles the event when the user presses the Enter key.
+|处理用户按下 Enter 键时的事件。
 |[[groupPartNameGenerator]]groupPartNameGenerator
-|Generates parts of CSS class names for group items based on given conditions. This allows for customizing group items.
+|根据给定条件为分组项生成 CSS 类名的 parts。支持自定义分组项。
 |[[groupTooltipGenerator]]groupTooltipGenerator
-|Generates tooltip for the group based on given conditions.
+|根据给定条件为分组生成 tooltip。
 |[[itemSelectableProvider]]itemSelectableProvider
-|Sets a predicate to check whether a specific item in the grid may be selected or deselected by the user. The predicate receives an item instance and should return `true` if a user may change the selection state of that item, or `false` otherwise.
+|设置一个判断，用于检查表格中的特定项是否可由用户选择或取消选择。该方法接收一个条目实例，如果用户可以更改该条目的选择状态则返回 `true`，否则返回 `false`。
 |[[partNameGenerator]]partNameGenerator
-|Generates parts of CSS class names for cells based on given conditions. This allows for customizing cell appearance based on the data displayed.
+|根据给定条件为单元格生成 CSS 类名的 parts。支持根据所显示的数据自定义单元格外观。
 |[[tooltipGenerator]]tooltipGenerator
-|Generates tooltip for the column cell based on given conditions. See https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[live demo^].
+|根据给定条件为列单元格生成 tooltip。参考 https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[在线演示^]。
 |===
 
-== Elements
+== XML 内部元素
 
 [TIP]
 ====
-To add an element to a selected component click the xref:studio:screen-designer.adoc#add-column[Add] button in the *Jmix UI* inspector panel.
+如需为选中的元素添加内部元素，点击 *Jmix UI* 属性面板中的 xref:studio:screen-designer.adoc#add-column[Add] 按钮。
 ====
 
 [[groupBy]]
 === groupBy
 
-The `groupBy` element contains one or more <<columnRef,columnRef>> elements specifying which columns to group by.
+`groupBy` 元素包含一个或多个 <<columnRef,columnRef>> 元素，指定哪些列用于分组。
 
 [[columnRef]]
 === columnRef
 
-The `columnRef` element identifies a column to use for grouping.
+`columnRef` 元素定义用作分组的列。
 
 [[columns]]
 === columns
 
-The `columns` element contains individual `column` elements and defines a set of attributes shared by those columns.
+`columns` 元素包含 `column` 元素，并且定义这些列的共享属性。
 
 [[column]]
 === column
 
-The `column` element declares an individual column. Attributes set for an individual `column` override those set for `columns`.
+`column` 元素声明单独的一列。为单独的列设置属性会覆盖 `columns` 上的设置。
 
 [[groupColumn]]
 === groupColumn
 
-The `groupColumn` element declares the column used for grouping and its relative position among other columns. The `key` attribute is required.
+`groupColumn` 元素声明用于分组的列，以及该列相对于其他列的位置。`key` 属性为必需。

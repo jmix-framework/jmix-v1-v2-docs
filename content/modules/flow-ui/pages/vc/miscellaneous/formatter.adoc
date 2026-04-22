@@ -3,7 +3,7 @@
 
 `Formatter - 格式化器` 用于将某些值转换成字符串类型展示。
 
-NOTE: Formatter 仅能用于非编辑组件，比如 xref:vc/components/valuePicker.adoc[valuePicker]、xref:vc/components/multiValuePicker.adoc[multiValuePicker] 以及 xref:vc/components/entityPicker.adoc[entityPicker]。对于可编辑的组件值，比如 xref:vc/components/textField.adoc[textField] 应该用 xref:data-model:data-types.adoc[Datatype] 机制来格式化。
+NOTE: Formatter 仅能用于非编辑组件，比如 xref:vc/components/valuePicker.adoc[valuePicker]、xref:vc/components/multiValuePicker.adoc[multiValuePicker] 以及 xref:vc/components/entityPicker.adoc[entityPicker]。对于可编辑的组件值，比如 xref:vc/components/textField.adoc[textField] 应该用 xref:data-model:datatype.adoc[Datatype] 机制来格式化。
 
 框架包含了一组格式化器实现，可以直接在项目中使用。
 

@@ -1,52 +1,39 @@
 = 流程定义
 
-这个管理视图包含已部署的流程（或流程定义）列表，
-可以在建模器打开流程、查看流程详情、上传 BPMN XML 或启动新的流程实例。
+*Process Definitions（流程定义）* 页面展示可用的流程定义列表。
 
 image::bpm-menu-views/process-definitions-list.png[,800]
 
-可以点击 *启动流程（Start process）* 按钮为所选的流程定义启动一个新的流程实例。
-如果流程有启动表单，则会在新实例启动之前显示。
+选择一个定义后，可以执行下列操作：
 
-image::bpm-menu-views/start-process-from-definitions.png[,800]
+* 打开 xref:bpm:menu-views/modeler-web.adoc[] 视图进行建模。
+* 导航至 <<process_definition_details,流程定义详情>> 视图以查看定义的详细描述。
+* 启动一个新的流程实例。
+* 上传 BPMN XML 流程文件。
 
-点击 *查看详情（View details（）* 按钮打开 *流程定义编辑器（Process definition editor）*，用于展示流程定义的属性、
-BPMN XML 以及当前选中流程定义版本的活跃流程实例。
+[[process_definition_details]]
+== 流程定义详情
+
+点击 *View details* 打开 *Process Definition Details（流程定义详情）* 视图，其中会展示流程定义的属性、BPMN XML 文件以及所有激活的流程实例。
 
 image::bpm-menu-views/process-deinition-details.png[,800]
 
-在详情视图中，可以挂起流程定义。
-如果流程定义挂起，则用户不能启动该流程，除非再次激活。
-在挂起流程定义的对话框中，还可以选择挂起此时正在运行的流程实例。
-那样的话，挂起实例的用户任务将不会在 xref:menu-views/my-tasks.adoc[我的] 视图展示，
-所有计时器和作业也都不会执行：
+* 使用 *Version* 字段可在流程定义的不同版本间切换。
 
+* 点击 *Suspend* 可挂起选中的流程定义。这个操作将防止基于该定义启动新的流程实例。随后会弹出一个带复选框的对话框，用于确认是否同时挂起该流程的所有已激活实例。被挂起实例的任务将不会出现在 xref:menu-views/my-tasks.adoc[我的任务] 中，且所有定时器和作业都会停止。
++
 image::bpm-menu-views/process-definition-suspend.png[,800]
-
-还可以激活已经挂起的流程定义。
-同时还能激活所有挂起的流程实例：
-
++
+* 点击 *Activate* 可恢复先前被挂起的流程定义。勾选复选框可恢复流程实例的执行。
++
 image::bpm-menu-views/process-definition-activate.png[,800]
-
-这里还可以发起
-xref:bpm:instance-migration.adoc[]：
-
++
+* 点击 *Migrate all process instances（迁移所有流程实例）* 可启动 xref:bpm:instance-migration.adoc[流程实例迁移]。
++
 image::bpm-menu-views/process-definition-migrate-all.png[]
-
-要查找所需的流程定义，可以按流程名称和键值使用搜索过滤器。
-输入搜索要搜索的内容，然后单击 *应用（Apply）* 按钮。
-要查看流程定义的所有版本，反选 *仅显示最新版本（Last versions only）* 复选框即可。
-
-[NOTE]
-====
-在流程模型中，_Key_ 是 _Process id_。
-====
-
-image::bpm-menu-views/process-definitions-filter.png[]
-
-只能删除特定版本的流程定义。
-打开详情视图，点击 *删除部署（Delete deployment）* 按钮。
-
++
+* 如有必要，可以删除特定版本的流程定义。操作方法是：选中该版本，然后点击 *Delete deployment* 按钮。
++
 image::bpm-menu-views/process-definitions-delete.png[]
 
 [IMPORTANT]

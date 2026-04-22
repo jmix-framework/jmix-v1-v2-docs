@@ -19,7 +19,7 @@ Kanban 任务卡片可以显示 `KanbanTask` 实体的特定字段。下列是�
 * `priority` - 字符串或枚举类型。
 * `progress` - 整数类型。
 * `swimlane` - 字符串或枚举类型。
-* `tags` - 字符串类型。值必须是逗号间隔的标签，不能带空白字符。
+* `tags` - 字符串类型。值必须是逗号间隔的标签，不能带空白。
 * `userAvatar` - `FileRef` 或字节数组（byte array）类型。
 * `username` - 字符串类型。
 

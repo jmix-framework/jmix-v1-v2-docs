@@ -1,14 +1,11 @@
 = 决策表
 
-这个管理员视图包含部署的决策表，并支持通过建模器打开、
-查看详情或上传 XML 格式的决策表文件。
+*Decision Tables（决策表）* 视图显示已部署决策表的列表，支持在建模器中打开、查看详细信息或从 XML 文件上传。
 
-列表默认为空。点击 *应用（Apply）* 按钮查看所有决策表或设置过滤器。
-如需查看决策表的所有版本，反选 *仅显示最新版本（Last versions only）* 即可。
+NOTE: 默认情况下，列表是空的。点击 *Apply* 加载所有数据。要查看特定决策表，设置筛选条件后再次点击 *Apply*。
 
 image::bpm-menu-views/decision-tables.png[,800]
 
-在 *决策编辑器（Decision editor）* 视图中，可以查看 XML 格式的决策表。
-并且可以删除已部署的决策表。
+打开 *Decision editor* 视图后，可以检查决策表的 XML 定义。同时，也可以移除部署。
 
 image::bpm-menu-views/decision-table-detail.png[,800]

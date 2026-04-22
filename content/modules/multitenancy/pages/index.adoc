@@ -28,6 +28,8 @@ CAUTION: xref:rest:index.adoc[] 扩展组件不能支持多租户。目前还无
 include::example$/multitenancy-ex1/build.gradle[tags=dependency]
 ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[how-it-works]]
 == 原理
 
@@ -37,16 +39,21 @@ CAUTION: 原生 SQL 不会自动过滤，因此租户用户不应该有权限访
 
 在项目中，`User` 实体必须包含 tenant-id 属性。所有租户用户的这个属性都需要设置为一个特定的值。属性值为空的用户（不属于任何租户）可以看到所有租户的数据，__全局管理员__ 可以这样设置，方便配置所有租户和维护整个系统。
 
-Jmix 模块中的下列实体具有 `sysTenantId` 属性，支持多租户：
+== 支持多租户的扩展组件和模块
 
-* `EntityLogItem`
-* `SendingMessage`
-* `SendingAttachment`
-* `Report`
-* `ReportGroup`
-* `ResourceRoleEntity`
-* `RowLevelRoleEntity`
-* `FilterConfiguration`
+以下扩展组件和模块在使用多租户时会正确存储租户信息并保证租户隔离。每个扩展组件旁边列出了包含 `sysTenantId` 属性的具体实体。
+
+* xref:audit:index.adoc[]: `EntityLogItem`。
+* xref:bpm:index.adoc[]: `ContentStorage`、`UserGroup`、`UserGroupRole`、`UserGroupUser`。
+* xref:email:index.adoc[]: `SendingMessage`、`SendingAttachment`。
+* xref:reports:index.adoc[]: `Report`、`ReportGroup`。
+* xref:security:index.adoc[安全子系统]（框架中内置）: `ResourceRoleEntity`、`RowLevelRoleEntity`。
+* 过滤器配置（框架中内置）: `FilterConfiguration`。
+
+评估自定义和社区扩展组件是否支持：
+
+* 查看扩展组件的文档中是否有提及 `sysTenantId` 或 `@TenantId`。
+* 检查其实体是否包含租户字段以及该字段的使用方式。
 
 [[managing-tenants]]
 == 租户管理
@@ -76,6 +83,13 @@ image::tenants-view.png[align="center", width="1070"]
 . 用户可以提供完整的用户名，包括 tenant-id，例如 `t1|alice`。
 
 NOTE: 除上述方法之外，还可以实现自定义的唯一用户名结构。
+
+[CAUTION]
+====
+*替代用户*
+
+某个租户中的用户只能被同一租户中的其他用户 xref:security:users.adoc#user-substitution[替代]。
+====
 
 [[configuring-users]]
 == 用户配置
@@ -116,6 +130,7 @@ include::example$/multitenancy-ex1/src/main/java/com/company/demo/view/user/User
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/view/login/LoginView.java[tags=tenant]
 ----
+<1> 使用 `com.vaadin.flow.router.Location` 对象处理当前 URL。
 
 [[configuring-security]]
 == 安全配置
@@ -126,3 +141,25 @@ include::example$/multitenancy-ex1/src/main/java/com/company/demo/view/login/Log
 ----
 include::example$/multitenancy-ex1/src/main/java/com/company/demo/security/UsersRole.java[tags=mt-1]
 ----
+
+[[role-assignment]]
+=== 角色分配
+
+角色分配限制在同一租户内的用户之间。
+
+在管理界面中分配角色时，系统按如下方式强制实施租户隔离：
+
+. 在 *Application → Users* 视图中
++
+使用 *Application → Users* 中的 *Role assignment* 按钮时：
+
+* 仅显示与所选用户属于同一租户的角色。
+* 其他租户的角色会被自动过滤并隐藏。
+
+. 在 *Security → Resource Roles* / *Security → Row-level Roles* 视图中
++
+使用 *Security → Resource roles* 或 *Security → Row-level roles* 中的 *Assign to users* 按钮时：
+
+* 选择对话框中会显示所有租户的用户。
+* 但是，如果选择了来自不同租户的用户，系统会组织确认选择。
+* 当尝试跨租户分配角色时，会显示警告通知。

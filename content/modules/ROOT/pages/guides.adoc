@@ -38,6 +38,10 @@
 |中级
 |使用 Java 日志工具监控和了解正在运行的应用程序行为。
 
+|xref:reports-guide:index.adoc[]
+|中级
+|使用 Jmix 报表扩展组件创建报表的实际案例。
+
 |xref:social-login-guide:index.adoc[]
 |高级
 |使用 Google 和 GitHub 实现第三方登录。

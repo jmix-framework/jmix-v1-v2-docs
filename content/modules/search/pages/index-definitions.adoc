@@ -16,7 +16,8 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDe
 ----
 
 [[interface-annotation]]
-=== `@JmixEntitySearchIndex`
+=== @JmixEntitySearchIndex
+
 属性：
 
 * `entity` - 必需属性。指定该索引定义关联的实体类。
@@ -261,7 +262,78 @@ include::example$/search-ex1/src/main/java/com/company/demo/service/CustomerInde
 <5> 需要用 `FieldMappingStrategy` 的实现类做属性映射。映射策略也可以定义为类的实例，需要用 `withFieldMappingStrategy()` 方法设置，参数为映射策略的实例。
 <6> 显式指定属性值解析器。例如，`FilePropertyValueExtractor` 可用于处理 `FileRef` 类型的属性。
 
+还有一个方式是用文本配置属性映射，示例：
+
+[source,java,indent=0]
+----
+include::example$/search-ex1/src/main/java/com/company/demo/service/CustomerIndexDefinition.java[tags=text-config]
+----
+<1> 排除两个特定属性：`firstName` 和 `lastName`。将由后续元素单独处理以进行微调。
+<2> 仅用于 `firstName` 字段。
+<3> 首先使用自动映射策略（获得最基本的映射）。
+<4> 用包含原生配置的字符串 json 对象定义字段配置。将覆盖和扩展策略生成的配置：
+* `"type": "text"` — 显式指定文本类型。
+* `"analyzer": "standard"` — 使用标准 Elasticsearch 分析器进行分词。
+* `"boost": 2` — 为 firstName 字段赋予双倍权重。名称匹配的文档将在结果中排名更高。
+<5> 完全定义映射，绕过所有策略。该字段将使用 `"english"` 分析器（专用于英语）作为文本进行索引。
+<6> 直接指定配置（`withFieldConfiguration`）时的必填参数。指定使用哪个组件从 `Customer` 实体中提取该属性的值。没有提取器，引擎将不知道如何获得数据。
+<7> 为此映射元素设置顺序。如果元素相互冲突，就必须设置顺序。
+
 NOTE: 只能有一个编程式映射的方法。如果存在此方法，则会忽略所有的映射注解。
+
+[[FieldMappingStrategy]]
+=== FieldMappingStrategy
+
+`io.jmix.search.index.mapping.strategy.FieldMappingStrategy` - 映射策略的基础接口。
+
+定义实体属性如何转换为搜索索引字段。每个策略决定：
+
+* 支持哪些属性类型（`isSupported()` 方法）。
+* 如何为搜索引擎生成字段配置。
+* 使用哪种值提取方法。
+* 当多个策略适用时的执行顺序。
+
+[[PropertyValueExtractor]]
+=== PropertyValueExtractor
+
+`io.jmix.search.index.mapping.propertyvalue.PropertyValueExtractor` - 一个函数式接口，负责在索引期间从实体实例中提取属性值。将实体属性数据转换为可由搜索引擎索引的 JSON 格式。当需要超出标准属性映射的特殊值提取逻辑时，请使用自定义实现。
+
+[[extended-search]]
+== 扩展搜索能力
+
+[[extended-search-annotation]]
+=== @ExtendedSearch 注解
+
+可选的 `@ExtendedSearch` 注解可以用于索引定义接口，以启用基于前缀的搜索功能。
+
+默认情况下，搜索引擎中的 `Starts with` 查询在使用通配符或正则表达式时可能会消耗大量资源。`@ExtendedSearch` 注解通过预索引单词前缀提供了一种高性能的替代方案。
+
+当存在此注解时，系统会为索引中定义的每个“真实”字段创建额外的“虚拟”子字段。这些子字段存储专用分析器生成的前缀词。
+
+工作原理：
+
+底层机制涉及用于虚拟子字段的特定分析链（过滤器和分析器）：
+
+* *前缀生成*：对于索引文本中的每个单词，分析器会生成一组从最小长度到最大长度的前缀。
+* *存储*：这些前缀存储在子字段中。
+* *搜索*：当用户执行搜索时，系统会根据这些预索引的前缀进行匹配，而不是执行实时的通配符计算。
+
+前缀生成的粒度通过 xref:search-properties.adoc#jmix.search.minPrefixLength[jmix.search.min-prefix-length] 和 xref:search-properties.adoc#jmix.search.maxPrefixLength[jmix.search.max-prefix-length] 应用程序属性进行控制。
+
+属性：
+
+* `enabled` - 全局启用/禁用扩展搜索功能。默认设置为 `true`。
+
+* `tokenizer` - 前缀分析器中使用的分词器。默认值为 `whitespace`。
+
+* `additionalFilters` - 除了标准的 `lowercase` 和 `edge N-gram` 之外的额外分析过滤器。默认值：`none`。
+
+示例：
+
+[source,java,indent=0]
+----
+include::example$/search-ex1/src/main/java/com/company/demo/service/OrderIndexDefinition.java[tags=extended-search;index-definition]
+----
 
 [[indexable-predicate]]
 == 可索引谓词

@@ -16,299 +16,342 @@ IntelliJ IDEA 的最低版本要求是 {minimal-idea-version}。
 
 * 升级 Jmix BOM 的版本，BOM 又定义了所有依赖的版本。
 * 升级 Jmix Gradle 插件的版本。
-* 如果项目视图中的 `editorActionsColumn` 按钮没有设置值，则为其添加默认值。参阅 <<editor-actions-column-buttons,以下内容>>。
-* 项目视图中如果用到 `settings.component` 元素的 `id`，则改为使用 `componentId`。参阅 <<settings-component-id,以下内容>>。
-* 为 xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] 应用程序属性添加 `html,htm`。参阅 <<downloading-html-content,以下内容>>。
-
+* 升级 Gradle wrapper 至 8.14.4
 
 请参考破坏性改动的 <<breaking-changes,完整列表>>，并在升级后做相应修复。
-
-[[updated-dependencies]]
-== 依赖更新
-
-下列主要依赖库更新：
-
-* Spring Boot https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.5-Release-Notes[3.5^]。
-
-* Vaadin https://github.com/vaadin/platform/releases/tag/24.7.0[24.7^]。
 
 [[new-features]]
 == 新功能和改进
 
-[[studio]]
+[[studio-improvements]]
 === Studio 改进
 
-[[jmix-ai]]
-==== Jmix AI 助手
+[[additional-message-bundles]]
+==== 附加消息包
 
-Jmix AI 助手现在可以通过 Studio 工具窗口访问。
-默认出现在 IDE 右侧的工具栏中，点击 image:jmix_ai_big.svg[] 图标可以打开。
+如果在项目中定义了 xref:localization:message-bundles.adoc#additional-bundles[附加消息包]，Studio 现在支持在 *Localized Message* 对话框中编辑消息时选择需要标记的包。
 
-Studio 中 Jmix AI 助手与 web 版共享聊天会话记录列表，可以无缝切换。
+[[env-files]]
+==== .env 文件中的环境变量
 
-[[new-code-snippets]]
-==== 新的代码片段
+Studio 现在支持使用 `.env` 文件将配置外部化。可以将特定环境的变量与 `application.properties` 分开存储，并使用像 `++${DB_URL}++` 这样的占位符来使用。
 
-增加了超过 20 个新的关于 UI 的代码片段，主要分这几类：通知和弹窗，打开视图和 fragment，异步执行，以及 API 示例。
+详见 xref:studio:external-config-with-env.adoc[] 章节。
 
-[[moving-views]]
-==== 视图的移动
+[[ignoring-foreign-key-constraint]]
+==== 忽略外键约束
 
-现在可以通过 Jmix 工具窗口右键菜单的 *Move View* 功能轻松移动视图至别的包内。Studio 会帮助移动 Java 控制器、视图 XML 并在消息包中更新相关的消息键值。
+Studio 现在在为关联属性生成 changelog 时会遵循 JPA 的约束模式。如果在 `@JoinColumn` 中设置了 `ConstraintMode.NO_CONSTRAINT`，则生成的 changelog 不会包含外键约束。详见 xref:data-model:db-migration.adoc#ignoring-foreign-key-constraint[忽略外键约束]。
 
-另外，如果在项目工具窗口使用 IDE 的通用功能移动 Java 控制器或视图 XML，Studio 还能提醒自动同时移动对应的 XML 或 Java 控制器并更新消息键值。
+[[saml-add-on]]
+=== SAML 扩展组件
 
-[[scaffolding-renderers]]
-==== 创建渲染器
+Jmix SAML 扩展组件支持在 Jmix 应用程序中使用 SAML 2.0 认证。使用该扩展组件，Jmix 应用程序可以作为服务提供商（SP），并依赖外部身份提供商（IdP）（例如 Keycloak、Okta、Microsoft Entra ID 等）进行用户认证。
 
-当使用 Studio 为 UI 组件生成 xref:flow-ui:vc/miscellaneous/renderers.adoc[渲染器] 时，例如，为 `dataGrid` 生成列渲染器，Studio 会提供一个创建向导，可以创建 `ComponentRenderer`、`TextRenderer` 或一个空的处理方法。
+安装和配置详情请参考 xref:saml:index.adoc[SAML 扩展组件] 章节。
 
-[[replacing-strings-with-localized-messages]]
-==== 用本地化消息替换字符串常量
+[[business-calendar-day-marks]]
+=== 工作日历中的日期标记
 
-新的便捷操作 *Replace with localized message* 支持将字符串文字快速替换为消息包中的本地化消息。适用于 Java 和 XML 代码。
+之前，xref:business-calendar:index.adoc[] 扩展组件仅支持为假期添加描述。现在可以为任何日历条目添加 *标记*。对日期进行分类更加便捷，比如标记某个日期可能有不同工作小时的原因。新增的 API 方法可用于查询特定日期的信息，包括为其分配的标记。
 
-将光标放在字符串文字上并按 `Alt+Enter` 即可访问此操作。
+详见 xref:business-calendar:creating.adoc[]。
 
-[[lombok]]
-==== Lombok 支持
+[[bpm-process-drafts]]
+=== 流程草稿视图
 
-Studio 现在可以识别实体中的 `@Getter` 和 `@Setter` 注解以及 Spring bean 中的 `@RequiredArgConstructor` 注解。如果存在这些注解，Studio 在添加实体属性或 bean 依赖时，不会生成显式的代码了。
+xref:bpm:index.adoc[] 扩展组件现在提供了一个专用视图来浏览和预览流程草稿。以前，草稿只能通过 xref:bpm:menu-views/modeler-web.adoc[] 视图中的对话框访问，并且无法预览。
 
-还有，如果实体带了 `@EqualsAndHashCode` 或 `@Data` 注解，Studio 还会显示警告（参阅 xref:data-model:entities.adoc[]）。
+image:bpm:bpm-menu-views/process-drafts-view.png[width=1392]
 
-[[performance-on-large-projects]]
-==== 大项目的性能
+详见 xref:bpm:menu-views/process-drafts.adoc[]。
 
-Studio 处理大项目的性能得到了显著的提升。即使项目中具有超过 1000 个实体，Jmix 工具窗口的项目树和资源角色设计器现在也非常快。
+[[highlighting-executed-path-in-process-instance-diagrams]]
+=== 流程实例图中高亮显示已执行路径
 
-[[switch-component]]
-=== 开关组件
+xref:bpm:index.adoc[] 扩展组件增强了流程实例图，已完成的节点现在高亮为绿色，更容易辨别已执行的路径。
 
-增加了新的 xref:flow-ui:vc/components/switch.adoc[] 组件，支持用户在两种状态之间切换（例如，on/off 或 true/false）。UI 上模仿带有滑动手柄的物理拨动开关。
+image:bpm:bpm-menu-views/process-instance-diagram.png[width=1260]
 
-[[tabbed-application-mode]]
-=== 多标签页应用程序模式的改进
+该图可在 xref:bpm:menu-views/process-instances.adoc[] 视图中查看。
 
-xref:tabbed-mode:index.adoc[] 组件已经改进完成，可用于生产环境。
+[[dynamic-attributes-process-forms]]
+=== 流程表单中的动态属性
 
-* 主视图的布局中显式声明了 `mainTabSheet` 组件。该组件能包含通过标签页右键菜单或快捷键调用的操作。
-* 支持标签页的拖拽。
-* `@TabbedModeViewProperties` 注解可以定义视图在标签页打开的参数。
-* 网页刷新时能保留 UI 的状态。
-* 网页刷新是能触发 `UIRefreshEvent` 事件。
+在 BPM 扩展组件中，现在可以基于 Jmix 视图在流程表单中加载和显示动态属性。可以使用 `@ProcessVariableParam` 注解启用此功能。详见 xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[加载动态属性]。
 
-NOTE: 多标签模式扩展组件的最终版需要使用企业版授权安装。
+[[data-model-visualization]]
+=== 数据模型可视化
 
-[[autocompletion-in-codeeditor]]
-=== CodeEditor 中的自动完成
+xref:data-tools:index.adoc[] 扩展组件现在包含一个 xref:data-tools:data-model.adoc[] 视图，可以在应用程序运行时展示实体及其属性。此外，该视图还支持使用公共或自托管的 PlantUML 服务器创建数据模型图（针对所有实体或选定的子集）。
 
-`codeEditor` 组件可以为特定的语言提供自动完成功能，也可以使用自定义的自动完成建议提供方法。
+[[element-collections]]
+=== 对元素集合的支持
 
-参阅 xref:flow-ui:vc/components/codeEditor.adoc#suggestion[codeEditor：自动完成] 了解更多。
+Jmix 数据模型现在支持基本类型、`FileRef` 对象或自定义类型的集合。在 JPA 实体中，这些集合属性使用 `@ElementCollection` 进行注解，并存储在单独的数据库表中。
 
-[[hbox-slot-placement]]
-=== HorizontalLayout 插槽
+有关如何定义元素集合，请参阅 xref:data-model:entities.adoc#element-collections[实体] 章节；有关如何在查询中使用，请参阅 xref:data-access:data-manager.adoc#element-collections[使用 DataManager]。
 
-现在 `hbox` 布局组件支持在不同的对齐插槽（`start`、`center`、`end`）内放置组件了。为在 `hbox` 中对组件分组提供了更多的灵活性，提高了对组件位置的控制。
+默认情况下，元素集合属性是 xref:data-access:fetching.adoc#lazy-loading[延迟加载] 的，并且可以在需要时包含在 fetch plan 中。
 
-参阅 xref:flow-ui:vc/layouts/hbox.adoc#horizontal-alignment[hbox：水平对齐] 了解更多。
+元素集合属性可用于 xref:flow-ui:vc/components/genericFilter.adoc[] 组件条件中，并且可以绑定为 xref:flow-ui:vc/components/multiValuePicker.adoc[]、xref:flow-ui:vc/components/multiSelectComboBox.adoc[] 和 xref:flow-ui:vc/components/multiSelectComboBoxPicker.adoc[] 组件的值。
 
-[[header-footer-dialogwindow]]
-=== 自定义 DialogWindow 的 header 和 footer
+如需在 Studio 中创建元素集合属性，在 *New Attribute* 对话框的 *Attribute type* 下拉菜单中选择 `ELEMENT_COLLECTION`。
 
-新增了两个回调方法，可以自定义对话框窗口的 header 和 footer：
+另请参考 https://github.com/jmix-framework/jmix/issues/1271[GitHub #1271^]
 
-* `configureDialogWindowHeader()`：在视图中重写该方法修改对话框的 header。
-* `configureDialogWindowFooter()`：在视图中重写该方法修改对话框的 footer。
+[[facets-in-fragments]]
+=== Fragments 中的 Facets
 
-参阅 xref:flow-ui:views/view-methods.adoc#methods-of-all-views[视图：所有方法] 了解更多。
+Fragments 现在支持 facets。请参阅 xref:flow-ui:fragments/facets-in-fragment.adoc[] 以及下面相关破坏性改动的信息：
 
-[[save-without-reload]]
-=== DataManager.saveWithoutReload 方法
+* <<facet-registration>>
+* <<facet-api-changes>>
 
-当不需要立即使用保存后的实体时，新的 `DataManager.saveWithoutReload()` 可以提供更好的性能。这个方法可以替代之前复杂的 `save(new SaveContext().saving(entities).setDiscardSaved(true))` 调用。
+[[side-panel-layout]]
+=== 侧边栏布局
 
-参阅 xref:data-access:data-manager.adoc#save[使用 DataManager：保存实体] 了解更多。
+新的 `sidePanelLayout` 组件提供了一种声明式的方式来构建带有可折叠侧边栏的布局。允许显示上下文内容或操作，而无需离开当前视图。
 
-[[export-import-of-message-templates]]
-=== 消息模板导入导出
+image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
 
-在 xref:message-templates:index.adoc[] 扩展组件中，通过 *Export* 和 *Import* 操作可以在不同的应用程序直接交换模板。
+侧边栏可以从不同侧打开，并且可以覆盖主要内容或将其推开。有关详细信息和用法示例，请参阅 xref:flow-ui:vc/layouts/sidePanelLayout.adoc[]。
 
-[[refreshing-data-in-calendars]]
-=== 日历中刷新数据
+[[side-dialogs]]
+=== 侧边对话框
 
-在 xref:calendar:index.adoc[] 扩展组件中，使用 `FullCalendar` 组件的新 `refetchDataProvider()` 方法刷新回调数据 provider。
+`Dialogs` API 引入了侧边对话框 —— 一种与 <<side-panel-layout,sidePanelLayout>> 类似的 UI 模式，但通过编程方式实现。`SideDialog` 会创建一个附着在屏幕侧边的覆盖层。
 
-[[logout-in-authorization-server]]
-=== 认证服务的登出
+image:flow-ui:dialogs/side-dialog.png[width=1155]
 
-xref:authorization-server:index.adoc[] 扩展组件在导航至 `/logout` URL 时，会执行标准的登出操作（使 HTTP 会话失效、清除安全上下文、删除会话 cookie）。
+可以用于不需要直接嵌入视图布局中的临时交互。有关详细信息和用法示例，请参阅 xref:flow-ui:dialogs.adoc#side-dialog[SideDialog]。
 
-此外，引入了 xref:authorization-server:configuration.adoc#jmix.authserver.post-logout-url-redirect-parameter-name[jmix.authserver.post-logout-url-redirect-parameter-name] 和 xref:authorization-server:configuration.adoc#jmix.authserver.use-referer-post-logout[jmix.authserver.use-referer-post-logout] 应用程序属性。
+[[custom-icons-in-components]]
+=== 组件中对自定义图标的支持
 
-[[rest-data-store]]
-=== REST 数据存储改进
+多个组件现在通过内部元素支持自定义图标。这些元素表示组件中的特定图标槽位 — 例如 `<icon>`、`<uploadIcon>` 或 `<dropdownIcon>`，并支持开发者提供自己的图标。支持 SVG、字体图标或图片的形式。
 
-[[rest-data-store-remote-service-interfaces]]
-==== @RemoteService 接口
+示例：
 
-REST 数据存储扩展组件现在提供了一种调用远程开放的服务 REST API 的简单方法。在客户端，只需要创建一个镜像服务方法的接口，并用 `@RemoteService` 注解即可。
+[source,xml,indent=0]
+----
+<button text="Download">
+    <icon>
+        <fontIcon fontFamily="lumo-icons" charCode="ea17"/>
+    </icon>
+</button>
+----
 
-参阅 xref:rest-ds:index.adoc#remote-service-interfaces[REST 数据存储：@RemoteService 接口] 了解更多。
+支持的组件有：`action`、`button`、`dropdownButton`、`comboButton`、`drawerToggle`、`fileUploadField`、`fileStorageUploadField`、`upload`、`notificationsIndicator`、`webdavDocumentUpload`、`menu.xml`（`<menu>` 和 `<item>` 都支持 `<icon>`）。
 
-[[rest-data-store-oidc-authentication]]
-==== OIDC 认证
+详见 xref:flow-ui:icons.adoc[]。
 
-REST 数据存储扩展组件现在包含了 `restds_RestOidcAuthenticator` bean，支持在集成应用程序时使用外部认证供应商（例如 Keycloak）。
+[[override-default-icons]]
+=== 覆盖默认图标
 
-参阅 xref:rest-ds:index.adoc#external-authentication[REST 数据存储：外部认证] 了解更多。
+现在可以覆盖应用程序中的默认图标。新的 `JmixFontIcon` 枚举将 Vaadin、Lumo（Vaadin 中不存在的图标）和 Jmix 特定的图标合并为一个统一的集合。`Icons` bean 提供了一种中心化的方式来创建图标 UI 组件。通过重新定义 CSS 变量或替换图标字体来更改图标。
 
-[[turning-off-lazy-loading]]
-=== 关闭延迟加载
+详见 xref:flow-ui:icons/override-icons.adoc[]。
 
-新增的 xref:data-access:data-properties.adoc#jmix.eclipselink.disable-lazy-loading[jmix.eclipselink.disable-lazy-loading] 应用程序属性可以为整个应用程序关闭延迟加载。
+[[tracing]]
+=== 追踪
 
-注意，这个是试验性功能。在将来的发行版中才能最终确认或放弃。如果使用过程中遇到问题，请提交 https://github.com/jmix-framework/jmix/issues[GitHub issue^]。
+Jmix 现在使用 Micrometer Observation API 为框架操作创建跨度（span），例如数据访问、UI 视图和 fragment 生命周期、UI 操作。Jmix 还可以使用当前用户和租户的上下文来丰富观测数据。
 
-[[data-tools-security]]
-=== 数据工具的安全性
+详见 xref:features:observability.adoc#tracing[可观测性：追踪]。
 
-数据工具扩展组件现在包含了以下安全角色和策略：
+[[h2-database]]
+=== 支持 H2 数据库（实验性）
 
-新角色：
+添加了对 H2 数据库的实验性支持。现在可以在数据存储属性编辑器的 *Database type* 下拉菜单中选择 *H2 File* 或 *H2 Server*。
 
-* `datatools-full-access` - 授予数据工具的所有权限。
-* `datatools-minimal-access` - 授予数据工具的只读权限。
+添加 `spring.h2.console.enabled=true` 应用程序属性，在开发环境中启用基于 Web 的数据库控制台。该控制台通过 `++http://localhost:8080/h2-console++` 访问。
 
-新策略：
+[[custom-update-services]]
+=== 自定义更新服务（实验性）
 
-* `datatools.importExportEntity` - 控制数据工具中导入、导出功能的访问。
+xref:rest:index.adoc[通用 REST API]、xref:data-tools:entity-inspector.adoc[实体探查] 和 xref:bpm:bpmn/jmix-entity-data-task.adoc[BPM 实体数据任务] 现在可以将保存和删除操作委托给自定义的服务，而不是直接调用 `DataManager`。即，支持将实体更新逻辑放在一个服务中，并能从框架的通用功能中调用。以前，必须使用 xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] 监听器。
 
-参阅 xref:data-tools:security-roles.adoc[数据工具：安全角色] 了解更多。
+自定义服务应实现以下接口，以便被框架调用：
 
-[[masquerade]]
-=== Masquerade UI 测试库
+[source,java]
+----
+public interface SaveDelegate<E> {
 
-Masquerade 基于 Selenium WebDriver 和 Selenide 等知名工具，是一个专为 Jmix 应用程序设计的端到端 UI 测试库。Masquerade 通过提供方便的包装器和简化对 Web 元素关键功能的访问，简化了 Jmix UI 所有元素的测试。
+    /**
+     * Called by generic framework mechanisms instead of {@code DataManager} when saving entities of type {@code E}.
+     *
+     * @param entity entity to save
+     * @param saveContext the whole save context
+     * @return saved entity
+     */
+    E save(E entity, SaveContext saveContext);
+}
 
-参阅 xref:testing:masquerade.adoc[] 了解更多。
+public interface RemoveDelegate<E> {
+    /**
+     * Called by generic framework mechanisms instead of {@code DataManager} when removing entities of type {@code E}.
+     *
+     * @param entity entity to remove
+     */
+    void remove(E entity);
+}
+----
 
 [[breaking-changes]]
 == 破坏性改动
 
-[[node-20]]
-=== Node.js v.20
+[[facet-registration]]
+=== Facet 注册和加载机制
 
-Vaadin 24.7 要求 Node.js 20+。如果使用的是本地安装的 Node，请按需升级。
+`FacetProvider` 机制（用于 facet 注册）现已弃用，并将在未来版本中移除。出于向后兼容性考虑，使用 `FacetProvider` 注册的现有自定义 facet 仍然可以继续工作。但是，强烈建议迁移到新的 `FacetRegistrationBuilder` API。参见 xref:flow-ui:facets.adoc#custom[自定义 Facet]。
 
-[[editor-actions-column-buttons]]
-=== 删除了 editorActionsColumn 按钮的默认值
+破坏性改动影响了标准 Jmix facet 的覆盖机制。如果之前使用旧机制覆盖了框架 facet，这些覆盖在升级后将不再有效。此类自定义实现必须使用新 API 重新定义：
 
-在之前的版本中，xref:flow-ui:vc/components/dataGrid.adoc#actions-column[editorActionsColumn] 内的按钮的某些属性具有默认值。具体来说，所有的按钮都分配了 `icon`，而 `editButton` 和 `cancelButton` 按钮有 `text` 属性值。
+[source,java,indent=0]
+----
+  @Configuration
+  public class FacetConfiguration {
 
-这个行为其实是不一致的，而且在应用程序项目中无法删除图标或文本。
+      @Bean
+      public FacetRegistration extTimerFacet() {
+          return FacetRegistrationBuilder.create(MyOverridenFacet.class)
+                  .replaceFacet(OriginalFacet.class)
+                  .build();
+      }
+  }
+----
 
-现在这些按钮没有默认值了。
+[[facet-api-changes]]
+=== Facet API 改动
 
-Studio 自动迁移程序会扫描项目中的所有视图，为没有显式设置值的这些按钮添加之前版本的默认值。
+此版本对 facet API 进行了几项改进，以更好地支持 fragments 并提供更清晰的抽象。
 
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4493[#4493^] 了解更多。
+==== Facet Owner 类型变更
 
-[[settings-component-id]]
-=== Renamed settings.component id attribute
+`Facet.getOwner()` 和 `Facet.setOwner()` 方法已更新以支持 fragment 作为所有者：
 
-The `id` attribute of `component` element in the xref:flow-ui:facets/settings.adoc[settings] facet has been renamed to `componentId` to not confuse with the commonly used `id` attribute. For example:
+* `Facet.getOwner()` 现在返回 `<T extends Composite<?> & FacetOwner> T`（之前为 `View<?>`）
+* `Facet.setOwner()` 签名变更为 `<T extends Composite<?> & FacetOwner> void setOwner(@Nullable T owner)`（之前为 void `setOwner(@Nullable View<?> owner)`）
 
-Jmix 2.5:
+以前，facet 所有者只能是 `View`。现在，任何同时实现 `Composite<?>` 和 `FacetOwner` 的组件都可以作为 facet 所有者。这个改动使得 xref:flow-ui:fragments/facets-in-fragment.adoc[facets 能够与 fragments 一起使用]，因为 `Fragment` 同时实现了这两个接口。
+
+如果你的代码直接调用这些方法，请相应地更新类型。
+
+==== Facet 类重构
+
+具体的实现类（`*Impl`）已被抽象基类替换：
+
+* `DataLoadCoordinatorImpl` → `AbstractDataLoadCoordinator`
+* `SettingsFacetImpl` → `AbstractSettingsFacet<S extends UiComponentSettings<S>>`
+
+如果你之前直接实例化了这些类，请使用依赖注入或新的抽象类实现。
+
+==== Settings 接口参数化
+
+settings 接口现已参数化以提高类型安全性：
+
+* `SettingsFacet` -> `SettingsFacet<S extends UiComponentSettings<S>>`
+* `SettingsContext` -> `SettingsContext<S extends UiComponentSettings<S>>`
+
+如果你实现了自定义的 `SettingsFacet` 或使用了 `SettingsContext`，请添加泛型参数：
+
+[source,java,indent=0]
+----
+// Before:
+public class MySettingsFacet implements SettingsFacet
+
+// After:
+public class MySettingsFacet implements SettingsFacet<MyUiComponentSettings>
+----
+
+更多信息，请参考： https://github.com/jmix-framework/jmix/issues/4185[GitHub #4185^]。
+
+[[deprecated-get-icon-methods]]
+=== 已弃用的返回 `Icon` 的 `getIcon()` 方法
+
+此版本添加了 `Icons` bean 以支持 <<override-default-icons,覆盖默认图标>>。在解析 XML 图标属性时，该 bean 将没有集合名称的值视为字体图标并生成 `FontIcon`；包含集合名称的值则生成 `Icon`。例如：
+
+* `icon="CHECK"` 创建一个 `FontIcon` 组件，
+* `icon="vaadin:check"` 创建一个 `Icon` 组件。
+
+因此，带有返回 `Icon` 的 `getIcon()` 方法的组件已被弃用。如果你声明的图标没有集合名称，这些方法将返回 `null`。请更换为使用 `getIconComponent()` 获取实际的图标组件。
+
+[[view-routes]]
+=== 视图路由
+
+Jmix 子系统提供的所有视图的路由均已更改为 kebab-case。例如：`sec/resourcerolemodels` -> `sec/resource-role-models`。为了向后兼容，旧路由被定义为别名，因此所有保存的外部链接应该仍然有效。
+
+如果你覆盖了一个框架的视图并将 `@Route` 注解复制到你的视图类中，请将其移除。否则，该视图将无法注册，应用程序将无法启动。
+
+有关更多信息，请参见 https://github.com/jmix-framework/jmix/issues/4841[GitHub #4841^]。
+
+[[role-scopes-in-oidc-and-authorization-server]]
+=== OIDC 和授权服务中的角色作用域
+
+修复了 OpenID Connect 扩展组件中对 xref:security:resource-roles.adoc#role-scope[角色作用域] 的处理。可以使用 xref:oidc:index.adoc#jmix.oidc.filter-chain.force-ui-scope-enabled[jmix.oidc.filter-chain.force-ui-scope-enabled] 和 xref:oidc:index.adoc#jmix.oidc.filter-chain.force-api-scope-enabled[jmix.oidc.filter-chain.force-api-scope-enabled] 应用程序属性恢复到之前的行为。
+
+如果在 Jmix 2.7 中使用了 `jmix.resource-server.force-api-security-scope.enabled` 属性，请将其替换为 xref:authorization-server:configuration.adoc#jmix.authserver.filter-chain.force-api-scope-enabled[jmix.authserver.filter-chain.force-api-scope-enabled] 属性并设置为 `false`。
+
+有关更多信息，请参见 https://github.com/jmix-framework/jmix/pull/5094[GitHub #5094^]。
+
+[[mariadb-uuid]]
+=== MariaDB UUID
+
+为了与 MariaDB 和 Liquibase 的所有之前及当前版本兼容，现在对 `UUID` 属性显式使用 `char(36)`。
+
+如果你正在使用 MariaDB，请在将项目更新到 Jmix 2.8 后按照以下说明操作。
+
+. 消除已执行 changelog 的 Liquibase 校验和错误。可以使用以下两种方法之一：
+
+.. 使用 `main.liquibase.clear-checksums=true` 属性运行应用程序一次。例如，如果你的主数据存储使用 MariaDB，请执行以下命令：
++
+[source,shell]
+----
+./gradlew bootRun --args='--main.liquibase.clear-checksums=true'
+----
++
+或者，可以将 `main.liquibase.clear-checksums=true` 添加到 `application.properties` 文件中，并构建一个特殊版本的应用程序，在生产数据库上运行一次。
++
+使用此选项在数据库上运行 Liquibase 后，数据库中的校验和将被更新，并与源代码中的 changelog 兼容。
++
+不要在后续启动中使用 `main.liquibase.clear-checksums=true`。
+
+.. 可以在 changelog 文件中设置有效值，而不是清除校验和。对于每个使用了 `uuid.type` 变量的 changeset，将 `validCheckSum` 设置为 `DATABASECHANGELOG` 表的 `MD5SUM` 列中当前存在的值。例如：
++
 [source,xml]
 ----
-<facets>
-    <settings>
-        <component id="genericFilter"/>
-    </settings>
-</facets>
+<changeSet id="1" author="admin">
+    <validCheckSum>9:c2f20bd9d8765d4c2554826e5eb376a8</validCheckSum>
+    <!--...-->
+</changeSet>
 ----
 
-Jmix 2.6+:
+. 确保根 changelog（例如 `com/company/sample/liquibase/changelog.xml`）包含以下属性：
++
 [source,xml]
 ----
-<facets>
-    <settings>
-        <component componentId="genericFilter"/>
-    </settings>
-</facets>
+<property name="uuid.type" dbms="mariadb" value="char(36)"/>
 ----
 
-The Studio migration procedure scans all views in the project and automatically renames this attribute.
-
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4412[#4412^] 了解更多。
-
-[[downloading-html-content]]
-=== Downloading HTML Content
-
-To prevent potential XSS attacks, `Content-Disposition: inline` is no longer used by default when downloading HTML files. As a result, HTML files are downloaded instead of being displayed automatically in the browser.
-
-To restore the previous behavior, add `html` to the list of extensions in the xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] property. The Studio migration procedure automatically adds this extension.
-
-The Reports add-on now has its own list of extensions enabled for viewing in the browser. It is configured using the xref:reports:configuration.adoc#jmix.reports.view-file-extensions[jmix.reports.view-file-extensions] property. This property includes HTML files by default, as the HTML content generated by reports is considered safe.
-
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4364[#4364^] 了解更多。
-
-[[setting-item-to-data-containers-in-kotlin]]
-=== Kotlin 项目中为数据容器赋值
-
-在 Kotlin 项目中，直接通过代码设置数据容器的 `item` 时可能会导致编译失败。例如：
-
-[source,kotlin]
+. 确保新生成的 changelog 对 `UUID` 属性使用 `${uuid.type}` 或 `char(36)`。例如：
++
+[source,xml]
 ----
-someDc.item = entity
+<changeSet id="1" author="sample">
+    <createTable tableName="FOO">
+        <column name="ID" type="${uuid.type}">
 ----
 
-为了避免这个问题，请将赋值改为 setter 的调用：
-[source,kotlin]
-----
-someDc.setItem(entity)
-----
-
-参阅 GitHub issue https://github.com/jmix-framework/jmix/issues/4576[#4576^] 了解更多。
-
-[[dynamic-attributes-views]]
-=== 动态属性视图的改进
-
-xref:dyn-attr:index.adoc[动态属性] 管理页面视图做了大量的重新设计。如果项目中覆盖了这些视图，请按新的视图调整代码。
-
-[[in-app-notification-list-view]]
-=== in-app-notification-list-view.xml 改动
-
-在 xref:notifications:index.adoc[] 扩展组件的 `in-app-notification-list-view.xml` 中，移除了 `inAppNotificationsDataGrid` 的 `create` 操作。这个操作移到了视图的 `actions` 中，并改名为 `createNotificationAction`。
-
-如果项目中覆盖了这些视图，请按新的视图调整代码。
-
-[[security-filter-chain-validation]]
-=== SecurityFilterChain 验证
-
-Spring Security 6.5.0 引入了对多个 `SecurityFilterChain` 使用同一个 `securityMatcher` 的检测。
-
-如果项目中同时包含了 `OIDC` 和 `Authorization Server` 这两个扩展组件，那么会创建这样的 chain。
-这里的两个 chain 都是配置资源服务中 REST API 的安全保护。
-
-在之前的版本中，`Authorization Server` 中的 chain 会有更高的优先级，从而会忽略 `OIDC` 中的 chain。
-
-现在，如果仍然需要这两个扩展组件，那么应该手动禁用 `OIDC` 中的 chain 以恢复之前的行为。
-禁用可以通过设置 `jmix.oidc.use-default-jwt-configuration=false` 实现。
+有关更多信息，请参见 https://github.com/jmix-framework/jmix/issues/4838[GitHub #4838^]。
 
 [[changelog]]
 == 变更日志
 
 * Jmix 框架解决的问题：
 
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.1[2.6.1^]
-** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.6.0[2.6.0^]
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.8.0[2.8.0^]
 
 * Jmix Studio 解决的问题：
 
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.2[2.6.2^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.1[2.6.1^]
-** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.6.0,-2.5.*%20Affected%20versions:%20-SNAPSHOT[2.6.0^]
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.8.0,-2.7.*%20Affected%20versions:%20-SNAPSHOT[2.8.0^]

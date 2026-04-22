@@ -29,12 +29,16 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 * `getViewAttributes()` - 返回存储命名值（named value）的 `ViewAttributes` 对象。`VaadinSession` 可以作为一种存储。例如，详情视图中使用 `ViewAttributes` 来存储视图的 _只读状态_ 和 _锁定状态_，并在刷新视图时还原这些设置。
 
-* `getPageTitle()` - 返回视图的标题。默认情况下，返回在视图描述符中定义的本地化值。可以重写该方法提供动态标题，例如：
+* `getPageTitle()` - 返回视图标题的回调方法。默认情况下，返回在视图 XML 中定义的本地化值。可以重写该方法按需提供标题，例如：
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailView.java[tags=page-title]
 ----
+
+* `setPageTitle()` 方法可以在视图生命周期的任何阶段动态设置视图的标题。例如，可以在 `ReadyEvent` 处理器或数据容器事件的处理器中调用。
++
+为了保持一致性，我们建议在单一视图中使用 `getPageTitle()` 或 `setPageTitle()`。
 
 * `beforeLeave()` - 一个回调函数，在导航至其他视图之前调用。是 Vaadin {vaadin-docs}/flow/routing/lifecycle/[导航生命周期^] 的一部分。
 ** 通过该事件可以 _延迟_、_取消_ 导航，或 _切换_ 导航目的地。

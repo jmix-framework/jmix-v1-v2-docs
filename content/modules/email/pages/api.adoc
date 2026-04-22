@@ -11,8 +11,11 @@
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=emailer;email-info1;email-info2]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=emailer;email-info1;email-info2]
 ----
+<1> 注入 `io.jmix.email.Emailer` 接口。
+<2> 使用 `io.jmix.email.EmailInfoBuilder` 创建 `io.jmix.email.EmailInfo` 对象。
+<3> 同步发送 email。
 +
 在同步发送的过程中，框架可以抛出包含收件人地址和响应错误信息的 `EmailException` 异常。
 +
@@ -23,11 +26,11 @@ include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[
 [[email-attachments]]
 == 邮件附件
 
-`EmailAttachment` 对象是一个包装类，包含附件的字节数组、文件名，还有邮件中附件的唯一标识符。
+`io.jmix.email.EmailAttachment` 对象是一个包装类，包含附件的字节数组、文件名，还有邮件中附件的唯一标识符。
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=create-attachment]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=create-attachment]
 ----
 
 附件的唯一标识符不是必需的，但是当需要在邮件正文中插入图片时，则需要使用该标识符。此时，在创建 `EmailAttachment` 时需要指定一个唯一的 `contentId`，例如，上面例子中的 “logoId”。在正文中插入图片时，使用 `cid:logoId` 这样的表达式指定附件的路径，示例：
@@ -41,5 +44,5 @@ include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=text-attachment]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=text-attachment]
 ----

@@ -5,6 +5,9 @@
 
 Studio 提供了一个用于创建和管理 xref:data-access:data-repositories.adoc[data repositories] 的向导。
 
+[[creating-repositories]]
+=== 创建 Repositories
+
 如需创建一个 repository，点击 *Jmix* 工具窗口的 *New → Data Repository*。
 
 image::data-repository-create.png[align="center",width="241"]
@@ -12,6 +15,11 @@ image::data-repository-create.png[align="center",width="241"]
 在 *New Jmix Data Repository* 对话框中，选择一个实体并点击 *OK*。Studio 会创建 repository 接口，扩展自 xref:data-access:data-repositories.adoc#working-with-data-repositories[JmixDataRepository]，并在主应用程序类上添加 `@EnableJmixDataRepositories` 注解。
 
 image::data-repository-wizard.png[align="center",width="592"]
+
+[[creating-repository-methods]]
+=== 创建 Repository 方法
+
+include::partial$subscription-note.adoc[]
 
 当在编辑器打开 data repository 时，Studio 在顶部展示带两个按钮的操作面板。*Add Derived Method* 按钮可以用来创建一个从方法名引申查询语句的方法。*Add Query Method* 按钮可以用来创建一个带显式指定 JPQL 的方法。
 

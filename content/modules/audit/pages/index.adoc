@@ -1,6 +1,6 @@
 = 实体审计
 
-实体审计扩展组件为跟踪你的 JPA 实体变更提供 xref:entity-log.adoc[实体日志] 功能。
+实体审计扩展组件为跟踪 JPA 实体变更提供 xref:entity-log.adoc[实体日志] 功能。
 
 [[installation]]
 == 安装
@@ -13,3 +13,5 @@
 ----
 include::example$/audit-ex1/build.gradle[tags=dependencies]
 ----
+
+include::ROOT:single-menu-note.adoc[]

@@ -1,18 +1,18 @@
-= Process Drafts
+= 流程草稿
 
-The *Process drafts* view lets you browse and preview all available process drafts.
+*Process drafts（流程草稿）* 视图可以查看并预览所有的流程草稿。
 
 image:bpm:bpm-menu-views/process-drafts-view.png[width=1392]
 
 [[draft-list-features]]
-== Draft List Features
+== 草稿列表功能
 
-The following actions are available:
+可执行以下操作：
 
-* *Diagram preview* — View a process diagram preview in the right panel. Supports panning and zooming.
-* *Filtering drafts* — Filter the draft list by name and author. Results update as you type values into the fields.
-* *Create* — Create a new draft either from scratch or by uploading a BPMN XML file (must use `.bpmn` or `.bpmn20.xml` extension).
-* *Edit* – Rename the selected draft and update its comment, or replace its BPMN XML file by uploading a different one.
-* *Remove drafts* — Remove the selected draft.
-* *Open in Modeler* — Open the selected draft in the xref:bpm:menu-views/modeler-web.adoc[] to make edits.
-* *Download BPMN XML* — Downloads the diagram for the selected draft as a `.bpmn` file.
+* *预览示意图* — 在右侧面板中预览流程示意图，支持平移和缩放。
+* *过滤草稿* — 按名称和作者过滤草稿列表。在字段中输入值时会实时更新结果。
+* *Create（新建）* — 从头创建新草稿，或上传 BPMN XML 文件（必须使用 `.bpmn` 或 `.bpmn20.xml` 扩展名）。
+* *Edit（编辑）* – 重命名所选草稿并更新其备注，或通过上传其他文件替换其 BPMN XML 文件。
+* *Remove（删除）* — 删除所选草稿。
+* *Open in Modeler（在建模器打开）* — 在 xref:bpm:menu-views/modeler-web.adoc[] 中打开所选草稿以进行编辑。
+* *下载* — 将所选草稿的图表下载为 `.bpmn` 文件。

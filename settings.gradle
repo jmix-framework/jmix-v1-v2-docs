@@ -18,6 +18,11 @@ void cloneOrPull(String repoUrl, String targetDir) {
             workingDir dir.absolutePath
             commandLine 'git', 'pull'
         }
+        def branch = 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+        exec {
+            workingDir dir.absolutePath
+            commandLine 'git', 'checkout', branch
+        }
     }
 }
 

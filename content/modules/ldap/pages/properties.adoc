@@ -80,6 +80,8 @@ LDAP 分组中对应于权限名的属性。
 
 定义分组搜索的 search base。
 
+默认值：空字符串。
+
 [[jmix.ldap.group-search-subtree]]
 == jmix.ldap.group-search-subtree
 

@@ -22,7 +22,7 @@
 
 . 调用 `BackgroundTaskHandler` 的 `execute()` 方法启动任务。
 
-[WARNING]
+[CAUTION]
 不要在 `BackgroundTask.run()` 方法中读取或更新 UI 组件的状态和数据容器，而使用 `done()`、`progress()` 和 `canceled()` 回调方法替代。如果尝试从后台线程设置 UI 组件的状态，则会抛出 `IllegalConcurrentAccessException`。
 
 下面示例中，运行一个后台任务并通过 xref:vc/components/progressBar.adoc[progressBar] 组件跟踪任务进度：
@@ -54,7 +54,9 @@ JavaDocs 中提供了 `BackgroundTask`、`TaskLifeCycle`、`BackgroundTaskHandle
 [[run]]
 === run()
 
-该方法在单独的工作线程中调用，用于执行一个任务。
+该方法在单独的后台线程中调用，执行一个任务。
+
+CAUTION: 不要在这个方法中读取或更新 UI 组件以及数据容器的状态。
 
 该方法支持从外部中断。如需提供该功能，建议在长时间运行时定期检查 `TaskLifeCycle.isInterrupted()` 标识，并在需要时停止执行。另外，不要忽略掉 `InterruptedException`（或任何其他异常）- 而应该正确退出方法或根本不处理异常（将异常暴露给调用方）。
 
@@ -63,27 +65,27 @@ JavaDocs 中提供了 `BackgroundTask`、`TaskLifeCycle`、`BackgroundTaskHandle
 [[canceled]]
 === canceled()
 
-仅当主动取消任务时在 UI 线程中调用该方法，例如，在 `TaskHandler` 中调用 `cancel()` 方法时。
+仅当主动取消任务时在一个可以访问 UI 组件的线程中调用该方法，例如，在 `TaskHandler` 中调用 `cancel()` 方法时。
 
 [[progress]]
 === progress()
 
-当进度值发生变化时在 UI 线程中调用该方法，例如，调用 `taskLifeCycle.publish()` 方法之后。
+当进度值发生变化时在一个可以访问 UI 组件的线程中调用该方法，例如，调用 `taskLifeCycle.publish()` 方法之后。
 
 [[done]]
 === done()
 
-当任务完成后在 UI 线程中调用该方法。
+当任务完成后在一个可以访问 UI 组件的线程中调用该方法。
 
 [[handle-timeout-exception]]
 === handleTimeoutException()
 
-当任务超时后在 UI 线程中调用该方法。如果正在运行任务的窗口关闭，则任务将在没有通知的情况下停止。
+当任务超时后在一个可以访问 UI 组件的线程中调用该方法。如果正在运行任务的窗口关闭，则任务将在没有通知的情况下停止。
 
 [[handle-exception]]
 === handleException()
 
-当有任何异常抛出时在 UI 线程中调用该方法。
+当有任何异常抛出时在一个可以访问 UI 组件的线程中调用该方法。
 
 [[notes-and-tips]]
 == 注意事项

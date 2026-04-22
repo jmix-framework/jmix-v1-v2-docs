@@ -26,6 +26,7 @@ xref:vc/common-attributes.adoc#css[css] -
 xref:flow-ui:vc/components/fileStorageUploadField.adoc#dropAllowed[dropAllowed] -
 <<dropLabel,dropLabel>> -
 <<dropLabelIcon,dropLabelIcon>> -
+xref:vc/common-attributes.adoc#enabled[enabled] -
 xref:vc/common-attributes.adoc#height[height] -
 xref:flow-ui:vc/components/fileStorageUploadField.adoc#maxFileSize[maxFileSize] -
 <<maxFiles,maxFiles>> -
@@ -50,6 +51,9 @@ xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 <<StartedEvent,StartedEvent>> -
 <<SucceededEvent,SucceededEvent>> -
 <<receiver,receiver>>
+|XML 内部元素
+|xref:icons/custom-icons.adoc[uploadIcon] -
+xref:icons/custom-icons.adoc[dropLabelIcon]
 |===
 
 == 基本用法
@@ -133,7 +137,7 @@ NOTE: 如果接收器未实现 `MultiFileReceiver`，则 `upload` 组件自动�
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
 下面是 `upload` 的特殊属性：
 
@@ -164,7 +168,7 @@ NOTE: 如果接收器未实现 `MultiFileReceiver`，则 `upload` 组件自动�
 
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 
 下面是 `upload` 的特殊事件和处理器：
 

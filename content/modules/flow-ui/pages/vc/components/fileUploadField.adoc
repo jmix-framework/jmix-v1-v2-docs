@@ -137,3 +137,9 @@ include::../handler-generation-tip.adoc[]
 `io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` 当 `Upload` 的 `SucceededEvent` 事件发生时触发。
 
 参考上面基本用法里的 <<FileUploadSucceededEvent-example,示例>>。
+
+[[elements]]
+== XML 内部元素
+
+xref:vc/components/tooltip.adoc[tooltip] -
+xref:icons/custom-icons.adoc[uploadIcon]

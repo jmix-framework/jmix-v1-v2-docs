@@ -1,16 +1,13 @@
 = 用户组
 
-在 *用户组（User groups）* 界面，可以管理用户分组，
-用户组可以作为 xref:bpm:bpmn/bpmn-user-task.adoc#candidates-by-user-groups[用户任务] 执行人的候选。
-一个用户可以属于多个组。
+*User Groups（用户组）* 视图用于管理用户的分组。用户组是可分配执行特定用户任务的候选人列表。用户可以同时是多个组的成员。
 
 image::bpm-menu-views/user-groups-list.png[,800]
 
 用户组可以是下列类型之一：
 
-* *Users*，该类型的分组，要求显式地选择一组用户。
-* *Roles*，该类型的分组，要求定义一组安全角色。
-如果用户有其中一个角色，则认为用户属于该组。
-* *All users*，这个分组自动包含所有用户。
+* *Users（用户）*。组内的成员需要显式选择。
+* *Roles（角色）*。组内成员资格由配置的角色集合决定。如果用户被分配相应角色，将被视为组内成员。
+* *All users（所有用户）*。该组包含所有用户。
 
 image::bpm-menu-views/user-group-editor.png[,800]

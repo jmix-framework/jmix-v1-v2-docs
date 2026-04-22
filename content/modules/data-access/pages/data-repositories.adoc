@@ -18,11 +18,11 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 ----
 --
 
-. 在 Jmix 主程序类或者扩展组件的配置类上添加 `@EnableJmixDataRepositories` 注解：
+. 在基础包中创建一个新的 Spring 配置类，并添加 `@EnableJmixDataRepositories` 注解：
 +
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/DemoApplication.java[tags=data-repositories]
+include::example$/data-access-ex1/src/main/java/com/company/demo/JmixDataRepositoryConfiguration.java[]
 ----
 +
 Jmix 会初始化应用程序和扩展组件基础包内的所有 data repositories。如果需要对搜索和初始化 repositories 做进一步自定义，可以使用注解的 `basePackages`、`excludeFilters` 和 `includeFilters` 属性配置。
@@ -46,9 +46,15 @@ include::example$/data-access-ex1/src/test/java/com/company/demo/repository/Cust
 * `save()` 方法可以对实体进行持久化，并返回保存后的实例，实例的加载使用的是指定的 fetch plan。方法接收需要保存的实体和加载实体使用的 fetch plan 作为参数。实体不能为 `null`，fetch plan 必须与实体匹配。
 
 [[JmixDataRepositoryContext]]
-从 `JmixDataRepository` 继承的数据加载方法支持一个 `JmixDataRepositoryContext` 类型的附加参数。可以通过这个参数将从 UI 组件搜集的过滤、分页、排序等参数传递给 `LoadContext` 对象。从而使用 data repository 也可以无缝支持 `genericFilter`、`simplePagination` 和 `dataGrid` 组件的全部功能。
+=== JmixDataRepositoryContext
+
+从 `JmixDataRepository` 继承的 repository 的加载方法支持附加的 `JmixDataRepositoryContext` 类型参数。可以通过这个参数将从 UI 组件搜集的过滤、分页和排序参数传递给 `LoadContext` 对象。这样一来，xref:flow-ui:vc/components/genericFilter.adoc[]、xref:flow-ui:vc/components/simplePagination.adoc[] 和 xref:flow-ui:vc/components/dataGrid.adoc[] 组件的所有功能都可以与 Data Repositories 无缝集成。
+
+使用 `JmixDataRepositoryUtils.buildRepositoryContext()` 静态方法可将 `LoadContext` 转换为 `JmixDataRepositoryContext`。
 
 [[ApplyConstraints]]
+=== 安全限制
+
 Data Repositories 可以使用 `io.jmix.core.repository.ApplyConstraints` 注解。如果注解的值是 `false`，则 Repository 使用 `UnconstrainedDataManager` 而非 `DataManager`。默认为 `true`。
 
 `@ApplyConstraints` 不仅可以应用在类上，也可以应用在单独的方法上，只对这些使用了注解的方法启用或忽略安全约束。
@@ -68,6 +74,9 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 ----
 
 `findAll()` 和 `searchByIdNotNull()` 方法会使用常规的 `DataManager`，而其他方法使用 `UnconstrainedDataManager`。
+
+[[annotations]]
+=== 注解
 
 可以使用下列注解自定义查询方法：
 
@@ -96,18 +105,14 @@ For hints with the same key, the value from the higher priority source will over
 [[query-method-examples]]
 == 方法示例
 
+[[derived-methods]]
+=== 派生方法
+
 Jmix data repositories 支持从方法名生成查询语句的 Spring Data 标准功能，示例：
 
 [source,java,indent=0]
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=name-based-method]
-----
-
-与 Spring Data JPA 类似，可以使用 `@io.jmix.core.repository.Query` 注解显式定义 JPQL 语句：
-
-[source,java,indent=0]
-----
-include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=query]
 ----
 
 查询方法可以使用 `Pageable` 进行分页和排序：
@@ -117,7 +122,41 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=paging]
 ----
 
-查询方法还支持一个特殊的 xref:data-access:fetching.adoc#fetch-plan[fetch plan] 参数：
+[[query-annotation]]
+=== @Query 注解
+
+与 Spring Data JPA 类似，可以使用 `@io.jmix.core.repository.Query` 注解显式定义 JPQL 语句：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository.java[tags=query]
+----
+
+如果查询返回多个纯值和/或聚合结果，应该在 `@Query` 注解的 `properties` 属性中提供属性名称。该方法应返回 `KeyValueEntity` 的列表。每个实体实例将必须包含查询中定义的属性。例如：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-multiple-fields]
+----
+
+如果查询返回的是纯值列表，方法的返回类型直接定义为该值类型的列表：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-single-field]
+----
+
+如果查询返回的是单一纯值，方法的返回类型直接定义为该值的类型：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=query-single-value]
+----
+
+[[jmix-specific-parameters]]
+=== Jmix 特定参数
+
+Jmix data repositories 可以使用 xref:data-access:fetching.adoc#fetch-plan[fetch plan] 作为查询方法的参数：
 
 [source,java,indent=0]
 ----
@@ -131,7 +170,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository2.java[tags=fetch-plan]
 ----
 
-一个 xref:cache.adoc#query-cache[支持缓存] 的查询：
+一个 xref:cache.adoc#query-cache[支持缓存] 的查询可以通过 `@io.jmix.core.repository.QueryHints` 和 `@jakarta.persistence.QueryHint` 注解配置：
 
 [source,java,indent=0]
 ----

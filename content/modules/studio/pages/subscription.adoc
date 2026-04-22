@@ -42,15 +42,14 @@ Jmix 提供 3 种类型的商业订阅计划：*快速开发版（Sprint）*、*
 快速开发版（Sprint）订阅可以使用下列 Studio 高级功能：
 
 * xref:studio:entity-designer.adoc[实体和枚举设计器]
-* xref:studio:data-stores.adoc#data-store-actions[自动生成 Liquibase 变更日志]
+* xref:studio:data-stores.adoc#data-store-actions[自动生成 Liquibase 变更日志和日志聚合]
 * xref:studio:view-designer.adoc[]
 * xref:studio:menu-designer.adoc[]
 * xref:studio:role-designer.adoc[]
 * xref:studio:fetch-plan-designer.adoc[]
 * xref:studio:jpql-designer.adoc[]
-* xref:studio:quick-cloud-deployment.adoc[]
-* 支持 xref:studio:data-repository-wizard.adoc[Data Repositories]
-* 支持 xref:openapi-integration-guide:index.adoc[OpenAPI] 客户端生成
+* xref:studio:data-repository-wizard.adoc#creating-repository-methods[Data Repository 方法设计器]
+* xref:studio:openapi-client.adoc[]
 
 NOTE: 上面列出的所有高级功能都可以在不超过 10 个实体和角色的小项目中免费使用。
 
@@ -80,6 +79,6 @@ image::jmix-account-info.png[align="center", width="624"]
 
 账号信息也显示在 xref:studio:welcome.adoc[Welcome] 界面：
 
-image::account-info-welcome-screen.png[align="center", width="1028"]
+image::account-info-welcome-screen.png[align="center", width="1258"]
 
 参阅 xref:jmix:ROOT:account-management.adoc[账号、账单和订阅管理]。

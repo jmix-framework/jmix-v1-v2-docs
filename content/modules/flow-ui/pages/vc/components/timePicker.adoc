@@ -75,7 +75,7 @@ NOTE: 弹窗不会显示小于 15 分钟的间隔，是为了避免无效的时�
 
 // == Time Format
 // //todo: make changes upon completing jmix#858 ticket
-// The default date and time format in the application is defined by the xref:data-model:data-types.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
+// The default date and time format in the application is defined by the xref:data-model:datatype.adoc#localized-format-strings[localized format strings]. To use a different format, add your own format strings to the message bundle.
 
 [[themeVariants]]
 == 样式版本

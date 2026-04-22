@@ -3,15 +3,13 @@
 [[overview]]
 == 概览
 
-*服务任务（Service task）* 是流程中表示自动活动的一种任务类型。
-服务任务可以调用 Java 代码、外部服务、API 或者自动化程序以完成相应的功能。
+*服务任务（Service task）* 用于调用 Java 逻辑、外部服务、API 或自动化程序。
 
 .*图形表示法*
 
 服务任务在图中显示为一个圆角矩形，左上角带一个齿轮图标。
 
 image::bpmn-service-task/service-task.png[,150]
-
 
 .*XML 表示*
 
@@ -22,7 +20,7 @@ image::bpmn-service-task/service-task.png[,150]
 
 服务任务有下列属性：
 
-image::bpmn-service-task/service-task-properties.png[,400]
+image::bpmn-service-task/service-task-properties.png[,460]
 
 设置任务属性：
 
@@ -40,74 +38,33 @@ image::bpmn-service-task/service-task-properties.png[,400]
 在某些情况下，可以提升性能。
 ====
 
+[[task-type]]
+== 任务的类型
 
-[[task-types]]
-== 服务任务的类型
+*任务类型* 声明 Java 逻辑从服务任务中调用的方式：
 
-_任务类型（Task type）_ 参数定义服务任务的实现方式。
-Jmix BPM 中的服务任务有以下几种类型：
+* *Spring Bean*：指定一个 Spring Bean、方法和方法参数。
 
-image::bpmn-service-task/service-taks-types.png[,200]
-我们简要了解一下：
+* *Java 代理类*：提供一个类，需要实现 `JavaDelegate` 或 `FutureJavaDelegate`。
 
-Spring bean:: 当流程到达任务时，将执行所选 bean 的指定方法。
-方法参数可使用流程变量或固定值，返回结果可以存储在结果变量中。
+* *表达式*：调用一个方法表达式。
 
-Java Delegate Class:: 服务任务作为 _JavaDelegate_ 类实现，执行任务时调用 _execute()_ 方法。
-此外，还支持 _字段注入_ 机制。
-
-Expression:: 这是调用任何方法或计算内联表达式的通用方法。
-
-Delegate expression:: 实际上，这不是表达式，而是一个实现 JavaDelegate 接口的 Spring bean。
-因此，这种类型的任务具有两者的特点。
+* *代理表达式*：计算一个表达式，但是这个表达式的结果应该为一个代理对象。
 
 // External worker:: The External Worker Task allows you to create jobs that should be acquired and executed by External Workers.
 //todo -- test this
 
 
 [[spring-bean-service-task]]
-=== Spring Bean 服务任务
+=== Spring Bean
 
-*Jmix BPM* 支持从服务任务中调用 Spring bean 方法，并为其提供参数值。
-这种类型是最常见的服务任务类型。
-因此作为默认类型选项。
+*Jmix BPM* 支持从服务任务中调用 Spring bean 方法并为其提供参数值。
 
-可以点击 _'Plus'_ 按钮从这里创建一个新的 bean：
+可以分别使用 **Bean Name** 和 **Method** 字段选择现有的 bean 及其关联的方法。
 
-image::bpmn-service-task/bean-create-button.png[,400]
+选择方法后，会出现更多字段用于输入方法参数的值。
 
-然后，输入 bean 的名称：
-
-image::bpmn-service-task/create-new-bean.png[,450]
-
-完成后自动切换至代码编辑器，并编写需要使用的方法，示例：
-
-[source,java]
-----
-@Component(value = "smpl_OrderStatusBean")
-public class OrderStatusBean {
-
-    public Integer setStatus(String orderId, String status) {
-        // set status, returns quantity of items
-        return quantity;
-    }
-}
-----
-
-Bean 的名称和方法也可以从下拉列表中选择：
-
-image::bpmn-service-task/select-bean.png[,400]
-
-选择方法后，将显示一个用于输入方法参数值的面板：
-
-image::bpmn-service-task/spring-bean-task-properties.png[,400]
-
-*BPMN Inspector* 会自动构建一个表达式，用于调用 bean 方法，这个表达式无法手动编辑。
-对于上面截图中选择的方法，表达式为：
-
- ${smpl_OrderStatusBean.setStatus(OrderId,'Sent')}
-
-请注意 *Is Variable* 复选框。主要对字符串参数有意义。
+请注意 *is variable* 复选框。主要对字符串参数有意义。
 如果未勾选该复选框，则形成的表达式中，该参数将作为字符串输入（带单引号）。
 如果勾选该复选框，则不会添加单引号，并且使用同名变量值作为参数。
 
@@ -117,7 +74,7 @@ image::bpmn-service-task/spring-bean-task-properties.png[,400]
 [[result-variable]]
 ==== 结果变量
 
-如果选择的方法有返回值，则会显示 _结果变量（Result variable）_ 字段。
+如果选择的方法有返回值，则会显示 *Result variable（结果变量）* 字段。
 可以在此处使用一个已有的流程变量，也可以输入名称创建一个新的流程变量。
 
 [WARNING]
@@ -127,9 +84,7 @@ image::bpmn-service-task/spring-bean-task-properties.png[,400]
 例如，如果已经有一个 `String` 变量 `a1`，但是选择用它保存数值结果 `100L`，则将创建一个类型为 `Long` 且值为 `100` 的新变量 `a1`。
 ====
 
-_结果变量_ 有一个 _本地变量（Use local scope）_ 复选框。
-
-当设置为 `true` 时，服务任务创建的结果变量仅在任务的执行上下文中有效。
+在 *Result variable（结果变量）* 旁边有一个 *Use local scope（使用本地作用域）* 复选框。如果设置为 `true`，则服务任务创建的结果变量作用域只是在本地，即当前任务的上下文中。
 也就是说，该变量只能在当前执行过程中访问，不会传播到父执行过程或流程实例。
 
 该设置可以将变量与服务任务的特定执行过程隔离开来。
@@ -194,24 +149,17 @@ public class MyProcessBean {
 
 然后在服务任务中设置：
 
-image::bpmn-service-task/execution-as-parameter.png[,400]
-
+image::bpmn-service-task/execution-as-parameter.png[,460]
 
 [[java-delegate-service-task]]
-=== Java 代理服务任务
+=== Java 代理类
 
-在这种类型的服务任务中，业务逻辑将由一个实现了 `org.flowable.engine.delegate.JavaDelegate` 接口的类的 _execute()_ 方法执行。
-方法接收一个 `execution` 对象作为参数，因此可以在访问流程上下文，包括全部流程变量。
+在这种类型的服务任务中，业务逻辑将由一个实现了 `org.flowable.engine.delegate.JavaDelegate` 或 `org.flowable.engine.delegate.FutureJavaDelegate` 接口的类的 _execute()_ 方法执行。方法接收一个 `execution` 对象作为参数，因此可以访问流程上下文，包括全部流程变量。
 
-如果在 _Task type_ 下拉框中选择 _JavaDelegate class_，可以通过点击 _'Plus'_ 按钮新建一个类：
+如果在 *Task type* 下拉框中选择 _JavaDelegate class_，则可以继续选择需要使用的类：
 
-image::bpmn-service-task/create-java-delegate.png[,400]
+image::bpmn-service-task/create-java-delegate.png[,460]
 
-在弹窗内输入新 Java 代理类的名称：
-
-image::bpmn-service-task/new-java-delegate.png[,500]
-
-然后会自动切换到代码编辑器，可以继续编写需要的逻辑。
 例如，我们实现一个带有随机值的流程变量：
 
 [source,java]
@@ -227,7 +175,8 @@ public class RandomIndexJavaDelegate implements JavaDelegate {
 
 .*XML 表示*
 
-在 XML 中，类名需要在 `flowable:class` 属性中设置，且使用全限定名称。
+在 XML 中，类名需要在 `flowable:class` 属性中设置，
+且使用全限定名称。
 
 [source,xml]
 ----
@@ -258,7 +207,7 @@ image::bpmn-service-task/java-delegate-instantiating.png[,600]
 
 
 [[delegate-expression-service-task]]
-=== 代理表达式服务任务
+=== 代理表达式
 
 *代理表达式（delegate expression）* 是服务任务中的一个强大功能，可以在运行时动态确定 Java 对象。
 例如，`$\{myServiceBean\}` 表达式会解析为一个名为 `myServiceBean` 的 Spring bean。
@@ -266,7 +215,7 @@ image::bpmn-service-task/java-delegate-instantiating.png[,600]
 在 Spring 上下文中，代理表达式可以直接引用 Spring bean，无缝集成 Spring 框架。
 因此，可以在代理实现中使用依赖注入并使用 Spring 的功能。
 
-为了能在代理表达式中使用，`JavaDelegate` 的实现类必须带有 Spring 的 `@Component` 注解。
+为了能在代理表达式中使用代理类，与 Spring bean 类似，这些类需要带有 `@Component` 注解。
 此时，两种类型功能都可使用 -- _Spring bean_ 和 _Java 代理类_：
 
 [source,java]
@@ -284,15 +233,7 @@ public class MyDelegateExpression implements JavaDelegate {
 最终，我们可以从该类中访问 Spring 上下文和流程上下文。
 调用时，请使用 _Delegate expression_ 任务类型。例如：
 
-image::bpmn-service-task/delegate-expression.png[,400]
-
-这里可以创建一个新的代理表达式类：
-
-image::bpmn-service-task/new-delegate-expression.png[,500]
-
-或从下拉列表选择一个已有的类：
-
-image::bpmn-service-task/select-delegate-expression.png[,400]
+image::bpmn-service-task/delegate-expression.png[,473]
 
 .*XML 表示*
 
@@ -303,18 +244,18 @@ image::bpmn-service-task/select-delegate-expression.png[,400]
 ----
 <serviceTask id="delegate-expression"
     name="Delegate expression task"
-    flowable:delegateExpression="${smpl_MyDelegateExpression}"
+    flowable:delegateExpression="${MyDelegateExpression}"
     jmix:taskType="delegateExpression">
 </serviceTask>
 ----
 
 [[expression-service-task]]
-=== 表达式服务任务
+=== 表达式
 
 表达式是调用 Java 逻辑最常见的方式。
 可以在表达式中调用 Spring bean：
 
-image::bpmn-service-task/expression-service-task.png[,700]
+image::bpmn-service-task/expression-service-task.png[,460]
 
 [[evaluating-value]]
 ==== 解析表达式的值
@@ -342,10 +283,10 @@ image::bpmn-service-task/expression-service-task.png[,700]
 ==== 配置
 设置失败重试参数时，首先在 *BPMN Inspector* 中找到对应的属性：
 
-image::bpmn-service-task/fail-retry-property.png[,400]
+image::bpmn-service-task/fail-retry-property.png[,460]
 
-设置值的格式必须是符合 *ISO 8601* 格式的时间周期表达式，与计时器事件表达式相同。
-上图示例中的 `R5/PT7M` 表示作业执行程序会重试 5 次，并在每次重试前等待 7 分钟。
+设置值的格式必须是符合 *ISO 8601* 格式的时间周期表达式。
+上图示例中的 `R5/PT7M` 表示作业执行程序会重试 5 次，并在每次重试之间等待 7 分钟。
 
 .*XML 表示*
 
@@ -358,11 +299,10 @@ image::bpmn-service-task/fail-retry-property.png[,400]
     flowable:async="true"
     flowable:class="org.flowable.engine.test.jobexecutor.RetryFailingDelegate">
     <extensionElements>
-        <flowable:failedJobRetryTimeCycle>R5/PT7M</flowable:failedJobRetryTimeCycle> <1>
+        <flowable:failedJobRetryTimeCycle>R5/PT7M</flowable:failedJobRetryTimeCycle>
     </extensionElements>
 </serviceTask>
 ----
-<1> -- 失败重试参数
 
 [NOTE]
 ====
@@ -373,16 +313,8 @@ image::bpmn-service-task/fail-retry-property.png[,400]
 === 字段注入
 
 *字段注入（field injections）* 是 Flowable 中的一种机制，用于将固定字符串值或字符串解析的表达式传递给 Java 代理 类中的参数。
-可以用在以下任务类型中：
 
-* Java 代理类
-
-如果调用对象是 Java 代理类，那么也可以用在：
-
-* 代理表达式
-* 表达式
-
-注入的字段只能是 `org.flowable.engine.delegate.Expression` 类型。
+注入的字段只能是 `org.flowable.common.engine.api.delegate.Expression` 类型。
 当注入的表达式解析完成后，可以转换为合适的目标类型。
 
 [WARNING]
@@ -394,28 +326,24 @@ image::bpmn-service-task/fail-retry-property.png[,400]
 
 如何注入字段：
 
-. 在 `JavaDelegate` 类中创建字段定义：
+. 在代理类中创建字段定义：
 +
 [source,java]
 ----
 private Expression messageField;
 private Expression quantityField;
 ----
-. 在图中，选择服务任务并创建与代码中定义的同名字段：
+. 选择服务任务并使用与代码中一样的名称创建字段。字段值可以是表达式或字符串。
 +
-image::bpmn-service-task/create-field.png[,400]
-
-. 然后输入字段值，例如，表达式或字符串：
-+
-image::bpmn-service-task/field-injection-properties.png[,400]
+image::bpmn-service-task/field-injection-properties.png[,473]
 +
 [TIP]
 ====
 如果需要传递数值，请使用上图所示的表达式，例如 `$\{3\}`。
-如果你只写 _3_，将被解析为 `String` 对象 “3”，并且不能转换为 `Integer` 类型。
+如果只写 _3_，将被解析为 `String` 对象 “3”，并且不能转换为 `Integer` 类型。
 ====
 
-. 在运行时，流程引擎会解析表达式并将结果字符串传递给 Java 代理类。
+. 在运行时，流程引擎会解析表达式并将结果字符串传递给代理类。
 . 在 Java 代理类中，必须有从字段中获取值并转换为所需类型的代码：
 +
 [source,java]

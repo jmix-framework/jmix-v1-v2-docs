@@ -1,5 +1,5 @@
 = 决策表建模器
 
+使用 *Decision Table Modeler* 创建决策表。参阅 xref:dmn-1-3.adoc#modeling-decision-tables[决策表建模]。
 
-这个视图可以对决策表进行建模。
-参阅 xref:dmn-1-3.adoc#modeling-decision-tables[决策表建模]。
+image::dmn/modeler-window.png[,1000]

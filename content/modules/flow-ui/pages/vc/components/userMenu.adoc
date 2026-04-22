@@ -1,14 +1,14 @@
-= userMenu
+= userMenu 用户菜单
 
-The `userMenu` component displays a button that, when clicked, opens a dropdown menu containing a list of items.
+`userMenu` 组件显示一个按钮，当点击时，打开一个下拉信息菜单。
 
 [cols="1h,6",grid=none]
 |===
-|XML Element
+|XML 元素
 |`userMenu`
-|Java Class
+|Java 类
 |`UserMenu`
-|Attributes
+|XML 属性
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -22,7 +22,7 @@ xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
 <<theme-variants,themeNames>> -
 xref:vc/common-attributes.adoc#title[title] -
 xref:vc/common-attributes.adoc#visible[visible]
-|Handlers
+|事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
@@ -30,7 +30,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<UserChangedEvent,UserChangedEvent>> -
 <<buttonRenderer,buttonRenderer>> -
 <<headerRenderer,headerRenderer>>
-|Elements
+|XML 内部元素
 |<<actionItem,actionItem>> -
 <<componentItem,componentItem>> -
 <<separator,separator>> -
@@ -38,62 +38,62 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<viewItem,viewItem>>
 |===
 
-== Basics
+== 基本用法
 
-The main button displays a layout that represents a current user.
-Users click this button to access the dropdown menu.
+主按钮的布局中显示了当前用户的信息。
+用户点击此按钮可打开下拉菜单。
 
-The dropdown menu contains a list of actions, each represented by a clickable item or submenu.
+下拉菜单包含一系列操作，每个操作由一个可点击的菜单项或子菜单表示。
 
 image::visual-components/components/user-menu-basic.png[align="center",width="240"]
 
-Here's an example of defining a `userMenu` with default button renderer and several menu items:
+以下是一个 `userMenu` 的示例，使用了默认按钮渲染器和多个菜单项：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-basic]
 ----
 
-== Elements
+== XML 内部元素
 
-`userMenu` defined in the XML descriptor can contain nested elements:
+在 XML 中，`userMenu` 可以包含内部元素：
 
 [[actionItem]]
 === actionItem
 
-The `actionItem` element creates a link between a user menu item and a specific xref:actions/declarative-actions.adoc[action] that should be executed when that item is clicked.
+`actionItem` 元素用于关联用户菜单项与点击该项时的特定 xref:actions/declarative-actions.adoc[操作]。
 
-You can either define an action declaratively or use the `ref` attribute to point to the `id` of an already defined `action`.
+可以声明式地定义一个操作，也可以使用 `ref` 属性指向已定义的 `action` 的 `id`。
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=actions;layout;user-menu-action]
 ----
 
-<1> Declaratively defined action.
-<2> Reference to the existing action.
+<1> 声明式定义的操作。
+<2> 引用已有操作。
 
-When a user clicks on an `actionItem` in the dropdown, Jmix automatically triggers the `action`.
-You can generate an `ActionPerformedEvent` handler method for an action to implement its logic:
+当用户点击下拉菜单中的 `actionItem` 时，Jmix 会自动触发该 `action`。
+可以为某个操作生成 `ActionPerformedEvent` 处理方法来实现其逻辑：
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=notifications-bean;user-menu-action]
 ----
 
-Framework provides predefined xref:actions/user-menu-actions.adoc[].
+框架提供了一些内置的 xref:actions/user-menu-actions.adoc[]。
 
 [[componentItem]]
 === componentItem
 
-The `componentItem` element allows you to define custom inner content for `userMenu`.
+`componentItem` 元素可以为 `userMenu` 添加自定义的内部组件。
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-component]
 ----
 
-You can generate a `UserMenuItem.HasClickListener.ClickEvent` handler stub for `componentItem` using Jmix Studio.
+在 Jmix Studio 中，可以为 `componentItem` 添加一个 `UserMenuItem.HasClickListener.ClickEvent` 事件处理的桩代码：
 
 [source,java,indent=0]
 ----
@@ -103,14 +103,14 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[textItem]]
 === textItem
 
-The `textItem` element holds text and icon.
+`textItem` 元素可以添加文本和图标。
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-text]
 ----
 
-You can generate a `UserMenuItem.HasClickListener.ClickEvent` handler stub for `textItem` using Jmix Studio.
+在 Jmix Studio 中，可以为 `textItem` 添加一个 `UserMenuItem.HasClickListener.ClickEvent` 事件处理的桩代码：
 
 [source,java,indent=0]
 ----
@@ -120,31 +120,31 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[viewItem]]
 === viewItem
 
-The `viewItem` element allows you to open a specific view.
+`viewItem` 元素支持打开特定的视图。
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-view]
 ----
 
-<1> Opens a view with the specified id.
-<2> Opens a view with the specified class in the `DIALOG` mode.
+<1> 用指定的 id 打开特定视图。
+<2> 以 `DIALOG` 模式打开指定类的视图。
 
 [[separator]]
 === separator
 
-The `separator` element is used to visually separate items in the dropdown menu.
+`separator` 元素用于在下拉菜单中分隔菜单项。
 
-Separators automatically hide if they meet the following conditions:
+分隔符在满足以下条件时会自动隐藏：
 
-. Several separators go one by one. In this case only one separator remains visible.
-. Separator is the first child and the header renderer is not defined.
-. Separator is the last child.
+. 多个分隔符连续出现。此时仅保留一个分隔符可见。
+. 分隔符是第一个子元素且未定义 header 渲染器。
+. 分隔符是最后一个子元素。
 
 [[nested-items]]
-=== Nested Items
+=== 子菜单
 
-The `textItem` and `componentItem` elements support nested items, which allows you to define a hierarchical menu.
+`textItem` 和 `componentItem` 元素支持定义内部菜单项，从而可以定义具有层级结构的菜单。
 
 image::visual-components/components/user-menu-nested.png[align="center",width="330"]
 
@@ -154,11 +154,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 [[theme-variants]]
-== Theme Variants
+== 样式版本
 
-The xref:vc/common-attributes.adoc#themeNames[themeNames] attribute allows you to assign a specific style from the set of predefined variants.
+xref:vc/common-attributes.adoc#themeNames[themeNames] 支持为组件设置一个预定义的样式版本。
 
-* Tertiary - removes button background
+* `tertiary` - 移除按钮背景
 +
 image::visual-components/components/user-menu-theme-variant-tertiary.png[align="center",width="448"]
 +
@@ -168,7 +168,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 
-* Non-checkable - removes area that displays check mark
+* `non-checkable` - 移除显示对勾的区域
 +
 image::visual-components/components/user-menu-theme-variant-non-checkable.png[align="center",width="472"]
 +
@@ -177,19 +177,19 @@ image::visual-components/components/user-menu-theme-variant-non-checkable.png[al
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/usermenu/user-menu-view.xml[tags=user-menu-theme-variants-non-checkable]
 ----
 
-The `non-checkable` theme variant can be defined for both the `userMenu` and its items individually.
+`non-checkable` 样式可以在 `userMenu` 和子菜单级别单独设置。
 
-NOTE: If you have a submenu with checkable items, it's best to define a `non-checkable` theme variant for each item in the first-level menu individually.
+NOTE: 如果子菜单有可以勾选的菜单，最好在一级菜单中单独定义 `non-checkable` 样式。
 
 [[renderers]]
-== Renderers
+== 渲染器
 
-The framework provides flexibility in customizing the content of the button and the optional menu header.
+框架为按钮和可选的菜单 header 内容的自定义功能提供饿了灵活的方案。
 
 [[button-renderer]]
-=== Button Renderer
+=== 按钮渲染器
 
-You can set a button renderer either using the `setButtonRenderer()` method or the `@Install` annotation.
+可以通过 `setButtonRenderer()` 方法或 `@Install` 注解设置按钮渲染器。
 
 image::visual-components/components/user-menu-button-renderer.png[align="center",width="196"]
 
@@ -197,14 +197,14 @@ image::visual-components/components/user-menu-button-renderer.png[align="center"
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=user-menu-renderer-injects;user-menu-button-renderer;user-menu-renderer-helpers]
 ----
-<1> Default `HorizontalLayout` padding is too big, we add padding using styles.
-<2> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
-<3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
+<1> 默认 `HorizontalLayout` 的内边距太大，我们通过样式添加内边距。
+<2> `avatar` 默认是可聚焦的，但没有提供禁用聚焦的 Java API。移除 tab 索引，只有 `userMenu` 组件可以接收焦点。
+<3> `avatar` 通过存储在 `User` 实体的 `picture` 属性中的引用，从给定的 `StreamResource` 获取内容。
 
 [[header-renderer]]
-=== Header Renderer
+=== Header 渲染器
 
-Header renderer defines the content displayed at the top of the menu. You can set a header renderer using either the `setButtonRenderer()` method or the `@Install` annotation.
+Header 渲染器用于定义菜单顶部的信息。可以通过 `setHeaderRenderer()` 方法或 `@Install` 注解设置 header 渲染器。
 
 image::visual-components/components/user-menu-header-renderer.png[align="center",width="234"]
 
@@ -212,46 +212,46 @@ image::visual-components/components/user-menu-header-renderer.png[align="center"
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=user-menu-renderer-injects;user-menu-header-renderer;user-menu-renderer-helpers]
 ----
-<1> Component positions are defined using styles.
-<2> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
-<3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
+<1> 组件位置通过样式定义。
+<2> `avatar` 默认是可聚焦的，但没有提供禁用聚焦的 Java API。移除 tab 索引，只有 `userMenu` 组件可以接收焦点。
+<3> `avatar` 通过存储在 `User` 实体的 `picture` 属性中的引用，从给定的 `StreamResource` 获取其内容。
 
 [source,css,indent=0]
 ----
 include::example$/onboarding/frontend/themes/onboarding/vc/user-menu.css[]
 ----
 
-== Attributes
+== XML 属性
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
-The following attributes are specific to `userMenu`:
+下面是 `userMenu` 的特殊属性：
 
 [cols="1h,5,1",grid=rows,frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*名称*
+|*描述*
+|*默认值*
 |[[openOnHover]]openOnHover
-|If the `openOnHover` attribute is `true`, the drop-down list of items is opened automatically when the field is focused using a mouse or touch.
+|如果 `openOnHover` = `true`，则当该组件被鼠标或触摸聚焦时，会自动打开下拉列表。
 |`false`
 |===
 
-== Handlers
+== 事件和处理器
 
-xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
-The following handlers are specific to `userMenu`:
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
+下面是 `userMenu` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6",grid=rows,frame=none]
 |===
-|*Name*
-|*Description*
+|*名称*
+|*描述*
 |[[UserChangedEvent]]UserChangedEvent
-|`io.jmix.flowui.kit.component.usermenu.JmixUserMenu.UserChangedEvent` is fired when the user associated with the user menu component changes.
+|`io.jmix.flowui.kit.component.usermenu.JmixUserMenu.UserChangedEvent` 当切换用户时发出。
 |[[buttonRenderer]]buttonRenderer
-|Sets the `Renderer` responsible to render the button's content based on the current user. See <<button-renderer,Button Renderer>>.
+|设置基于当前用户信息渲染按钮的 `Renderer`。参阅 <<button-renderer>>。
 |[[headerRenderer]]headerRenderer
-|Sets the `Renderer` responsible to render the header's content based on the current user. See <<header-renderer,Header Renderer>>.
+|设置基于当前用户信息渲染 header 的 `Renderer` 参阅 <<header-renderer>>。
 |===

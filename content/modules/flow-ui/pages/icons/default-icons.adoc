@@ -6,28 +6,71 @@
 </div>
 ++++
 
-有两组默认的图标：Vaadin 和 Lumo。可以从 https://demo.jmix.io/ui-samples/sample/icon-all[在线示例^] 中查看这两个图标集中的所有图标。
+Jmix 包含了超过 600 个内置的图标，分为三组：
 
-[[declarative-usage]]
-== 声明式用法
+[cols="1h,6", grid=none, border=none]
+|===
+|Jmix
+|默认图标集。整合了所有的 Vaadin 图标，Vaadin 中没有的 Lumo 图标以及 Jmix 特定的图标。
+|Vaadin
+|Vaadin 框架提供的图标。
+|Lumo
+|Lumo 设计系统提供的图标。
+|===
 
-为带有 `icon` 属性的组件设置图标。使用 `vaadin:` 和 `lumo:` 前缀引用不同分组内的图标。如果不带前缀，则默认使用 Vaadin 图标集。
+[[icon-attribute]]
+== 通过属性设置图标
+
+很多 UI 组件支持通过属性添加图标。某些组件还提供了多个这样的属性，可以将图标放在组件的不同位置，例如，`icon`、`uploadIcon`、`downloadButtonIcon`、`dropLabelIcon`。
+
+示例：
 
 [source,xml,indent=0]
 ----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative]
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-1]
 ----
 
-当通过 Studio 的组件属性面板配置图标时，在 *Choose Icon* 对话框中会显示图标的名称和预览，以便进行选择：
+如需使用特定图标集的图标，需要添加图标集的前缀：
 
-image::icons/choose-icon-dialog.png[align="center", width="512"]
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-2]
+----
+
+[TIP]
+====
+Studio 中也可以浏览和选择图标。在组件属性面板中，点击 icon 属性打开 *Choose Icon* 对话框。对话框中显示所有可用的图标集，并支持实时预览选择。
+
+image::icons/choose-icon-dialog.png[align="center", width="592"]
+====
+
+[[icon-nested-element]]
+== 通过内部元素设置图标
+
+一些组件支持通过内部元素添加组件，这些内部元素对应组件中不同的图标位置，例如 `<icon>`、`<uploadIcon>`、`<dropdownIcon>`、`<prefix>` 和 `<suffix>`。通过这种方式既可以使用内置的图标，也可以使用 xref:icons/custom-icons.adoc[自定义图标]，包括 SVG、字体图标和图片。
+
+示例：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-3]
+----
 
 [[programmatic-usage]]
-== 编程式用法
+== 编程式设置图标
 
-组件的图标也可以编程式设置：
+图标可以通过编程方式设置。建议使用 `Icons` bean 作为创建图标的核心接口。可以确保一致的行为（`Icons` 在解析 XML 时也会使用），并简化了中心化的 xref:icons/override-icons.adoc[图标覆盖]。
+
+示例：
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-1]
+----
+
+尽管如此，也可以绕过该 bean，直接从特定图标集中实例化图标：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-2]
 ----

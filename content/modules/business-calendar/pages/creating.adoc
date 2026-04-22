@@ -1,6 +1,6 @@
 = 创建工作日历
 
-工作日历可以在 <<business-calendars-runtime,运行时>> 通过特定的视图创建，或在 <<business-calendars-design-time,设计时>> 使用带注解的 Java 接口创建。
+工作日历可以在 <<business-calendars-runtime,运行时>> 通过特定的视图创建，在 <<business-calendars-design-time,设计时>> 使用带注解的 Java 接口创建。
 
 [[business-calendars-runtime]]
 == 运行时创建工作日历
@@ -9,7 +9,7 @@
 
 image::business-calendar-list.png[align="center" width="1392"]
 
-在页面中，点击 *Create* 按钮打开 *Business calendar editor*。
+点击 *Create* 按钮打开 *Business calendar editor（编辑器）*。
 
 image::business-calendar-editor.png[align="center" width="1392"]
 
@@ -18,45 +18,28 @@ image::business-calendar-editor.png[align="center" width="1392"]
 * *Name* - 日历的可读描述。
 * *Code* - 日历的唯一标识符。
 
-然后可以为日历定义工作日和工作时间了，同时还可以在不同的标签页中定义节假日或其他非工作日。
+使用编辑器中的选项卡来配置工作日和工作时间，排除节假日、休假及其他休息时间等非工作时间。
+
+NOTE: 每个日历条目可包含 *Mark* — 标记值可用于分类，或提示某天或某时段为何有不同的工作时间。此标记可通过 `getDayInfo()` 方法返回。
 
 === 假日
 
-在 *Holidays（假日）* 标签页，点击 *Create* 添加假日和周末。
+在 *Holidays* 标签页，点击 *Create* 添加假日和周末。
 
-image::business-calendar-holidays.png[align="center" width="1392"]
+支持的假期类型：
 
-该组件支持下列类型的假日：
-
-* *Day of week（星期）* - 允许指定每周的假日；例如，一般是星期六和星期日。
-+
-image::business-calendar-day-of-week.png[align="center" width="484"]
-
-* *Specific date holiday（特定日期假日）* - 允许设置某一日期的特定假日，例如，每年不同的调休假。
-+
-image::business-calendar-specific-date-holiday.png[align="center" width="484"]
-
-* *Annual holiday（年固定假日）* - 每年固定的假日，例如，`1 月 1 日`。
-+
-image::business-calendar-annual-holiday.png[align="center" width="484"]
-
-* *Cron-based holiday（基于 Cron 的假日）* - 允许用 quartz CRON 格式指定特殊的假日。参阅 http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron 入门^] 了解更多信息。
-+
-image::business-calendar-cron-holiday.png[align="center" width="484"]
-+
-可以用来指定一些重要的假期，例如，_每个月的第三个星期五_ 或 _7月的第一个星期一_ 等。
+* *Day of week* – 将一周内选定的星期标记为假期。例如，可将周六和周日设为周末。
+* *Specific date holiday* – 将某个具体日期标记为假期。
+* *Annual holiday* – 标记每年同一天重复出现的假期，例如“元旦”。
+* *Cron-based holiday* – 使用 Quartz CRON 格式定义假期。这适用于更复杂的规则，例如“每个月的第三个星期五”或“七月的第一个星期一”。
 
 === 工作日计划
 
-在 *Working schedule（工作日计划）* 标签页，可以为一周的每天设置工作小时数。每天可以有多个工作时段，但是这些时段不能相互覆盖。
-
-image::working-schedule-editor.png[align="center" width="1392"]
+在 *Working schedule* 标签页中，可以设置一周每天的工作时间。一天中可以包含多个工作时段，但是这些时段不能用重叠。
 
 === 额外工作日
 
-还可以在 *Additional business days（额外工作日）* 标签页将某些假日定义为工作日。即便这样配置的某一天属于假日，也会按照工作日考虑。还支持设定不同的工作时间。
-
-image::additional-business-day-editor.png[align="center" width="1392"]
+在 *Additional business days* 标签页中，定义必须作为工作日的日期。如果其中一个日期恰逢节假日，仍被视为工作日。也可以给这些工作日分配不同的工作时间。
 
 [[business-calendars-design-time]]
 == 设计时创建工作日历
@@ -68,16 +51,18 @@ image::additional-business-day-editor.png[align="center" width="1392"]
 include::example$/calendars-ex1/src/main/java/com/company/calendarsex1/calendars/SampleBusinessCalendar.java[tags=business-calendar]
 ----
 
-<1> 带注解的工作日历是一个使用 `@BusinessCalendar` 注解的接口。你需要为该注解指定下列参数：
+<1> 设计时工作日历是一个使用 `@BusinessCalendar` 注解的 Java 接口。该注解需要两个参数：
++
 * `name` - 日历的可读描述。
 * `code` - 日历的唯一标识符。
-<2> 指定假日 - 以 quartz CRON 格式
-<3> 指定假日 - 每周固定假日。
-<4> 指定假日 - 特定日期假日。
-<5> 指定假日 - 每年一次的假日。
-<6> 指定工作日 - 计划工作日。
-<7> 指定工作日 - 额外工作日。
++
+<2> `@CronHoliday` 使用 Quartz CRON 表达式定义假期。适用于复杂或重复的规则。使用 `mark` 作为短标签。可添加 `description` 提供可读的说明。
+<3> `@WeeklyHoliday` 将一周中的特定几天定义为假期（例如周末）。使用 `mark` 作为短标签。可添加 `description` 提供可读的说明。
+<4> `@FixedDayHoliday` 为特定日期定义假期。使用 `mark` 作为短标签。可添加 `description` 提供可读的说明。
+<5> `@FixedYearlyHoliday` 定义每年同一天重复出现的假期。使用 `mark` 作为短标签。可添加 `description` 提供可读的说明。
+<6> `@ScheduledBusinessDay` 设置常规工作日，包括开始和结束时间。使用 `mark` 作为短标签。
+<7> `AdditionalBusinessDay` 添加常规安排之外的工作日（例如调休工作日）。使用 `mark` 作为短标签。
 
-设计时创建的工作日历与其他日历一起在列表展示，但是只能查看，不能修改。
+NOTE: 设计时创建的工作日历会显示在所有业务日历的列表中，但无法进行编辑。
 
 image::business-calendars.gif[align="center" width="1282"]

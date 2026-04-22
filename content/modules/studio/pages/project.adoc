@@ -20,13 +20,13 @@ image::new-project-create.png[align="center",width="912"]
 +
 对于 beta 测试或者尝试 Jmix 的最新功能，你可能需要安装 Jmix 框架的不稳定版，这些版本以 BETA 或 SNAPSHOT 做后缀。勾选 *Show unstable versions* 复选框便可在 *Jmix version* 下拉框看到这些版本。
 +
-* 在 *Project JDK* 字段，默认会选择与你环境变量 `JAVA_HOME` 一致的 JDK 版本。如果你看到 `<No JDK>`，那么需要在列表中点击 *Add JDK* 并选择 JDK 的安装目录，例如，Windows 的 `C:\Program Files\BellSoft\LibericaJDK-17` 或者 macOS 的 `/Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home`。
+* 在 *Project JDK* 字段，默认会选择与你环境变量 `JAVA_HOME` 一致的 JDK 版本。如果你看到 `<No JDK>`，那么需要在列表中点击 *Add JDK* 并选择 JDK 的安装目录。
 +
 . 下一步中，选择一个模板创建空项目。
 +
 image::new-project-templates.png[align="center",width="912"]
 +
-. 然后可以设置项目名称、位置和语言。
+. 然后可以设置项目名称、位置和语言环境。
 +
 image::new-project-name.png[align="center"]
 +
@@ -58,11 +58,9 @@ image::new-project-welcome.png[align="center",width="912"]
 +
 image::new-project-build.png[align="center"]
 +
-[IMPORTANT]
+[TIP]
 ====
-当打开 xref:studio:composite-projects.adoc[组合项目] 时，请确保打开的是聚合主项目 `<project-name>-all` 的 `build.gradle` 文件：
-
-image::open-composite-project.png[align="center",width="1078"]
+参阅 xref:studio:composite-projects.adoc#opening-composite-project[组合项目]，了解如何在单一 IDE 项目中组织多个相关的 xref:modularity:creating-add-ons.adoc[扩展组件] 以及应用程序。
 ====
 . 在随后的弹窗中，选择 *Open as Project*。
 +
@@ -248,14 +246,3 @@ IntelliJ IDEA 和 Gradle 默认都使用 `JAVA_HOME` 环境变量定义的 JDK �
 org.gradle.java.home = /Library/Java/JavaVirtualMachines/liberica-jdk-17.jdk/Contents/Home
 ----
 . 在 Gradle 工具窗口（一般在 IDE 右侧边），点击 *Reload All Gradle Projects* 刷新 Gradle 项目的配置。
-
-[[troubleshooting]]
-== 问题排查
-
-如果在项目开发中遇到一些莫名其妙的问题，可以尝试关闭再重新打开。如果还是不能解决问题，可以尝试清除缓存再重启 IDE：
-
-. 从主菜单打开 *File → Invalidate Caches*。
-. 勾选 *Delete Jmix Studio templates and artifacts caches*。
-. 点击 *Invalidate and Restart*。
-
-注意，再次打开项目时，会重新建立项目依赖的索引，会需要一些时间。

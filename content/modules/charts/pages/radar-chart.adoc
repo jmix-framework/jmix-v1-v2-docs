@@ -62,7 +62,7 @@ include::example$/charts-ex2/src/main/resources/com/company/onboarding/view/user
 [[data-binding]]
 == 数据绑定
 
-对于雷达图，可以使用在 xref:charts:bar-chart.adoc#data-binding[] 中配置的 `emloyeesDc` 数据容器。
+对于雷达图，可以使用在 xref:charts:bar-chart.adoc#data-binding[] 中配置的 `employeesDc` 数据容器。
 
 选择 `chart` 组件，手动添加一个 `dataSet` 属性。
 

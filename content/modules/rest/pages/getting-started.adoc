@@ -17,7 +17,7 @@
 implementation 'io.jmix.authserver:jmix-authserver-starter'
 ----
 
-方案是，在 Jmix 应用程序中，我们必须注册这个客户端（客户端表示一个需要访问 Jmix REST API 的外部应用程序），定义客户端的 id 和秘钥，将来我们会使用这些凭证在特定的 HTTP 请求中获取 access token。
+方案是，在 Jmix 应用程序中，我们必须注册这个客户端（客户端表示一个需要访问 Jmix REST API 的外部应用程序），定义客户端的 id 和秘钥，然后使用这些凭证在特定的 HTTP 请求中获取 access token。
 
 注册客户端的最简单方式就是添加标准的 Spring 授权服务配置：
 

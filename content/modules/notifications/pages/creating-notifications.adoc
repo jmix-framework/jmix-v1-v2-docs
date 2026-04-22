@@ -33,12 +33,16 @@ image::ntf-editor.png[align="center" width="480"]
 
 image::ntf-programmatic.png[align="center" width="1270"]
 
+此场景属于 _实体生命周期事件_ 类型。当创建新的订单实体时，必须执行该逻辑。在数据库中创建、更新或删除实体时，Jmix 框架会发布 xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent]。
+
+需要定义一个 Spring bean 作为事件监听器处理该事件。监听 `EntityChangedEvent` 的方法需要使用 `@TransactionalEventListener` 注解，以确保仅在实体已提交到数据库后执行。
+
 [source,java,indent=0]
 ----
-include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/view/order/OrderDetailView.java[tags=ntf-create]
+include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/listener/OrderEventListener.java[tags=ntf-create]
 ----
-<1> 保存更改后调用该方法。
-<2> 检查该实体是否新建。
+<1> 在事务提交后监听 `EntityChangedEvent`，确保订单记录已存储在数据库中。
+<2> 为加载和保存数据开启一个新事务，这是因为当前事务在提交完成后已经关闭。如果没有这个注解，`dataManager.load()` 或 `dataManager.save()` 会由于无激活事务而失败。
 <3> 初始化 `NotificationRequestBuilder`，创建一个 `NotificationRequest` 对象。
 <4> 定义通知的主题。
 <5> 用提供的 username 设置收件人。

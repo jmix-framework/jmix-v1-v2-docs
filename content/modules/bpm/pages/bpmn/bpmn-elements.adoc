@@ -13,7 +13,7 @@ BPMN 元素可以分为几种类型，每种类型在业务流程建模中都有
 - xref:bpmn/bpmn-events.adoc[**事件**]：表示流程中发生的事件（_启动_、_过程_、_结束_）。
 - *活动*：执行的 xref:bpmn/bpmn-tasks.adoc[任务] 或 xref:bpmn/bpmn-subprocesses.adoc[子流程]（用户任务、服务任务、脚本任务）。
 - xref:bpmn/bpmn-gateways.adoc[*网关*]：通过路径的分支、分叉、合并和连接来控制流程的流向。
-
+image:bpmn-elements/comment-link.png[]
 
 2. *连接对象*：连接流程中对象的元素，用于定义流程的流向。
 - xref:bpmn/bpmn-sequence-flow.adoc[*顺序流*]：表示流程中活动的顺序（image:bpmn-elements/sequence-flow.png[,80]）。

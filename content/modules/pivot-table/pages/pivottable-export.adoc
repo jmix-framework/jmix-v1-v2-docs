@@ -20,7 +20,7 @@
 include::../examples/pivottable-ex1/src/main/java/com/company/ex1/view/pivottableexport/PivottableExportView.java[tags=onInit;export]
 ----
 
-NOTE: 导出功能目前支持以下 xref:pivot-table:pivottable-component.adoc#using-renderers[渲染器] 类型：`TABLE`、`TABLE_BAR_CHART`、`HEATMAP`、`COL_HEATMAP` 和 `ROW_HEATMAP`。请务必注意，不会导出单元格的颜色。
+NOTE: 导出功能目前支持以下 xref:pivot-table:pivottable-component.adoc#using-renderers[渲染器] 类型：`TABLE`、`TABLE_BAR_CHART`、`HEATMAP`、`COL_HEATMAP` 和 `ROW_HEATMAP`。注意，不会导出单元格的颜色。
 
 `exportTableToXls()` 方法提供一种将表格数据以 XLS（Excel）格式下载的方式。通常由 UI 中的按钮点击触发。示例：
 

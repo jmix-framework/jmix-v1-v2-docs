@@ -8,6 +8,10 @@
 * 编辑任务触发器和参数。
 * 删除任务。
 
+Quartz 管理页面可以通过主菜单的 *Quartz -> Quartz jobs* 访问。
+
+扩展组件也提供了 Liquibase changelog 用于自动创建 Quartz 所需的数据库表。
+
 [[installation]]
 == 安装
 
@@ -17,8 +21,7 @@
 
 [source,groovy,indent=0]
 ----
-implementation 'io.jmix.quartz:jmix-quartz-starter'
-implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
+include::example$quartz-ex1/build.gradle[tags=dependencies]
 ----
 
 [NOTE]
@@ -34,14 +37,10 @@ implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
 * 其他数据库：忽略该步骤，直接使用默认值。
 
 如果 `main.datasource.url` 属性中的变量包含数据库前缀（例如 `main.datasource.url = jdbc:postgresql://$\{DB_HOST\}/$\{DB_NAME\}`）
-或属性中不包含变量，驱动代理类将自动解析，并且可以跳过此步骤。
+或者没有使用变量，驱动代理类将自动解析，并且可以跳过此步骤。
 ====
 
-// todo flowui
-// [source,groovy,indent=0]
-// ----
-// include::example$/ex1/build.gradle[tags=dependencies]
-// ----
+include::ROOT:single-menu-note.adoc[]
 
 [[usage]]
 == 使用
@@ -52,7 +51,7 @@ implementation 'io.jmix.quartz:jmix-quartz-flowui-starter'
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleJob.java[]
 ----
 +
 在任务类中，可以用 `@Autowired` 注入 Spring bean。
@@ -64,7 +63,7 @@ include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
 +
 *Group（分组）* 字段是可选的，用于在 UI 中对任务进行分组。
 
-** 在 *Triggers（触发器）* 标签页为任务创建至少一个触发器。可以选择 *Cron expression（Cron 表达式）* 或 *Simple（简易）* 调度类型。前一种方式需要输入一个 http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron 表达式^]，例如，`0/5 * * ? * * *`（每一个第五秒）。后一种方式仅需输入任务执行的重复周期（单位为毫秒）。
+** 在 *Triggers（触发器）* 标签页为任务创建至少一个触发器。可以选择 *Cron expression（Cron 表达式）* 或 *Simple（简易）* 调度类型。前一种方式需要输入一个 http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[Cron 表达式^]，例如，`0/5 * * ? * * *`（每五秒）。后一种方式仅需输入任务执行的重复周期（单位为毫秒）。
 --
 +
 保存触发器和任务之后，会根据触发器的设置立即开始调度。
@@ -82,7 +81,7 @@ include::example$/ex1/src/main/java/quartz/ex1/app/SampleJob.java[]
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleAuthenticatedJob.java[tags=auth-job]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleAuthenticatedJob.java[tags=auth-job]
 ----
 
 TIP: 还可以使用 `UnconstrainedDataManager` 在未认证的上下文中处理数据。
@@ -94,7 +93,7 @@ TIP: 还可以使用 `UnconstrainedDataManager` 在未认证的上下文中处�
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/SampleParameterizedJob.java[tags=job-params]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleParameterizedJob.java[tags=job-params]
 ----
 
 [[track-job-execution]]
@@ -104,7 +103,7 @@ include::example$/ex1/src/main/java/quartz/ex1/app/SampleParameterizedJob.java[t
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/quartz/ex1/app/JobExecutionListener.java[]
+include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/JobExecutionListener.java[]
 ----
 <1> bean 初始化完成后由 Spring 调用。
 <2> 任务执行完成后，由 Quartz 调度器调用。

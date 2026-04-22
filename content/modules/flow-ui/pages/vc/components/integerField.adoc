@@ -152,7 +152,7 @@ image::visual-components/components/integer-field-data-binding.png[align="center
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `integerField` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]

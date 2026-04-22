@@ -77,7 +77,7 @@ GET http://localhost:8080/rest
 
 [TIP]
 ====
-并非 `Order` 实体的全部属性都在 JSON 中加载，默认仅加载实体的本地和持久化属性。如需在响应中包含实体的引用属性，则需要使用 <<_using_fetch_plans,Fetch Plan>>。
+并非 `Order` 实体的全部属性都在 JSON 中加载，默认仅加载实体的本地和持久化属性。如需在响应中包含实体的引用属性，则需要使用 <<fetch-plans,Fetch Plans>>。
 
 如需在响应中包含 xref:dyn-attr:index.adoc[动态属性]，使用 `dynamicAttributes` 参数：
 
@@ -170,6 +170,7 @@ GET http://localhost:8080/rest
 ----
 
 实体实例也可以按多个属性排序。此时，多个属性间使用逗号分隔：
+
 
 [source, http request]
 .Request
@@ -418,7 +419,7 @@ GET http://localhost:8080/rest
 [IMPORTANT]
 .URI 编码
 ====
-HTTP URI 标准仅允许在 URI/URL 中使用 ASCII 编码的字符。因此，当使用 URL 查询参数过滤条件时，JSON 定义需要用 URL 编码。对于 `value` 提供的数据也是一样的要求。
+HTTP URI 标准仅允许在 URI/URL 中使用 ASCII 编码的字符。也就是说，参数值需要使用 URL 编码，由于这些参数值通常是由用户输入的，无法保证仅含有 ASCII 编码的字符。
 ====
 
 使用 `POST` 时，查询参数在 JSON 请求体中提供，每个 key 表示一个参数：

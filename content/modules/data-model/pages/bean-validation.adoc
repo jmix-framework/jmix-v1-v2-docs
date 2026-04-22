@@ -117,7 +117,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/service/PersonAp
 如果在服务中进行了一些自定义的编程式验证，请使用 `CustomValidationException` 通知用户验证错误，错误通知的格式与标准 bean 验证相同。这种机制特别适合用于 REST API 客户端。
 
 [NOTE]
-Bean 验证是可以继承的。如果某些类、字段或方法使用了约束注解，那么所有继承或实现此类或接口的后代都会受到某些约束检查的影响。
+Bean 验证是可以继承的。如果某些类、字段或方法使用了约束注解，那么所有继承或实现此类或接口的后代都会具有相同的约束检查。
 
 [[constraint-groups]]
 === 约束组

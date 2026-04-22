@@ -18,7 +18,7 @@ Jmix Studio 是一款 IntelliJ IDEA 的插件。参阅 xref:ROOT:setup.adoc#stud
 . 选择 *Appearance & Behavior → System Settings → HTTP Proxy*。
 . 配置相关的参数后，点击 *Check connection* 测试。
 +
-image::idea-proxy.png[align="center"]
+image::idea-proxy.png[align="center",width="1012"]
 
 更多信息，请参阅 https://www.jetbrains.com/help/idea/settings-http-proxy.html[IntelliJ IDEA 文档^]。
 
@@ -58,7 +58,7 @@ Studio 支持在没有网络的情况下开发项目。此时，项目的所有�
 
 开始使用离线模式，打开 IDE 右侧的 Gradle 工具窗口，然后点击 *Toggle Offline Mode* 按钮：
 
-image::idea-offline.png[align="center"]
+image::idea-offline.png[align="center",width="436"]
 
 在离线模式下，Gradle 使用缓存的依赖执行所有的项目构建任务。Gradle 不会尝试去连接网络解决依赖。如果缓存中没有需要的依赖，则会构建失败。
 
@@ -67,7 +67,7 @@ image::idea-offline.png[align="center"]
 
 有时候需要在 IDE 中安装非标准的 Studio builds，例如，想早一点使用最新的 Studio 功能。使用非标准的 Studio builds 其实就是要在 IDEA 中安装一个特定的插件版本。
 
-NOTE: 注意，非标准的 Studio builds 与稳定版有相同的许可要求。
+NOTE: 记住，非标准的 Studio builds 与稳定版有相同的许可要求。
 
 [[nightly]]
 === Nightly Builds
@@ -81,15 +81,15 @@ CAUTION: Nightly builds 中的改动并未经过质量保证流程的测试。�
 . 打开 IDEA 的插件管理页 *Main Menu → File → Settings → Plugins*。
 . 点击齿轮图标，并选择 *Manage Plugin Repositories*.
 +
-image::idea-gear.png[align="center"]
+image::idea-gear.png[align="center",width="1094"]
 +
 . 点击 `+` 并输入：`\https://plugins.jetbrains.com/plugins/jmix_nightly/list`
 +
-image::idea-add.png[align="center"]
+image::idea-add.png[align="center",width="612"]
 +
 . 你会立即看到 Jmix 插件要求升级至 NIGHTLY 版本。
 +
-image::jmix-update.png[align="center"]
+image::jmix-update.png[align="center",width="1094"]
 +
 . 点击 *Update* 并重启 IDE。
 
@@ -113,12 +113,12 @@ image::jmix-update.png[align="center"]
 . 选择需要下载的发布版通道：Stable 或 Nightly。
 . 在 *Version History* 列表找到需要的版本，然后下载。
 +
-image::jmix-site.png[align="center"]
+image::jmix-site.png[align="center",width="1331"]
 +
 . 在 IDEA 中打开 *Main Menu → File → Settings → Plugins*。
 . 点击齿轮图标并选择 *Install Plugin from Disk*。
 +
-image::install-from-disk.png[align="center"]
+image::install-from-disk.png[align="center",width="1094"]
 +
 . 在文件树中选择下载的压缩包，并点击 *OK*。
 . 重启 IDE。

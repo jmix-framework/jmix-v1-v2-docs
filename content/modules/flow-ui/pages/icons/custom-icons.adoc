@@ -1,15 +1,63 @@
-= 自定义图标
+= 添加更多图标
 
-自定义图标可以通过 SVG sprite 或以独立的图标进行添加，使用方法与内置的图标一样。
+额外的图标可通过三种方式添加：作为图标字体、作为 SVG sprite 或以独立的 SVG 文件添加。
 
-[[icon-set]]
-== 图标组
+[[icon-fonts]]
+== 图标字体
 
-SVG sprite 是 SVG 图片的集合，以单一文件的形式加载到应用程序中，以提供更好的性能。Sprite 可以通过很多第三方工具创建。
+图标字体是一种以字体形式提供的图标集合。图标作为该字体中的字符进行渲染。
 
-按照以下步骤添加图标组：
+TIP: 添加自定义图标字体后，可以使用它来覆盖默认的应用程序图标。详细信息请参考 xref:icons/override-icons.adoc[]。
 
-. 在 `/frontend/icons/` 内创建一个 JavaScript 文件。下面的代码是可以做为一个示例，如何创建一个图标集，包含三个图标：
+如需添加图标字体，需要提供以下信息：
+
+* 一个字体文件 - 通常是 `.woff` 或 `.woff2`，或者较旧的格式如 `.ttf` 或 `.eot`。
+* 一个 `@font-face` 声明 - 通常主题主样式表（`styles.css`）中导入的自定义样式表里。
+* 可选，一个包含图标 CSS 类的样式表 - 通常与 `@font-face` 声明一起添加，并同样导入到 `styles.css` 中。
+
+=== 示例：添加 Material 图标
+
+这个示例演示如何在 xref:flow-ui:themes/themes.adoc#application-theme[应用程序主题] 中添加 Material 图标。
+
+image:flow-ui:icons/material-icons.png[width=298]
+
+在主题的文件夹下创建一个目录，包含：
+
+* `material-icons-outlined.woff2`
+* `outlined.css` – 包含 `@font-face` 声明以及图标的 CSS 类：
++
+.outlined.css
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/material/outlined.css[tags=material-font-face;material-css]
+----
+
+在主题的主样式表中导入自定义的样式表：
+
+.styles.css
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/styles.css[tags=import-material]
+----
+
+创建图标时，使用 `fontIcon` 组件，提供字体家族名称（需匹配 `@font-face` 中的声明），以及字符编码或连子：
+
+[source,xml,indent=0]
+----
+
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=font-icon]
+----
+
+TIP: `fontIcon` 组件可以在 `prefix`、`suffix` 或 `icon` 元素内部使用。
+
+[[svg-sprite]]
+== SVG Sprite
+
+SVG Sprite 是一个包含多个 SVG 图像的集合，作为单个文件加载到应用程序中。可以手动创建精灵，也有很多第三方工具可以创建。
+
+如需添加 SVG Sprite 图标集：
+
+. 在 `/frontend/icons/` 目录中为图标集创建一个 JavaScript 文件。以下代码定义了一个包含三个图标的 sprite：
 
 +
 .my-icons.js
@@ -26,7 +74,7 @@ include::example$/onboarding/frontend/icons/my-icons.js[tags=my-icons-sprite]
 include::example$/onboarding/src/main/java/com/company/onboarding/icons/MyIcons.java[tags=my-icons-enum]
 ----
 
-之后，就可以像使用默认图标一样使用自定义图标：
+图标集注册之后，就可以像使用默认图标一样使用了：
 
 [source,xml,indent=0]
 ----
@@ -42,26 +90,33 @@ Java 代码中，可以通过下面的方式使用：
 include::example$/onboarding/src/main/java/com/company/onboarding/view/icons/IconsView.java[tags=programmatic-sprite]
 ----
 
-[[standalone-icon]]
-== 单一图标
+[[standalone-svg-images]]
+== 单独的 SVG 图片
 
-独立的图标可以添加到应用程序的静态资源文件夹。Spring Boot 默认以下 classpath 为静态资源目录：`/static`、`/public`、`/resources` 或 `/META-INF/resources`。为了更好地管理图标，也可以创建子目录，例如 `META-INF/resources/icons`。
+SVG 文件可以添加至静态资源目录。默认情况下，Spring Boot 的静态资源分布在 classpath 的这些位置：`/static`、`/public`、`/resources` 或 `/META-INF/resources`。图标可以放在一个子目录中，例如 `META-INF/resources/icons`。
 
-XML 中通过 `svgIcon` 组件使用静态图标资源：
+XML 中通过 `svgIcon` 组件使用 SVG：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-1]
 ----
 
-如果需要为组件设置图标，可以使用组件的 xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[前缀或后缀] 元素。例如，在按钮文字前面添加一个图标：
+如果需要为组件设置图标，使用内部的 `icon` 元素：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-2]
 ----
 
-Java 中的设置方法：
+如果组件支持 xref:flow-ui:vc/miscellaneous/prefix-suffix.adoc[前缀或后缀]，最好将图标放在前缀或后缀中，以达到最佳的显示效果。例如，将图标放在按钮文字的前面：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/icons/icons-view.xml[tags=declarative-standalone-3]
+----
+
+SVG 图标也可以编程式设置：
 
 [source,java,indent=0]
 ----

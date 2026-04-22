@@ -186,6 +186,22 @@ WAR 文件创建在 `/build/libs` 文件夹中。文件名按照 <<bootJar,前�
 请使用最新的 Tomcat 10 部署 Jmix WAR。
 ====
 
+[[multiple-wars]]
+=== 多个 WAR
+
+在同一 Tomcat 服务中部署多个 Jmix WAR 会导致 JMX bean 的命名冲突异常：
+
+----
+Caused by: javax.management.InstanceAlreadyExistsException: jmix.ui:type=TemporaryStorage
+----
+
+要解决这个问题就需要给每个 WAR 配置一个独有的 JMX 域名。可以按如下配置：
+
+.application.properties
+----
+spring.jmx.default-domain=myDomain
+----
+
 [[jndi-data-source]]
 === 使用 JNDI 数据源
 
@@ -274,3 +290,8 @@ CATALINA_OPTS="-Dspring.profiles.active=prod"
 . 将合适的 JDBC 驱动程序文件（例如，`postgresql-42.2.9.jar`）复制到 `tomcat/lib`。
 
 启动 Tomcat 时，应用程序将使用 `tomcat/conf/Catalina/localhost/demo.xml` 文件中定义的数据源。
+
+[[reverse-proxy]]
+== 反向代理
+
+有关在 Jmix 应用程序前配置 *Apache HTTPD* 或 *nginx* 的说明，请参考 {vaadin-docs}/flow/production/reverse-proxy[Vaadin 反向代理指南^]。该指南包含转发头信息、WebSocket 支持以及针对不同部署布局的路径重写等详细信息。

@@ -206,7 +206,7 @@ include::../examples/kanban-ex1/src/main/java/com/company/onboarding/view/kanban
 
 下面的示例中，一个 `kanban` 与任务实体的一些字段做了映射：
 
-image::properties-mapping.png[align="center',width="800"]
+image::properties-mapping.png[align="center",width="800"]
 
 [source,xml,indent=0]
 ----
@@ -281,7 +281,7 @@ image::kanban-actions.png[align="center",width="800"]
 
 [TIP]
 ====
-如需通过 Jmix Studio 添加 `action`，在 *Jmix UI* 结构面板或视图 XML 中选择组件，然后点击属性面板中的 xref:studio:screen-designer.adoc#add-action[Add->Action]。
+如需通过 Jmix Studio 添加一个 `action`，在 *Jmix UI* 结构面板或视图 XML 中选择组件，然后点击属性面板中的 xref:studio:screen-designer.adoc#add-action[Add->Action]。
 ====
 
 [[hierarchical-columns]]
@@ -363,7 +363,14 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 [[taskRendererFunction]]
 === 任务渲染器
 
-任务渲染器可以自定义任务的外观，通过一个回调函数定义。回调函数带 2 个参数：任务的 HTML 元素以及任务的数据。
+任务渲染器由一个回调函数定义 - `taskRendererFunction`。
+
+`taskRendererFunction` 支持自定义任务在看板中的渲染外观。
+
+该回调函数带 2 个参数：
+
+* `task`（HTMLElement）。 任务的 HTML 元素。
+* `data`（Object）。任务的数据对象，包含任务的所有属性。
 
 示例：
 
@@ -378,10 +385,20 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+参阅 https://www.htmlelements.com/docs/kanban-api/#toc-ontaskrender_any[Kanban JavaDoc^] 查看完整的 API。
+
 [[columnHeaderRendererFunction]]
 === 列表头渲染器
 
-列表头渲染器可以自定义看板列表头的外观，通过一个回调函数定义。回调函数带 3 个参数：列表头的 HTML 元素、列数据以及列的 dataField。
+列表头渲染器由一个回调函数定义 - `columnHeaderRendererFunction`。
+
+`columnHeaderRendererFunction` 支持自定义看板列表头的外观。
+
+该回调函数带 3 个参数：
+
+* `header`（HTMLElement）。 列表头的 HTML 元素。
+* `data`（Object）。列数据对象，包含列的属性。
+* `dataField`（String）。该列的数据字段名称（匹配列定义中的 `dataField` 属性）。
 
 示例：
 
@@ -396,10 +413,28 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+参阅 https://www.htmlelements.com/docs/kanban-api/#toc-oncolumnheaderrender_any[Kanban JavaDoc^] 查看完整的 API。
+
 [[columnFooterRendererFunction]]
 === 列脚注渲染器
 
-列脚注渲染器可以自定义看板列脚注的外观，通过一个回调函数定义。回调函数带 3 个参数：列脚注的 HTML 元素、列数据以及列的 dataField。
+脚注渲染器由一个回调函数定义 - `columnFooterRendererFunction`。
+
+`columnFooterRendererFunction` 支持自定义看板列脚注的渲染方式。列脚注通常用于显示每列的汇总、统计信息或操作按钮。
+
+如需使用列脚注渲染，请启用以下属性：
+
+[source,xml]
+----
+<kanban:kanban columnSummaryEnabled="true"
+               columnFooterVisible="true">
+----
+
+回调函数接收三个参数：
+
+* `footer` (HTMLElement)。表示列脚注的 HTML 元素。
+* `data` (Object)。列数据对象，包含列属性和汇总信息。
+* `dataField` (String)。与此列关联的数据字段名称（匹配 `dataField` 属性）。
 
 示例：
 
@@ -414,10 +449,14 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 ----
 ====
 
+参阅 https://www.htmlelements.com/docs/kanban-api/#toc-oncolumnfooterrender_any[Kanban JavaDoc^] 查看完整的 API。
+
 [[attributes]]
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:flow-ui:vc/common-handlers.adoc[通用属性]。下面是 `kanban` 的特殊属性：
+xref:flow-ui:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
+
+下面是 `kanban` 的特殊属性：
 
 [TIP]
 ====
@@ -484,7 +523,7 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 |如果为 `true`，将任务卡片的背景设置为任务的颜色。该属性优先级高于 <<columnColor, 列颜色>>。
 |`false`
 |[[taskDueDateVisible]]taskDueDateVisible
-|如果为 `ture`，显示任务的结束图标。参阅 <<propertyDueDate, dueDate>>。
+|如果为 `true`，显示任务的结束图标。参阅 <<propertyDueDate, dueDate>>。
 |`false`
 |[[taskPosition]]taskPosition
 |设置任务在列中的位置。选项：`ALL`、`LEAF`。参阅 <<task-position, 任务位置>>。
@@ -512,7 +551,8 @@ include::../examples/kanban-ex1/src/main/resources/com/company/onboarding/view/k
 </div>
 ++++
 
-在 Jmix 中，所有组件都有一些 xref:flow-ui:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。下面是 `kanban` 的特殊事件和处理器：
+xref:flow-ui:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
+下面是 `kanban` 的特殊事件和处理器：
 
 include::flow-ui:vc/handler-generation-tip.adoc[]
 
@@ -653,7 +693,7 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 
 CAUTION: 该功能在预览阶段。其外观以及实现细节在将来的版本中可能发生重大变化。
 
-`swimlaes` 元素可用于定义泳道，可以显式设置值或者使用枚举设置。泳道是将任务水平划分的横向条纹（责任区域），使用泳道时无法使用子列。
+`swimlanes` 元素可用于定义泳道，可以显式设置值或者使用枚举设置。泳道是将任务水平划分的横向条纹（责任区域），使用泳道时无法使用子列。
 
 [cols="1h,6", grid=none]
 |===
@@ -726,7 +766,7 @@ CAUTION: 该功能在预览阶段。其外观以及实现细节在将来的版�
 |XML 属性
 |<<propertyId, id>> -
 <<propertyStatus, status>> -
-<<propertyText, test>> -
+<<propertyText, text>> -
 <<propertyColor, color>> -
 <<propertyDueDate, dueDate>> -
 <<propertyPriority, priority>> -

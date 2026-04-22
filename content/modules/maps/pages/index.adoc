@@ -8,7 +8,6 @@
 </div>
 ++++
 
-
 地图扩展组件提供了 `GeoMap` 组件和丰富的功能，支持开发者在 Web 应用程序中集成可交互的地理空间要素。
 
 image::overview-map.png[align="center", width="598"]
@@ -16,7 +15,7 @@ image::overview-map.png[align="center", width="598"]
 [[overview]]
 == 介绍
 
-该扩展组件为应用程序提供了对空间数据的可视化展示和直观操作的功能。你可以选用符合你要求的地图供应商。
+该扩展组件为应用程序提供了对空间数据的可视化展示和直观操作的功能。可以选用符合项目要求的地图供应商。
 
 组件基于 https://openlayers.org/[OpenLayers^] JavaScript 库（v8.2.0）。默认情况所有 API 兼容 CRS - https://epsg.io/4326[EPSG:4326^]。
 

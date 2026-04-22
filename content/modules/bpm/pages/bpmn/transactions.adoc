@@ -67,9 +67,17 @@ image::bpm:/transactions/transactions-2.png[,800]
 告诉流程引擎稍后再继续流程并将作业写入数据库。
 然后，该作业由作业执行器加载并执行。
 
-如需使用此功能，必须设置 `async` 属性为 `true`。
+[NOTE]
+====
+如需使用这个功能，请设置相应元素的 *Asynchronous* 为 `true`。这个属性可用于：
 
-image::transactions/async-property.png[,400]
+* xref:bpmn/bpmn-service-task.adoc[]
+* xref:bpmn/bpmn-script-task.adoc[]
+* xref:bpmn/bpmn-business-rule-task.adoc[]
+* xref:bpmn/jmix-email-task.adoc[]
+* xref:bpmn/bpmn-subprocesses.adoc#embedded-subprocess[Embedded subprocess]
+* xref:bpmn/bpmn-subprocesses.adoc#call-activity[Call activity]
+====
 
 在 XML 中，设置 `flowable:async="true"`。
 
@@ -78,16 +86,6 @@ image::transactions/async-property.png[,400]
 <serviceTask id="Activity_0pzv18b" name="Generate invoice"
  flowable:async="true" />
 ----
-
-`async` 属性可用于：
-
-* xref:bpmn/bpmn-service-task.adoc[服务任务]
-* xref:bpmn/bpmn-script-task.adoc[脚本任务]
-* xref:bpmn/bpmn-business-rule-task.adoc[业务规则任务]
-* xref:bpmn/jmix-email-task.adoc[电子邮件任务]
-* xref:bpmn/bpmn-subprocesses.adoc#embedded-subprocess[嵌入子流程]
-* xref:bpmn/bpmn-subprocesses.adoc#call-activity[调用活动]
-
 
 [[fail-retry]]
 == 失败重试

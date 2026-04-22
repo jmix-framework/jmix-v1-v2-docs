@@ -1,98 +1,105 @@
 = 运行报表
 
-[[run_common]]
-== 从报表列表视图运行
+Users can run reports through the admin UI or from relevant application views using the actions provided by the Reports add-on. The report engine loads the report definition and the template from the application code or from the database and generates the output document:
 
-运行报表最简单的方式是使用通用报表运行视图，通过 *Reports（报表） -> Run Report（运行报表）* 打开该视图。用户需要有访问此视图的权限。在报表列表视图列出了当前用户 xref:creation/permissions.adoc[可用] 的所有报表。如果报表有外部参数，则在运行报表会显示一个表单来获取这些参数。
+.Running a report
+image::run/run-1.svg[align="center", width="552"]
 
-[[run_actions]]
-== 从其他视图运行报表
+[[run-from-list]]
+== Running from Reports List
 
-在任意视图中，可以使用特定操作及相关的按钮或组件右键菜单运行报表。此时，除了用户角色外，还将检查报表在此视图的 xref:creation/permissions.adoc[可用性]。
+The easiest way to run reports is from the xref:reports-ui.adoc#run-report-view[Run report] view. The user must have the permission to access this view. The list will contain all reports that are xref:creation/permissions.adoc[available to the user] in accordance with their role. If the report has external parameters, they will be requested in a special form when running the report.
+
+[[run-actions]]
+== 从视图运行报表
+
+在任意视图中，用户都可以使用特定操作及相关的按钮或组件右键菜单运行报表。此时，除了用户角色外，还将检查报表在此视图的 xref:creation/permissions.adoc[可用性]。
 
 下面示例展示不同类型操作和使用方法。
 
-[[run_report_action]]
-* `io.jmix.reportsflowui.action.RunReportAction` - 是一个 xref:flow-ui:actions/standard-actions.adoc[标准操作]，可以在当前视图或列表组价运行报表。可以为 `button` 或列表组件（`DataGrid`、`TreeDataGrid`）定义该操作。
-+
+[[run-report-action]]
+=== RunReportAction
+
+`io.jmix.reportsflowui.action.RunReportAction` 是一个 xref:flow-ui:actions/standard-actions.adoc[标准操作]，可以在当前视图或列表组件运行报表。可以为 `button` 或列表组件（xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]）定义该操作。
+
 下面是 `DataGrid` 使用声明式操作的示例：
-+
+
 [source,xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/book/book-list-view.xml[tags=buttonsPanel;reportRun;booksDataGrid;actions;report_runReport]
 ----
 <1> 添加运行报表的按钮。
-<2> `type` 属性定义了一个特殊的 `report_runReport` 操作类型，该操作由框架提供。
-+
+<2> `type` 属性定义了一个特殊的 `report_runReport` 操作类型，该操作由报表扩展组件提供。
+
 使用编程式方法创建操作，该操作关联一个在 XML 描述中声明的按钮，示例：
-+
+
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/book/BookListView.java[tags=runBtn;actions;onInit;create]
 ----
-+
-当操作执行时，会打开一个 *Run reports（运行报表）* 对话框展示与当前视图相关的报表。当用户从列表中选择一个报表时，会展示参数输入表单（如果有的话），然后可以运行报表。
+
+当操作执行时，会打开一个 *Run report（运行报表）* 对话框展示与当前视图相关的报表。当用户从列表中选择一个报表时，会展示参数输入表单（如果有的话），然后可以运行报表。
 
 [[run-list-entity-report-action]]
-* `io.jmix.reportsflowui.action.RunListEntityReportAction` - 是一个 xref:flow-ui:actions/standard-actions.adoc[标准操作]，用来打印列表组件（`DataGrid`、`TreeDataGrid`）中的实体集合报表。
-+
+=== RunListEntityReportAction
+
+`io.jmix.reportsflowui.action.RunListEntityReportAction` 是一个 xref:flow-ui:actions/standard-actions.adoc[标准操作]，用来打印列表组件（xref:flow-ui:vc/components/dataGrid.adoc[], xref:flow-ui:vc/components/treeDataGrid.adoc[]）中的实体集合报表。
+
 此操作只会选择外部参数为 *Entity* 或者 *List of entities* 类型的报表，并且要求参数实体类型与列表组件展示的实体类型一致。如果最后筛选结果只有一个报表，则会立即调用该报表。如果有多个报表符合条件，则会展示报表列表交于用户选择。
-+
+
 使用以下规则将外部参数值传递给报表：
 
-** 如果参数是 *List of entities* 类型，会将列表组件中当前选择的实例列表传递给报表。
+* 如果参数是 *List of entities* 类型，会将列表组件中当前选择的实例列表传递给报表。
 
-** 如果参数是 *Entity* 类型，并且在列表组件选择了单个实例（高亮显示一行），则选中实例会传递到报表中。
+* 如果参数是 *Entity* 类型，并且在列表组件选择了单个实例（高亮显示一行），则选中实例会传递到报表中。
 
-** 如果是 *Entity* 类型的参数，并且列表组件中选择了多行，则报表会根据选择的实例数量运行多次。执行之后，用户将得到一个包含所有生成的报表的 ZIP 文件。
-+
+* 如果是 *Entity* 类型的参数，并且列表组件中选择了多行，则报表会根据选择的实例数量运行多次。执行之后，用户将得到一个包含所有生成的报表的 ZIP 文件。
+
 下面是 `DataGrid` 使用声明式操作的示例：
-+
+
 [source, xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/author/author-list-view.xml[tags=buttonsPanel;runList;authorsDataGrid;actions]
 ----
 <1> 添加运行实体报表的按钮。
-<2> `type` 属性定义了一个特殊的 `report_runListEntityReport` 操作类型，该操作由框架提供。
-+
+<2> `type` 属性定义了一个特殊的 `report_runListEntityReport` 操作类型，该操作由报表扩展组件提供。
+
 使用编程式方法创建操作，该操作关联一个在 XML 描述中声明的按钮，示例：
-+
+
 [source,java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/author/AuthorListView.java[tags=runBtn;actions;onInit;runList]
 ----
-+
+
 当操作执行时，如果列表组件没有选中实体，会显示一个确认窗口。
-+
+
 image::run-list-entity-report-action-confirmation.png[align="center",width="402"]
-+
-之后，会打开一个 *Report Run（运行报表）* 对话框展示与当前视图相关的报表。从该窗口中，用户可以针对选中的实体运行报表。
+
+之后，会打开一个 *Run report（运行报表）* 对话框展示与当前视图相关的报表。从该窗口中，用户可以针对选中的实体运行报表。
 
 [[run-single-entity-report-action]]
-* `io.jmix.reportsflowui.action.RunSingleEntityReportAction` - 与实体详情视图关联的操作。该操作仅选择外部参数类型是 *Entity* 或 *List of entities* 的报表，并且参数实体类型要与编辑的实体类型一样。如果只有一个这样的报表，则会立即调用该报表。如果有多个，则会显示一个列表供用户选择。
-+
+=== RunSingleEntityReportAction
+
+`io.jmix.reportsflowui.action.RunSingleEntityReportAction` 是与实体详情视图关联的操作。该操作仅选择外部参数类型是 *Entity* 或 *List of entities* 的报表，并且参数实体类型要与编辑的实体类型一样。如果只有一个这样的报表，则会立即调用该报表。如果有多个，则会显示一个列表供用户选择。
+
 外部参数值 - 被编辑的实体实例会传递到报表中。如果参数是 *List of entities* 类型，则会传递一个包含单一实体的列表。
-+
+
 下面是在一个按钮中使用这个操作的示例，这个按钮位于标准的 *OK* 和 *Cancel* 按钮旁边：
-+
---
-** XML 描述
-+
+
 [source, xml,indent=0]
 ----
 include::example$/library/src/main/resources/com/company/library/view/book/book-detail-view.xml[tags=detailActions]
 ----
 
-** 控制器
-+
 [source, java,indent=0]
 ----
 include::example$/library/src/main/java/com/company/library/view/book/BookDetailView.java[tags=actions;reportButton;onInitEntity;RunSingleEntityReportAction]
 ----
---
 
 [[reports-api]]
 == 报表 API
+
+TIP: 可以使用 xref:jmix:studio:code-snippets.adoc[] 功能生成使用 API 运行报表的代码。
 
 [[report-runner]]
 === ReportRunner
@@ -119,8 +126,6 @@ include::example$/library/src/main/java/com/company/library/view/runreport/RunRe
 <2> 在参数 map 中添加一个输入参数。
 <3> 设置模板的编码，将用于运行报表。
 <4> 构建一个 `ReportRunContext` 实例，并使用该 Context 实例运行报表。
-+
-TIP: 点击操作面板的 *Code Snippets* xref:jmix:studio:code-snippets.adoc[自动生成] 使用 `ReportRunner` 接口运行报表的代码。
 
 . 通过报表实体和流式接口指定的附加信息运行报表：
 +
@@ -175,8 +180,6 @@ include::example$/library/src/main/java/com/company/library/view/runreport/RunRe
 ----
 +
 `runMultipleReports()` 方法为指定的集合中每个对象运行一次报表。集合中的对象需要是同一类型的，并且使用指定的别名作为报表的输入参数。
-
-TIP: 点击操作面板的 *Code Snippets* xref:jmix:studio:code-snippets.adoc[自动生成] 使用 `UiReportRunner` 接口运行报表的代码。
 
 [[report-run-context]]
 === ReportRunContext

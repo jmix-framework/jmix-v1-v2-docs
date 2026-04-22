@@ -291,9 +291,22 @@ CAUTION: 在上传具有 `MANUAL` 模式的 `FileStorageUploadField` 字段后�
 </div>
 ++++
 
-设置允许上传文件的最大字节数。注意，这是一个客户端层面的约束，会在发送上传请求之前检查。
+设置允许上传文件的最大字节数。注意，这是一个客户端层面的约束，会在发送上传请求至服务器之前检查。
 
-NOTE: 如果 `MultipartProperties` 可用，默认值从 `MultipartProperties#getMaxFileSize()` 获得，即 1Mb。如需提高应用程序中所有字段支持的最大文件大小，请使用 `MultipartProperties#getMaxFileSize()` 属性。
+[NOTE]
+====
+如果 `MultipartProperties` 可用，则默认值取自 `MultipartProperties#getMaxFileSize()`（默认为 `1MB`）。
+
+如需全局配置所有组件的最大支持文件大小，使用以下 Spring Boot 应用程序属性：
+
+* https://docs.spring.io/spring-boot/appendix/application-properties/index.html#application-properties.web.spring.servlet.multipart.max-file-size[spring.servlet.multipart.max-file-size^] – 设置上传文件允许的最大大小（例如 `10MB`）
+
+* https://docs.spring.io/spring-boot/appendix/application-properties/index.html#application-properties.web.spring.servlet.multipart.max-request-size[spring.servlet.multipart.max-request-size^] – 设置整个 multipart 请求允许的最大大小（例如 `10MB`）
+
+更多选项请参考 Spring Boot 文档。
+
+CAUTION: 这些属性适用于 JAR 部署。对于 WAR 部署，可能需要在应用服务器设置中配置文件大小限制。
+====
 
 [[uploadIcon]]
 === uploadIcon
@@ -319,7 +332,9 @@ include::../handler-generation-tip.adoc[]
 [[FileUploadFailedEvent]]
 === FileUploadFailedEvent
 
-当产生 `Upload` 的 `FailedEvent` 事件时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent`。参考 https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFailedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFailedListener(ComponentEventListener)^]。
+当底层的 `Upload` 组件产生 `FailedEvent` 时，会发送 `io.jmix.flowui.kit.component.upload.event.FileUploadFailedEvent`。
+
+`FailedEvent` 表示文件已经被服务器接收，但是接收程序在完成之前中断。一般是由于网络原因、服务端处理出错或手动取消上传。
 
 [source,java,indent=0]
 ----
@@ -329,29 +344,50 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[FileUploadFileRejectedEvent]]
 === FileUploadFileRejectedEvent
 
-当产生 `Upload` 的 `FileRejectedEvent` 事件时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent`。参考 https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFileRejectedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFileRejectedListener(ComponentEventListener)^]。
+当底层 Vaadin `Upload` 组件产生 `FileRejectedEvent` 时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadFileRejectedEvent` 事件。
+
+此事件表示用户选择的文件因未能满足上传组件上配置的一个或多个约束而被拒绝，例如：
+
+* 文件大小限制（<<maxFileSize,maxFileSize>>）
+* 可接受的文件类型（<<acceptedFileTypes,acceptedFileTypes>>）
+
+当违反上传约束时，可以使用此事件向用户提供反馈。
 
 [[FileUploadFinishedEvent]]
 === FileUploadFinishedEvent
 
-当产生 `Upload` 的 `FinishedEvent` 事件时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent`。参考 https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addFinishedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addFinishedListener(ComponentEventListener)^]。
+当底层 Vaadin `Upload` 组件产生 `FinishedEvent` 时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadFinishedEvent` 事件。
+
+此事件表示文件上传过程已完成，无论其结果如何。无论是成功上传还是失败的尝试，都会触发该事件。
+
+要更精细地控制上传结果，请考虑使用以下特定的子事件：
+
+* <<FileUploadSucceededEvent,FileUploadSucceededEvent>> - 表示文件上传成功。
+
+* <<FileUploadFailedEvent,FileUploadFailedEvent>> - 表示上传失败或中断。
 
 [[FileUploadProgressEvent]]
 === FileUploadProgressEvent
 
-当产生 `Upload` 的 `ProgressUpdateEvent` 事件时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent`。参考 https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addProgressListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addProgressListener(ComponentEventListener)^]。
+在底层 Vaadin `Upload` 组件发出 `ProgressUpdateEvent` 时触发 `io.jmix.flowui.kit.component.upload.event.FileUploadProgressEvent` 事件。
+
+此事件支持实时跟踪正在上传的文件，并提供关于上传进度的连续反馈，可以更新 UI 元素。
 
 [[FileUploadStartedEvent]]
 === FileUploadStartedEvent
 
-当产生 `Upload` 的 `StartedEvent` 事件时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent`。参考 https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addStartedListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addStartedListener(ComponentEventListener)^]。
+在底层 Vaadin `Upload` 组件发出 `StartedEvent` 时触发 `io.jmix.flowui.kit.component.upload.event.FileUploadStartedEvent` 事件。
+
+此事件表示文件上传过程的开始，即在用户选择文件并启动向服务器的传输后立即触发。
 
 [[FileUploadSucceededEvent]]
 === FileUploadSucceededEvent
 
-当产生 `Upload` 的 `SucceededEvent` 事件时，会触发 `io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent`，表示上传文件已经成功接收。参考 https://vaadin.com/api/platform/24.4.4/com/vaadin/flow/component/upload/Upload.html#addSucceededListener(com.vaadin.flow.component.ComponentEventListener)[Upload.addSucceededListener(ComponentEventListener)^]。
+在底层 Vaadin `Upload` 组件触发 `SucceededEvent` 时触发 `io.jmix.flowui.kit.component.upload.event.FileUploadSucceededEvent` 事件。
 
-下面是使用 `fileStorageUploadField` 上传 `.xls` 或 `.xlsx` 文件的示例，文件在 `FileUploadSucceededEvent` 事件中处理。
+此事件确认文件上传已成功完成，表示文件已被服务器完全接收且处理无误。
+
+下面是使用 `fileStorageUploadField` 上传 `.xls` 和 `.xlsx` 文件的示例，文件在 `FileUploadSucceededEvent` 事件中处理。
 
 [source,java,indent=0]
 ----
@@ -365,4 +401,5 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 == XML 内部元素
 
-xref:vc/components/tooltip.adoc[tooltip]
+xref:vc/components/tooltip.adoc[tooltip] -
+xref:icons/custom-icons.adoc[uploadIcon]

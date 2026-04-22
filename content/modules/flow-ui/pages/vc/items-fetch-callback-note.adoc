@@ -1,4 +1,4 @@
 [NOTE]
 ====
-The `itemsQuery` does not support using the `container_` or `component_` prefixes to automatically bind parameters to containers or visual components; this declarative binding is only supported by xref:facets/dataLoadCoordinator.adoc[] facet.
+`itemsQuery` 不支持使用 `container_` 或 `component_` 前缀自动绑定数据容器或可视化组件参数；这个声明式的绑定仅支持 xref:facets/dataLoadCoordinator.adoc[] facet。
 ====

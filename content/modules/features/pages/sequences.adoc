@@ -22,13 +22,18 @@ include::example$/features-ex1/src/main/java/com/company/demo/view/document/Docu
 +
 序列不需要初始化。当第一次调用 `createNextValue()` 方法时，将创建相应的序列并返回默认的 `1`。
 
-* `getCurrentValue()` - 返回序列当前值。
-
-* `setCurrentValue()` - 设置序列的当前值。下一次调用 `createNextValue()` 方法时将返回这个值递增之后的值。
+* `setCurrentValue()` – 设置序列的当前值。
++
+不同的数据库在调用 `setCurrentValue()` 后第一次调用 `createNextValue()` 时的返回值有些许不同：
++
+** PostgreSQL 返回设置的值加上间隔。
+** 其他的数据库只是返回设置的值。
 
 * `deleteSequence()` - 删除指定标识符的序列。
 
-序列生成机制的实现取决于 DBMS 类型。支持的数据库类型为 HSQL、Microsoft SQL Server、MySQL、Oracle 和 PostgreSQL。序列参数也可以直接在数据库中通过特定的 DBMS 规则管理。
+序列生成机制已支持所有 xref:data-model:data-stores.adoc#supported-databases[Jmix 支持的数据库]。
+
+序列参数也可以根据特定数据库管理系统的规则直接在数据库中进行管理。
 
 CAUTION: `Sequences` 的实现基于数据库序列或者自增字段，并不能保证序列值的连续。仅能保证数值的唯一性。数据库错误或事务的回滚会导致序列连续性中断。
 

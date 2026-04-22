@@ -43,14 +43,18 @@ implementation 'io.jmix.webdav:jmix-webdav-flowui-starter'
 // include::webdav:example$ex1/build.gradle[tags=dependencies]
 // ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[https]]
 == HTTPS
 
 桌面 Office 应用程序通过 WebDAV 连接服务时使用基本认证方式，因此需要为 Web 应用程序配置 HTTPS。参阅 xref:configuration.adoc#https[配置 HTTPS] 章节，了解如何在 localhost 配置 HTTPS 用于开发测试。
 
 [[requirements]]
-== 最低要求
+== 要求
 
-能通过 WebDAV 协议打开文档的最低版本 Microsoft Office 需要是 MS Office 2010 SP2 以上。LibreOffice 要求的最低版本是 6.3。
+IMPORTANT: 由于 Microsoft 365 应用程序最近禁用了基本认证（参阅 https://learn.microsoft.com/en-us/microsoft-365-apps/security/basic-authentication-prompts-blocked[^]），WebDAV 无法兼容 Microsoft Office 的最新版本。
+
+能通过 WebDAV 协议打开文档的最低版本 Microsoft Office 需要是 MS Office 2010 SP2。LibreOffice 要求的最低版本是 6.3。
 
 如需检查 Microsoft Office 和 Service Pack（SP） 的版本，打开 MS Word，从 *File → Help* 菜单打开 *Product Information*。MS Office 2010 SP2（或以上版本）会显示 14.0.7015.1000（或更高版本号）。如需升级 Service Pack，请访问 https://www.microsoft.com/en-US/download/details.aspx?id=39667[微软文档^]。

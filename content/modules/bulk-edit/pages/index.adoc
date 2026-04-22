@@ -38,3 +38,27 @@ implementation 'io.jmix.bulkeditor:jmix-bulkeditor-starter'
 ----
 
 设置 `dataGrid` 的 `selectionMode="MULTI"` 以支持多选。
+
+[[parameterization]]
+=== 参数化
+
+`bulked_edit` 操作提供了一些附加的属性可以在 XML 中配置，或者通过 Java setter 编程式配置。
+
+在 XML 中，使用内部的 `<properties>` 元素配置属性。每个 `<properties>` 对应操作类中的一个 setter 方法：
+
+[source,xml]
+----
+<action id="bulkEditAction" type="bulked_edit">
+    <properties>
+        <property name="includeProperties" value="username, email"/>
+    </properties>
+</action>
+----
+
+==== 属性
+
+* `includeProperties` - 配置需要显示在批量编辑器中的实体属性。如果设置，则其他没有列出的属性都不能编辑。
+
+* `exclude` - 定义一个正则表达式来显式地排除特定的属性，这些属性不能编辑。
+
+* `useConfirmDialog` - 控制是否在保存更改前显示一个确认对话框。默认值 `true`。

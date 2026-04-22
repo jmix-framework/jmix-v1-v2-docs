@@ -50,8 +50,19 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/departmen
 
 除了调用自定义服务之外，加载代理方法还支持对加载的实体进行加载后处理。
 
-// todo pagination
-// If you declare custom data loading with a delegate, and you display the loaded data in the DataGrid with a pagination component, then you may also need to define the custom logic to count total number of rows. Take a look at xref:vc/components/pagination.adoc#total-count-delegate[TotalCountDelegate] handler for the pagination component associated with the table.
+如果使用代理声明自定义的数据加载，并在带有分页组件的 DataGrid 中显示已加载的数据，那么可能还需要定义计算总行数的自定义逻辑。请查看与表格关联的分页组件的 xref:vc/components/simplePagination.adoc#totalCountDelegate[totalCountDelegate] 处理方法。
+
+[[load-from-repository-delegate]]
+=== loadFromRepositoryDelegate
+
+如果更倾向使用 xref:data-access:data-repositories.adoc[data repositories] 访问数据库，请使用 `loadFromRepositoryDelegate` 替代 <<load-delegate,上面>> 描述的 `loadDelegate`。
+
+这个类接收适合直接调用 data repositories 的参数：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView3.java[tags=delegate]
+----
 
 [[pre-load-event]]
 === PreLoadEvent

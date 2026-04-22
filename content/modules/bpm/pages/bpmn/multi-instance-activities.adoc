@@ -3,8 +3,7 @@
 [[overview]]
 == 概览
 *多实例活动（multi-instance activity）* 是定义业务流程中某个重复步骤的一种方式。
-在编程概念中，多实例与 `for each` 结构等价：给定一个条目集合，对于集合中的每个条目，
-都可以执行一个特定的步骤，甚至是一个完整的子流程，
+在编程概念中，多实例与 `for each` 结构等价：给定一个条目集合，对于集合中的每个条目，都可以执行一个特定的步骤，甚至是一个完整的子流程，
 执行的顺序可以是 *串行（sequentially）* 的也可以是 *并行（parallel）* 的。
 
 多实例活动也是一个常规活动，但是需定义额外的属性，名为 `_multi-instance characteristics（多实例特性）_`，
@@ -67,7 +66,7 @@ loopCounter:: 特定实例在 for-each 循环中的索引（index）。
 如需将一个活动设置为多实例，请在画布中选择该活动，然后在 *BPMN Navigator* 面板中，
 选择所需的实例类型：
 
-image::multi-instance/multi-instance-types.png[,350]
+image::multi-instance/multi-instance-types.png[,463]
 
 [[defining-number-of-instan]]
 === 实例数
@@ -85,8 +84,7 @@ image::multi-instance/multi-instance-types.png[,350]
 设置集合来源和集合:: -- 集合来源可以选择：表达式、
 流程变量、以及用户 Provider。流程引擎会按照集合的大小创建同等数量的活动：
 
-image::multi-instance/collection-source-user-task.png[,350]
-
+image::multi-instance/collection-source-user-task.png[,463]
 
 .*用表达式设置集合*
 使用表达式可以为多实例活动传入一个集合。
@@ -179,7 +177,7 @@ image::process-example-multi-user-task.png[,400]
 然后我们可以用这样的基于输出的条件，如，
 “每个人都说 _Yes_”：
 
-image::sequence-flow-with-outcome-based-condition.png[,450]
+image::sequence-flow-with-outcome-based-condition.png[,463]
 
 [[boundary-events]]
 == 边界事件

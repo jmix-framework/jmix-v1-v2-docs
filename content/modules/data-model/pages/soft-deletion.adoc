@@ -132,20 +132,23 @@ create unique index IDX_CUSTOMER_UNQ_EMAIL on CUSTOMER (EMAIL, DELETED_DATE)
 ----
 @SystemLevel
 @Column(name = "DELETED_DATE_NN")
-@Temporal(TemporalType.TIMESTAMP)
-private Date deletedDateNN = new Date(0); // 手动初始化
+private OffsetDateTime deletedDateNN = OffsetDateTime.of(
+            1970, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC
+    ); // add initializer manually
 
-public Date getDeletedDateNN() {
+public OffsetDateTime getDeletedDateNN() {
     return deletedDateNN;
 }
 
-public void setDeletedDateNN(Date deletedDateNN) {
+public void setDeletedDateNN(OffsetDateTime deletedDateNN) {
     this.deletedDateNN = deletedDateNN;
 }
 
-public void setDeletedDate(Date deletedDate) {
+public void setDeletedDate(OffsetDateTime deletedDate) {
     this.deletedDate = deletedDate;
-    setDeletedDateNN(deletedDate == null ? new Date(0) : deletedDate); // 手动添加这些代码
+    setDeletedDateNN(deletedDate == null ? OffsetDateTime.of(
+            1970, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC
+    ) : deletedDate); // add this manually
 }
 ----
 

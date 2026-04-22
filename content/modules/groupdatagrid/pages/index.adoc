@@ -1,40 +1,40 @@
-= Grouping Data Grid
+= 分组表格
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/group-data-grid" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/group-data-grid" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-This add-on makes xref:groupdatagrid:groupdatagrid-component.adoc[groupDataGrid] available in the component palette. Use it as an alternative to xref:flow-ui:vc/components/dataGrid.adoc[] and xref:flow-ui:vc/components/treeDataGrid.adoc[] when column-based grouping is required.
+此扩展组件提供了 xref:groupdatagrid:groupdatagrid-component.adoc[groupDataGrid]。当需要在表格中对列进行分组时，可将其作为 xref:flow-ui:vc/components/dataGrid.adoc[] 和 xref:flow-ui:vc/components/treeDataGrid.adoc[] 的替代方案。
 
 image::groupdatagrid-basic.png[align="center",width="1097"]
 
-Key features:
+主要特性：
 
-* *Multi-level Grouping:* Group rows by multiple criteria.
-* *User-Controlled Grouping:* Users can group and change grouping order directly from the UI.
-* *Built-in Sorting:* Maintain sorting inside groups.
-* *Export to Excel:* Export with groups flattened or with original grouping structure.
-* *Flexible Styling:* Configure groups, headers, icons, and overall grid look.
+* *多层级分组：* 按多个条件对行进行分组。
+* *用户可控：* 用户可以直接从 UI 进行分组并更改分组顺序。
+* *内置排序：* 在分组内保持排序。
+* *导出 Excel：* 导出时可将分组展平或保留原始分组结构。
+* *样式灵活：* 配置分组、表头、图标以及表格的整体外观。
 
 [[installation]]
-== Installation
+== 安装
 
 [NOTE]
 ====
-This add-on requires the Enterprise https://www.jmix.io/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
+此扩展组件需要企业版 https://www.jmix.cn/subscription-plans-and-prices/[订阅^]。如果没有企业版订阅，可以按照 xref:ROOT:account-management.adoc#enterprise-trial[企业版试用] 介绍的方法试用。
 ====
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+请按照 xref:ROOT:add-ons.adoc#installation[扩展组件] 章节的介绍通过 Jmix 市场自动安装。
 
-For manual installation, follow the steps below.
+手动安装步骤：
 
-. Configure access to the premium repository.
+. 配置 premium 仓库的访问：
 +
 include::ROOT:partial$premium-repo.adoc[]
 
-. Add dependency to your `build.gradle`:
+. 在 `build.gradle` 中添加依赖：
 +
 [source,groovy,indent=0]
 ----

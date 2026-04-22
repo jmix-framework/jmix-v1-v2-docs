@@ -72,7 +72,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 应用程序可以提供静态图片地址。
 
-默认情况下，静态内容在 classpath 的 `/static`、`/public`、`/resources` 或 `/META-INF/resources` 文件夹（详情请参考： https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot 文档^]）。
+默认情况下，静态内容在 classpath 的 `/static`、`/public`、`/resources` 或 `/META-INF/resources` 文件夹（详情请参考： https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot 文档^]）。如需配置静态资源的匿名访问，参阅 xref:security:custom-endpoints.adoc#static-public-resources[安全：静态公共资源]。
 
 * XML 中：
 +
@@ -132,7 +132,7 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // === ThemeResource
 
 == XML 属性
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `image` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
@@ -154,7 +154,7 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 [[handlers]]
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 下面是 `image` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]

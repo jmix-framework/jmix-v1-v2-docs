@@ -11,7 +11,7 @@ CAUTION: 只在数据库保存小文件，例如，缩略图、图标等。因�
 include::example$/files-ex1/src/main/java/com/company/demo/entity/Person.java[tags=file]
 ----
 
-当运行应用程序时，Studio 会生成一个数据库迁移脚本，用于创建适合你数据库类型的相应列。例如，对于 PostgreSQL，类型为 `bytea`。
+当运行应用程序时，Studio 会生成一个数据库迁移脚本，用于创建适合你使用的数据库类型的相应列。例如，对于 PostgreSQL，类型为 `bytea`。
 
 如需从用户界面上传文件，请使用 xref:flow-ui:vc/components/fileUploadField.adoc[] 组件绑定实体属性。如果文件是图片，可以使用 xref:flow-ui:vc/html-components/image.adoc[] 组件在视图中展示图片。示例：
 

@@ -10,7 +10,7 @@
 +
 用户角色还可以基于其自身的属性添加。
 +
-注册一个 Spring bean，实现 `LdapUserAdditionalRoleProvider` 接口，在 bean 内实现`getAdditionalRoles()` 方法。示例：
+注册一个 Spring bean，实现 `LdapUserAdditionalRoleProvider` 接口，在 bean 内实现 `getAdditionalRoles()` 方法。示例：
 +
 [source,java,indent=0]
 ----
@@ -32,7 +32,7 @@ xref:ldap:properties.adoc#jmix.ldap.default-roles[jmix.ldap.default-roles] 应�
 
 例如，假设初始的列表中只包含一个简单的授权，值为 `Administrators`。首先，映射器会尝试查找具有相同角色编码的资源角色。如果没找到，则尝试查找具有相同编码的行级角色。如果仍未找到，则此角色不会添加至最终的列表。
 
-你可以自己实现 `LdapAuthorityToJmixRoleCodesMapper` 接口，将 LDAP 授权和 Jmix 角色编码进行映射。可以将多个 Jmix 角色编码映射至一个 LDAP 分组，角色可以是资源角色或行级角色。
+可以自己实现 `LdapAuthorityToJmixRoleCodesMapper` 接口，将 LDAP 授权和 Jmix 角色编码进行映射。可以将多个 Jmix 角色（资源角色或行级角色）编码映射至一个 LDAP 分组。
 
 下面示例中，bean 实现了将 `mathematician` 和 `scientists` LDAP 分组映射至 Jmix 角色编码：
 

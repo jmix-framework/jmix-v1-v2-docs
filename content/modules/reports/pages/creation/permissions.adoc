@@ -1,7 +1,10 @@
 [[permissions]]
 = 角色和视图
 
-可以在报表详情视图的 *Roles and views（角色和视图）* 标签页中定义哪些用户可以访问报表，以及哪些视图可以使用报表。
+[[roles-views-tab]]
+== 角色和视图标签页
+
+可以在报表编辑器的 *Roles and views（角色和视图）* 标签页中定义哪些用户可以访问报表，以及哪些视图可以使用报表。
 
 如果 *Resource roles（资源角色）* 列表中至少有一个角色，则该报表仅对具有此角色的用户可用。如果未指定任何角色，则所有人都可以使用该报表。
 
@@ -10,4 +13,24 @@
 注意，在报表列表视图（*Reports（报表）->Reports（报表）* 菜单项）中，能看到所有的系统报表，因为该菜单是管理员菜单。
 ====
 
-*Views（视图）* 列表可以指定哪些视图可以调用 xref:run-report.adoc#run_report_action[RunReportAction]、xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction]、xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] 或 xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] 报表操作。如果未指定任何视图，则报表在任何视图都不可用。
+*Views（视图）* 列表可以指定哪些视图可以调用 xref:run-report.adoc#run-report-action[RunReportAction]、xref:run-report.adoc#run-list-entity-report-action[RunListEntityReportAction]、xref:run-report.adoc#run-single-entity-report-action[RunSingleEntityReportAction] 或 xref:exec-history.adoc#execution_history_action[ShowExecutionReportHistoryAction] 报表操作。如果未指定任何视图，则报表在任何视图都不可用。
+
+[[available-for-roles]]
+== @AvailableForRoles
+
+在设计时，使用 `@AvailableForRoles` 注解可以指定哪些 xref:security:resource-roles.adoc[资源角色] 能在特定视图和操作中启动所创建的报表。如果缺少此注解或角色列表为空，则没有限制，任何用户都可以启动报表。
+
+`@AvailableForRoles` 注解有以下属性：
+
+* `roleCodes` - 能访问报表的资源角色代码。
+* `roleClasses` - 指定资源角色接口（带有 `@ResourceRole` 注解），这个角色接口定义的角色能访问报表。
+
+[[available-in-views]]
+== @AvailableInViews
+
+`@AvailableInViews` 注解定义了在使用 xref:run-report.adoc#run-actions[标准报表操作]（`io.jmix.reportsflowui.action` 包）时，报表在哪些视图中可用。
+
+`@AvailableInViews` 注解有以下属性：
+
+* `viewIds` - 一组视图的 ID，报表在这些视图中可以通过标准操作使用。
+* `viewClasses` - 一组视图类（带有 `@ViewController` 注解）， 报表在这些视图中可以通过标准操作使用。

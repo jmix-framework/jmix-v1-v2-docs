@@ -25,3 +25,9 @@ include::ROOT:partial$premium-repo.adoc[]
 implementation 'io.jmix.notifications:jmix-notifications-starter'
 implementation 'io.jmix.notifications:jmix-notifications-flowui-starter'
 ----
+// [source,groovy,indent=0]
+// ----
+// include::example$ex1/build.gradle[tags=notifications-dep]
+// ----
+
+include::ROOT:single-menu-note.adoc[]

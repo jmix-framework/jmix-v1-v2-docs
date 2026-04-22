@@ -21,7 +21,7 @@
 
 image::visual-components/components/simple-pagination.png[align="center", width="818"]
 
-Jmix Studio 在为实体创建 xref:flow-ui:views/views.adoc#standard-list-view[StandardListView] 时，默认生成 `simplePagination`。
+Jmix Studio 在为实体创建 xref:flow-ui:views/view-classes.adoc#standard-list-view[StandardListView] 时，默认生成 `simplePagination`。
 
 [source,xml,indent=0]
 ----
@@ -69,6 +69,23 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 所有实体的最大加载数是通过 xref:flow-ui:ui-properties.adoc#jmix.ui.default-max-fetch-size[jmix.ui.default-max-fetch-size] UI 属性定义。默认值为 10000。某些特定实体可能有不同的加载要求，可以用 xref:flow-ui:ui-properties.adoc#jmix.ui.entity-max-fetch-size[jmix.ui.entity-max-fetch-size] 设置。
 ====
 
+[[items-per-page-empty-label]]
+=== 空项标签
+
+当 <<itemsPerPageUnlimitedItemVisible,itemsPerPageUnlimitedItemVisible>>=`"true"` 时，下拉列表会显示一个空项，用来加载所有数据（受最大获取量限制）。默认情况下，此项显示为空字符串。
+
+可以通过向 xref:localization:message-bundles.adoc[消息包] 添加消息键值自定义此项的标签：
+
+[source,properties]
+----
+pagination.itemsPerPage.emptySelectionCaption=Show all
+----
+
+[NOTE]
+====
+如果消息包中存在消息键值 `pagination.itemsPerPage.emptySelectionCaption`，则其值将显示在下拉列表中，而不是显示为空项。如果未找到该键值，则该项显示为空。
+====
+
 == XML 属性
 
 xref:vc/common-attributes.adoc#id[id] -
@@ -88,6 +105,11 @@ xref:vc/common-attributes.adoc#visible[visible]
 === autoLoad
 
 `autoLoad` 属性可以设置是否自动加载数据的数量。当 `autoLoad` 禁用时，组件不知道数据的总量，从而显示一个 `[?]` 按钮。启用时，组件会组织一个查询语句获取数据总量并显示。默认值为 `false`。
+
+[NOTE]
+====
+当 `autoLoad` 设置为 `true` 时，<<totalCountDelegate,totalCountDelegate>> 可能会在一个 `BackgroundTask` 中调用。此时，无法在该代理方法中更新 UI。
+====
 
 [[dataLoader]]
 === dataLoader
@@ -129,4 +151,21 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/simplepagination/SimplePaginationView.java[tags=dataManager;totalCountDelegate]
+----
+
+[IMPORTANT]
+====
+当 `simplePagination` 的 `autoLoad="true"` 时，`totalCountDelegate` 可能会在 `BackgroundTask` 中调用。即 `totalCountDelegate` 处理器内部的代码 **不能更新 UI 组件**（例如在 `TextField` 上调用 `setText()` 或其他 UI 修改）。尝试这样做将导致 `IllegalStateException`。
+
+不要在 `totalCountDelegate` 内部更新 UI 组件。仅使用此处理器来计算并返回总计数。
+====
+
+[[totalCountByRepositoryDelegate]]
+=== totalCountByRepositoryDelegate
+
+设置代理方法，用于从 xref:data-access:data-repositories.adoc[data repository] 获取条目的总计数。例如：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/department/DepartmentListView3.java[tags=repository;totalCountByRepositoryDelegate]
 ----

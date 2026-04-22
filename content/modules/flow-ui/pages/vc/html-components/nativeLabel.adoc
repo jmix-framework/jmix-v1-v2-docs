@@ -81,7 +81,7 @@ image::visual-components/html-components/label-dynamic.png[align="center", width
 
 有四种配色可选，用于表达组件的意图：默认、`success`、`error`和 `contrast`。
 
-image::visual-components/html-components/label-badge-color.png[align="center", width="306"]
+image::visual-components/html-components/label-badge-color.png[align="center", width="400"]
 
 .XML 代码
 [%collapsible]
@@ -94,7 +94,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 将配色与 `primary` 主题一起使用可以更加显著地显示。
 
-image::visual-components/html-components/label-badge-color-primary.png[align="center", width="306"]
+image::visual-components/html-components/label-badge-color-primary.png[align="center", width="400"]
 
 .XML 代码
 [%collapsible]
@@ -109,7 +109,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 应用 `pill` 主题会创建一个带有圆角的徽章。可独立使用或与配色主题结合使用：
 
-image::visual-components/html-components/label-badge-pill.png[align="center", width="328"]
+image::visual-components/html-components/label-badge-pill.png[align="center", width="420"]
 
 .XML 代码
 [%collapsible]
@@ -138,7 +138,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[attributes]]
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `nativeLabel` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
@@ -160,7 +160,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[handlers]]
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 下面是 `nativeLabel` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]

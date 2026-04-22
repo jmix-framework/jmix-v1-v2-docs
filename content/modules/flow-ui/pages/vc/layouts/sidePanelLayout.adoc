@@ -1,34 +1,34 @@
-= sidePanelLayout
+= sidePanelLayout 侧边面板
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-simple" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-A layout component that adds a panel can open from different sides and either overlay the main content or push it aside. Use it for contextual information, filters, or editors that need to appear alongside the primary content.
+这是一个布局组件，在页面中添加一个可以从不同侧边打开的面板，可以覆盖或推开主要内容。用于需要与主要内容一起显示的上下文信息、过滤器或编辑器。
 
-TIP: A side panel can be also created programmatically using xref:flow-ui:dialogs.adoc#side-dialog[`Side Dialog`].
+TIP: 也可以使用 xref:flow-ui:dialogs.adoc#side-dialog[侧边对话框] 以编程方式创建侧边面板。
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`sidePanelLayout`
-|Java Class
+|Java 类
 |`SidePanelLayout`
-|Attributes
-|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] -
+|XML 属性
+|*通用：* xref:flow-ui:vc/common-attributes.adoc#id[id] -
 <<modal,modal>> -
 <<closeOnOutsideClick,closeOnOutsideClick>> -
 <<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
 xref:flow-ui:vc/common-attributes.adoc#visible[visible]
 |
-|*Position:*
+|*位置：*
 xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:flow-ui:vc/common-attributes.adoc#justifySelf[justifySelf] -
 xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
 |
-|*Size:* <<sidePanelHorizontalSize,sidePanelHorizontalSize>> -
+|*尺寸：* <<sidePanelHorizontalSize,sidePanelHorizontalSize>> -
 <<sidePanelHorizontalMinSize,sidePanelHorizontalMinSize>> -
 <<sidePanelHorizontalMaxSize,sidePanelHorizontalMaxSize>> -
 <<sidePanelVerticalSize,sidePanelVerticalSize>> -
@@ -41,15 +41,15 @@ xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth]
 |
-|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#css[css] -
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#css[css] -
 <<sidePanelOverlay,sidePanelOverlay>> -
 <<sidePanelPosition,sidePanelPosition>>
 |
-|*Other:* <<closeOnOutsideClick,closeOnOutsideClick>> -
+|*其他：* <<closeOnOutsideClick,closeOnOutsideClick>> -
 <<displayAsOverlayOnSmallDevices,displayAsOverlayOnSmallDevices>> -
 <<modal, modal>> -
 <<overlayAriaLabel, overlayAriaLabel>>
-|Handlers
+|事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 <<ModalityCurtainClickEvent,ModalityCurtainClickEvent>> -
@@ -59,28 +59,28 @@ xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 |===
 
 [[basics]]
-== Basics
+== 基本用法
 
-`SidePanelLayout` divides the content into two areas:
+`SidePanelLayout` 将页面内容分为两个区域：
 
-* **Main content** – the primary layout area.
-* **Side panel content** – a panel that slides in from one side.
+* **主内容区** – 主要的布局区域
+* **侧面板内容区** – 从某一个侧边滑入的侧边内容。
 
 image:flow-ui:visual-components/layouts/side-panel-layout-basic.png[width=1150]
 
-To define the component in XML, use the `sidePanelLayout` element and provide two root elements.
+如需在 XML 中定义该组件，请使用 `sidePanelLayout` 元素，并为其提供两个根元素。
 
 [source,xml]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/sidepanellayout/side-panel-layout-view.xml[tags=basics]
 ----
 
-<1> A side panel typically includes a close button. Use the dedicated `sidePanelLayoutCloser` component to add that button.
+<1> 侧边面板一般会包含一个关闭按钮。使用专门的 `sidePanelLayoutCloser` 组件添加这个按钮。
 
 [[opening-closing]]
-== Opening the Side Panel
+== 打开侧边面板
 
-The side panel opens in response to user actions such as clicking a button. Call the `toggleSidePanel()` method:
+侧边面板在用户操作时打开，比如点击按钮。需要调用 `toggleSidePanel()` 方法：
 
 [source,java]
 ----
@@ -88,191 +88,190 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/si
 ----
 
 [[detail-view-side]]
-== Side Panel Editor
+== 侧边面板编辑器
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-master-detail" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/side-panel-layout-master-detail" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-Use `SidePanelLayout` for master-detail pattern where the main area contains a list of entities and the side panel is used for editing a selected instance.
+`SidePanelLayout` 可以用在主从范式中，主区域显示实体列表，而侧边面板用于编辑选中的实例。
 
 image:flow-ui:visual-components/layouts/side-panel-layout-editor.png[width=1150]
 
-== Styling
+== 样式
 
-You can customize the appearance and size of `SidePanelLayout` using CSS variables and theme selectors.
+使用 CSS 变量和主题选择器可以自定义 `SidePanelLayout` 的外观和大小。
 
-=== Sizing with CSS Variables
+=== 尺寸
 
-The following variables define the side panel size. They are applied globally to all `SidePanelLayout` instances.
+下列全局变量定义了侧边面板的尺寸。对所有 `SidePanelLayout` 实例有效。
 
-NOTE: Values set in XML or using the Java API override CSS variables.
+NOTE: 在 XML 中设置或使用 Java API 设置的值会覆盖 CSS 变量。
 
-Horizontal side panels (`LEFT`, `RIGHT`, `INLINE_START`, `INLINE_END`):
+水平侧边面板（`LEFT`、`RIGHT`、`INLINE_START`、`INLINE_END`）：
 
 [cols="3h,2,1", grid=rows]
 |===
-|Variable |Description |Default
+|变量 |描述 |默认值
 |`--jmix-side-panel-layout-horizontal-size`
-|Preferred width of the side panel.
+|侧边面板的默认宽度。
 |`auto`
 |`--jmix-side-panel-layout-horizontal-max-size`
-|Maximum width.
+|最大宽度。
 |`50%`
 |`--jmix-side-panel-layout-horizontal-min-size`
-|Minimum width.
+|最小宽度。
 |`14em`
 |===
 
-Vertical side panels (`TOP`, `BOTTOM`):
+垂直侧边面板（`TOP`、`BOTTOM`）：
 
 [cols="3h,2,1", grid=rows]
 |===
-|Variable |Description |Default
+|变量 |描述 |默认值
 |`--jmix-side-panel-layout-vertical-size`
-|Preferred height of the side panel.
+|侧边面板的默认高度。
 |`auto`
 |`--jmix-side-panel-layout-vertical-max-size`
-|Maximum height.
+|最大高度。
 |`50%`
 |`--jmix-side-panel-layout-vertical-min-size`
-|Minimum height.
+|最小高度。
 |`10em`
 |===
 
-=== Appearance
+=== 外观
 
 [cols="4h,3,1", grid=rows]
 |===
-|Variable |Description |Default
+|变量 |描述 |默认值
 |`--jmix-side-panel-layout-transition-duration`
-|Controls how long the open and close animation takes.
+|控制打开和关闭动画的时长。
 |`200ms`
 |===
 
-=== Parts
+=== parts
 
-`SidePanelLayout` exposes the following xref:themes/styling-ui-components.adoc#stylable-parts[stylable parts]:
+`SidePanelLayout` 开放了以下 xref:themes/styling-ui-components.adoc#stylable-parts[可样式化的  parts]：
 
 [cols="4h,4", grid=rows]
 |===
-|Part |Description
+|部分 |描述
 |`jmix-side-panel-layout::part(layout)`
-|Container for content, side panel, and modality curtain.
+|内容、侧边面板和模态遮罩的容器。
 |`jmix-side-panel-layout::part(content)`
-|Main layout content.
+|主布局内容。
 |`jmix-side-panel-layout::part(modalityCurtain)`
-|Modality curtain.
+|模态遮罩层。
 |`jmix-side-panel-layout::part(sidePanelContent)`
-|Side panel content container.
+|侧边面板内容容器。
 |===
 
-=== States
+=== 状态
 
-The component exposes the following xref:themes/styling-ui-components.adoc#component-states[states]:
+组件开放了以下 xref:themes/styling-ui-components.adoc#component-states[状态]：
+
 [cols="4h,4", grid=rows]
 |===
-|State |Description
+|状态 |描述
 |`jmix-side-panel-layout[side-panel-opened]`
-|Applied when the side panel is open
+|当侧边面板打开时使用。
 |`jmix-side-panel-layout[modal]`
-|Applied when the side panel is modal
+|当侧边面板为模态时使用。
 |`jmix-side-panel-layout[side-panel-position='left']`
-|Matches the current side panel position (`right`, `top`, etc.)
+|匹配当前的侧边面板位置（`right`、`top` 等）。
 |`jmix-side-panel-layout[side-panel-overlay]`
-|Applied when the panel overlays content instead of pushing it
+|当面板覆盖内容而不是推开内容时使用。
 |===
 
-== Attributes
+== XML 属性
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components. The following attributes are specific to `sidePanelLayout`.
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。下面是 `sidePanelLayout` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*名称*
+|*描述*
+|*默认值*
 
 |[[sidePanelPosition]]sidePanelPosition
-|Defines the side from which the panel appears. Possible values are `LEFT`, `RIGHT`, `TOP`, `BOTTOM`, `INLINE_START`, and `INLINE_END`.
+|定义面板出现在哪个侧边。可选值为 `LEFT`、`RIGHT`、`TOP`、`BOTTOM`、`INLINE_START` 和 `INLINE_END`。
 
-`INLINE_START` and `INLINE_END` follow the reading direction of the page (LTR or RTL).
-
+`INLINE_START` 和 `INLINE_END` 遵循页面的阅读方向（LTR 或 RTL）。
 |`RIGHT`
 
 |[[sidePanelOverlay]]sidePanelOverlay
-|Determines how the side panel interacts with the main content.
+|决定侧边面板与主内容的交互方式。
 
-If `true`, the panel overlays the content without changing its layout.
-If `false`, the panel pushes the content aside as it opens.
-
+如果为 `true`，面板覆盖在内容上而不改变其布局。
+如果为 `false`，面板打开时将内容推开。
 |`true`
 
 |[[modal]]modal
-|When `true` a modality curtain appears behind the side panel and prevents interaction with the main content until the panel is closed.
+|当为 `true` 时，侧边面板后面会出现一个模态遮罩层，并阻止与主内容的交互，直到面板关闭。
 |`true`
 
 |[[closeOnOutsideClick]]closeOnOutsideClick
-|When `true`, clicking the modality curtain closes the side panel.
+|当为 `true` 时，点击模态遮罩层会关闭侧边面板。
 
-This attribute only has an effect when <<modal,modal>> is enabled.
+此属性仅在启用 <<modal, modal>> 时有效。
 |`true`
 
 |[[overlayAriaLabel]]overlayAriaLabel
-|Sets the accessible label for the overlay element.
+|设置覆盖元素的可访问标签。
 |–
 
 |[[displayAsOverlayOnSmallDevices]]displayAsOverlayOnSmallDevices
-|If `true`, the side panel is displayed as a full-screen overlay on small devices, ensuring that the content remains usable on mobile layouts.
+|如果为 `true`，侧边面板在小设备上显示为全屏覆盖层，确保内容在移动布局中仍然可用。
 |`true`
 
 |[[sidePanelHorizontalSize]]sidePanelHorizontalSize
-|Defines the horizontal size of the side panel when it is positioned on the left or right side of the layout.
+|定义侧边面板位于布局左侧或右侧时的水平尺寸。
 
-The value can be any valid CSS size such as `400px`, `30%`, or `auto`.
+值可以是任何有效的 CSS 尺寸，例如 `400px`、`30%` 或 `auto`。
 |`auto`
 
 |[[sidePanelHorizontalMinSize]]sidePanelHorizontalMinSize
-|Defines the minimum horizontal size of the side panel when it is positioned on the left or right side.
+|定义侧边面板位于左侧或右侧时的最小水平尺寸。
 |–
 
 |[[sidePanelHorizontalMaxSize]]sidePanelHorizontalMaxSize
-|Defines the maximum horizontal size of the side panel when it is positioned on the left or right side.
+|定义侧边面板位于左侧或右侧时的最大水平尺寸。
 |–
 
 |[[sidePanelVerticalSize]]sidePanelVerticalSize
-|Defines the vertical size of the side panel when it appears from the top or bottom.
+|定义侧边面板从顶部或底部出现时的垂直尺寸。
 |`auto`
 
 |[[sidePanelVerticalMinSize]]sidePanelVerticalMinSize
-|Defines the minimum vertical size of the side panel.
+|定义侧边面板的最小垂直尺寸。
 |–
 
 |[[sidePanelVerticalMaxSize]]sidePanelVerticalMaxSize
-|Defines the maximum vertical size of the side panel.
+|定义侧边面板的最大垂直尺寸。
 |–
 |===
 
-== Handlers
+== 事件和处理器
 
-xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components. The following handlers are specific to `sidePanelLayout`.
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。下面是 `sidePanelLayout` 的特殊事件和处理器：
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*名称*
+|*描述*
 
 |[[ModalityCurtainClickEvent]]ModalityCurtainClickEvent
-|Fired when the user clicks on the modality curtain.
+|当用户点击模态遮罩层时触发。
 
 |[[SidePanelBeforeOpenEvent]]SidePanelBeforeOpenEvent
-|Fired before the side panel is opened, before it is displayed and before the opening animation starts. Use this event to update the side panel content before it becomes visible.
+|在侧边面板打开之前、显示之前以及开启动画开始之前触发。使用此事件可在面板变得可见之前修改内容。
 
 |[[SidePanelAfterOpenEvent]]SidePanelAfterOpenEvent
-|Fired after the side panel is fully opened and the opening animation is finished.
+|在侧边面板完全打开且开启动画完成之后触发。
 
 |[[SidePanelCloseEvent]]SidePanelCloseEvent
-|Fired when the side panel is closed.
+|当侧边面板关闭时触发。
 |===

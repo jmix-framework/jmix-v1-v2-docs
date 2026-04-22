@@ -1,21 +1,21 @@
-= Generic Component XML
+= 通用组件 XML
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/generic-component-xml" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/generic-component-xml" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-The `component` XML element enables you to create any UI component by specifying its fully qualified class name (FQN). Component properties are defined using nested `property` elements, similar to action configuration.
+`component` XML 元素支持通过指定全限定类名（FQN）来创建任意 UI 组件。组件属性使用内部的 `property` 元素定义，类似于操作（action）配置。
 
-For example, you can define a `Button` component this way:
+例如，可以通过以下方式定义一个 `Button` 组件：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/customcomponent/genericcomponent/generic-component-view.xml[tags=button-component-xml]
 ----
 
-Here is an example of defining a custom component:
+定义一个自定义组件的示例：
 
 [source,xml,indent=0]
 ----
@@ -23,53 +23,53 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/cust
 ----
 
 [[property-configuration]]
-== Property Configuration
+== 配置属性
 
-* The `name` attribute value is converted to a setter method name, for example:
+* `name` 属性值会被转换为 setter 方法名称，例如：
 
 ** `text` → `setText()`
 ** `dataLoader` → `setDataLoader()`
 
-* The framework searches for the first method with the matching `name` and a single input parameter to set the value.
+* 框架会查找第一个 `name` 匹配且只有一个输入参数的方法来设置值。
 +
-NOTE: If multiple methods share the same name, there is no guarantee that the intended one will be used to set the value.
+NOTE: 如果多个方法具有相同的名称，则不保证会使用预期的方法来设置值。
 
-* The found method's input parameter type is used to convert the string value from the `value` attribute into the actual value.
+* 将用找到的方法的输入参数类型对 `value` 属性中的字符串值进行转换，转换为相同类型的实际值。
 
-* The `type` attribute indicates that string value must be converted by one of the pluggable `PropertyParser` beans:
+* `type` 属性表示字符串值必须由某个可插拔的 `PropertyParser` bean 进行转换：
 +
 [cols="1,1,3", options="header"]
 |===
-| Type | Parser | Description
+| 类型 | 解析器 | 描述
 
 | `ICON`
 | `IconPropertyParser`
-| Converts a string to an `Icon` instance
+| 将字符串转换为 `Icon` 实例。
 
 | `CONTAINER_REF`
 | `DataContainerPropertyParser`
-| Resolves a data container by `ID`
+| 通过 `ID` 解析数据容器
 
 | `LOADER_REF`
 | `DataLoaderPropertyParser`
-| Resolves a data loader by `ID`
+| 通过 `ID` 解析数据加载器
 |===
 
 [[property-parsers]]
-== Property Parsers
+== 属性解析器
 
-When string values cannot be directly converted using the parameter type, pluggable `PropertyParser` beans handle the transformation.
+当字符串值无法直接使用参数类型进行转换时，会使用可插拔的 `PropertyParser` bean 处理转换。
 
-Currently, there are three implementations:
+目前有三种实现：
 
-* *IconPropertyParser*. Converts strings to `Icon` instances.
-** If the passed string contains `:` delimiter, a new `Icon` is created using the *icon collection* and *icon name* values.
-** Otherwise, the string is treated as a `VaadinIcon` constant name.
+* *IconPropertyParser*。将字符串转换为 `Icon` 实例。
+** 如果传入的字符串包含 `:` 分隔符，则使用 *图标集合* 和 *图标名称* 值创建一个新的 `Icon`。
+** 否则，该字符串被视为 `VaadinIcon` 常量名称。
 +
-Examples:
-** `"PLUS"` → `VaadinIcon.PLUS` icon.
-** `"myicons:custom"` → Icon from the custom collection `"myicons"` with the name `"custom"`.
+示例：
+** `"PLUS"` → `VaadinIcon.PLUS` 图标。
+** `"myicons:custom"` → 来自自定义集合 `"myicons"`、名称为 `"custom"` 的图标。
 
-* *DataContainerPropertyParser*. Returns a xref:flow-ui:data/data-containers.adoc[data container] with the given `ID` from the corresponding view's `ViewData` object.
+* *DataContainerPropertyParser*。从对应视图的 `ViewData` 对象中返回具有给定 `ID` 的 xref:flow-ui:data/data-containers.adoc[数据容器]。
 
-* *DataLoaderPropertyParser*. Returns a xref:flow-ui:data/data-loaders.adoc[data loader] with the given `ID` from the corresponding view's `ViewData` object.
+* *DataLoaderPropertyParser*。从对应视图的 `ViewData` 对象中返回具有给定 `ID` 的 xref:flow-ui:data/data-loaders.adoc[数据加载器]。

@@ -13,7 +13,7 @@ image::new-jpa.png[align="center",width="221"]
 
 JPA 实体创建会弹出 *New JPA Entity* 对话框。
 
-image::entity-create.png[align="center",width="503"]
+image::entity-create.png[align="center",width="580"]
 
 填写下列字段：
 
@@ -37,6 +37,7 @@ image::entity-create.png[align="center",width="503"]
 * *Id length* 会在选择 `String` 类型时出现。指定字符串的最大长度。默认为 `255`。
 * *Composite id type* 会在选择 `Embedded` 类型时出现。选择可嵌入实体作为组合键值。
 * 在 *Traits* 复选框组中，选择需要的实体 xref:data-model:entities.adoc#traits[特性]。
+* 勾选 *Create Data Repository*，可以让 Studio 为该新实体自动生成一个 xref:studio:data-repository-wizard.adoc[data repository]。Studio 会记住这个配置，在下次创建实体时也会创建 data repository。
 
 然后点击 *OK*。
 
@@ -54,7 +55,7 @@ Studio 为新建的实体展示实体编辑器，其中有三个标签页（底�
 
 * *Views* - 导航至当前实体的已有视图或者创建 xref:studio:view-wizard.adoc[新视图]。
 +
-image::entity-designer-create-screen.png[align="center",width="720"]
+image::entity-designer-create-screen.png[align="center",width="886"]
 * *Event Listeners* - 导航至当前实体的已有的 xref:data-access:entity-events.adoc[事件监听器] 或新建监听器：
 +
 image::entity-designer-create-listener.png[align="center",width="703"]
@@ -67,7 +68,7 @@ image::entity-designer-lifecycle-callbacks.png[align="center",width="163"]
 
 *Designer* 标签页展示实体的结构：
 
-image::entity-designer-designer.png[align="center",width="969"]
+image::entity-designer-designer.png[align="center",width="925"]
 
 除了在 <<jpa-entity-designer,JPA 实体设计器>> 对话框中的那些字段外，*Designer* 标签页还包含下列字段：
 
@@ -89,8 +90,10 @@ image::traits.png[align="center",width="319"]
 * *Add to Views*（image:icons/add-attribute-to-screens.svg[]）按钮打开一个对话框，显示能展示目前实体的所有视图，在这里选择需要展示当前选中属性的视图。
 +
 image::attributes-collection-modified.png[align="center",width="561"]
+* *Add Attribute from DB* (image:icons/attr-from-db.svg[]) 按钮支持在开发数据模型时使用“数据库优先”方法。可以先在数据库表中创建列，然后将该列导入到数据模型中。参阅 xref:studio:reverse-engineering.adoc#partial-reverse-engineering[部分反向工程]。
 * 点击 *Remove*（image:icons/remove.svg[]）按钮删除选择的属性。
 * 使用 *Up*（image:icons/move-up.svg[]）/*Down*（image:icons/move-down.svg[]）按钮对属性进行排序。
+* 使用 *Hide Traits Attributes*（image:icons/show.svg[]）按钮关闭显示特性属性。
 
 实体设计器右侧的面板展示所选实体属性的配置：
 
@@ -107,7 +110,7 @@ image::email-validation.png[align="center",width="691"]
 
 在 *Text* 标签页中，可以看到由设计器生成的实体类代码。
 
-image::entity-designer-text.png[align="center",width="840"]
+image::entity-designer-text.png[align="center",width="925"]
 
 如果你之前有 JPA 经验，则可以看到一些熟悉的注解：`@Entity`、`@Table`、`@Column` 等。还有一些是 Jmix 特定的注解。其中最重要的是 xref:data-model:entities.adoc#jmix-entity[@JmixEntity] 类注解。一般来说，在 Jmix 中只要使用了 `@JmixEntity`，任何 POJO 都可以作为实体。
 
@@ -116,6 +119,7 @@ image::entity-designer-text.png[align="center",width="840"]
 操作面板位于源码编辑器的顶部。除了 <<actions-panel,上面介绍>> 的操作外，还有下列操作：
 
 * *Add Attribute* - 打开一个 <<adding-attributes,New Attribute>> 对话框。
+* *Add Attribute from DB* (image:icons/attr-from-db.svg[]) 按钮支持在开发数据模型时使用“数据库优先”方法。可以先在数据库表中创建列，然后将该列导入到 JPA 实体中。参阅 xref:studio:reverse-engineering.adoc#partial-reverse-engineering[部分反向工程]。
 * *Add Attributes to Views* - 打开一个 *Add Attributes to Views* 对话框，显示能展示目前实体的所有视图，在这里选择需要展示当前选中属性的视图。
 +
 image::add-attribute-to-views.png[align="center",width="559"]
@@ -146,7 +150,7 @@ image::entity-message.png[align="center",width="818"]
 
 此外，在 *Text* 标签页时，通过点击顶部或 *Generate* 弹窗中的 *Add attribute* 按钮打开属性创建窗口。
 
-image::entity-generate.png[align="center",width="840"]
+image::entity-generate.png[align="center",width="925"]
 
 [[creating-instance-name]]
 === 创建实例名称
@@ -157,9 +161,9 @@ image::entity-generate.png[align="center",width="840"]
 
 image::entity-instance-editor.png[align="center",width="814"]
 
-实例名称也可以在 *Text* 标签页创建。将光标放置于类的名称上，按下 *Alt+Enter*（⌥↩）并选择 *Add instance name*。
+实例名称也可以在 *Text* 标签页创建。将光标放置于类的名称上，按下 *Alt+Enter*（⌥↩）并选择 *Jmix: Add instance name*。
 
-image::entity-instance-text.png[align="center",width="814"]
+image::entity-instance-text.png[align="center",width="925"]
 
 [[dto-designer]]
 == DTO 实体设计器

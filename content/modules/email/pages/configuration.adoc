@@ -1,4 +1,4 @@
-= 配置
+= Email 的属性
 
 [[spring-boot-mail-properties]]
 == Spring Boot 邮件属性
@@ -9,14 +9,14 @@
 
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=spring-boot-properties]
+include::example$/email-ex1/src/main/resources/application.properties[tags=spring-boot-properties]
 ----
 
 另外，可以用 `spring.mail.properties.*` 格式指定 `JavaMail` 属性。例如，`mail.smtp.auth` 属性可以这样设置：
 
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=java-mail-properties]
+include::example$/email-ex1/src/main/resources/application.properties[tags=java-mail-properties]
 ----
 
 [[email-properties]]
@@ -136,12 +136,42 @@ Jmix 邮件属性支持对 xref:api.adoc[] 部分的功能进行配置。
 
 默认值：`false`
 
+[[jmix.email.oauth2.enabled]]
+=== jmix.email.oauth2.enabled
+
+设置为 `true` 启用通过 OAuth 2.0 基于 token 的授权连接 email 服务。
+
+[[jmix.email.oauth2.provider]]
+=== jmix.email.oauth2.provider
+
+设置 email OAuth provider。
+
+[[jmix.email.oauth2.client-id]]
+=== jmix.email.oauth2.client-id
+
+设置 OAuth client id。
+
+[[jmix.email.oauth2.secret]]
+=== jmix.email.oauth2.secret
+
+设置 OAuth client secret。
+
+[[jmix.email.oauth2.tenant-id]]
+=== jmix.email.oauth2.tenant-id
+
+设置 OAuth 租户 id。
+
+[[jmix.email.oauth2.refresh-token]]
+=== jmix.email.oauth2.refresh-token
+
+设置 OAuth 刷新 token。
+
 [[email-sending-scheduler]]
 == 邮件发送调度器
 
 当调用 `Emailer.sendEmailAsync()` 方法时，邮件并未发送，而是进入数据库排队。如需发送队列中的邮件，需要调用 `Emailer.processQueuedEmails()` 方法。
 
-你可以使用 Quartz Job Scheduler 周期性地处理邮件队列。
+可以使用 Quartz Job Scheduler 周期性地处理邮件队列。
 
 [[sending-default-quartz-configuration]]
 === 默认 Quartz 配置
@@ -154,7 +184,7 @@ Jmix 邮件属性支持对 xref:api.adoc[] 部分的功能进行配置。
 +
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=email-sending-cron]
+include::example$/email-ex1/src/main/resources/application.properties[tags=email-sending-cron]
 ----
 
 [[sending-custom-quartz-configuration]]
@@ -175,7 +205,7 @@ jmix.email.use-default-quartz-configuration = false
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailSendingJob.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailSendingJob.java[tags=quartz]
 ----
 
 . 在运行的应用程序中，打开 *Quartz -> Quartz jobs（Quartz 任务）* 视图，并为 `MyCustomEmailSendingJob` 类配置一个任务。
@@ -184,8 +214,13 @@ include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailSendingJob.ja
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/SampleEmailApplication.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz]
 ----
+<1> 使用 `org.quartz.JobBuilder` 构建一个作业。
+<2> 创建 `org.quartz.JobDetail` 实例。
+<3> 使用 `org.quartz.TriggerBuilder` 创建一个触发器。
+<4> 关联触发器与之前定义的作业。
+<5> 创建 `org.quartz.Trigger` 实例。
 
 [[email-cleaning-scheduler]]
 == 邮件清理调度器
@@ -236,7 +271,7 @@ jmix.email.max-age-of-important-messages=30
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
+include::example$/email-ex1/src/main/java/com/company/emailex1/service/MyCustomEmailCleaningJob.java[tags=quartz]
 ----
 
 . 在运行的应用程序中，打开 *Quartz -> Quartz jobs（Quartz 任务）* 视图，然后为 `MyCustomEmailCleaningJob` 类配置一个任务。
@@ -245,8 +280,13 @@ include::example$/ex1/src/main/java/email/ex1/service/MyCustomEmailCleaningJob.j
 +
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/SampleEmailApplication.java[tags=quartz-clean]
+include::example$/email-ex1/src/main/java/com/company/emailex1/EmailEx1Application.java[tags=quartz-clean]
 ----
+<1> 使用 `org.quartz.JobBuilder` 构建一个作业。
+<2> 创建 `org.quartz.JobDetail` 实例。
+<3> 使用 `org.quartz.TriggerBuilder` 创建一个触发器。
+<4> 关联触发器与之前定义的作业。
+<5> 创建 `org.quartz.Trigger` 实例。
 
 . 设置重要和普通邮件的保存时长，使用 <<jmix.email.max-age-of-important-messages,jmix.email.max-age-of-important-messages>> 和 <<jmix.email.max-age-of-non-important-messages,jmix.email.max-age-of-non-important-messages>> 属性，示例：
 +
@@ -265,18 +305,18 @@ jmix.email.max-age-of-important-messages=30
 
 使用文件存储：
 
-. 在 `build.gradle` 文件的 `dependencies` 部分添加如下内容：
+. 确保在 `build.gradle` 文件的 `dependencies` 部分添加如下内容：
 +
 [source,groovy,indent=0]
 ----
-include::example$/ex1/build.gradle[tags=fs-dependency]
+include::example$/email-ex1/build.gradle[tags=fs-dependency]
 ----
 +
 . 在 `application.properties` 文件中设置启用文件存储：
 +
 [source, properties,indent=0]
 ----
-include::example$/ex1/src/main/resources/application.properties[tags=fs-enable]
+include::example$/email-ex1/src/main/resources/application.properties[tags=fs-enable]
 ----
 
 默认情况下，本地文件存储位于应用程序的工作目录：`${user.dir}/.jmix/work/filestorage`。

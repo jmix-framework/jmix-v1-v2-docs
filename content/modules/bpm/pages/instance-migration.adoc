@@ -2,14 +2,19 @@
 
 当修改了流程模型并部署了新版本的流程定义时，那些已经存在的流程实例会继续使用流程定义的老版本。因此，如果需要的话，可以将实例迁移至新的流程定义版本。
 
-如需迁移全部流程实例，
-打开 xref:bpm:menu-views/process-definitions.adoc[流程定义] 视图点击 *View details（查看详情）*。
-在编辑器的下拉列表选择需要的版本，然后点击 *Migrate all instances（迁移所有流程实例）* 按钮。
-在迁移之前，会验证所有实例，
-如果有实例不能迁移，会有提醒弹窗。
+如需迁移全部流程实例：
 
-如需迁移单个实例，
-打开 xref:bpm:menu-views/process-instances.adoc[流程实例] 视图，找到需要迁移的实例，然后点击 *Edit*。
-在编辑器内，点击 *Migrate（迁移）* 按钮。
+. 打开 xref:bpm:menu-views/process-definitions.adoc[] 视图。
+. 点击 *View details*。
+. 在下拉列表中选择需要的流程定义版本。
+. 点击 *Migrate all instances* 按钮。
+
+在执行迁移之前，会验证所有实例，如果有实例不能迁移，会有提醒弹窗。
+
+如需迁移单个实例：
+
+. 在 xref:bpm:menu-views/process-instances.adoc[] 视图中选择需要迁移的实例。
+. 点击 *Edit* 打开实例的编辑界面。
+. 在编辑器内，点击 *Migrate* 按钮。
 
 参阅 https://flowable.com/open-source/docs/bpmn/ch09-ProcessInstanceMigration/#process-instance-migration-experimental[Flowable 文档^] 了解更多关于流程实例迁移的详情。

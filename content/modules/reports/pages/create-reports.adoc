@@ -1,18 +1,19 @@
 = 创建报表
 
-在系统中创建报表涉及两个相关元素：报表可视化展示模板和为报表数据的描述。使用外部工具以 XLS(X)、DOC(X)、HTML 格式创建模板，并在报表设计视图中创建报表数据的描述，或通过 Java 类实现特殊的接口提供数据。
+Jmix 中的报表由两个独立但相关的元素构成：
 
-报表扩展组件使用 `band（带区）` 描述模板中的数据区域和报表数据结构中的数据集。当从应用程序往报表模板填充数据时，数据结构中的区域会填充至模板中的同名区域。
+* _报表模板_ —— office 格式（XLSX、DOCX）、HTML 或 JRXML 的文件，定义报表的视觉呈现。
+* _报表定义_ —— 程序构件，定义报表的结构和数据，以及输入参数、输出值格式和访问参数。报表定义包含对模板的引用。
 
-报表可以使用用户输入或者调用代码提供的参数。可以指定有权访问报表的用户，以及报表可以出现在哪些视图中。
+用户可以在应用程序运行时创建报表。此时，报表定义是使用 xref:reports-ui.adoc[报表管理 UI] 创建的。模板通过管理 UI 上传到应用程序，并与报表定义一起存储在数据库中：
 
-根据模板和报表参数，生成的报表可以是 PDF、XLS(X)、CSV、DOC(X)、HTML 或表格格式。
+.在运行时创建报表
+image::create/create-runtime-1.svg[align="center", width="605"]
 
-报表扩展组件的主要组件如下图所示：
+在设计时创建报表时，开发人员在带注解的 Java 类中创建报表定义。报表模板通常使用外部 office 应用程序（LibreOffice、Microsoft Excel/Word）创建，然后保存在应用程序资源中：
 
-image::reporting.svg[align="center"]
+.设计时创建报表
+image::create/create-design-time-1.svg[align="center", width="468"]
 
-* `Report Engine` 提供生成报表的核心功能，以及 UI 集成和访问权限等附加功能。
-* `Report Designer` 是用于定义和存储报表的工具。包括用于存储报表描述和模板的基础设施，以及用于创建和管理报表的视图。
-* `Report` -  报表数据结构描述器，包括 _Band（报表带区）_ 和 _Dataset（输出到带区的数据集）_。
-* `Report Template` - 报表可视化展示模板。
+
+// This section provides reference information about report definitions and templates, along with examples of solving typical problems encountered when creating various types of reports.

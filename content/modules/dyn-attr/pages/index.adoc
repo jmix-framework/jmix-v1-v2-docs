@@ -21,3 +21,5 @@ Jmix 提供用于配置动态属性的 UI 视图。管理员可以定义动态�
 ----
 include::example$/dyn-attr-ex1/build.gradle[tags=dependencies]
 ----
+
+include::ROOT:single-menu-note.adoc[]

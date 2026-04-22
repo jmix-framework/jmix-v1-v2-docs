@@ -1,8 +1,7 @@
 = 启动流程
 
-用户可以在这个视图中启动流程，流程需要设置该用户为 xref:bpmn/bpmn-process.adoc#starter-candidates[候选人]。
-如果流程有启动表单，将在流程开始之前显示。
+用户可以在该视图启动那些已经是 xref:bpmn/bpmn-process.adoc#starter-candidates[候选启动] 的流程
+
+如果流程有启动表单，则会在流程启动前展示。
 
 image::bpm-menu-views/start-process-view.png[,800]
-
-用户需要具有 *BPM: process actor* 角色才能访问该视图。

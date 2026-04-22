@@ -15,34 +15,78 @@ image::role-open.png[align="center", width="244"]
 
 image::role-create.png[align="center", width="663"]
 
+[[text-tab]]
+=== Text 标签页
+
 资源角色设计器的 *Text* 标签页集成了代码编辑器。可以直接编辑代码或通过设计器生成代码。
 
-*Definition* 标签页定义角色的基本属性。
+[[role-definition]]
+=== 角色定义
 
-image::role-definition.png[align="center", width="724"]
+在 *Definition* 标签页可以：
 
-[NOTE]
+* 定义基础角色属性。
+* 管理项目中的角色层级结构
+
+image::role-definition.png[align="center", width="851"]
+
+[IMPORTANT]
 ====
-为用户分配角色时使用的是角色编码，因此，如果已经将角色分配给了某些用户，就不要修改角色编码了。
+角色代码是用来给用户分配角色的。如果已经有用户使用了某些角色，不要再次修改这些角色的代码。
 ====
 
-在 *User Interface* 标签页，可以定义菜单项和视图权限。
+[[role-hierarcy]]
+==== 角色层级结构
 
-image::role-user-interface.png[align="center", width="724"]
+可以使用 *Role Hierarchy* 面板查看和管理角色层级结构。
 
-左侧的树显示主菜单的结构，包括项目定义的视图以及从框架和扩展组件继承的视图。*All Views* 组显示无法通过主菜单直接获取的所有其他应用程序视图。可以使用树上方的搜索控件查找需要的视图。
+上方面板直接显示角色层级结构。当前选中的角色被视为根角色。
 
-默认情况下，拒绝访问所有菜单项和视图。通过在左侧选择内容并选择面板右侧的 *Allow*，可以添加打开对应菜单和视图的许可。
+下方面板包含带有操作按钮的工具栏以及可用角色列表。其中包括项目中定义的角色，以及来自链接项目和扩展组件的角色。
+
+可以通过以下方式将角色列表中的角色添加到层级结构中：
+
+. 在 *Available Roles* 列表中双击该角色。
+. 使用右键菜单操作（在 *Available Roles* 列表中右键单击角色即可打开）。
+. 点击 *Available Roles* 面板顶部的向上箭头按钮。
+
+该角色将被添加为当前角色的父角色。
+
+如需从层级结构中移除角色，请选中该角色并点击减号按钮，或使用右键菜单中的操作。
+
+[[ui-permissions]]
+=== 用户界面权限
+
+*User Interface* 标签页定义了菜单项和视图的权限。
+
+显示的是选中角色的权限：
+
+* *Current role* - 角色本身定义的可编辑权限
+* *Ancestor role* - 只读显示父辈的权限，可导航至角色文件
+
+image::role-user-interface.png[align="center", width="880"]
+
+右侧的树形结构显示了主菜单的结构，包括项目定义的视图以及从框架和扩展组件继承的视图。*All Views* 组显示了所有无法通过主菜单直接访问的其余应用程序视图。可以借助树上方的搜索字段找到所需的视图。
+
+默认情况下，所有菜单项和视图都是拒绝的。选择列表中的条目并在 *View Permissions* 面板上选择 *Allow*，可以添加打开相应菜单项或视图的权限。
 
 使用树上方的工具栏展开或折叠节点。齿轮按钮用于切换展示未指定权限的视图和菜单项。
 
 *Allow all views* 可以授予对所有视图的访问权限，如果只需要拒绝很少部分视图，也可以用这个选项操作。
 
-在 *Entities* 标签页，可以为实体和实体属性定义 CRUD 权限。
+[[entity-permissions]]
+=== 实体权限
 
-image::role-entities.png[align="center", width="724"]
+*Entities* 标签页定义了实体和属性的 CRUD 权限。
 
-面板左侧的表格显示项目中定义的实体以及从框架和扩展组件继承的实体。通过位于表上方的搜索控件，可以按名称筛选实体列表。
+显示的是选中角色的权限：
+
+* *Current role* - 可编辑的当前角色的 CRUD 权限
+* *Ancestor role* - 父辈角色的 CRUD 和属性权限只读显示
+
+image::role-entities.png[align="center", width="881"]
+
+右上角的表格显示了项目中定义的实体，以及从框架和扩展组件继承的实体。可以使用表格上方的搜索字段按名称筛选实体列表。
 
 上方的工具栏包含下列操作：
 
@@ -51,22 +95,29 @@ image::role-entities.png[align="center", width="724"]
 
 所有实体操作都默认拒绝。使用表格中的复选框，可以为选中的实体赋予相应的操作权限。
 
-右侧的表显示所选实体的属性权限。默认情况下，拒绝查看和修改所有实体属性。通过选中 *View* 和 *Modify* 复选框，可以为所选属性设置必要的访问级别。
+下方的表显示所选实体的属性权限。默认情况下，拒绝查看和修改所有实体属性。通过选中 *View* 和 *Modify* 复选框，可以为所选属性设置必要的访问级别。
 
 属性表格中的通配符 [***] 选项可以将说有属性标记为 *View* 或 *Modify*，包括实体中目前不存在而将来会添加的属性。
 
 勾选实体表格中 *Allow all* 复选框会允许全部的 CRUD 操作以及允许 *Modify* 所有属性，即将选中的实体所有权限都放开。
 
 [[specific-tab]]
-在 *Specific* 标签页，可以定义特定权限。
+=== 特定权限
 
-image::role-specific.png[align="center", width="724"]
+*Specific* 标签页定义了框架中各种机制的权限。
+
+显示的是选中角色的权限：
+
+* *Current role* - 可编辑的当前角色的特定权限
+* *Ancestor role* - 父辈角色的权限只读显示，可导航至角色文件
+
+image::role-specific.png[align="center", width="880"]
 
 框架使用特定权限来限制对各种机制的访问。在树中，可以看到从框架和扩展组件继承的许可权限。
 
 要添加权限，请使用树上方工具栏中的加号按钮。在 *Resource* 控件中，指定项目中定义的策略名称。请参阅 xref:security:resource-roles.adoc#specific-policy[特定策略] 部分，了解如何创建特定策略。
 
-所有特定策略都默认拒绝访问。在树中选择策略然后通过右侧面板允许。
+所有特定策略都默认拒绝访问。在树中选择策略然后在 *Specific Permission* 面板中允许。
 
 [[row-level-role-wizard]]
 == 行级角色向导

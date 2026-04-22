@@ -39,7 +39,9 @@ xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
 xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
 xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<noVerticalOverlap, noVerticalOverlap>> -
 <<overlayClass,overlayClass>> -
+<<overlayWidth,overlayWidth>> -
 xref:vc/common-attributes.adoc#placeholder[placeholder] -
 xref:vc/common-attributes.adoc#property[property] -
 xref:vc/common-attributes.adoc#readOnly[readOnly] -
@@ -319,7 +321,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
 下面是 `select` 的特殊属性：
 
@@ -340,14 +342,20 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 |[[itemsEnum]]itemsEnum
 |定义用于创建选项列表的枚举类。参阅 <<items-enum,选项枚举>>。
 |
+|[[noVerticalOverlap]]noVerticalOverlap
+|当为 `false` 时，覆盖层显示在输入框上方。当为 `true` 时，覆盖层不会覆盖输入框。参阅 https://vaadin.com/docs/latest/components/select#overlay-position[Vaadin 文档^]。
+|`false`
 |[[overlayClass]]overlayClass
 |定义需要在 overlay 元素上设置的 CSS 类列表，以空格分隔。参阅 <<overlay, Overlay>>。
+|
+|[[overlayWidth]]overlayWidth
+|指定覆盖层的宽度。如果省略（默认值），覆盖层会自动调整其宽度以匹配最宽的选项，或者至少与输入框的宽度相同。参阅 https://vaadin.com/docs/latest/components/select#overlay-width[Vaadin 文档^]。
 |
 |===
 
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 
 下面是 `select` 的特殊事件和处理器：
 

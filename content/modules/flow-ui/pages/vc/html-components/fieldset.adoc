@@ -1,34 +1,34 @@
-= fieldSet
+= fieldSet 字段组
 
-The `fieldSet` component helps group related items on a view, making it easier to understand.
+`fieldSet` 组件可以将视图中相关的组件显示为一个分组，便于理解 UI 布局。
 
 // short description
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`fieldSet`
-|Java Class
+|Java 类
 |`FieldSet`
-|Attributes
-|*General:* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<legendText,legendText>> - xref:flow-ui:vc/common-attributes.adoc#text[text] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|XML 属性
+|*通用：* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<legendText,legendText>> - xref:flow-ui:vc/common-attributes.adoc#text[text] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
 |
-|*Data Binding:* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#property[property]
+|*数据绑定：* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#property[property]
 |
-|*Size:* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|*尺寸：* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
 |
-|*Position:* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|*位置：* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
 |
-|*Look & Feel:* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - xref:flow-ui:vc/common-attributes.adoc#whiteSpace[whiteSpace]
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - xref:flow-ui:vc/common-attributes.adoc#whiteSpace[whiteSpace]
 |
-|*Other:* xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] - xref:flow-ui:vc/common-attributes.adoc#title[title]
-|Handlers
+|*其他：* xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] - xref:flow-ui:vc/common-attributes.adoc#title[title]
+|事件和处理器
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
 [[Basics]]
-== Basics
+== 基本用法
 
-To use the component, wrap the components you want to group inside it, and optionally add a `legendText` for a title.
+将需要放入一组的组件加入该组件内部即可，同时也可以添加一个 `legendText` 文本。
 
 [source,xml,indent=0]
 ----
@@ -37,18 +37,18 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 
 image::visual-components/html-components/fieldset-basic.png[align="center", width="236"]
 
-== Attributes
+== XML 属性
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
-The following attributes are specific to `fieldSet`:
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
+下面是 `fieldSet` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*名称*
+|*描述*
+|*默认值*
 |[[legendText]]legendText
-|Provides a caption or title for the grouped fields.
+|为组件分组提供一个标题。
 | –
 |===
 

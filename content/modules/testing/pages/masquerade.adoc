@@ -8,6 +8,10 @@ NOTE: Masquerade 仅能用于 *Jmix 2.6+* 的应用程序。
 
 == 安装 Masquerade
 
+Masquerade 可以作为 Gradle 依赖添加，可以在 Jmix 应用程序或普通 Java 项目中使用。
+
+=== 在 Jmix 项目安装
+
 请按以下步骤安装 Masquerade：
 
 . 确保项目使用的是 Jmix 2.6+ 版本。如果不是，请参阅 xref:studio:project.adoc#upgrading-project[项目升级] 部分先升级依赖的 Jmix 版本。
@@ -18,9 +22,20 @@ NOTE: Masquerade 仅能用于 *Jmix 2.6+* 的应用程序。
 testImplementation 'io.jmix.masquerade:jmix-masquerade'
 ----
 
+=== 在非 Jmix Java 项目中安装
+
+使用相同的依赖：
+
+.build.gradle
+----
+testImplementation 'io.jmix.masquerade:jmix-masquerade:<JMIX_VERSION>'
+----
+
+将 `<JMIX_VERSION>` 替换为目标项目中 Jmix 的版本（例如，2.6.2）。Gradle 同步完成后，Masquerade 即可用。
+
 == 使用 Selenide
 Masquerade 是基于 Selenide 的，因此可以使用 Selenide 的任何方法。
-例如在自动化测试时需要登录：
+例如，一个典型的自动化测试场景：登录 Jmix 应用程序
 
 [source,java,indent=0]
 ----
@@ -92,8 +107,8 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_auto
 [[jmix_test_ids]]
 == Jmix 测试 ID
 
-Masquerade 还可以帮助为每个通过 `UiComponents` 工厂创建的组件生成一个特殊的 `j-test-id`（Jmix 测试 id）。
-这种 id 使得在页面中识别元素更加容易。如需启用该功能，请设置 xref:flow-ui:ui-properties.adoc#jmix.ui.ui-test-mode[jmix.ui.ui-test-mode] 为 `true`：
+Masquerade 还可以帮助为每个通过 `UiComponents` 工厂创建的组件生成一个特殊的 `j-test-id`（Jmix 测试 ID）。
+这种 ID 使得在页面中识别元素更加容易。如需启用该功能，请设置 xref:flow-ui:ui-properties.adoc#jmix.ui.ui-test-mode[jmix.ui.ui-test-mode] 为 `true`：
 
 .application.properties
 [source,properties]
@@ -185,7 +200,7 @@ include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/test_su
 include::example$/masquerade-ex1/src/test/java/com/company/masqueradeex1/ui_autotest/NotificationUiTest.java[tags=NotificationTest]
 ----
 
-如果打开了多个通知，可以用 xpath 选择所需要的：
+如果打开了多个通知，可以用 XPath 选择所需的：
 
 [source,java,indent=0,opts=novalidate]
 ----

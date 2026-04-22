@@ -1,14 +1,14 @@
 = 电子邮件
 
-include::ROOT:partial$outdated-ui-warning.adoc[]
-
 Jmix 提供下列发送电子邮件的功能：
 
-* 支持同步或异步发送。在同步发送时，调用方会等待消息发送到 SMPT 服务器。异步发送时，消息保存至数据库并立即将控制返回给调用方。随后，计划任务会按照预先配置的重试次数尝试发送邮件。
+* *同步或异步发送* 在同步模式下，调用代码会一直等待直到消息发送至 SMTP 服务器；在异步模式下，消息会持久化到数据库中以便后续发送，并且控制权立即返回给调用代码。
 
-* 两种模式下都会在数据库保存发送时间和错误或成功消息，以进行可靠性跟踪。
+* *使用 xref:jmix:quartz:index.adoc[] 调度发送：* 使用 Quartz 作业可以延迟发送、重复发送，或按特定时区对齐发送时间。
 
-* 提供用于搜索和查看已发邮件信息的界面，包括所有消息属性和内容、发送状态和尝试次数。
+* *可信追踪：* 在同步和异步模式下，发送时间戳和错误详细信息都会保存到数据库中。
+
+* *用户界面：* 提供用户界面用于搜索和查看已发送的邮件，包括完整的消息内容、属性、发送状态和尝试次数。
 
 [[installation]]
 == 安装
@@ -22,3 +22,5 @@ Jmix 提供下列发送电子邮件的功能：
 implementation 'io.jmix.email:jmix-email-starter'
 implementation 'io.jmix.email:jmix-email-flowui-starter'
 ----
+
+include::ROOT:single-menu-note.adoc[]

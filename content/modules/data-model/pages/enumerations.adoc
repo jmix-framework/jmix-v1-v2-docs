@@ -5,6 +5,7 @@
 在 Jmix 中，枚举是一个实现了 `EnumClass` 接口的 Java enum，有一个 `id` 字段，可以是 `Integer` 或 `String` 类型。存储在数据库中的是这个字段，而不是 enum 的 `ordinal()` 或 `name()`，这样做考虑了以下优势：
 
 * 可以对枚举常量进行重命名和重新排序，只要保留上述 `id` 标识，数据模型将与数据库内容一致。
+
 * 即使数据库包含不对应于任何 enum 常量的值（这种情况发生于应用程序的旧版本和新版本使用相同的数据库），该实体仍然可以加载，只是对应的枚举属性值为 `null`。如果使用标准 JPA 方法，则不可能加载这样的实例。
 
 TIP: 使用 xref:studio:entity-designer.adoc#enumerations[Studio 枚举设计器] 创建 Jmix 枚举。

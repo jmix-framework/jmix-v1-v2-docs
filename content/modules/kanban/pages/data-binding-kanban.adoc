@@ -56,7 +56,7 @@ image::kanban-task-list-view-wizard.png[align="center", width="776"]
 
 image::create-kanban-task-collection-container.png[align="center", width="647"]
 
-在打开的对话框中，选择 `KanbanTask` 实体。新的 `collectonContainer` 元素会自动添加到 *Jmix UI* 结构面板和 XML 中。
+在打开的对话框中，选择 `KanbanTask` 实体。新的 `collectionContainer` 元素会自动添加到 *Jmix UI* 结构面板和 XML 中。
 
 为了让 `dataLoader` 在视图打开时自动加载数据，我们需要添加一个 xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet。点击操作面板的 *Add Component*，找到 `DataLoadCoordinator` 并双击：
 

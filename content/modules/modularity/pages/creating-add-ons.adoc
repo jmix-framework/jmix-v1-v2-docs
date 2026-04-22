@@ -63,7 +63,7 @@ include::example$/base/base/base.gradle[tags=dependencies]
 include::example$/base/base/src/main/java/com/company/sample/base/BaseConfiguration.java[tags=jmix-module;class]
 ----
 +
-对 Core 子系统的依赖是传递过来的，可以查看 `EclipselinkConfiguration` 或 `FlowuiConfiguration` 类的定义。
+对 Core 子系统的依赖是传递添加的，可以查看 `EclipselinkConfiguration` 或 `FlowuiConfiguration` 类的定义。
 
 当 Jmix 应用程序启动时，会在日志输出一个 `io.jmix.core.JmixModulesProcessor` logger 的 INFO 消息，显示模块层级结构的拓扑排序。示例：
 

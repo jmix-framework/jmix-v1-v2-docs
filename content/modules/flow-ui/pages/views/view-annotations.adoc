@@ -13,7 +13,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/myonboard
 
 * `@ViewController` 注解表示该类是一个视图类。注解的值是视图 id，在 xref:menu-config.adoc[主菜单] 或通过编程打开时，需要使用视图 id。
 
-* `@ViewDescriptor` 注解将视图类与 XML 描述进行关联。注解的值指定描述文件的路径。如果值仅包含文件名，则表示该描述文件位于与视图类相同的包中。
+* `@ViewDescriptor` 注解将视图类与 XML 描述进行关联。注解的值指定 XML 文件的路径。如果值仅包含文件名，则表示该描述文件位于与视图类相同的包中。否则，文件路径需要以 `/` 开头，包含自代码根目录开始的全路径，例如 `/com/company/demo/view/some-entity-list-view.xml`。
 
 * `@com.vaadin.flow.router.Route` 定义导航至该视图的 URL 路径。如果视图需要在主视图内打开，`layout` 属性需要指定为主视图类。
 

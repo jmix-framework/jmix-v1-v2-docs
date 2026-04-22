@@ -7,7 +7,7 @@
 [[configuring-main-properties]]
 == 配置主要参数
 
-现在，添加 LDAP 主要参数。我们将使用一个测试 LDAP 服务 - `\ldap://ldap.forumsys.com:389/`，其中有一些 https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/[测试用户^]。
+现在，添加 LDAP 主要参数。我们将使用一个测试 LDAP 服务，`\ldap://ldap.forumsys.com:389/`，其中有一些 https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/[测试用户^]。
 
 [source,properties,indent=0]
 ----

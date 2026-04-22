@@ -1,10 +1,10 @@
 = OAuth2 token
 
-Administration view *OAuth2 token* enables providing or changing the refresh token value at runtime.
+管理视图 *OAuth2 token* 支持在运行时提供或更改刷新令牌（refresh token）的值。
 
 image::oauth-token-view.png[align="center"]
 
 [NOTE]
 ====
-Grant the *Email: token manager* resource role to allow access to this view to non-administrator users.
+非管理员用户如果需要访问此视图，则需分配 *Email: token manager* 资源角色。
 ====

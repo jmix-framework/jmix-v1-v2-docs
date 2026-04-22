@@ -1,7 +1,7 @@
-= Export and Import Roles
+= 导出和导入角色
 
-Roles created at runtime are stored in the database and can be exported as ZIP or JSON files, or imported as ZIP. This applies to both resource roles and row-level roles.
+在运行时创建的角色存储在数据库中，可以导出为 ZIP 或 JSON 文件，也支持导入 ZIP 文件。该功能支持资源角色和行级角色。
 
-The related UI views provide *Export* and *Import* options for these tasks.
+相关的 UI 视图为提供了 *Export* 和 *Import* 操作：
 
 image:export-import-roles.png[width=1392]

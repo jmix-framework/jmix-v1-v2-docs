@@ -1,16 +1,16 @@
-= Additional Setup
+= 更多配置
 
-The following instructions describe how to extend the xref:saml:index.adoc#default-configuration[default Jmix SAML configuration]. Use them after completing xref:saml:keycloak-saml.adoc[] or the equivalent basic configuration for another identity provider.
+以下说明描述了如何扩展 xref:saml:index.adoc#default-configuration[Jmix SAML 默认配置]。在完成 xref:saml:keycloak-saml.adoc[] 或其他身份 provider 的等效基本配置后，再按需做以下配置。
 
 [[user-menu-visibility]]
-== User menu visibility for in-memory SAML users
+== 内存中 SAML 用户的菜单可见性
 
-With the default SAML configuration, SAML users exist only in memory. They are not backed by a persistent `User` entity, so the main view may not be able to show their name or avatar unless you handle SAML assertion attributes explicitly.
+在默认 SAML 配置下，SAML 用户仅存在于内存中。没有持久化 `User` 实体作为支撑，因此除非显式处理 SAML 断言属性，否则主视图中可能无法显示用户的名称或头像。
 
-To make in-memory SAML users visible in the user menu:
+如需使内存中的 SAML 用户在用户菜单中可见：
 
-. Include the `FirstName` and `LastName` attributes in the SAML assertion.
-. Adjust the `generateUserName` method so it can build the display name from either the persistent `User` entity or SAML assertion attributes for in-memory users:
+. 在 SAML 断言中包含 `FirstName` 和 `LastName` 属性。
+. 调整 `generateUserName` 方法，使其能够从持久化 `User` 实体或内存中用户的 SAML 断言属性构建显示名称。
 +
 .MainView.java
 [source,java]
@@ -18,7 +18,7 @@ To make in-memory SAML users visible in the user menu:
 include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.java[tags=generateUserName]
 ----
 +
-Then use that generated name when rendering the user menu button and header:
+然后使用生成的名称渲染用户菜单按钮和 header：
 +
 [source,java]
 ----
@@ -26,15 +26,15 @@ include::example$/saml-ex1/src/main/java/com/company/samlex1/view/main/MainView.
 ----
 
 [[mapping-saml-attributes]]
-== Mapping SAML Attributes
+== SAML 属性映射
 
-NOTE: Before you map attributes in the application, make sure they are included in the SAML assertion. See xref:saml:keycloak-saml.adoc#add-saml-attributes[Add SAML attributes in Keycloak] or the equivalent steps for your identity provider.
+NOTE: 在应用程序中映射属性之前，请确保这些属性已包含在 SAML 断言中。请参阅 xref:saml:keycloak-saml.adoc#add-saml-attributes[在 Keycloak 中添加 SAML 属性] 或其他身份 provider 对应的等效步骤。
 
-If the SAML assertion contains information about the user, such as their name, position, department, or other profile details, you can make it available in your application during the user session.
+如果 SAML 断言包含有关用户的信息（例如其姓名、职位、部门或其他个人资料详细信息），则可以在用户会话有效时使用这些属性。
 
-In order to do that:
+请按以下步骤：
 
-. Create a class that extends `DefaultJmixSamlUserDetails`:
+. 创建一个扩展 `DefaultJmixSamlUserDetails` 的类：
 +
 
 [source,java,indent=0]
@@ -42,68 +42,67 @@ In order to do that:
 include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MyUser.java[tags=MyUser]
 ----
 +
-<1> An extra field that corresponds to an additional SAML attribute.
+<1> 对应于附加 SAML 属性的附加字段。
 +
-. Create a Spring bean to convert the incoming SAML assertion into a Jmix user object. The simplest approach is to extend `BaseSamlUserMapper` and override its methods.
+. 创建一个 Spring bean，将传入的 SAML 断言转换为 Jmix 用户对象。最简单的方法是扩展 `BaseSamlUserMapper` 并重写其方法。
 +
 [source,java,indent=0]
 ----
 include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlUserMapper.java[tags=MySamlUserMapper]
 ----
 +
-<1> This method creates the Jmix user object that will represent the authenticated user.
-<2> Here, values from the SAML `Assertion` are copied into your user object. In the example, the `Position` attribute from the `Assertion` is stored in the `position` field of `MyUser`.
-<3> In this method authorities are assigned to the user. Instead of implementing that logic directly, the example delegates it to the `SamlAssertionRolesMapper` interface and, therefore, to the default implementation, which is `DefaultSamlAssertionRolesMapper`.
+<1> 该方法创建一个 Jmix 用户对象，表示已认证的用户。
+<2> 这里，将 SAML `Assertion` 中的值复制到用户对象中。在示例中，`Assertion` 中的 `Position` 属性存储在 `MyUser` 的 `position` 字段中。
+<3> 这里，为用户分配权限。该示例没有直接实现逻辑，而是将其代理给 `SamlAssertionRolesMapper` 接口，进而使用默认实现 `DefaultSamlAssertionRolesMapper`。
 
 [[using-different-roles-attribute]]
-== Using Different Roles Attribute
+== 使用不同的角色属性
 
-By default, `DefaultSamlAssertionRolesMapper` looks for an attribute named `Role` in the SAML `Assertion`. That attribute is expected to contain a collection of role names. For each role name, Jmix searches for matching resource roles and row-level roles. If matching roles are found, the corresponding granted authorities are added to the user.
+默认情况下，`DefaultSamlAssertionRolesMapper` 会在 SAML 的 `Assertion` 中查找名为 `Role` 的属性。该属性包含角色名称的集合。对于每个角色名称，Jmix 会搜索匹配的资源角色和行级角色。如果找到匹配的角色，则为用户分配相应的角色。
 
-If your identity provider sends roles in an attribute other than `Role`, you can change the attribute name with the following xref:saml:saml-properties.adoc[Jmix SAML property]:
+如果身份提供商在 `Role` 之外的属性中发送角色，可以使用以下 xref:saml:saml-properties.adoc[Jmix SAML 属性] 来更改属性名称：
 
 .application.properties
 ----
 jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute=MyRole
 ----
 
-This tells the default mapper to read role names from `MyRole` instead of `Role`.
+这告诉默认 mapper 从 `MyRole` 读取角色名称，而非 `Role`。
 
 [[creating-custom-role-mapper]]
-== Creating Custom Role Mapper
+== 创建自定义角色映射器
 
-If you need more control, you can create your own role mapper. This is useful when your identity provider does not send Jmix role codes directly, but instead sends some other values that you want to translate into appropriate roles.
+如果需要更多控制，可以创建自定义的角色映射器。当身份提供商不直接发送 Jmix 角色代码，而是发送其他需要转换为特定角色的内容时，可以使用这个方法。
 
-For example, a value such as `Manager` might come from `Position` attribute, and your mapper can use it to assign the appropriate Jmix roles. To implement this, extend `BaseSamlAssertionRolesMapper` and override its `getResourceRolesCodes()` and `getRowLevelRolesCodes()` methods:
-
+例如，像 `Manager` 这样的值可能来自 `Position` 属性，可以使用自定义映射器分配适当的 Jmix 角色。如需实现该功能，扩展 `BaseSamlAssertionRolesMapper` 并重写其 `getResourceRolesCodes()` 和 `getRowLevelRolesCodes()` 方法：
 
 [source,java,indent=0]
 ----
 include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySamlAssertionRolesMapper.java[tags=MySamlAssertionRolesMapper]
 ----
 
-In this example, the user's `Position` value determines which Jmix resource roles are assigned:
+在此示例中，用户的 `Position` 值决定了分配哪些 Jmix 资源角色：
 
-- if `Position` is `Manager`, the user receives the `edit-contracts` and `view-archive` roles.
-- otherwise, the user receives the `view-contracts` role.
+- 如果 `Position` 是 `Manager`，则为用户分配 `edit-contracts` 和 `view-archive` 角色。
+- 否则，为用户分配 `view-contracts` 角色。
 
 [[persist-users-to-database]]
-== Persist Users to Database
+== 将用户持久化到数据库
 
-By default, the Jmix SAML setup keeps authenticated users in memory only. If you want SAML users to be stored in the database, complete the following steps:
+默认情况下，Jmix SAML 的配置只是将认证用户保存在内存中。如果希望将 SAML 用户存储在数据库中，请按以下步骤：
 
-. Make the xref:security:users.adoc#entity[User] entity compatible with the Jmix SAML add-on by extending the `JmixSamlUserEntity` abstract class:
+. 扩展 `JmixSamlUserEntity` 抽象类，使 xref:security:users.adoc#entity[User] 实体与 Jmix SAML 扩展组件兼容：
 +
 [source,java,indent=0]
 ----
 include::example$/saml-ex1/src/main/java/com/company/samlex1/entity/User.java[tags=extends-JmixSamlUserEntity]
 ----
 +
-. Register a user mapper based on `SynchronizingSamlUserMapper`; this superclass stores and updates the user in the database and can synchronize role assignments to the database:
+. 注册基于 `SynchronizingSamlUserMapper` 的用户映射器；该父类在数据库中更新并存储用户，并可以将角色的分配结果同步到数据库：
 +
 [source,java,indent=0]
 ----
 include::example$/saml-ex1/src/main/java/com/company/samlex1/mapper/MySynchronizingSamlUserMapper.java[tags=MySynchronizingSamlUserMapper]
 ----
 +
-<1> When set to `true`, role assignments are also stored to the database.
+<1> 当设置为 `true` 时，角色分配也会存储到数据库中。

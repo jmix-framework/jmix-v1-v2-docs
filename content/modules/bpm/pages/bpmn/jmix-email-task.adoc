@@ -18,7 +18,7 @@ image::jmix-email-task/email-task.png[,150]
 
 邮件任务有下列属性：
 
-image::jmix-email-task/email-task-properties.png[,700]
+image::jmix-email-task/email-task-properties.png[,463]
 配置邮件任务：
 
 * 首先，需要设置 xref:bpmn/bpmn-tasks.adoc#common-task-properties[通用任务属性]。
@@ -28,7 +28,6 @@ image::jmix-email-task/email-task-properties.png[,700]
 * 按需创建 _执行监听器（Execution listeners）_。
 
 * 关于 _异步（Async）_ 标记，详情参考 xref:bpmn/transactions.adoc[事务]。
-
 
 [NOTE]
 ====
@@ -45,50 +44,21 @@ image::jmix-email-task/email-task-properties.png[,700]
 [[set-address]]
 === 设置邮件地址
 
-邮件地址有这些字段：
-*To*、*Cc*、*Bcc*、*From*。
-
-前三个可以包含多个邮件地址，用 *Email Address Editor* 填写，
-点击 image:jmix-email-task/edit-button.png[,25] _Edit_ 按钮。
-
-可以使用流程变量或表达式来提供地址，也可以直接设置地址。
-支持设置多个邮件地址，并可以在编辑器中设置：
-
-image::jmix-email-task/address-editor.png[,500]
-
-*From* 是发件人地址，只能有一个地址。这样就不能使用编辑器了，可以直接在字段中填写地址或表达式。
-
-* *Subject* - 邮件主题。主题中可以使用流程变量。
-* *Content* - 邮件正文。在编辑器中，可以选择正文的类型：HTML 或纯文本。这里也能使用流程变量。
-+
-image::jmix-email-task/email-content-editor.png[,500]
-
-* *Content type* - 定义正文的类型，HTML 或纯文本。
-+
-image::jmix-email-task/content-type.png[,400]
-
+* 接收人地址
+** *To* 用于填写主要收件人地址。可以使用流程变量或表达式来定义地址，也可以直接输入。支持多个地址。
+** *Cc* 用于填写抄送收件人地址。可以使用流程变量或直接输入地址。支持多个地址。
+** *Bcc* 用于填写密送收件人地址。可以使用流程变量或直接输入地址。支持多个地址。
+* *From* 是发件人地址，因此只支持一个地址。可以使用直接值或表达式来设置此字段。
+* *Subject* 电子邮件的主题行。支持使用流程变量实现动态内容。
+* *Content* 电子邮件的正文。在编辑器中，可以选择 HTML 或纯文本内容类型。此部分也可以使用流程变量来动态生成内容。
 
 [[async-sending]]
 === 异步发送
-* *Send asynchronously* - 默认情况下，邮件是异步发送。
-+
-image::jmix-email-task/send-async.png[,400]
-+
-[WARNING]
-====
-别忘记选择 *Async* 标记，这个标记适用所有任务。
-====
+默认情况下，邮件是异步发送。可以通过 *Send asynchronously（异步发送）* 复选框修改。
 
 [[attachements-content]]
 === 附件
-* *Attachments* - 附件。
-附件需要通过表达式指定：可以是流程变量或 Spring bean 的方法调用。
-支持 `File`、`FileRef`、`byte[]` 和 `FileDescription` 类型。
-+
-附件的名称是可选的。
-如果附件名称未指定，则从文件内容获取。
-如果文件是 `byte[]` 类型，则默认使用 `attachment_<incremental_part>` 作为文件名。
-+
-image::jmix-email-task/create-attachment.png[,400]
 
+使用 *Attachments* 部分添加附件。内容必须通过流程变量提供，或调用 Spring bean 方法以表达式的形式提供，该方法返回以下类型之一：`File`、`FileRef`、`byte[]` 或 `FileDescription`。
 
+附件名称是可选的。如果未提供名称，则默认从文件内容中派生名称。当使用 `byte[]` 作为文件内容时，默认命名规则为 `attachment_<incremental_part>`。

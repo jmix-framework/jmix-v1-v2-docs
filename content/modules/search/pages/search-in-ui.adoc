@@ -3,86 +3,49 @@
 [[visual-components]]
 == 可视化组件
 
-搜索扩展组件提供两个 UI 组件：`SearchField` 和 `FullTextFilter`。
-
-在为项目添加了搜索扩展组件后，这两个 UI 组件可以通过 Studio xref:studio:view-designer.adoc[视图设计器] 的 *Add Component* 工具箱添加。
-
-如果不使用视图设计器，也可以在视图的 XML 中手动声明 `search` 命名空间：
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns]
-----
-
-[[search-field]]
-=== SearchField
-
-`SearchField` 组件提供一个文本框和一个执行搜索的按钮。
-
-视图中使用 `SearchField` 的示例：
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns;view;search-field]
-----
-
-`SearchField` 组件的属性：
-
-* `searchStrategy` - 定义使用的搜索策略。如未定义，则使用默认策略。
-* `entities` - 设置在指定的实体内进行搜索。多个实体可用逗号分隔：
-+
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-search-view.xml[tags=search-field]
-----
-
-默认情况下，`searchField` 打开内置的 `SearchResultsView` 视图。该视图会对搜索引擎进行查询，并根据 `searchField` 配置的 `openMode` 的不同在导航页面或对话框内展示搜索结果。
-
-如需自定义该行为，可以按如下设置 `SearchCompletedHandler`：
-
-[source,java,indent=0]
-----
-include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchView.java[tags=SearchCompletedEvent]
-----
-
-另外，也可以使用组件的 `setSearchCompletedHandler()` 方法设置。
-
-[[full-text-filter]]
-=== FullTextFilter
-
-`FullTextFilter` 组件的功能与 xref:flow-ui:vc/components/propertyFilter.adoc[] 类似。
-
-视图中使用 `fullTextFilter` 的示例：
-
-[source,xml,indent=0]
-----
-include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=data;layout;fullTextFilter;dataGrid]
-----
-
-`FullTextFilter` 组件的属性：
-
-* `dataLoader` - 设置需要过滤的 `DataLoader`。
-* `searchStrategy` - 搜索策略。如未定义，则使用默认策略。
-* `autoApply` - 如果设置为 `true`，则在组件值发生变更时，组件自动对 `DataLoader` 使用过滤。
-
-`FullTextFilter` 的工作流程：首先使用全文搜索找到实体的 id，然后在数据加载器中添加带这些 ID 的过滤条件。接下来，关联至该加载器的 `DataGrid` 只展示符合全文搜索条件的记录，如果 `DataGrid` 组件有其他过滤器，也会生效。
+搜索扩展组件提供两个 UI 组件：xref:search-field-component.adoc[SearchField] 和 xref:full-text-filter-component.adoc[FullTextFilter]。
 
 [[search-strategies]]
-=== 搜索策略
+== 搜索策略
 
 搜索策略定义如何处理搜索词。基本上是使用一些查询语句配置搜索请求。
 
-`SearchField` 和 `FullTextFilter` 组件支持下列内置的搜索策略：
+xref:search-field-component.adoc[SearchField] 和 xref:full-text-filter-component.adoc[FullTextFilter] 组件支持下列内置的搜索策略：
 
-* `anyTermAnyField` - 文档的任何索引字段匹配至少一个输入词。
+* `startsWith`
++
+NOTE: 该策略 **仅当** 在至少一个索引定义上启用了 xref:index-definitions.adoc#extended-search[@ExtendedSearch] 时才可用。
++
+对预索引的 Edge N-Gram 子字段执行基于前缀的搜索：
 
-* `allTermsAnyField` - 文档的任何索引字段以任何顺序匹配上所有的输入词。这是默认策略。
+** 从生成 xref:search-properties.adoc#jmix.search.minPrefixLength[jmix.search.min-prefix-length]（默认：`3`）到 xref:search-properties.adoc#jmix.search.maxPrefixLength[jmix.search.max-prefix-length]（默认：`8`）所有长度的前缀。
+** 提供比通配符查询更快的性能。
+** 当输入超过最大前缀长度时，如果 xref:search-properties.adoc#jmix.search.wildcardPrefixQueryEnabled[jmix.search.wildcard-prefix-query-enabled] = `true`（默认），则回退到通配符查询。
++
+NOTE: 对短于 `jmix.search.min-prefix-length` 的词条始终返回空结果。
 
-* `allTermsSingleField` - 文档至少有一个字段包含任意顺序的所有输入词。
+* `phrase`
++
+执行精确短语匹配：
 
-* `phrase` - 文档至少有一个字段包含输入顺序的所有输入词。
+** 文档必须将所有搜索词按 **准确顺序** 包含在同一字段内。
+** 相当于搜索引擎中的传统词组查询。
+** 非常适合姓名、头衔或准确词语的搜索。
 
-可以使用 `strategy` 属性设置合适的搜索策略，示例：
+* `anyTermAnyField`
++
+对所有字段执行析取式词项匹配：
+
+** 返回在 **任何** 索引字段中匹配 **任意** 输入词项的文档。
+** 词项之间使用 OR 逻辑组合。
+** 向后兼容的默认策略。
+
++
+默认情况下设置此策略。
+
+CAUTION: `allTermsAnyField` 和 `allTermsSingleField` 已弃用并在 UI 中隐藏，但如有需要可以重新实现。
+
+可以使用 `searchStrategy` 属性设置合适的搜索策略，示例：
 
 [source,xml,indent=0]
 ----
@@ -97,7 +60,8 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=defa
 ----
 
 [[custom-search-strategies]]
-==== 自定义搜索策略
+=== 自定义搜索策略
+
 另外，也可以创建自己的搜索策略。为此，首先创建一个实现下列接口之一的 Spring bean：
 
 * `OpenSearchSearchStrategy` - 如果使用 OpenSearch。
@@ -114,7 +78,7 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=defa
 include::example$/search-ex1/src/main/java/com/company/demo/service/CustomOpenSearchSearchStrategy.java[tags=strategy]
 ----
 
-然后，可以在 `SearchField` 或 `FullTextFilter` 组件使用策略名称设置策略。
+然后，可以在 xref:search-field-component.adoc[SearchField] 或 xref:full-text-filter-component.adoc[FullTextFilter] 组件使用策略名称设置策略。
 
 [[fts-condition-in-filter-component]]
 == 过滤器组件中的全文搜索条件
@@ -125,7 +89,7 @@ image:search:add_condition.png[align="center",width="1151"]
 
 在 *Full-text filter condition editor（全文过滤条件编辑）* 对话框中，你可以为全文过滤器设置标题并选择一个搜索策略。如果未设置，则使用默认策略。
 
-image:search:condition_editor.png[align="center",width="641"]
+image:search:condition_editor.png[align="center",width="642"]
 
 与过滤器关联的列表组件中的记录会基于全文搜索结果过滤。
 

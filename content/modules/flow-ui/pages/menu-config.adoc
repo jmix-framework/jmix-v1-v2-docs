@@ -13,10 +13,6 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 
 有两种加载菜单结构定义文件的 xref:studio:menu-designer.adoc#menu-modes[模式]：composite（默认）和 single。使用 xref:flow-ui:ui-properties.adoc#jmix.ui.composite-menu[jmix.ui.composite-menu] 应用程序属性切换这两种模式。
 
-下面详细了解 `menu.xml` 文件的内容。
-
-`menu-config` 是 XML 根元素。`menu-config` 内部的元素组成了一个树状结构，其中 `menu` 元素是分枝而 `item` 和 `separator` 元素是叶子结点。
-
 [[menu-attributes]]
 == menu 属性
 //todo: add Icons and Themes links
@@ -37,6 +33,11 @@ include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[t
 ----
 include::example$onboarding/src/main/resources/com/company/onboarding/menu.xml[tags=menu]
 ----
+
+[[menu-elements]]
+== 菜单元素
+
+`menu` 元素可以包含子元素，例如 `items`、`separators` 或 `icon`（用于 xref:icons/custom-icons.adoc[自定义图标]）。
 
 [[item-attributes]]
 == item 属性
@@ -120,6 +121,10 @@ include::example$onboarding/src/main/resources/application.properties[tags=menu-
 //See xref:ui:icons.adoc[Icons] for details.
 * `className` -- 定义菜单项的 CSS 类名。
 //See xref:jmix:ui:themes.adoc[Themes] for details.
+
+[[item-icons]]
+== 菜单项图标
+在 `item` 元素的内部 `icon` 元素中，可以设置一个 xref:icons/custom-icons.adoc[自定义图标]。
 
 [[item-properties]]
 == item 配置

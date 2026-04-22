@@ -9,28 +9,17 @@
 
 `multiSelectListBox` 支持用户通过复选框在一个可滚动的列表中选择多个数据。
 
-* XML 元素：`multiSelectListBox`
-
-* Java 类：`JmixMultiSelectListBox`
-
-== 基本用法
-
-使用 xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] 或 xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum] 属性创建选项列表：
-
-[source,xml,indent=0]
-----
-include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
-----
-
-<1> `Hobby` 实体的 `CollectionContainer`。
-<2> `multiSelectListBox` 使用 `hobbiesDc` 作为选项列表数据容器。
-
-image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
-
-== XML 属性
-
-xref:vc/common-attributes.adoc#id[id] -
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`multiSelectListBox`
+|Java 类
+|`JmixMultiSelectListBox`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
+xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
 xref:vc/common-attributes.adoc#colspan[colspan] -
 xref:vc/common-attributes.adoc#css[css] -
@@ -45,22 +34,85 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#readOnly[readOnly] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
+<<itemEnabledProvider,itemEnabledProvider>> -
+<<itemLabelGenerator,itemLabelGenerator>> -
+<<renderer,renderer>>
+|XML 内部元素
+|xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
+xref:vc/components/tooltip.adoc[tooltip]
+|===
+
+== 基本用法
+
+使用 xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] 或 xref:vc/components/comboBox.adoc#itemsEnum[itemsEnum] 创建选项列表：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/multiselectlistbox/multi-select-list-box-view.xml[tags=data;hobbiesDc;layout;basics]
+----
+
+<1> `Hobby` 实体的 `CollectionContainer` 容器。
+<2> `multiSelectListBox` 使用 `hobbiesDc` 作为选项容器，列表中显示 hobby 选项。
+
+image::visual-components/components/multi-select-list-box-basics.png[align="center", width="183"]
+
+[[item-enabled-provider]]
+== 选项状态 Provider
+
+`itemEnabledProvider` 支持按特定条件动态控制单个选项是否启用。禁用的选项显示灰色，无法被用户选中。所有选项默认启用。
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=itemEnabledProvider]
+----
+
+[[customizing-item-labels]]
+== 自定义选项标签
+
+`itemLabelGenerator` 支持自定义选项在 `multiSelectListBox` 组件中的显示标签。可以控制用户看到的文本，能以更友好的方式或上下文更相关的方式展示选项。
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=itemLabelGenerator]
+----
+
+[[rendering-items]]
+== 选项渲染
+
+可以自定义选项的渲染方式。渲染器在每个选项应用，返回一个表示该选项的组件。
+
+可以使用 `setRenderer()` 方法或 `@Supply` 注解实现。
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/multiselectlistbox/MultiSelectListBoxView.java[tags=renderer]
+----
+
+[[fragment-renderer]]
+或者，还可以使用嵌套的 `fragmentRenderer` 元素来渲染选项。更多信息请参考 xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[Fragment 渲染器] 部分。
 
 == 事件和处理器
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
-xref:vc/components/radioButtonGroup.adoc#itemEnabledProvider[itemEnabledProvider] -
-xref:vc/components/comboBox.adoc#itemLabelGenerator[itemLabelGenerator]
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
+下面是 `multiSelectListBox` 的特殊处理方法：
 
 include::../handler-generation-tip.adoc[]
 
-== XML 内部元素
-
-xref:vc/components/select.adoc#fragment-renderer[fragmentRenderer] -
-xref:vc/components/tooltip.adoc[tooltip]
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|[[itemEnabledProvider]]itemEnabledProvider
+|`itemEnabledProvider` 应用于 `multiSelectListBox` 的每个选项，确定选项启用（`true`）还是禁用（`false`）。参阅 <<item-enabled-provider>>。
+|[[itemLabelGenerator]]itemLabelGenerator
+|支持自定义 `multiSelectListBox` 中每个选项显示的标签。参阅 <<customizing-item-labels>>。
+|[[renderer]]renderer
+|为 `multiSelectListBox` 设置选项渲染器。参阅 <<rendering-items>>。
+|===
 
 == 参考
 
-https://vaadin.com/docs/latest/components/list-box#multi[Vaadin 文档^]
+{vaadin-docs}/components/list-box#multi[Vaadin 文档^]

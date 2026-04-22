@@ -1,15 +1,15 @@
-= Getting Process Form Data
+= 获取流程表单数据
 
-The `io.jmix.bpm.processform.ProcessFormDataExtractor` bean provides programmatic access to process-form information. The following example demonstrates a REST controller that uses this bean to obtain the form data associated with a running process instance.
+`io.jmix.bpm.processform.ProcessFormDataExtractor` bean 提供了以编程方式访问流程表单信息的能力。以下示例展示了一个 REST 控制器，使用该 bean 来获取与正在运行的流程实例相关联的表单数据。
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/app/FormDataController.java[tags=form-data-controller]
 ----
-<1> Supplying a `processDefinitionID` returns the data for the process's start form.
-<2> Supplying a `taskID` returns the data for that task’s form.
+<1> 提供一个 `processDefinitionID` 参数，返回流程启动表单的数据。
+<2> 提供一个 `taskID` 参数，返回任务表单的数据。
 
-**Success response body:**
+**成功调用后的响应体：**
 
 ----
 {
@@ -26,4 +26,4 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/app/FormDataControlle
 }
 ----
 
-TIP: Make sure to secure application endpoints. Use the code samples in xref:security:custom-endpoints.adoc[] as a guide.
+TIP: 需要注意应用程序端点的安全保护。请参考示例：xref:security:custom-endpoints.adoc[]。

@@ -5,7 +5,7 @@
 
 一个主题由一些 CSS 文件和其他资源构成，比如图片、字体等。
 
-Jmix 提供了基于 Vaadin https://vaadin.com/docs/latest/styling/lumo[Lumo 主题^] 构建的 *jmix-lumo* 主题。
+Jmix 提供了基于 Vaadin https://vaadin.com/docs/latest/styling/lumo[Lumo^] 主题构建的 *jmix-lumo* 主题。
 
 [[applying-theme]]
 == 使用主题
@@ -35,25 +35,51 @@ NOTE: 主题不能在运行时切换。尽管一个项目可以有多个主题�
 [[application-theme]]
 == 应用程序主题
 
-在应用程序中，主题的文件夹放在 `frontend/themes` 目录中，文件夹的目录可以自定义。使用 Studio 创建的 Jmix 应用程序项目有一个预定义的主题文件夹，其名称与项目本身相同。
+在应用程序中，主题的文件夹在 `src/main/frontend/themes`。使用 Studio 创建的 Jmix 应用程序项目有一个预定义的主题文件夹，其名称与项目本身相同。
 
-.主题文件夹文件结构
-image::themes/theme-folder-structure.png[align="center", width="285"]
+示例：
 
-* `my-project` - 主题文件夹，也作为主题名称使用
-* `styles.css` - 主样式文件
-* `my-project.css` - 自定义样式和导入样式写在这里
-* `theme.json` - 主题配置文件，默认使用 *jmix-lumo* 主题。
+[source]
+----
+src
+└── main
+    └── frontend
+        └── themes
+            └── my-project
+                ├── my-project.css
+                ├── styles.css
+                ├── theme.json
+                └── view
+                    ├── login-view.css
+                    ├── main-view-top-menu.css
+                    └── main-view.css
+----
 
-`styles.css` 文件是主题样式的入口文件。所有的 CSS，包括 *Lumo* 样式的一些属性值以及自定义的组件样式，都包含在内。
+* `my-project` - 主题文件夹。其名称作为 <<applying-theme,@Theme>> 注解的主题名称。
+* `my-project.css` - 该主题自定义样式的样式表。
+* `styles.css` - 主样式表，是该主题样式的入口点。
+* `theme.json` - 主题配置文件。默认情况下，将 *jmix-lumo* 定义为父主题。
+* `view` - 此文件夹包含模板项目提供的登录视图和主视图样式的 CSS 文件。
 
-将 CSS 拆分为多个文件可以避免主样式表中混乱的结构。其他 CSS 文件使用 `@import` 指令加载。默认情况下，项目的主样式文件导入了 `<theme-name>.css` 文件，其中可以自定义样式或导入其他文件。
+所有 CSS，包括 CSS 变量值和自定义组件样式，都可以包含在主 `styles.css` 文件中。然而，默认情况下，该文件仅包含导入指令，实际的 CSS 一般在单独的文件中，更易于管理：
 
 [source,css,indent=0]
 .styles.css
 ----
-@import url('./my-project.css');
+@import url('my-project.css');
+@import url('view/main-view.css');
+@import url('view/main-view-top-menu.css');
+@import url('view/login-view.css');
 ----
+
+将项目的 CSS 放在 `<theme_name>.css` 文件（示例中为 `my-project.css`）。
+
+[TIP]
+====
+使用 Vaadin 的在线 https://demo.vaadin.com/lumo-editor/[Lumo 主题编辑器^] 可以快速自定义应用程序的主题。
+
+要选择所需的 UI 组件外观，可以使用右侧面板中的控件。然后，点击 *Download* 并将生成的 CSS 代码（`<style>` 标签内的部分）插入到你的 `<theme_name>.css` 文件中。
+====
 
 [[reusable-theme]]
 == 可重用主题
@@ -68,8 +94,18 @@ image::themes/theme-folder-structure.png[align="center", width="285"]
 
 主题项目的结构如下：
 
-.主题项目结构
-image::themes/theme-addon-structure.png[align="center", width="296"]
+[source]
+----
+src
+└── main
+    └── resources
+        └── META-INF
+            └── resources
+                └── themes
+                    └── cobalt
+                        ├── styles.css
+                        └── theme.json
+----
 
 * `cobalt` - 主题文件夹，也用作主题名称
 * `styles.css` - 主样式文件。可以包含自定义样式和导入，示例：
@@ -206,3 +242,48 @@ include::example$/onboarding/src/main/java/com/company/onboarding/OnboardingAppl
 ----
 
 image::themes/theme-switcher.gif[align="center" width="1169"]
+
+[[customize-lumo-theme-variants]]
+== 为不同样式版本自定义组件样式
+
+当允许用户在运行时切换浅色和深色主题时，可能需要为每个主题定义特定的样式，以保证界面适当的对比度和视觉外观。
+
+如需按照当前激活的主题有条件地变更样式，需要在 CSS 中使用 `html` 元素上的 theme 属性。当主题变化时，Jmix 会向根 `html` 元素添加相应的 theme 属性。
+
+* 对于浅色，属性为 `theme="light"`。
+* 对于深色，属性为 `theme="dark"`。
+
+可以在主题的 CSS 文件（例如 `my-project.css` 或 `styles.css`）中使用这些选择器，为特定主题覆盖组件样式。
+
+假设有一个自定义样式名为 `my-button` 的按钮，并且希望在浅色和深色模式下具有不同的文本颜色：
+
+[source,css]
+----
+/* Default style for light mode */
+vaadin-button.my-button {
+    color: navy;
+}
+
+/* Override for dark mode */
+html[theme='dark'] vaadin-button.my-button {
+    color: lightskyblue;
+}
+----
+
+也可以覆盖 Lumo 内置的主题 CSS 属性（变量）。这样可以一次统一修改许多组件的外观。
+
+例如，仅修改深色模式模式中的主色（primary color）：
+
+[source,css]
+----
+html[theme='dark'] {
+    --lumo-primary-color: rgb(100, 200, 255);
+    --lumo-primary-text-color: rgb(100, 200, 255);
+}
+----
+
+[NOTE]
+====
+* 将这些特定于某个主题的样式放在主题的主 CSS 文件中（例如 `my-project.css`）。`html[theme='dark']` 选择器仅在使用深色主题时才能匹配。
+* 确保深色样式不会与浅色中的样式冲突或无意中覆盖。
+====

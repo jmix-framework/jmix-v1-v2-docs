@@ -1,13 +1,12 @@
 = 协作
 
-
 *协作*（Collaboration）表示业务流程中多个参与者之间的交互。每个参与者都使用唯一的 ID 和名称进行定义，并通过 `processRef` 属性与特定的流程定义相关联。
 
-.*图形表示法*
+== 图形表示法
 
-协作本身没有独特的可视化表示。但是，图中至少存在一个 xref:bpm:bpmn/bpmn-pools-lanes.adoc#pools[泳池] 则表示它是协作的一部分。
+协作本身没有独特的可视化表示。但是，至少存在一个 xref:bpm:bpmn/bpmn-pools-lanes.adoc#pools[泳池] 则表示它是协作的一部分。
 
-.*XML 表示*
+== XML 表示
 
 在 XML 中，协作由包含 `<participant>` 子元素的 `<collaboration>` 元素定义。每个 `<participant>` 都通过 `processRef` 属性与特定流程相关联，该属性需设置为流程定义的 ID。
 
@@ -21,23 +20,18 @@
   </collaboration>
 ----
 
-此外，协作可能有 `isClosed` 属性，但 Jmix BPM 会忽略该属性。
-
 [[properties]]
-.*属性*
+== 属性
 
-以下是 *协作* 的属性：
-
-image::collaboration-properties.png[,350]
-
-ID::
-协作的标识符。
-
-Name::
-*name* 属性描述协作的作用。其最大长度为 255 个字符。但是该名称不在图中显示。
-
-Documentation::
-可以填写协作的描述。其最大长度为 4000 个字符。
+[cols="1,6", grid=rows, frame=none]
+|===
+|*属性*
+|*描述*
+|Id
+|协作的 ID
+|Name
+|协作的名称
+|===
 
 [[meassge-flows]]
 == 消息流

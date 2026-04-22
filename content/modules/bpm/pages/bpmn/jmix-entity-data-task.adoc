@@ -8,23 +8,13 @@
 用实体数据服务操作数据相比常规服务任务更加方便。
 可以从数据库加载实体、修改实体以及创建新实体。
 
-[NOTE]
-====
-准确地说，这里我们讨论的是 _实体实例_, 而不是 _实体_ 本身。
-====
-
 .*图形表示法*
 
 实体数据任务在图中展示为圆角矩形，左上角有一个小的数据库图标。
 
 image::jmix-data-task/data-task.png[,150]
 
-[NOTE]
-====
-由于实体数据任务是 Jmix 扩展，第三方 BPMN 建模工具并不支持这种任务。如果需要与第三方建模工具交换 BPMN 模型，请注意兼容性。
-
-例如，*StormBPMN* 不支持创建实体数据任务，因此需要使用服务任务代替，并且注释说明这是一个 _实体数据任务_。反之亦然，将 Jmix 的 BPMN 模型发布到 Storm 时，实体数据任务将在图中显示为常见的服务任务，但在 XML 中的属性配置仍然是安全的。
-====
+NOTE: 由于实体数据任务是 Jmix 的特定扩展，其他 BPMN 建模工具并不支持这种任务。当导出模型时，实体数据任务会被替换为标准的服务任务；但是其 XML 属性仍然保留。
 
 .*XML 表示*
 
@@ -45,7 +35,7 @@ image::jmix-data-task/data-task.png[,150]
 
 实体数据任务有下列属性：
 
-image::jmix-data-task/data-task-properties.png[,400]
+image::jmix-data-task/data-task-properties.png[,463]
 
 配置数据任务时：
 
@@ -68,155 +58,21 @@ image::jmix-data-task/data-task-properties.png[,400]
 [[data-task-types]]
 == 数据任务类型
 
-数据任务的类型可以从下拉列表中选择：
+数据任务可以执行下列操作之一：
 
-image::jmix-data-task/data-task-types.png[,400]
-
-类型包括：
-
-* xref:loading-entities[加载实体（Load Entities）]
 * xref:modifying-entities[编辑实体（Modify Entity）]
 * xref:creating-entities[创建实体（Create Entity）]
+* xref:loading-entities[加载实体（Load Entities）]
 
-[TIP]
-====
-删除实体时，请创建一个服务任务，然后通过 xref:jmix:data-access:data-manager.adoc[DataManager] 进行删除。
-====
+TIP: 删除实体时，请使用一个服务任务，然后通过 xref:jmix:data-access:data-manager.adoc[DataManager] 进行删除。
 
 [[loading-entities]]
-== 加载实体
+=== 加载实体
 
-加载实体时，需要在属性面板中选择 _Load Entities_ 任务类型。
-然后定义 *JPQL 查询语句* 并按需添加 xref:loading-result[*结果变量*]。
-
-[[jpql-query]]
-=== JPQL 语句
-
-点击如下图所示的编辑按钮可以创建一个 JPQL 查询语句：
-
-image::jmix-data-task/load-data-task-edit-jpql.png[,400]
-
-在打开的 _JPQL 语句设计器_ 中，首先从下拉列表选择实体类，例如，`smpl_Order`。实体别名自动生成，可以后续修改。
-
-image::jmix-data-task/jpql-wizard.png[,900]
-
-[[result-types]]
-==== 结果类型
-
-然后，选择结果类型：
-
-*实体*::
-查询语句返回实体列表。如果 _Save result as_ 选择了 *single element*，则返回列表中的第一个元素，按默认排序或查询语句中设置的排序。
-+
-将生成如下 JPQL 语句：
-+
- select s from smpl_Order s
-
-*实体计数*::
-查询语句返回一个 `count` 运算的整数值。
-+
-image::jmix-data-task/jpql-count.png[]
-+
-将生成如下 JPQL 语句：
-+
- select COUNT(s) from smpl_Order s
-
-*元组*::
-查询语句返回一组字段值，可以包含关联实体的字段。当选择 _元组（Tuple）_ 时，会显示 *Select* 区域：
-+
-image::jmix-data-task/jpql-tuple.png[,900]
-+
-必须选择一个属性以完成查询语句。例如，`customer.name`。
-+
-image::jmix-data-task/attribute-selection.png[,250]
-+
-将生成如下 JPQL 语句：
-+
- select s.customer.name from smpl_Order s
-+
-此外，还可以勾选 *Distinct*，得到唯一值。
-+
-image::jmix-data-task/jpql-distinct.png[,900]
-+
-查询语句会被修改为：
-+
- select distinct s.customer.name from smpl_Order s
-+
-NOTE: 元组中只包含一个属性的值，如果选择了多个，其他属性将被忽略。
-+
-元组中也能使用 *聚合（aggregation）* 函数。
-+
-image::jmix-data-task/jpql-tuple-aggregation-function.png[,200]
-+
-此时，查询语句返回单一数值。
-+
-image::jmix-data-task/jpql-tuple-aggregation.png[,900]
-+
-例如，这个查询语句计算所有订单的价格总和。
-+
- select SUM(s.amount) from smpl_Order s
-
-[[query-filtering-sorting]]
-==== 过滤和排序
-
-JPQL 中可以使用 `WHERE` 和 `ORDER BY` 子句：
-
-image::jmix-data-task/jpql-query-conditions.png[,900]
-
-WHERE 子句::
-JPQL 中的 `WHERE` 子句用于指定查询的过滤条件。点击
-image:jmix-data-task/attribute-icon.png[,25] 图标并选择一个实体属性，例如 `amount`：
-+
-image::jmix-data-task/jpql-where-attribute.png[,900]
-+
-然后定义运算符：
-+
-image::jmix-data-task/jpql-operations.png[,900]
-+
-JPQL 查询语句生成如下，返回金额大于参数 `amount1` 的订单列表：
-+
- select s from smpl_Order s where s.amount > :amount1
-+
-`WHERE` 子句中还可以使用 _函数_。点击
-image:jmix-data-task/function-icon.png[,25] 图标，选择一个函数并选择函数操作的属性：
-+
-image::jmix-data-task/jpql-where-function.png[,900]
-+
-查询必须返回金额大于参数值且在某个年份内（由另一个参数定义）的订单。
-+
- select s from smpl_Order s where s.amount > :amount1 and extract(year from s.approvalDate) = :year1
-+
-当 `WHERE` 子句中有多个条件时，可以选择条件之间的关系（and/or）：
-+
-image::jmix-data-task/where-and-or.png[,270]
-
-
-ORDER 子句::
-JPQL 中的 `ORDER BY` 子句用于对查询结果进行排序,
-根据实体的一个或多个属性按升序或降序排列。
-可以指定获取的记录的呈现顺序。
-+
-切换到 `ORDER` tab，然后选择要用于排序的属性。
-+
-image::jmix-data-task/jpql-order.png[,900]
-+
-修改后的查询语句如下：
-+
- select s from smpl_Order s where s.amount > :amount1 and extract(year from s.approvalDate) = :year1 order by s.number asc
-+
-默认按升序排列，可以按下图所示调整排序：
-+
-image::jmix-data-task/order-direction.png[,270]
-
-[TIP]
-====
-点击 *Copy* 按钮可以将查询语句复制到剪贴板。
-
-image::jmix-data-task/copy-query-button.png[,200]
-====
+如需加载实体，需要在属性面板选择 _Load Entities_ 任务类型。然后，定义 *JPQL query*，以及可选的 xref:loading-result[*结果变量*]。
 
 [[query-parameters]]
-==== 查询语句参数
+==== JPQL 查询语句参数
 在 JPQL 语句中可以直接设置参数，例如：
 
  select s from smpl_Order s where s.amount < 500
@@ -224,41 +80,25 @@ image::jmix-data-task/copy-query-button.png[,200]
 但是很多情况下，我们需要从外部传参，即在运行时传参。
 因此，可以创建命名参数：
 
-* *JPQL parameters* -- 这里可以定义参数：
+image::jmix-data-task/create-jpql-parameter.png[,463]
 
-image::jmix-data-task/create-jpql-parameter.png[,400]
-
-[WARNING]
-====
-定义的参数名必须与 JPQL 中的参数名相同。
-====
+WARNING: 定义的参数名必须与 JPQL 中的参数名相同，这里没有自动检查，需要开发者注意。
 
 参数值可以用以下两种方式传递：
 
 * 流程变量
 * 表达式
 
-示例：
-
-image::jmix-data-task/jpql-parameters.png[,400]
-
-
 [[loading-result]]
-=== 使用结果
+=== 加载结果
 
 如需在流程中使用 JPQL 加载的结果，需要定义 *结果变量（Result variable）*。
-可以选择已有的结果变量或通过输入新的变量名创建一个新的结果变量。
-
-image::jmix-data-task/load-task-result-variable.png[,400]
+可以输入已有的结果变量或通过输入新的变量名创建一个新的结果变量。
 
 如果已有的结果变量类型与所需的类型不匹配，则会被覆盖。
 结果变量的类型由查询语句的结果类型确定。
 
-
-在 *Save result as* 中，还有两个选项，根据查询的结果可以选择 _单一元素（Single element）_ 或 _集合（Collection）_。
-
-image::jmix-data-task/load-task-save-result.png[,400]
-
+在 *Save result as* 中，还有两个选项，根据查询的结果可以选择：*Single element（单一元素）* 或 *Collection（集合）*。
 
 .*XML 表示*
 
@@ -297,49 +137,27 @@ image::jmix-data-task/load-task-save-result.png[,400]
 
 此外，还可以通过输入流程变量的名称来直接指定流程变量。
 当变量未显示在列表中时，可以用这个方法。例如，变量是在服务任务中以编程方式创建的，或者是另一个数据任务加载实体的结果。
-之后，需要显式定义实体类型并指定实体属性。
 
-image::jmix-data-task/modify-data-task-properties.png[,400]
+image::jmix-data-task/modify-data-task-properties.png[,463]
 
 [[specifying-attributes]]
 === 指定属性
 
-点击 _Create_ 链接按钮创建需要修改的实体属性。
-
 属性值可以通过下列方法之一设置：
 
-* 直接在字段内输入值：
+* 直接在字段内输入值
+* 表达式
+* Spring bean
 +
-image::jmix-data-task/data-task-attribute-direct.png[,400]
-+
-从 *枚举* 中选择：
-+
-image::jmix-data-task/data-task-attribute-enum.png[,400]
-+
-* 表达式：
-+
-image::jmix-data-task/data-task-attribute-expression.png[,400]
-+
-名为 `today` 的流程变量必须在数据任务执行前定义。
+[NOTE]
+====
+默认情况下禁用 Spring bean选项。如需使用，需要设置应用程序属性：
 
-* 使用 Spring bean。
-+
-默认情况下禁用该选项。
-如需使用，需要设置应用程序属性：
-+
 [source,properties,indent=0]
 ----
 include::example$/ex1/src/main/resources/application.properties[tags=spring-bean-enable]
 ----
-+
-之后，在 *Value type* 字段可以选择 _Spring bean_：
-+
-image::data-task/spring-bean-option.png[,330]
-+
-可以指定一个 Spring bean 及其方法为实体属性传值：
-+
-image::data-task/spring-bean-value.png[,400]
-
+====
 
 .*XML 表示*
 
@@ -374,11 +192,9 @@ image::data-task/spring-bean-value.png[,400]
 
 创建实体时，从列表中选择实体名称。*BPMN Inspector* 中可以指定所有的非系统属性。
 
-image::jmix-data-task/create-data-task-properties.png[,400]
+image::jmix-data-task/create-data-task-properties.png[,463]
 
-如果需要在后续流程中使用该实体，可以设置一个 *Result variable* 参数。
-
-设置所有必须属性以及其他属性。
+如果需要在之后的流程使用这个实体，请设置 *Result variable* 参数。
 
 .*XML 表示*
 

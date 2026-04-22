@@ -1,6 +1,6 @@
 = 授权服务
 
-授权服务（Authorization Server）扩展组件可以将 Jmix 应用程序作为 OAuth 2.1 框架中的 {oauth-specification-page}#section-1.1[授权服务] 角色使用。扩展组件按照 {oauth-specification-page}[OAuth 2.1] 规范为用户和外部客户端颁发访问 token。
+授权服务（Authorization Server）扩展组件可以将 Jmix 应用程序作为 OAuth 2.1 框架中的 {oauth-specification-page}#section-1.1[授权服务] 使用。扩展组件按照 {oauth-specification-page}[OAuth 2.1] 规范为用户和外部客户端颁发访问 token。
 
 授权服务扩展组件基于 {spring-authorization-server-docs}/index.html[Spring Authorization Server^] 框架。
 

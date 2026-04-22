@@ -2,7 +2,9 @@
 
 Jmix 不仅提供了一个构建应用程序的平台。还包含一个扩展组件的生态系统，丰富了框架的核心功能。Jmix 团队提供了其中的许多扩展组件，其他扩展组件则来自社区。
 
-Jmix 扩展组件在 Jmix https://www.jmix.cn/marketplace/[市场^] 发布。可以直接在 Studio 中浏览和安装，见 <<installation,下文>>。如需将自己的开源扩展组件发布到市场，请参阅 xref:publish-add-on.adoc[]。
+Jmix 扩展组件在 Jmix https://www.jmix.cn/marketplace/[市场^] 发布。可以直接在 Studio 中浏览和安装，见 <<installation,下文>>。
+
+xref:modularity:creating-add-ons.adoc[] 部分介绍了如何创建自己的扩展组件，以便对项目进行模块化管理。如需将自己的开源扩展组件发布到市场，请参阅 xref:publish-add-on.adoc[]。
 
 [[installation]]
 == 安装

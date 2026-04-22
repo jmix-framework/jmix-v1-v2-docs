@@ -10,8 +10,6 @@
 `FullCalendar` 是一个 UI 组件，显示日期范围和日历事项。
 该组件提供了管理日历事项的多种功能，并支持各种显示模式（日、周、月等）。
 
-NOTE: 拖拽、调整大小、点击等产生的 Event，译为“事件”。日历中记录事情、会议的 Event，译为“事项”。
-
 [cols="1h,6",grid=none]
 |===
 
@@ -64,6 +62,7 @@ xref:flow-ui:vc/common-attributes.adoc#css[css] -
 <<eventOrderStrict, eventOrderStrict>> -
 <<eventOverlap, eventOverlap>> -
 <<eventResizableFromStart, eventResizableFromStart>> -
+<<eventSingleClickThreshold, eventSingleClickThreshold>> -
 <<eventStartEditable, eventStartEditable>> -
 <<eventTextColor, eventTextColor>> -
 <<expandRows, expandRows>> -
@@ -1190,6 +1189,73 @@ image::styling-day-header-class-names-generator1.png[align="center",width="879"]
 
 参阅 <<handlers>> 部分了解所有可用的类名生成器。
 
+[[formatting]]
+== 显示格式
+
+`FullCalendar` 组件通过接口提供了丰富的自定义外观功能，包括日期、时间和文本。
+
+=== 默认格式属性
+
+该组件提供了一组全局的默认属性，用于定义常见元素的格式。可用于在所有日历视图上建立统一的基本格式。
+
+* xref:defaultDayHeaderFormat[defaultDayHeaderFormat]：定义日历列标题的文本格式。
+
+* xref:defaultDayPopoverFormat[defaultDayPopoverFormat]：定义当点击单元格中的“更多”链接时弹出的气泡窗口标题的日期格式。
+
+* xref:defaultEventTimeFormat[defaultEventTimeFormat]：定义每个日历事项上显示的时间文本的格式。
+
+* xref:defaultSlotLabelFormat[defaultSlotLabelFormat]：设置时段（time slot）内显示文本的格式。
+
+* xref:defaultWeekNumberFormat[defaultWeekNumberFormat]：定义周数的显示格式，当启用了 xref:weekNumbersVisible[weekNumbersVisible] 属性时会显示周数。
+
+默认情况下，组件在创建时会根据 `messages` 设置本地化格式。
+
+=== 格式优先级
+
+如果没有在显示模式级别定义更特定的显示格式，则在所有标准显示模式（`dayGridDay`、`timeGridWeek` 等）以及任何自定义模式（xref:custom-calendar-display-mode[CustomCalendarDisplayMode]）中，都使用默认格式属性。
+
+然而，每种显示模式的属性对象默认都会明确指定自己的格式。因此，这些特定于显示模式的配置会覆盖全局默认属性的配置。
+
+例如，在 `dayGridDay` 的属性中配置 `dayHeaderFormat` 将会覆盖该特定视图下的全局 `defaultDayHeaderFormat`。
+
+[source,xml,indent=0]
+----
+include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsample/view/demos/displaymode/day-grid-day-mode-view.xml[tags=dayGridDay]
+----
+
+=== 格式规则
+
+该组件依赖 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此，所有格式字符串必须遵循 https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^] 中定义的格式化规则。
+
+例如，使用 `dd` 这个标记会生成两个字母的星期几值，如 `"Mo"`；而使用 `dddd` 则会生成完整的名称，如 `"Monday"`。
+
+[NOTE]
+====
+对这些属性进行更改（例如通过编程式更新 `defaultDayHeaderFormat`）在组件添加到 UI 并完成渲染后将不会生效。如需在运行时更改格式，需要重建日历的 UI 或完全重新渲染该组件。
+====
+
+=== 示例
+
+以下示例演示了如何为不同的显示模式配置日期和时间格式。
+
+*示例 1：周时间网格视图*
+
+本示例配置了一个周时间网格视图（`TIME_GRID_WEEK`）中的日历。设置时段标签为24小时格式，并为日期列标题使用了自定义格式。
+
+[source,xml,indent=0]
+----
+include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsample/view/demos/displaymode/time-grid-week-mode-view.xml[tags=time-grid-week-mode2]
+----
+
+*示例 2：周列表视图*
+
+本示例配置了一个周列表视图（`LIST_WEEK`）中的日历，自定义了列表项的日期格式。
+
+[source,xml,indent=0]
+----
+include::example$fullcalendar-ex2/src/main/resources/com/company/fullcalendarsample/view/demos/displaymode/list-week-mode-view.xml[tags=list-week-mode-format]
+----
+
 [[localization]]
 == 本地化
 
@@ -1305,12 +1371,9 @@ NOTE: 确保翻译后的名称与原始名称的顺序相同，因为解析器�
 |[[defaultDayHeaderFormat]]defaultDayHeaderFormat
 |设置日历列标题上显示文本的默认格式。
 
-默认情况下，组件在创建时从 `messages` 读取并设置本地化格式。
-该属性是所有显示模式和 <<custom-calendar-display-mode, CustomCalendarDisplayMode>> 的默认格式。但是，所有显式模式的属性对象都设置了特定的格式，因此会覆盖该属性的设置。
+例如，`dd` 生成 `"Mo"` 值。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。例如，`dd` 表示缩写的星期，会输出 `Mo`。
-
-在组件 attach 到 UI 后，该属性的更改不会生效。
+参考 <<formatting>>。
 |-
 
 |[[defaultDayMaxEventRowsEnabled]]defaultDayMaxEventRowsEnabled
@@ -1332,33 +1395,27 @@ NOTE: 确保翻译后的名称与原始名称的顺序相同，因为解析器�
 |`false`
 
 |[[defaultDayPopoverFormat]]defaultDayPopoverFormat
-|设置点击“更多（more）”链接弹出窗口标题的日期格式。默认情况下，组件在创建时从 `messages` 读取并设置本地化格式。
+|设置点击“更多（more）”链接弹出窗口标题的日期格式。
 
-该属性是所有显示模式和 <<custom-calendar-display-mode, CustomCalendarDisplayMode>> 的默认格式。但是，所有显式模式的属性对象都设置了特定的格式，因此会覆盖该属性的设置。
+例如，`MMM D, YY` 生成 `Sep 9, 24` 值。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。例如，`MMM D, YY` 会输出 `Sep 9, 24`。
-
-在组件 attach 到 UI 后，该属性的更改不会生效。
+参考 <<formatting>>。
 |-
 
 |[[defaultEventTimeFormat]]defaultEventTimeFormat
-|设置每个事项显示的时间文本格式。默认情况下，组件在创建时从 `messages` 读取并设置本地化格式。
+|设置每个事项显示的时间文本格式。
 
-该属性是所有显示模式和 <<custom-calendar-display-mode, CustomCalendarDisplayMode>> 的默认格式。但是，所有显式模式的属性对象都设置了特定的格式，因此会覆盖该属性的设置。
+例如，`HH:mm` 生成 `00:00`（01, 2, ... 23 : 01, 02 ... 59）。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。例如，`HH:mm` 会输出 `00:00`（01, 2, ... 23 : 01, 02 ... 59）。
-
-在组件 attach 到 UI 后，该属性的更改不会生效。
+参考 <<formatting>>。
 |-
 
 |[[defaultSlotLabelFormat]]defaultSlotLabelFormat
-|设置显示在时间段内的文本格式。默认情况下，组件在创建时从 `messages` 读取并设置本地化格式。
+|设置显示在时间段内的文本格式。
 
-该属性是所有显示模式和 <<custom-calendar-display-mode, CustomCalendarDisplayMode>> 的默认格式。但是，所有显式模式的属性对象都设置了特定的格式，因此会覆盖该属性的设置。
+例如，`ha` 生成 `1 am`（1, 2, ... 12 am/pm）。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。例如，`ha` 会输出 `1 am`（1, 2, ... 12 am/ pm）。
-
-在组件 attach 到 UI 后，该属性的更改不会生效。
+参考 <<formatting>>。
 |-
 
 |[[defaultTimedEventDuration]]defaultTimedEventDuration
@@ -1372,13 +1429,11 @@ NOTE: 确保翻译后的名称与原始名称的顺序相同，因为解析器�
 |`PT1h`
 
 |[[defaultWeekNumberFormat]]defaultWeekNumberFormat
-|设置星期序号的格式，当 <<weekNumbersVisible, weekNumbersVisible>> 为 `true`时。默认情况下，组件在创建时从 `messages` 读取并设置本地化格式。
+|设置星期序号的格式，当 <<weekNumbersVisible, weekNumbersVisible>> 为 `true` 时。
 
-该属性是所有显示模式和 <<custom-calendar-display-mode, CustomCalendarDisplayMode>> 的默认格式。但是，所有显式模式的属性对象都设置了特定的格式，因此会覆盖该属性的设置。
+例如，`[Week] w` 生成 `Week 1`（1, 2, ... 52, 53）。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。例如，`[Week] w` 会输出 `Week 1`（1, 2, ... 52, 53）。
-
-在组件 attach 到 UI 后，该属性的更改不会生效。
+参考 <<formatting>>。
 |-
 
 |[[direction]]direction
@@ -1418,7 +1473,6 @@ NOTE: 确保翻译后的名称与原始名称的顺序相同，因为解析器�
 |设置日历中所有事项的边框颜色。
 
 请注意，如果日历事项设置了 <<borderColor, borderColor>> 属性，则可以覆盖此值。
-
 
 支持的值类型：
 
@@ -1497,6 +1551,11 @@ NOTE: 确保翻译后的名称与原始名称的顺序相同，因为解析器�
 |[[eventResizableFromStart]]eventResizableFromStart
 |启用可以从事项开始时间调整事项的大小。
 |`false`
+
+|[[eventSingleClickThreshold]]eventSingleClickThreshold
+|指定触发单击事件前的延迟（毫秒）。这个阈值用于区分单击和双击操作。
+请注意，该属性仅在 Jmix 2.7.2+ 中支持。
+|`250`
 
 |[[eventStartEditable]]eventStartEditable
 |启用可以通过拖动来编辑事项的开始时间。
@@ -1789,6 +1848,23 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 |[[EventClickEvent]]EventClickEvent
 |`io.jmix.fullcalendarflowui.component.event.EventClickEvent` 当点击日历事项时发送。
 
+日历点击事件中包含 `MouseEventDetails`，可提供有关鼠标交互的具体信息：
+
+* `clickCount`：连续点击次数（单击为 1，双击为 2）。请注意，该属性在 Jmix 2.7.2+ 支持。
+
+* `button`：按下了哪个鼠标键（`LEFT`、`MIDDLE`、`RIGHT`）。
+
+* `pageX/pageY`：点击位置相对于文档的坐标。
+
+* 修饰键：点击过程中 `Alt`、`Ctrl`、`Meta`（macOS 上为 `Cmd`）和 `Shift` 键的状态。
+
+|[[EventDoubleClickEvent]]EventDoubleClickEvent
+|`io.jmix.fullcalendarflowui.component.event.EventDoubleClickEvent` 当双击日历事项时发送。
+
+请注意，该属性在 Jmix 2.7.2+ 支持。
+
+`EventDoubleClickEvent` 包含 <<EventClickEvent,MouseEventDetails>>，可提供有关鼠标交互的具体信息。
+
 |[[EventDropEvent]]EventDropEvent
 |`io.jmix.fullcalendarflowui.component.event.EventDropEvent` 当停止拖动，且事项移至不同的日期或时段时发送。
 
@@ -1800,6 +1876,13 @@ include::flow-ui:vc/handler-generation-tip.adoc[]
 
 |[[EventResizeEvent]]EventResizeEvent
 |`io.jmix.fullcalendarflowui.component.event.EventResizeEvent` 当停止调整大小，且事项的时长已经发生变更时发送。
+
+|[[EventSingleClickEvent]]EventSingleClickEvent
+|`io.jmix.fullcalendarflowui.component.event.EventSingleClickEvent` 当用户点击日历事项时发送。为了与双击做区分，该时间会延迟一些发送。延迟可以通过 <<eventSingleClickThreshold,eventSingleClickThreshold>> 属性配置。
+
+请注意，该属性在 Jmix 2.7.2+ 支持。
+
+`EventSingleClickEvent` 包含 <<EventClickEvent，可提供有关鼠标交互的具体信息。
 
 |[[MoreLinkClickEvent]]MoreLinkClickEvent
 |`io.jmix.fullcalendarflowui.component.event.MoreLinkClickEvent` 当用户点击 “more” 链接时发送。“more” 链接可通过下列属性启用：
@@ -2244,6 +2327,7 @@ ClassNamesGenerator
 |borderColor
 |实体中的 `borderColor` 属性。
 
+
 参阅日历事项的 <<borderColor, borderColor>> 属性。
 |-
 
@@ -2447,10 +2531,14 @@ ClassNamesGenerator
 
 |dayHeaderFormat
 |设置该显示模式中日期表头的格式。格式规则与 <<defaultDayHeaderFormat, defaultDayHeaderFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |dayPopoverFormat
 |设置该显示模式中弹出框的格式。格式规则与 <<defaultDayPopoverFormat, defaultDayPopoverFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |displayEventEnd
@@ -2459,10 +2547,14 @@ ClassNamesGenerator
 
 |eventTimeFormat
 |设置该显示模式中事项时间的格式。格式规则与 <<defaultEventTimeFormat, defaultEventTimeFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |weekNumberFormat
 |设置该显示模式中星期的格式。格式规则与 <<defaultWeekNumberFormat, defaultWeekNumberFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 |===
 
@@ -2489,10 +2581,14 @@ ClassNamesGenerator
 
 |dayHeaderFormat
 |设置该显示模式中日期表头的格式。格式规则与 <<defaultDayHeaderFormat, defaultDayHeaderFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |dayPopoverFormat
 |设置该显示模式中弹出框的格式。格式规则与 <<defaultDayPopoverFormat, defaultDayPopoverFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |displayEventEnd
@@ -2501,10 +2597,14 @@ ClassNamesGenerator
 
 |eventTimeFormat
 |设置该显示模式中事项时间的格式。格式规则与 <<defaultEventTimeFormat, defaultEventTimeFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |weekNumberFormat
 |设置该显示模式中星期的格式。格式规则与 <<defaultWeekNumberFormat, defaultWeekNumberFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 |===
 
@@ -2531,10 +2631,14 @@ ClassNamesGenerator
 
 |dayHeaderFormat
 |设置该显示模式中日期表头的格式。格式规则与 <<defaultDayHeaderFormat, defaultDayHeaderFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |dayPopoverFormat
 |设置该显示模式中弹出框的格式。格式规则与 <<defaultDayPopoverFormat, defaultDayPopoverFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |displayEventEnd
@@ -2543,6 +2647,8 @@ ClassNamesGenerator
 
 |eventTimeFormat
 |设置该模式中事项时间的格式。格式规则与 <<defaultEventTimeFormat, defaultEventTimeFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |fixedWeekCount
@@ -2555,6 +2661,8 @@ ClassNamesGenerator
 
 |weekNumberFormat
 |设置该显示模式中星期的格式。格式规则与 <<defaultWeekNumberFormat, defaultWeekNumberFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 |===
 
@@ -2581,10 +2689,14 @@ ClassNamesGenerator
 
 |dayHeaderFormat
 |设置该显示模式中日期表头的格式。格式规则与 <<defaultDayHeaderFormat, defaultDayHeaderFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |dayPopoverFormat
 |设置该显示模式中弹出框的格式。格式规则与 <<defaultDayPopoverFormat, defaultDayPopoverFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |displayEventEnd
@@ -2593,17 +2705,22 @@ ClassNamesGenerator
 
 |eventTimeFormat
 |设置该模式中事项时间的格式。格式规则与 <<defaultEventTimeFormat, defaultEventTimeFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |monthStartFormat
-|设置每月第一个单元格中文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置每月第一个单元格中文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`MMMM` 会输出 `September`（`November`、`December` 等）。
+
+参考 <<formatting>>。
 |-
 
 |weekNumberFormat
 |设置该显示模式中星期的格式。格式规则与 <<defaultWeekNumberFormat, defaultWeekNumberFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 |===
 
@@ -2634,10 +2751,14 @@ ClassNamesGenerator
 
 |dayHeaderFormat
 |设置该显示模式中日期表头的格式。格式规则与 <<defaultDayHeaderFormat, defaultDayHeaderFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |dayPopoverFormat
 |设置该显示模式中弹出框的格式。格式规则与 <<defaultDayPopoverFormat, defaultDayPopoverFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |displayEventEnd
@@ -2654,6 +2775,8 @@ ClassNamesGenerator
 
 |eventTimeFormat
 |设置该模式中事项时间的格式。格式规则与 <<defaultEventTimeFormat, defaultEventTimeFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |slotEventOverlap
@@ -2662,10 +2785,14 @@ ClassNamesGenerator
 
 |slotLabelFormat
 |设置该显示模式下时隙标签的格式。格式规则与 <<defaultSlotLabelFormat, defaultSlotLabelFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |weekNumberFormat
 |设置该显示模式中星期的格式。格式规则与 <<defaultWeekNumberFormat, defaultWeekNumberFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 |===
 
@@ -2696,10 +2823,14 @@ ClassNamesGenerator
 
 |dayHeaderFormat
 |设置该显示模式中日期表头的格式。格式规则与 <<defaultDayHeaderFormat, defaultDayHeaderFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |dayPopoverFormat
 |设置该显示模式中弹出框的格式。格式规则与 <<defaultDayPopoverFormat, defaultDayPopoverFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |displayEventEnd
@@ -2716,6 +2847,8 @@ ClassNamesGenerator
 
 |eventTimeFormat
 |设置该模式中事项时间的格式。格式规则与 <<defaultEventTimeFormat, defaultEventTimeFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |slotEventOverlap
@@ -2724,10 +2857,14 @@ ClassNamesGenerator
 
 |slotLabelFormat
 |设置该显示模式下时隙标签的格式。格式规则与 <<defaultSlotLabelFormat, defaultSlotLabelFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 
 |weekNumberFormat
 |设置该显示模式中星期的格式。格式规则与 <<defaultWeekNumberFormat, defaultWeekNumberFormat>> 相同。
+
+参考 <<formatting>>。
 |-
 |===
 
@@ -2753,17 +2890,19 @@ ClassNamesGenerator
 |*默认值*
 
 |listDayFormat
-|设置日期表头左侧文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置日期表头左侧文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideFormat
-|设置日期表头右侧文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置日期表头右侧文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideVisible
@@ -2797,17 +2936,19 @@ ClassNamesGenerator
 |*默认值*
 
 |listDayFormat
-|设置日期表头左侧文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置日期表头左侧文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideFormat
-|设置日期表头左侧文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置日期表头左侧文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideVisible
@@ -2841,17 +2982,19 @@ ClassNamesGenerator
 |*默认值*
 
 |listDayFormat
-|设置日期表头左侧文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置日期表头左侧文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideFormat
-|设置日期表头左侧文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置日期表头左侧文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideVisible
@@ -2887,15 +3030,17 @@ ClassNamesGenerator
 |listDayFormat
 |设置日期表头左侧文本的格式。默认情况下，组件从消息包获取本地化格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideFormat
 |设置日期表头右侧文本的格式。默认情况下，组件从消息包获取本地化格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`dd` 会输出 `Mo`（星期一）。
+
+参考 <<formatting>>。
 |-
 
 |listDaySideVisible
@@ -2945,10 +3090,11 @@ ClassNamesGenerator
 |`350`
 
 |multiMonthTitleFormat
-|设置每个月上方文本的格式。默认情况下，组件从消息包获取本地化格式。
+|设置每个月上方文本的格式。
 
-由于组件使用的 `FullCalendar` 用了 https://fullcalendar.io/docs/moment-plugin[moment 插件^]。因此设置格式时需要遵循 `moment.js` 的格式规则： https://momentjs.com/docs/#/displaying/format/[Moment.js 文档^]。
 例如，`MMM` 会输出 `Sep`（`Nov`...）。
+
+参考 <<formatting>>。
 |
 
 |showNonCurrentDates

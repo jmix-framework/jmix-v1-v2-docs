@@ -1,8 +1,37 @@
 = 自定义操作类型
 
-在项目中可以新建自定义操作类型或者重载已有的标准操作类型。
+在项目中可以新建自定义操作类型或者重载已有的标准操作类型。之后这些自定义的操作可以在应用程序的所有视图中使用，如下面的示例所展示的。
 
-例如，假设需要一个操作显示 `dataGrid` 中当前选中实体的实例名称。你还希望该操作能在多个视图中仅通过指定操作的类型进行使用。按照下面的步骤创建这种操作：
+== BaseAction
+
+可以创建自定义的操作，然后分配给一个组件。下面是一个简单的示例，点击按钮显示 “Hello”。
+
+. 创建一个操作类，继承自 `BaseAction` 然后添加 `@ActionType` 注解，设置操作类型名称：
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/MyCustomAction.java[]
+----
++
+NOTE: 如果需要重载已有类型，只需要在 `@ActionType` 注解中使用相同的类型名称注册新的操作即可。
++
+. 现在可以在视图中通过指定操作类型使用该操作：
++
+[source, xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/department/department-list-view.xml[tags=my-action]
+----
++
+. 为组件设置新操作：
++
+[source, xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/department/department-list-view.xml[tags=action-button]
+----
+
+== ItemsTrackingAction
+
+如果需要一个操作，当表格中的一行或多行选中时，这个操作才启用，请使用 `ItemTrackingAction`。例如，假设我们需要一个操作用来显示 `dataGrid` 选中实体的实例名称。请按下面的步骤创建。
 
 . 创建一个操作类添加 `@ActionType` 注解，指定需要的操作类型：
 +
@@ -10,15 +39,12 @@
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ShowSelectedAction.java[]
 ----
-
++
+NOTE: 如果需要重载已有类型，只需要在 `@ActionType` 注解中使用相同的类型名称注册新的操作即可。
++
 . 现在可以在视图描述中通过设置操作类型使用该操作：
 +
 [source, xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/department/department-list-view.xml[tags=custom-action]
 ----
-
-[NOTE]
-====
-如果需要重载已有类型，只需要使用相同的名称注册新的操作即可。
-====

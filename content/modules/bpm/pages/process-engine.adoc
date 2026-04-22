@@ -17,7 +17,3 @@ image::bpm:process-engine.png[,700]
 * **FormService**: 在流程内处理表单（Jmix BPM 未使用）。
 
 流程引擎可以通过 xref:jmix-bpm-api.adoc#flowable-api[Flowable API] 访问。
-
-
-
-== 配置

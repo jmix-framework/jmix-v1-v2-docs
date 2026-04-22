@@ -11,7 +11,7 @@ image::prop-jmix.png[align="center",width="912"]
 * 在 *Repository* 字段选取可用的仓库。如果需要使用多个仓库，可通过 *Custom repository* 添加。在列表中可以选择现在项目中已经使用的仓库。Studio 会扫描这些仓库，检查有哪些可用的框架版本。另外，还可以在 `build.gradle` 文件中手动注册任意数量包含应用程序组件的附加仓库。
 * *Jmix version* 字段展示项目中用到的框架版本。旁边的 *Change* 链接可以用来 xref:studio:project.adoc#upgrading-project[升级] 框架版本，如果需要的话，Studio 会进行自动迁移。
 
-*Locales* 标签页，可以设置应用程序的语言环境。编辑器中还可以启用数据字符串格式化配置，定义如何 xref:data-model:data-types.adoc#localized-format-strings[解析和格式化数据]。
+*Locales* 标签页，可以设置应用程序的语言环境。编辑器中还可以启用数据字符串格式化配置，定义如何 xref:data-model:datatype.adoc#localized-format-strings[解析和格式化数据]。
 
 image::prop-locales.png[align="center",width="912"]
 

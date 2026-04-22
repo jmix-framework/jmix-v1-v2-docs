@@ -161,6 +161,76 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 
 . 这些方法没有在 xref:rest-ds:index.adoc[] 中实现。
 
+[[element-collections]]
+=== 元素集合
+
+当使用 xref:data-model:entities.adoc#element-collections[元素集合] 实体属性时，请参考以下内容。
+
+[[element-collection-queries]]
+==== 用元素集合查询
+
+通过元素值查实体时，请使用 `join`：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag]
+----
+
+简写查询时，需要包含 `from` 子句：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag-like]
+----
+
+查询空元素集合：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-empty-tags]
+----
+
+需要直接加载元素集合的值时，请使用 `join`。下面的方法会返回 `KeyValue` 实体的列表，包含 “name -> tag” 信息：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-values]
+----
+
+按下面的写法可以加载集合中的所有元素：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-value]
+----
+
+[CAUTION]
+====
+*不支持*：
+
+* 将整个元素集合作为纯值加载。例如，这个查询语句会失败：`select p.name, p.tags from sample_Product p`
+* `in` 操作符。这个查询语句会失败：`select p from sample_Product p where :tag in (p.tags)`
+====
+
+[[element-collection-conditions]]
+==== 元素集合作为过滤条件
+
+当使用 `PropertyCondition` 时，`[NOT_]EQUAL`、`GREATER[_OR_EQUAL]`、`LESS[_OR_EQUAL]`、`CONTAINS`、`[STARTS|ENDS]_WITH` 这些操作会对集合中的元素进行比较。
+
+例如，以下方法实际执行的查询为 `select e from sample_Product e join e.tags t where t = :tag`，并返回在其 `tags` 集合中包含给定值的产品：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-tag-using-condition]
+----
+
+下面示例如何使用 `PropertyCondition` 查找空集合：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/bean/ProductService.java[tags=load-by-empty-tags-using-condition]
+----
+
 [[paging-and-sorting]]
 === 分页和排序
 

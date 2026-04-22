@@ -1,50 +1,52 @@
 = 流程实例
 
-这个视图可以展示已激活的和已完成的流程实例。
-如需切换状态展示，使用过滤器的 *流程状态（Completion State）* 下拉框选择，并点击 *应用（Apply）* 按钮。
-列表默认不显示内容。
+*Process Instances（流程实例）* 视图显示激活和已完成的流程实例列表。
 
 image::bpm-menu-views/process-instances-list.png[,800]
 
-[TIP]
-====
-*End time* 为空表示流程是 *激活* 状态，否则是 *已完成* 状态。
-====
+[[process-instance-list]]
+== 实例列表功能
 
-在 *流程实例编辑器（Process instance editor）* 视图中，
-可以将一个实例 xref:bpm:instance-migration.adoc[迁移] 至新的流程定义版本、
-挂起实例或者删除实例。
+可执行以下操作：
+
+* *实例过滤* — 按流程定义、业务键值或完成状态（`Active` 或 `Completed`）筛选实例。
+* *实例排序* – 按 *Start time*、*End time* 或其他表格列对列表排序。
+* *实例编辑* – 在列表中选择一个实例，然后点击 *Edit* 打开 **Process instance detail（流程实例详情）** 视图。
+
+
+[[process-instance-detail]]
+== 流程实例详情
+
+**Process instance detail（流程实例详情）** 视图用于显示所选流程实例的详细信息，并支持对其进行管理。
 
 image::bpm-menu-views/process-instance-detail.png[,800]
 
-在 *运行时（Runtime）* tab 中，仅展示激活的流程实例，
-包含当前流程状态的信息：
-执行树、变量值、激活的用户任务以及失败的作业。
+可执行以下操作：
 
-在执行树中进行选择会修改右侧的 *变量（Variables）* 和 *任务（Tasks）* tab 的内容。
-如果你只选中某个特定的执行过程，则仅展示与选中记录相关的对象。
+* *Migrate（迁移）* — 启动 xref:bpm:instance-migration.adoc[流程实例迁移]，将其迁移至更新版本的流程定义。
+* *Suspend（挂起）* – 暂停该流程实例。
+* *Delete（删除）* — 永久删除该流程实例。
+* *Runtime 标签页* — 显示该实例的运行时信息：
+** *Execution tree（执行树）* — 以树形结构展示流程实例中的活动。
+** *Variables 标签页* — 支持创建、编辑和删除流程变量。
++
+image::bpm-menu-views/process-variable-editor.png[width=1204]
++
+** *Tasks 标签页* — 显示活跃任务，并支持将任务 *重新分配* 给其他用户。
++
+image::bpm-menu-views/task-reassignment.png[width=1204]
++
+** *Failed jobs 标签页* — 列出发生错误的作业，提供堆栈跟踪信息，并支持在问题解决后重试这些作业。
++
+image::bpm-menu-views/failed-job.png[width=1204]
++
+* *History 标签页* — 显示所有用户任务（包括活跃和已完成的）、活动以及流程变量的最新值。
++
+image::bpm-menu-views/process-instance-history.png[width=986]
 
-使用 *变量（Variables）* 标签页可以创建、修改以及删除流程变量。
-注意，当树中有选中的执行过程时，新建的变量会被放入选中的执行中。
-
-image::bpm-menu-views/process-variable-editor.png[,900]
-
-在 *任务（Tasks）* tab 中，可以查看已激活的任务列表并能将任务分配给其他用户。
-
-image::bpm-menu-views/task-reassignment.png[,900]
-
-*失败作业（Failed jobs）* tab 展示出错导致失败的作业列表。
-例如，如果某些服务任务的方法抛出异常，该服务任务会出现在失败作业的列表中。
-可以在界面查看异常堆栈并能在修复错误原因之后恢复失败的作业。
-
-image::bpm-menu-views/failed-job.png[,900]
-
-*任务历史（History）* tab 包含所有用户任务的列表（包括已激活和已完成的任务）、
-已完成的活动列表以及流程变量的最新值。
-已激活的流程实例和完成的流程实例都可以查看 *任务历史（History）*。
-
-image::bpm-menu-views/process-instance-history.png[,900]
-
-*流程图（Diagram）* tab 展示流程模型，高亮当前激活的节点。
-
-image::bpm-menu-views/process-instance-diagram.png[,900]
+* *Diagram 标签页* — 显示流程示意图，并以可视方式标示已执行的路径。
++
+image::bpm-menu-views/process-instance-diagram.png[width=1260]
++
+** 已完成的活动以绿色高亮显示。
+** 当前活动元素以蓝色高亮显示。

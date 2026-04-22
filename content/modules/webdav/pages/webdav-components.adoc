@@ -1,4 +1,4 @@
-= 2. 使用 WebDav 组件
+= 2. 使用 WebDAV 组件
 
 在此阶段，应用程序的知识库管理系统主要由 `Knowledge base` 视图展示。
 
@@ -112,7 +112,7 @@ image::wd-wrapper-list-try-open-doc.png[align="center", width="1271"]
 我们了解到：
 
 * xref:ui-components.adoc#webdav-document-upload-field[WebDAVDocumentUploadField] 组件查看和上传 WebDAV 文档的便捷内置工具。
-* 可以通过数据网格列的 xref:flow-ui:vc/components/dataGrid.adoc#component-renderer[ComponentRenderer] 使用 xref:ui-components.adoc#webdav-document-link[WebDavDocumentLink] 组件。
+* 可以通过数据网格列的 xref:flow-ui:vc/components/dataGrid.adoc#component-renderer[ComponentRenderer] 使用 xref:ui-components.adoc#webdav-document-link[WebdavDocumentLink] 组件。
 
 // [[improving-webdav-document-wrapper-data-grid]]
 // == Improving WebdavDocumentWrapper Data Grid

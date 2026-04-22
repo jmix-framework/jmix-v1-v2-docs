@@ -83,6 +83,13 @@
 
 默认值：`false`。
 
+[[jmix.reports.multilineStringsProcessingEnabled]]
+=== jmix.reports.multilineStringsProcessingEnabled
+
+启用 DOCX 报表模板中参数值的多行字符串处理。启用时（`true`），参数值中的换行符（`\n`、`\r\n`）会在生成的 DOCX 文档中渲染为实际的换行。此功能仅在使用 xref:creation/templates.adoc#template_doc[DOCX 模板] 时生效。
+
+默认值：`false`。
+
 [[jmix.reports.office-path]]
 === jmix.reports.office-path
 
@@ -102,7 +109,7 @@
 [[jmix.reports.pdf-fonts-directory]]
 === jmix.reports.pdf-fonts-directory
 
-指定 HTML 转换为 PDF 时使用的字体的路径。
+指定 HTML 转换为 PDF 时使用的字体路径。
 
 示例：`jmix.reports.pdf-fonts-directory = C:/Windows/Fonts`。
 
@@ -146,7 +153,7 @@
 
 * 在 http://www.libreoffice.org/download/download/[www.libreoffice.org^] 下载软件。
 * 安装软件。
-* 配置 <<jmix.reports.office-path,jmix.reports.office-path>> 应用程序属性，指定 *LibreOffice* 路径，示例：
+* 配置 <<jmix.reports.office-path,jmix.reports.office-path>> 应用程序属性并设置为 *LibreOffice* 的路径，示例：
 
 [source, properties,indent=0]
 ----
@@ -164,7 +171,7 @@ jmix.reports.office-path = C:/Program Files (x86)/LibreOffice 5/program
 $ sudo apt-get install libreoffice
 ----
     
-* 配置 <<jmix.reports.office-path,jmix.reports.office-path>> 应用程序属性，指定 *LibreOffice* 路径，示例：
+* 配置 <<jmix.reports.office-path,jmix.reports.office-path>> 应用程序属性并设置为 *LibreOffice* 的路径，示例：
 +
 [source, properties,indent=0]
 ----

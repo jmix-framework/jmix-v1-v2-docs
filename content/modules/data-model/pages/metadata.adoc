@@ -30,4 +30,4 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/bean/CustomerSer
 <10> 如果实体属性是枚举，则 `Range.isEnum()` 方法返回 `true`。
 <11> `Range.asEnumeration()` 方法返回 `Enumeration` 对象，该对象可用于遍历所有枚举常量。
 <12> 如果实体属性不是引用也不是枚举，则 `Range.isDatatype()` 方法返回 `true`。
-<13> `Range.asDatatype()` 方法返回实体属性的 xref:data-types.adoc[数据类型]。可以用于格式化和解析属性值。
+<13> `Range.asDatatype()` 方法返回实体属性的 xref:datatype.adoc[数据类型]。可以用于格式化和解析属性值。

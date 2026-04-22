@@ -1,20 +1,20 @@
-= External Configuration with .env Files
+= 使用 .env 文件进行外部配置
 
-Jmix Studio provides support for using `.env` files to externalize configuration. This allows you to store environment-specific variables separately from your `application.properties` file, making it easier to manage different configurations across development, testing, and production environments.
+Jmix Studio 支持使用 `.env` 文件将配置外部化。即可以将不同环境的变量与 `application.properties` 文件分开存储，从而更容易地管理开发、测试和生产环境中的不同配置。
 
 [[studio-resolve-placeholders]]
-== How Studio Resolves Placeholders
+== Studio 如何解析占位符
 
-Studio resolves placeholders from properties files in the following order (each step overrides the previous step when a value is successfully resolved):
+Studio 按以下顺序解析 properties 文件中的占位符（当成功解析到值时，每个步骤都会覆盖前一步的值）：
 
-. System environment variables
-. References to another application property (if that property contains a placeholder, the process returns to step 1)
-. Additional configuration files specified via the `spring.config.import` property
+. 系统环境变量
+. 对另一个应用程序属性的引用（如果该属性包含占位符，则返回步骤 1 继续处理）
+. 通过 `spring.config.import` 属性指定的附加配置文件
 
 [[working-with-env]]
-== Working with .env Files
+== 使用 .env 文件
 
-Place your `.env` file in the *project root directory* (not in resources) and add the following property to your `application.properties`:
+将 `.env` 文件放在 *项目根目录*（而不是 resources 目录）中，并在 `application.properties` 添加以下属性：
 
 .application.properties
 [source,properties,indent=0]
@@ -22,11 +22,11 @@ Place your `.env` file in the *project root directory* (not in resources) and ad
 spring.config.import=optional:file:.env[.properties]
 ----
 
-NOTE: You can also add this property to a xref:studio:profile-specific-properties.adoc[profile-specific configuration file], for example `application-local.properties`, and Studio will resolve it correctly.
+NOTE: 也可以将此属性添加到 xref:studio:profile-specific-properties.adoc[特定 profile 的配置文件] 中（例如 `application-local.properties`），Studio 也能正确解析。
 
-TIP: For more details about the `spring.config.import` mechanism, refer to the https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.importing[Spring Boot documentation^].
+TIP: 有关 `spring.config.import` 机制的更多详细信息，请参阅 https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.importing[Spring Boot 文档^]。
 
-Example of the `.env` file:
+`.env` 文件示例：
 
 .env
 [source,properties,indent=0]
@@ -36,9 +36,9 @@ DB_USERNAME=root
 DB_PASSWORD=secret
 ----
 
-NOTE: The `.env` file can be named either `.env` or `.env.properties`. Both extensions are supported.
+NOTE: `.env` 文件可命名为 `.env` 或 `.env.properties`，这两种都支持。
 
-Example of the `application.properties` file:
+`application.properties` 文件示例：
 
 .application.properties
 [source,properties,indent=0]
@@ -50,4 +50,4 @@ main.datasource.username=${DB_USERNAME}
 main.datasource.password=${DB_PASSWORD}
 ----
 
-When a `.env` file is connected via `spring.config.import`, Jmix Studio displays it in the *Jmix Tool Window* under the *Configuration* node, making it easily accessible for editing.
+当通过 `spring.config.import` 引入 `.env` 文件时，Jmix Studio 会在 *Jmix 工具窗口* 的 *Configuration* 节点下显示，便于访问和编辑。

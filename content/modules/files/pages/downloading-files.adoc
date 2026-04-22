@@ -9,6 +9,11 @@
 
 根据文件类型和 xref:flow-ui:ui-properties.adoc#jmix.ui.view-file-extensions[jmix.ui.view-file-extensions] 属性的设置，文件可以直接下载或者通过浏览器的新标签页展示。文件类型通过 `DownloadFormat` 参数确定，如果未提供该参数，则通过文件扩展名确定。如需不考虑文件类型强制在浏览器展示，可以调用 `Downloader` 的 `setShowNewWindow(true)` 方法。
 
+[NOTE]
+====
+如需控制浏览器对已下载文件的缓存行为，可以使用 xref:flow-ui:ui-properties.adoc#jmix.ui.file-downloader-cache-max-age-sec[jmix.ui.file-downloader-cache-max-age-sec] 应用程序属性。将其设置为 `0` 可确保浏览器始终从服务器获取最新版本，这对于像 PDF 文件这类动态生成的文件尤其有用。
+====
+
 [[download-from-storage]]
 === 从文件存储下载
 

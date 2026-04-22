@@ -1,61 +1,55 @@
 = 流程
 
-*流程*（process）是指为实现特定组织目标而执行的结构化活动流。
-在 BPMN 模型中，流程是包含所有其他元素的根元素。
+流程（Process）是为特定业务目标服务的活动或任务的结构化流。
+在 BPMN 中，流程是核心元素，包含所有关联元素，从而展示整个工作流以及业务上下文中的交互。
 
-.*图形表示法*
+== 图形表示法
 
-流程没有可视化的表现形式。在建模器中，一个空画布就已经具有流程定义。
+流程没有可视化的表示形式。可以被包含在一个 xref:bpmn/bpmn-pools-lanes.adoc#pools[泳池] 中以使模型更清晰，但泳池并非必要。
 
-流程可以封装到 xref:bpmn/bpmn-pools-lanes.adoc#pools[泳池] 中。在这种情况下，泳池可以直观地表示该流程，但泳池并非强制选项。
+== XML 表示
 
-
-*XML 表示*
-
-在 XML 中，流程通过一个 `process` 元素表示。默认情况下，其具有可省略的属性 `isExecutable = true`。
-
-//todo: на самом деле процесс запускается при любом значении атрибута. Надо уточнить, как должно быть
+在 XML 中，流程使用 `process` 元素表示。
 
 [source,xml]
 ----
   <process id="new-process" name="New process" isExecutable="true" >
     . . .
- </process>
+  </process>
 ----
 
-此外，流程可能有 `processType`、`isClosed` 和 `definitionalCollaborationRef` 属性，但 Jmix BPM 会忽略这些属性。
+// 此外，流程可能有 `processType`、`isClosed` 和 `definitionalCollaborationRef` 属性，但 Jmix BPM 会忽略这些属性。
 
 [[properties]]
-.*属性*
+== 属性
 
-下面是 *BPM Navigator* 中的流程属性：
+与构成流程的元素一样，流程本身也有许多属性。当未选中任何元素时，可以在建模器中查看和编辑流程属性。
 
-image::bpmn-process/process-properties.png[,400]
+[cols="1,6", grid=rows, frame=none]
+|===
+|*属性*
+|*描述*
+|Process id
+|*process id* 在流程部署时标识该流程。在运行时，被称为 *process key*。
+|Name
+|流程的名称。最大长度为 255 个字符。
+|Candidate groups
+|允许启动流程的用户组。如果用户属于该组，他们将在 xref:menu-views/start-process-view.adoc[] 视图中看到此流程定义。
+|Candidate users
+|允许启动流程的单个用户。如果用户是候选用户之一，他们将在 xref:menu-views/start-process-view.adoc[] 视图中看到此流程定义。
+|Event listeners
+|参见 xref:listeners.adoc#execution-listeners[监听器]。
+|Signal definitions [[signal-definition]]
+a|要创建信号定义，请设置其 *Id*、*Name* 和 *Scope*：
 
-ID::
-*流程 ID* 在部署时用于标记流程。在运行时，被称为 *process key*。
-+
-[NOTE]
-====
-在 Jmix Studio 中创建流程时，系统会自动设置匹配文件名的流程 ID。这不是一个严格的要求，可以根据需要灵活地更改流程 ID。
-但是，保持流程 ID 和文件名相同是一个更具一致性的最佳实践，并且更易于识别。
-====
+* `Global` 信号会发送到整个流程引擎。即，如果一个流程实例触发了一个信号事件，其他流程实例也可以响应。有助于不同流程之间的通信。
+* `Process instance` 信号仅在其自身的流程实例内生效。可用于同步互斥的任务。
 
-Name::
-*name* 属性描述流程的作用。其最大长度为 255 个字符。
-
-[[starter-candidates]]
-Starter candidates::
-有权限启动流程的用户。可以由 *Candidate groups* 和/或 *Candidate users* 定义。与在 *用户任务* 中设置候选用户相同，详见 xref:bpmn/bpmn-user-task.adoc#task-candidate-users-and-groups[这里]。
-+
-候选用户可以在 xref:menu-views/start-process-view.adoc[启动流程] 视图中看到该流程定义。
-
-Event listeners::
-参阅 xref:listeners.adoc#execution-listeners[listeners]。
-//todo: needs testing
-
-Definitions::
-可以为消息、信号和错误创建 xref:bpmn/bpmn-events.adoc#event-definitions[事件定义]。
-
-Documentation::
-可以填写流程描述。其最大长度为 4000 个字符。
+可以配置一个 xref:bpmn/bpmn-events.adoc#signal-events[信号事件] 元素来引用某个定义。
+|Message definitions
+|要创建消息定义，请设置其 id 和 name。该消息可用于 xref:bpmn/bpmn-events.adoc#message-events[消息事件] 元素。
+|Error definitions
+|要创建错误定义，请设置其 id 和 name。此外，可以设置 Error code。该错误可用于 xref:bpmn/bpmn-events.adoc#error-events[错误事件] 元素。
+|Documentation
+|对流程的描述和附加信息。
+|===

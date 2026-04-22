@@ -3,7 +3,7 @@
 搜索扩展组件为应用程序提供全文搜索的功能。
 支持配置实体索引和已上传文件的索引，并提供对索引数据进行搜索的 API 和 UI 组件。搜索结果会根据当前用户的 xref:security:index.adoc[数据访问] 权限进行过滤。
 
-该扩展组件使用 https://www.elastic.co[Elasticsearch（ES）^] 或 https://opensearch.org[OpenSearch^]（Jmix 2.3+） 作为搜索引擎。使用时请选择其中之一作为搜索引擎。
+该扩展组件使用 https://www.elastic.co[Elasticsearch（ES）^] 或 https://opensearch.org[OpenSearch^]作为搜索引擎。使用时请选择其中之一作为搜索引擎。
 
 关于其内部原理和索引构建的更多信息请参阅 https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html[Elasticsearch^] 或 https://opensearch.org/docs/latest[OpenSearch^] 文档。
 
@@ -44,11 +44,11 @@ include::example$/search-ex1/build.gradle[tags=dependency-elastic]
 
 Elasticsearch/OpenSearch 的 Java API 客户端是向前兼容的。
 
-扩展组件使用 Elasticsearch Java API 客户端 v8.10.4，支持 ES 8.10+（但是应该也支持更老的版本，除非 Elastic 不支持老版本的服务了 - 7.17.x）。
+扩展组件使用 Elasticsearch Java API 的版本由 Spring Boot 决定。参阅 {spring-boot-doc}/appendix/dependency-versions/coordinates.html[^] 中的 `co.elastic.clients:elasticsearch-java` 版本。
 
 对于 OpenSearch，扩展组件使用 Java API 客户端 v2.10.3。
 
-CAUTION: 注意，搜索扩展组件目前不支持 AWS 提供的 ES 服务。
+NOTE: 在 AWS 中，请使用 Amazon OpenSearch Service。不支持旧的 Elasticsearch service 服务。
 
 // In case you use a local service, you may not specify the properties above.
 

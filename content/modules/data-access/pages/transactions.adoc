@@ -83,7 +83,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderService.java[tags=transaction-template-execute]
 ----
 
-如果不需要从事务代码块中返回任何结果，可以使用 `executeWithoutResult()` 方法，这个方法也是从 `execute()` 派生的，但使用 `TransactionCallbackWithoutResult` 回调接口：
+如果不需要从事务代码块中返回任何结果，可以使用 `executeWithoutResult()` 方法，这个方法也是基于 `execute()`，但使用 `TransactionCallbackWithoutResult` 回调接口：
 
 [source,java,indent=0]
 ----

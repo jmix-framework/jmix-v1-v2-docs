@@ -1,14 +1,14 @@
-= FullTextFilter Component
+= FullTextFilter 组件
 
-The `FullTextFilter` component functions similarly to the xref:flow-ui:vc/components/propertyFilter.adoc[] component but performs full-text search across indexed entity fields.
+`FullTextFilter` 组件在功能上与 xref:flow-ui:vc/components/propertyFilter.adoc[] 组件类似，但是 `FullTextFilter` 在所有实体字段索引中进行全文搜索。
 
 [cols="2h,8", grid=none]
 |===
-|XML Element
+|XML 元素
 |`fullTextFilter`
-|Java Class
+|Java 类
 |`io.jmix.searchflowui.component.FullTextFilter`
-|Attributes
+|XML 属性
 |xref:flow-ui:vc/common-attributes.adoc#id[id] -
 xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -42,63 +42,63 @@ xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex] -
 xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] -
 xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
 xref:flow-ui:vc/common-attributes.adoc#width[width]
-|Handlers
+|事件和处理器
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
 xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - xref:flow-ui:vc/components/propertyFilter.adoc#validator[validator]
-|Elements
+|XML 内部元素
 |<<validation,validator>>
 |===
 
 [[basic]]
-== Basics
+== 基本用法
 
-To add the component on the view, use Jmix Studio.
+使用 Studio 将该组件添加至视图。
 
-Click *Add Component* in the actions panel, then find the `Full-text filter` item and double-click it.
+在操作面板点击 *Add Component*，找到 `Full-text filter` 并双击。
 
 image::create-full-text-filter-component.png[align="center", width="690"]
 
-Since the <<dataLoader,dataLoader>> attribute is required, Studio will display a dialog to select a data loader. Choose the appropriate data loader and click *OK*.
+由于 <<dataLoader,dataLoader>> 是必需属性。Studio 会电视一个对话框用于选择数据加载器。选择所需的数据加载器并点击 *OK*。
 
-The new `fullTextFilter` element will be added both in the *Jmix UI* structure panel and in the XML descriptor. You can configure standard attributes (xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc.) just like any other xref:flow-ui:vc/components.adoc[UI component].
+会在 *Jmix UI* 结构面板和 XML 中添加 `fullTextFilter`。与其他 xref:flow-ui:vc/components.adoc[UI 组件] 一样，可以配置标准属性（xref:flow-ui:vc/common-attributes.adoc#id[id]、xref:flow-ui:vc/common-attributes.adoc#height[height]、xref:flow-ui:vc/common-attributes.adoc#width[width] 等）。
 
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/filter-view.xml[tags=data;layout;fullTextFilter;dataGrid]
 ----
 
-If you don't use the view designer, declare the `search` namespace in your view's XML descriptor manually:
+如果不使用视图设计器，可以手动在视图 XML 中声明 `search` 命名空间：
 
 [source,xml,indent=0]
 ----
 include::example$/search-ex1/src/main/resources/com/company/demo/view/search/search-view.xml[tags=xmlns]
 ----
 
-The `FullTextFilter` component operates as follows:
+`FullTextFilter` 组件的操作方式如下：
 
-. Performs a full-text search to find entity identifiers matching the search criteria.
+. 执行全文搜索以查找与搜索条件匹配的实体标识符。
 
-. Appends a condition containing these identifiers to the associated `dataLoader`.
+. 将包含这些标识符的条件附加到关联的 `dataLoader` 上。
 
-. When a `DataGrid` (or other listing component) is linked to this data loader, it displays only those records that match the full-text search criteria.
+. 当 `DataGrid`（或其他列表组件）与此数据加载器关联时，仅显示与全文搜索条件匹配的那些记录。
 
-The full-text condition combines with any other filters applied to the data loader, providing refined result sets.
+全文条件还可以与数据加载器的其他过滤器结合使用，提供更精细的结果集。
 
 [[validation]]
-== Validation
+== 验证
 
-To check values entered into the `fullTextFilter` component, you can use a xref:flow-ui:vc/miscellaneous/validator.adoc[validator] in a nested `validators` element.
+如需检查 `fullTextFilter` 组件输入的值，可以在内部元素 `validators` 中添加一个 xref:flow-ui:vc/miscellaneous/validator.adoc[validator]。
 
-The following predefined validators are available for `fullTextFilter`:
+`fullTextFilter` 可以使用下列预定义的验证器：
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`validators`
-|elements
+|预定义验证器
 |xref:flow-ui:vc/miscellaneous/validator.adoc#custom-validator[custom] - xref:flow-ui:vc/miscellaneous/validator.adoc#DecimalMaxValidator[decimalMax] - xref:flow-ui:vc/miscellaneous/validator.adoc#DecimalMinValidator[decimalMin] - xref:flow-ui:vc/miscellaneous/validator.adoc#DigitsValidator[digits] - xref:flow-ui:vc/miscellaneous/validator.adoc#DoubleMaxValidator[doubleMax] - xref:flow-ui:vc/miscellaneous/validator.adoc#DoubleMinValidator[doubleMin] - xref:flow-ui:vc/miscellaneous/validator.adoc#EmailValidator[email] -
 xref:flow-ui:vc/miscellaneous/validator.adoc#FutureValidator[future] -
 xref:flow-ui:vc/miscellaneous/validator.adoc#FutureOrPresentValidator[futureOrPresent] - xref:flow-ui:vc/miscellaneous/validator.adoc#MaxValidator[max] - xref:flow-ui:vc/miscellaneous/validator.adoc#MinValidator[min] - xref:flow-ui:vc/miscellaneous/validator.adoc#NegativeValidator[negative] -
@@ -109,24 +109,24 @@ xref:flow-ui:vc/miscellaneous/validator.adoc#PositiveValidator[positive] - xref:
 |===
 
 [[attributes]]
-== Attributes
+== XML 属性
 
-xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
-The following attributes are specific to `fullTextFilter`:
+xref:flow-ui:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
+下面是 `fullTextFilter` 的特殊属性：
 
 [cols="1h,7a,1",grid=rows,frame=none]
 |===
-|*Name*|*Description*|*Default*
+|*名称*|*描述*|*默认值*
 
 |[[autoApply]]autoApply
-| When set to `true`, the `FullTextFilter` component automatically applies itself to the `DataLoader` upon changes to its value.
+| 设置为 `true` 时，`FullTextFilter` 组件在值变化时自动应用到关联的 `DataLoader`。
 |-
 |[[dataLoader]]dataLoader
-| `dataLoader` is a _required_ attribute. It sets a xref:flow-ui:data/data-loaders.adoc[data loader] related to the current `fullTextFilter`.
+| `dataLoader` 是一个 _必需_ 属性。设置当前 `fullTextFilter` 关联的 xref:flow-ui:data/data-loaders.adoc[数据加载器]。
 |-
 
 |[[searchStrategy]]searchStrategy
-|Determines the search strategy applied. See xref:search:search-in-ui.adoc#search-strategies[Search Strategies].
+|设置搜索策略。参阅 xref:search:search-in-ui.adoc#search-strategies[搜索策略]。
 |`anyTermAnyField`
 
 |===

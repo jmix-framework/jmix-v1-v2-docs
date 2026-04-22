@@ -1,4 +1,5 @@
-= 数据类型
+= Datatype 接口
+:page-aliases: data-model:data-types.adoc
 
 每个非引用类型的实体属性都与一个 `Datatype` 接口的实现相关联。此接口定义了在 xref:flow-ui:index.adoc[] 中显示实体和在 xref:rest:index.adoc[] 中序列化时将属性值与字符串转换（格式化和解析）的方法。
 
@@ -74,10 +75,22 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Model.jav
 
 [NOTE]
 ====
-不能使用 `@Autowired` 将其他 beans（例如 xref:localization:message-bundles.adoc#using-messages-in-java[Messages]） 直接注入到数据类型类中，因为数据类型在启动过程的早期就已初始化，而且此类注入将导致循环依赖。
+`Datatype` 的实现都是 Spring bean（因为 `@DatatypeDef` 就使用了 `@Component` 注解），但是不能使用 `@Autowired` 将其他 beans（例如 xref:localization:message-bundles.adoc#using-messages-in-java[Messages]） 直接注入到数据类型类中，因为数据类型在启动过程的早期就已初始化，而且此类注入将导致循环依赖。
 
 如果需要的话，注入 `ApplicationContext` 并使用它的 `getBean()` 方法来获取所需的 bean。
 ====
+
+[[datatypeformatter]]
+== DatatypeFormatter
+
+`DatatypeFormatter` 是一个工具 bean，用于在编程式对不同的数据类型值进行格式化和解析。会自动应用当前用户语言环境的  <<localized-format-strings, 本地化格式字符串>>。
+
+示例：
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/app/DataFormatterService.java[tags=datatypeformatter]
+----
 
 [[custom-type]]
 == 自定义 Java 类型
@@ -112,7 +125,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/GeoPoin
 <1> 数据类型的唯一标。
 <2> 该数据类型所处理的 Java 类。
 <3> `defaultForClass = true` 表示数据类型将自动应用于所有 `GeoPoint` 类型的实体属性。
-<4> 使用`@Ddl`注解，你可以指定实体属性对应的 SQL 类型。Studio 在生成 xref:db-migration.adoc[数据库变更] 脚本时会考虑此注解。
+<4> `@Ddl` 注解，表示 Studio 应该在数据库为该类型的属性生成 `varchar(255)` 类型的列。参考 <<ddl-annotation,后续内容>>。
 <5> 默认的格式化（没有区域设置时）。进行系统级转换时使用此方法。
 <6> 基于区域设置的格式化。在 UI 中时使用此方法。
 <7> 默认解析方法。进行系统级转换时使用此方法。
@@ -124,6 +137,36 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/GeoPoin
 ----
 include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Address.java[tags=datatype]
 ----
+
+[[ddl-annotation]]
+=== @Ddl 注解
+
+datatype 类的 `@Ddl` 注解中可以指定实体属性应该使用的 SQL 类型。Studio 会按照注解的配置生成 xref:db-migration.adoc[数据库迁移] 脚本。
+
+注解的 `value` 属性可以设置 SQL 类型，示例：
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/FooDatatype.java[tags=ddl]
+----
+
+如果需要为不同的数据库配置不同的 SQL 类型，可以添加多个 `@Ddl` 注解，通过 `dbms` 属性设置数据库类型。下面的示例中，同一个实体属性在 PostgreSQL 中使用 `text` 类型，在 Oracle 中使用 `varchar2(255)`，而在其他数据库中，使用 `varchar(255)` 类型：
+
+[source,java,indent=0]
+----
+include::example$/data-model-ex1/src/main/java/com/company/demo/datatype/BarDatatype.java[tags=ddl]
+----
+
+Studio 支持以下 `dbms` 属性值：
+
+- `hsql`
+- `postgres`
+- `mysql`
+- `mssql`
+- `mssql-2005`
+- `mssql-2008`
+- `mssql-2012`
+- `oracle`
 
 // todo flowui
 // [[conversion-error]]

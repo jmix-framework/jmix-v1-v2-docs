@@ -80,7 +80,7 @@ Groovy 脚本必须提供一个新的参数值。脚本将接收到下列变量�
 
 使用 `EntityValues` 类的重算脚本示例：
 
-image::calculated.png[align=align="center",width="962"]
+image::calculated.png[align="center",width="962"]
 
 使用 `dynamicAttributes` map 重算脚本示例：
 

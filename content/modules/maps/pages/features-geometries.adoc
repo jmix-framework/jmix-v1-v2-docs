@@ -2,7 +2,7 @@
 
 == 地图要素
 
-要素是指表示地图上某些元素的基本构建块。要素可以包括点、线、面或其他能在地图上提供空间信息的几何图形。
+要素是指表示地图上元素的基本构建块。要素可以包括点、线、面或其他能在地图上提供空间信息的几何图形。
 
 //Each feature typically contains attributes or properties that describe the characteristics of the geographical entity it represents.
 

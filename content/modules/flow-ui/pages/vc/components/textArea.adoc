@@ -6,13 +6,37 @@
     <a href="https://demo.jmix.io/ui-samples/sample/text-area-simple" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
-
 一个支持输入多行文本的区域。
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`textArea`
+|Java 类
+|`JmixTextArea`
+|XML 属性
+|*通用：* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#helperText[helperText] - xref:flow-ui:vc/common-attributes.adoc#label[label] - xref:flow-ui:vc/common-attributes.adoc#placeholder[placeholder] - xref:flow-ui:vc/common-attributes.adoc#readOnly[readOnly] - xref:flow-ui:vc/common-attributes.adoc#value[value] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*数据绑定：* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#property[property]
+|
+|*尺寸：* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*位置：* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#clearButtonVisible[clearButtonVisible] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<maxRows,maxRows>> - <<minRows,minRows>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|
+|*验证：* xref:flow-ui:vc/common-attributes.adoc#errorMessage[errorMessage] - xref:flow-ui:vc/common-attributes.adoc#maxLength[maxLength] - xref:flow-ui:vc/common-attributes.adoc#minLength[minLength] - xref:flow-ui:vc/common-attributes.adoc#pattern[pattern] - xref:flow-ui:vc/common-attributes.adoc#required[required]
+|
+|*其他：* xref:flow-ui:vc/common-attributes.adoc#allowedCharPattern[allowedCharPattern] - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - xref:flow-ui:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] - xref:flow-ui:vc/common-attributes.adoc#autocapitalize[autocapitalize] - xref:flow-ui:vc/common-attributes.adoc#autocomplete[autocomplete] - xref:flow-ui:vc/common-attributes.adoc#autocorrect[autocorrect] - xref:flow-ui:vc/common-attributes.adoc#autofocus[autofocus] - <<autoselect,autoselect>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex] - <<trimEnabled,trimEnabled>>
+|事件和处理器
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] - xref:flow-ui:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] - xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] - xref:flow-ui:vc/common-handlers.adoc#CompositionEndEvent[CompositionEndEvent] - xref:flow-ui:vc/common-handlers.adoc#CompositionStartEvent[CompositionStartEvent] - xref:flow-ui:vc/common-handlers.adoc#CompositionUpdateEvent[CompositionUpdateEvent] - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] - xref:flow-ui:vc/common-handlers.adoc#FocusEvent[FocusEvent] - xref:flow-ui:vc/common-handlers.adoc#InputEvent[InputEvent] - xref:flow-ui:vc/common-handlers.adoc#KeyDownEvent[KeyDownEvent] - xref:flow-ui:vc/common-handlers.adoc#KeyPressEvent[KeyPressEvent] - xref:flow-ui:vc/common-handlers.adoc#statusChangeHandler[statusChangeHandler] - <<validator,validator>>
+|XML 内部元素
+|xref:vc/components/tooltip.adoc[tooltip] -
+xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
+xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
+xref:vc/miscellaneous/validator.adoc[validator]
+|===
 
-* XML 元素：`textArea`
-
-* Java 类：`JmixTextArea`
-
+[[Basics]]
 == 基本用法
 
 当输入可能跨越多行（例如评论或描述）时，请使用 `textArea`。
@@ -26,6 +50,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 如果未设置固定高度，`textArea` 会根据内容自动调整高度。默认高度和最小高度是两行文字。
 
+[[Data-Binding]]
 == 数据绑定
 
 ++++
@@ -45,7 +70,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 确保需要绑定的实体属性为字符串类型。与 xref:vc/components/textField.adoc[] 不同，`textArea` 是专门为处理文本数据而设计的。
 
-[[themeVariants]]
+[[Theme-Variants]]
 == 样式版本
 
 通过 xref:vc/common-attributes.adoc#themeNames[themeNames] 属性调整文本对齐方式、帮助文本显示位置以及组件的大小。
@@ -97,71 +122,44 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 
 == XML 属性
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#allowedCharPattern[allowedCharPattern] -
-xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
-xref:vc/common-attributes.adoc#ariaLabelledBy[ariaLabelledBy] -
-xref:vc/common-attributes.adoc#autocapitalize[autocapitalize] -
-xref:vc/common-attributes.adoc#autocomplete[autocomplete] -
-xref:vc/common-attributes.adoc#autocorrect[autocorrect] -
-xref:vc/common-attributes.adoc#autofocus[autofocus] -
-xref:vc/components/textField.adoc#autoselect[autoselect] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/components/textField.adoc#clearButtonVisible[clearButtonVisible] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#errorMessage[errorMessage] -
-xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#helperText[helperText] -
-xref:vc/common-attributes.adoc#label[label] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#pattern[pattern] -
-xref:vc/common-attributes.adoc#placeholder[placeholder] -
-xref:vc/common-attributes.adoc#property[property] -
-xref:vc/common-attributes.adoc#readOnly[readOnly] -
-xref:vc/common-attributes.adoc#required[required] -
-xref:vc/common-attributes.adoc#requiredIndicatorVisible[requiredIndicatorVisible] -
-xref:vc/components/textField.adoc#trimEnabled[trimEnabled] -
-<<themeVariants, themeNames>> -
-xref:vc/components/textField.adoc#value[value] -
-xref:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
-xref:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
+下面是 `textArea` 的特殊属性：
+
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[autoselect]] autoselect
+| 设置为 `true` 时，当字段获得焦点则自动选中字段值。
+| –
+|[[maxRows]]maxRows
+|设置最大行数。
+| –
+|[[minRows]]minRows
+|设置最小行数。
+| 2
+|[[trimEnabled]]trimEnabled
+|如果为 `true`，组件会去除输入内容开头和结尾的空格。例如：" aaa bbb " 将被保存为 "aaa bbb"。
+
+可以使用 xref:ui-properties.adoc#jmix.ui.component.default-trim-enabled[jmix.ui.component.default-trim-enabled] 属性在应用程序级别内配置该设置。
+| –
+|===
 
 == 事件和处理器
 
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
-xref:vc/common-handlers.adoc#ClientValidatedEvent[ClientValidatedEvent] -
-xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
-xref:vc/common-handlers.adoc#CompositionEndEvent[CompositionEndEvent] -
-xref:vc/common-handlers.adoc#CompositionStartEvent[CompositionStartEvent] -
-xref:vc/common-handlers.adoc#CompositionUpdateEvent[CompositionUpdateEvent] -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
-xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
-xref:vc/common-handlers.adoc#InputEvent[InputEvent] -
-xref:vc/common-handlers.adoc#KeyDownEvent[KeyDownEvent] -
-xref:vc/common-handlers.adoc#KeyPressEvent[KeyPressEvent] -
-xref:vc/common-handlers.adoc#KeyUpEvent[KeyUpEvent] -
-xref:vc/common-handlers.adoc#statusChangeHandler[statusChangeHandler] -
-xref:vc/components/textField.adoc#validator[validator]
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
+下面是 `textArea` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
 
-== XML 内部元素
-
-xref:vc/components/tooltip.adoc[tooltip] -
-xref:vc/miscellaneous/prefix-suffix.adoc[prefix] -
-xref:vc/miscellaneous/prefix-suffix.adoc[suffix] -
-xref:vc/miscellaneous/validator.adoc[validator]
+[cols="1h,6", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|[[validator]]validator
+|为组件添加一个 xref:vc/miscellaneous/validator.adoc[验证器] 实例。
+|===
 
 == 参考
 

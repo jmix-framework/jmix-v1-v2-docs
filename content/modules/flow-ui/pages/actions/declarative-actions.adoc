@@ -55,6 +55,13 @@ image::actions/declarative-actions-1.png[align="center",width="601"]
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/actions/actions-view.xml[tags=shortcut]
 ----
 
+[[elements]]
+== XML 内部元素
+
+`action` 元素可以有以下内部元素：
+
+* `icon` – 添加一个 xref:icons/custom-icons.adoc[自定义图标]。与操作关联的按钮会显示这个图标。
+
 [[obtaining-action-in-controller]]
 == 控制器中获取操作
 

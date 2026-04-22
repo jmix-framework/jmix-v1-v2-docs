@@ -44,8 +44,6 @@ Click *OK*.
 
 == Creating Knowledge Base View
 
-Описать экран
-
 Below is a mockup of the *Knowledge base* view:
 
 image::knowledge-base-mockup.png[align="center", width="862"]
@@ -94,9 +92,9 @@ Click on the `Knowledge base` item in the `Application` menu and make sure your 
 
 === Defining Data Section
 
-According to the provided design sketch, there will be two data containers on the view, the data from which will be used to display the folder list and the list of webDAV documents related to the folders.
+According to the provided design sketch, there will be two data containers on the view, the data from which will be used to display the folder list and the list of WebDAV documents related to the folders.
 
-. First, add a data container which will provide a collection of `WevdavFolder` entities for the tree data grid. Click *Add Component* in the actions panel, select the *Data components* section, and double-click the *Collection* item. In the *Collection Properties Editor* window, select `WevdavFolder` in the *Entity* field, uncheck the *Read only* checkbox, and click *OK*:
+. First, add a data container which will provide a collection of `WebdavFolder` entities for the tree data grid. Click *Add Component* in the actions panel, select the *Data components* section, and double-click the *Collection* item. In the *Collection Properties Editor* window, select `WebdavFolder` in the *Entity* field, uncheck the *Read only* checkbox, and click *OK*:
 +
 image::folder-collection-create.png[align="center", width="729"]
 +
@@ -121,7 +119,7 @@ Studio will create the collection container:
 +
 image::wbdoc-wrapper-collection-create.png[align="center", width="729"]
 +
-Select the `wevdavDocument` attribute and then the `lastVersion` attribute for it in the *Edit Fetch Plan* dialog.
+Select the `webdavDocument` attribute and then the `lastVersion` attribute for it in the *Edit Fetch Plan* dialog.
 +
 image::wbdoc-wrapper-collection-create2.png[align="center", width="848"]
 +
@@ -165,7 +163,7 @@ We'll provide passing the `:folder` parameter into the query a bit later, but fo
 
 === Adding UI Layouts
 
-Since the *Knowledge base* view is divided into two areas, we will use the xref:flow-ui:vc/layouts/split.adoc[split] layout. Add the `split` layout, and then add two vertical boxes (xref:flow-ui:vc/layouts/vbox.adoc[vbox]) to it sequentially. In the first vertical box, there is a horizontal box containing the tree data grid control buttons, and a xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid] containing a folder hierarchy. In the second vertical box, there is a horizontal panel containing the data grid control buttons and a xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] containing webDAV documents. The template for the view looks like this:
+Since the *Knowledge base* view is divided into two areas, we will use the xref:flow-ui:vc/layouts/split.adoc[split] layout. Add the `split` layout, and then add two vertical boxes (xref:flow-ui:vc/layouts/vbox.adoc[vbox]) to it sequentially. In the first vertical box, there is a horizontal box containing the tree data grid control buttons, and a xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid] containing a folder hierarchy. In the second vertical box, there is a horizontal panel containing the data grid control buttons and a xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] containing WebDAV documents. The template for the view looks like this:
 
 [source,xml,indent=0]
 ----
@@ -179,7 +177,7 @@ Since the *Knowledge base* view is divided into two areas, we will use the xref:
             <vbox>
                 <hbox id="documentsButtonsPanel"
                       classNames="buttons-panel"/>
-                <!--We will later add a webDAV document dataGrid here-->
+                <!--We will later add a WebDAV document dataGrid here-->
             </vbox>
         </split>
     </layout>

@@ -1,8 +1,5 @@
 = 子流程
 
-[[overview]]
-== 概览
-
 *子流程（Subprocess）* 也是一个活动，其中可以包含其他活动、网关、事件等，
 这些子元素又形成了一个流程，而这个流程是更大流程的一部分。
 使用子流程可以对工作流进行分层建模，从而构建业务流程的高级端到端概览。
@@ -32,8 +29,7 @@ image::bpmn-subprocesses/subprocess-types.png[,700]
 这种子流程是父流程的一部分。
 
 .*图形表示法*
-子流程展示为一个圆角矩形，与任务类似，但是尺寸更大。
-如需创建子流程，从工具箱选择 image:bpmn-subprocesses/icon-subprocess.png[,30]，然后放置到画布中。
+子流程展示为一个圆角矩形。如需创建子流程，从工具箱选择 image:bpmn-subprocesses/icon-subprocess.png[,30]，然后放置到画布中。
 
 image::bpmn-subprocesses/create-subprocess.png[,500]
 
@@ -58,11 +54,11 @@ image::bpmn-subprocesses/create-subprocess.png[,500]
 
 .*属性*
 
-嵌入子流程没有特殊属性，只有通用属性。可以设置名称，名称将在图中显示为标签。
+嵌入子流程没有特殊属性，只有通用属性。
 
-image::bpmn-subprocesses/subprocess-properties.png[,500]
+image::bpmn-subprocesses/subprocess-properties.png[,463]
 
-子流程也可以是 xref:bpm:bpmn/transactions.adoc#asynchronous-continuation[异步]、
+子流程可以是 xref:bpm:bpmn/transactions.adoc#asynchronous-continuation[异步]、
 xref:bpm:bpmn/multi-instance-activities.adoc[多实例] 的。
 
 
@@ -200,8 +196,7 @@ image::bpmn-subprocesses/transaction-subprocess-example.png[,900]
 [[call-activity]]
 == 调用活动
 
-*调用活动（Call Activity）* 是一种调用可重用流程、
-或另一个流程中全局任务的活动。
+调用活动（Call Activity）支持调用可重用流程、或另一个流程中全局任务。
 提供了一种将复杂流程分解为更小、更易于管理的方法，并提高了可重用性。
 
 与嵌入子流程相反，_调用活动_ 是一个 _外部_ 子流程。
@@ -229,18 +224,18 @@ image::bpmn-subprocesses/call-activity.png[,300]
               calledElement="data-task-sample" <1>
               flowable:inheritBusinessKey="true"> <2>
   <extensionElements>
-    <flowable:in sourceExpression="${client.name}" <3>
-                 target="clientName" />
-    <flowable:out source="clientName"  <4>
-                  target="clientName" />
+    <flowable:in sourceExpression="${customer.name}" <3>
+                 target="customerName" />
+    <flowable:out source="customerName"  <4>
+                  target="customerName" />
   </extensionElements>
   <incoming>Flow_0sdrrfm</incoming>
 </callActivity>
 ----
-<1> -- 调用活动元素，默认用流程 ID（流程定义键值）
-<2> -- 继承业务键值
-<3> -- 输入映射使用表达式
-<4> -- 输出映射使用变量
+<1> 调用活动元素，默认用流程 ID（流程定义键值）
+<2> 继承业务键值
+<3> 输入映射使用表达式
+<4> 输出映射使用变量
 
 [NOTE]
 ====
@@ -253,41 +248,31 @@ image::bpmn-subprocesses/call-activity.png[,300]
 
 调用活动可以通过设置属性进行配置：
 
-image::bpmn-subprocesses/call-activity-properties.png[,450]
+image::bpmn-subprocesses/call-activity-properties.png[,463]
 
-* *Called Element*：已有流程的引用。
+* *Called Element（调用元素）* 关联一个已有的流程定义。
 +
 CAUTION: 请避免未管理的递归！从技术上讲，可以从自身内部调用该流程的另一个实例。
 
-* *Called Element Type*：在 Studio 中，默认情况下，使用 _key_ 参数。也就是说，调用流程的最后一个版本。
+* *Called element type（调用元素类型）*：默认情况下，使用 _key_ 参数，调用流程的最新版本。可以通过 id 指定调用流程的特定版本。
+
+* *Business Key expression（业务键值表达式）*：可以用表达式定义或从父流程继承。参阅 xref:bpm:bpm-concepts.adoc#business-key[业务键值]。
+
+* *Variables Mapping（变量映射）*：
+
+** *Inheriting variables（继承变量）*：调用活动可以从父流程继承流程变量。当被调用的流程启动时，将在其中创建流程变量新实例，与之前的引用相区分。
+
+** *In mapping（向内映射）*：可以使用已有流程变量（source）将参数传递到被调用流程（target）中的变量：
 +
-[NOTE]
-====
-在 Web 建模器中，可以通过 _id_ 指定调用流程的特定版本。
-====
-
-* *Business Key*：可以用表达式定义或从父流程继承。
-参阅 xref:bpm:bpm-concepts.adoc[]。
-
-* *Variables Mapping*：
-
-** 首先，调用活动可以从父流程继承流程变量。
-即，当被调用的流程启动时，将在其中创建流程变量，就像在父流程中一样，
-但这些变量是新的实例，而不是对原始实例的引用。
-
-** *In Mapping*：在这里，可以使用已有流程变量（source）将参数传递到被调用流程（target）中的变量：
-+
-image::bpmn-subprocesses/in-mapping.png[,350]
+image::bpmn-subprocesses/in-mapping.png[,463]
 +
 或者通过表达式：
 +
-image::bpmn-subprocesses/in-mapping-expression.png[,350]
+image::bpmn-subprocesses/in-mapping-expression.png[,463]
 
-** *Out Mapping*：这里，可以将被调用流程（source）中的变量映射到父流程（target）中的变量：
+** *Out mapping（向外映射）*：类似的，可以将被调用流程（source）中的变量映射到父流程（target）中的变量：
 +
-image::bpmn-subprocesses/out-mapping.png[,350]
-+
-或者使用表达式。
+image::bpmn-subprocesses/out-mapping.png[,463]
 
 [[user-task-call-activity]]
 === 调用活动中的用户任务

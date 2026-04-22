@@ -623,20 +623,30 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 [[custom-validator]]
 == 创建自定义验证器
 
-可以自定义一个 prototype bean 的验证器 Java 类。需实现 `Validator` 接口。
-
-示例：
+自定义验证器可以通过 Spring bean 定义，需实现 `Validator` 接口。示例：
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/validators/ZipValidator.java[tags=ZipValidator]
 ----
 
-在视图 XML 中，自定义验证器可以在内部的 `custom` 元素定义，示例：
+在视图 XML 中，自定义验证器可以在内部的 `custom` 元素定义，使用 `bean` 属性配置验证器 bean 的名称。示例：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/validator/validator-view.xml[tags=zipField]
+----
+
+可以从 `AbstractValidator` 基类派生一个验证器。然后可以在 XML 中提供消息，并使用 `getTemplateErrorMessage()` 方法来创建错误消息。此时，这个 bean 具有状态（来自 XML 的消息），因此必须是 prototype 类型的。示例：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/validators/PostcodeValidator.java[tags=validator]
+----
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/validator/validator-view.xml[tags=postcodeField]
 ----
 
 验证器也可以用过 lambda 函数编程式定义，示例：

@@ -17,7 +17,7 @@
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=init-event]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=timeZoneField;init-event]
 ----
 
 NOTE: 该事件仅在创建视图后触发一次。也就是说，如果首次导航到视图，则会触发该事件。但是，如果多次导航至当前的视图（例如，多次点击同一菜单），则不会触发该事件，因为视图实例已创建。
@@ -131,17 +131,23 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 [[validation-event]]
 == ValidationEvent
 
-`ValidationEvent` 在视图继承了 `StandardDetailView`，保存 xref:data/data-context.adoc[DataContext] 且完成验证时发送。使用该事件的监听器可以添加额外的视图验证。
+在继承了 `StandardDetailView` 的视图中，当视图保存时触发 `ValidationEvent`。可以使用此事件监听器执行视图的自定义验证。
+
+如需报告验证错误并中止保存流程，请使用事件的 `getErrors()` 方法返回的 `ValidationErrors` 对象。例如：
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=validation-event]
 ----
 
+在验证流程完成之后，如果 `ValidationErrors` 对象不为空，则不会执行保存操作，并且视图会使用 `ViewValidation.showValidationErrors()` 方法显示错误信息。
+
+参阅 xref:views/view-validation.adoc[]。
+
 [[before-save-vent]]
 == BeforeSaveEvent
 
-`BeforeSaveEvent` 在视图继承了 `StandardDetailView` 保存 `DataContext` 之前发送。使用该事件的监听器可以阻止保存、在保存前修改实体的属性值或与用户交互。
+在继承了 `StandardDetailView` 的视图中，在保存 `DataContext` 之前发送 `BeforeSaveEvent`。使用该事件的监听器可以阻止保存、在保存前修改实体的属性值或与用户交互。
 
 [source,java,indent=0]
 ----
@@ -153,12 +159,26 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/user/User
 [[after-save-event]]
 == AfterSaveEvent
 
-`AfterSaveEvent` 在视图继承了 `StandardDetailView` 保存 `DataContext` 之后发送。使用该事件的监听器可以在保存成功后通知用户。示例：
+在继承了 `StandardDetailView` 的视图中，在保存 `DataContext` 之后发送 `AfterSaveEvent`。使用该事件的监听器可以在保存成功后通知用户。示例：
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=notifications-bean;after-save-event]
 ----
+
+[[read-only-change-event]]
+== ReadOnlyChangeEvent
+
+在继承了 `StandardDetailView` 的视图中，当视图的只读状态改变时发送 `ReadOnlyChangeEvent`。通常发生在用户切换查看模式与编辑模式时。
+
+订阅该事件，可以按照视图的整体状态修改自定义组件的状态。有助于确保整个界面中一致的用户交互模式。
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/user/UserDetailEventsView.java[tags=timeZoneField;read-only-change-event]
+----
+
+NOTE: 如果需要创建一个能跟踪并响应只读状态变化的自定义视图，该视图类必须实现 `ReadOnlyTracker` 接口。
 
 [[diagrams]]
 == 图表

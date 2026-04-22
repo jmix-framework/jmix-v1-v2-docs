@@ -1,5 +1,5 @@
 [[rest_reports]]
-= REST API
+= 报表 REST API
 
 报表扩展组件的 REST API 提供下列功能：
 

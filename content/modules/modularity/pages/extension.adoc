@@ -90,6 +90,20 @@ include::example$/ext/src/main/java/com/company/sample/ext/view/department/ExtDe
 
 如需扩展视图逻辑，则可以重写控制器的 public 和 protected 方法。
 
+[CAUTION]
+====
+如果在父控制器中使用了 `MessageBundle`，那么在对这个类进行扩展或重写时，必须确保子视图的 `messageGroup` 与父视图的一致。
+
+如果 `messageGroup` 不同，框架会尝试使用子视图的消息组加载消息，但由于消息是在父视图的 bundle 中定义的，将会导致出错。
+
+例如：
+
+[source,java,indent=0]
+----
+include::example$/ext/src/main/java/com/company/sample/ext/view/extpessimisticlocklist/ExtPessimisticLockListView.java[tags=extend]
+----
+====
+
 [[descriptor-extension]]
 === XML 描述扩展规则
 

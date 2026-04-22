@@ -1,8 +1,10 @@
 = 流程表单
 
-流程表单是展示给终端用户的视图。这些视图可以配置给 `StartEvent` 和 `User Task` 模型元素。流程表单类型有下列几种：
+xref:bpmn/bpmn-events.adoc#start-events[开始事件] 和 xref:bpmn/bpmn-user-task.adoc[用户任务] 这两个元素可以配置流程表单。支持用户输入和提交执行任务所需的数据。
 
-* *Jmix view（Jmix 视图）* - UI 视图。
-* *Input dialog（输入对话框）* — 当用户启动流程或者完成用户任务，在运行时生成的表单。表单字段是在流程模型中定义的。
-* *No form（无表单）* — 流程需要通过程序发起。
-* *Custom（自定义）* — 当你需要用非标准方式展示表单时使用。
+可以使用以下表单类型：
+
+* *No form（无表单）：* 用于不需要用户输入能自动启动的流程和任务。
+* xref:input-dialog.adoc[输入对话框]：一个带有输入字段的简单弹窗，在流程模型中定义。
+* xref:bpmn/jmix-view-forms.adoc[Jmix 视图]：通过使用注解将一个 Jmix 视图转换为流程表单。
+* xref:bpmn/custom.adoc[自定义]：使用 Jmix 或其他 UI 技术创建的自定义表单，通过 ID 与流程元素关联。

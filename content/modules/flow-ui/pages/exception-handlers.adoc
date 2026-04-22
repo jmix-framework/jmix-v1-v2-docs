@@ -48,7 +48,24 @@ databaseUniqueConstraintViolation.IDX_DEPARTMENT_UNQ_NAME=A department with the 
 [[customizing-default-handler]]
 == 自定义默认处理器
 
-默认异常处理器展示的对话框可以进行自定义。下面的示例展示了如何添加一个按钮，允许用户将异常报告给系统管理员。
+默认异常处理显示的对话框可以通过提供 CSS 变量和应用程序属性进行自定义，或者通过扩展对话框的 Java 类并实现自己的逻辑。
+
+[[using-css-and-properties]]
+=== 使用 CSS 和属性
+
+默认异常处理对话框的尺寸可以通过在 xref:flow-ui:themes/themes.adoc#application-theme[应用程序主题] CSS 文件中使用 CSS 变量来自定义。例如：
+
+[source,css]
+----
+include::example$/onboarding/frontend/themes/onboarding/onboarding.css[tags=html;exception-dialog]
+----
+
+默认情况下，`ExceptionDialog` 以模态窗口形式出现。可以通过在 `application.properties` 文件中设置 xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] 属性来自定义此行为。
+
+[[extending-exception-dialog-class]]
+=== 扩展 ExceptionDialog 类
+
+下面的示例展示如何添加一个按钮，以支持用户上报异常。
 
 首先，基于 `ExceptionDialog` 创建自定义的对话框类，并重写特定的方法：
 
@@ -71,8 +88,6 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 <3> - 返回 `MyExceptionDialog` 的新实例。
 
 框架会自动使用这个 provider 并将其返回的对话框用于处理异常。
-
-NOTE: 默认情况下，`ExceptionDialog` 显示为一个模态窗。该行为可以通过 xref:flow-ui:ui-properties.adoc#jmix.ui.exception-dialog-modal[jmix.ui.exception-dialog-modal] 应用程序属性在 `application.properties` 文件中配置。
 
 [[navigation-exception-handling]]
 == 导航异常处理

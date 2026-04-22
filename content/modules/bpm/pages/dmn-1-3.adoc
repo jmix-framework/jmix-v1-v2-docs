@@ -1,54 +1,26 @@
 = 使用 DMN 1.3
 
+BPMN 和 DMN（Decision Model and Notation - 决策模型和表示法）是为协同工作设计的。在对复杂决策进行建模时，BPMN 图可能会变得过于复杂。此时，最好用 DMN 对决策过程建模，然后再把控制权交还给 BPMN。
 
-如果需要在流程中根据多个条件对决策进行建模，
-可以使用 xref:bpmn/bpmn-business-rule-task.adoc[业务规则任务]
-调用 DMN 表，根据业务规则返回输出值。
-
-****
-*Decision Model and Notation*™（DMN™）- 决策模型和表示法，是一种建模语言和表示方法，是精确的业务决策和业务规则的规范。
-不同类型的决策管理参与者都很容易读懂 DMN。
-包括制定规则并监控其应用的商业专业人士，或业务分析师。
-
-有关详细信息，请参阅 https://www.omg.org/dmn/[DMN 规范^]。
-****
-
-BPMN 和 DMN 可以协作运行。
-当需要对复杂的决策进行建模时，BPMN 图就会由于复杂度高而不能胜任。
-此时，最好在 DMN 中对决策进行建模，然后将控制权返回给 BPMN。
+流程中可以通过添加一个 xref:bpmn/bpmn-business-rule-task.adoc[] 元素调用一个 DMN 表。输入值根据表中指定的业务规则定义。输出值也是按照特定的格式。
 
 image::dmn/bpmn-dmn-together.png[,900]
 
-实际上，DMN 与 BPMN 一样，也是一种图形表示法，有自己的图表。
-但是，在实践中，软件供应商不会实现完整的表示法，一般只实现表示业务规则的 DMN 表。
-因此，*Jmix BPM* 仅支持 DMN 表。
-
+NOTE: DMN 与 BPMN 类似，也是一种图形表示法，有自己的图表。但是，在实践中，软件供应商不会实现完整的表示法，一般只实现表示业务规则的 DMN 表。因此，*Jmix BPM* 仅支持 DMN 表。
 
 [[dmn-engine]]
 == DMN 引擎
 
-Flowable *DMN 引擎* 会解析决策表并执行以 DMN 格式定义的业务规则。
-支持用户创建复杂决策逻辑，并与 BPMN 流程集成，
-支持基于输入数据的动态决策。
-
-DMN 引擎支持多个决策模型，在特定的执行上下文中运行，并提供灵活的输出处理。
-请参阅 xref:jmix-bpm-api.adoc#flowable-dmn-api[DMN API] 部分，了解如何以编程方式使用。
-
-此外，还可以通过 xref:jmix-bpm-api.adoc#flowable-dmn-rest-api[DMN REST API] 访问。
-从而支持外部系统以编程方式进行决策。
-使用该功能可以提高决策的准确度，从而增强业务流程的敏捷性和响应能力。
+Jmix BPM 使用 Flowable DMN 引擎。支持多种决策模型，并提供灵活的输出处理能力。引擎可以通过 xref:jmix-bpm-api.adoc#flowable-dmn-api[DMN API] 以编程方式访问。此外，还可以通过 xref:jmix-bpm-rest-api.adoc[DMN REST API] 为外部系统提供访问。
 
 [[dmn-defitition]]
 == DMN 定义
 
-DMN 1.1 架构的根元素是 `<definitions>` 元素。
-在此元素中，可以定义多个决策定义，
-（但我们建议在每个文件中只有一个决策定义，
-以简化开发过程的后期维护）。
-在每个决策中，可以定义一个表达式。
-有几种类型的表达式。
-在 Flowable 中，目前支持表达式类型的决策表。
+DMN 1.1 架构的根元素是 `<definitions>` 元素。在此元素中，可以定义多个 `<decision>` 元素。
 
+TIP: 为了便于阅读和维护，建议每个文件中只包含一个 `<decision>` 元素。
+
+`<decision>` 元素只能有一个 `<decisionTable>` 子元素。
 [source,xml]
 ----
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101"
@@ -71,21 +43,17 @@ DMN 1.1 架构的根元素是 `<definitions>` 元素。
 
 *Jmix BPM* 扩展组件提供了用于创建和部署决策表的工具，决策表可以在 web 应用中使用：
 
-* 决策表（管理视图）
-* 决策表建模器
+* xref:bpm:menu-views/decision-tables.adoc[] 视图
+* xref:bpm:menu-views/decision-table-modeler.adoc[] 视图
 
 [[modeling-decision-tables]]
 === 决策表建模
 
-在 Web 应用程序中，可以使用 *BPM* 菜单的 *Decision table modeler* 创建新的决策表。
-
-image::dmn/dmn-modeler-in-menu.png[,250]
-
-建模器视图：
+从应用程序主菜单打开 *Decision table modeler* 界面。
 
 image::dmn/modeler-window.png[,1000]
 
-配置 DMN 表：
+按以下步骤配置表格：
 
 * 输入表的 `id` 和 `name`
 * 定义 _输入（inputs）_ 和 _输出（outputs）_
@@ -93,34 +61,19 @@ image::dmn/modeler-window.png[,1000]
 * 创建 _业务规则（business rules）_
 * 设置 _命中策略（hit policy）_（如果有多个规则）
 
-完成配置后，可以部署决策表或保存草稿。
+完成配置后，表格可以进行部署或保存草稿。
 
 [[defining-inputs-outputs]]
 ==== 定义输入和输出
 
-决策表使用流程变量作为 _inputs_ 和 _outputs_。
-输入和输出的类型包括：
+流程变量作为 _inputs_ 和 _outputs_ 使用。需要注意，这些值的名称需要与变量的名称一致。支持以下输入和输出值类型：
 
 * String
 * Number
 * Boolean
 * Date
 
-[NOTE]
-====
-如果输出类型是 _Number_，则数字类型始终是 _double_。
-====
-
-[WARNING]
-====
-流程变量与决策表的输入和输出名称之间没有映射。
-但是，要求表参数的名称必须与流程变量的名称一致。
-开发人员需要负责提供准确的名称。
-====
-
-一个新的决策表具有一个输入和一个输出。
-可以设置其标签（label）、名称（name）和类型（type）。
-点击标签：
+一个新的决策表具有一个输入和一个输出。可以设置其名称、流程变量名称和类型。点击其名称打开配置：
 
 image::dmn/input-label.png[,600]
 
@@ -128,94 +81,60 @@ image::dmn/input-label.png[,600]
 
 image::dmn/input-definition.png[,600]
 
-输出的配置方式类似。此外，输出可能有额外的属性 -- _预定义输出值（Predefined output values）_。
-在某些命中策略中会用到。
+输出的配置方式类似。此外，输出可能有额外的属性 -- _预定义输出值（Predefined output values）_。在某些 <<hit-policy,命中策略>> 中会用到。
 
 image::dmn/output-with-predefined.png[,600]
 
-决策表可以有多个输入和输出。
-如需创建其他输入或输出，点击如下图所示的 _plus_ 按钮：
+通常，决策表可以有多个输入和输出。如需创建其他输入或输出，点击表头的加号按钮：
 
 image::dmn/add-input.png[,900]
 
-系统会创建一个新的列：
-
-image::dmn/new-input.png[,900]
-
-按需配置该参数。
-
 [[creating-business-rules]]
+
 ==== 创建业务规则
 
-*业务规则（business rule）* 是基于输入参数的一个或多个逻辑条件，多个逻辑条件通过 `AND` 连接。
+*业务规则（business rule）* 是基于输入参数的一个或多个逻辑条件，条件通过 `AND` 连接。
 
 image::dmn/business-rule-full.png[,900]
 
-例如，`color == "red" AND size > 10`。
+例如，color == "red" AND size > 10。
 
-条件也可以为空，此时，字段需填入短横（`-`）。
-
-
-image::dmn/input-entry.png[,600]
+NOTE: 某些条件也可以为空。此时，字段需填入短横（`-`）。
 
 [[hit-policy]]
 === 命中策略
 
-*命中策略（Hit policy）* 是决策表的一个参数，定义如何利用数据进行规则判定。
-点击如下图所示表头中的链接按钮可以设置命中策略：
+*命中策略（Hit policy）* 描述了决策表中多条规则的使用方法。如果规则有重叠，即给定的一组输入值能匹配多条规则，则由命中策略决定结果。不同的命中策略会导致不同的结果，并造成对决策表后续的不同走向。
+
+选择策略时，点击表格左上角的符号。该符号对应所选策略的首字母：Unique、Any、Priority、First、Collect、Output Order, Rule Order（具体解释见后文）。
 
 image::dmn/set-hit-policy.png[,600]
 
-可以从下拉列表中选择所需策略。
-默认值为 `Unique`。
+可以从下拉列表中选择所需策略。默认值为 `Unique`。
 
 image::dmn/hit-policy-list.png[,550]
 
-一共有两种类型的 7 个命中策略：
+命中策略可分为两大类：单一结果策略和多结果策略。
 
-* *单一命中*
-这组命中策略对每个输出仅返回一个结果。
+==== 单一结果策略
 
-* *多路命中*
-对于多路命中，DMN 引擎返回一个 JSON 格式的结果。
-不能转换为字符串变量。
+*FIRST（单一命中）*:: 根据规则的顺序从上到下返回第一个结果，之后可以停止规则计算。最后一条规则通常是处理器。
 
-有下列命中策略：
+*UNIQUE（唯一命中）*:: 规则不能重叠，只能匹配一个规则。这是默认的策略选项。
 
-*FIRST*:: 多个（可以有重叠）规则可以与不同的输出条目匹配。
-将返回按规则顺序排序的第一个命中的规则（计算可以停止）。
+*ANY（任意命中）*:: 规则可能存在重叠，如果发生重叠，要求所有匹配的规则都返回同样的结果。如果匹配的多条规则导致了不同的结果，则应该是有错误，输出结果为空并标记为失败。
 
-*UNIQUE*:: 不能重叠，所有规则都是互斥的。只能匹配一个规则。
-+
-如果违反了唯一性，则会导致 DMN 引擎无法解析业务规则。
-例如，当 `amount = 300` 时，激活两条规则，但这违反了 `UNIQUE` 策略。
+*PRIORITY（优先命中）*:: 规则可能存在重叠并返回不同的结果，但这里仅使用优先级最高的那条规则。优先级会在列表中指定，最重要的结果优先。注意，优先级不应与规则的顺序相关。
 
-*ANY*:: 可能存在重叠，但所有匹配的规则都为每个输出显示相等的输出条目，因此可以使用任何匹配的规则。
-如果输出条目不相等，则命中策略不正确，输出结果为空并标记为失败。
-当禁用严格匹配模式时，将选择最后一个有效规则作为结果。
-（匹配冲突将作为验证消息显示。）
+==== 多结果策略
 
-*PRIORITY*:: 多个规则可以匹配不同的输出条目。
-此策略返回最高输出优先级的匹配规则。
-输出优先级在输出值的有序列表中指定，按优先级降序排列。
-当禁用严格匹配模式且未定义输出值时，第一个有效规则作为结果。
-（匹配冲突将作为验证消息显示。）
+对于多重选择策略，DMN 引擎以 JSON 格式返回结果，因此不能被隐式转换为字符串类型。
 
-*OUTPUT ORDER*:: 按输出优先级降序返回所有命中的规则。
-输出优先级在输出值的有序列表中指定，按优先级降序排列。
-+
-结果将返回至与决策表同名的流程变量中。
-例如，'output-order'。该变量的类型是 _JSON_，不能作为字符串使用。
+*OUTPUT ORDER（输出顺序命中）*:: 按优先级降序返回所有命中的规则结果。结果将返回至与决策表同名的流程变量中。
 
-*RULE ORDER*:: 按规则顺序返回所有命中。
-+
-与前一个一样，只是没有预定义输出值列表中的优先级。
+*RULE ORDER（规则顺序命中）*:: 按所有命中规则的决策表顺序返回结果。
 
-*COLLECT*:: 返回所有命中，顺序不定。
-可以添加一个运算符（`+`、`<`、`>`、`#`），用于对输出进行简单运算。
-如果没有运算符，则结果为所有输出项的列表。
-+
-如果使用没有聚合参数的 _COLLECT_ 策略（Collect none），则与 _RULE ORDER_ 结果一样。
+*COLLECT（集合命中）*:: 返回所有命中结果，顺序不定。可以添加一个运算符（`+`、`<`、`>`、`#`），用于对输出进行简单运算，然后输出单一结果。
 
 * *`+`（总和）*：决策表的结果为所有输出的和。
 
@@ -228,9 +147,11 @@ image::dmn/hit-policy-list.png[,550]
 [[example]]
 == 示例
 
+以下是用 Jmix BPM 创建的决策表示例：
+
 image::dmn/discount-example.png[]
 
-*XML 表示*
+XML 表示：
 
 [source,xml]
 ----
@@ -291,10 +212,3 @@ image::dmn/discount-example.png[]
   </decision>
 </definitions>
 ----
-
-[[managing-decision-tables]]
-== 管理决策表
-
-使用 _BPM_ 菜单的 xref:menu-views/decision-tables.adoc[决策表（Decision tables）] 可以管理决策表。
-
-image::dmn/bpm-decision-tables.png[,250]

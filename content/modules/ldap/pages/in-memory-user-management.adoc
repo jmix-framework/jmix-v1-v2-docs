@@ -14,7 +14,7 @@ jmix.ldap.user-details-source = ldap
 [[ldap-user-repository]]
 == LDAP 用户 Repository
 
-当用户主要由 LDAP 管理时，应用程序中也需要具有可以选择用户或在 `SuggestionField` 中查找用户的功能。为此，该扩展组件提供了 `UserRepository` 的 LDAP 实现。这个 Repository 支持从 LDAP 访问用户，但是不提供 `system` 或 `anonymous` 用户。另外，你也许还希望数据存储的用户也能支持查找。
+当用户主要由 LDAP 管理时，需要能选择用户，或通过 `SuggestionField` 查找用户。为此，该扩展组件提供了 `UserRepository` 的 LDAP 实现。这个 Repository 支持从 LDAP 访问用户，但是不提供 `system` 或 `anonymous` 用户。另外，你也许还希望数据存储的用户也能支持查找。
 
 为了完成这个功能，可以声明一个 `CompositeUserRepository` bean，组合所有的 `UserRepository` 实例，例如，`LdapUserRepository` 和 `DatabaseUserRepository`。
 

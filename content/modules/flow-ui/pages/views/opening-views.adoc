@@ -34,6 +34,19 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=viewNavigators;navigateToViewThenBack]
 ----
 
+[NOTE]
+====
+*后退导航限制*
+
+后退导航仅支持单层视图嵌套。导航栈不会存储整个视图转换链。
+
+由于此限制：
+
+* 从详情视图打开的视图必须使用 `DIALOG` 打开模式。
+* 导航历史仅限保存直接的父子关系。
+* 无法使用后退导航恢复深层导航链接。
+====
+
 如需导航至一个列表视图，使用 `listView()` 方法并传递实体类。会根据 <<view-inference-conventions,视图推断约定>> 选择列表视图的类。示例：
 
 [source,java,indent=0]
@@ -112,12 +125,55 @@ http://localhost:8080/FancyMessageView
 
 `DialogWindows` bean 提供流式接口用于以对话框窗口的形式打开视图。流式接口的结束方法提供对打开视图实例的访问。支持直接向视图实例传递参数，并可以添加监听器，在打开的视图关闭后获取结果。
 
+[[basic]]
+=== 基本方法
+
 如需以对话框的形式打开一个视图，可以注入 `DialogWindows` bean，调用 `view()` 方法，传递当前视图和需要打开的视图类。然后调用 `open()` 方法：
 
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openView]
 ----
+
+[[dialog-size]]
+=== 设置弹窗大小
+
+用几种方式可以设置打开的弹窗大小：
+
+. *使用 `@DialogMode` 注解*
++
+在需要以弹窗方式打开的视图类上添加 `@DialogMode` 注解。这里可以设置视图弹窗的默认大小。
++
+[source,java,indent=0]
+----
+@ViewController("MyOnboardingView")
+@ViewDescriptor("my-onboarding-view.xml")
+@DialogMode(width = "50em", height = "40em")
+public class MyOnboardingView extends StandardView {
+    // some code
+}
+----
+. *在打开的视图内部设置大小*
++
+可以在视图控制器中修改视图弹窗的大小。有助于依赖运行时条件动态调整弹窗的大小，例如需要展示或隐藏某些页面组件。
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/myonboarding/MyOnboardingView.java[tags=onBeforeShow;set-size]
+----
++
+TIP: 如果当前视图不是以对话框形式打开的，则 `findDialog()` 方法返回 `null`。因此需要检查对话框实例是否为 `null`。
+. *打开弹窗时设置大小*
++
+使用 `DialogWindows` bean 时，可以在构建对话框窗口之后、打开之前设置大小。
++
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openViewWithSize]
+----
+
+[[passing-parameters-into-dialog]]
+=== 传递参数
 
 如果希望为打开的视图传递参数，调用 `build()`，然后设置参数，再打开窗口：
 
@@ -127,6 +183,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 ----
 
 NOTE: 调用 `build()` 方法时，会触发 xref:views/view-events.adoc#init-event[InitEvent]。如果打开一个对话框创建新实体，则在调用 `build()` 方法时还会触发 xref:views/view-events.adoc#init-entity-event[InitEntityEvent]。视图的其他 xref:views/view-events.adoc[生命周期事件] 将在调用 `open()` 方法时触发。
+
+[[handling-results]]
+=== 结果处理
 
 如需获取视图关闭后的结果，可以添加对话框的 `AfterCloseEvent` 监听器：
 
@@ -144,6 +203,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/SampleView.java[tags=dialogWindows;openViewWithResults]
 ----
 
+[[entity-selection]]
+=== 选择实体
+
 如需使用列表视图选择实体，请使用 `lookup()` 方法打开视图：
 
 [source,java,indent=0]
@@ -152,6 +214,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 ----
 
 使用 `withSelectHandler()` 方法提供一个 lambda，用于接收打开视图中选择的实体实例集合。
+
+[[creating-editing-entities]]
+=== 创建并编辑实体
 
 如需在详情视图中新建一个实体，先指定视图类，然后调用 `newEntity()`。使用 `AfterCloseEvent` 监听器获取创建的实体。示例：
 

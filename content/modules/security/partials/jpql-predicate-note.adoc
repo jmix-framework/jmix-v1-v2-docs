@@ -1,9 +1,9 @@
 [IMPORTANT]
 ====
-If an entity can be loaded
+如果一个实体可以：
 
-* as a root, or
-* as a collection in another entity’s object graph,
+* 作为根节点加载
+* 作为集合加载到另一个实体的对象图中
 
-create both a <<jpql-policy, JPQL>> (for root loads) and a <<predicate-policy, predicate>> policy (for nested loads) for that entity.
+需要为其定义 <<jpql-policy, JPQL>>（根实体）和 <<predicate-policy,谓词>>（做为集合属性）策略
 ====

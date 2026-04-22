@@ -2,7 +2,7 @@
 
 授权服务扩展组件中已经自动配置了 {oauth-specification-page}#section-1.1[资源服务^] 的安全性。该配置提供了可扩展点，支持配置对任何 URL 格式进行保护。参阅 xref:security:custom-endpoints.adoc#token-based-authentication[基于 token 的认证] 部分了解如何配置受保护的资源。
 
-[[sendiong-access-token]]
+[[sending-access-token]]
 == 发送 access token
 
 上面的配置完成后，所有发送到 `pass:[/greeting/**]` 端点的请求都将需要包含 access token 的 `Authorization` 请求头。请求头的值必须带有 `Bearer`，后面跟上 token 值。示例：

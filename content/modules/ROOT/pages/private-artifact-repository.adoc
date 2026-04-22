@@ -1,24 +1,18 @@
 = 私有制件仓库
 
-本章节我们介绍如何搭建私有 Maven 仓库，以及如何使用私仓替代 Jmix 公共仓库。其目的是缓存 Jmix 框架的制件和传递依赖的库，因此适合这些场景：
-
-* 不打算续订 Jmix 企业版订阅，但是未来仍然需要使用已经下载的制件构建应用程序。
-
-* 网络情况不佳。尽管 Gradle 会在开发者机器缓存下载的制件，但是仍然需要不时地连接仓库，比如在第一次构建或者切换至新框架版本时。
-
-本节介绍如何配置私有 Maven 仓库，并代替 Jmix 公共仓库来缓存框架制件及其传递依赖。推荐在网络连接不稳定或网速慢的环境使用。尽管 Gradle 会将下载的制件缓存在开发者的电脑上，但仍然需要不时地连接仓库，比如在第一次构建或者切换至新框架版本时。
+本节介绍如何搭建私有 Maven 仓库并代替 Jmix 公共仓库。私仓可用于缓存框架构件及其传递依赖项。如果网络不稳定或速度较慢，建议使用此方法。尽管 Gradle 在开发人员机器上缓存了下载的构件，但仍然需要不时连接到构件仓库，例如当首次构建或升级框架的版本时。
 
 == 安装仓库管理软件
 
-首先，需要在你的私有网络中安装并运行一个仓库管理软件。
+首先，需要在私有网络中安装并运行一个仓库管理软件。
 
-下面的安装说明是以 Linux 操作系统为例。
+下面的安装说明是以 Linux 为例。
 
-* 从 https://help.sona类型。com/repomanager3/product-information/download/download-archives---repository-manager-3[^] 下载 Nexus OSS 仓库管理软件，并解压至 `~/work/nexus` 文件夹。
+. 从 https://help.sonatype.com/repomanager3/product-information/download/download-archives---repository-manager-3[^] 下载 Nexus OSS repository manager，并解压至 `~/work/nexus` 文件夹。
 
-* 下载 JDK 8（比如：https://adoptium.net/temurin/releases/?version=8[^]），解压至 `~/work/jdk8` 文件夹。
+. 下载 JDK 8（比如：https://adoptium.net/temurin/releases/?version=8[^]），解压至 `~/work/jdk8` 文件夹。
 
-* 在 `~/.bashrc` 文件添加以下内容：
+. 打开 `~/.bashrc` 文件并添加以下内容：
 +
 [source,bash]
 ----
@@ -34,24 +28,24 @@ export INSTALL4J_JAVA_HOME=/home/$USER/work/jdk8
 ./nexus run
 ----
 
-* 在浏览器打开 `++http://localhost:8081++`。
+. 在浏览器打开 `++http://localhost:8081++`。
 
-* 点击右上角的 *Sign in*。
+. 点击右上角的 *Sign in*。
 
-* 输入 `admin` 的登录凭证，用户名和密码保存在 `~/work/nexus/sonatype-work/nexus3/admin.password` 文件中。
+. 使用 `admin` 用户登录，密码保存在 `~/work/nexus/sonatype-work/nexus3/admin.password` 文件中。
 
-* 修改密码。
+. 修改密码。
 
-* 在 *Configure Anonymous Access* 这一步中，启用仓库的匿名访问。这样能简化项目的配置。
+. 在 *Configure Anonymous Access* 这一步中，启用仓库的匿名访问。这样能简化项目的配置。
 
 [[create-jmix-repositories]]
 == 创建 Jmix 代理仓库
 
 Nexus 运行起来后，通过客户端配置代理仓库。
 
-* 切换至管理界面（点击顶部的齿轮按钮），并打开 *Repositories* 菜单。
+. 切换至管理界面（点击顶部的齿轮按钮），并打开 *Repositories* 菜单。
 
-* 为 Jmix 公共仓库创建代理：
+. 为 Jmix 公共仓库创建代理：
 
 ** 点击 *Create repository* 按钮。
 
@@ -64,7 +58,7 @@ Nexus 运行起来后，通过客户端配置代理仓库。
 
 ** 点击 *Create repository*。
 
-* 为 premium Jmix 仓库创建代理：
+. 为 premium Jmix 仓库创建代理：
 
 ** 点击 *Create repository* 按钮。
 
@@ -78,7 +72,7 @@ Nexus 运行起来后，通过客户端配置代理仓库。
 
 ** 点击 *Create repository*。
 
-* 创建一个分组，这样可以使用同一个 URL 访问两个代理仓库：
+. 创建一个分组，这样可以使用同一个 URL 访问两个代理仓库：
 
 ** 点击 *Create repository* 按钮。
 

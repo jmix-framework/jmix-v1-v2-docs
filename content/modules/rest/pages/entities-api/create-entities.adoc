@@ -21,6 +21,7 @@ POST http://localhost:8080/rest/entities/sample_Customer
 }
 ----
 
+
 [source, json]
 .Response: 201 - Created
 ----
@@ -49,6 +50,7 @@ messageTemplate:: 未经解析的错误信息
 path:: 导致验证错误发生的属性名（或属性路径）
 invalidValue:: 请求中导致验证错误属性的值
 
+
 下列请求中包含两个错误，第一，`customer` 为必需属性；第二，`date` 日期不能是将来时间。
 
 [source, http request]
@@ -70,14 +72,14 @@ API 返回实体验证错误的信息列表：
 ----
 [
   {
-    "message": "javax.validation.constraints.PastOrPresent.message",
-    "messageTemplate": "{javax.validation.constraints.PastOrPresent.message}",
+    "message": "jakarta.validation.constraints.PastOrPresent.message",
+    "messageTemplate": "{jakarta.validation.constraints.PastOrPresent.message}",
     "path": "date",
     "invalidValue": "2048-01-01"
   },
   {
     "message": "may not be null",
-    "messageTemplate": "{javax.validation.constraints.NotNull.message}",
+    "messageTemplate": "{jakarta.validation.constraints.NotNull.message}",
     "path": "customer",
     "invalidValue": null
   }

@@ -13,7 +13,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/kvsa
 
 另外，可以用 Java API 配置键值对容器：
 
-* `addProperty()` 用于定义实体属性（键值）。这个方法接收属性名称和对应的类型，类型可以是 xref:data-model:data-types.adoc[Datatype] 或 Java 类。在使用 Java 类的情况下，这个类要么是实体类，要么是由 Datatype 支持的类。当在 XML 中以声明式的方式定义键值对容器时，框架底层其实使用了这个方法。
+* `addProperty()` 用于定义实体属性（键值）。这个方法接收属性名称和对应的类型，类型可以是 xref:data-model:datatype.adoc[Datatype] 或 Java 类。在使用 Java 类的情况下，这个类要么是实体类，要么是由 Datatype 支持的类。当在 XML 中以声明式的方式定义键值对容器时，框架底层其实使用了这个方法。
 
 * `setIdName()` 是一个可选方法，通过这个方法可以将一个属性定义为实体的 id 属性。也就是说，保存在此容器内的 `KeyValueEntity` 实体将使用指定的属性作为 id。否则，`KeyValueEntity` 将使用随机生成的 UUID 作为标识符。
 

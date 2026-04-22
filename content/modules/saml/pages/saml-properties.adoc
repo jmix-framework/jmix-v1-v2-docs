@@ -1,37 +1,37 @@
-= Jmix SAML Properties
+= Jmix SAML 配置
 
 [[jmix.saml.use-default-configuration]]
 == jmix.saml.use-default-configuration
-Defines whether to apply the entire default auto-configuration (Default: true)
+是否使用全部默认自动配置（默认值：true）
 
 [[jmix.saml.use-default-ui-configuration]]
 == jmix.saml.use-default-ui-configuration
-Defines whether to apply the default Spring Security configuration (Default: true)
+是否使用默认的 Spring Security 配置（默认值：true）
 
 [[jmix.saml.max-concurrent-user-mapping]]
 == jmix.saml.max-concurrent-user-mapping
-Maximum number of concurrent user mapping processes within io.jmix.saml.mapper.user.BaseSamlUserMapper. (Default: 128)
+`io.jmix.saml.mapper.user.BaseSamlUserMapper` 中并发用户映射流程的最大数量（默认值：128）
 
 [[jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute]]
 == jmix.saml.default-saml-assertion-roles-mapper.roles-assertion-attribute
-Name of SAML assertion attribute that contains roles (default: Role)
+包含角色的 SAML 断言属性名称（默认值：Role）
 
 [[jmix.saml.default-saml-assertion-roles-mapper.resource-role-prefix]]
 == jmix.saml.default-saml-assertion-roles-mapper.resource-role-prefix
-Prefix that can be used to recognize a resource role from the authorization server (Default: empty)
+一个文本前缀，使用这个前缀识别授权服务中的资源角色（默认值：空）
 
 [[jmix.saml.default-saml-assertion-roles-mapper.row-level-role-prefix]]
 == jmix.saml.default-saml-assertion-roles-mapper.row-level-role-prefix
-Prefix that can be used to recognize a row-level role from the authorization server (Default: empty)
+一个文本前缀，使用这个前缀识别授权服务中的行级角色（默认值：空）
 
 [[jmix.saml.filter-chain.force-ui-scope-enabled]]
 == jmix.saml.filter-chain.force-ui-scope-enabled
-Whether the forced UI scope is enabled for Security filter chains provided via jmix.saml.filter-chain.ui-scope-security-filter-chain-names. (Default: true)
+是否为 `jmix.saml.filter-chain.ui-scope-security-filter-chain-names` 提供的 chain 启用强制 UI 作用域（默认值：true）
 
 [[jmix.saml.filter-chain.ui-scope-security-filter-chain-names]]
 == jmix.saml.filter-chain.ui-scope-security-filter-chain-names
-Represents a list of security filter chain names which should be customized by `io.jmix.saml.filter.SamlVaadinSecurityFilterChainCustomizer` (Default: VaadinSecurityFilterChainBean)
+定义一组 security filter chain 的名称，这些 chain 应由 `io.jmix.saml.filter.SamlVaadinSecurityFilterChainCustomizer` 自定义。（默认值：VaadinSecurityFilterChainBean）
 
 [[jmix.saml.force-redirect-binding-logout]]
 == jmix.saml.force-redirect-binding-logout
-Whether to force 'redirect' binding for logout requests. If true, logout requests will always use the 'redirect' binding. Otherwise, the binding will be determined based on the RelyingPartyRegistration. (Default: true)
+登出时，是否强制使用 'redirect' 绑定。如果为 true，登出请求将使用 'redirect' 绑定。否则，绑定将根据 `RelyingPartyRegistration` 决定。（默认值：true）

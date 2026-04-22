@@ -189,7 +189,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 [[datatype]]
 == datatype
 
-设置组件内容的 xref:data-model:data-types.adoc[数据类型]。支持：
+设置组件内容的 xref:data-model:datatype.adoc[数据类型]。支持：
 
 * `boolean`
 * `byteArray`
@@ -269,6 +269,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 高度值需要使用浏览器支持的值，例如，`"100px"` 或 `"2.5em"`。
 
+请参考布局规则的 xref:vc/layout-rules.adoc#component-sizes[用例]。
+
 [[helperText]]
 == helperText
 
@@ -294,6 +296,15 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 * 如果 `invalid=false` 无论验证结果如何，该字段有效。
 * 如果 `invalid=true` 且验证通过时，该字段有效。
+
+[[justifySelf]]
+== justifySelf
+
+控制组件在其网格单元格内沿内轴（行轴）的水平对齐方式。对应于 CSS 的 https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] 属性。
+
+默认值为 `AUTO`。
+
+适用于版本 2.7.2+ 的项目。
 
 [[label]]
 == label
@@ -324,6 +335,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ++++
 
 设置组件的 `max-height` CSS 属性。高度值需要使用浏览器支持的值，例如，`"100px"` 或 `"2.5em"`。
+
+请参考布局规则的 xref:vc/layout-rules.adoc#component-sizes[用例]。
 
 [[maxLength]]
 == maxLength
@@ -359,6 +372,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 设置组件的 `max-width` CSS 属性。宽度值需要使用浏览器支持的值，例如，`"100px"` 或 `"2.5em"`。
 
+请参考布局规则的 xref:vc/layout-rules.adoc#component-sizes[用例]。
+
 [[metaClass]]
 == metaClass
 
@@ -382,6 +397,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ++++
 
 设置组件的 `min-height` CSS 属性。高度值需要使用浏览器支持的值，例如，`"100px"` 或 `"2.5em"`。
+
+请参考布局规则的 xref:vc/layout-rules.adoc#component-sizes[用例]。
+
 
 [[minLength]]
 == minLength
@@ -416,6 +434,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ++++
 
 设置组件的 `min-width` CSS 属性。宽度值需要使用浏览器支持的值，例如，`"100px"` 或 `"2.5em"`。
+
+请参考布局规则的 xref:vc/layout-rules.adoc#component-sizes[用例]。
 
 [[overlayClass]]
 == overlayClass
@@ -613,3 +633,5 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ++++
 
 设置组件宽度。宽度值需要使用浏览器支持的值，例如，`"100px"` 或 `"2.5em"`。
+
+请参考布局规则的 xref:vc/layout-rules.adoc#component-sizes[用例]。

@@ -28,7 +28,10 @@ Jmix 使用 Spring Security 的 https://docs.spring.io/spring-security/site/docs
 
 类似地，行级角色的前缀可以通过 `jmix.security.default-row-level-role-prefix` 应用程序属性修改。
 ====
-* `getLocale()` 和 `getTimeZone()` 返回当前用户的语言环境和时区。
+
+* `getLocale()` 返回当前用户的语言环境。
+
+* `getTimeZone()` 返回当前用户的时区。<<time-zones,下一节>> 会解释如何确定用户的时区以及框架中如何使用。
 
 * `isSet()` 如果当前线程已通过认证，则返回 `true`，即已经包含用户的相关信息。否则，上面的 `getUser()`、`getLocale()` 和 `getTimeZone()` 方法将抛出 `IllegalStateException`。
 
@@ -45,6 +48,50 @@ include::example$/security-ex1/src/main/java/com/company/demo/view/authtest/Auth
 
 例如，可以使用 `DelegatingSecurityContextRunnable` 为新线程设置认证信息，参阅 {spring-security-doc}/servlet/integrations/concurrency.html[Spring Security 文档^]。
 ====
+
+[[time-zones]]
+=== 使用时区
+
+Jmix 会自动将 UI 组件中以下类型实体属性的值在服务器时区和用户时区之间进行转换：
+
+* `OffsetDateTime`
+* 带有 `@Temporal(TemporalType.TIMESTAMP)` 的 `java.util.Date`，对应 Studio 中的 `DateTime` 属性类型。
+
+下面我们说明如何指定用户和服务器时区。
+
+默认情况下，`User` 实体实现了 `HasTimeZone` 接口，包含两个方法：
+
+* `getTimeZoneId()` 在 `User` 实体中实现，返回数据库中该用户设置的时区。
+
+* `isAutoTimeZone()` 方法默认对所有用户返回 `false`。可以在 `User` 实体中实现此方法并为所有用户返回 `true`，或者像 `getTimeZoneId()` 那样将其映射到数据库列，这样不同用户有不同的值。
+
+使用 `CurrentAuthentication.getTimeZone()` 返回的当前用户时区，按以下顺序确定：
+
+* 使用 `User.getTimeZoneId()` 方法返回的非空值构造 `TimeZone` 对象。
+
+* 如果 `User.isAutoTimeZone()` 方法返回 `true`，框架会尝试通过 `DeviceTimeZoneProvider` 的一个实现从用户的 Web 浏览器获取时区。
+
+* 如果前两步都不成功，则使用服务器默认时区。
+
+服务器时区由服务器操作系统定义。可以使用 `user.timezone` Java 系统属性或 `TimeZone` 类显式设置。示例：
+
+[source,java]
+----
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        System.setProperty("user.timezone", "UTC");
+        SpringApplication.run(DemoApplication.class, args);
+    }
+----
+
+我们建议在数据库也设置相同的时区。例如在 PostgreSQL 中，可以用以下命令设置：
+
+[source,sql]
+----
+ALTER DATABASE demo SET timezone TO 'UTC'
+----
 
 [[client]]
 == 客户端认证
@@ -95,7 +142,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/view/user/UserDeta
 [[system]]
 == 系统认证
 
-如果执行线程由内部调度程序启动或处理来自 JMX 接口的请求，则无法对其进行认证。然而此时，业务逻辑或数据访问代码通常需要知道当前使用系统的用户信息，以便进行日志记录或授权。
+如果执行线程由内部调度程序启动或处理来自 JMX 接口的请求，则可能无法对其进行认证。然而此时，业务逻辑或数据访问代码通常需要知道当前使用系统的用户信息，以便进行日志记录或授权。
 
 如需将当前执行线程与用户临时关联，请使用 `SystemAuthenticator` bean。有以下方法：
 

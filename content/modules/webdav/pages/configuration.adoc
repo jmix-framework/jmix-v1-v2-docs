@@ -5,73 +5,39 @@
 
 若要对桌面端应用程序进行认证，服务器必须使用 HTTPS。下面是在开发环境设置 HTTPS 的简要说明。
 
-[IMPORTANT]
-====
-使用自签名的证书仅适合测试。生产环境的应用程序必须使用由信任机构颁发的 SSL 证书。
-====
-
-[[keystore-file]]
-=== 创建 Keystore 文件
-
-. 使用 JDK 提供的 https://docs.oracle.com/en/java/javase/11/tools/keytool.html[keytool 工具^] 生成 Keystore 文件：
-+
-[source,text]
-----
-keytool -genkey -keyalg RSA -alias localhost -keystore localhost.jks -validity 365 -keysize 2048
-----
-+
-会要求你设置 keystore 的密码和名称。记录输入的密码和名称。
-
-. 从 keystore 导出证书：
-+
-[source,text]
-----
-keytool -export -keystore localhost.jks -storepass <password> -alias localhost -file localhost.cer
-----
-+
-使用第一步输入的密码替换 `<password>`。
-
-. 在操作系统注册并信任证书。
-+
-* Windows 操作系统：
-+
-1. 按下 `Win + R` 打开 *Run* 对话框，输入 `"certmgr.msc"` 并回车，打开 *Certificate Manager*。
-
-2. 在 *Certificate Manager* 左侧的面板中，展开 *受信任的根证书颁发机构* 文件夹。
-
-3. 右键点击文件夹并选择 *所有任务 > 导入...*，打开 *证书导入向导*。
-
-4. 在 *证书导入向导* 中，点击 *下一步*，然后选择证书文件点击 *下一步*。
-
-5. 选择导入至 *受信任的根证书颁发机构* 点击 *下一步*。
-
-6. 检查信息正确并点击 *完成*。
-
-7. 此时会显示一个导入成功的提示，关闭导入向导。
-+
-完成这些步骤后，证书会注册成功并收系统信任。
-* macOS：
-1. 在 Finder（访达）中双击 `localhost.cer` 文件。会自动打开 *Keychain Access（钥匙串访问）* 应用程序。
-2. 在 *Certficates（证书）* 标签页找到第一步输入名称下的证书。
-3. 双击证书，并选择 *Trust（信任） -> When using this certificate: Always Trust（使用此证书时：始终信任）*。
-
+[[trusted-certificate]]
 === 生成可信证书
 
-某些情况下，例如在最新的 LibreOffice 和 Firefox 版本中打开 WebDAV 文件，可能无法使用自签名证书。信任证书可以从 SSL 提供商处获得，也可以使用 `certbot` 生成。在开发阶段，可以发布自己的根证书，并用来对开发服务器的证书进行签名。简单起见，我们建议使用 `mkcert` 工具生成/维护证书。如果对 HTTPS 警告和限制不在意，可以跳过此部分。
+可信证书可以从 SSL 证书提供商处获取，或使用 `certbot` 生成。出于开发目的，可以自己颁发根证书，并用来签署开发服务证书。为简单起见，我们建议使用 `mkcert` 工具。
 
-. 从这个仓库安装 `mkcert`： https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert]。可以使用源码构建（需要安装 golang）并将二进制文件复制到 `/usr/local/bin` 或使用其提供的二进制文件。
+. 按照仓库中的说明安装 `mkcert`：https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^]。
 
-. 在 path 中有 `mkcert` 后，可以生成并安装根证书：
+. 生成并安装根证书：
++
+[source]
+----
+mkcert -install
+----
 
-    mkcert -install
+. 为 localhost 创建一个证书：
++
+[source]
+----
+mkcert -pkcs12 localhost 127.0.0.1 ::1
+----
++
+当前目录会生成 `localhost+2.p12` 文件。
 
-. 切换到到 keystore 目录，并为开发服务器创建签名证书：
-
-    mkcert -pkcs12 localhost 127.0.0.1 ::1
-
-. 为项目创建带有证书的 `.jks` keystore 文件：
-
-    keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
+. 使用证书为项目创建一个 keystore 文件：
++
+[source]
+----
+keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
+----
++
+输入 `changeit` 作为 keystore 的密码。
++
+当前目录会生成 `localhost.jks` 文件。
 
 [[configuring-server]]
 === 服务配置

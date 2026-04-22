@@ -2,20 +2,21 @@
 
 有几种方式能处理流程引擎事件，事件是指任务创建、活动完成等。
 
+
 [[execution-listeners]]
-== Execution Listeners
+== 流程执行监听器
 
-
-
+参考 https://www.flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs/#execution-listener[Flowable 文档^]。
 
 [[task-listeners]]
-== Task Listeners
+== 任务监听器
 
+参考 https://www.flowable.com/open-source/docs/bpmn/ch07b-BPMN-Constructs/#task-listener[Flowable 文档^]。
 
 [[spring-events-bpm]]
-== Spring Events for BPM
+== BPM 的 Spring 事件
 
-BPM 扩展组件还引入了一组 Spring 应用事件，会发布下列事件：
+Jmix BPM 还引入了一组 Spring 应用事件，会发布下列事件：
 
 * `UserTaskAssignedEvent`
 * `UserTaskCreatedEvent`

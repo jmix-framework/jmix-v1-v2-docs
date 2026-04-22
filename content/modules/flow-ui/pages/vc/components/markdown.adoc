@@ -1,14 +1,14 @@
 = markdown
 
-`markdown` is a component for rendering Markdown content.
+`markdown` 是一个用于渲染 Markdown 内容的组件。
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`markdown`
-|Java Class
+|Java 类
 |`Markdown`
-|Attributes
+|XML 属性
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -22,23 +22,23 @@ xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|XML 内部元素
 |<<content,content>>
 |===
 
-== Basics
+== 基本用法
 
-The `markdown` component renders content written in Markdown syntax as formatted HTML. It supports basic text formatting, lists, links, and other common Markdown features. All content is automatically sanitized to prevent rendering of potentially dangerous HTML.
+`markdown` 组件可以将 Markdown 语法编写的内容渲染成 HTML。支持基本的文本格式、列表、链接以及其他常见的 Markdown 特性。所有内容都会自动进行净化，以防止渲染潜在危险的 HTML。
 
-For detailed information about Markdown syntax, see the https://www.markdownguide.org/basic-syntax/[Markdown Guide^].
+有关 Markdown 语法的详细信息，请参考 https://www.markdownguide.org/basic-syntax/[Markdown 指南^]。
 
 [[content]]
-You can provide content to the component using either the `content` attribute or a nested `content` element.
+可以使用 `content` 属性或嵌套的 `content` 元素为组件提供内容。
 
-* This example demonstrates how to add Markdown content via the `content` attribute and a string in the xref:localization:message-bundles.adoc[message bundle]:
+* 以下示例演示了如何通过 `content` 属性和 xref:localization:message-bundles.adoc[消息包] 中的字符串添加 Markdown 内容：
 +
 [source,xml,indent=0]
 ----
@@ -53,7 +53,7 @@ include::example$onboarding/src/main/resources/com/company/onboarding/messages_e
 +
 image::visual-components/components/markdown-content-attr.png[align="center", width="360"]
 
-* Example of using the nested `content` element:
+* 使用 `content` 子元素的示例：
 +
 [source,xml,indent=0]
 ----
@@ -62,8 +62,8 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/compo
 +
 image::visual-components/components/markdown-content-element.png[align="center", width="371"]
 +
-IMPORTANT: When using the nested `content` element, avoid leading spaces at the beginning of each line. Markdown syntax is sensitive to indentation, and unexpected spaces may affect the rendering of formatted elements like headers, lists, and code blocks.
+IMPORTANT: 当使用 `content` 子元素时，请避免在每行开头添加空格。Markdown 的语法对缩进有要求，冗余的空格可能会影响对 header、列表、代码段等格式化元素的渲染。
 
-== See Also
+== 参考
 
-See the {vaadin-docs}/components/markdown[Vaadin Docs^] for more information.
+{vaadin-docs}/components/markdown[Vaadin 文档^]。

@@ -177,6 +177,20 @@ include::example$oidc-ex1/src/main/resources/application-resserver.properties[ta
 [[oidc-properties]]
 == OIDC 配置
 
+[[jmix.oidc.filter-chain.force-api-scope-enabled]]
+=== jmix.oidc.filter-chain.force-api-scope-enabled
+
+与 2.8 之前版本兼容的开关。将此属性设置为 `false` 可在 REST API 中验证用户时忽略 xref:security:resource-roles.adoc#role-scope[角色作用域]。
+
+默认值：`true`
+
+[[jmix.oidc.filter-chain.force-ui-scope-enabled]]
+=== jmix.oidc.filter-chain.force-ui-scope-enabled
+
+与 2.8 之前版本兼容的开关。将此属性设置为 `false` 可在 UI 中验证用户时忽略 xref:security:resource-roles.adoc#role-scope[角色作用域]。
+
+默认值：`true`
+
 [[jmix.oidc.use-default-configuration]]
 === jmix.oidc.use-default-configuration
 

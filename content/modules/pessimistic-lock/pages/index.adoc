@@ -18,6 +18,8 @@ Jmix 悲观锁机制还可以用来管理并行执行的任意流程。锁是分
 include::example$/pslock-ex1/build.gradle[tags=dependencies]
 ----
 
+include::ROOT:single-menu-note.adoc[]
+
 [[usage]]
 == 用法
 

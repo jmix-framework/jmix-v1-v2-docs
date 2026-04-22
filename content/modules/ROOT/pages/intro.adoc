@@ -14,12 +14,14 @@ Jmix 基于 Spring Boot，这是企业级 Java web 应用程序的事实标准�
 
 Jmix 是一个开源框架，开发者可以完全掌控使用 Jmix 开发的应用程序。使用 Jmix 构建的应用程序完全由开发者所有，无供应商锁定或专有限制，可以根据需要进行自由定制、部署和扩展。
 
-*Jmix Studio* 是 IntelliJ IDEA 的一个插件，可以在整个应用程序开发周期为你提供帮助：创建和配置项目、定义数据模型、生成数据库脚本以及在可视化编辑器开发 UI 视图。更是为 Jmix 项目提供了代码的高级导航、自动完成和提示功能。
+*Jmix Studio* 是 IntelliJ IDEA 的一个插件，可以在整个应用程序开发周期为开发者提供帮助：创建和配置项目、定义数据模型、生成数据库脚本以及在可视化编辑器开发 UI 视图。更是为 Jmix 项目提供了代码的高级导航、自动完成和提示功能。
 
 [[getting-started]]
 == 开始使用
 
-如果你之前没有接触过 Jmix，请先观看我们的 https://www.bilibili.com/video/BV1TV4y1U7Dc[快速入门^] 视频，花 15 分钟了解下如何使用 Jmix 构建应用程序。
+如果之前没有接触过 Jmix，请先观看我们的 https://www.bilibili.com/video/BV1TV4y1U7Dc[快速入门^] 视频，花 15 分钟了解下如何使用 Jmix 构建应用程序。
+
+*Jmix AI 助手* 可以在 https://ai-assistant.jmix.io[ai-assistant.jmix.io^] 使用，也可以在 xref:studio:ai-assistant.adoc[IDE] 中使用，能咨询任何关于 Jmix 和应用程序开发的问题。
 
 本文档包含使用 Jmix 开发需要了解的所有内容：
 
@@ -29,7 +31,7 @@ Jmix 是一个开源框架，开发者可以完全掌控使用 Jmix 开发的应
 
 * xref:studio:index.adoc[] 章节详细介绍了 Jmix Studio 的功能和安装选项。
 
-* 从 xref:data-model:index.adoc[] 至 xref:deployment:index.adoc[] 章节包含参考信息和使用指南，可以帮助你使用 Jmix 开发应用程序。
+* 从 xref:data-model:index.adoc[] 至 xref:deployment:index.adoc[] 章节包含参考信息和使用指南，可以帮助使用 Jmix 开发应用程序。
 
 * xref:ROOT:add-ons.adoc[] 章节介绍了项目中能用到的附加模块功能。
 

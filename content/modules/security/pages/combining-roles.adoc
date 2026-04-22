@@ -1,51 +1,51 @@
-= Combining Roles
+= 组合角色
 
-Multiple roles can be combined to create a hierarchy, based on these rules:
+多个角色可以基于以下规则组合创建角色层次结构：
 
-* Resource roles only combine with other resource roles.
-* Row‑level roles only combine with other row‑level roles.
-* If a role is assigned to a user, all its parent roles also apply.
+* 资源角色只能与其他资源角色组合。
+* 行级角色只能与其他行级角色组合。
+* 如果某个角色被分配给用户，则其所有父角色也会生效。
 
-Roles can be combined at design time — either by writing code or using xref:studio:role-designer.adoc#resource-role-designer[role designer]. At runtime, the hierarchy can be managed via the security views.
+角色可以在设计时组合 — 通过编写代码或使用 xref:studio:role-designer.adoc#resource-role-designer[角色设计器]。在运行时，可以通过安全视图管理角色层次结构。
 
-== Combining Resource Roles at Design Time
+== 设计时组合资源角色
 
-Role combination in code works like one interface extending another. For example, the resource `SystemOwner` role can get its policies from multiple more restrictive roles and then gain even broader access by adding its own extra policies.
+代码中的角色组合类似于一个接口扩展另一个接口。例如，资源角色 `SystemOwner` 可以从多个限制性更强的角色获取策略，然后添加自己的附加策略来获得更多的访问权限。
 
 [source,java,indent=0]
 ----
 include::example$/security-ex1/src/main/java/com/company/demo/security/SystemOwnerRole.java[tags=combined-role]
 ----
 
-Use xref:studio:role-designer.adoc#resource-role-designer[role designer] in Studio to combine resource roles visually and see the resulting set of policies.
+使用 Studio 的 xref:studio:role-designer.adoc#resource-role-designer[角色设计器] 支持可视化组合角色，能实时看到组合后的策略结果。
 
 image:resource-role-designer.png[width = 1016]
 
-== Combining Resource Roles at Runtime
+== 运行时组合资源角色
 
-Resource roles can be combined at runtime on the *Security -> Resource roles* view. Create or choose a resource role to edit, then add one or several *Base roles*.
+运行时，可以通过 *Security -> Resource roles* 视图组合资源角色。创建或选择一个资源角色进行编辑，然后可以添加一个或多个 *Base roles（基础角色）*。
 
 image:combined-runtime-resource-role.png[width=1055]
 
-The final permission set is the role’s own permissions plus all permissions granted by the selected base roles.
+最终的权限集是角色自身的权限加上所选基础角色授予的所有权限。
 
-NOTE: Base roles can only be added to roles that were created at runtime.
+NOTE: 基础角色只能添加在运行时创建的角色中。
 
-== Combining Row-level Roles at Design Time
+== 设计时组合行级角色
 
-To combine row‑level roles, make an interface that extends the existing role interfaces. For example, `SameRegionRole` combines several roles whose policies let an employee see only data for their region.
+行级角色的组合也是通过接口扩展的方式完成。例如，`SameRegionRole` 组合了几个角色，这些角色可以让用户仅能看到自己区域的数据。
 
 [source,java,indent=0]
 ----
 include::example$/security-ex1/src/main/java/com/company/demo/security/SameRegionRole.java[tags=combined-role]
 ----
 
-== Combining Row-level Roles at Runtime
+== 运行时组合行级角色
 
-Row-level roles can be combined at runtime on the *Security -> Row-level roles* view. Create or choose a row-level role to edit, then add one or several *Base roles*.
+运行时，可以通过 *Security -> Row-level roles* 视图组合行级角色。创建或选择一个行级角色进行编辑，然后可以添加一个或多个 *Base roles（基础角色）*。
 
 image:combined-runtime-row-level-role.png[width=1088]
 
-The final permission set is the role’s own permissions plus all permissions granted by the selected base roles.
+最终的权限集是角色自身的权限加上所选基础角色授予的所有权限。
 
-NOTE: Base roles can only be added to roles that were created at runtime.
+NOTE: 基础角色只能添加在运行时创建的角色中。

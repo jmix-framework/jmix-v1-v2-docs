@@ -2,9 +2,28 @@
 
 数据存储表示应用程序中的数据库或任何其他数据源。
 
-Jmix 核心子系统提供了 `JpaDataStore`，将 xref:entities.adoc#jpa[JPA 实体] 存储在关系型数据库中。这是 Jmix 应用程序中主要的持久化机制，如果没有明确说明，在本手册中提到数据存储都是指 `JpaDataStore`。
+Jmix 核心子系统提供了 `JpaDataStore`，将 xref:entities.adoc#jpa[JPA 实体] 存储在关系型数据库中。这是 Jmix 应用程序中主要的持久化机制，如果没有明确说明，在本手册中提到数据存储是指 `JpaDataStore`。
 
 xref:rest-ds:index.adoc[] 扩展组件提供了 `RestDataStore`，用于处理远端 Jmix 应用程序通过 xref:rest:index.adoc[] 开放的 xref:entities.adoc#jpa[DTO 实体]。
+
+[[supported-databases]]
+== 支持的数据库种类
+
+Jmix 开箱支持以下数据库类型：
+
+* HSQLDB（Java 内存数据库）
+* PostgreSQL
+* MySQL 5.1+
+* MariaDB
+* Microsoft SQL Server 2008+
+* Oracle
+* H2（实验性支持）
+
+Studio 中的 xref:studio:data-stores.adoc[数据存储编辑器] 会自动配置连接属性，并将相应的 JDBC 驱动添加到 `build.gradle` 的依赖列表中。
+
+如果需要连接 Jmix 默认不支持的的关系型数据库，请按照 xref:studio:data-stores.adoc#unsupported-database[Studio：连接不支持的数据库] 一节中的说明进行操作。
+
+对于非关系型数据库，可以通过创建 <<custom, 自定义数据存储>> 或按照 xref:mongodb-integration-guide:index.adoc[] 指南中所述的方式直接使用。
 
 [[main]]
 == 主数据存储
@@ -16,7 +35,7 @@ xref:rest-ds:index.adoc[] 扩展组件提供了 `RestDataStore`，用于处理�
 include::example$/data-model-ex1/src/main/resources/application.properties[tags=main-data-store]
 ----
 
-TIP: 可以使用 Studio 图形界面为数据存储定义数据库连接参数。
+TIP: 可以使用 Studio xref:studio:data-stores.adoc[数据存储管理功能] 为数据存储定义数据库连接参数。
 
 主应用程序类包含一个对应的 JDBC `DataSource` bean 声明：
 
@@ -32,7 +51,7 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/DataModelEx1Appl
 
 如果需要处理多个数据库，需要附加数据存储。
 
-TIP: 可以使用 Studio 图形界面定义附加数据存储。
+TIP: 可以使用 Studio xref:studio:data-stores.adoc[数据存储管理功能] 定义附加数据存储。
 
 每个附加数据存储都有唯一的名称，该名称在 `jmix.core.additional-stores` 应用程序属性指定，该属性是一个以逗号作为分隔符的列表。数据库连接的参数以数据存储的名称作为前缀。在下面的示例中，配置了一个名称为 `locations` 的附加数据存储：
 

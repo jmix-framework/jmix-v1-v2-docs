@@ -1,11 +1,14 @@
 = 图标
 
-Jmix 包含了两组内置的图标，并支持添加自定义的图标。图标可以用在很多地方，例如：
+本节介绍如何使用内置的图标以及如何添加自定义图标。
 
-* 专用的 xref:vc/components/icon.adoc[] 组件
-* 任何有 icon 属性的组件（xref:vc/components/button.adoc[]、xref:vc/layouts/tabSheet.adoc[] 等）
-* xref:vc/miscellaneous/prefix-suffix.adoc[前缀和后缀组件]
-* xref:actions.adoc[]
-* xref:menu-config.adoc[主菜单]
+== 使用场景
 
-下面的章节介绍如何使用已有的图标以及如何添加新的图标。
+在 Jmix 中，图标可以出现在 UI 的下列场景中：
+
+* 专用的组件：`icon`、`svgIcon` 或 `fontIcon`。
+* UI 组件的属性，例如 `icon`、`uploadIcon`、`downloadButtonIcon`。
+* 内部的 XML 元素，例如 `<icon>` 或 `<uploadIcon>`。
+* 组件的 xref:vc/miscellaneous/prefix-suffix.adoc[]。
+* xref:actions.adoc[]。
+* xref:menu-config.adoc[] 的 header 或菜单项。

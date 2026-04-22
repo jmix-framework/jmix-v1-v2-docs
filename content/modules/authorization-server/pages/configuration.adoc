@@ -3,6 +3,13 @@
 [[application-properties]]
 == 应用程序属性
 
+[[jmix.authserver.filter-chain.force-api-scope-enabled]]
+=== jmix.authserver.filter-chain.force-api-scope-enabled
+
+一个兼容 2.8 之前版本的开关。将此属性设置为 `false` 可以在用户认证时忽略用户的 xref:security:resource-roles.adoc#role-scope[角色范围]。
+
+默认值：`true`
+
 [[jmix.authserver.post-logout-url-redirect-parameter-name]]
 === jmix.authserver.post-logout-url-redirect-parameter-name
 

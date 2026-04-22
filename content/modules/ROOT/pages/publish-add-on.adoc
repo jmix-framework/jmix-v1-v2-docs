@@ -1,6 +1,6 @@
 = 发布扩展组件
 
-本指南提供将你的开源扩展组件发布至 Jmix https://www.jmix.cn/marketplace/[市场^] 的全部所需内容和配置。
+本指南提供将开源扩展组件发布至 Jmix https://www.jmix.cn/marketplace/[市场^] 的全部所需内容和配置。
 
 [NOTE]
 ====

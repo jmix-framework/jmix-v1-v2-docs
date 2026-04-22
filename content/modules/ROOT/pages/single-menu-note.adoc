@@ -1,17 +1,17 @@
 [CAUTION]
 ====
-*Important Note for Single Menu Mode Applications*
+*应用程序使用单一菜单模式*
 
-If your application uses xref:studio:menu-designer.adoc#menu-modes[Single menu mode], you should manually add menu items after installing an add-on.
+如果你的应用程序使用的是 xref:studio:menu-designer.adoc#menu-modes[单一菜单模式]，需要在扩展组件安装完成后手动添加菜单项。
 
-. Open xref:studio:menu-designer.adoc[] in Jmix Studio.
-. Navigate to the *Structure* tab.
-. Available menu items are displayed in the left panel.
+. 在 Jmix Studio 中打开 xref:studio:menu-designer.adoc[]。
+. 切换至 *Structure* 标签页。
+. 左侧面板显示可用的菜单项。
 +
 image::ROOT:addons/add-menu-items.png[align="center", width="958"]
-. To add items:
-* Select the desired items and click the `>` (*Add Selected*) button.
-* Or, drag-and-drop them from the left panel into the current menu structure on the right.
+. 添加菜单项：
+* 左侧选择需要添加的菜单项后，点击 `>` 按钮添加至右侧。
+* 或者也可以直接从左侧拖拽菜单至右侧结构中。
 
-This step is required because applications in *Single* menu mode do not automatically merge add-on menus with the existing structure.
+当应用程序是 *单一* 菜单模式时，Studio 不会自动合并组件的菜单，因此必须手动执行该步骤。
 ====

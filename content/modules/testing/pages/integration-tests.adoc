@@ -101,7 +101,7 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/CustomerService
 <2> `SystemAuthenticator` 以新用户的身份执行测试用例的代码。
 <3> `CustomerService` 使用该用户的安全上下文按 email 在数据库查找客户。
 
-用于新用户无任何角色，服务返回了一个空的 `Optional`。
+用于新用户无任何角色，`CustomerService` 返回了一个空的 `Optional`。
 
 [[authenticated-as-admin]]
 === AuthenticatedAsAdmin
@@ -118,7 +118,7 @@ include::example$/testing-ex1/src/test/java/com/company/demo/app/CustomerService
 [[overriding-application-behavior]]
 == 覆盖应用中的行为
 
-有时，即使是集成测试，也需要模拟（mock）应用程序中的某些部分。此时，可以将 `@SpringBooTest` 的功能与 Mockito 相结合，模拟特定的 bean，但仍然使用整个 Spring 上下文。
+有时，即使是集成测试，也需要模拟（mock）应用程序中的某些部分。此时，可以将 `@SpringBootTest` 的功能与 Mockito 相结合，模拟特定的 bean，但仍然使用整个 Spring 上下文。
 
 我们再看一个 `NotificationService` 类，其业务逻辑的一部分使用了 xref:email:index.adoc[] 扩展组件中的 `Emailer` API。此服务的集成测试实际上不应该发送电子邮件，因此需要模拟电子邮件功能。
 

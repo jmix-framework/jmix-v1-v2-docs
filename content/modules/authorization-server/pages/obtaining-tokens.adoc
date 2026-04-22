@@ -123,7 +123,7 @@ image::authserver-login-form.png[align="center"]
 
 如果凭证有效，则会自动重定向到 https://oauthdebugger.com/debug[^] 网页，这是在 `application.properties` 中配置的。授权码必须添加在 URL 中的 `code` 参数中，例如，`++https://oauthdebugger.com/debug?code=BdgQArzTaj_xna_a0-PoUIQwszMR0xPkToxcktd5wPe4SbO18qBYStqJePOPNaoe9cuIJe0nac0cw0yVC9Iv3SeofEYbMZhMKldoJQQwcBUnBTfp2AyQayDlaE8KPaCf&state=sujodv3j7eh++`
 
-用该授权码交换 access token 时，需要执行另一个对 Jmix token 端点的 HTTP 请求。我们这里用 `curl` 命令，其中会用到之前记录的 `code_verifier` 值：
+用该授权码交换一个 access token 时，需要执行另一个对 Jmix token 端点的 HTTP 请求。我们这里用 `curl` 命令，其中会用到之前记录的 `code_verifier` 值：
 
 [source,bash]
 ----

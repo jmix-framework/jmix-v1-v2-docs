@@ -1,91 +1,91 @@
-= Setting up OAuth for Google and Microsoft
+= 为 Google 和 Microsoft 设置 OAuth
 
-Jmix application can use OAuth 2.0 token-based authorization to work with email service providers. This method offers enhanced security compared to basic authentication with login and password. Many providers are gradually deprecating support for basic authentication, leaving OAuth as the only viable authentication type.
+Jmix 应用程序可以使用基于 OAuth 2.0 token 的授权与邮件服务提供商通信。与使用登录名和密码的基本身份验证相比，此方法提供了更高的安全性。许多提供商正在逐步弃用对基本身份验证的支持，使得 OAuth 成为唯一可行的身份验证类型。
 
-This section describes the process to obtain OAuth credentials for Google and Microsoft, along with the setup steps for Jmix application.
+本节介绍从 Google 和 Microsoft 获取 OAuth 凭证的过程，以及 Jmix 应用程序的配置步骤。
 
 == Google
 
-To enable OAuth with Google, register your OAuth application and generate credentials. Then, set up your Jmix application using obtained credentials.
+如需启用 Google OAuth，请注册 OAuth 应用程序并生成凭证。然后，使用获得的凭证设置 Jmix 应用程序。
 
-NOTE: The instructions below are based on the Google Developer documentation for https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow[setting up OAuth for web Applications^]. Please check this link for the most up-to-date procedures and any use case specifics.
+NOTE: 以下说明基于 Google 开发者文档中关于 https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow[为 Web 应用程序设置 OAuth^] 的内容。请查看链接中的原文以获取最新的步骤和用例详情。
 
-=== Create a Project
+=== 创建项目
 
-. Sign in to the https://console.cloud.google.com/[Google Cloud console].
-. In the top bar, click *Select a project*.
-. Click *New project* and enter your project information.
+. 登录 https://console.cloud.google.com/[Google Cloud 控制台].
+. 在顶部工具栏点击 *Select a project*。
+. 点击 *New project* 并输入项目信息。
 +
 image:google-oauth-project.png[align="center", width="550"]
 +
-. Click *Create*.
+. 点击 *Create*.
 
-=== Create an OAuth 2.0 application
+=== 创建一个 OAuth 2.0 应用程序
 
-. Select the project created previously.
-. Click the menu button in the top left corner, and select *APIs & Services -> OAuth consent screen*.
-. Click *Get Started*.
-. Complete the form:
+. 选择之前创建的项目。
+. 点击左上角的菜单按钮，并选择 *APIs & Services -> OAuth consent screen*。
+. 点击 *Get Started*.
+. 填写表单：
 +
 image:google-oauth-app.png[align="center", width="685"]
 +
-. Click *Create*
+. 点击 *Create*
 
-=== Enable API for your project
+=== 为项目启用 API
 
-To send emails, your application needs Gmail API:
+项目需要使用 Gmail API 发送邮件：
 
-. Open https://console.developers.google.com/apis/library[the API Library^]. If prompted, select your project.
-. Search for the Gmail API and enable it.
+. 打开 https://console.developers.google.com/apis/library[API 库^]。如果弹出选项，则选择你的项目。
+. 搜索 Gmail API 并启用。
 +
 image:google-oauth-1.png[align="center", width="1280"]
 
-=== Create authorization credentials
+=== 创建授权凭证
 
-To access the API, your application must have authorization credentials:
+应用程序必须具有授权凭证才能访问 API：
 
-. Go to the https://console.developers.google.com/auth/clients[Clients page].
-. If prompted, select your project.
-. Click *Create client*.
-. Select the *Web application* application type.
-. Complete the form:
-* *Name*: (Provide any descriptive name.)
-* *Authorized JavaScript origins*: http://localhost:8080 (Use the address of your Jmix application. The origins identify the domains from which your application can send requests to the OAuth 2.0 server.)
-* *Authorized redirect URIs*:
-** http://localhost:8080 (Use the address of your Jmix application.)
-** https://developers.google.com/oauthplayground (Add this URI to access the Google Developers OAuth2 playground in order to obtain a token in the next step)
+. 前往 https://console.developers.google.com/auth/clients[客户端配置页]。
+. 如果出现提示，请选择你的项目。
+. 点击 *Create client*。
+. 选择 *Web application* 应用类型。
+. 填写表单：
+* *Name*：（提供任意描述性名称。）
+* *Authorized JavaScript origins*：http://localhost:8080（使用 Jmix 应用程序地址。这些 origins 用于标识你的应用程序可以向 OAuth 2.0 服务器发送请求的域。）
+* *Authorized redirect URIs*：
+** http://localhost:8080（使用 Jmix 应用程序地址。）
+** https://developers.google.com/oauthplayground （此 URI 用于访问 Google Developers OAuth2 playground，从而在下一步中获取 token。）
 +
 image:google-oauth-2.png[align="center", width="550"]
 +
-. Click *Create*.
-. Copy or download the *Client ID* and *Client secret* and store it securely. You will need this information later.
+. 点击 *Create*.
+. 复制或下载 *Client ID* 和 *Client secret*，保存至安全处，后续步骤会用到。
 +
 image:google-oauth-3.png[align="center", width="427"]
 
-=== Obtain Refresh Token
+=== 获取刷新 Token
 
-Token will be obtained via Authorization Code flow using Google Developers OAuth2 playground.
+Token 将使用 Google Developers OAuth2 playground 通过授权码流程获取。
 
-TIP: You can use other approaches to go through Authorization Code flow, such as using Postman, https://oauthdebugger.com[oauthdebugger], or manual requests.
+TIP: 可以使用其他方法来完成授权码流程，例如使用 Postman、 https://oauthdebugger.com[oauthdebugger] 或手动请求。
 
-. Go to https://developers.google.com/oauthplayground[Google Developers OAuth2 Playground].
-. Open OAuth 2.0 configuration (gear icon).
+. 前往 https://developers.google.com/oauthplayground[Google Developers OAuth2 Playground]。
+. 打开 OAuth 2.0 配置（齿轮图标）。
 +
 image:google-oauth-4.png[align="center", width="421"]
 +
-* Select the *Use your own OAuth credentials* checkbox.
-* Input your *Client ID* and *Client Secret*.
-. In the list of scopes on the left select *Gmail API* -> *https://mail.google.com/*
-. Click *Authorize APIs* and go through consent screens.
-. Now you have *Authorization code*. Click *Exchange authorization code for tokens*.
+* 选中 *Use your own OAuth credentials* 复选框。
+* 输入你的 *Client ID* 和 *Client Secret*。
+. 在左侧的范围列表中，选择 *Gmail API* -> *https://mail.google.com/*
+. 点击 *Authorize APIs*。
+. 现在有了 *Authorization code*。点击 *Exchange authorization code for tokens*。
 +
 image:google-oauth-5.png[align="center", width="492"]
 +
-. Copy *Refresh token*.
+. 复制 *Refresh token*。
 
-=== Configure application properties
+=== 配置应用程序属性
 
-Use the credentials to configure the `application.properties` file of your Jmix application:
+使用获取的凭证配置 Jmix 应用程序的 `application.properties` 文件：
 
 .application.properties
 [source,properties,indent=0]
@@ -110,13 +110,13 @@ jmix.email.oauth2.secret=<client_secret>
 jmix.email.oauth2.refresh-token=<refresh_token>
 ----
 
-Where `<account_name>` is the email address used for configuration. And `<client_id>`, `<client_secret>`, `<refresh_token>` are values obtained during the configuration process.
+这里 `<account_name>` 是用来配置的 email 地址。`<client_id>`、`<client_secret>`、`<refresh_token>` 是上面从 Google 获取到的信息。
 
-IMPORTANT: Alternatively, you can provide or change the refresh token value at runtime via *Email* -> *xref:menu-views/oauth-token.adoc[]* view.
+IMPORTANT: 另外，在运行时，可以通过 *xref:menu-views/oauth-token.adoc[]* 视图提供或修改刷新 token 的值。
 
-=== Add gradle dependency
+=== 添加 gradle 依赖
 
-Add the following dependency to your `build.gradle`:
+在 `build.gradle` 添加如下依赖：
 
 [source,groovy,indent=0]
 ----
@@ -125,53 +125,53 @@ implementation 'com.google.auth:google-auth-library-oauth2-http'
 
 == Microsoft
 
-To enable OAuth with Microsoft, register your OAuth application and generate credentials. Then, set up your Jmix application using obtained credentials.
+如需启用 Microsoft OAuth，请注册 OAuth 应用程序并生成凭证。然后，使用获得的凭证设置 Jmix 应用程序。
 
-NOTE: The instructions below are based on the https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app[Microsoft Entra documentation]. Please check this link for the most up-to-date procedures and any use case specifics.
+NOTE: 以下说明基于 https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app[Microsoft Entra 文档^] 的内容。请查看链接中的原文以获取最新的步骤和用例详情。
 
-=== Register the application
+=== 注册应用
 
-. Sign in to the https://portal.azure.com[Microsoft Azure portal^].
-. If you have multiple Azure Active Directory tenants, switch to the desired tenant.
-. Navigate to *App registrations*.
-. Click *New Registration* and provide the following information:
-* Enter a name for your app.
-* Under *Supported account types*, select the option applicable to your business scenario.
-* Under *Redirect URI*, choose *Web* in the *Select a platform* dropdown and set http://localhost:8080 (address of your Jmix application) as redirect URI.
+. 登录 https://portal.azure.com[Microsoft Azure 门户^]。
+. 如果你有多个 Azure Active Directory 租户，请切换到所需的租户。
+. 导航到 *App registrations*。
+. 点击 *New Registration* 并提供以下信息：
+* 应用的名称。
+* 在 *Supported account types* 下，选择适用于你业务场景的选项。
+* 在 *Redirect URI* 下，从 *Select a platform* 下拉列表中选择 *Web*，并将 http://localhost:8080（Jmix 应用地址）设置为重定向 URI。
 +
 image:microsoft-oauth-app.png[align="center", width="971"]
 +
-. Click *Register*.
+. 点击 *Register*。
 
-Your application is now available under *Home* -> *App Registrations*. Within the application you can view values for *Application (client) ID* and *Directory (tenant) ID*.
+你的应用现在位于 *Home* -> *App Registrations* 下。在应用中，你可以查看 *Application (client) ID* 和 *Directory (tenant) ID* 的值。
 
-=== Generate a Client Secret
+=== 生成客户端秘钥
 
-. Open your application and navigate to *Certificates & Secrets*.
-. Click *New Client Secret*.
-. Enter a description and an expiry period.
-. Click *Add* then copy the key *Value*. This is the OAuth 2.0 client secret.
+. 打开你的应用并导航到 *Certificates & Secrets*。
+. 点击 *New Client Secret*。
+. 输入描述和有效期。
+. 点击 *Add*，然后复制密钥 *Value*。这就是 OAuth 2.0 客户端密钥。
 +
 image:microsoft-oauth-1.png[align="center", width="1191"]
 
 
-=== Configuring API Permissions
+=== 配置 API 授权
 
-To send emails, your application needs certain permissions:
+应用程序需要特定的权限才能发送 email：
 
-. Open your application and navigate to *API permissions*.
-. Add SMTP.Send permission.
+. 打开你的应用并导航到 *API permissions*。
+. 添加 SMTP.Send 许可。
 
-=== Obtain Refresh Token
+=== 获取刷新 Token
 
-Token will be obtained via authorization Code flow using the browser and CLI.
+Token 必须使用浏览器或 CLI 通过授权码流程获取。
 
-TIP: You can use other approaches to go through Authorization Code flow, such as using Postman, https://oauthdebugger.com[oauthdebugger], or manual requests. The process described below uses browser and CLI.
+TIP: 可以使用其他方法来完成授权码流程，例如使用 Postman、 https://oauthdebugger.com[oauthdebugger] 或手动请求。下面的示例使用浏览器和 CLI。
 
-. Navigate to the following URL:
+. 导航至以下 URL：
 +
 ----
-// Line breaks for legibility only
+// 这里换行只是为了显示清晰的结构
 
 https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize?
 client_id=<client_id>
@@ -181,7 +181,7 @@ client_id=<client_id>
 &scope=offline_access%20https://outlook.office.com/SMTP.Send
 ----
 +
-This may require admin consent to get access to requested API permissions. Once the user authenticates and grants consent, the Microsoft identity platform returns a response. This example shows a successful response:
+这可能需要管理员同意才能访问所请求的 API 权限。一旦用户通过身份验证并授予同意，Microsoft 身份平台将返回一个响应。以下示例显示了一个成功的响应内容：
 +
 ----
 http://localhost:8080/?
@@ -189,8 +189,8 @@ code=AwABAAAAvPM1KaPlrEqdFSBzjqfTGBCmLdgfSTLEMPGYuNHSUYBrq...
 &session_state=12345
 ----
 
-. Save the value of the `code` parameter from the response.
-. Exchange code for token:
+. 保存响应中的 `code` 参数值。
+. 交换获取 token：
 +
 ----
  curl -X POST https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token \
@@ -203,11 +203,11 @@ code=AwABAAAAvPM1KaPlrEqdFSBzjqfTGBCmLdgfSTLEMPGYuNHSUYBrq...
 -d "scope=offline_access https://outlook.office.com/SMTP.Send email openid"
 ----
 +
-. A successful response contains a `refresh_token` value. Copy its value for future use.
+. 成功的响应会包含一个 `refresh_token` 值。复制保存以便后续使用。
 
-=== Configure application properties
+=== 配置应用程序属性
 
-Use the credentials to configure the `application.properties` file of your Jmix application:
+使用获取的凭证配置 Jmix 应用程序的 `application.properties` 文件：
 
 .application.properties
 [source,properties,indent=0]
@@ -233,13 +233,13 @@ jmix.email.oauth2.tenant-id=<tenant_id>
 jmix.email.oauth2.refresh-token=<refresh_token>
 ----
 
-Where `<account_name>` is the email address used for configuration. And `<client_id>`, `<client_secret>`, `<refresh_token>`, `<tenant_id>` are values obtained during the configuration process.
+这里 `<account_name>` 是用来配置的 email 地址。`<client_id>`、`<client_secret>`、`<refresh_token>`、`<tenant_id>` 是上面从 Microsoft 获取到的信息。
 
-IMPORTANT: Alternatively, you can provide or change the refresh token value at runtime via *Email* -> *xref:menu-views/oauth-token.adoc[]* view.
+IMPORTANT: 另外，在运行时，可以通过 *xref:menu-views/oauth-token.adoc[]* 视图提供或修改刷新 token 的值。
 
-=== Add gradle dependency
+=== 添加 gradle 依赖
 
-Add the following dependency to your `build.gradle`:
+在 `build.gradle` 添加如下依赖：
 
 [source,groovy,indent=0]
 ----

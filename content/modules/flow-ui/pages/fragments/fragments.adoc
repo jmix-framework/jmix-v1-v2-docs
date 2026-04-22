@@ -16,8 +16,6 @@
 * Fragment 的 XML 中可以定义 xref:flow-ui:actions.adoc[操作] 和 xref:flow-ui:data-components.adoc[数据组件]（数据容器或加载器）。数据组件可以标记为 `provided`，表示由父视图提供。
 * Studio 提供了 xref:studio:view-wizard.adoc#creating-blank-fragment[Blank fragment] 模板可以生成空的 fragment，然后在 Jmix 工具窗口展示，与视图一样，也可以使用 xref:studio:view-designer.adoc[可视化设计器]。
 
-Fragments 目前不支持 xref:flow-ui:facets.adoc[facets]。
-
 TIP: 使用 Fragments 可以在某些列表 UI 组件内部对条目进行渲染，例如 xref:vc/components/virtualList.adoc[virtualList] 或 xref:vc/components/dataGrid.adoc[dataGrid] 的列。通过 XML 内部的 xref:flow-ui:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] 元素实现。 `fragmentRenderer` 元素设置一个继承自 `io.jmix.flowui.fragmentrenderer.FragmentRenderer` 的 Java 类。这个类负责使用提供的数据条目在 fragment 模板内进行渲染。
 
 [[fragment-content]]

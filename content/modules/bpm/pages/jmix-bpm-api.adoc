@@ -1,21 +1,15 @@
-= BPM API
+= Flowable API
 
-
-Jmix BPM 使用了 <<flowable-api,Flowable API>>，支持在 Spring Boot 环境中与 xref:bpm:bpm-concepts.adoc#process-engine[流程引擎] 无缝交互。通过提供一个有凝聚力的 BPM 框架简化了开发过程，提升了用户体验。
-
-此外，Flowable 的独立 <<flowable-rest-api,REST API>> 使外部系统能够与流程引擎交互，从而提高了互操作性，便于将 Jmix 应用集成到更广泛的应用架构中。通过了解可用的 API 和扩展，开发人员能够在 Jmix BPM 生态系统中充分发掘并利用 Flowable 的潜力。
+Jmix BPM 使用了 <<flowable-api, Flowable API>>，为 Spring Boot 应用程序与进程引擎之间的交互提供了便利。
 
 [[flowable-api]]
 == Flowable API
 
-Flowable API 可与流程引擎交互。支持以编程的方式启动流程实例、完成任务以及执行各种查询，例如，获取用户的所有任务或者获取流程定义中激活的实例。
+https://www.flowable.com/open-source/docs/bpmn/ch04-API[Flowable API^] 支持以编程的方式与不同的服务进行交互。
 
 image::jmix-bpm-api/api-services.png[,600]
 
-[NOTE]
-====
-Flowable `FormService` 和 `IdentityService` 没有在 Jmix BPM 项目中使用。
-====
+NOTE: Flowable `FormService` 和 `IdentityService` 没有在 Jmix BPM 项目中使用。 Jmix BPM 提供了 `BpmTaskService`，继承自 Flowable 的 `TaskService`。请参考 <<using-bpm-task-service, 后面的示例>>。
 
 有两种方式获取 Flowable 服务：
 
@@ -33,29 +27,10 @@ include::example$/ex1/src/main/java/bpm/ex1/screen/customer/CustomerEdit.java[ta
 include::example$/ex1/src/main/java/bpm/ex1/service/MyCustomBean.java[tags=bean;runtime-service]
 ----
 
-== Jmix BPM API 扩展
-
-*Jmix BPM 扩展组件* 提供了 `BpmTaskService`，该服务继承自 Flowable 中的 `TaskService`。<<using-bpm-task-service,下面>> 有使用示例。
-
-[[flowable-rest-api]]
-== Flowable REST API
-
-//todo: check REST API usage
-
-参阅
-https://www.flowable.com/open-source/docs/bpmn/ch14-REST
-
 [[flowable-dmn-api]]
 == Flowable DMN API
 
-https://www.flowable.com/open-source/docs/dmn/ch03-API
-
-[[flowable-dmn-rest-api]]
-== Flowable DMN REST API
-
-https://www.flowable.com/open-source/docs/dmn/ch07-REST
-
-
+参考 https://www.flowable.com/open-source/docs/dmn/ch03-API
 
 [[examples]]
 == 示例
@@ -125,9 +100,6 @@ include::example$/ex1/src/main/java/bpm/ex1/screen/customer/CustomerEdit.java[ta
 include::example$/ex1/src/main/java/bpm/ex1/screen/customer/CustomerEdit.java[tags=get-service]
 ----
 
-
-
-
 === 通过 API 处理流程定义
 
 Flowable 提供了处理流程定义的丰富 API：
@@ -135,7 +107,6 @@ Flowable 提供了处理流程定义的丰富 API：
 . *部署*：流程定义通常作为部署单元的一部分进行部署，该部署单元可以包含多个流程定义和相关资源。
 +
 [source,java]
-.filename.java
 ----
 Deployment deployment = repositoryService.createDeployment()
                         .addClasspathResource("my-process.bpmn20.xml")
@@ -145,7 +116,6 @@ Deployment deployment = repositoryService.createDeployment()
 . *查询*：`RepositoryService` 支持使用各种条件查询流程定义：
 +
 [source,java]
-.filename.java
 ----
 ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
                                      .processDefinitionId("myProcessDefinitionId")

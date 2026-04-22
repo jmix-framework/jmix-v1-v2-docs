@@ -1,16 +1,16 @@
-= Email History
+= 邮件历史记录
 
-The *Email History* view displays information about all emails that are sent, queued, or not sent. Select an email in the table to view its content — recipient addresses, subject, body, attachments — as well as sending information: creation and sending dates, status, number of attempts, and deadline.
+*Email History（邮件历史）* 视图显示所有已发送、排队或未发送的邮件信息。在表格中选择一封邮件即可查看其内容：收件人地址、主题、正文、附件；以及发送信息：创建和发送日期、状态、尝试次数和截止时间。
 
 image::email-history.png[align="center"]
 
-You can change or add recipients when resending emails.
+重新发送邮件时，可以更改或添加收件人。
 
 image::resend.png[align="center"]
 
-Also, you can download email attachments using the corresponding button.
+此外，可以使用相应的按钮下载邮件附件。
 
 [NOTE]
 ====
-Grant the *Email: view history* resource role to allow access to this view to non-administrator users.
+非管理员用户如果需要访问此视图，则需分配 *Email: view history* 资源角色。
 ====

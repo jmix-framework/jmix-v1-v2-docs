@@ -81,7 +81,7 @@ image::visual-components/components/switch-basics.png[align="center", width="205
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/switch-dataaware" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/switch-dataaware" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
@@ -147,7 +147,7 @@ NOTE: 与输入字段类似，只有当 `switch` 非空（即勾选）时才能�
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `switch` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]

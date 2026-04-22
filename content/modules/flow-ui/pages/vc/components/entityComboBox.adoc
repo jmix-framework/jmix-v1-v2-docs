@@ -127,6 +127,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
     * `fetchPlan` - 可选参数，指定 fetch plan。
 <3> JPQL 查询语句。
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[programmatic-lazy-loading]]
 === 编程式配置
 

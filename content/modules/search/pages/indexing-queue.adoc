@@ -24,7 +24,7 @@ include::example$/search-ex1/src/main/resources/application.properties[tags=cron
 
 默认配置创建并设置 id 为 `IndexingQueueProcessing` 的调度计划。
 
-[[custom-qurtz-configuration]]
+[[custom-quartz-configuration]]
 == 自定义 Quartz 配置
 
 如需使用自定义 Quartz 配置，请按照下列步骤：

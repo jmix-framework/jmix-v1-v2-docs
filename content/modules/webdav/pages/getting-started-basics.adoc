@@ -3,7 +3,7 @@
 本节中，我们将创建：
 
 * `WebdavDocumentWrapper` 实体，带有 `WebdavDocument` 类型的属性。
-* CRUD 视图，包括上传 WebDAV 文档的 UI 组件。
+* CRUD 视图，包括上传 WebDAV 文档的一个 UI 组件。
 
 可能需要做一些额外配置以便能通过桌面应用程序（Wor，Excel 或 LibreOffice 等）打开或编辑上传的 WebDAV 文件。
 
@@ -183,7 +183,9 @@ image::wd-wrapper-open-dialog.png[align="center", width="1080"]
 
 按同样的步骤配置 `edit` 操作。
 
-应用程序启动并运行后，使用浏览器打开 `++http://localhost:8080++` 地址，然后使用 `admin/admin` 登录。
+然后我们启动应用程序查看新添加的功能。
+
+使用浏览器打开 `++http://localhost:8080++` 地址，然后使用 `admin/admin` 登录。
 
 从 `Application` 菜单中选择 `Webdav document wrappers` 打开 `WebdavDocumentWrapper.list` 视图。
 

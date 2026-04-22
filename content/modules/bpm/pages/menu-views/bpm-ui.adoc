@@ -1,24 +1,47 @@
-= BPM 用户界面
+= 用户界面
 
-项目中安装了 BPM 扩展组件后，主菜单就可以看到 BPM 部分：
+安装了扩展组件后，主菜单就可以看到 BPM 部分，这里简要介绍一下各个视图。
 
-image::bpm-menu-views/bpm-main menu.png[,250]
+[NOTE]
+====
+用户需要有特定的 xref:security:resource-roles.adoc[] 才能访问这些视图
 
-其中包含下列用户和管理员视图：
+* *BPM: process actor* – 允许访问 xref:menu-views/start-process-view.adoc[] and xref:menu-views/my-tasks.adoc[]，支持用户启动流程和处理分配的任务。
+* *BPM: administrator* – 允许访问全部的 BPM 视图以及管理功能。
+====
 
-* xref:menu-views/start-process-view.adoc[启动流程（Start process）]
-//todo: report cosmetics -- Start Process -> Start process
-* xref:menu-views/my-tasks.adoc[我的任务（My tasks）]
-* xref:menu-views/modeler-web.adoc[建模器（Modeler）]
-* xref:menu-views/process-definitions.adoc[流程定义（Process definitions）]
-* xref:menu-views/process-instances.adoc[流程实例（Process instances）]
-* xref:menu-views/user-groups.adoc[用户组（User groups）]
-* xref:menu-views/user-tasks.adoc[用户任务（User tasks）]
-* xref:menu-views/decision-tables.adoc[决策表（Decision tables）]
-* xref:menu-views/decision-table-modeler.adoc[决策表建模器（Decision table modeler）]
+[cols="1,4", options="header", grid="none"]
+|===
+| 视图 | 说明
 
+| xref:menu-views/start-process-view.adoc[]
+| 基于可用的流程定义启动一个新的流程实例。
 
-用户需要有如下角色才能使用这些视图：
+| xref:menu-views/my-tasks.adoc[]
+| 显示分配给当前用户的任务，并支持管理和完成任务。
 
-* *BPM: process actor* -- 可使用 _启动流程_ 和 _我的任务_ 视图。
-* *BPM: administration* -- 可使用其他视图。
+| xref:menu-views/modeler-web.adoc[]
+| 提供基于网页的 BPMN 编辑器，用于创建和修改流程图。
+
+|xref:menu-views/process-drafts.adoc[]
+| 列出所有可用的流程草稿，并显示每个草案的预览。
+
+| xref:menu-views/process-definitions.adoc[]
+| 列出每个已经部署的流程定义和详细信息。
+
+| xref:menu-views/process-instances.adoc[]
+| 显示正在运行和已完成的流程实例及其当前状态。
+
+| xref:menu-views/user-groups.adoc[]
+| 管理用户组，用户组可以用于分配任务或访问控制。
+
+| xref:menu-views/user-tasks.adoc[]
+| 提供所有流程中所有用户任务的概览。
+
+| xref:menu-views/decision-tables.adoc[]
+| 显示用于流程逻辑的决策表。
+
+| xref:menu-views/decision-table-modeler.adoc[]
+| 支持创建和编辑决策表。
+
+|===

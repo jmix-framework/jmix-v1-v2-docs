@@ -76,7 +76,7 @@ jmix.ui.entity-page-size.Customer = 500
 [[jmix.ui.exception-dialog-modal]]
 === jmix.ui.exception-dialog-modal
 
-这个应用程序属性控制是否在 Jmix 应用程序中使用模态窗显示 `ExceptionDialog`。
+这个应用程序属性控制是否在 Jmix 应用程序中使用模态窗显示 xref:exception-handlers.adoc#customizing-default-handler[ExceptionDialog]。
 
 如果启用，则 `ExceptionDialog` 作为模态窗显示，用户只有先关闭该窗口才能与应用程序的其他部分交互。
 
@@ -85,6 +85,17 @@ jmix.ui.entity-page-size.Customer = 500
 默认值：`true`。
 
 参阅 xref:flow-ui:exception-handlers.adoc[异常处理]。
+
+[[jmix.ui.file-downloader-cache-max-age-sec]]
+=== jmix.ui.file-downloader-cache-max-age-sec
+
+设置下载文件被浏览器缓存视为新文件的最大时间（以秒为单位）。此属性有助于确保 Google Chrome 内置 PDF 查看器显示文件的最新版本。
+
+该属性设置 Cache-Control HTTP 响应头中的 `max-age` 指令。详细信息请参考 https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#response_directives[MDN 文档^]。
+
+默认值：`3600`。
+
+另参考 xref:files:downloading-files.adoc#downloader[使用下载器]。
 
 [[jmix.ui.main-view-id]]
 === jmix.ui.main-view-id

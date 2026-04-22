@@ -35,15 +35,12 @@ image::bpmn-user-task/user-task.png[,120]
 [[properties]]
 == 属性
 
-用户任务与其他活动一样，有一些共同的属性，此外，还有三个特定的部分：
+除了通用属性之外，用户任务还有下列特殊属性：
 
+* *Due Date* 提醒执行人任务的过期时间。
 * *Assignee*，可为任务分配单个执行者或可能的执行人（候选人）;
 * *Form*，定义任务的用户界面;
 * *Task Listeners*，添加任务生命周期事件触发的监听器。
-
-此外，它在 _General_ 部分中还有一个附加属性 -- *Due Date*，用于通知执行人任务的到期时间。
-
-image::bpmn-user-task/user-task-properties.png[,500]
 
 [[due-date]]
 == 到期时间
@@ -51,17 +48,11 @@ image::bpmn-user-task/user-task-properties.png[,500]
 用户任务中的 *due date* 参数指定任务必须完成的截止日期。
 该参数对于管理业务流程中的时间敏感型活动至关重要。
 
-请注意，截止日期不会影响流程本身。
-当到达指定的日期时，流程中不会发生任何事情 - 需要用户自己管理这个超时事件。
-例如，可以在自定义的任务列表中处理。
+NOTE: 设置截止日期不会启动任何自动操作。需要手动配置后续的操作。
 
 [[setting-due-date]]
 === 设置到期时间
-在用户任务属性面板的 _General_ 部分有一个 *due date* 字段：
-
-image::bpmn-user-task/due-date-field.png[,350]
-
-该参数支持两种类型的设置：
+_Due date_ 支持两种类型的设置：
 
 * *固定日期*：填写将来的一个到期时间。
 （如果填写的是过去的时间，则该时间会被忽略，任务显示已过期）。
@@ -170,11 +161,11 @@ image::bpmn-user-task/busines-calendar.png[,400]
 有三种选项：
 
 [horizontal]
-Expression:: -- 表达式。必须是一个返回 username 字符串的表达式。
-Process variable:: -- 流程变量。指向一个 _User_ 实体的流程变量。
-User provider:: -- 一个特定的 Java 类，带有返回 username 的方法。
+Expression:: - 表达式。必须返回字符串，包含 username。
+Process variable:: - 流程变量。指向一个 _User_ 实体的流程变量。
+User provider:: - 一个特定的 Java 类，带有返回 username 的方法。
 
-image::bpmn-user-task/assignee-sources.png[,350]
+image::bpmn-user-task/assignee-sources.png[,460]
 
 [[assign-taask-by-expression]]
 ==== 表达式
@@ -183,7 +174,7 @@ image::bpmn-user-task/assignee-sources.png[,350]
 需要编写一个表达式来获取执行人的 username。
 例如，`User` 实体存在名为 `manager` 的流程变量中，则表达式可以是 `${manager.username}`：
 
-image::bpmn-user-task/assign-by-expression.png[,350]
+image::bpmn-user-task/assign-by-expression.png[,460]
 
 .*XML 表示*
 [source,xml]
@@ -196,7 +187,7 @@ image::bpmn-user-task/assign-by-expression.png[,350]
 
 如果需要将一个任务直接分配给特定的用户，这里可以直接写该用户的 username：
 
-image::bpmn-user-task/assigne-by-expression-direct.png[,350]
+image::bpmn-user-task/assigne-by-expression-direct.png[,460]
 
 另外，也可以调用 Spring bean 的方法返回 username：
 
@@ -211,7 +202,7 @@ image::bpmn-user-task/assigne-by-expression-direct.png[,350]
 
 预置的 `initiator` 流程变量可以在建模时用来分配任务。包含启动流程的用户实体：
 
-image::bpmn-user-task/assignee-initiator.png[,350]
+image::bpmn-user-task/assignee-initiator.png[,460]
 
 .*XML 表示*
 
@@ -249,15 +240,12 @@ include::example$/ex1/src/main/resources/application.properties[tags=name]
 ==== User Provider
 
 如果需要通过复杂的逻辑确定任务的执行人，则建议使用 *User provider*.
-此时，系统会加载已有的 user provider Java 类以供选择，或者可以创建一个新的类：
+此时，系统会加载已有的 user provider Java 类以供选择：
 
-image::bpmn-user-task/selecting-user-provider.png[,350]
+image::bpmn-user-task/selecting-user-provider.png[,460]
 
 User Provider 中需要包含一个或多个 `String` 返回类型的方法。
 方法获取在建模器中指定的参数值，并返回可以作为任务执行人的用户名。
-如果类中只有唯一的方法满足要求，则会自动使用该方法：
-
-image::bpmn-user-task/assign-by-user-provider.png[,350]
 
 .*XML 表示*
 
@@ -294,8 +282,8 @@ Task task = taskService.createTaskQuery()
 
 taskService.setAssignee(task.getId(), "jane"); <2>
 ----
-<1> -- 通过 Query API 获取任务
-<2> -- 通过 username 指定执行人
+<1> 通过 Query API 获取任务
+<2> 通过 username 指定执行人
 
 获取特定用户以分配的任务，可以用 `TaskService` 的下列方法：
 
@@ -305,7 +293,7 @@ List<Task> tasks = taskService.createTaskQuery()
     .taskAssignee("jane") <1>
     .list();
 ----
-<1> -- username
+<1> username
 
 [[task-candidate-users-and-groups]]
 == 候选用户和组
@@ -355,43 +343,9 @@ image::bpmn-user-task/my-tasks-claimed-task.png[,300]
 taskService.claim("taskId", "userId");
 ----
 
-[[setting-candidates-in-studio]]
-=== 在 Studio 中设置候选人
-
-Studio 中可以使用 *BPMN Inspector* 中的用户任务属性设置候选人：
-
-image::bpmn-user-task/setting-candidates.png[,350]
-
-点击 _Edit_ 按钮可以输入内容
-image:bpmn-user-task/edit-button.png[,20]，以逗号分隔输入用户组的编码或用户名：
-
-image::bpmn-user-task/edit-candidates.png[,300]
-image::bpmn-user-task/edit-candidate-users.png[,300]
-
-.*XML 表示*
-
-[source,xml]
-----
-<userTask id="Activity_0cu0xtq" name="User task"
-    camunda:candidateUsers="bob, peter"
-    camunda:candidateGroups="accountants, sales"
-    jmix:candidateGroupsValue="accountants, sales"
-    jmix:candidateUsersValue="bob, peter" />
- . . .
-</userTask>
-----
-
-[WARNING]
-====
-Studio 无法知道真正的用户组和用户的情况。
-因此，开发者需要保证填入候选人的组编码和用户名的有效性。
-否则，会出现运行时错误。
-====
-
 [[setting-candidates-in-web]]
-=== 在 Web 建模器中设置候选人
+=== 在建模器中设置候选人
 
-在 *Web BPM 建模器* 中，设置候选组和用户可以有更多选项。
 点击下图所示的按钮可以编辑候选人组：
 
 image::bpmn-user-task/web-modeler-candidate-groups.png[,400]
@@ -516,187 +470,177 @@ image::bpmn-user-task/candidate-users-expression.png[,330]
 同一个用户任务可以同时定义候选用户和候选用户组。
 
 [[defining-task-forms]]
-== 用户任务表单
+== 用户任务流程表单
 
-用户任务可以配置一个 xref:process-forms.adoc[流程表单]，以可视化的形式为执行人展示。
-Jmix BPM 提供以下表单选项：
+用户任务可以配置一个 xref:forms.adoc[流程表单]，协助执行人输入任务所需的数据。收集的数据可以在之后的流程中传递。
 
-image::bpmn-user-task/form-type-selection.png[,350]
-
-默认情况下，新的用户任务不带任何表单。可以在配置任务时选择需要的表单。
-
-*关于使用流程表单的建议*
-
-*输入对话框表单（Input dialog forms）* 可用于快速原型制作或简单的表单，即使在生产环境也不需要自定义视图。
-这种表单可以使用简单的数据类型 -- 字符串、数字、枚举、日期。
-
-如果需要在表单上显示复杂的数据对象（如多字段实体或实体集合），
-或者需要验证，有格式化显示的要求，最好选择 Jmix 视图。
-但是，这需要一些开发量。
-
-
-[[user-task-outcomes]]
-=== 用户任务输出
-
-当用户完成用户任务时，通常必须做出一个决定，例如，批准或驳回文档。
-然后，流程需要根据这个决定走不同的分支。
-可以使用任务输出对此类情况进行建模。
-
-输出在流程表单上显示为按钮，或者带图标的按钮。
-此时，默认的 *完成（Complete）* 按钮变得不可见。
-
-image::outcomes/outcome-buttons.png[,350]
-
-在输入对话框或 Jmix 视图中都可以创建输出，但是方法不同。
-下面有详细介绍。
-
-[[outcomes-input-dialogs]]
-==== 输入对话框中的输出
-
-对于 xref:bpm:input-dialog.adoc[输入对话框] 流程表单，
-输出在 *BPMN Inspector* 面板的 *Outcomes* 部分定义。
-
-image::bpmn-user-task/outcomes-in-proprties.png[,350]
-
-可以通过 *Outcomes editor* 创建输出，设置其 id、名称和图标：
-
-image::outcomes/outcomes-editor.png[,500]
-
-然后可以直接在 *BPMN Inspector* 面板中编辑输出：
-
-image::outcomes/outcomes-created.png[,350]
-
-在 *Web BPM 建模器* 中，可以在属性面板找到输出：
-
-image::outcomes/web-outcomes.png[,350]
-
-使用 *Outcome editor* 创建或编辑输出：
-
-image::outcomes/web-outcome-edit.png[,400]
-
-.*XML 表示*
-
-当在输入对话框中使用输出时，会添加一个特定的 _jmix:formOutcomes_ 部分。
-这里可以看到内部的 _jmix:formOutcome_ 元素及其属性。
-
-[source,xml]
-----
-<userTask id="Activity_0cu0xtq" name="User task" camunda:candidateUsers="bob, peter" camunda:candidateGroups="accountants, sales" jmix:candidateGroupsValue="accountants, sales" jmix:candidateUsersValue="bob, peter">
-  <extensionElements>
-    <jmix:formData type="input-dialog" openMode="DIALOG">
-      <jmix:formOutcomes> <1>
-        <jmix:formOutcome id="approve" caption="Approve" icon="CHECK" /> <2>
-        <jmix:formOutcome id="reject" caption="Reject" icon="BAN" /> <3>
-      </jmix:formOutcomes>
-    </jmix:formData>
-  </extensionElements>
-</userTask>
-----
-<1> -- 输出部分
-<2> -- "approve" 输出
-<3> -- "reject" 输出
-
-[[outcomes-jmix-views]]
-==== Jmix 视图表单中的输出
-
-对于 xref:bpm:bpmn/jmix-view-forms.adoc#declare-task-outcomes[Jmix 视图] 表单，
-输出在视图控制器中定义。
-
-但在 Studio 中的 *Form* 部分也能看到定义的输出，
-这是为了方便起见，可以在不查看 Jmix 视图控制器代码的情况下设计流程。
-
-image::bpmn-user-task/outcomes-jmix-form.png[,350]
-
-如何在 Jmix 视图中创建输出，请参阅相应章节。
-
-[[using-outcomes]]
-=== 使用输出
-
-当用户点击一个输出按钮时，任务便会结束，
-用户选择的决定会写入一个特定的流程变量中，变量名的命名规则为
-`<user-task-id>_result`。
-可以在 *Process instance edit* 视图的变量列表中找到：
-
-image::outcomes/outcome-container.png[,500]
-
-该变量的类型为 `OutcomesContainer`，包含一组 `Outcome` 对象的列表，有多个输出对象是因为用户任务可能是多实例的。
-
-可以编程式访问输出容器：
-[source,java]
-----
-String outcomeContainerName = taskIdValue + "_result"; <1>
-OutcomesContainer outcomesContainer = (OutcomesContainer) execution
-        .getVariable(outcomeContainerName); <2>
-----
-<1> -- 生成输出容器的名称。
-<2> -- 获取输出容器，内容为输出列表。
-
-这个变量的值包含完成任务的用户以及用户选择的输出结果（用户和输出都可能有多个）。
-在 *Process variable editor* 窗口可以查看其内容：
-
-image::outcomes/outcome-container-esitor.png[,400]
-
-[[outcome-based-conditions]]
-==== 基于输出的条件
-
-为任务设置输出后，
-需要为排他网关元素之后的顺序流指定条件。
-条件可以通过编写表达式实现或从下拉列表中进行选择。
-
-下面我们看一个使用 *基于输出的条件* 配置顺序流的示例。
-图中的流程片段显示一个用户任务和一个具有两个传出顺序流的排他网关。
-
-image::outcomes/approve-invoice-process.png[,350]
-
-为 `approved` 顺序流指定条件时，在画布上选择该顺序流并配置属性。
-
-将 *Condition -> source* 选择为 *User task outcome*，然后在下拉列表中选择任务及其输出：
-
-image::outcomes/sequence-flow-condition.png[,650]
-
-[[outcome-based-conditions-multi-instance]]
-==== 多实例模式中的输出条件
+[[multi-instance]]
+== 多实例
 
 用户任务可以是多实例的。
 详情请参阅 xref:bpm:bpmn/multi-instance-activities.adoc[多实例活动] 部分。
-这里我们仅介绍多实例模式会如何影响基于输出的条件。
 
-示例中的 `Approve invoice` 是一个多实例任务。
-即，会有多个用户处理该任务，每个用户处理一个任务的实例。
 
-image::bpmn-user-task/outcomes-multi-instance.png[,350]
-
-所以，针对需要审批的文档，每个用户可能会有自己不同的决定，并产生不同的输出。
-但是所有的决定都在同一 *输出容器* 中归集。
-
-因此，我们需要指定一个附加参数 - *条件类型（Condition type）*，支持以下选项：
-
-* 任何人完成即可（Anyone completed with the outcome）
-* 需所有人完成（Everyone completed with the outcome）
-* 无人完成（No one completed the outcome）
-
-image::bpmn-user-task/outcome-multi-condittions.png[,700]
-
-该功能可以实现某种类似投票的机制。
-
-.*XML 表示*
-[source,xml]
-----
-<sequenceFlow id="Flow_15f0sh3" name="Approved" sourceRef="Gateway_1kb7ltq" targetRef="Activity_0xl938c">
-  <extensionElements>
-    <jmix:conditionDetails
-        conditionSource="userTaskOutcome" <1>
-        conditionType="anyoneCompleted" <2>
-        userTaskId="approve-invoice" <3>
-        userTaskOutcome="approve" /> <4>
-  </extensionElements>
-  <conditionExpression xsi:type="tFormalExpression">${execution.getVariable('approve-invoice_result') != null &amp;&amp; bpm_UserTaskResults.containsOutcome(execution.getVariable('approve-invoice_result'), 'approve')}</conditionExpression>
-</sequenceFlow>
-----
-<1> -- 选择条件来源。
-<2> -- 条件类型，即使是多实例任务也默认使用 `anyoneCompleted`。此时属性面板看不到该属性。
-<3> -- 用户任务的 id。
-<4> -- 选择的输出。
+//todo:move elsewhere
+// [[user-task-outcomes]]
+// === 用户任务输出
+//
+// 当用户完成用户任务时，通常必须做出一个决定，例如，批准或驳回文档。
+// 然后，流程需要根据这个决定走不同的分支。
+// 可以使用任务输出对此类情况进行建模。
+//
+// 输出在流程表单上显示为按钮，或者带图标的按钮。
+// 此时，默认的 *完成（Complete）* 按钮变得不可见。
+//
+// image::outcomes/outcome-buttons.png[,350]
+//
+// [[outcomes-input-dialogs]]
+// ==== 输入对话框中的输出
+//
+// 对于 xref:bpm:input-dialog.adoc[输入对话框] 流程表单，
+// 输出在 *BPMN Inspector* 面板的 *Outcomes* 部分定义。
+//
+// image::bpmn-user-task/outcomes-in-proprties.png[,350]
+//
+// 可以通过 *Outcomes editor* 创建输出，设置其 id、名称和图标：
+//
+// image::outcomes/outcomes-editor.png[,500]
+//
+// 然后可以直接在 *BPMN Inspector* 面板中编辑输出：
+//
+// image::outcomes/outcomes-created.png[,350]
+//
+// 在 *Web BPM 建模器* 中，可以在属性面板找到输出：
+//
+// image::outcomes/web-outcomes.png[,350]
+//
+// 使用 *Outcome editor* 创建或编辑输出：
+//
+// image::outcomes/web-outcome-edit.png[,400]
+//
+// .*XML 表示*
+//
+// 当在输入对话框中使用输出时，会添加一个特定的 _jmix:formOutcomes_ 部分。
+// 这里可以看到内部的 _jmix:formOutcome_ 元素及其属性。
+//
+// [source,xml]
+// ----
+// <userTask id="Activity_0cu0xtq" name="User task" camunda:candidateUsers="bob, peter" camunda:candidateGroups="accountants, sales" jmix:candidateGroupsValue="accountants, sales" jmix:candidateUsersValue="bob, peter">
+//   <extensionElements>
+//     <jmix:formData type="input-dialog" openMode="DIALOG">
+//       <jmix:formOutcomes> <1>
+//         <jmix:formOutcome id="approve" caption="Approve" icon="CHECK" /> <2>
+//         <jmix:formOutcome id="reject" caption="Reject" icon="BAN" /> <3>
+//       </jmix:formOutcomes>
+//     </jmix:formData>
+//   </extensionElements>
+// </userTask>
+// ----
+// <1> -- 输出部分
+// <2> -- "approve" 输出
+// <3> -- "reject" 输出
+//
+// [[outcomes-jmix-views]]
+// ==== Jmix 视图表单中的输出
+//
+// 对于 xref:bpm:bpmn/jmix-view-forms.adoc#declare-task-outcomes[Jmix 视图] 表单，
+// 输出在视图控制器中定义。
+//
+// 但在 Studio 中的 *Form* 部分也能看到定义的输出，
+// 这是为了方便起见，可以在不查看 Jmix 视图控制器代码的情况下设计流程。
+//
+// image::bpmn-user-task/outcomes-jmix-form.png[,350]
+//
+// 如何在 Jmix 视图中创建输出，请参阅相应章节。
+//
+// [[using-outcomes]]
+// === 使用输出
+//
+// 当用户点击一个输出按钮时，任务便会结束，
+// 用户选择的决定会写入一个特定的流程变量中，变量名的命名规则为
+// `<user-task-id>_result`。
+// 可以在 *Process instance edit* 视图的变量列表中找到：
+//
+// image::outcomes/outcome-container.png[,500]
+//
+// 该变量的类型为 `OutcomesContainer`，包含一组 `Outcome` 对象的列表，有多个输出对象是因为用户任务可能是多实例的。
+//
+// 可以编程式访问输出容器：
+// [source,java]
+// ----
+// String outcomeContainerName = taskIdValue + "_result"; <1>
+// OutcomesContainer outcomesContainer = (OutcomesContainer) execution
+//         .getVariable(outcomeContainerName); <2>
+// ----
+// <1> -- 生成输出容器的名称。
+// <2> -- 获取输出容器，内容为输出列表。
+//
+// 这个变量的值包含完成任务的用户以及用户选择的输出结果（用户和输出都可能有多个）。
+// 在 *Process variable editor* 窗口可以查看其内容：
+//
+// image::outcomes/outcome-container-esitor.png[,400]
+//
+// [[outcome-based-conditions]]
+// ==== 基于输出的条件
+//
+// 为任务设置输出后，
+// 需要为排他网关元素之后的顺序流指定条件。
+// 条件可以通过编写表达式实现或从下拉列表中进行选择。
+//
+// 下面我们看一个使用 *基于输出的条件* 配置顺序流的示例。
+// 图中的流程片段显示一个用户任务和一个具有两个传出顺序流的排他网关。
+//
+// image::outcomes/approve-invoice-process.png[,350]
+//
+// 为 `approved` 顺序流指定条件时，在画布上选择该顺序流并配置属性。
+//
+// 将 *Condition -> source* 选择为 *User task outcome*，然后在下拉列表中选择任务及其输出：
+//
+// image::outcomes/sequence-flow-condition.png[,650]
+//
+// [[outcome-based-conditions-multi-instance]]
+// ==== 多实例模式中的输出条件
+//
+// 用户任务可以是多实例的。
+// 详情请参阅 xref:bpm:bpmn/multi-instance-activities.adoc[多实例活动] 部分。
+// 这里我们仅介绍多实例模式会如何影响基于输出的条件。
+//
+// 示例中的 `Approve invoice` 是一个多实例任务。
+// 即，会有多个用户处理该任务，每个用户处理一个任务的实例。
+//
+// image::bpmn-user-task/outcomes-multi-instance.png[,350]
+//
+// 所以，针对需要审批的文档，每个用户可能会有自己不同的决定，并产生不同的输出。
+// 但是所有的决定都在同一 *输出容器* 中归集。
+//
+// 因此，我们需要指定一个附加参数 - *条件类型（Condition type）*，支持以下选项：
+//
+// * 任何人完成即可（Anyone completed with the outcome）
+// * 需所有人完成（Everyone completed with the outcome）
+// * 无人完成（No one completed the outcome）
+//
+// image::bpmn-user-task/outcome-multi-condittions.png[,700]
+//
+// 该功能可以实现某种类似投票的机制。
+//
+// .*XML 表示*
+// [source,xml]
+// ----
+// <sequenceFlow id="Flow_15f0sh3" name="Approved" sourceRef="Gateway_1kb7ltq" targetRef="Activity_0xl938c">
+//   <extensionElements>
+//     <jmix:conditionDetails
+//         conditionSource="userTaskOutcome" <1>
+//         conditionType="anyoneCompleted" <2>
+//         userTaskId="approve-invoice" <3>
+//         userTaskOutcome="approve" /> <4>
+//   </extensionElements>
+//   <conditionExpression xsi:type="tFormalExpression">${execution.getVariable('approve-invoice_result') != null &amp;&amp; bpm_UserTaskResults.containsOutcome(execution.getVariable('approve-invoice_result'), 'approve')}</conditionExpression>
+// </sequenceFlow>
+// ----
+// <1> -- 选择条件来源。
+// <2> -- 条件类型，即使是多实例任务也默认使用 `anyoneCompleted`。此时属性面板看不到该属性。
+// <3> -- 用户任务的 id。
+// <4> -- 选择的输出。
 
 [[setting-task-listeners]]
 == 设置任务监听器
@@ -705,18 +649,14 @@ Jmix BPM 中的用户任务支持通过任务监听器对特定的事件执行�
 在用户任务触发特定的事件时，
 任务监听器中的 Java 类或表达式将执行。
 
+image::bpmn-user-task/task-listeners-field.png[,460]
+
 用户任务支持的事件监听器包括：
 
 - *create*：当用户任务创建时触发
 - *assignment*：当用户任务分配给一个用户或用户组时触发
 - *complete*：当完成用户任务时触发。
 - *delete*：当删除用户任务时触发。
-
-image::bpmn-user-task/task-listeners-field.png[,350]
-
-image::bpmn-user-task/task-listener-editor.png[,450]
-
-image::bpmn-user-task/creating-task-listener.png[,550]
 
 如需为用户任务配置监听器，可以在 BPMN XML 中使用 `flowable:taskListener` 扩展元素，
 或者用 `addTaskListener` Java API。
@@ -738,13 +678,13 @@ image::bpmn-user-task/creating-task-listener.png[,550]
  . . .
 </userTask>
 ----
-<1> -- 任务监听器类
-<2> -- 任务事件
+<1> 任务监听器类
+<2> 任务事件
 
 详情请参阅 xref:task-listeners.adoc[任务监听器]。
 
 [[task-documentation]]
-== 任务文档（描述）
+== 文档
 为了给用户提供额外的信息，在 BPMN 中可以使用 _documentation_ 参数，或在 API 中使用 _description_。
 描述的长度不能超过 4000 个字符。
 

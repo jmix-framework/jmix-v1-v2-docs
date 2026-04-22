@@ -107,7 +107,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <2> 扩展了 Fetch plan，获取 `Hobby` 实例的列表，可用于选择。
 <3> `Hobby` 实体的 `CollectionContainer`。
 <4> 数据加载协调器自动为组件提供可供选择的实例。
-<5> `multiSelectComboBoxPicker` 使用 `hobbiesDc` 作为选项容器，下拉列表中显示 hobby 的列表。
+<5> `multiSelectComboBoxPicker` 使用 `hobbiesDc` 作为选项容器显示 hobby 的列表。
 <6> 添加预定义的操作清除所选内容。
 <7> 添加预定义的操作打开查找视图。
 

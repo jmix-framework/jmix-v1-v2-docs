@@ -1,15 +1,15 @@
-= Facets in Fragments
+= Fragment 中的 Facet
 
-Fragments support the same facet mechanism as views. You can use framework-provided facets inside fragments to add reusable functionality. For a general introduction to facets, see xref:flow-ui:facets.adoc[Facets].
+Fragment 支持与视图相同的 facet 机制。可以在 fragment 内部使用框架提供的 facet 添加可复用的功能。有关 facet 的一般介绍，请参见 xref:flow-ui:facets.adoc[Facets]。
 
-The following facets are available for use in fragments:
+以下 facet 可用于 fragment 中：
 
-* `timer` – creates a client-side timer that can trigger periodic actions.
-* `fragmentSettings` – saves UI component settings for a specific user.
-* `fragmentDataLoadCoordinator` – controls how data is loaded into the fragment.
-* `urlQueryParameters` – persists the state of UI components in the URL.
+* `timer` – 创建一个客户端定时器，可触发周期性操作。
+* `fragmentSettings` – 为特定用户保存 UI 组件的设置。
+* `fragmentDataLoadCoordinator` – 控制数据如何加载到 fragment 中。
+* `urlQueryParameters` – 将 UI 组件的状态持久化到 URL 中。
 
-For example:
+示例：
 
 [source,xml,indent=0]
 ----
@@ -35,34 +35,34 @@ For example:
 [[facets-with-required-id]]
 [CAUTION]
 ====
-Some facets require the fragment to have an ID. You can set it either in XML using the `id` attribute, or programmatically in the view controller.
+某些 facet 要求 fragment 必须具有 ID。可以在 XML 中使用 `id` 属性设置，或者在视图控制器中以编程方式设置。
 
 [source,xml,indent=0]
 .settings-fragment-view.xml
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/usingfacetfragment/settings-fragment-view.xml[tags=xml-fragment]
 ----
-<1> Include the fragment in a view using the `fragment` element with the `class` attribute specifying the fragment class FQN, and the `id` attribute that will be set to the fragment.
-<2> The `details` layout for programmatically defining the fragment in the view controller.
+<1> 在视图中使用 `fragment` 元素引入 fragment，通过 `class` 属性指定 fragment 类的全限定名，并通过 `id` 属性设置 fragment 的 ID。
+<2> 在视图控制器中以编程方式定义 fragment 的一个 `details` 。
 
-The same fragment can be created programmatically using the `Fragments` bean. The ID is set in the `create()` method:
+可以使用 `Fragments` bean 以编程方式创建相同的 fragment。ID 在 `create()` 方法中设置：
 
 .SettingsFragmentView.java
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/usingfacetfragment/SettingsFragmentView.java[tags=view]
 ----
-<1> Injects the `Fragments` bean which is used to create fragments.
-<2> Creates the fragment instance using its controller class and an ID that will be set to the fragment.
-<3> Adds the fragment instance to the `details` layout component.
+<1> 注入用于创建 fragment 的 `Fragments` bean。
+<2> 使用控制器类和将要设置给 fragment 的 ID 创建 fragment 实例。
+<3> 将 fragment 实例添加到 `details` 布局组件中。
 ====
 
 [[timer]]
 == Timer Facet
 
-The `timer` facet creates a client-side timer element. It uses the same implementation as the view-level xref:flow-ui:facets/timer.adoc[timer], so all properties and events work the same in fragments.
+`timer` facet 创建一个客户端侧的定时器元素。其实现与视图级别 xref:flow-ui:facets/timer.adoc[timer] 相同，因此所有的属性和事件也在 fragment 中支持。
 
-Fragment XML example:
+Fragment XML 示例：
 
 [source,xml,indent=0]
 .timer-fragment.xml
@@ -70,7 +70,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/timerfragment/timer-fragment.xml[tags=timer-fragment]
 ----
 
-Fragment controller example:
+Fragment 控制器示例：
 
 .TimerFragment.java
 [source,java,indent=0]
@@ -81,18 +81,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments
 [[fragmentSettings]]
 == Fragment Settings Facet
 
-The `fragmentSettings` facet saves settings for visual components. Saving occurs when the view is closed, similar to the xref:flow-ui:facets/settings.adoc[setting] facet for views.
+`fragmentSettings` facet 用于保存可视化组件的设置。保存操作在视图关闭时进行，类似于视图的 xref:flow-ui:facets/settings.adoc[setting] facet。
 
-CAUTION: A fragment using `fragmentSettings` *must have* an ID. You can set it in <<facets-with-required-id,XML or programmatically>>.
+CAUTION: 使用 `fragmentSettings` 的 fragment *必须具有* ID。可以在 <<facets-with-required-id,XML 中或以编程方式>> 设置。
 
-Key differences from view settings:
+与视图 setting 的主要区别：
 
-* Settings are applied at the `HostView.ReadyEvent` event in the fragment lifecycle (instead of `ReadyEvent` for views).
-* This ensures settings are applied at the latest possible moment in both view and fragment lifecycles.
-* Each fragment on a view stores its own separate set of settings.
-* A dedicated XML tag `fragmentSettings` is used.
+* Settings 在 fragment 生命周期中的 `HostView.ReadyEvent` 事件时应用（而不是视图的 `ReadyEvent`）。
+* 这可以保证 Settings 在视图和 fragment 生命周期的尽可能晚的时刻被应用。
+* 视图上的每个 fragment 都会存储自己独立的一套设置。
+* 使用专用的 XML 标签 `fragmentSettings`。
 
-Fragment XML example:
+Fragment XML 示例：
 
 [source,xml,indent=0]
 .settings-fragment.xml
@@ -100,7 +100,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/settingsfragment/settings-fragment.xml[tags=xml-fragment]
 ----
 
-Fragment controller example:
+Fragment 控制器示例：
 
 .SettingsFragment.java
 [source,java,indent=0]
@@ -111,18 +111,18 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments
 [[fragmentDataLoadCoordinator]]
 == Fragment Data Load Coordinator Facet
 
-The `fragmentDataLoadCoordinator` facet controls data loading within a fragment. For example, you can set a loading trigger on specific fragment lifecycle events.
+`fragmentDataLoadCoordinator` facet 用于控制 fragment 内的数据加载。例如，可以在特定的 fragment 生命周期事件上设置加载触发器。
 
-Available lifecycle events for fragments:
+Fragment 可用的生命周期事件：
 
 * `Fragment.ReadyEvent`
 * `HostView.InitEvent`
 * `HostView.BeforeShowEvent`
 * `HostView.ReadyEvent`
 
-The rest of the functionality works the same as the xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet for views.
+其余功能与视图的 xref:flow-ui:facets/dataLoadCoordinator.adoc[dataLoadCoordinator] facet 相同。
 
-Fragment XML example:
+Fragment XML 示例：
 
 [source,xml,indent=0]
 .data-load-coordinator-fragment.xml
@@ -130,7 +130,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/dataloadcoordinatorfragment/data-load-coordinator-fragment.xml[]
 ----
 
-Fragment controller example:
+Fragment 控制器示例：
 
 .DataLoadCoordinatorFragment.java
 [source,java,indent=0]
@@ -141,13 +141,13 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/fragments
 [[urlQueryParameters]]
 == Url Query Parameters Facet
 
-The `urlQueryParameters` facet persists component state in the URL. This is useful when using the URL-first approach – leaving and returning to a view preserves information like filter states.
+`urlQueryParameters` facet 将组件状态持久化到 URL 中。有助于使用 URL 优先的方式：离开后返回视图时，可以保留过滤器状态等信息。
 
-CAUTION: The fragment *must have* an ID, as its value is used for serialization. You can set the ID in <<facets-with-required-id,XML or programmatically>>.
+CAUTION: fragment *必须具有* ID，因为其值用于序列化。可以在 <<facets-with-required-id,XML 中或以编程方式>> 设置。
 
-The working principle is similar to the xref:flow-ui:facets/urlQueryParameters.adoc[urlQueryParameters] facet for views.
+其工作原理与视图的 xref:flow-ui:facets/urlQueryParameters.adoc[urlQueryParameters] facet 类似。
 
-Fragment XML example:
+Fragment XML 示例：
 
 [source,xml,indent=0]
 .url-query-parameters-fragment.xml
@@ -155,7 +155,7 @@ Fragment XML example:
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/fragments/urlqueryparametersfragment/url-query-parameters-fragment.xml[]
 ----
 
-Fragment controller example:
+Fragment 控制器示例：
 
 .UrlQueryParametersFragment.java
 [source,java,indent=0]

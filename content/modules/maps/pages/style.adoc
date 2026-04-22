@@ -4,9 +4,13 @@
 
 样式也可以在 xref:maps:layers-sources.adoc[图层] 级别应用，从而为图层中的所有要素定义一致的外观。
 
-== PointFeature 样式
+[[styling-point-features]]
+== 点要素的样式
 
-如需更改 xref:maps:features-geometries.adoc#point-feature[PointFeature] 的样式，可以定义一个 `PointStyle` 对象，设置所需的外观属性（如 `image`、`fill`、`stroke` 等），然后将该样式应用于 `PointFeature`。
+xref:maps:features-geometries.adoc#point-feature[PointFeature] 的外观可以通过定义一个 `PointStyle` 对象进行自定义，例如 `image`、`fill`、`stroke` 和 `text`，然后将该样式应用于 `PointFeature`。
+
+[[basic-point-style]]
+=== 使用图片
 
 [source,java,indent=0]
 ----
@@ -14,6 +18,9 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 ----
 
 image::style-point.png[align="center", width="480"]
+
+[[text-point-labels]]
+=== 文本标签
 
 为 `PointFeature` 设置文本而非图像，可以直接在地图上的指定坐标处显示文本标注，从而为显示的数据提供清晰的上下文。
 
@@ -28,9 +35,80 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-point-text.png[align="center", width="479"]
 
-== MarkerFeature 样式
+[[point-icons]]
+=== 使用图标
 
-如需修改标记的图标，可以参考下面的示例：
+. *图标字体*
++
+使用 Font Awesome 7 免费图标的示例：
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-font-icon]
+----
++
+image::styles-font-icons.png[align="center", width="288"]
++
+NOTE: 需要在项目中包含了图标字体后，才能使用。
+
+. *SVG 图标*
++
+`IconStyle` 类提供了几个方法可以为点要素设置图标。
+
+* `withVaadinIcon()` 方法使用 `VaadinIcon` 枚举值。
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-vaadin-icon]
+----
++
+image::styles-vaadin-icons.png[align="center", width="250"]
+
+* `withLumoIcon()` 设置 Lumo 图标集中的图标。还支持调整大小和颜色。
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-lumo-icon]
+----
++
+image::styles-lumo-icons.png[align="center", width="250"]
+
+* `withIconFromSet()` - 使用自定义图标集中的图标（参阅 xref:flow-ui:icons/custom-icons.adoc[自定义图标]）。图标的预定义颜色可能会影响最后的效果。
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-custom-icon]
+----
++
+image::styles-custom-icons.png[align="center", width="255"]
++
+[NOTE]
+====
+自定义图标集的图标带有预定义的颜色（fill=`"#1E90FF"`）。如果还调用了 `withColor("...")`，那么 OpenLayers 会将两种颜色进行混合。例如：
+
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-custom-green-icon]
+----
+
+image::styles-custom-green-icons.png[align="center", width="255"]
+
+如需通过 Java API 设置颜色，那么需要设置图标的默认颜色为 `"#FFF"`（白色）。
+====
+
+* `withIconName()` - 用 `"collectionName:iconName"` 这个格式设置图标集中的图标。
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/StyleView.java[tags=point-icon-name]
+----
++
+image::styles-icon-name.png[align="center", width="257"]
+
+[[styling-marker-features]]
+== 标记要素的样式
+
+如需修改标记图标，请参考以下示例：
 
 [source,java,indent=0]
 ----
@@ -41,7 +119,10 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-marker.png[align="center", width="491"]
 
-== LineStringFeature 样式
+NOTE: 也可以参考 <<point-icons,点要素图标>> 中的示例为 `MarkerFeature` 中的标记设置图标。
+
+[[styling-linestring-features]]
+== LineString 要素样式
 
 如需更改 `LineStringFeature` 的样式，可以定义一个 `LineStringStyle` 对象，设置所需的外观属性（如 `fill`、`stroke` 等），然后将该样式应用于 `LineStringFeature`。
 
@@ -52,7 +133,8 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/style/Style
 
 image::style-line-string.png[align="center", width="476"]
 
-== PolygonFeature 样式
+[[styling-polygon-features]]
+== 多边形要素的样式
 
 如需更改 `PolygonFeature` 的样式，可以定义一个 `PolygonStyle` 对象，设置所需的外观属性（如 `fill`、`stroke` 等），然后将该样式应用于 `PolygonFeature`。
 

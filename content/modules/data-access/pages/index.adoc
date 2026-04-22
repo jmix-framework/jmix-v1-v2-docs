@@ -21,3 +21,5 @@ include::example$/data-access-ex1/build.gradle[tags=dependencies]
 ====
 
 处理 JPA 实体的另一个方法是直接使用 JPA xref:entity-manager.adoc[EntityManager]。某些框架功能与 “托管” 实体的概念不兼容，因此，与 `DataManager` 相比，`EntityManager` 有一些功能上的 xref:entity-manager.adoc#limitations[局限性]。
+
+如果需要执行复杂的 SQL 查询、批处理操作或调用存储过程，可以考虑使用 Spring 提供的 xref:jdbc.adoc[JDBC] 包装器。

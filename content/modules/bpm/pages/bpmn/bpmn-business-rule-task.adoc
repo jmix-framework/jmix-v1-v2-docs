@@ -35,13 +35,8 @@ image::bpmn-business-rule-task/business-rule-task.png[,150]
 
 业务规则任务具有以下属性：
 
-image::bpmn-business-rule-task/business-rule-task-properties.png[,400]
+image::bpmn-business-rule-task/business-rule-task-properties.png[,473]
 
-其中有一个特殊的属性 -- _Decision Table Key_。可以从下拉列表中选择一个已有的 DMN 表。
+关键的属性是 *Decision Table Key*。可以从下拉列表中选择一个已有的 DMN 表。
 
-image::bpmn-business-rule-task/select-decision-table.png[,400]
-
-[WARNING]
-====
-如果业务规则任务中未定义决策表，则该流程无法部署的。
-====
+WARNING: 部署这个流程时，每个业务规则任务都必须有一个决策表。

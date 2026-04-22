@@ -1,33 +1,33 @@
-= User Menu Actions
+= 用户菜单操作
 :page-aliases: actions/standard-actions/user-menu-substitute-user-action.adoc,actions/standard-actions/user-menu-theme-switch-action.adoc
 
-User menu actions work with xref:vc/components/userMenu.adoc[] component through xref:vc/components/userMenu.adoc#actionItem[actionItem].
+用户菜单操作通过 xref:vc/components/userMenu.adoc#actionItem[actionItem] 在 xref:vc/components/userMenu.adoc[] 组件中使用。
 
-Below are the standard user menu action types.
+下面是标准的用户菜单操作类型。
 
 [[sec_userMenuSubstituteUser]]
 == sec_userMenuSubstituteUser
 
-Action class: `UserMenuSubstituteUserAction`
+操作类：`UserMenuSubstituteUserAction`
 
-Depending on the number of substituted users, either opens a lookup view to select a substituted user or shows a submenu with the substituted users.
+根据替代用户的数量不同，打开一个查找视图选择替代用户或显示一个包含所有替代用户的子菜单。
 
 image::actions/standard-actions/user-menu-substitute-user-action.png[align="center",width="474"]
 
-TIP: You can define the maximum number of users that can be substituted by the currently authenticated user, which shows a submenu instead of opening a lookup view using the `jmix.security.ui.substitute-user-action-max-substitutions` application property. The default value is 5.
+TIP: 可以用 `jmix.security.ui.substitute-user-action-max-substitutions` 应用程序属性指定当替代用户数小于这个数量时，显示子菜单而非查找视图。默认值是 5。
 
 [[userMenu_themeSwitch]]
 == userMenu_themeSwitch
 
-Action class: `UserMenuThemeSwitchAction`
+操作类：`UserMenuThemeSwitchAction`
 
-Provides a submenu to switch between theme variants: *light*, *dark* and *system*.
+提供一个子菜单，用于切换主题：*light*、*dark* 和 *system*。
 
 image::actions/standard-actions/user-menu-theme-switch-action.png[align="center",width="400"]
 
-`userMenu_themeSwitch` requires importing a JavaScript file that applies a theme variant to an HTML document depending on the value in Web Local Storage and subscribes to the https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme[prefers-color-scheme^] to update the theme variant if the user indicates their preference through an operating system setting (e.g., light or dark mode) or the user agent's settings.
+`userMenu_themeSwitch` 需要导入一个 JavaScript 文件，负责在 HTML 中应用所选的主题。可以依据：Web 本地存储（Local Storage）中保存的值；如果用户选择根据系统变化，则订阅 https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme[prefers-color-scheme^]；以及 user agent 的设置。
 
-You need to import it into the main application class:
+需要在主应用程序类中导入：
 
 [source,java,indent=0]
 ----

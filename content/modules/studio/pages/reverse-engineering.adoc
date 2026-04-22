@@ -10,6 +10,9 @@ image::generate-data-model-item.png[align="center",width="442"]
 
 然后 Studio 会打开  *Generate Model from Database* 向导。
 
+[[wizard]]
+== 模型生成向导
+
 第一步::
 +
 --
@@ -23,7 +26,7 @@ image::generate-data-model-step1.png[align="center",width="936"]
 
 可以点击 image:icons/selectall.svg[Select All] 和 image:icons/unselectall.svg[Deselect All] 复选框选中或取消选中全部表。
 
-另外，还可以点击 image:icons/gear.svg[Settings] 配置创建实体的 Java 包路径以及系统属性的默认映射。
+另外，还可以点击 image:icons/gear.svg[Settings] 配置新实体的 Java 包路径以及系统属性的默认映射。
 
 例如，如果数据库中的所有或大多数表都包含 `Modified` 和 `ModifiedBy` 列，则可以将它们映射到所创建实体的 `lastModifiedDate` 和 `lastModifiedBy` 属性。在这种情况下，无需为每个表单独配置映射。使用 *Exclude columns from mapping* 列表排除不需要不自动映射的某些列。
 
@@ -85,3 +88,34 @@ image::generate-data-model-step3.png[align="center",width="936"]
 意思是，不会为此类实体生成 xref:data-model:db-migration.adoc#configuration[Liquibase 更改日志]。
 如需对导入的实体启用 Liquibase 脚本功能，可以直接删除该注解（或者在实体设计器中修改设置）。
 --
+
+[[partial-reverse-engineering]]
+== 部分反向工程
+
+此功能支持根据数据库 schema 为已完成映射的实体生成实体属性。当需要先修改数据库，而后同步数据模型和用户界面时，请使用该功能。
+
+Jmix Studio 可以跟踪数据库更改，并帮助将这些更改迁移到代码中，同时保留已有的自定义代码。
+
+对数据库表进行更改后，可以在 JPA 实体模型中生成缺失的属性。使用以下方法之一：
+
+. 在 *Entity Designer* 的 *Attributes* 面板中点击 image:icons/attr-from-db.svg[]。
++
+image::add-attr-from-db-2.png[align="center",width="468"]
+
+. 点击实体代码编辑器工具栏中的 *Add attribute from DB* 按钮。
++
+image::add-attr-from-db.png[align="center",width="885"]
+
+点击以上任一按钮都会打开 *Add Entity Attribute(s) from DB* 对话框。
+
+image::add-attr-from-db-dialog.png[align="center",width="1136"]
+
+*Table/View* 下拉字段中已选中 `address` 表。
+
+在 *Columns* 部分，选择想要创建的新属性。表格中的单元格是可编辑的，支持：
+
+* 修改属性名称。
+* 更改映射类型（例如，指定为枚举类型）。
+* 如果 Studio 建议的数据类型不符合要求，可以选择其他数据类型。
+
+点击 *OK*。新属性将被添加到已有的 `Address` 实体中，而不会修改之前编写的任何代码。

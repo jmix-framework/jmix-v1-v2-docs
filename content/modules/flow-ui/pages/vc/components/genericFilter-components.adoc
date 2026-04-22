@@ -227,7 +227,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 设置 label 的可见性。
 
-[[paramterClass]]
+[[parameterClass]]
 ==== parameterClass
 
 指定参数的类型。例如 `java.lang.String`。

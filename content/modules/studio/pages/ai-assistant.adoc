@@ -1,54 +1,54 @@
-= AI Assistant
+= AI 助手
 
-The Jmix AI Assistant is available for use in your https://ai-assistant.jmix.io/[browser^] as well as in Jmix Studio.
+Jmix AI Assistant 可在 https://ai-assistant.jmix.io/[浏览器^] 以及 Jmix Studio 中使用。
 
-To get started, click the image:icons/jmix_ai_big.svg[] icon in the IDE’s right-hand toolbar. Then, simply ask your question in natural language and <<code-attachments,attach code>> if needed.
+需要在 IDE 使用时，请点击右侧工具栏中的 image:icons/jmix_ai_big.svg[] 图标。然后，直接用自然语言提问，并在需要时 <<code-attachments,添加代码>>。
 
 [[how-it-works]]
-== How It Works?
+== 工作原理
 
-The assistant relies on OpenAI models and makes use of Retrieval Augmented Generation (RAG). This technique improves the model's knowledge by including additional resources such as official documentation and https://demo.jmix.io/ui-samples/[UI samples^].
+AI 助手依赖 OpenAI 模型，并使用了检索增强生成（RAG）技术。该技术包含官方文档和 https://demo.jmix.io/ui-samples/[UI 示例^] 等额外资源来增强模型的知识。
 
-The backend service source code is available on https://github.com/jmix-framework/jmix-ai-backend[GitHub^]. It is built with Spring AI and Jmix itself. The service provides a chat API and admin UI, making it easy to experiment with and use for your own projects.
+后端服务源代码可在 https://github.com/jmix-framework/jmix-ai-backend[GitHub^] 上获取。使用 Spring AI 和 Jmix 构建。该服务提供聊天 API 和管理 UI，可以在你的项目中进行实验和使用。
 
 [[code-attachments]]
-== Code Attachments
+== 添加代码
 
-To provide more context to your question, you can do the following:
+为了给提问提供更多上下文，可以执行以下操作：
 
-* Attach code selection.
-* Attach a file or multiple files.
+* 附加选中的代码。
+* 附加一个或多个文件。
 
 image:ai-assistant-attachments.png[,1888]
 
-Attachments will show up below your question and will be sent with it. This will assist in providing the most accurate answer.
+添加的附件将显示在问题下方，并随问题一起发送。有助于提供最准确的答案。
 
 [[disable]]
-== Disabling AI Assistant
+== 禁用 AI 助手
 
-You can disable AI Assistant at any time. Just follow these steps:
+可以随时禁用 AI 助手。按照以下步骤操作：
 
-. Open *Settings*.
-. Select *Languages & Frameworks* -> *Jmix*.
-. Uncheck the *Enable Jmix AI* checkbox.
-. Click *OK*.
+. 打开 *Settings*。
+. 选择 *Languages & Frameworks* -> *Jmix*。
+. 取消选中 *Enable Jmix AI*。
+. 点击 *OK*。
 
 image:ai-assistant-disable.png[]
 
-You can enable it again using the same process.
+如需重新启用，只需按步骤再做一遍。
 
-NOTE: AI Assistant will never access any of your code unless you send it along with your question.
+NOTE: AI 助手绝不会访问你的任何代码，除非将代码随问题一起发送。
 
 [[limits]]
-== Limits
+== 限制
 
-The assistant is available for all registered users. The current limit is 100 requests per 30 days, regardless of license type. If you need more requests, please https://www.jmix.io/contacts/[contact us^].
+该助手对所有注册用户可用。无论许可证类型如何，当前限制为每 30 天 100 次请求。如果需要更多请求，请 https://www.jmix.io/contacts/[联系我们^]。
 
 [[feedback]]
-== Feedback
+== 反馈
 
-We are committed to making this tool better, and your feedback helps. Use the image:ai-assistant-feedback-buttons.png[,50] buttons beneath the answers to let us know what you think.
+我们会持续改进 AI 助手，所以你的反馈非常重要。请使用答案下方的 image:ai-assistant-feedback-buttons.png[,50] 按钮告诉我们你的想法。
 
-IMPORTANT: Feedback is anonymized to ensure your privacy.
+IMPORTANT: 为了保护你的隐私，反馈是匿名的。
 
-Our team reviews all feedback to identify documentation gaps and ways to improve Jmix.
+我们的团队会审查所有反馈，以发现文档中的遗漏和改进 Jmix 的方法。

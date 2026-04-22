@@ -22,7 +22,7 @@ WMS 支持多种不同的请求类型，但主要操作有：
 
 XYZ 是事实上的 OpenStreetMap 标准，也称为 https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames[Slippy Map Tilenames^]，定义通过 Web 服务器提供服务的瓦片结构。
 
-这些瓦片可以通过遵循特定模式的 URL 访问：`\http://.../\{z}/\{x}/\{y}.png`，其中 `z` 是缩放级别，而 `x`、`y` 表示瓦片。
+这些瓦片可以通过遵循特定范式的 URL 访问：`\http://.../\{z}/\{x}/\{y}.png`，其中 `z` 是缩放级别，而 `x`、`y` 表示瓦片。
 
 例如， https://www.openstreetmap.org/[OpenStreetMap^] 瓦片 URL 模式为：`\https://\{s}.tile.openstreetmap.org/\{z}/\{x}/\{y}.png`。
 

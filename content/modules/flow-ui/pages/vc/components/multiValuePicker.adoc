@@ -7,7 +7,7 @@
 </div>
 ++++
 
-`multiValuePicker` 可以处理任意类型值的列表。由文本框和一组由操作定义的按钮组成。
+`multiValuePicker` 可以处理任意类型值的列表。由一个文本框和一组由操作定义的按钮组成。
 [cols="1h,6", grid=none]
 |===
 |XML Element

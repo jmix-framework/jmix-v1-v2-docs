@@ -22,6 +22,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 <3> 角色的编码。
 <4> 接口可以有一个或多个方法用来定义策略注解（见下文）。不同的方法只是用来对相关的策略进行分组。方法名没有限制，当角色在 UI 展示时，方法名作为 *Policy group（策略组）* 展示。
 
+
 [[policies]]
 == 行级策略
 
@@ -32,16 +33,13 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 
 JPQL 策略指定 `where`（以及可选的 `join`）子句，在加载实体时使用。
 
-JPQL 策略通过转换 JPQL（以及 SQL）运算符，在数据库级别过滤出受限的实体实例，因此有非常好的性能。但要记住，该策略仅影响对象图根实体的加载。如果一个实体可以作为集合加载到另一个实体的对象图中，需要为其定义 JPQL 和 <<predicate-policy,谓词>> 策略。
+JPQL 策略通过转换 JPQL（以及 SQL）运算符，在数据库级别过滤出受限的实体实例，因此有非常好的性能。但要记住，该策略仅影响对象图根实体的加载。
 
-在设计时角色中，JPQL 策略使用 `@JpqlRowLevelPolicy` 注解定义，示例：
+include::partial$jpql-predicate-note.adoc[]
 
-[source,java,indent=0]
-----
-include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/CreatedByMeOrdersRole.java[tags=role]
-----
+==== 创建一个 JPQL 策略
 
-请按照下列规则编写 JPQL 策略：
+一个行级角色可以包含任意数量的 JPQL 策略。编写时，请使用以下规则：
 
 * 使用 `\{E\}` 占位符代替 `where` 和 `join` 子句中的实体别名。框架将用查询中指定的真实别名进行替换。
 
@@ -49,7 +47,43 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 
 * `join` 中设置的文本会添加至 `from` 查询子句中。应该以逗号、`join` 或 `left join` 开头。
 
-查询参数可以使用 xref:data-access:jpql-extensions.adoc#session-and-user-attributes[会话和用户属性]。例如，`current_user_username` 参数从用户的 `username` 属性中获取值。
+在一个设计时的角色中，使用 `@JpqlRowLevelPolicy` 注解添加策略，示例：
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-join]
+----
+
+`join` 子句是可选的。由于 JPA 会为路径表达式创建隐式连接表，因此，可以在 `where` 子句中使用路径表达式来达到相同的结果。于是前面的示例可以重写为：
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/ActiveCustomersRole.java[tags=role;with-path-expression]
+----
+
+两种写法生成同样的行级过滤器。
+
+但是，如果实体之间没有直接的联系，那么需要显式使用 `join`。请看下面的对象图：
+
+image::row-level-roles-diagram.svg[align="center"]
+
+`Customer` 和 `Employee` 没有直接的引用属性，但仍然通过中间的 `CustomerAccess` 实体相关联。通过关联 `CustomerAccess`，可以创建一个角色，用于确定 *哪个员工允许查看哪个客户*：
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/AccessToCustomerRole.java[tags=role]
+----
+
+==== 会话和用户属性
+
+可以在查询参数中使用 xref:data-access:jpql-extensions.adoc#session-and-user-attributes[会话和用户属性]。在下面的示例中，`current_user_username` 参数的值从当前用户的 `username` 属性获取。
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/CreatedByMeOrdersRole.java[tags=role]
+----
+
+==== 应用程序特定属性
 
 可以为 `User` 实体添加项目特定的属性，并在 JPQL 策略中使用。例如，假设已将 `region` 属性添加到 `User` 和 `Customer` 实体。然后，仅允许用户查看其区域内的实体限制对 `Customer` 和 `Order` 的访问：
 
@@ -61,13 +95,15 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 [[predicate-policy]]
 === 谓词策略
 
-谓词策略定义了在对实体执行不同操作时进行测试的谓词。如果谓词返回 `true`，则允许实体实例执行该操作。
+谓词策略将一个布尔条件（谓词）与实体操作（`READ`、`CREATE`、`UPDATE` 或 `DELETE`）绑定。如果谓词返回 true，则该实体实例允许执行该操作。
 
-可以为这些操作定义谓词策略：`READ`、`CREATE`、`UPDATE`、`DELETE`。
+使用谓词的时机因操作而异：
 
-`READ` 谓词在从数据库加载根实体和所有内部的实体集合（整个对象关系图）时进行测试，这一点与 <<jpql-policy,JPQL 策略>> 不同。如果一个实体可以作为集合加载到另一个实体的对象图中，需要同时定义 JPQL 和谓词策略。
-
-`CREATE`、`UPDATE`、`DELETE` 谓词在实体实例被创建、更新或从数据库中删除之前进行测试。
+* `READ` 谓词在从数据库加载实体时进行测试。包括根实体以及（与 <<jpql-policy, JPQL 策略>> 不同）加载对象图的所有引用属性集合。这种内存中的测试在大量实例上运行时会**显著影响性能**，因为实例会被逐个加载并测试。
++
+include::partial$jpql-predicate-note.adoc[]
++
+* `CREATE`、`UPDATE`、`DELETE` 谓词在实体实例被创建、更新或从数据库删除之前进行测试。
 
 在设计时角色中，谓词策略使用 `@PredicateRowLevelPolicy` 注解定义的，示例：
 
@@ -76,7 +112,7 @@ include::example$/security-ex1/src/main/java/com/company/demo/security/restricti
 include::example$/security-ex1/src/main/java/com/company/demo/security/restrictions/NonConfidentialRowsRole.java[tags=role]
 ----
 
-此示例演示了一个行级角色，除了使用 xref:resource-roles.adoc#example[前一节] 定义的示例资源角色之外，还应使用此角色来限制对属性 `confidential = true` 的 `CustomerDetail` 实例的访问。无法使用 JPQL 策略从 `Customer.details` 集合中过滤掉 `CustomerDetail` 实例，因为在一次数据库操作中与其所属的 `Customer` 一并加载。而谓词策略是在内存中对根实体和嵌套集合都执行测试。
+此示例演示了一个行级角色，除了使用 xref:resource-roles.adoc#example[前一节] 定义的示例资源角色之外，还应使用此角色来限制对属性 `confidential = true` 的 `CustomerDetail` 实例的访问。无法使用 JPQL 策略从 `Customer.details` 集合中过滤掉 `CustomerDetail` 实例，因为在一次数据库操作中与其所属的 `Customer` 一并加载。
 
 在运行时角色中，谓词策略是使用 Groovy 脚本定义的。在脚本中，使用 `\{E\}` 占位符作为包含测试实体实例的变量。例如，与上面设计时角色相同的条件可以写成以下 Groovy 脚本：
 

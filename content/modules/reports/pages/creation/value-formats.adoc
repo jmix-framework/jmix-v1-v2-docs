@@ -1,12 +1,15 @@
 = 字段值格式化
 
-可以在报表详情视图的 *Value formats（值格式）* 标签页中为报表输出的字段指定格式。下面是添加格式的表单：
+[[value-formats-tab]]
+== 值格式标签页
+
+可以在报表编辑器的 *Value formats（值格式）* 标签页中为报表输出的字段指定格式。下面是添加格式的表单：
 
 image::value-format.png[align="center",width="642"]
 
 * *Name* - 带有报表带区前缀的报表字段名称，例如，`Book.year`。
 * *Format string* - 格式化字符串。对于数字值，根据 `java.text.DecimalFormat` 的规则指定格式，对于日期值 - 根据 `java.text.SimpleDateFormat` 的规则指定格式。
-* *Groovy script* 复选框。可以使用 Groovy 脚本来格式化参数。脚本中使用 `value` 别名访问当前参数值，对其进行格式化或者转换成需要的格式。Groovy 脚本需要返回字符串类型的新值。
+* *Groovy script* 复选框。可以使用 Groovy 脚本来格式化字段值。脚本中使用 `value` 别名访问当前字段值，对其进行格式化或者转换成需要的格式。Groovy 脚本需要返回字符串类型的新值。
 +
 编写 Groovy 脚本时，可以创建能处理 xref:data-model:enumerations.adoc[枚举类型] 的格式化器。这个格式化器可以使用 xref:localization:message-bundles.adoc#messages-interface[消息包] 将枚举的 ID 转化为其本地化文本。
 +
@@ -23,3 +26,38 @@ image::value-format-groovy.png[align="center",width="642"]
 * 如需插入 HTML 段，应该在字段中返回 HTML 标记，并选择 `++${html}++` 作为格式字符串。在输出值中，可以省略 `<body>` 以上的顶层 HTML 标记。如有必要，将自动添加所有缺少的顶层标记。所有片段都应该用 `UTF-8` 编码。不支持 CSS 和 `style` 属性。
 
 也可以指定自定义的格式。直接在控件中输入新的值而不必打开下拉列表，然后敲回车。也可以从下拉列表中选择任何格式，在控件中编辑名称然后敲回车。两种情况都会保存自定义的格式。
+
+[[value-format-def]]
+== @ValueFormatDef 注解
+
+在设计时，使用 `@ValueFormatDef` 注解定义值格式，值格式是报表结构的元素。通过值格式可以微调报表字段生成的输出格式。
+
+如果报表类包含多个值格式，可以多次使用该注解。如需实现额外的逻辑，创建一个带有 <<value-format-delegate,@ValueFormatDelegate>> 注解的方法。
+
+`@ValueFormatDef` 注解有以下属性：
+
+* `band` - 包含该字段的报表 xref:creation/bands.adoc#band-def[带区] 名称。
+* `field` - 要格式化的字段名称。
+* `format` - 字段格式。
+** 对于数值，请根据 `java.text.DecimalFormat` 规则指定格式。
+** 对于日期，请使用 `java.text.SimpleDateFormat`。
+** 内置格式也可用于插入图片、HTML 块等。详情请参阅 <<value-formats-tab,文档>>。
+
+[[value-format-delegate]]
+== @ValueFormatDelegate 注解
+
+`@ValueFormatDelegate` 注解标记一个代理方法，该方法实现与值格式相关的逻辑。
+
+*要求*：
+
+* 方法必须没有参数。
+* 方法必须返回一个支持的函数式接口。
+
+支持的接口：
+
+* `CustomValueFormatter` - 自定义格式化器实现。
+
+`@ValueFormatDelegate` 有以下属性：
+
+* `band` - 对应于值格式定义的 `band` 属性。
+* `field` - 对应于值格式定义的 `field` 属性。

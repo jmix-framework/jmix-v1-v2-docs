@@ -34,3 +34,26 @@ include::ROOT:partial$premium-repo.adoc[]
 implementation 'io.jmix.bpm:jmix-bpm-starter'
 implementation 'io.jmix.bpm:jmix-bpm-flowui-starter'
 ----
+
+include::ROOT:single-menu-note.adoc[]
+
+[[oracle-db-note]]
+== Oracle 数据库说明
+
+当应用程序启动时，Flowable 引擎会检查是否存在 xref:bpm:introduction.adoc#database-table-names[`ACT_GE_PROPERTY`] 表。在使用 Oracle 做数据库时，可能会看到下面这个错误：
+
+----
+oracle.jdbc.OracleDatabaseException: ORA-00942: table or view does not exist
+----
+
+https://docs.oracle.com/en/error-help/db/ora-00942[ORA-00942^] 这个错误的一个可能原因是，这个表格属于另一个非默认的 schema，且没有正确引用，一般发生在数据库有多用户的情况。
+
+要解决这个问题，可以显式在 `application.properties` 文件设置 schema：
+
+.application.properties
+----
+flowable.database-schema=<db_username>
+----
+
+将 `<db_username>` 替换为真实的数据库 username。
+

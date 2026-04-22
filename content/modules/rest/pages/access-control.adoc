@@ -10,7 +10,7 @@
 
 某些 REST API 端点可以作为无需认证的接口开放，使用 Jmix 的匿名访问功能。此时，API 请求是通过 `anonymous` 用户进行，这个用户是 Jmix 应用默认配置的。
 
-对于没有使用 `Authentication` 请求头调用任何安全端点，都会使用 `anonymous` 用户进行认证。
+对于没有使用 `Authorization` 请求头调用任何安全端点，都会使用 `anonymous` 用户进行认证。
 
 参阅 xref:security:custom-endpoints.adoc#token-based-authentication[基于 Token 的验证] 了解定义匿名资源的访问。最简便的方式是使用应用程序属性配置，URL pattern 以逗号隔开。
 

@@ -1,97 +1,76 @@
 = 开始使用
 :page-aliases: email:quick-start.adoc
 
-本章节是发送电子邮件的实用指南。
+本节介绍使用 xref:index.adoc[] 扩展组件的一个简单示例。目标是为应用程序用户创建一个消息推送（newsfeed）。此类推送可通过电子邮件发送公告、更新、通知、使用统计信息以及其他相关信息。
 
-假设在每次通过实体浏览界面创建新实体实例时，我们都需要向某些地址发送电子邮件。
+请创建一个新的 Jmix 项目，并 xref:index.adoc#installation[安装该扩展组件]。
 
-首先，按照 xref:index.adoc#installation[安装] 部分的说明进行安装。
+== 创建实体和视图
 
-== 创建实体和界面
+首先，创建一个实体及其 CRUD 视图，用于保存新闻并进行管理。按以下步骤：
 
-//some explanation what we are going to do
-
-1. 创建 `NewsItem` 实体，包含下列属性：
+. 创建 `NewsItem` 实体，使用下列属性：
 
 * `date`，为 `LocalDate` 类型。
-* `caption`，为 `String` 类型。
+* `subject`，为 `String` 类型。
 * `content`，为 `String` 类型，长度无限制。
 
-2. 创建 `NewsItemBrowse` 和 `NewsItemEdit` 界面。
+. 为实体创建列表和详情视图。
+. 打开列表视图，添加一个新的按钮，并绑定发送 email 的操作：
++
+.news-item-list-view.xml
+[source,xml,indent=0]
+----
+include::example$/email-ex1/src/main/resources/com/company/emailex1/view/newsitem/news-item-list-view.xml[tags=news-item-datagrid]
+----
++
+<1> 添加新按钮。
+<2> 添加新操作。
 
-== 添加确认对话框
+== 发送 email 的逻辑
 
-首先，我们检查是否打开了实体编辑界面用于创建新实体。
+UI 完成后，我们需要继续添加业务逻辑。这里的业务逻辑会使用扩展组件的 xref:api.adoc[API]。
 
-为编辑界面添加布尔类型的 `justCreated` 属性，并订阅 `InitEntity` 事件。
-
+. 为 `sendEmailAction` 操作创建一个处理方法。在方法中，我们显示一个对话框询问是否将新闻加入发送队列：
++
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=just-created-1;just-created-2]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=dialogs;send-email-handler]
 ----
-
-当每次为新实体打开编辑界面时，将 `justCreated` 设置为 `true`。
-
-然后，订阅 `PostCommit` 事件并添加下列代码：
-
+<1> 注入 `io.jmix.flowui.Dialogs` 对象。
++
+. 实现 `sendNewsByEmail()` 方法。
++
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=inject;post-commit-event]
+include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/NewsItemListView.java[tags=resources;emailer;send-news-by-mail]
 ----
+<1> 注入 `io.jmix.email.Emailer` 接口。
+<2> 注入 `io.jmix.core.Resources` 接口。
+<3> 为了演示如何添加附件，我们将使用一个应用程序图标文件。
+<4> 创建一个 `io.jmix.email.EmailAttachment` 对象。
+<5> 使用 `io.jmix.email.EmailInfoBuilder` 创建一个 `io.jmix.email.EmailInfo` 对象。
+<6> *from* 地址将从 xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address] 属性中获取。
+<7> 异步发送电子邮件（在后台）。
 
-<1> 此方法在数据上下文提交之后调用。
-<2> 如果新实体保存至数据库，询问用户是否发送邮件。
-<3> 调用发送邮件的方法。
+== 配置 SMTP 服务参数
 
-== 添加发送邮件方法
+使用 Spring Boot 的 xref:configuration.adoc#spring-boot-mail-properties[mail 属性] 在 `application.properties` 文件中定义基本的邮件发送参数，例如协议、主机、端口等。
 
-我们添加 `postCommit` 中调用的 `sendbyEmail` 方法，异步发送邮件。为了演示如何添加附件，我们给邮件添加一个公司的 logo 图片：
-
-[source,java,indent=0]
-----
-include::example$/ex1/src/main/java/email/ex1/screen/newsitem/NewsItemEdit.java[tags=resources;emailer;send-by-email]
-----
-
-<1> 将文件转换为字节数组。
-<2> 创建 `EmailAttachment` 对象。
-<3> 收件人。
-<4> 邮件主题。
-<5> 发送人地址从 xref:configuration.adoc#jmix.email.from-address[jmix.email.from-address] 应用程序属性获取。
-<6> 设置附件。
-
-== 设置发送参数
-
-SMTP 服务器的 xref:configuration.adoc#spring-boot-mail-properties[参数] 可以在应用程序中的 `application.properties` 文件中配置：
-
-[source,properties,indent=0]
-----
-spring.mail.host = mail.company.com
-jmix.email.from-address = info@company.com
-----
-
-下面是连接至 Google SMTP 服务的配置：
-
-[source,properties,indent=0]
-----
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.protocol=smtp
-spring.mail.username=username
-spring.mail.password=password
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-----
+NOTE: 可能需要从系统管理员或服务提供商处获取 SMTP 服务器配置参数。有关使用这些提供商配置邮件发送的步骤，请参阅 xref:oauth-providers.adoc[]。
 
 == 使用 UI
 
-启动应用程序，打开 `NewsItem` 实体浏览界面，然后点击 *Create（新建）*。在编辑界面填写完实体信息后，点击 *OK*。此时会弹出窗口询问是否发送电子邮件，选择 *Yes*。
+运行应用程序，打开 *News Item* 界面，然后点击 *Create* 新建一个实体。保存实体后返回之前的视图，选择一条并点击 *Send Email*。此时会弹出窗口询问是否发送电子邮件，选择 *Yes*。
 
 image::confirmation.png[align="center"]
 
-切换至应用程序的 *Email -> Email History（邮件历史）* 视图。此时可以看到一行状态为 `Queue（排队中）` 的记录。表示邮件仍然在排队，并未发送。邮件信息展示在右侧。
+切换至应用程序的 *Email -> xref:menu-views/email-history.adoc[]* 视图。此时可以看到一行状态为 `Queue（排队中）` 的记录，表示邮件仍然在排队，并未发送。邮件信息展示在右侧。
 
-如需周期性地发送排队的邮件，可以配置 xref:configuration.adoc#email-sending-scheduler[Quartz 调度器]。
+image::email-history.png[align="center"]
 
-如需从 UI 发送邮件，在 *Email -> Email History（邮件历史）* 中选择需要发送的邮件，然后点击 *Resend email（再次发送）*。可以在发送之前修改或添加收件人。发送成功后，表格中的状态会变成 `Sent（已发送）`。
+如需从 UI 发送邮件，选中列表中的条目，然后点击 *Resend email（再次发送）*。可以在发送之前修改或添加收件人。发送成功后，表格中的状态会变成 `Sent（已发送）`。
+
+TIP: 如需正常发发送排队的邮件或按特定的计划发送，可以配置 xref:configuration.adoc#email-sending-scheduler[Quartz 调度器]。
 
 image::resend.png[align="center"]

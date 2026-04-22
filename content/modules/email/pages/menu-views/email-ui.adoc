@@ -1,3 +1,3 @@
-= User Interface
+= 用户界面
 
-Installing the add-on adds the *Email* section to the main menu. It contains two views: xref:email:menu-views/email-history.adoc[] and xref:email:menu-views/oauth-token.adoc[].
+安装该扩展组件后，会在主菜单中添加 *Email* 部分。包含两个视图：xref:email:menu-views/email-history.adoc[] 和 xref:email:menu-views/oauth-token.adoc[]。

@@ -1,183 +1,152 @@
-= Jmix View Process Forms
+= Jmix 视图
 
-当需要一个复杂布局和行为的流程表单时，
-可以用已有的 xref:flow-ui:index.adoc[Jmix 视图] 替代 xref:bpm:input-dialog.adoc[]。
+任何 Jmix 视图都可以作为流程表单使用。与 xref:bpm:input-dialog.adoc[] 相比能为用户提供更复杂的交互。
 
-[[processform-annotation]]
-== `@ProcessForm` 注解
+[[creating-jmix-view-process-form]]
+== 创建一个流程表单
 
-视图控制器需使用 `@ProcessForm` 注解，以便能用于流程表单。
-该注解有以下属性：
+一个 Jmix 视图的流程表单本质上就是常规的应用程序视图，只不过包含了一些带有流程相关信息的注解。
 
-* allowedProcessKeys
-* outcomes
-* params
-* output variables
+=== 使用已有视图
 
-这些属性的用法在下面介绍。
+如需将已有常规视图转换为流程表单：
 
-[WARNING]
-====
-不要将 `@ProcessForm` 注解放置于有其他用途的 Jmix 视图上。
-最后通过向导或扩展已有视图的方式为 BPM 创建新的视图。
-====
+* 在控制器类上添加 <<processform,@ProcessForm>> 注解。根据需要声明输出、参数和输出变量。
+* 使用 <<processvariable,@ProcessVariable>> 注入并绑定流程变量。
+* 使用 <<process-form-context,ProcessFormContext>> 处理按钮点击并完成任务。
 
+TIP: 应当避免转换已经在使用的视图。最好创建一个新视图作为流程表单。
 
-[[creating-jmix-view-form]]
-== 创建 Jmix 视图表单
+=== 使用 Jmix Studio
 
-首先在 *BPMN Inspector* 中为用户任务或启动事件设置 _Jmix view_ 表单类型：
+在 Jmix Studio 创建流程表单：
 
-image::jmix-view-forms/set-jmix-view-type.png[,400]
+. 点击 *New -> View* 打开 xref:studio:view-wizard.adoc[]。
+. 选择 *BPM Process form* 模板。
++
+image:jmix-view-forms/view-wizard-bpm-process-form.png[,776]
++
+. 配置表单模板及其对应的元素：
++
+* 从以下两个选项中选择 *Form Template（表单模板）*：
+** *Process Form with Process Variables（带流程变量的表单）*：该表单将为所选择的一组流程变量创建页面组件。
+** *Process Form for Entity Instance（实体实例表单）*：该表单将为特定实体实例的属性以及任何附加的流程变量创建页面组件。
+* 选择 *Form Type（表单类型）*：
+** *User task form*：用于用户任务元素。
+** *Start form*：用于启动事件元素。
++
+image:jmix-view-forms/jmix-view-wizard-1.png[,776]
++
+. 如果选择 *Process form for entity instance*，需要指定实体类、变量名称，并配置 fetch plan。
+. 指定流程变量。
+. 如果选择 *User task form*，请指定表单的结果。默认为 `submit` 和 `reject`。可以编辑这些或添加更多选项。
+. 添加可本地化的消息。
+. 点击 *Create*。
 
-然后可以从下拉列表中选择已有的 Jmix 视图流程表单。
-如需创建新的视图，点击 image:jmix-view-forms/plus-button.png[,25] 按钮：
+与其他视图一样，表单会在应用程序中创建。
 
-image::jmix-view-forms/create-jmix-view.png[,400]
+[[set-up-element]]
+== 为元素设置流程表单
 
-在打开的视图创建向导中，输入 XML 和控制器的名称以及其他参数：
+创建流程表单后，可以为元素配置使用该表单。请按照以下步骤操作：
 
-image::jmix-view-forms/jmix-view-wizard-1.png[,700]
+. 打开 xref:menu-views/modeler-web.adoc[]。
+. 选择相应的元素（用户任务或启动事件）。
++
+[cols="a,a", frame=none, grid=none]
+|===
+| image:jmix-view-forms/user-task.png[,120]
+| image:jmix-view-forms/form-section.png[,456]
+|===
++
+. 将 *Form type* 设置为 `Jmix view`。
+. 设置 *Open mode*：
+** *Dialog*：在对话框中显示表单。
+** *Navigate*：在独立的 URL 上以视图形式显示表单。
+. 指定 *View id*。选项列表将包含应用程序内所有带 `@ProcessForm` 注解的视图。建模器会识别流程表单并根据其注解完成剩下的配置。
+. 如果有任何 <<process-form-with-parameters,表单参数>>，需要相应地配置其值来源。
 
-然后需要确定表单模板，有两个选项：
-_带流程变量的流程表单（Process form with process variables）_（默认）或 _实体实例流程表单（Process form for entity instance）_：
+现在，流程表单已配置好，可在所选元素中使用。
 
-image::jmix-view-forms/form-template-select.png[,600]
+[[processform]]
+== @ProcessForm
 
-选项解释：
+在视图控制器添加 `@ProcessForm` 注解可以将视图转换为流程表单，并使其能被 xref:menu-views/modeler-web.adoc[] 识别。该注解可以包含以下属性：
 
-* 默认情况下，_Entity_ 类型的流程变量在表单中显示为 _EntityPicker_ 对象。
-当用户需要从列表中选择一个实体实例时，这没问题。
-
-* 但是，如果用户希望能访问实体的全部属性，则 _EntityPicker_ 组件就不合适了。
-最好是能有一个类似实体标准详情视图的表单。
-第二个选项支持自动生成这样的表单。
-
-当选择创建 _实体实例流程表单_ 时，向导中需要填写实体类和 fetch plan：
-
-image::jmix-view-forms/form-wizard-entity-variable.png[,700]
-
-默认情况下，_Use existing variable_ 是勾选的，这些内容都是隐藏的。
-
-在完成实体变量实例设置后，向导提供了继续添加流程变量的界面。
-例如，可以添加一个 `initiator` 变量：
-
-image::jmix-view-forms/add-variable.png[,900]
-
-添加完成后，还可以选择是否在表单显示：
-
-image::jmix-view-forms/variable-to-form.png[,670]
-
-向导还可以定义表单输出。
-默认创建 `submit` 和 `reject` 输出。
-可以编辑或添加新的输出。
-
-image::jmix-view-forms/outcomes.png[,650]
-
-最后，定义表单中显示的消息。
-如果有多个语言地区设置，可以输入多语言消息。
-
-image::jmix-view-forms/wizard-messages.png[,650]
-
-向导完成后，会打开生成代码的表单控制器窗口：
-
-[source,java]
+* 如需限制表单在特定的流程中使用，可以在 `allowedProcessKeys` 属性中指定流程的键值：
++
+[source,java,indent=0]
 ----
-@ProcessForm(outcomes = {
-        @Outcome(id = "submit"),
-        @Outcome(id = "reject")
-}, outputVariables = {
-        @OutputVariable(name = "initiator", type = User.class),
-        @OutputVariable(name = "orderVar", type = Order.class)
-})
-@Route(value = "order-approval-form", layout = MainView.class)
-@ViewController("smpl_OrderApprovalForm")
-@ViewDescriptor("order-approval-form.xml")
-public class OrderApprovalForm extends StandardView {
-
-    @Autowired
-    private ProcessFormContext processFormContext;
-    @ProcessVariable(name = "initiator")
-    @ViewComponent
-    private EntityPicker<User> initiatorField;
-    @ProcessVariable(name = "orderVar")
-    private Order orderVar;
-    @ViewComponent
-    DataContext dataContext;
-    @ViewComponent
-    private InstanceContainer<Order> orderDc;
-
-    @Subscribe
-    public void onBeforeShow(final BeforeShowEvent event) {
-        if (orderVar == null) {
-            orderVar = dataContext.create(Order.class);
-        }
-        orderDc.setItem(dataContext.merge(orderVar));
-    }
-
-    @Subscribe(id = "submitBtn", subject = "clickListener")
-    protected void onSubmitBtnClick(ClickEvent<JmixButton> event) {
-        dataContext.save();
-        processFormContext.taskCompletion()
-                .withOutcome("submit")
-                .saveInjectedProcessVariables()
-                .complete();
-        closeWithDefaultAction();
-    }
-
-    @Subscribe(id = "rejectBtn", subject = "clickListener")
-    protected void onRejectBtnClick(ClickEvent<JmixButton> event) {
-        dataContext.save();
-        processFormContext.taskCompletion()
-                .withOutcome("reject")
-                .saveInjectedProcessVariables()
-                .complete();
-        closeWithDefaultAction();
-    }
-}
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProcessForm1.java[tags=allowed-process]
 ----
++
+* 如需定义表单结果，使用 `outcomes` 属性：
++
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OrderApprovalTaskForm.java[tags=outcomes]
+----
++
+* 如需定义输出变量，使用 `outputVariables` 属性：
++
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OutputVariablesForm.java[tags=output-variables]
+----
++
+* 如果只在某些特定的结果时才设置流程变量，可以按下面的示例将 `outcomes` 和 `outputVariables` 属性结合使用：
++
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OutcomeOutputVariablesForm.java[tags=output-variables]
+----
++
+<1> 当任务以 `approve` 完成时，会设置 `nextActor` 变量。
+<2> 当任务以 `reject` 完成时，会设置 `rejectionReason` 变量。
+<3> 在所有情况下都会设置 `comment` 变量。
++
+* 如需声明 <<process-form-with-parameters, 表单参数>>，请使用 `params` 属性。然后在类字段上设置 `@ProcessFormParam` 将字段与参数关联。
++
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=params;params-annotation]
+----
++
+NOTE: `@ProcessFormParam` 还可以使用 `name` 属性指定参数名称。如果没有指定，则从字段名生成默认名称。
 
+[[processvariable]]
+== @ProcessVariable
 
-[[process-variables]]
-== 流程变量
+在类字段和视图组件上使用 `@ProcessVariable`，可以在流程表单打开时设置流程变量的值。
 
-要将流程变量传入 Jmix 视图表单中，必须将它们注入到控制器。
-需要将 `@ProcessVariable` 注解放在注入的 UI 组件或常规类字段上。
-
-表示当打开流程表单时，流程变量的值将写入这些字段。
-如果注入的是 UI 组件，则将使用流程变量为 UI 组件赋值。
-
-一般要求控制器中带注解的字段名称与流程变量的名称一致。
-如果不一致，需要使用 `@ProcessVariable` 注解的可选 `name` 属性设置。
-该属性的值需设置为流程变量名称。
+NOTE: 该变量在 xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent] 中可用。而在 xref:flow-ui:views/view-events.adoc#init-event[InitEvent] 中不可访问。
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProcessForm1.java[tags=variables]
 ----
 
-如需将流程变量更新的值返回给流程，
-可以调用 <<process-form-context,ProcessFormContext>> 的 `saveInjectedProcessVariables()` 方法，
-带注解的字段的值将保存为流程变量。
+如果没有显式指定 `name`，则默认的流程变量名称从字段名称派生。
 
-默认情况下，向导会在点击事件的处理方法中实现该行为。
-或者，可以在自定义代码中实现。
+[[loading-dynamic-attributes]]
+=== 加载动态属性
 
+默认情况下，xref:dyn-attr:index.adoc[] 的值在流程表单中不会被加载（因此也不会显示）。如果流程变量是一个具有动态属性的实体，可以通过在 `params` 数组中添加 `@ProcessVariableParam` 并将 `ProcessVariableConstants.LOAD_DYN_ATTR_PARAM` 键设置为 `true` 来加载并显示这些属性。例如：
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/documentprocessform/DocumentProcessForm.java[tags=process-variable-param-example]
+----
+
+启用后，流程表单会自动为每个动态属性渲染可视化组件，而无需手动创建。
 
 [[process-form-context]]
 == ProcessFormContext
 
-`ProcessFormContext` 对象包含关于将要启动的流程定义信息
-（当该表单用于启动流程时）或将要完成的用户任务。
-
-如果流程表单是在 *启动流程* 或 *我的任务* 视图中打开，则可以使用 `ProcessFormContext`。
-如果需要在编程时打开流程表单并带有注入的 `ProcessFormContext`，
-那么请使用 <<opening-forms-programmatically,ProcessFormViews>> bean。
-
-`ProcessFormContext` 也具有启动流程和完成任务的方法。
+`ProcessFormContext` 对象包含正在启动的流程的定义或需要完成的用户任务的信息。当从 xref:bpm:menu-views/start-process-view.adoc[] 或 xref:menu-views/my-tasks.adoc[] 视图打开流程表单时，可以使用 `ProcessFormContext`。如需以编程方式打开带有注入的 `ProcessFormContext` 的流程表单，请使用 <<opening-forms-programmatically,ProcessFormViews>> bean。
 
 [[start-form-example]]
-启动流程的示例：
+参考以下启动流程的示例：
 
 [source,java,indent=0]
 ----
@@ -185,13 +154,13 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProce
 ----
 
 <1> 创建一个 `ProcessStarting` 实例。
-<2> 为流程实例设置业务键值。[[business-key]]
+<2> 为流程实例设置一个业务键值。[[business-key]]
 <3> 添加一个流程变量。
-<4> 启动流程。
+<4> 启动实际的流程。
 <5> 关闭打开的窗口。
 
 [[task-form-example]]
-完成用户任务的示例：
+参考以下完成用户任务的示例：
 
 [source,java,indent=0]
 ----
@@ -199,131 +168,10 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/TaskProces
 ----
 
 <1> 创建一个 `TaskCompletion` 实例。
-<2> 设置任务输出。
-<3> 指示带有 `@ProcessVariables` 注解的类字段值需要收集并作为流程变量存储。
-<4> 完成任务。
+<2> 设置任务的结果。
+<3> 带有 `@ProcessVariables` 注解的类字段值会被收集并保存为流程变量。
+<4> 完成实际的任务。
 <5> 关闭打开的窗口。
-
-[[declare-task-outcomes]]
-== 声明任务输出
-
-在 BPM 建模器中，对于 xref:bpmn/bpmn-sequence-flow.adoc[顺序流] 元素，
-可以从下拉列表中选择用户任务及其输出来定义条件。
-如需为使用 Jmix 视图流程表单的用户任务提供这个下拉列表的选项，
-可以在表单控制器中声明一个输出列表。
-需要使用 `@ProcessForm` 注解的 `outcomes` 属性。
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OrderApprovalTaskForm.java[tags=outcomes]
-----
-
-[[process-form-parameters]]
-== 流程表单参数
-
-Jmix 视图流程表单可以接收在建模器中定义的外部参数。
-表单参数在 `@ProcessForm` 注解的 `params` 属性中定义：
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=params]
-----
-
-*Bpmn Inspector* 会读取这些参数，在选择了视图后，可以看到这些参数。
-
-image::jmix-view-forms/form-params.png[,400]
-
-可以编辑这些参数，提供直接的参数值，或使用一个已有流程变量作为参数值。
-
-在流程表单控制器中，在类字段上使用 `@ProcessFormParam` 注解获取参数值。
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=params-annotation]
-----
-
-另一个获取流程表单参数完整列表的方法就是通过 `ProcessFormContext` 对象：
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=param-list]
-----
-
-与 `@ProcessVariable` 注解类似，`@ProcessFormParam` 也支持一个可选的 `name` 属性。
-如果未定义该属性，则使用字段名作为参数名。
-
-参考带参数流程表单的 <<process-form-with-parameters,示例>>。
-
-[[output-variables]]
-== 变量输出
-
-在对流程进行建模时，
-可能需要知道 Jmix 视图流程表单中设置了哪些变量，以便稍后在流程模型中重用。
-一种方法是使用 `@ProcessForm` 注解的 `outputVariables` 属性。
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OutputVariablesForm.java[tags=output-variables]
-----
-
-然后可以在 *BPMN Inspector* 面板的 _Output variable_ 部分看到这些输出变量。这个区域是只读的。
-
-image::jmix-view-forms/output-variables.png[,400]
-
-很常见的一种情况是，仅当使用特定输出完成任务时，才会设置某个流程变量。
-如需声明这种情形，需要将 `outputVariables` 属性放到 `@Outcome` 注解中。
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OutcomeOutputVariablesForm.java[tags=output-variables]
-----
-
-<1> 当任务通过 `approve` 输出完成时，才会设置 `nextActor` 变量。
-<2> 当任务通过 `reject` 输出完成时，才会设置 `rejectionReason` 变量。
-<3> `comment` 变量在任何情况都会设置。
-
-在输出变量中会显示对于的输出类别：
-
-image::jmix-view-forms/output-variables-outcomes.png[,400]
-
-[[restrict-process-form-usage]]
-== 限制流程表单的使用
-
-默认情况下，所有流程表单视图在任何流程模型中都可用。
-如果只想在特定流程中使用某些视图，
-那么，需要在 `@ProcessForm` 注解的 `allowedProcessKeys` 属性中指定流程键值。
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProcessForm1.java[tags=allowed-process]
-----
-
-该表单仅能在 ID 为 `process-1` 或 `process-2` 的流程中使用。
-
-[[opening-forms-programmatically]]
-== 编程方式打开表单
-
-可以用 `ProcessFormViews` 服务创建建模器中定义的启动流程表单或任务流程表单。
-
-下面示例中，启动流程表单通过在浏览视图点击按钮打开。
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/order/OrderListView.java[tags=start-form]
-----
-<1> 使用 `order-process` 键值获取流程定义。
-<2> 使用获取的流程定义显示启动流程表单。
-
-启动流程表单可以与 <<start-form-example,ProcessFormContext>> 部分的示例类似。
-
-使用 `openTaskProcessForm` 方法创建任务表单：
-
-[source,java,indent=0]
-----
-include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/test/TestScreen.java[tags=task-form]
-----
-
-任务流程表单可以与 <<task-form-example,ProcessFormContext>> 部分的示例类似。
 
 [[examples]]
 == 示例
@@ -331,10 +179,11 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/test/TestScreen.
 [[start-process-form]]
 === 启动流程表单
 
-我们看一下将流程表单用作启动表单的示例。表单展示两个字段：
+我们看一下将流程表单用作启动表单的示例。
+表单展示两个字段：
 
 * 一个文本字段，用于输入 order number。
-* 一个实体选择器，用于选择 manager，manager 可以是流程的下一个执行人。
+* 一个 `entityPicker`，用于选择 manager，manager 可以是流程的下一个执行人。
 
 视图 XML：
 
@@ -357,11 +206,10 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OrderAppro
 <4> 用 `ProcessFormContext` 对象启动流程。
 <5> 当流程启动时，我们可以传入一个可选的流程实例业务键值。
 这里我们用 `orderNumber`。
-<6> `saveInjectedProcessVariables()` 方法表示，
-带 `@ProcessVariables` 注解的字段在流程启动时会作为流程变量保存。
-
-除了用 `saveInjectedProcessVariables()`，还可以显式地设置流程变量：
-
+<6> `saveInjectedProcessVariables()` 方法在流程启动时将带有 `@ProcessVariables` 注解的字段值保存至流程变量。
++
+除了使用 `saveInjectedProcessVariables()`，还可以手动添加流程变量：
++
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProcessForm2.java[tags=start-example]
@@ -375,7 +223,7 @@ include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/StartProce
 * 第一个字段展示已有的流程变量值 - `orderNumber`。
 * 第二个字段作为新增流程变量 - `comment`。
 
-*Approve* 和 *Reject* 按钮分别使用对应的输出完成用户任务。
+*Approve* 和 *Reject* 按钮分别使用对应的结果完成用户任务。
 
 视图 XML：
 
@@ -391,24 +239,51 @@ include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/order
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/OrderApprovalTaskForm.java[tags=task-example]
 ----
 
-<1> 表单定义了两个可能的输出，建模器中可用与顺序流节点条件。
+<1> 表单定义了两个可能的结果，建模器中可用与顺序流节点条件。
 这个信息仅供建模器使用。
 <2> `orderNumber` 变量已经在流程启动时设置。
 由于使用了 `@ProcessVariable` 注解，
 流程变量 `orderNumber` 的值将在展示表单时设置给 `orderNumber` 文本控件。
-<3> `comment` 变量还未设置，但当我们在按钮点击监听器中完成任务时，会处理 `@ProcessVariable` 注解中的变量。
+<3> `comment` 变量还未设置，但当我们在按钮点击监听器中完成任务时，
+会处理 `@ProcessVariable` 注解中的变量。
 <4> 任务完成时，所有带 `@ProcessVariable` 注解的字段都作为流程变量保存。
-<5> 定义流程变量的另一种方式。除了使用 `saveInjectedProcessVariables()` 方法，可以直接定义流程变量。
+<5> 定义流程变量的另一种方式。除了使用 `saveInjectedProcessVariables()` 方法，
+可以直接定义流程变量。
+
+[[opening-forms-programmatically]]
+=== 编程式打开流程表单
+
+使用 `ProcessFormViews` 服务可以打开建模器中定义的流程启动表单和任务表单。
+
+在下面的示例中，列表视图中的按钮可以打开流程启动表单。
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/order/OrderListView.java[tags=start-form]
+----
+<1> 通过键值获取流程定义。
+<2> 使用给定的流程定义显示流程启动表单。
+
+使用 `openTaskProcessForm()` 打开任务表单：
+
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/test/TestScreen.java[tags=task-form]
+----
 
 [[process-form-with-parameters]]
 === 带参数的流程表单
 
-假设需要一个表单，用来选择流程的下一执行人。
-表单需要展示用来选择用户的 `EntityPicker` 字段，并将选择结果存为流程变量。
-我们希望用这个表单在不同的流程步骤选择不同的执行人，因此该表单需要有两个参数：
+流程表单可以接收外部参数来调整其行为或外观，例如更改组件标题。与流程变量不同，这些表单参数的作用域更窄，仅在特定表单内可用（除非将它们的值保存到流程变量中）。
 
-* `variableName`
-* `entityPickerCaption`
+TIP: 使用 <<processform,@ProcessForm>> 注解及其 `params` 属性声明表单参数。通过 `@ProcessFormParam` 注解与类字段关联。
+
+考虑这样一个场景：我们需要一个用于选择下一流程执行人的表单。该表单应包含一个 `EntityPicker` 组件来选择用户，然后将用户保存到流程变量中。此外，该表单还要在流程的不同步骤中重复使用，因此，可以通过参数设置实体选择器的标题以适应不同的步骤。
+
+总共会有两个表单参数：
+
+* `nextActor` – 保存用户在 `EntityPicker` 中选择的值，以便在后续流程中使用。
+* `entityPickerCaption` – 用于根据流程步骤自定义 `EntityPicker` 组件上的标题。
 
 视图 XML：
 
@@ -423,3 +298,12 @@ include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/actor
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=actor-form1;actor-form2]
 ----
+
+[TIP]
+====
+用 `ProcessFormContext` 可以获取流程表单所有参数的列表：
+[source,java,indent=0]
+----
+include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/ActorSelectionForm.java[tags=param-list]
+----
+====

@@ -125,7 +125,44 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/mapbas
 //The default value is 28. 更多详情参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setMaxZoom[setMaxZoom^].
 * `minZoom` - 设置 view 的最小缩放级别。
 //The default value is 0. 更多详情参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setMinZoom[setMinZoom^].
-* `projection` 值的是地图显示时的坐标参考系。通用的投影有 `EPSG:3857` 和 `EPSG:4326`。默认投影是 https://epsg.io/3857[EPSG:3857^]。可以在内部的 `projection` 元素设置自定义投影。更多详情参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_proj_Projection-Projection.html[Projection^]。
+* `projection` 定义地图上显示地理数据的坐标参考系（CRS）。将三维地球坐标转换到二维平面上。常见的投影方式包括 `EPSG:3857`（Web Mercator）和 `EPSG:4326`（WGS 84）。默认投影为 https://epsg.io/3857[EPSG:3857^]。可以设置自定义投影：
++
+[[set-custom-projection]]
+[TIP]
+====
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/geo-map-custom-projection" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
+*自定义投影配置*
+
+按照以下步骤配置自定义投影：
+
+. *定义投影 Bean*。使用 https://epsg.io/21781.proj4[PROJ.4^] 格式在 Spring 配置中注册投影：
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/MapsEx2Application.java[tags=register-projection]
+----
+
+. *配置地图组件*。在 XML 中为 `mapView` 设置 `projection` 属性：
++
+[source,xml,indent=0]
+----
+include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/customprojection/custom-projection-view.xml[tags=map]
+----
+
+. *控制器中初始化*。以编程方式在页面上的所有地图组件使用该投影：
++
+[source,java,indent=0]
+----
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/customprojection/CustomProjectionView.java[tags=set-projection]
+----
++
+NOTE: 投影会应用在页面上所有的地图组件中。一旦设置，所有坐标操作都将使用自定义投影的单位（米、度等）。
+====
 * `rotation` - 以弧度为单位设置视图的旋转（顺时针正旋转，0 表示北）。更多详情参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_View-View.html#setRotation[setRotation^]。
 * `zoom` 定义缩放级别。缩放级别的值从 0 开始，表示层级最高的视图，随着地图拉近放大而增加。
 

@@ -1,27 +1,27 @@
-= Migration from Older Versions
+= 从旧版本迁移
 :page-aliases: cuba:index.adoc, migration-from-classic-ui.adoc
 
-There are two different migration scenarios for Jmix applications.
+对于 Jmix 应用程序，有两种不同的迁移场景。
 
-If your project is already based on Jmix 2.x, you can easily upgrade it to the latest version with Jmix Studio. Studio supports changing the platform version and applies the required project updates for feature releases, so migrating from any earlier 2.x version to the current one is the recommended path. For detailed instructions, see xref:studio:project.adoc#upgrading-project[Upgrading Project].
+如果你的项目已经基于 Jmix 2.x，可以使用 Jmix Studio 轻松将其升级到最新版本。Studio 支持更改平台版本，并为功能版本应用所需的项目更新，因此从任何较早的 2.x 版本迁移到当前版本是推荐的路径。有关详细说明，请参见 xref:studio:project.adoc#upgrading-project[升级项目]。
 
-Migration from CUBA Platform or from Jmix 1.x Classic UI is a different case. Automatic upgrade is not possible because these platforms differ significantly in architecture and UI technology. The main reason is the transition from the older UI stack based on Vaadin 8 to Flow UI based on newer Vaadin versions.
+从 CUBA Platform 或 Jmix 1.x Classic UI 迁移则是另一种情况。由于这些平台在架构和 UI 技术上存在显著差异，无法进行自动升级。主要原因是旧的基于 Vaadin 8 的 UI 栈过渡到了基于较新 Vaadin 版本的 Flow UI。
 
-For these older applications, we recommend creating a new Jmix {page-component-version} project and migrating the application incrementally with the help of an AI coding agent. Jmix provides two template repositories that describe this approach:
+对于这些类型的应用程序，我们建议创建一个新的 Jmix {page-component-version} 项目，并在 AI 编码助手的帮助下增量迁移应用程序。Jmix 提供了两个使用此方法的模板仓库：
 
-* https://github.com/jmix-framework/jmix-migration-from-cuba-platform[jmix-framework/jmix-migration-from-cuba-platform^] is for migration from CUBA Platform 7.2
-* https://github.com/jmix-framework/jmix-migration-from-v1[jmix-framework/jmix-migration-from-v1^] if for migration from Jmix 1.x
+* https://github.com/jmix-framework/jmix-migration-from-cuba-platform[jmix-framework/jmix-migration-from-cuba-platform^] 从 CUBA Platform 7.2 迁移
+* https://github.com/jmix-framework/jmix-migration-from-v1[jmix-framework/jmix-migration-from-v1^] 从 Jmix 1.x 迁移
 
-== Recommended Migration Approach
+== 推荐的迁移方式
 
-The recommended workflow is as follows:
+推荐的迁移流程如下：
 
-. Create a new target project in Jmix Studio using the current Jmix version. Use the same base package as in the source application.
-. Install the latest Jmix agent guidelines in the target project from the https://github.com/jmix-framework/jmix-agent-guidelines[jmix-framework/jmix-agent-guidelines^] repository: copy the `AGENTS.md` file to the target project and make the `skills/` directory available to your AI agent.
-. Keep the source project and the new target project side by side in one workspace.
-. Open both projects in IntelliJ IDEA and enable the IntelliJ IDEA MCP Server so the AI agent can inspect code, project structure, and IDE analysis results.
-. Ask the agent to migrate the application in small, controlled steps instead of trying to convert everything at once.
+. 使用当前 Jmix 版本在 Jmix Studio 中创建一个新的目标项目。使用与源应用程序相同的基础包名。
+. 从 https://github.com/jmix-framework/jmix-agent-guidelines[jmix-framework/jmix-agent-guidelines^] 仓库将最新的 Jmix agent 安装到目标项目中：将 `AGENTS.md` 文件复制到目标项目，并确保 `skills/` 目录对您的 AI agent 可用。
+. 将源项目和新的目标项目并排放置在一个工作区中。
+. 在 IntelliJ IDEA 中打开两个项目，并启用 IntelliJ IDEA MCP Server，以便 AI agent 可以检查代码、项目结构和 IDE 分析结果。
+. 要求 agent 以小而可控的步骤迁移应用程序，而不是试图一次性转换所有内容。
 
-Perform the work in this sequence: entities, fetch plans, business logic, fragments, and then views. For large applications, each phase should be split into smaller tasks, for example by functional package.
+按照以下顺序执行工作：实体、fetch plan、业务逻辑、fragments，然后是视图。对于大型应用程序，每个阶段应拆分为更小的任务，例如按功能包进行拆分。
 
-With this approach the target project is created according to current Jmix conventions from the start, while the AI agent transfers and adapts source code incrementally. In other words, you rebuild the application on top of a clean Jmix {page-component-version} foundation and use the source project as the specification.
+使用该方法，目标项目从一开始就按照当前 Jmix 约定创建，而 AI agent 则增量地转移和适配源代码。换句话说，是在干净的 Jmix {page-component-version} 基础之上重建应用程序，并将源项目作为规范。

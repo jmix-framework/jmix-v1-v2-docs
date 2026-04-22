@@ -1,28 +1,28 @@
-= Troubleshooting
+= 故障排除
 
-If you experience any problems while working on a project, try closing it and opening it again. If it doesn’t help, try to invalidate caches and restart the IDE:
+如果在开发过程中遇到任何问题，请尝试关闭项目并重新打开。如果问题仍然存在，请尝试清除缓存并重启 IDE：
 
-. Open *File → Invalidate Caches* from the main menu.
-. Select the *Delete Jmix Studio templates and artifacts caches* checkbox.
-. Click *Invalidate and Restart*.
+. 从主菜单打开 *File → Invalidate Caches*。
+. 选中 *Delete Jmix Studio templates and artifacts caches* 复选框。
+. 点击 *Invalidate and Restart*。
 
-Note that after reopening the project, reindexing project dependencies may take some time.
+请注意，重新打开项目后，重新建立项目依赖的索引可能需要一些时间。
 
 [[known-problems]]
-== Known Problems
+== 已知问题
 
-The following problems are rare but are known to exist based on user feedback. If you encounter any of these issues, please try the proposed resolution or https://forum.jmix.io/[report to the forum^] if the issue persists.
+以下问题虽不常见，但根据用户反馈确实存在。如果遇到这些问题，请尝试建议的解决方案，如果问题仍然存在，请 https://forum.jmix.cn/[在论坛中报告^]。
 
 [[advanced-features-unavailable]]
-=== Community License: Advanced Features Unavailable for Small Projects
+=== 社区版许可：小型项目的高级功能不可用
 
-The *Community License* allows for the use of advanced Studio features for small projects with fewer than 10 entities and 10 security roles. If your project stays within these limits, but some features are inaccessible, try logging out and then logging back into your Jmix account.
+*社区版许可* 允许在实体少于 10 个且安全角色少于 10 个的小型项目中使用高级 Studio 功能。如果项目在此限制范围内，但某些功能仍无法访问，请尝试注销然后重新登录您的 Jmix 账户。
 
 [[consistent-build-failures]]
-=== Consistent Build Failures
+=== 持续构建失败
 
-If your project consistently fails to build, running `./gradlew clean` can help. This command removes the `build` directory containing build artifacts. You can run this command from the *Jmix Tool Window*:
+如果项目持续构建失败，请尝试运行 `./gradlew clean`。此命令会删除包含构建产物的 `build` 目录。可以从 *Jmix Tool Window* 运行此命令：
 
 image::gradle.png[align="center",width="313"]
 
-If your project only runs after executing `./gradlew clean`, this may indicate an underlying configuration issue.
+如果项目只有在执行 `./gradlew clean` 后才能运行，这可能表明存在潜在的配置问题。

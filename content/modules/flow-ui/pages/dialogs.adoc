@@ -13,6 +13,12 @@
 [[message-dialog]]
 == 消息对话框
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/message-dialog" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 消息对话框可以为用户展示某些消息。
 
 image::dialogs/message-dialog.png[align="center", width = 399]
@@ -53,6 +59,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 [[option-dialog]]
 == 选项对话框
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/option-dialog" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 选项对话框能展示消息和一组用户交互的按钮。
 
 image::dialogs/option-dialog.png[align="center", width = 400]
@@ -90,6 +102,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 
 [[background-task-dialog]]
 == 后台任务对话框
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/background-task-dialog" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
 
 后台任务对话框为长时间运行的任务提供了用户友好的体验，用户可以在对话框中查看进度并在需要时可以取消操作。
 
@@ -131,6 +149,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 [[input-dialog]]
 == 输入对话框
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/input-dialog" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
 输入对话框是一个多功能的工具，可以使用 API 构建输入表单，摆脱为琐碎的数据输入创建界面的麻烦。支持不同类型数据的输入、验证输入数据以及为用户提供不同的操作。
 
 image::dialogs/input-dialog.png[align="center", width = 560]
@@ -167,7 +191,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <6> 在关闭事件监听器中，我们可以检查用户使用了什么操作。
 <7> 关闭事件包含了输入的值，可以通过参数标识符进行获取。
 
-[[custom-paramters]]
+[[custom-parameters]]
 === 自定义参数
 
 下面的示例展示了创建自定义参数并支持用户通过 combobox 进行选择：
@@ -226,6 +250,162 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsan
 <1> 自定义验证逻辑，保证至少有一个参数。
 <2> 验证器内，参数可以从 context 对象获取。
 <3> 如果没有输入任何参数，则返回验证错误。
+
+[[side-dialog]]
+== 侧边对话框
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/side-dialog" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
+从视图的某一边滑出的对话框。
+
+image::dialogs/side-dialog.png[align="center", width = 1155]
+
+使用 `Dialogs` bean 打开对话框：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/view/dialogsandnotifications/dialogs/DialogsSampleView.java[tags=inject-dialogs;inject-message-bundle;side-dialog]
+----
+
+=== 位置和大小
+
+使用 `withSideDialogPosition()` 定义对话框出现的位置。可选值为 `RIGHT`、`TOP`、`BOTTOM`、`LEFT`、`INLINE_START` 和 `INLINE_END`。默认值为 `RIGHT`。`INLINE_START` 和 `INLINE_END` 遵循文本方向（LTR/RTL）。
+
+对话框的大小根据其方向进行不同的配置。
+
+对于水平对话框（`LEFT`、`RIGHT`、`INLINE_START`、`INLINE_END`）：
+
+* `setHorizontalSize()`
+* `setHorizontalMaxSize()`
+* `setHorizontalMinSize()`
+
+对于垂直对话框（`TOP`、`BOTTOM`）：
+
+* `setVerticalSize()`
+* `setVerticalMaxSize()`
+* `setVerticalMinSize()`
+
+=== 内容
+
+可以使用 provider 为对话框定义显示的内容：
+
+[cols="1h,4", grid=rows]
+|===
+|方法 |描述
+|`withContentComponents()`
+|为对话框的内容区域提供组件。
+|`withHeaderProvider()`
+|为对话框的 header 区域提供组件。
+|`withFooterProvider()`
+|为对话框的 footer 区域提供组件。
+|===
+
+=== 事件
+
+支持以下事件：
+
+[cols="1h,4", grid=rows]
+|===
+|事件 |描述
+|`SideDialogOpenedChangeEvent`
+|对话框打开或关闭是发送。
+|`SideDialogCloseActionEvent`
+|当用户按下 `Esc` 或点击对话框外部是发送。可以用这个事件控制对话框是否关闭。
+|===
+
+=== 样式
+
+侧边对话框的外观和大小可以用 CSS 自定义。
+
+==== 大小
+
+你可以使用 CSS 变量全局配置对话框大小。这些值将应用于所有 `SideDialog` 实例。
+
+NOTE: 通过 Java API 以编程方式设置大小优先于 CSS 变量。
+
+水平方向大小（适用于 `LEFT`、`RIGHT`、`INLINE_START`、`INLINE_END`）：
+
+[cols="2h,3,1", grid=rows]
+|===
+|变量 |描述 |默认值
+|`--jmix-side-dialog-horizontal-size`
+|对话框的基本水平大小。
+|`auto`
+|`--jmix-side-dialog-horizontal-max-size`
+|最大水平大小。
+|`50%`
+|`--jmix-side-dialog-horizontal-min-size`
+|最小水平大小。
+|`16em`
+|===
+
+垂直方向大小（适用于 `TOP`、`BOTTOM`）：
+
+[cols="2h,3,1", grid=rows]
+|===
+|变量 |描述 |默认值
+|`--jmix-side-dialog-vertical-size`
+|对话框的基本垂直大小。
+|`auto`
+|`--jmix-side-dialog-vertical-max-size`
+|最大垂直大小。
+|`50vh`
+|`--jmix-side-dialog-vertical-min-size`
+|最小垂直大小。
+|`16em`
+|===
+
+==== 外观
+
+[cols="2h,3,1", grid=rows]
+|===
+|变量 |描述 |默认值
+|`--jmix-side-dialog-transition-duration`
+|对话框打开和关闭的动画时长。
+|`200ms`
+|===
+
+==== 可样式化 parts
+
+侧边对话框开放了以下 xref:themes/styling-ui-components.adoc#stylable-parts[可样式化部分]：
+
+[cols="2h,3", grid=rows]
+|===
+|parts |描述
+|`jmix-side-dialog-overlay::part(backdrop)`
+|模态遮罩层（对话框背后的背景覆盖层）。
+|`jmix-side-dialog-overlay::part(overlay)`
+|对话框覆盖层（主容器）。
+|`jmix-side-dialog-overlay::part(header)`
+|对话框的头部区域。
+|`jmix-side-dialog-overlay::part(title)`
+|标题包装元素。
+|`jmix-side-dialog-overlay > [slot="title"]`
+|标题元素。
+|`jmix-side-dialog-overlay::part(header-content)`
+|自定义头部内容的容器。
+|`jmix-side-dialog-overlay::part(content)`
+|主要内容区域。
+|`jmix-side-dialog-overlay::part(footer)`
+|底部区域。
+|===
+
+==== 状态
+
+侧边对话框暴露了以下 xref:themes/styling-ui-components.adoc#component-states[状态]：
+
+[cols="2h,3", grid=rows]
+|===
+|状态 |描述
+|`jmix-side-dialog-overlay[side-dialog-position='right']`
+|根据对话框位置应用，例如 `left`、`top` 或 `bottom`。
+|`jmix-side-dialog-overlay[fullscreen]`
+|当对话框在小设备上以全屏模式显示时应用。
+|===
 
 [[dialog-configuration]]
 == 对话框配置

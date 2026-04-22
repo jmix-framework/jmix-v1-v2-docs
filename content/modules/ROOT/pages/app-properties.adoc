@@ -91,7 +91,7 @@ TIP: `${user.dir}` 是用户的工作目录（JVM 的启动目录）。
 [[jmix.core.trigger-files-process-interval]]
 === jmix.core.trigger-files-process-interval
 
-<<jmix.core.trigger-files-enabled,触发器文件>> 扫描和处理的间隔，单位为毫秒。
+搜索和处理 <<jmix.core.trigger-files-enabled,触发器文件>> 的间隔，单位为毫秒。
 
 默认值：`5000`
 
@@ -176,6 +176,30 @@ jmix.cors.allowed-origins = https://www.allowed1.com, https://www.allowed2.com
 这个属性会影响 Spring Security 的 {spring-security-api}/org/springframework/security/config/annotation/web/configurers/SessionManagementConfigurer.html#maximumSessions(int)[SessionManagementConfigurer.maximumSessions^] 参数。
 
 默认值：`100`
+
+[[long-classpath-issues-windows]]
+== Windows 中 Classpath 超长的问题
+
+[[io.jmix.flowui.read-class-path-from-temp-jar]]
+=== io.jmix.flowui.read-class-path-from-temp-jar
+
+在 Windows 中，classpaths 超长的应用程序可能会在 Flow UI 中遇到 UI 渲染问题。
+
+Jmix 提供了一个配置属性来解决这个 Windows 中独有的问题：
+
+[source,properties]
+----
+io.jmix.flowui.read-class-path-from-temp-jar = true
+----
+
+默认值：`true`
+
+启用后：
+
+* 仅在 Windows 操作系统上自动激活。
+* 从 Gradle 临时 JAR 内的 `MANIFEST.MF` 文件中提取 classpath。
+* 确保 Spring Boot 正确识别所有 classpath 条目。
+* 恢复正确的 UI 资源加载和组件渲染。
 
 [[see-also]]
 == 参考

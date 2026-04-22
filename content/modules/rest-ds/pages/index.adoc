@@ -328,7 +328,7 @@ include::example$rest-ds-client/src/main/java/com/company/clientapp/view/custome
 * 简单类型：基本类型（`int`、`double` 等），或包装类型（`Integer`、`Double` 等），以及 `String`。
 * xref:data-model:entities.adoc[实体]
 * xref:data-model:enumerations.adoc[枚举]
-* 有对应 xref:data-model:data-types.adoc[Datatype] 的类型。包括 xref:data-model:entities.adoc#attributes[实体属性] 支持的类型，以及自定义的数据类型。
+* 有对应 xref:data-model:datatype.adoc[Datatype] 的类型。包括 xref:data-model:entities.adoc#attributes[实体属性] 支持的类型，以及自定义的数据类型。
 * 任意 POJO 或 Java record 类型，但是属性需要是上面这些类型。
 * 参数化的 `java.util.List` 类型，列表必须包含上面的类型。
 ====
@@ -341,6 +341,134 @@ include::example$rest-ds-client/src/main/java/com/company/clientapp/view/custome
 . 从 `RestDataStoreUtils` bean 调用 `getRestClient(String dataStoreName)` 获取 `RestClient` 实例。
 
 . 使用 `RestClient` API 调用服务端端点。
+
+[[sharing-code]]
+== 在应用程序之间共享代码
+
+可以在集成了 REST 数据存储的应用程序之间共享实体类和服务接口。虽然会导致应用程序之间的紧耦合，但可以减少代码重复和开发工作量。
+
+使用这种方法，共享代码放置在一个单独的扩展组件中，供客户端和服务应用程序共同使用。共享代码可以包含 JPA 实体、业务服务接口、安全角色以及任何常见的工具类。
+
+下面我们将以 Products 和 Orders 应用程序为例，介绍共享实体、服务接口和角色所需的步骤。Products 应用程序通过 REST API 暴露其 `Product` 和 `ProductCategory` 实体以及 `InventoryService`。Orders 应用程序使用这些实体并通过 REST 数据存储调用服务。
+
+[[shared-add-on]]
+=== 共享扩展组件
+
+共享扩展组件是通过 Studio 的 *New Project* 向导中的标准 `Add-On (Java)` 模板创建的。包含 `shared` 和 `shared-starter` 模块：
+
+[source]
+----
+shared-addon
+├── shared
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com
+│   │   │   │       └── company
+│   │   │   │           └── shared
+│   │   │   │               ├── entity
+│   │   │   │               │   ├── Product.java
+│   │   │   │               │   └── ProductCategory.java
+│   │   │   │               ├── security
+│   │   │   │               │   └── ProductsRole.java
+│   │   │   │               ├── service
+│   │   │   │               │   └── InventoryService.java
+│   │   │   │               └── SharedConfiguration.java
+│   │   │   └── resources
+│   │   │       └── com
+│   │   │           └── company
+│   │   │               └── shared
+│   │   │                   ├── liquibase
+│   │   │                   │   ├── changelog
+│   │   │                   │   │   └── 010-init-products.xml
+│   │   │                   │   └── changelog.xml
+│   │   │                   ├── messages.properties
+│   │   │                   └── module.properties
+│   │   └── test
+│   │       └── ...
+│   └── shared.gradle
+├── shared-starter
+│   ├── src
+│   │   └── ...
+│   └── shared-starter.gradle
+├── build.gradle
+└── settings.gradle
+----
+
+主 `shared` 模块中的构建脚本仅仅定义了一些 Jmix 依赖：
+
+[source,groovy]
+.shared-addon/shared/shared.gradle
+----
+include::example$rest-ds-shared/shared-addon/shared/shared.gradle[tags=dependencies]
+----
+
+扩展组件包含以下共享代码：
+
+* `Product` 和 `ProductCategory` JPA 实体。
+* `ProductsRole` 资源角色定义了允许访问实体及其属性的策略。
+* `InventoryService` 是定义某些业务方法的接口。
+* `010-init-products.xml` 是为 `Product` 和 `ProductCategory` 实体创建数据库结构的 Liquibase changelog。
+
+[[sharing-code-service-application]]
+=== 服务端应用程序
+
+Products 服务应用程序以标准方式包含共享扩展组件，无需任何特定配置。
+
+Products 应用程序的构建脚本定义了对共享扩展组件 starter 的依赖：
+
+[source,groovy]
+.products/build.gradle
+----
+include::example$rest-ds-shared/products/build.gradle[tags=dependencies]
+----
+
+应用程序提供了 `InventoryService` 接口的实现：
+
+[source,java]
+.products/src/main/java/com/company/products/service/InventoryServiceImpl.java
+----
+include::example$rest-ds-shared/products/src/main/java/com/company/products/service/InventoryServiceImpl.java[tags=service]
+----
+
+[[sharing-code-client-application]]
+=== 客户端应用程序
+
+Orders 客户端应用程序也包含了共享扩展组件：
+
+[source,groovy]
+.orders/build.gradle
+----
+include::example$rest-ds-shared/orders/build.gradle[tags=dependencies]
+----
+
+此外，客户端应用程序会调整实体和远程服务的配置，以正确处理共享代码。
+
+. 构建脚本通过 `jmix.entitiesEnhancing.nonJpaPackages` 属性将共享实体包从 JPA 映射中排除：
++
+[source,groovy]
+.orders/build.gradle
+----
+include::example$rest-ds-shared/orders/build.gradle[tags=non-jpa-entities]
+----
++
+也可以通过 `jmix.entitiesEnhancing.nonJpaClasses` 属性配置需要排除的类。
+
+. `SharedEntitiesConfigurer` bean 将 `products` REST 数据存储设置为共享扩展组件实体的数据存储：
++
+[source,java]
+.orders/src/main/java/com/company/orders/SharedEntitiesConfigurer.java
+----
+include::example$rest-ds-shared/orders/src/main/java/com/company/orders/SharedEntitiesConfigurer.java[]
+----
+
+. `SharedServicesConfigurer` bean 添加了一个扫描过滤器，用于查找共享扩展组件的服务接口用来创建客户端代理。还定义了服务接口的存储名称：
++
+[source,java]
+.orders/src/main/java/com/company/orders/SharedServicesConfigurer.java
+----
+include::example$rest-ds-shared/orders/src/main/java/com/company/orders/SharedServicesConfigurer.java[]
+----
 
 [[limitations]]
 == 局限性

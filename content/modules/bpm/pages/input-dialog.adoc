@@ -1,158 +1,58 @@
-= 输入对话框表单
+= 输入对话框
 
-*输入对话框表单（Input dialog form）* 是在 BPMN 流程模型中定义的表单。
-当用户启动流程或打开用户任务时，
-将根据模型中提供的配置自动渲染输入对话框。
-输入对话框的布局和行为无法修改。
+*输入对话框（Input dialog）* 是为 xref:bpmn/bpmn-events.adoc#start-events[启动事件] 和 xref:bpmn/bpmn-user-task.adoc[用户任务] 元素提供参数的最直接的方法。当用户启动流程或对应的任务时自动弹出。
 
-可以为用户任务模型元素的 `StartEvent` 配置输入对话框。
-创建输入对话框表单时，从 *BPMN Inspector* 面板的下拉列表中设置表单类型为 _Input dialog_。
+image::input-dialog-forms/form-example.png[,600]
 
-image::input-dialog-forms/create-dialog-form.png[,400]
+如需为某个元素配置对话框，请在画布上选择该元素，并填写 *Form* 里的配置。这些配置说明如下。
 
-然后，将出现其他表单属性：
+[[form-type]]
+== 表单类型
 
-image::input-dialog-forms/form-section.png[,400]
-
-这里可以选择打开模式、设置参数和输出。
+这个配置流程表单的类型：*No form*、*Input dialog*、*Jmix view* 或 *Custom*。选择类型后，会显示该类型所需的其他配置。
 
 [[open-mode]]
 == 打开模式
 
-*打开模式（Open mode）* 定义表单的打开方式：
+*Open mode（打开模式）* 配置表单如何展示：
 
-* *Dialog* -- 弹窗方式打开。
-* *Navigate* -- 视图通过 URL（在 `@Route` 注解定义）导航打开。
+* *Dialog*：表单以对话框的形式展示。
+* *Navigate*：表单作为一个视图在其 URL 展示。
 
-image::input-dialog-forms/open-mode.png[,400]
+[[input-dialog-paramters]]
+== 输入对话框参数
 
-默认使用 *Dialog* 模式。
+参数关联对话框中的输入字段。如需添加参数，点击 image:quick-start/plus-button.png[[align="center", width="32"] 按钮：
 
-[[parameters]]
-== 参数
-参数是可以向用户显示数据或期望用户输入的表单字段。可以从 *BPMN Inspector* 面板创建参数：
+image::input-dialog-forms/parameter-editor-begin.png[align="center", width="601"]
 
-image::input-dialog-forms/create-parameters.png[,400]
+在编辑器中，选择一个已有的流程变量或者输入变量的名称定义一个新的变量。然后添加变量的显示名称（caption）并选择变量的类型。
 
-点击 *create* 将打开参数编辑器窗口。这里可以从下拉列表中选择流程变量，或通过输入变量名称来定义新变量。
+[NOTE]
+====
+`Entity` 和 `Entity list` 类型的参数需要额外的配置。包括选择实体类和 UI 组件（**EntityPicker** 或 **ComboBox**）。
 
-image::input-dialog-forms/parameter-editor-begin.png[,600]
+image::input-dialog-forms/parameter-editor-entity.png[align="center", width="602"]
 
-勾选两个复选框设置参数是否可编辑或是否必需。
+**EntityPicker** 支持用户通过特定的视图查找实体实例。如果没有提供视图，则默认使用该实体的标准列表视图。
 
-支持的参数类型：
-
-* String（字符串）
-* Multiline string（多行字符串）
-* Decimal（小数）
-* Number（整数）
-* Boolean（布尔值）
-* Date（日期）
-* Date with time（日期时间）
-* Entity（实体）
-* Entity list（实体列表）
-* File（文件）
-* Platform enum（平台枚举）
-* Custom enum（自定义枚举）
-
-`Entity` 和 `Entity list` 类型还有额外的属性。这里必需从下拉列表选择一个实体类。
-
-image::input-dialog-forms/parameter-editor-entity.png[,800]
-
-然后可以选择实体需要使用的 UI 组件，可以是 xref:flow-ui:vc/components/comboBox.adoc[] 或 xref:flow-ui:vc/components/entityPicker.adoc[]。
-
-image::input-dialog-forms/parameter-editor-entity-ui-compontent.png[,800]
-
-默认会选择 *EntityPicker*。此时可以设置一个 *查找界面（Lookup screen）*。如果留空，则默认使用该实体的标准列表视图。
-
-当选择 *ComboBox* 时，需要指定一个 JPQL 查询语句，可以按需使用 `where` 和 `order by` 子句。
-JPQL 可以手动填写或使用 *JPQL Editor* 编辑：
-
-image::input-dialog-forms/parameter-editor-entity-combo-box.png[,800]
-
-参数创建完成后，也可以在 *BPMN Inspector* 面板修改。
-
-image::input-dialog-forms/edit-param-in-panel.png[,400]
-
-创建第一个参数后，将显示一个包含参数列表的对话框窗口。
-可以在此处继续创建参数或管理参数的顺序。
-
-image::input-dialog-forms/parameters-list.png[,600]
-
-
-*XML 表示*
-
-如上所述，输入对话框表单直接在 BPMN 模型中定义。
-所以在 XML 中由 `jmix:formData` 属性表示：
-
-[source,xml]
-----
-<jmix:formData type="input-dialog" openMode="DIALOG">
-  <jmix:formFields>
-    <jmix:formField id="order" caption="Order" type="entity" editable="true" required="false">
-      <jmix:formFieldProperty name="entityName" value="smpl_Order" />
-      <jmix:formFieldProperty name="uiComponent" value="comboBox" />
-      <jmix:formFieldProperty name="query" value="select e from smpl_Order e where e.amount &#62; 1000" />
-    </jmix:formField>
-    <jmix:formField id="name" caption="Name" type="string" editable="true" required="false" />
-  </jmix:formFields>
-----
+**ComboBox** 在下拉列表中显示实体实例，需要提供一个 JPQL 查询语句加载。
+====
 
 [[business-key]]
 == 业务键值
 
-为启动事件创建输入对话框表单时，
-可以定义一个 xref:bpm-concepts.adoc#business-key[业务键值]。
+NOTE: 该设置仅支持 xref:bpmn/bpmn-events.adoc#start-events[启动事件]。
 
-image::input-dialog-forms/setting-business-key.png[,400]
-
-可以直接设置值，或者从流程变量获取。
+xref:bpm-concepts.adoc#business-key[业务键值（business key）] 可以通过四种方式指定：一个流程变量、一个实体变量属性（例如，`${entity.attribute}`）、一个 Spring bean 方法调用、或通过 Flowable https://www.flowable.com/open-source/docs/bpmn/ch04-API/#expressions[表达式^]。
 
 [[outcomes]]
 == 输出
 
-输出是用户任务完成情况另一种预定义表示，即任务执行者所做的决定。
+用户可以指定表单输出的状态（如，已批准或驳回），通过这个过程完成用户任务。输出会以按钮的形式显示在流程表单上。默认情况下，如果不设置任何输出，就会使用默认的 *Complete* 输出。
 
-例如，在文档审批任务中，用户可以批准或驳回文档。需要创建两个输出：`approve` 和 `reject`。
+NOTE: 不论特定的输出结果怎样，都会发送任务的完成事件。
 
-在流程表单中，输出是带名称的按钮。用户完成任务时，用户必须点击其中一个。
+如需添加输出，点击 image:quick-start/plus-button.png[align="center", width="32"] 按钮。然后在编辑器中指定输出的 id、标题和图标。
 
-无论用户选择哪个输出按钮，都会触发任务的完成事件，如果定义了输出，则不会显示标准的 *Complete* 按钮。
-
-可以从 *BPMN Inspector* 面板创建输出：
-
-image::input-dialog-forms/create-outcomes.png[,400]
-
-在打开的输出编辑器中，
-创建输出并设置对应的图标。
-
-image::input-dialog-forms/outcomes-editor.png[,600]
-
-在 *BPMN Inspector* 面板可以编辑已创建的输出。
-
-image::input-dialog-forms/outcomes-created.png[,400]
-
-
-*XML 表示*
-
-输出在 XML 中用 `jmix:formOutcomes` 表示。
-
-[source,xml]
-----
-  <jmix:formOutcomes>
-    <jmix:formOutcome id="approve" caption="Approve" icon="CHECK" />
-    <jmix:formOutcome id="reject" caption="Reject" icon="BAN" />
-  </jmix:formOutcomes>
-----
-
-[[example]]
-== 示例
-
-最终的输入对话框表单如下：
-
-image::input-dialog-forms/form-example.png[,600]
-
-[NOTE]
-====
-当使用实体作为表单参数时，最好使用 xref:bpmn/jmix-view-forms.adoc[Jmix 视图表单]。
-====
+image::input-dialog-forms/outcomes-editor.png[align="center", width="610"]

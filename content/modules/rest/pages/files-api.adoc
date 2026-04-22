@@ -1,6 +1,6 @@
 = 文件
 
-文件 API 使用 Jmix 的 xref:files:index.adoc[文件存储机制]，并将接口开放给客户端，用于从 Jmix 应用程序上传/下载文件。
+文件 API 使用 Jmix 的 xref:files:index.adoc[文件存储机制]，并将接口开放给客户端，用于从 Jmix 应用程序上传或下载文件。
 
 [[uploading-files]]
 == 上传文件

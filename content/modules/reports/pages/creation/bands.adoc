@@ -1,30 +1,72 @@
-= 带区
+= 带区和数据集
 
-*Bands（带区）* 包含报表数据结构的重要元素 - 带区结构。
+报表的内部结构由 _bands（带区）_ 组成。一个带区表示报表中的一个部分，该部分在最终文档中可能出现零次或多次。
+
+带区中填充的数据由一个或多个与该带区关联的 _datasets（数据集）_ 提供。
+
+在报表模板中，带区的标记方式取决于文件格式。报表定义中包含带区的层次结构，与模板中的带区相对应。
+
+下图展示了报表中使用的带区示例：
+
+.示例报表带区
+image::create/bands-1.svg[align="center", width="611"]
+
+报表定义中的 `Root` 带区是预定义的，但模板中可能不会用到。
+
+TIP: 另请参阅 xref:reports-guide:index.adoc[] 指南，其中包含具有复杂结构和各种输出类型的报表的实际示例。
+
+[[bands]]
+== 带区
+
+[[bands-tab]]
+=== 带区标签页
+
+应用程序运行时，可以在报表编辑器中的 *Bands* 标签页定义带区结构和每个带区的数据集。
 
 image::bands.png[align="center",width="1079"]
 
 一个报表带区包含下列参数：
 
-* *Name（名称）* - 报表中的唯一带区名称。必须只包含拉丁字母、数字和下划线。此外，如果带区名称以 *header* 开头，则其数据不会在 xref:creation/templates.adoc#table_output[表格] 中输出。
-* *Orientation（方向）* - 带区方向：*Horizontal（水平）*、*Vertical（垂直）* 或 xref:sample-reports.adoc#crosstab_xls[Crosstab（双向）]。
-** Horizontal - 报表带区向下复制，可以包括子带区；
-** Vertical - 报表带区向右复制；
-** Crosstab - 报表带区向右和向下复制为矩阵。
-* *Parent band（父数据区）* - 父带区。
-* *Multiple Datasets* - 需要多个数据集时，勾选该复选框。
-* *Dataset type* - 数据集的 <<dataset_types,类型>>。
+* *Name* -- 带区名称，在报表内唯一。只能包含拉丁字母、数字和下划线。
++
+NOTE: 如果带区名称以 *header* 开头，则在使用 xref:creation/templates.adoc#table_output[表格格式化器] 时，其数据不会被打印。
+
+* *Orientation* -- 带区方向：*Horizontal*、*Vertical* 或 *Crosstab（双向）*。
+** *Horizontal* 带区向下复制。可以包含子带区。
+** *Vertical* 带区向右复制。
+** *Crosstab* 带区以矩阵形式向右和向下复制。
+
+* *Parent* -- 父带区。
+
+* *Multiple Datasets* -- 如果想为带区定义多个数据集，请勾选。
+
+* *Dataset type* -- 数据集的 <<datasets,类型>>。
 
 每个报表带区包括一个或多个数据集。在运行报表时，数据集将转换为行的列表，其中每行都是包含名值对（name-value）的映射。报表中出现的带区的次数与其最长数据集中的行数一样多。
 
-字段名称可以用于报表模板中，并在生成报表时替换为数据集中的相应值。在描述数据集时，可以使用 xref:creation/parameters.adoc[报表外部参数] 以及其他报表带区的字段，这样可以创建关联带区。
+报表模板中定义的字段在执行报表时会被数据集中的相应值替换。在定义数据集时，可以使用 xref:creation/parameters.adoc[报表外部参数] 和其他带区的字段（用于关联带区）。
 
-每个报表都有 *Root* 带区。可以在其中创建数据集并从其他带区引用这些数据集的字段，但不能在报表模板中使用 *Root* 带区。
+每个报表都有一个 *Root* 带区。可以在其中创建数据集，并从其他带区引用其字段。
 
-*Dataset name（数据集名称）* 列的值仅为方便用户。
+请注意，*Dataset name* 列（在使用多个数据集时可用）仅供方便使用。
 
-[[dataset_types]]
-== 数据集类型
+[[band-def]]
+=== @BandDef 注解
+
+在设计时可以用 `@BandDef` 定义带区。该注解有以下属性：
+
+* `name` -- 带区名称，在报表内唯一。只能包含拉丁字母、数字和下划线。
+* `parent` -- 父带区的名称。只有 `Root` 带区可以省略。
+* `root` -- 对于 `Root` 带区必须设置为 `true`。默认为 `false`。
+* `orientation` -- 带区的方向，由 `Orientation` 枚举定义：`HORIZONTAL`、`VERTICAL`、`CROSS`。默认为 `HORIZONTAL`。
+* `dataSets` -- 由一组 `@DataSetDef` 注解定义的数据集。
+
+报表定义必须包含带有 `name = "Root"` 和 `root = true` 属性的 `Root` 带区。
+
+IMPORTANT: 报表定义 Java 类中 `@BandDef` 注解的顺序很重要。会影响同一层级带区的打印顺序。
+
+[[datasets]]
+== 数据集
 
 [[structure_sql]]
 === SQL
@@ -297,3 +339,26 @@ include::example$/library/src/main/resources/com/company/library/reports/bands/f
 ----
 ====
 
+[[data-set-def]]
+=== @DataSetDef 注解
+
+在设计时，使用 `@DataSetDef` 注解定义报表的数据集。该注解有以下属性：
+
+* `name` -- 数据集名称。在 `DELEGATE` 类型的数据集中，用于关联数据集定义和返回代理的方法。
++
+在交叉表带区（`@BandDef.orientation = Orientation.CROSS`）中，数据集必须使用以下名称：
+
+** 列标题：`$\{band_name}_dynamic_header`
+** 行标题：`$\{band_name}_master_data`
+** 主要内容：`$\{band_name}`
+
+* `type` -- 数据集类型，由 `DataSetType` 枚举定义。此枚举的值与上述运行时数据集的类型相对应。
++
+通常，设计时的报表使用 `DELEGATE` 类型的数据集。此时，通过名称与使用 `@DataSetDelegate` 注解的方法关联。
+
+[[data-set-delegate]]
+=== @DataSetDelegate 注解
+
+`@DataSetDelegate` 注解支持定义一个方法，该方法返回用于执行数据集逻辑的代理。注解有一个 `name` 属性，该属性应配置为相应数据集的名称。
+
+带该注解的方法不能有任何参数，并且应返回 `ReportDataLoader` 函数式接口。

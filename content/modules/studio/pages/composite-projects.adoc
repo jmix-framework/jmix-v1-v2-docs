@@ -80,8 +80,10 @@ Studio 可以为扩展组件生成 Liquibase 更改日志，该功能在组合�
 
 image::studio:add-on-data-store.png[align="center",width="484"]
 
-该数据存储的设置会保存在 `jmix-studio.xml` 文件中，而非 Java 配置文件中。
-
 然后，可以在数据存储上执行 *Generate Liquibase Changelog* 操作。
 
-在组合项目中，需要为同一个扩展组件再次指定数据存储，因为组合项目有其自有的 `jmix-studio.xml` 文件，位于根目录或 `<project-name>-all` 项目中。因此，数据存储配置保存的位置与单独开发一个组件项目时有所不同，但是最后生成的更改日志是一样的。
+数据存储设置将保存在 `jmix-studio.xml` 文件中，而不是 Java 配置中。即，扩展组件不会为其所在的应用程序定义数据存储。相反，相同名称的数据存储应该由应用程序本身定义。
+
+例如，如果在扩展组件中定义了 `ads1` 数据存储，则应该在包含此扩展组件的应用程序中定义 `ads1` 数据存储。并且，如果扩展组件为该数据存储提供了 Liquibase changelog，将由应用程序执行。
+
+TIP: 当在独立项目和复合项目中同时使用扩展组件时，需要两次指定数据存储，因为复合项目在其根目录或 `<project-name>-all` 聚合器项目中有自己的 `jmix-studio.xml` 文件。因此，数据存储设置将分别存储在独立项目和复合项目中，但生成的 changelog 集合将是相同的。

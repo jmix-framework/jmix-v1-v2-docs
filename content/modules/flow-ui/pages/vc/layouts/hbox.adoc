@@ -16,28 +16,15 @@
 |Java 类
 |`HorizontalLayout`
 |XML 属性
-|xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignItems[alignItems] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing,boxSizing>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand,expand>> -
-xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent,justifyContent>> -
-<<margin,margin>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding,padding>> -
-<<spacing,spacing>> -
-xref:vc/common-attributes.adoc#themeNames[themeNames] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+|*通用：* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*尺寸：* <<boxSizing,boxSizing>> - xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*位置：* xref:flow-ui:vc/common-attributes.adoc#alignItems[alignItems] - xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] - <<expand,expand>> - <<justifyContent,justifyContent>> - <<spacing,spacing>>
+|
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<margin,margin>> - <<padding,padding>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - <<wrap,wrap>>
+|
+|*其他：* xref:flow-ui:vc/common-attributes.adoc#clickShortcut[clickShortcut]
 |事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<ClickEvent,ClickEvent>> -
@@ -121,10 +108,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/hb
 
 使用 <<justifyContent,justifyContent>> 属性设置布局的内容对齐。
 
+请参阅布局规则部分了解 xref:vc/layout-rules.adoc#justify-content-mode[更多用例]。
+
 [[attributes]]
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
 下面是 `hbox` 的特殊属性：
 
@@ -150,6 +139,9 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/hb
 |`false`
 |[[spacing]]spacing
 |设置子元素之间的空间。支持值：`true`、`false`。
+|`false`
+|[[wrap]]wrap
+|如果为 `true`，则当空间不足时组件可以依次排入一个新行。参阅 Vaadin 文档的 https://vaadin.com/docs/latest/components/horizontal-layout#wrapping[Wrapping]。
 |`false`
 |===
 

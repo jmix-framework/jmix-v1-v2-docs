@@ -6,7 +6,7 @@
 [[overview]]
 == 概览
 
-此扩展组件支持创建并自定义将静态内容与动态参数相结合的消息模板。可以使用可视化的 HTML 设计器设计模板，该设计器提供了多种 HTML 元素。可视化 HTML 设计器为模板设计提供了一个全面的工具包，为制作丰富和专业的消息模板提供了便利。
+此扩展组件支持创建并自定义将静态内容与动态参数相结合的消息模板。可以在可视化的 HTML 设计器设计模板，该设计器提供了多种 HTML 元素。可视化 HTML 设计器为模板设计提供了一个全面的工具包，为制作丰富和专业的消息模板提供了便利。
 
 image::add-on-overview.png[align="center", width="1206"]
 
@@ -53,3 +53,7 @@ image::add-on-overview.png[align="center", width="1206"]
 implementation 'io.jmix.messagetemplates:jmix-messagetemplates-flowui-starter'
 implementation 'io.jmix.messagetemplates:jmix-messagetemplates-starter'
 ----
+
+CAUTION: *消息模板* 扩展组件不能用于 Oracle 数据库 12.2 以前的版本，因为之前的版本在数据库对象名称的长度上有限制。
+
+include::ROOT:single-menu-note.adoc[]

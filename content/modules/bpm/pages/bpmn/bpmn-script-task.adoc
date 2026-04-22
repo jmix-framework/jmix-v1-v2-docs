@@ -46,23 +46,15 @@ image::bpmn-script-task/script-task.png[,150]
 
 脚本任务具有以下特定属性：
 
-* *scriptFormat*：扩展属性，配置脚本的语言（仅 _Groovy_）。
+* *scriptFormat*：扩展属性，配置脚本的语言。当前仅支持 Groovy。参考 https://groovy-lang.org/documentation.html[Groovy 文档^]。
 
-* *script*：: 脚本内容，在子元素 `script` 中定义的字符串。
+* *script*：: 脚本内容。使用 *Script editor* 编辑。
 
-* *resultVariable*：可选属性，如果存在该属性，则会在执行上下文中存储指定名称的变量
-其中包含脚本计算的结果。
+* *resultVariable*：可选属性，会在执行上下文中将脚本的执行结果存储在指定名称的变量中。参阅 <<script-result, 详情>>。
 
-image::bpmn-script-task/script-task-properties.png[,350]
+image::bpmn-script-task/script-task-properties.png[,473]
 
-如需编辑脚本，可以双击脚本控件使用 *Script editor* 编辑：
-
-image::bpmn-script-task/script-editor.png[,700]
-
-[WARNING]
-====
-脚本内容不能为空，否则会在流程部署时出错。
-====
+WARNING: 脚本内容不能为空，否则会在流程部署时解析出错。
 
 [[variables-scripts]]
 === 脚本中的变量
@@ -88,6 +80,19 @@ execution.setVariable("variableName", variableValue)
 ----
 
 默认情况下，不会自动存储任何变量。
+
+[[beans-scripts]]
+=== 脚本中使用 bean
+
+脚本中可以通过名称访问 bean。下面的 Groovy 脚本调用了 `MyBean` 的 `doSomething` 方法并将结果保存在执行上下文的变量中：
+
+[source, groovy]
+----
+res = MyBean.doSomething()
+execution.setVariable("doSomething", res)
+----
+
+TIP: 调用 bean 的主要且推荐方式是使用 xref:bpmn/bpmn-service-task.adoc[]。如果需要同时使用 Groovy 逻辑和 Java bean，可以在脚本任务之前或之后的服务任务中调用 bean，然后通过流程变量进行通信。
 
 [[script-result]]
 === 脚本结果
@@ -116,10 +121,3 @@ return a
 String a = "abc".toUpperCase()
 String b = "jmix".toUpperCase()
 ----
-
-[[about-groovy]]
-== 关于 Groovy
-*Apache Groovy* 是一种功能强大的、类型可选的动态语言，具有静态类型和静态编译功能，
-适用于 Java 平台，旨在通过简洁、熟悉且易于学习的语法提高开发人员的工作效率。
-
-参考 https://groovy-lang.org/documentation.html[Groovy 语言文档^].

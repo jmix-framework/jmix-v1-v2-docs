@@ -4,21 +4,18 @@
 
 1. 点击 *Help > Check for Updates*（Windows/Linux）或 *IntelliJ IDEA > Check for Updates*（macOS）。
 +
-image::update-check.png[align="center"]
+image::update-check.png[align="center",width="880"]
 +
 如果有更新，则可以在 IDE 的右下角看到通知。
 +
-image::update-notification.png[align="center"]
+image::update-notification.png[align="center",width="1155"]
 +
 2. 点击 *Update* 下载最新版插件。或者点击 *Details* 查看可以更新的插件。
 +
-image::update-window.png[align="center"]
+image::update-window.png[align="center",width="912"]
 +
 3. 下载升级完成后，重启 IDE 使用插件的最新版本。
 
 还可以在 *Settings* 窗口打开 *Plugins* 部分查看 Jmix Studio 是否有更新。
 
-image::update-plugin.png[align="center"]
-
-
-
+image::update-plugin.png[align="center",width="1094"]

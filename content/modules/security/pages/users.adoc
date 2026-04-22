@@ -21,7 +21,7 @@ Jmix 应用程序的用户使用 `User` 类定义，该类在使用 xref:studio:
 [[management]]
 == 用户管理
 
-一个新项目包含 `010-init-user.xml` xref:data-model:db-migration.adoc#changelogs[数据库迁移] 脚本，该脚本创建用户名/密码为 `admin` / `admin` 的用户，通过给实体分配 `system-full-access` xref:resource-roles.adoc[角色] 授予对系统的完全访问权限。
+一个新项目包含 `010-init-user.xml` xref:data-model:db-migration.adoc#changelogs[数据库迁移] 脚本，该脚本创建用户名/密码为 `admin` / `admin` 的用户，通过给用户分配 `system-full-access` xref:resource-roles.adoc[角色] 授予对系统的完全访问权限。
 
 一个新项目还包含用于管理用户的 UI 视图，请查看主菜单的 *Application* -> *Users（用户）*。这些视图支持创建、编辑和删除用户，以及更改和重置用户密码。如需为用户分配角色，点击用户列表视图中的 *Role assignments（角色分配）* 按钮。
 
@@ -34,13 +34,22 @@ TIP: 参考 https://github.com/jmix-framework/jmix-samples-2/tree/main/user-regi
 
 任何具有标准安全子系统的 Jmix 应用程序都有两个内置的用户对象：
 
-* _Anonymous_ 匿名用户，对应于无认证信息的用户。支持在用户未登录时授予某些权限。
+* _Anonymous_ 匿名用户，对应于无认证信息的用户，仅可以使用登录视图。通过自定义该对象，可以在用户未登录时授予某些权限。
 
 * _System_ 系统管理员用户，xref:authentication.adoc#system[系统授权] 机制需要此用户对象。当没有真正的用户与应用程序交互时使用该用户，例如，当应用程序启动时，或者当计划任务执行业务方法时。
 
-内置用户对象没有保存在数据库，而是在应用程序启动时由 `DatabaseUserRepository` 类创建。可以在此类的 `initAnonymousUser()` 和 `initSystemUser()` 方法中对这两个用户进行定制化。默认情况下，系统用户具有 `system-full-access` 角色，因此拥有所有权限。
+内置用户对象没有保存在数据库，而是在应用程序启动时由 `DatabaseUserRepository` 类创建。可以在此类的 `initAnonymousUser()` 和 `initSystemUser()` 方法中对这两个用户进行定制化。
 
-匿名用户默认没有权限。
+.DatabaseUserRepository.java
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/DatabaseUserRepository.java[tags=init-built-in-users]
+----
+
+<1> 默认情况下，系统用户分配了 `system-full-access` 角色，因而具有所有权限。
+<2> 匿名用户没有分配任何角色，因而没有权限。
++
+TIP: 为了简化给匿名用户分配访问特定视图的权限，可以使用 xref:flow-ui:views/view-annotations.adoc#common-annotations[@AnonymousAllowed] 注解。
 
 [[user-substitution]]
 == 替代用户
@@ -52,7 +61,9 @@ TIP: 参考 https://github.com/jmix-framework/jmix-samples-2/tree/main/user-regi
 . 以 `admin` 用户登录，创建至少一个用户，并分配 `UI: minimal access` 角色。
 . 在 *Users（用户）* 表选择 `admin`，然后点击 *Additional（更多） -> User substitution（用户替代）*。可以看到 `admin` 已经能替代的用户列表。
 . 创建一个 `admin` 能替代的用户添加至列表中。
-. 现在可以看到主界面的 `userIndicator` 组件从显示当前用户名变成了一个包含可替代用户的下拉列表。如果选择一个替代用户，工作区会发生变化，就像重新用替代用户登录一样。但是所有的审计功能仍然使用实际登录用户 `admin`。
+. 如果项目的主视图包含 xref:flow-ui:vc/components/userMenu.adoc[] 组件，并且该组件带有 xref:flow-ui:actions/user-menu-actions.adoc#sec_userMenuSubstituteUser[sec_userMenuSubstituteUser] 操作，则组件的下拉菜单会显示一个替代用户的菜单项。
+. 如果项目的主视图包含 `userIndicator` 组件，当前用户的名称成为一个显示替代用户的下拉列表。
+. 当在 `userMenu` 或 `userIndicator` 中选择一个替代用户时，工作区将发生变化，就像再次以该用户身份重新登录。但所有审计功能仍将记录 `admin`（登录用户）。
 
 `CurrentUserSubstitution` bean 可用于获取当前替代的用户、已认证用户或有效用户（在发生替代时为替代用户，否则为认证用户）。
 

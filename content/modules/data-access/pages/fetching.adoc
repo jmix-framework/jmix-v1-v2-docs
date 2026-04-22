@@ -2,7 +2,7 @@
 
 本章节中，我们将介绍从数据库加载实体的过程中，数据是如何以及何时被提取到内存的。
 
-数据模型实体经常会有对其他实体的引用，例如，`Order` 通过 `Order.customer` 关联 `Customer` 实体。在 Jmix 的 Java 代码中可以使用引用属性的 getters 访问关联实体，如 `order.getCustomer().getName()`，而在数据感知的 UI 组件中，则用“.”，如 `order.customer.name`。
+数据模型实体经常会有对其他实体的 xref:data-model:entities.adoc#references[引用]，例如，`Order` 通过 `Order.customer` 关联 `Customer` 实体。在 Jmix 的 Java 代码中可以使用引用属性的 getters 访问关联实体，如 `order.getCustomer().getName()`，而在数据感知的 UI 组件中，则用“.”，如 `order.customer.name`。
 
 通常来说，加载关联实体有两中策略：
 
@@ -12,7 +12,7 @@
 [[lazy-loading]]
 == 懒加载
 
-当使用 xref:data-manager.adoc[DataManager] 加载 JPA 实体时，Jmix 支持实体中引用属性的懒加载。也就是说，如果使用了 `DataManager` 或 UI 的 xref:flow-ui:data/data-loaders.adoc[数据加载器] 来加载实体，则可以直接访问其引用属性获得关联实体，Jmix 会按需加载。这个过程是递归的，因此可以通过访问引用属性遍历整个对象关系图。
+当使用 xref:data-manager.adoc[DataManager] 加载 JPA 实体时，Jmix 支持实体中引用属性和 and xref:data-model:entities.adoc#element-collections[元素集合] 的懒加载。也就是说，如果使用了 `DataManager` 或 UI 的 xref:flow-ui:data/data-loaders.adoc[数据加载器] 来加载实体，则可以直接访问其引用属性获得关联实体，Jmix 会按需加载。这个过程是递归的，因此可以通过访问引用属性遍历整个对象关系图。
 
 示例：
 [source,java,indent=0]
@@ -34,7 +34,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/bean/OrderServi
 
 一个 _fetch plan_ 定义在一次特定的操作中，需要从数据库预加载什么样的对象关系图。Fetch plan 可以用在 xref:data-manager.adoc[DataManager]、UI xref:flow-ui:data-components.adoc[数据组件] 中以提高性能，或者用在 xref:rest:index.adoc[REST API] 中定义返回数据的格式，而无需创建单独的一组 DTO。
 
-TIP: Fetch plan 与关联实体的懒加载完全兼容。也就是说，可以使用 fetch plan 加载实体关系图的其中一部分，当访问到某些未加载的引用时，再进行延迟加载。
+TIP: Fetch plan 与关联实体或元素集合的懒加载完全兼容。也就是说，可以使用 fetch plan 加载实体关系图的其中一部分，当访问到某些未加载的引用时，再进行延迟加载。
 
 [[fetch-plan-example]]
 === Fetch Plan 使用示例

@@ -5,7 +5,7 @@
 |===
 | *数据类型* | *Java 类型*
 | GeoMultiPoint         | org.locationtech.jts.geom.MultiPoint
-| GeoMultiPolygone      | org.locationtech.jts.geom.MultiPolygon
+| GeoMultiPolygon      | org.locationtech.jts.geom.MultiPolygon
 | GeoMultiPolyline       | org.locationtech.jts.geom.MultiLineString
 | GeoPoint         | org.locationtech.jts.geom.Point
 | GeoPolygon       | org.locationtech.jts.geom.Polygon

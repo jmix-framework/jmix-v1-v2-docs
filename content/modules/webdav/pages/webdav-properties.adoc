@@ -103,7 +103,7 @@ jmix.webdav.applications = {"vnd.libreoffice.command":\
 [[jmix.webdav.url-prefix]]
 == jmix.webdav.url-prefix
 
-定义 WebDAV 文档链接的前缀。
+定义一个 WebDAV 文档链接的前缀。
 
 默认值：`\https://localhost:8443/webdav`。
 

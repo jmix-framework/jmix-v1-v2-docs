@@ -2,3 +2,5 @@
 :page-aliases: vcl/containers.adoc
 
 布局（Layouts）是包含其他组件和布局的组件。支持在视图中排布各种组件。
+
+参阅 xref:flow-ui:vc/layout-rules.adoc[] 了解视图中的布局和可视化组件位置排布的示例。

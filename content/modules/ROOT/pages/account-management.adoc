@@ -63,15 +63,13 @@ CAUTION: 商业扩展组件的试用版在申请试用的 28 天之后将停止�
 [[subscription-purchase]]
 == 购买订阅
 
-如需购买订阅，可以直接点击 *Account* 标签页的 *Buy* 按钮，或切换至 *Store* 标签页进行购买。
+如需购买订阅，可以直接点击 *Account* 标签页的 *Buy* 按钮，或切换至 *Store* 标签页进行购买，也可联系官方授权服务提供商购买。
 
 image::store/buy-subscription.png[align="center", width="1260"]
 
 购买订阅的页面如下：
 
 image::store/new-subscription-page.png[align="center", width="1260"]
-
-或联系官方授权服务提供商购买。
 
 [[company]]
 === 企业
@@ -232,7 +230,7 @@ image::store/license-keys.png[align="center", width="1126"]
 
 在这里您可以升级订阅计划，并支持修改用户数。
 
-NOTE: 请注意，一次无法同时修改用户数和订阅计划。需要分两次进行。
+NOTE: 一次无法同时修改用户数和订阅计划。需要分两次进行。
 
 费用计算结果显示在右侧。
 

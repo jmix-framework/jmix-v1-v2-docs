@@ -15,39 +15,17 @@
 |Java 类
 |`DataGrid`
 |XML 属性
-|xref:vc/common-attributes.adoc#id[id] -
-<<aggregatable, aggregatable>> -
-<<aggregationPosition,aggregationPosition>> -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<allRowsVisible,allRowsVisible>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-<<columnReorderingAllowed,columnReorderingAllowed>> -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-<<detailsVisibleOnClick,detailsVisibleOnClick>> -
-<<dropMode,dropMode>> -
-<<editorBuffered,editorBuffered>> -
-<<emptyStateText,emptyStateText>> -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#focusShortcut[focusShortcut] -
-xref:vc/common-attributes.adoc#height[height] -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/components/entityPicker.adoc#metaClass[metaClass] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<multiSort,multiSort>> -
-<<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> -
-<<multiSortPriority,multiSortPriority>> -
-<<nestedNullBehavior,nestedNullBehavior>> -
-<<pageSize,pageSize>> -
-<<rowDraggable,rowDraggable>> -
-<<selectionMode,selectionMode>> -
-xref:vc/common-attributes.adoc#tabIndex[tabIndex] -
-xref:vc/common-attributes.adoc#themeNames[themeNames] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+|*通用属性：* xref:flow-ui:vc/common-attributes.adoc#id[id] - <<aggregatable,aggregatable>> - <<columnReorderingAllowed,columnReorderingAllowed>> - <<emptyStateText,emptyStateText>> - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - <<selectionMode,selectionMode>> - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*数据绑定：* xref:flow-ui:vc/common-attributes.adoc#dataContainer[dataContainer] - xref:flow-ui:vc/common-attributes.adoc#metaClass[metaClass]
+|
+|*尺寸：* xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*位置：* xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan]
+|
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames]
+|
+|*其他：* <<aggregationPosition,aggregationPosition>> - <<allRowsVisible,allRowsVisible>> - xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] - <<detailsVisibleOnClick,detailsVisibleOnClick>> - <<dropMode,dropMode>> - <<editorBuffered,editorBuffered>> - xref:flow-ui:vc/common-attributes.adoc#focusShortcut[focusShortcut] - <<multiSort,multiSort>> - <<multiSortOnShiftClickOnly,multiSortOnShiftClickOnly>> - <<multiSortPriority,multiSortPriority>> - <<nestedNullBehavior,nestedNullBehavior>> - <<pageSize,pageSize>> - <<rowsDraggable,rowsDraggable>> - xref:flow-ui:vc/common-attributes.adoc#tabIndex[tabIndex]
 |事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
@@ -66,6 +44,7 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent] -
 <<dragFilter,dragFilter>> -
 <<dropFilter,dropFilter>>
 <<enterPressHandler,enterPressHandler>> -
+<<itemSelectableProvider,itemSelectableProvider>> -
 <<tooltipGenerator,tooltipGenerator>>
 |XML 内部元素
 |<<actions,actions>> - <<columns,columns>> - <<column,column>> - <<context-menu-element,contextMenu>> - <<empty-state-component-element,emptyStateComponent>>
@@ -129,6 +108,15 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=dataGrid;usersDc;onInit;setItems]
 ----
+
+[[multi-select]]
+== 多选模式
+
+默认情况下，组件在单选模式运行。当设置 <<selectionMode, selectionMode>> 为 `MULTI` 时，会在第一列显示一个复选框列，支持选择多行。如果需要选中全部行，可以点击表头的复选框。
+
+image::visual-components/components/data-grid-multi-select.png[align="center", width="960"]
+
+NOTE: 使用 *Shift + click* 进行范围选择或其他选择的快捷键暂不支持。
 
 [[inline-editing]]
 == 行内编辑
@@ -363,6 +351,12 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 [[context-menu]]
 == 右键菜单
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/data-grid-context-menu" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
 
 右键菜单提供了另一种访问 <<actions, 操作>> 的方式。每个操作显示为一个菜单项。
 
@@ -647,7 +641,7 @@ NOTE: 设置该元素会覆盖在视图控制器中通过 `setEmptyStateText(Str
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `dataGrid` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
@@ -696,17 +690,17 @@ NOTE: 设置该元素会覆盖在视图控制器中通过 `setEmptyStateText(Str
 |[[pageSize]]pageSize
 |设置每页展示的行数，这个数值也是每次从数据提供器中获取的数量。
 |`50`
-|[[rowDraggable]]rowDraggable
+|[[rowsDraggable]]rowsDraggable
 |如果设置为 `true`，启用表格的行拖放功能。
 |`false`
 |[[selectionMode]]selectionMode
-|设置选择模式。支持 `SINGLE` 和 `MULTI`。
+|设置选择模式。支持 `SINGLE`、`MULTI` 和 `NONE`。
 |`SINGLE`
 |===
 
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 下面是 `dataGrid` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
@@ -732,15 +726,17 @@ include::../handler-generation-tip.adoc[]
 |[[ItemDoubleClickEvent]]ItemDoubleClickEvent
 |`com.vaadin.flow.component.grid.ItemDoubleClickEvent` 当双击数据网格条目时发送。对应 `item-double-click` DOM 事件。
 |[[SortEvent]]SortEvent
-|`com.vaadin.flow.data.event.SortEvent` 描述 `DataProvider` 中排序变化的事件。由 `SortNotifiers` 触发。
+|`com.vaadin.flow.data.event.SortEvent` 描述 `DataProvider` 中排序变化的事件。由 `SortNotifiers` 触发。参考 https://demo.jmix.io/ui-samples/sample/data-grid-sort-event?tab=DataGridSortEvent.java[在线示例^]。
 |[[dataGenerator]]dataGenerator
 |为数据网格添加数据生成器。如果已经添加，则不做操作。参考 `com.vaadin.flow.data.provider.HasDataGenerators` 接口。
 |[[dragFilter]]dragFilter
-|用于控制特定行是否可拖放，而不是通过 <<rowDraggable, rowDraggable>> 设置所有行的拖放。
+|用于控制特定行是否可拖放，而不是通过 <<rowsDraggable, rowsDraggable>> 设置所有行的拖放。
 |[[dropFilter]]dropFilter
 |用于设置哪些行可以作为拖放的目的地。
 |[[enterPressHandler]]enterPressHandler
 |用户按下回车键的处理器。
+|[[itemSelectableProvider]]itemSelectableProvider
+|设置一个 provider，检查用户是否可以选择或取消表格中的某个特定条目。provider 接收一个条目实例，如果用户可以修改该条目的选择状态，应返回 `true`，否则返回 `false`。
 |[[tooltipGenerator]]tooltipGenerator
 // Flow UI sample uses different approach.
 |按照给定条件为列单元格生成提示窗。参考 https://demo.jmix.io/ui-samples/sample/data-grid-tooltip-generator[在线示例^]。

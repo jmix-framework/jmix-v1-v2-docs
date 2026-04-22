@@ -1,6 +1,6 @@
 = 应用程序属性
 
-该组件提供了简洁的 API 和 UI，用来处理数据库中存储的不同类型参数值。这些值通常作为应用程序不同功能的参数使用。
+该组件提供了简洁的 API 和 UI，用来处理数据库中存储的不同类型参数值。这些值通常作为应用程序不同功能的参数使用，例如，默认的配置、阈值，或功能的开关等。
 
 [[installation]]
 == 安装
@@ -11,31 +11,50 @@
 
 [source,groovy,indent=0]
 ----
-implementation("io.jmix.appsettings:jmix-appsettings-starter")
-implementation("io.jmix.appsettings:jmix-appsettings-flowui-starter")
+include::example$/appsettings-ex1/build.gradle[tags=dependencies]
 ----
 
-// todo flowui
-// [source,groovy,indent=0]
-// ----
-// include::example$/ex1/build.gradle[tags=dependencies]
-// ----
+include::ROOT:single-menu-note.adoc[]
 
 [[usage]]
 == 使用方法
 
-如需定义某些配置，创建一个实体并继承 `io.jmix.appsettings.entity.AppSettingsEntity` 类：
+假设应用程序有一个 `Customer` 实体，以及简单的业务逻辑：
+
+* 新的用户需要配置 *默认级别*（例如，青铜/黄金/白金 等）和 *默认国家*，业务用户可以在运行时修改。
+* 还有一个 *通知文本*，可能会用于界面或报表中。
+* 所有这些值都必须在不重启应用的情况下可更改。
+
+这可以通过两个步骤实现。
+
+=== 步骤 1. 定义一个配置实体
+
+创建一个实体，继承自 `io.jmix.appsettings.entity.AppSettingsEntity` 类，并添加必要的配置属性：
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/appsettings/ex1/entity/CustomerSettings.java[tags=settings-entity]
+include::example$/appsettings-ex1/src/main/java/com/company/appsettingsex1/entity/CustomerSettings.java[tags=settings-entity]
 ----
 
-之后，可以通过 *Application settings* 视图为该实体设置值。
+之后，业务用户可以通过应用程序中的 *Application settings* 视图编辑 `defaultGrade`、`country` 和 `notificationText`。
 
-如需在应用程序代码中获取参数值，可以使用 `AppSettings` bean，示例：
+image::app-settings-menu-view.png[width=1478]
+
+
+=== 步骤 2. 在业务逻辑中使用这些配置
+
+在应用代码里获取配置时，可以使用 `AppSettings` bean。例如，在 Customer 详情视图或实体初始化器中，可以根据读取的配置设置默认值：
 
 [source,java,indent=0]
 ----
-include::example$/ex1/src/main/java/appsettings/ex1/screen/customer/CustomerEdit.java[tags=app-settings]
+include::example$/appsettings-ex1/src/main/java/com/company/appsettingsex1/view/customer/CustomerDetailView.java[tags=app-settings]
 ----
+
+此时：
+
+* 当业务用户将默认等级从青铜升级为黄金时，所有新创建的客户都会被初始化为该设置。
+* 当业务用户配置默认国家时，所有新客户都会以该配置进行初始化。
+
+image::app-settings-initialize-entity.png[width=1478]
+
+类似的，通知文本也可以通过绑定至标签或提示在 UI 中使用。

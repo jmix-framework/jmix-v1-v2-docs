@@ -12,7 +12,7 @@
 [[basics]]
 == 基本用法
 
-如需在视图的 `BeforeShowEvent` 事件触发所有的数据加载器，只需在视图的 XML 描述中添加 `dataLoadCoordinator`，其属性 `auto="true"`：
+如需在视图的 xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent] 事件触发所有的数据加载器，只需在视图的 XML 描述中添加 `dataLoadCoordinator`，其属性 `auto="true"`：
 
 [source,xml,indent=0]
 ----
@@ -27,65 +27,70 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/depa
 [[automatic-mode]]
 === 自动模式
 
-此模式中，`dataLoadCoordinator` 依赖使用特定前缀的参数名称。前缀表示提供参数值和发送变更事件的组件。
+在自动模式（`auto="true"`）下，`dataLoadCoordinator` 会在 xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent] 中 *触发所有能提供参数值的加载器*。该 facet 可以自动将加载器查询中的参数与来自容器或可视化组件的值进行匹配。如需指明来源，需要在参数名称前加上相应的前缀：使用 `container_` 表示值来自容器，使用 `component_` 表示值来自可视化组件。例如，名为 `container_citiesDc` 的参数会从 `citiesDc` 容器获取值。
 
-默认情况下，数据容器的参数前缀是 `container_`，可视化组件的参数前缀是 `component_`。通过 <<componentPrefix,componentPrefix>> 和 <<containerPrefix,containerPrefix>> 属性可以使用不同的前缀。
+TIP: 可以使用 `<<componentPrefix,componentPrefix>>` 和 `<<containerPrefix,containerPrefix>>` 属性更改默认前缀。
 
-如果加载器的查询语句中没有参数，则该加载器会在 `BeforeShowEvent` 中自动刷新。也就是说，如果查询语句包含任意参数，例如 `select e from User e where e.department = :department`，则加载器不会在视图打开时自动加载。需要手动设置参数值并调用 `userDl.load()`。
+如果查询中有不带前缀的“任意参数”（例如 `select e from User e where e.city = :city`），则 facet 将无法匹配该参数，因此该加载器不会被自动触发。此时，必须自行设置参数值并调用 `userDl.load()`。在 xref:data/data-loaders.adoc#query-conditions[查询条件] 中添加任意参数不会阻止加载器的主查询运行。
 
-但是 xref:data/data-loaders.adoc#query-conditions[查询条件] 中的参数不会影响加载器在 `BeforeShowEvent` 中的自动加载。
+示例：
 
-//Usage example:
-//
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/automaticmode/automatic-mode-screen.xml[tags=automatic-mode]
-//----
-//
-//<1> Add XML schema for JPQL conditions.
-//<2> There are no parameters in the query, so the `citiesDl` loader will be triggered on `BeforeShowEvent`.
-//<3> The `citiesDl` loader will also be triggered on `nameField` component value change.
-//As the condition uses the "like" clause, the value will be automatically wrapped in `'(?i)% %'` to provide the case-insensitive search.
-//<4> The `customersDl` is triggered on the `citiesDc` data container item change.
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/automaticmode/automatic-mode-view.xml[tags=automatic-mode]
+----
+
+<1> *数据容器* – 持有 `City` 实体。其值用作 `:container_citiesDc` 参数。
+<2> *城市查询* – 不包含参数，将在 xref:flow-ui:views/view-events.adoc#before-show-event[BeforeShowEvent] 时执行。
+<3> *查询条件* – 当用户在 `nameField` 中输入值时，会附加到城市查询中。
+<4> *客户查询* – 每当 `citiesDc` 容器中的选中值发生变化时，重新加载 `Customer` 行。
+<5> *Facet 设置为自动模式* – 自动协调加载器的执行，确保查询以正确的顺序运行。
+<6> *输入字段* – `nameField` 文本组件，其值绑定到城市查询中的 `:component_nameField`。
 
 [[manual-mode]]
 === 手动模式
 
-此模式中，使用内部的 <<refresh,refresh>> 元素定义数据加载器何时触发刷新。
+在手动模式（`auto = false`）下，facet 不再执行任何自动操作。必须指定触发加载器的确切视图事件（例如 `InitEvent`），并指定每个查询参数的来源，无论是组件值还是容器值。这些详细信息放置在 facet 声明中的 <<refresh, <refresh> >> 元素提供。
 
-//Usage example:
-//
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=manual-mode]
-//----
-//
-//<1> Add XML schema for JPQL conditions.
-//<2> The `citiesDl` loader will be triggered on `InitEvent`.
-//<3> The `citiesDl` loader will also be triggered on the `nameField` component value change.
-//The `likeClause` attribute causes the value to be wrapped in `'(?i)% %'` to provide the case-insensitive search.
-//<4> The `customersDl` will be triggered on the `citiesDc` data container item change.
+示例：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/manualmode/manual-mode-view.xml[tags=manual-mode]
+----
+
+<1> *数据容器* – 持有 `City` 实体。其值用作客户查询中的 `city` 参数。
+<2> *城市查询* – 不包含参数，将根据手动配置在 xref:flow-ui:views/view-events.adoc#init-event[InitEvent] 时执行。
+<3> *查询条件* – 当用户在 `nameField` 中输入值时，会附加到查询中。
+<4> *客户查询* – 每当 `citiesDc` 容器中的选中值发生变化时，重新加载 `Customer` 实例。
+<5> *手动 facet 模式* – 加载由 `<refresh>` 元素中定义的规则控制。
+<6> *城市加载器刷新条件* – 在 `InitEvent` 以及 `nameField` 组件的内容发生变化时触发 `citiesDl` 刷新，将其输入作为 `name` 参数传递。
+<7> *客户加载器刷新条件* – 当 `citiesDc` 容器中的选中项发生变化时触发 `customersDl` 刷新，将该城市作为 `city` 参数传递。
+<8> *输入字段* – `nameField` 文本组件，其值通过 `<refresh>` 元素绑定到城市查询。
 
 [[semi-automatic-mode]]
 === 半自动模式
 
-当 `auto` 属性设置为 `true` 并且也有一些手动配置的触发器，`dataLoadCoordinator` 会为所有没有手动配置的加载器做自动配置。
+Facet 还可以设置为半自动模式。在此模式下，协调器会自动触发加载器（`auto = "true"`），*但* 也会同时遵循添加的任何手动规则。
 
-//Usage example:
-//
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/semiautomaticmode/semi-automatic-mode-screen.xml[tags=semi-automatic-mode]
-//----
-//
-//<1> The `customersDl` is configured automatically and triggered on the `brandsDc` data container item change.
-//<2> The `brandsDl` loader is configured manually and will be triggered on `AfterShowEvent`.
+示例：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/facets/dataloadcoordinator/semiautomaticmode/semiautomatic-mode-view.xml[tags=semiautomatic-mode]
+----
+
+<1> *Facet 设置为半自动模式* – facet 将自动触发加载器，除非被手动规则覆盖。
+<2> *城市加载器刷新条件* – 指定当视图触发 xref:flow-ui:views/view-events.adoc#ready-event[ReadyEvent] 时，应触发 `citiesDl` 加载器。
 
 [[attributes]]
 == 属性
 
+include::facet-tip.adoc[]
+
 [[auto]]
-* `auto` - 定义 `dataLoadCoordinator` 的工作模式。默认为 `false`。
+* `auto` - 定义 `dataLoadCoordinator` 的工作模式。
+默认为 `false`。
 
 [[componentPrefix]]
 * `componentPrefix` - 定义 xref:vc/components.adoc[可视化组件] 引用参数的前缀，自动模式下，`DataLoadCoordinator` 从参数定义的组件中获取参数值。默认值为 `component_`。
@@ -117,10 +122,6 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/depa
 +
 [[component-param]]
 * `param` - 指定查询参数名称。
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-component-value-changed]
-//----
 [[onContainerItemChanged]]
 . `onContainerItemChanged` - 当数据容器中的内容改变时触发加载器。有下列属性：
 +
@@ -129,10 +130,6 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/depa
 +
 [[container-param]]
 * `param` - 指定查询参数名称。
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-container-value-changed]
-//----
 [[onViewEvent]]
 . `onViewEvent` - 在视图生命周期事件中触发加载器。有下列属性：
 +
@@ -141,10 +138,6 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/depa
 ** `Init` - 在 `InitEvent` 事件中触发。
 ** `BeforeShow` - 在 `BeforeShowEvent` 事件中触发。
 ** `Ready` - 在 `ReadyEvent` 事件中触发。
-//[source,xml,indent=0]
-//----
-//include::example$/ex1/src/main/resources/ui/ex1/screen/facets/dataloadcoordinator/manualmode/manual-mode-screen.xml[tags=on-screen-event]
-//----
 
 [[see-also]]
 == 参考

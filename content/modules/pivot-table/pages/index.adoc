@@ -6,7 +6,7 @@
 </div>
 ++++
 
-数据透视表（PivotTable）扩展组件为 Jmix UI 提供了一个具有拖拽功能的 `PivotTable` 组件，可以将数据集转换为汇总表，并使用 UI 中的二维拖拽进行操作。
+数据透视表（PivotTable）扩展组件为 Jmix UI 提供了一个具有拖拽功能的 `PivotTable` 组件，可以将数据集转换为汇总表，并在 UI 中通过二维拖拽进行操作。
 
 该扩展组件是基于 https://github.com/nicolaskruchten/pivottable[PivotTable.js^] JavaScript 库。更多示例可以在作者的 http://nicolas.kruchten.com/pivottable/examples/[网站^] 查看。
 

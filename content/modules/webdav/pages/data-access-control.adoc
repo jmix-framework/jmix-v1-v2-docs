@@ -45,7 +45,7 @@ image::hr-manager-role-2.png[align="center", width="946"]
 
 在 *Jmix* 工具窗口中，点击 *New*（image:add.svg[]）-> *Row-level Role*。在对话框中输入：
 
-* *Role name*：`WebDav documents department`
+* *Role name*：`WebDAV documents department`
 * *Role code*：`web-dav-documents-department`
 * *Class*：`com.company.onboarding.security.WebDavDocumentsDepartmentRole`
 
@@ -55,7 +55,7 @@ Studio 会自动创建并打开一个带注解的接口：
 
 [source,java,indent=0]
 ----
-@RowLevelRole(name = "WebDav documents department", code = WebDavDocumentsDepartmentRole.CODE)
+@RowLevelRole(name = "WebDAV documents department", code = WebDavDocumentsDepartmentRole.CODE)
 public interface WebDavDocumentsDepartmentRole {
     String CODE = "web-dav-documents-department";
 }

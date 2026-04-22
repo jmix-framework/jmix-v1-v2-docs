@@ -1,6 +1,6 @@
 = 参考资料
 
-在本节中，我们介绍一些 Jmix 地图的细节。我们将深入研究 xref:maps:layers-sources.adoc[图层] 如何有助于在地图上组织数据，并了解能提供可视化内容的数据源。此外，我们还介绍了 xref:maps:geo-objects.adoc[geo-object] 的概念，并在 Jmix 地图的上下文中探索其实际用途。
+在本节中，我们介绍一些 Jmix 地图的细节。我们将介绍使用 xref:maps:layers-sources.adoc[图层] 在地图上组织数据，并了解能提供可视化内容的数据源。此外，我们还将介绍 xref:maps:geo-objects.adoc[geo-object] 的概念，以及在 Jmix 地图中的实际用途。
 
 [[what-is]]
 == 地图是什么？
@@ -46,7 +46,6 @@ image::structure.png[align="center", width="800"]
 == 数据矢量源
 
 数据矢量源是包含 <<geo-object,地理对象>> 的源。此数据源可以连接是数据和 xref:maps:map-component.adoc#map[地图 UI 组件]。它携带数据以及有关地理对象应如何在地图上显示的一些附加信息。
-
 //
 // [[vector]]
 // == Vector Layers
@@ -61,7 +60,7 @@ image::structure.png[align="center", width="800"]
 [[coordinates]]
 == 坐标
 
-坐标参考系（CRS） 通过一组称为坐标的数字来指定地球上的每个位置。有两组特定的坐标系，第一组是投影坐标系（也称为笛卡尔坐标系或矩形坐标系）和地理坐标系。
+坐标参考系（CRS） 通过一组称为坐标的数字来指定地球上的每个位置。有两组主要的坐标系：投影坐标系（也称为笛卡尔坐标系或矩形坐标系）和地理坐标系。
 
 地理坐标系使用纬度和经度，有时还使用高度值来描述地球表面上的位置。最流行的是世界大地测量系统 - WGS 84（EPSG:4326）。GPS 设备使用该坐标系来定义地球上的位置。
 

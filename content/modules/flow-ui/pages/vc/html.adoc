@@ -25,6 +25,9 @@ TIP: 或者，使用 xref:vc/components/html.adoc[html] 组件可以添加任意
 |`emphasis`
 |`em`
 
+|xref:vc/html-components/fieldset.adoc[]
+|`fieldset`
+
 |`footer`
 |`footer`
 
@@ -37,7 +40,7 @@ TIP: 或者，使用 xref:vc/components/html.adoc[html] 组件可以添加任意
 |`hr`
 |`hr`
 
-|`iframe`
+|xref:vc/html-components/iframe.adoc[]
 |`iframe`
 
 |xref:vc/html-components/image.adoc[]

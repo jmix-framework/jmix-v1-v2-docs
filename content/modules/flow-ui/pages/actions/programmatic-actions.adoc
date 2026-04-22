@@ -1,21 +1,21 @@
-= Programmatic Actions
+= 编程式操作
 
-Any appropriate component can have actions created and set programmatically in the view controller. The method is simple but can make the controller verbose and does not allow reusing the action in XML.
+在视图控制器中，可以为特定的组件创建并设置操作。这个方法很简单，但是会增加控制器的代码，而且创建的操作也不能在 XML 中使用。
 
-Below example makes the button show “Hello” when clicked:
+下面的示例中点击按钮显示 “Hello”：
 
-. Inject the component to the view controller:
+. 在控制器中注入组件：
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ProgrammaticActionView.java[tags=action-button]
 ----
 +
-. Set the action by instantiating the `BaseAction` class.
+. 通过实例化 `BaseAction` 设置操作。
 +
 [source,java,indent=0]
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/actions/ProgrammaticActionView.java[tags=setAction]
 ----
 
-TIP: See how this compares to the equivalent example in xref:actions/custom-action-type.adoc#_baseaction[Custom action type], which allows the action to be reused.
+TIP: 请对比 xref:actions/custom-action-type.adoc#_baseaction[自定义操作类型]，了解如何创建可重用的操作。

@@ -24,12 +24,12 @@ TIP: 可以使用 xref:studio:entity-designer.adoc[Studio 的实体设计器] �
 [[jpa]]
 == JPA 实体
 
-JPA 实体是按照 JPA 规则标注的 Java 类。JPA 实体将持久化到关系型数据库，数据库通过xref:data-stores.adoc[数据存储]连接，可以是主数据存储，也可以是附加数据存储。
+一个 JPA 实体是按照 JPA 规则标注的 Java 类。JPA 实体将持久化到关系型数据库，数据库通过xref:data-stores.adoc[数据存储]连接，可以是主数据存储，也可以是附加数据存储。
 
 JPA 注解定义了数据库表字段和实体属性之间的映射。Jmix 对映射注解有以下限制：
 
 * 属性注解只能放在字段（`AccessType.FIELD`）上。
-* 不支持的注解：`@IdClass`、`@ElementCollection`。
+* 不支持的注解：`@IdClass`。
 
 下面是一个典型的 JPA 实体类的示例：
 
@@ -42,12 +42,12 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/Customer.
 <1> 必须有的 <<jmix-entity,@JmixEntity>> 注解。
 <2> `@jakarta.persistence.Table` 注解，指定数据库表名。
 <3> `@jakarta.persistence.Entity` 注解，表明该类是一个 JPA 实体。
-<4> <<jmix-generated-value,@JmixGeneratedValue>> 注解，表示创建实体实例时必须由 Jmix 生成主键。
+<4> <<jmix-generated-value,@JmixGeneratedValue>> 注解，表示创建一个实体实例时必须由 Jmix 生成主键。
 <5> `@jakarta.persistence.Id` 注解，表示主键。
 <6> `@jakarta.persistence.Column` 注解，指定对应的数据库表字段。`nullable = false` 表明 xref:db-migration.adoc[数据库变更] 机制应该为该字段创建具有 `NOT NULL` 约束的字段。
 <7> `@jakarta.persistence.Version` 注解，表示必须基于该属性进行乐观锁操作。类型必须为 `Integer`。如果你在 Studio 中为实体选择了 _Versioned_ 特性，Studio 会自动创建这样一个的属性。
 <8> <<instance-name,@InstanceName>> 注解，表示选择一个属性作为实例名称。
-<9> `javax.validation.constraints` 包中的 `@NotNull` 和 `@Email` 注解，是使用 https://beanvalidation.org[Bean 验证^] 注解的示例。
+<9> `jakarta.validation.constraints` 包中的 `@NotNull` 和 `@Email` 注解，是使用 https://beanvalidation.org[Bean 验证^] 注解的示例。
 <10> `@Column` 注解中，`unique = true` 表示数据库变更机制应该为该字段添加唯一性约束。
 
 表名和实体名都可以通过前缀避免与其他模块中的实体名称冲突。如果在 `build.gradle` 中设置了 `jmix.projectId` 属性，Studio 会用它做前缀。
@@ -68,7 +68,7 @@ TIP: 在 Studio 中创建实体时，如果你为字段的 *Id type* 选择了 U
 
 如果你将 `UUID` 类型作为实体标识符，则 Has UUID 特性中不再需要添加额外的属性。
 
-如果你的实体在内存中创建时不能马上分配一个标识属性，则强烈建议使用 Has UUID 特性。不论是映射到标识列的 `Long` 或 `Integer` 标识符，还是用户指定的任何类型，都建议这样做。如果这样的实体没有 `@JmixGeneratedValue` 属性，则其 `hashCode()` 方法总是返回一个常量值，这会影响基于哈希表的集合的性能。
+如果你的实体在内存中创建时不能分配一个标识属性，则强烈建议使用 Has UUID 特性。不论是映射到标识列的 `Long` 或 `Integer` 标识符，还是用户指定的任何类型，都建议这样做。如果这样的实体没有 `@JmixGeneratedValue` 属性，则其 `hashCode()` 方法总是返回一个常量值，这会影响基于哈希表的集合的性能。
 
 [[versioned-trait]]
 === 版本特性
@@ -242,33 +242,46 @@ Jmix UI 有特殊的 xref:flow-ui:data/key-value-containers.adoc[key-value 数�
 
 NOTE: 实体属性的英文术语除了 _Entity Attributes_，还有另一个术语：_Entity Properties_。经常在 Jmix 代码中使用，比如这些注解：`@JmixProperty`、`@DependsOnProperties` 等。
 
+[[attribute-types]]
+=== 属性类型
+
 每个实体属性都应具有对应的类型。Jmix 开箱支持以下类型：
 
-* `java.lang.String`
-* `java.lang.Character`
-* `java.lang.Boolean`
-* `java.lang.Integer`
-* `java.lang.Long`
-* `java.lang.Double`
-* `java.math.BigDecimal`
-* `java.util.Date`
-* `java.time.LocalDate`
-* `java.time.LocalTime`
-* `java.time.LocalDateTime`
-* `java.time.OffsetTime`
-* `java.time.OffsetDateTime`
-* `java.sql.Date`
-* `java.sql.Time`
-* `java.util.UUID`
-* `java.net.URI`
-* `byte[]`（字节数组）
+* 基本类型：
+** `java.lang.String`
+** `java.lang.Character`
+** `java.lang.Boolean`
+** `java.lang.Integer`
+** `java.lang.Long`
+** `java.lang.Double`
+** `java.math.BigDecimal`
+** `java.util.Date`
+** `java.time.LocalDate`
+** `java.time.LocalTime`
+** `java.time.LocalDateTime`
+** `java.time.OffsetTime`
+** `java.time.OffsetDateTime`
+** `java.sql.Date`
+** `java.sql.Time`
+** `java.util.UUID`
+** `java.net.URI`
+** `byte[]`（字符数组）
 * xref:files:file-storage.adoc[io.jmix.core.FileRef]
+* xref:datatype.adoc#custom-type[自定义类型]
+* 基本类型、`FileRef` 或自定义类型的 `List` 或 `Set`（一个 <<element-collections,元素集合>>）
 * xref:enumerations.adoc[枚举]
-* 实体或实体集合（引用属性）
+* 实体（一个 <<references,引用>> 属性）
+* 实体的 `List` 或 `Set`（一个引用集合属性）
 
-如果你需要的类型不在上述列表，你可以实现一个对应的 xref:data-types.adoc[数据类型] 并确保 xref:data-stores.adoc[数据存储] 支持该类型，然后就可以作为实体属性的类型使用。
+[CAUTION]
+====
+请注意，Java 原始类型（如 `int`、`boolean` 等）以及 `java.util.Map` 不能用作实体属性。
 
-CAUTION: 请注意，Java 原始类型（`int`、`boolean` 等）不能作为实体属性的类型。
+不过，仍然可以在实体类中包含这些类型的字段，前提是这些字段不被 Jmix 识别为属性。具体说明请参见下文 <<defining-attributes,定义属性>> 一节。
+====
+
+[[defining-attributes]]
+=== 定义属性
 
 在 JPA 和 DTO 实体中，属性有两种类型：
 
@@ -307,6 +320,53 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/User.java
 --
 
 * 如果 `annotatedPropertiesOnly` 参数设置为 `true`，则只有用 <<jmix-property,@JmixProperty>> 标注的属性和方法为实体属性。
+
+[[attribute-default-values]]
+=== 默认值
+
+实体属性可以直接通过为字段复制设置默认值，或者在 <<post-construct,@PostConstruct>> 方法中进行设置。关于为实体属性配置初始值的详细信息，请参阅 xref:initial-entity-values-guide:index.adoc[] 指南。
+
+[CAUTION]
+====
+不要使用新的 `ArrayList` 或 `HashSet` 实例来初始化集合类型的字段，这会破坏 xref:data-access:fetching.adoc[数据获取] 功能。如果希望为这类字段提供默认值，请使用 Jmix 提供的特殊集合：`NotInstantiatedList` 或 `NotInstantiatedSet`。例如：
+
+[source,java]
+----
+@OneToMany(mappedBy = "user")
+private List<UserStep> steps = new NotInstantiatedList<>();
+----
+====
+
+[[element-collections]]
+== 元素集合
+
+实体属性还可以是基本类型、xref:files:file-storage.adoc[FileRef] 或 xref:datatype.adoc#custom-type[自定义类型] 的集合（`List` 或 `Set`）。
+
+对于 JPA 实体，元素集合（element collection）保存在单独的数据库表中。映射关系通过下列 JPA 注解定义：
+
+* `@ElementCollection`
+* `@CollectionTable`
+* `@OrderColumn`
+
+示例：
+
+[source,java,indent=0]
+----
+include::example$data-model-ex1/src/main/java/com/company/demo/entity/Product.java[tags=element-collection]
+----
+
+`URI`、`FileRef` 或自定义数据类型需要一个显式的转换器：
+
+[source,java,indent=0]
+----
+include::example$data-model-ex1/src/main/java/com/company/demo/entity/Product.java[tags=file-collection]
+----
+
+*不支持* 下列集合作为元素集合属性：
+
+* `Map`
+* 嵌入实体的集合
+* 枚举的集合
 
 [[references]]
 == 实体关系
@@ -372,6 +432,8 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/bean/OrderServic
 include::example$/data-model-ex1/src/main/java/com/company/demo/view/product/ProductDetailView.java[tags=data-context-create]
 ----
 
+参考 xref:initial-entity-values-guide:index.adoc[] 指南了解如何配置实体属性的初始值。
+
 [[uniqueness]]
 == 唯一性
 
@@ -412,7 +474,8 @@ TIP: Studio 支持在 xref:studio:entity-designer.adoc[实体设计器] 中创�
 [[composition]]
 === @Composition
 
-`@Composition` 注解用于引用属性，表示该关系是一种 <<references,composition>>（组合关系）。例如：
+`@Composition` 注解用于引用属性，表示该关系是一种 <<references,composition>>（组合关系）。
+例如：
 
 [source,java,indent=0]
 ----
@@ -495,6 +558,14 @@ include::example$/data-model-ex1/src/main/java/com/company/demo/entity/GeoPointE
 
 被标注的属性必须是 `Long`、`Integer` 或 `UUID` 类型，并且一个实体不能有多个带此注解的 `UUID` 属性。
 
+对于 `Long` 和 `Integer` 类型的属性，其值通过 xref:features:sequences.adoc[] 功能获取。可以使用以下注解属性为特定实体自定义行为：
+
+* `sequenceName` 支持显式指定序列的名称。如果该序列不存在，将在首次请求新值时自动创建。
+
+* `sequenceCache` 仅在设置了 `sequenceName` 时生效。支持为此实体开启序列值的缓存。默认情况下，若显式指定了序列，则缓存为关闭状态。
+
+有关序列缓存的更多信息，请参考 xref:data-access:data-properties.adoc#jmix.data.number-id-cache-size[jmix.data.number-id-cache-size]。
+
 CAUTION: 请注意，如果你使用 `new` 运算符创建实体实例，`@JmixGeneratedValue` 注解不会生效。有关创建新实例的正确方法，请参阅 <<instantiation,实例化实体>>。
 
 [[jmix-id]]
@@ -537,7 +608,7 @@ private UUID id;
 
 * `groupingSeparator` - 千分位符号（可选）。
 
-NOTE: 如果未设置 `decimalSeparator` 或 `groupingSeparator`，则对于依赖语言环境的格式化，这些值从 xref:data-model:data-types.adoc#localized-format-strings[当前用户的 locale] 中获取；对于不依赖语言环境的格式化，则从服务器的默认 locale 中获取。
+NOTE: 如果未设置 `decimalSeparator` 或 `groupingSeparator`，则对于依赖语言环境的格式化，这些值从 xref:data-model:datatype.adoc#localized-format-strings[当前用户的 locale] 中获取；对于不依赖语言环境的格式化，则从服务器的默认 locale 中获取。
 
 示例：
 
@@ -599,7 +670,7 @@ CAUTION: 如果你使用 `new` 运算符创建实体实例，`@PostConstruct` �
 [[property-datatype]]
 === @PropertyDatatype
 
-如果实体属性的 Java 类型有多个 xref:data-types.adoc[数据类型]，则 `@PropertyDatatype` 注解可以通过其 id 显式指定 `Datatype` 实现。例如：
+如果实体属性的 Java 类型有多个 xref:datatype.adoc[数据类型]，则 `@PropertyDatatype` 注解可以通过其 id 显式指定 `Datatype` 实现。例如：
 
 [source,java,indent=0]
 ----

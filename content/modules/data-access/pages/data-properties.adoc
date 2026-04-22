@@ -3,7 +3,7 @@
 [[jmix.data.number-id-cache-size]]
 == jmix.data.number-id-cache-size
 
-如果实体的 ID 是 `Integer` 或 `Long` 类型，且带有 `@JmixGeneratedValue` 注解，当通过 `Metadata.create()` 在内存中创建实体时，会立即为新实例分配 ID。这个新的 ID 是通过 xref:features:sequences.adoc[] 机制从数据库序列中获取下一个值。为了减少对数据库的访问，序列的增量（increment）默认设置为 100，也就是说，框架会在每次调用时会获取这 100 个新的 ID。因此，其实框架是“缓存”了一些 ID 进行分发，直到用完这 100 个 ID 才会再次从数据库获取。
+如果实体的 ID 是 `Integer` 或 `Long` 类型，且带有 xref:data-model:entities.adoc#jmix-generated-value[@JmixGeneratedValue] 注解，当通过 `Metadata.create()` 在内存中创建实体时，会立即为新实例分配 ID。这个新的 ID 是通过 xref:features:sequences.adoc[] 机制从数据库序列中获取下一个值。为了减少对数据库的访问，序列的增量（increment）默认设置为 100，也就是说，框架会在每次调用时会获取这 100 个新的 ID。因此，其实框架是“缓存”了一些 ID 进行分发，直到用完这 100 个 ID 才会再次从数据库获取。
 
 该配置用于定义索引的增量，亦即框架缓存的 ID 范围。
 

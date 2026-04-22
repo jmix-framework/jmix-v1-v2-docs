@@ -20,7 +20,7 @@
 [[osm-source]]
 === OsmSource
 
-这个源的瓦片数据是从 https://www.openstreetmap.org[OpenStreetMap^] 瓦片服务和 xref:maps:map-services.adoc#xyz-tiles[XYZ tile] 服务加载。更多详情请参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_OSM-OSM.html[OSM 文档^]。
+这个源的瓦片数据是从 https://www.openstreetmap.org[OpenStreetMap^] 瓦片服务和 xref:maps:map-services.adoc#xyz-tiles[XYZ 瓦片] 服务加载。更多详情请参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_OSM-OSM.html[OSM 文档^]。
 
 下面的示例演示了如何展示 OpenStreetMap 瓦片层。
 
@@ -65,7 +65,7 @@ include::example$/maps-ex2/src/main/resources/com/company/mapssample/view/layers
 
 这个源展示单一静态图片。更多详情请参阅 https://openlayers.org/en/v8.2.0/apidoc/module-ol_source_ImageStatic-Static.html[Static 文档^]。
 
-展示 URL 图片的示例。这个示例取自 https://openlayers.org/en/latest/examples/static-image.html[OpenLayers -> Examples -> Static image^]：
+这个示例展示使用 URL 的图片。取自 https://openlayers.org/en/latest/examples/static-image.html[OpenLayers -> Examples -> Static image^]：
 
 [source,xml,indent=0]
 ----

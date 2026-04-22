@@ -1,20 +1,20 @@
-= card
+= card 卡片
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/card-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/card-simple" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-The `Card` component is a versatile container used to display content in a card format, offering customization options for layout and appearance to group related content and actions.
+`Card` 组件是一个多功能容器，以卡片格式显示内容，可自定义布局和外观，将相关内容和操作进行分组。
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`card`
-|Java Class
+|Java 类
 |`JmixCard`
-|Attributes
+|XML 属性
 |xref:vc/common-attributes.adoc#id[id] -
 xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -34,68 +34,68 @@ xref:vc/common-attributes.adoc#minWidth[minWidth] -
 <<titleHeadingLevel,titleHeadingLevel>> -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|XML 内部元素
 |<<slot-content,content>> - <<slot-footer,footer>> - <<slot-header,header>> - <<slot-headerPrefix,headerPrefix>> - <<slot-headerSuffix,headerSuffix>> - <<slot-media,media>> - <<slot-subtitle,subtitle>> - <<slot-title,title>>
 |===
 
-== Basics
+== 基本用法
 
-The following example demonstrates how to create a simple `card` displaying product information.
+下面的示例展示如何创建一个简单的 `card` 用于显示产品的信息。
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=basics]
 ----
-<1> The `elevated` <<theme-variants,theme variant>> applies a shadow effect.
-<2> Defines the primary heading using the <<slot-title,title>> predefined slot.
-<3> Defines the secondary heading using the <<slot-subtitle,subtitle>> predefined slot.
-<4> The <<slot-media,media>> slot contains the product image.
-<5> The <<slot-content,content>> slot holds the main descriptive text.
-<6> The <<slot-footer,footer>> slot groups action buttons, anchoring them to the bottom of the card.
+<1> `elevated` <<theme-variants,样式>> 使用阴影效果。
+<2> 使用预定义的 <<slot-title,title>> 插槽定义主标题。
+<3> 使用预定义的 <<slot-subtitle,subtitle>> 插槽定义副标题。
+<4> <<slot-media,media>> 插槽包含产品图片。
+<5> <<slot-content,content>> 插槽包含主要的描述文本。
+<6> <<slot-footer,footer>> 插槽将操作按钮组合在一起，并固定在卡片底部。
 
 image::visual-components/layouts/card-basic.png[align="center", width="510"]
 
-The `Card` component displays content in a structured, card-based layout. Information within the card can be populated either through component attributes or by using its internal elements, known as <<slots,slots>>.
+`Card` 组件以结构化的卡片式布局展示内容。卡片内的信息可以通过组件属性填充，也可以使用其内部元素（称为 <<slots,slots - 插槽>>）填充。
 
-The card's visual appearance - including shadows, borders, and backgrounds - is customizable. This is achieved by applying different <<theme-variants,theme variants>>.
+卡片的视觉外观（包括阴影、边框和背景）都是可定制的。通过使用不同的 <<theme-variants,样式版本>> 实现。
 
 [[slots]]
-== Slots
+== 插槽
 
-The component provides several predefined slots for flexible content organization. A slot is a nested element within the component.
+组件提供了多个预定义的插槽，可以灵活地组织内容。插槽是组件的一个内部元素。
 
-TIP: To add a slot in Jmix Studio, select `card` in the view XML descriptor or in the *Jmix UI* structure panel and click *Add→[Slot Name]* in the *Component Inspector* panel.
+TIP: 如需在 Jmix Studio 中添加插槽，在视图 XML 或 *Jmix UI* 结构面板中选择 `card`，然后在 *Component Inspector* 面板中点击 *Add→[Slot Name]*。
 
-NOTE: All slots except <<slot-content,content>> and <<slot-footer,footer>> are limited to containing a single nested component.
+NOTE: 除 <<slot-content,content>> 和 <<slot-footer,footer>> 之外的所有插槽都只能包含一个内部组件。
 
 [[slot-title]]
-=== Title
+=== 标题
 
-Textual content with predefined styling.
+具有预定义样式的文本内容。
 
-You can define the card's title in either of the following ways:
+可以通过以下任一方式定义卡片的标题：
 
-* Using the `title` attribute on the component.
-* Using a nested `title` element.
+* 使用组件上的 `title` 属性。
+* 使用内部的 `title` 元素。
 
 [IMPORTANT]
 ====
-* If a title is specified using both the `title` attribute and a nested `title` element, the value from the nested element takes precedence, and the attribute value is ignored.
+* 如果同时使用 `title` 属性和内部的 `title` 元素指定标题，则内部元素的值优先，忽略属性值。
 
-* The `title` (and `subtitle`) are not rendered if a <<slot-header,header>> slot is present. The custom header markup replaces them entirely.
+* 如果存在 <<slot-header,header>> 插槽，则 `title`（和 `subtitle`）不会渲染。自定义的 header 会完全替换标题。
 ====
 
-Card with the `title` and `subtitle` attributes:
+使用 `title` 和 `subtitle` 属性的卡片：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title2]
 ----
 
-Card with a nested `title` element:
+使用内部 `title` 元素的卡片：
 
 [source,xml,indent=0]
 ----
@@ -103,30 +103,30 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[slot-subtitle]]
-=== Subtitle
+=== 副标题
 
-The subtitle provides secondary textual content with predefined styling, displayed directly below the title. It is designed to be used in conjunction with a title.
+副标题是带有预定义样式的次要文本内容，直接显示在标题下方。一般与标题一起使用。
 
-You can define the card's subtitle in either of the following ways:
+可以通过以下任一方式定义卡片的副标题：
 
-* Using the `subtitle` attribute on the component.
-* Using a nested `subtitle` element.
+* 使用组件上的 `subtitle` 属性。
+* 使用内部的 `subtitle` 元素。
 
 [IMPORTANT]
 ====
-* If a subtitle is specified using both the `subtitle` attribute and a nested `subtitle` element, the value from the nested element takes precedence, and the attribute value is ignored.
+* 如果同时使用 `subtitle` 属性和内部的 `subtitle` 元素指定副标题，则内部元素的值优先，忽略属性值。
 
-* The `subtitle` (and `title`) are not rendered if a <<slot-header,header>> slot is present. The custom header markup replaces them entirely.
+* 如果存在 <<slot-header,header>> 插槽，则 `subtitle`（和 `title`）不会渲染。自定义的 header 会完全替换标题。
 ====
 
-Card with the `title` and `subtitle` attributes:
+使用 `title` 和 `subtitle` 属性的卡片：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/card/card-view.xml[tags=title2]
 ----
 
-Card with a nested `subtitle` element:
+使用内部 `subtitle` 元素的卡片：
 
 [source,xml,indent=0]
 ----
@@ -136,14 +136,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-header]]
 === Header
 
-Specifies a custom component to be used as the card's header.
+设置一个自定义组件作为卡片的 header。
 
 [IMPORTANT]
 ====
-When a header slot is defined, it takes precedence over the <<slot-title,title>> and <<slot-subtitle,subtitle>> slots. The custom header markup is displayed instead, completely replacing the default title and subtitle.
+当定义了 header 插槽时，其优先级好于 <<slot-title,title>> 和 <<slot-subtitle,subtitle>> 插槽。自定义了 header 后，这个 header 会完全替换默认的标题和副标题。
 ====
 
-Card with a nested `header` element:
+使用内部 `header` 元素的卡片：
 
 [source,xml,indent=0]
 ----
@@ -153,11 +153,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-headerPrefix]]
 === HeaderPrefix
 
-Specifies a component to be displayed before the main header content.
+设置一个组件用于在 header 前面显示内容。
 
 image:visual-components/layouts/card-header-prefix.png[align="center", width=333]
 
-This slot is typically used for elements like an xref:flow-ui:vc/components/avatar.adoc[avatar], xref:vc/components/icon.adoc[icon], or other visual indicator that precedes the title and subtitle.
+这个插槽的典型用法是用于显示 xref:flow-ui:vc/components/avatar.adoc[头像]、xref:vc/components/icon.adoc[图标] 或其他标题和副标题之前的可视化元素。
 
 [source,xml,indent=0]
 ----
@@ -167,11 +167,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-headerSuffix]]
 === HeaderSuffix
 
-Specifies a component to be displayed after the main header content.
+设置一个组件用于在 header 后面显示内容。
 
 image:visual-components/layouts/card-header-suffix.png[align="center", width=334]
 
-This slot is commonly used for action buttons, decorative icons, or other interactive elements that are relevant to the header.
+这个插槽的一般用来显示操作按钮、装饰的图标或其他与 header 相关的交互元素。
 
 [source,xml,indent=0]
 ----
@@ -179,11 +179,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[slot-media]]
-=== Media
+=== 媒体
 
-Specifies a visual component, such as an xref:flow-ui:vc/html-components/image.adoc[image], xref:flow-ui:vc/components/avatar.adoc[avatar], or xref:flow-ui:vc/components/icon.adoc[icon], to be displayed as the card's media.
+指定一个可视化组件，例如 xref:flow-ui:vc/html-components/image.adoc[图片]、xref:flow-ui:vc/components/avatar.adoc[头像] 或 xref:flow-ui:vc/components/icon.adoc[图标]，作为卡片的媒体内容显示。
 
-To control how the media content is sized, apply the `stretch-media` or `cover-media` <<theme-variants,theme variants>> using the `themeNames` attribute.
+如需控制媒体内容的尺寸，请使用 `themeNames` 属性设置 `stretch-media` 或 `cover-media` <<theme-variants,样式>>。
 
 [source,xml,indent=0]
 ----
@@ -191,9 +191,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[slot-content]]
-=== Content
+=== 内容
 
-Contains the main content of the card. This slot can hold any number of elements, providing flexibility for rich and complex layouts.
+包含卡片的主要内容。这个插槽可以放置任意个元素，为丰富和复杂的布局提供灵活性。
 
 [source,xml,indent=0]
 ----
@@ -203,9 +203,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 [[slot-footer]]
 === Footer
 
-Defines the footer area of the card. This slot supports multiple elements, enabling flexible layouts for actions, status indicators, and supplementary information.
+定义卡片的底部区域。此插槽支持多个元素，可为操作、状态指示和补充信息提供灵活的布局。
 
-The footer remains positioned at the bottom of the card regardless of the main content's height.
+无论主要内容的高度如何，底部始终位于卡片的底部位置。
 
 [source,xml,indent=0]
 ----
@@ -213,15 +213,15 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[theme-variants]]
-== Theme Variants
+== 样式版本
 
-The component's appearance is customizable with the xref:vc/common-attributes.adoc#themeNames[themeNames] attribute, which allows you to select among five different options:
+组件的外观可以通过 xref:vc/common-attributes.adoc#themeNames[themeNames] 属性自定义，支持五个不同的选项：
 
 
 .`outlined`
 [%collapsible]
 ====
-Applies a border around the card.
+为卡片添加边框
 
 image:visual-components/layouts/card-outlined.png[align="center", width=172]
 ====
@@ -229,7 +229,7 @@ image:visual-components/layouts/card-outlined.png[align="center", width=172]
 .`elevated`
 [%collapsible]
 ====
-Adds a shadow effect to create elevation.
+为卡片添加阴影效果。
 
 image:visual-components/layouts/card-elevated.png[align="center", width=178]
 ====
@@ -237,7 +237,7 @@ image:visual-components/layouts/card-elevated.png[align="center", width=178]
 .`horizontal`
 [%collapsible]
 ====
-Arranges the card content horizontally.
+卡片内容水平布局。
 
 image:visual-components/layouts/card-horizontal.png[align="center", width=174]
 ====
@@ -245,7 +245,7 @@ image:visual-components/layouts/card-horizontal.png[align="center", width=174]
 .`stretch-media`
 [%collapsible]
 ====
-Scales the media content to fill its container.
+调整媒体以填满其容器。
 
 image:visual-components/layouts/card-stretch-media.png[align="center", width=171]
 ====
@@ -253,35 +253,35 @@ image:visual-components/layouts/card-stretch-media.png[align="center", width=171
 .`cover-media`
 [%collapsible]
 ====
-Crops the media content to cover its container.
+裁剪媒体内容以覆盖其容器。
 
 image:visual-components/layouts/card-cover-media.png[align="center", width=176]
 ====
 
-TIP: You can combine all theme variants together.
+TIP: 可以混合使用这些样式。
 
-== Attributes
+== XML 属性
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
-The following attributes are specific to `card`:
+下面是 `card` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*名称*
+|*描述*
+|*默认值*
 |[[subtitle]]subtitle
-|Set the secondary textual content with predefined styling. See <<slot-subtitle,Subtitle>>.
+|设置具有预定义样式的次要文本内容。参阅 <<slot-subtitle>>。
 |
 |[[title]]title
-|Set the textual content with predefined styling. See <<slot-title,Title>>.
+|设置具有预定义样式的文本内容。参阅 <<slot-title>>。
 |
 |[[titleHeadingLevel]]titleHeadingLevel
-|Sets the title heading level property for the titles. The value of the attribute is set to the https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-level[aria-level^] HTML attribute. The `titleHeadingLevel` value must be in the range 1-6. *Important*: Values outside the valid range (1-6) can cause significant accessibility issues and should be avoided.
+|设置标题的 heading level 属性。用该属性的值设置 https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-level[aria-level^] HTML 属性。`titleHeadingLevel` 的值必须在 1-6 范围内。*重要*：超出有效范围（1-6）的值可能导致严重的访问性问题，应避免使用。
 |2
 |===
 
-== See Also
+== 参考
 
-See {vaadin-docs}/components/card[Vaadin Docs^] for more information.
+{vaadin-docs}/components/card[Vaadin 文档^]。

@@ -53,6 +53,8 @@ xref:vc/common-handlers.adoc#FocusEvent[FocusEvent]
 |XML 内部元素
 |xref:vc/components/dropdownButton.adoc#actionItem[actionItem] -
 xref:vc/components/dropdownButton.adoc#componentItem[componentItem] -
+xref:icons/custom-icons.adoc[dropdownIcon] -
+xref:icons/custom-icons.adoc[icon] -
 xref:vc/components/dropdownButton.adoc#separator[separator] -
 xref:vc/components/dropdownButton.adoc#textItem[textItem]
 |===
@@ -70,7 +72,7 @@ image::visual-components/components/combo-button-basics.png[align="center", widt
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `comboButton` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]

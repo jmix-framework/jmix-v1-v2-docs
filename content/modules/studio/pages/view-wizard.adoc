@@ -24,7 +24,31 @@ image::wizard-entity.png[align="center",width="536"]
 
 image::create-view-from-entity-designer.png[align="center",width="800"]
 
-在向导的 *Create Jmix View* 页中，选择一个合适的模板。
+在向导的 *Create Jmix View* 页中，选择所需的模板。
+
+可用模板：
+
+* *Entity list view*
++
+创建一个显示实体列表的视图，支持过滤和操作功能。参阅 xref:flow-ui:views/view-classes.adoc#standard-list-view[StandardListView]。
++
+主要组件：xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]、操作 xref:flow-ui:vc/components/button.adoc[按钮]（*Create*、*Edit*、*Remove*）、xref:flow-ui:vc/components/genericFilter.adoc[genericFilter]。
+
+* *Entity detail view*
++
+创建一个基于表单的视图，用于创建、查看和编辑单个实体实例。参阅 xref:flow-ui:views/view-classes.adoc#standard-detail-view[StandardDetailView]。
++
+主要组件：带有字段绑定的 xref:flow-ui:vc/layouts/formLayout.adoc[formLayout]、*OK* 和 *Cancel* 操作按钮。
+
+* *Entity list and detail views*
++
+同时生成列表视图和详情视图，作为独立但关联的视图。
+
+* *Master-detail view*
++
+创建一个组合界面，左侧为实体列表，右侧为详情表单。详情表单字段在用户点击 *Create* 或选择要 *Edit* 的实体之前处于禁用状态。视图控制器较为复杂，扩展自 `StandardListView`。
++
+主要组件：包含 `dataGrid` 和 `formLayout` 的布局。
 
 下一步中，可以修改自动生成的视图属性。
 

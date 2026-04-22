@@ -54,7 +54,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 == 日期格式
 //todo: make changes upon completing jmix#858 ticket
-应用程序中的默认时间日期格式是由 xref:data-model:data-types.adoc#localized-format-strings[本地格式字符串] 定义。如需使用不同格式，请在消息包添加自定义格式字符串。
+应用程序中的默认时间日期格式是由 xref:data-model:datatype.adoc#localized-format-strings[本地格式字符串] 定义。如需使用不同格式，请在消息包添加自定义格式字符串。
 
 如需为特定组件修改格式，可以使用 xref:vc/common-attributes.adoc#dateFormat[dateFormat] 属性。
 
@@ -67,7 +67,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/datepicker/date-picker-view.xml[tags=range]
 ----
 
-或者在视图控制器中设置：
+或者在视图控制器中设置动态日期：
 
 [source,java,indent=0]
 ----

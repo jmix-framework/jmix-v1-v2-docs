@@ -4,13 +4,15 @@
 
 `BusinessCalendarRepository` 定义了获取系统中配置的工作日历的方法。
 
-* `getBusinessCalendarByCode()` 方法根据提供的编码返回工作日历。
-* `getAllBusinessCalendars()` 方法系统中所有的工作日历。
+* `getBusinessCalendarByCode(String code)` 方法根据提供的编码返回工作日历。
+* `getAllBusinessCalendars()` 方法返回所有配置的工作日历。
 
 == BusinessCalendar
 
 `BusinessCalendar` 提供的方法包括：检查给定的日期时间是否在工作日内，进行时间和日期的计算时，会计算日期中定义的工作日：
 
+* `getDayInfo(LocalDate date)` 返回指定日期的信息，包括是否为工作日以及该日期的标记。
+* `getDayInfo(LocalDateTime dateTime)` 返回指定日时间的信息，包括是否为工作时间以及该日期时间的标记。
 * `isBusinessDay(LocalDate date)` 检查提供的日期是否是工作日。
 * `isBusinessTime(LocalDateTime dateTime)` 检查提供的日期时间是否是工作时间。
 * `plus(LocalDate date, int daysToAdd)` 返回提供日期的一个拷贝，并加上 `daysToAdd` 个工作日。

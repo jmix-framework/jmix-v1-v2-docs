@@ -9,9 +9,50 @@
 
 `formLayout` 是一个响应式布局，内部组件按列排布。列的数量根据布局的宽度变化。
 
-* XML 元素：`formLayout`
-
-* Java 类：`FormLayout`
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`formLayout`
+|Java 类
+|`FormLayout`
+|XML 属性
+|xref:vc/common-attributes.adoc#id[id] -
+xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
+<<autoResponsive,autoResponsive>> -
+<<autoRows,autoRows>> -
+xref:vc/common-attributes.adoc#classNames[classNames] -
+xref:vc/common-attributes.adoc#clickShortcut[clickShortcut] -
+xref:vc/common-attributes.adoc#colspan[colspan] -
+<<columnSpacing,columnSpacing>> -
+<<columnWidth,columnWidth>> -
+xref:vc/common-attributes.adoc#css[css] -
+xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
+xref:vc/common-attributes.adoc#enabled[enabled] -
+<<expandColumns,expandColumns>> -
+<<expandFields,expandFields>> -
+xref:vc/common-attributes.adoc#height[height] -
+<<labelsAside,labelsAside>> -
+<<labelSpacing,labelSpacing>> -
+<<labelsPosition,labelsPosition>> -
+<<labelWidth,labelWidth>> -
+<<maxColumns,maxColumns>> -
+xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
+xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
+<<minColumns,minColumns>> -
+xref:vc/common-attributes.adoc#minHeight[minHeight] -
+xref:vc/common-attributes.adoc#minWidth[minWidth] -
+<<rowSpacing,rowSpacing>> -
+xref:vc/common-attributes.adoc#visible[visible] -
+xref:vc/common-attributes.adoc#width[width]
+|事件和处理器
+|xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
+xref:vc/layouts/flexLayout.adoc#clickListener[clickListener] -
+xref:vc/layouts/flexLayout.adoc#doubleClickListener[doubleClickListener] -
+xref:vc/layouts/flexLayout.adoc#singleClickListener[singleClickListener] -
+xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|XML 内部元素
+|<<label-position,formItem>> - <<form-rows,formRow>> - <<responsive-steps,responsiveSteps>>
+|===
 
 == 基本用法
 
@@ -28,8 +69,102 @@ image::visual-components/layouts/form-layout-basic-1.png[align="center", width="
 
 image::visual-components/layouts/form-layout-basic-2.png[align="center", width="650"]
 
+[[data-binding]]
+== 数据绑定
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/form-layout-dataaware" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
+
+数据绑定是指将组件与 xref:data/data-containers.adoc[数据容器] 进行关联。
+
+在 `formLayout` 组件中，通过设置 `dataContainer` 属性关联数据容器。
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=data;layout;dataContainer]
+----
+<1> `User` 实体的 `InstanceContainer` 容器。
+<2> 将组件与数据容器和属性进行关联。`dataContainer` 属性使用 `userDc` 数据容器
+<3> 内部的 `formLayout` 元素通过  `property` XML 属性定义绑定实体属性的可视化组件。组件的标签会基于实体属性的本地化名称自动创建。
+
+[[auto-responsive-mode]]
+== 自动响应模式
+
+启用后，`formLayout` 会自动确定合适的列数。此计算会考虑列宽、间距以及可用的水平空间。
+
+将 `autoResponsive` 属性设置为 `true` 来启用此模式。
+
+IMPORTANT: 当自动响应模式启用时，会忽略 <<responsive-steps,响应式列数>>。
+
+[[form-rows]]
+=== 表单行
+
+在自动响应模式下，默认所有字段都显示在单列中。
+
+如需将字段组织成多列，请使用以下方法之一：
+
+. *手动分组字段*：将相关字段放入 `formRow` 元素中，显式创建一个多列分组。
++
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=formRow]
+----
++
+[NOTE]
+====
+每个 `formRow` 总是从新的一行开始，超出可用列数的字段会换到新行，而且仅用于 `formRow` 的字段。
+====
+
+. *启用自动分布*：<<autoRows,autoRows>> 属性设置为 `true` 时，布局会自动将字段放入可用列中，当前列满时换到新行。
+
+<<rowSpacing,rowSpacing>> 属性控制行之间的垂直间距。此设置适用于所有行之间的间距，无论是通过 `formRow` 手动创建的行，还是通过 `autoRows` 自动创建的行。
+
+[[label-positioning]]
+=== 自动响应标签位置
+
+默认情况下，标签渲染在其对应字段的上方。如需将标签放在字段旁边，请将字段包裹在 `formItem` 元素中，并在 `formLayout` 上添加 `labelsAside="true"` 属性。
+
+[IMPORTANT]
+====
+使用标签侧置模式时，请将标签添加在 `formItem` 元素中，而不是字段中。
+====
+
+下面的示例演示了如何将标签放在字段旁边：
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=labelsAside]
+----
+
+如果 `formLayout` 的宽度不足以将标签放在字段旁边，会自动恢复为默认行为，即标签显示在字段上方。
+
+`labelSpacing` 属性定义了标签侧置时标签与字段之间的间距。使用此属性可调整水平间距以获得最佳布局。
+
+[[column-management]]
+=== 列管理
+
+在自动响应模式下，列的宽度由 <<columnWidth,columnWidth>> 属性定义。布局会根据可用的容器宽度自动创建列，直至达到指定的限制。
+
+布局会根据可用空间动态调整列数，受 <<minColumns,minColumns>> 和 <<maxColumns,maxColumns>> 界限的约束。`minColumns` 属性确保始终至少创建指定数量的列，而 `maxColumns` 则设置上限以防止列过多。在这些列之间，<<columnSpacing,columnSpacing>> 属性使用 CSS 长度单位控制列之间的间隔。
+
+为了优化空间利用，有两种延展方案。当 <<expandFields,expandFields>> 启用时，字段（包括 `formItem` 元素内的字段）会水平拉伸以填充其所在的列。或者，启用 <<expandColumns,expandColumns>> 可以使所有列按比例延展，并在最初的列宽计算后，所有列共同占据布局中剩余的可用宽度。
+
+[source,xml,indent=0]
+----
+include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/formlayout/form-layout-view.xml[tags=columns]
+----
+
 [[responsive-steps]]
-== 响应式列数
+== 响应式列数模式
+
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.io/ui-samples/sample/form-layout-responsive-steps" class="live-demo-btn" target="_blank">在线示例</a>
+</div>
+++++
 
 `responsiveSteps` 元素可以根据可用空间的大小确定显示的列数。
 
@@ -43,7 +178,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 image::visual-components/layouts/form-layout-columns.png[align="center", width="780"]
 
 [[label-position]]
-== 标签位置
+== 响应式列数标签位置
 
 此布局可以可以支持在内部组件的旁边放置标签。将内部组件放置于 `formItem` 元素内，设置其标签，然后配置 <<labelsPosition,labelsPosition>> 属性指定标签位置：
 
@@ -83,56 +218,60 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 
 image::visual-components/layouts/form-layout.png[align="center", width="659"]
 
-[[attributes]]
 == XML 属性
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#dataContainer[dataContainer] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-xref:vc/common-attributes.adoc#height[height] -
-<<labelsPosition,labelsPosition>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
+下面是 `formLayout` 的特殊属性：
 
-[[labelsPosition]]
-=== labelsPosition
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[autoResponsive]]autoResponsive
+|布局根据其容器的可用宽度自动计算和调整列数。参阅 <<auto-responsive-mode>>。
+|`false`
+|[[autoRows]]autoRows
+|配置布局是否应自动将字段分布到各列，顺序填充每行后再换到下一行。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<auto-responsive-mode>>。
+|`false`
+|[[columnWidth]]columnWidth
+|为所有列定义固定宽度。值必须是有效的 CSS 长度单位（例如 `"100px"`、`"10em"`）。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|`13em`
+|[[columnSpacing]]columnSpacing
+|使用 CSS 长度单位定义列之间的间距。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|
+|[[expandColumns]]expandColumns
+|启用后，列会均匀分布以填充初始列计算后剩余的水平空间。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|`false`
+|[[expandFields]]expandFields
+|启用后，字段会拉伸以填充其所在列的所有可用宽度。这也适用于包裹在 `formItem` 元素中的字段。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|`false`
+|[[labelsAside]]labelsAside
+|指定布局中的 `formItem` 元素应将其标签放在相关字段的旁边而不是上方。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<label-positioning>>。
+|`false`（标签位于字段上方）
+|[[labelSpacing]]labelSpacing
+|当标签放在字段旁边时，定义标签与对应字段之间的间距。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<label-positioning>>。值必须使用 CSS 长度单位提供，例如 `1em`。
+|
+|[[labelsPosition]]labelsPosition
+|设置布局内组件的 <<label-position, 标签位置>>。
 
-设置内部组件 <<label-position,标签的位置>>。
+- `ASIDE` - 标签位于组件侧边。
 
-* `ASIDE` -- 标签放在组件的旁边。
-* `TOP` -- 标签放在组件的上方。
-
-[[handlers]]
-== 事件和处理器
-
-xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
-xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-
-include::../handler-generation-tip.adoc[]
-
-[[ClickEvent]]
-=== ClickEvent
-
-点击组件时发送 `com.vaadin.flow.component.ClickEvent` 事件。处理方法必须指定以下三种点击之一来处理具体的点击事件。
-
-* click - 当组件被点击时发送。
-
-* singleClick - 当点击过了一段时间后发送，以确保不是双击。
-
-* doubleClick - 当组件被双击时发送。
-
-== XML 内部元素
-
-<<label-position, formItem>> - <<responsive-steps, responsiveSteps>>
+- `TOP` - 标签位于组件上方。
+|`TOP`
+|[[labelWidth]]labelWidth
+|设置侧置标签的宽度。参阅 <<label-positioning>> 和 <<label-position>>。值必须使用 CSS 长度单位提供，例如 `1em`。
+|
+|[[maxColumns]]maxColumns
+|设置布局可以创建的最大列数。即使有足够空间，实际列数也不会超过此限制。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|10
+|[[minColumns]]minColumns
+|设置布局将创建的最小列数，无论容器宽度如何。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|1
+|[[rowSpacing]]rowSpacing
+|使用 CSS 长度单位定义行之间的间距。此属性仅在启用 <<autoResponsive,autoResponsive>> 时有效。参阅 <<column-management>>。
+|
+|===
 
 == 参考
 

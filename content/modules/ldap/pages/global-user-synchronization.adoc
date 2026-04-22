@@ -1,4 +1,4 @@
 = 全局用户同步
 
-该扩展组件提供 `LdapUserSynchronizationManager` bean，用于同步 xref:ldap:properties.adoc#jmix.ldap.group-for-synchronization[jmix.ldap.group-for-synchronization] 应用程序属性指定的特定 LDAP 组中的用户。通常，此 bean 将在计划任务中调用，例如，每天一次，但它也可以通过 JMX bean 执行。同步还依赖于应用程序中声明的 `LdapUserDetailsSynchronizationStrategy` 策略以及登录时的同步。
+该扩展组件提供 `LdapUserSynchronizationManager` bean，用于同步 xref:ldap:properties.adoc#jmix.ldap.group-for-synchronization[jmix.ldap.group-for-synchronization] 应用程序属性指定的特定 LDAP 组中的用户。通常，此 bean 在计划任务中调用，例如，每天一次，但也可以通过 JMX bean 执行。同步还依赖于应用程序中声明的 `LdapUserDetailsSynchronizationStrategy` 策略以及登录时的同步。
 

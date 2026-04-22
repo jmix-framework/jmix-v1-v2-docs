@@ -99,5 +99,5 @@ image::wb-doc-id-data-grid.png[align="center", width="1462"]
 
 我们了解到：
 
-* WebDAV 扩展组件提供 `WebdavDocument` 实体，用以表示 WebDAV 文档。通过该实体可以使用 Microsoft Word 和 Excel 等外部应用程序编辑和查看文档、管理文档版本，以及控制特定文档的访问权限。
+* WebDAV 扩展组件提供 `WebdavDocument` 实体，用以表示 WebDAV 文档。通过该实体可以使用外部应用程序编辑和查看文档、管理文档版本，以及控制特定文档的访问权限。
 * 默认情况下，在详情视图中使用 xref:flow-ui:vc/components/entityPicker.adoc[entityPicker] 组件选择实体的引用。单击 *WebDAV document* 控件的省略号按钮将打开扩展组件提供的标准 xref:webdav:webdav-documents.adoc[WebDAV 文档视图]。

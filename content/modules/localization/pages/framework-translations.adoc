@@ -7,6 +7,25 @@ Jmix 框架子系统带有包含英文消息的 `messages.properties` 文件。�
 
 在我们社区的帮助下，我们以 _翻译扩展组件_ 的形式提供多种语言的框架消息翻译。翻译组件是一组打包在 JAR 中的消息文件，可以作为依赖项添加到项目中。在 Jmix 市场可以找到 Jmix 团队和社区成员创建的翻译组件：在 Studio 中打开 *Jmix* 工具窗口，选择 *Add-ons* 条目，然后单击右键菜单中的 *Marketplace*。在打开的 *Add-ons* 窗口中，按 *Localization* 标记筛选翻译组件。
 
+如需手动安装翻译扩展组件，请选择下列依赖中需要的语言添加至 `build.gradle`：
+
+[source,groovy]
+----
+implementation 'io.jmix.translations:jmix-translations-ar'      // Arabic
+implementation 'io.jmix.translations:jmix-translations-ckb'     // Central Kurdish
+implementation 'io.jmix.translations:jmix-translations-de'      // German
+implementation 'io.jmix.translations:jmix-translations-el'      // Greek
+implementation 'io.jmix.translations:jmix-translations-es'      // Spanish
+implementation 'io.jmix.translations:jmix-translations-fr'      // French
+implementation 'io.jmix.translations:jmix-translations-it'      // Italian
+implementation 'io.jmix.translations:jmix-translations-nl'      // Dutch
+implementation 'io.jmix.translations:jmix-translations-pt-br'   // Brazilian Portuguese
+implementation 'io.jmix.translations:jmix-translations-ro'      // Romanian
+implementation 'io.jmix.translations:jmix-translations-ru'      // Russian
+implementation 'io.jmix.translations:jmix-translations-tr'      // Turkish
+implementation 'io.jmix.translations:jmix-translations-zh-cn'   // Simplified Chinese
+----
+
 [[translating-framework]]
 == 在项目中翻译框架
 

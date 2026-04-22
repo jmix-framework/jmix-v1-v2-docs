@@ -1,67 +1,23 @@
-= BPMN Web 建模器
+= 建模器
 
-Jmix BPM 支持在运行时的 web 环境中创建或编辑流程模型。
-可以通过主菜单的 *BPM* 部分访问 xref:bpm:menu-views/modeler-web.adoc[建模器]。
+*Modeler（建模器）* 视图提供了一个画布，支持在运行时的创建或编辑 BPMN 流程模型。
 
-该功能支持：
+image::bpm-menu-views/modeler-view.png[width=1392]
 
-- 修复已有流程中的小问题
-- 在生产环境做一些改动
-- 创建新流程
+== 建模器功能
 
+可使用以下操作：
+
+* *拖拽* – 从左侧工具箱拖拽 BPMN 元素并添加到画布。
+* *查看属性* – 点击画布可以显示流程属性，或点击某个元素以显示其属性；还可以在右侧面板编辑这些属性。
+* *部署流程* – 点击 image:quick-start/deploy-process-button.png[width="32"] 部署当前流程。重复部署会导致创建该流程定义的新版本。
+* *打开流程草稿* – 点击 image:quick-start/open-draft-button.png[width="32"] 打开 xref:menu-views/process-drafts.adoc[] 列表视图查看已保存的流程草稿。
+* *保存草稿* – 点击 image:quick-start/save-draft-button.png[width="32"] 保存流程草稿。
+* *导出* – 将当前流程导出为 `.bpmn20.xml` 文件。
+* *导入* – 从 `.bpmn` 或 `.bpmn20.xml` 文件导入流程。
++
 [IMPORTANT]
+.从其他工具导入导出模型
 ====
-以上操作仅在不需要编写新 Java 代码或不用修改已有代码时可用。
+第三方工具创建的 BPMN 模型可能与 Jmix BPM 不完全兼容。类似地，用 Jmix BPM 创建的模型在第三方工具中也可能存在限制；Jmix 专有的元素（例如，xref:bpmn/jmix-entity-data-task.adoc[] 和 xref:bpmn/jmix-email-task.adoc[]）在其他工具中会作为标准服务任务出现，但保留其属性。
 ====
-
-利用 Web 建模器可以在保持系统运行的同时对流程进行无缝改进。
-
-== 概览
-
-视图包含一个 *画布* 以及左侧的带 BPMN 元素的 *工具箱*。
-配置流程元素时，先在画布上选择需要配置的元素，然后在右侧的 *属性面板* 中设置属性。
-
-image::bpm-menu-views/web-modeler.png[,800]
-
-在属性面板的顶部，还有一个 *按钮面板*。
-包含下列按钮：
-
-* 部署流程（Deploy process）
-* 打开草稿（Open draft）
-* 保存草稿（Save draft）
-* 下载模型 XML（Download BPMN XML）
-* 上传模型 XML（Upload BPMN XML）
-
-点击 *部署流程（Deploy process）* 按钮时，
-流程会部署至流程引擎，然后可以启动该流程。
-
-[[model-drafts]]
-== 模型草稿
-
-如果不需要部署流程，而是希望能保存下来继续编辑，
-则可以使用 *保存草稿（Save draft）*。
-
-image::bpm-menu-views/save-draft.png[,800]
-
-草稿将保存在内容存储中。
-打开草稿时，请使用 *打开草稿（Open draft）* 按钮。
-
-image::bpm-menu-views/open-draft.png[]
-
-要导出流程模型，请点击 *下载模型 XML（Download BPMN XML）* 按钮。
-XML 文件将保存在文件系统中，文件名为 _process id_，扩展名为 `.bpmn20.xml`。
-
-要导入流程模型，请点击 *上传模型 XML（Upload BPMN XML）* 按钮并选择要上传的文件。
-然后可以部署该流程或保存草稿。
-
-[WARNING]
-====
-使用第三方工具创建的 BPMN 模型可能与 Jmix BPM 不兼容。
-反过来也一样，Jmix 模型在第三方工具中也可能无法读取。
-
-特定的 Jmix 元素（实体数据任务、电子邮件任务），
-在第三方工具中显示为常规的服务任务。
-但任务的属性依然保留。
-====
-
-TIP: 如需在 IDE 中创建业务流程，请使用 xref:bpm:modeler-studio.adoc[]。

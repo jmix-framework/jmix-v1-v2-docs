@@ -6,8 +6,16 @@
 
 应用程序中打开 *Data tools（数据工具） -> Entity Inspector（实体探查）* 视图，然后在 *Entity Type（实体类型）* 中选择需要查看的实体。
 
-image::entity-browser.png[algne=centre]
+image::entity-browser.png[align="center"]
 
 如果实体已经被软删除，通过 *Show mode（显示模式）* 下拉框可以选择展示软删除的实体，然后决定恢复还是彻底删除。
 
-可以通过 *Export* 和 *Import* 操作导入导出实体为 JSON。注意，在导出时，将不包括一对多或多对多的实体引用属性。
+*Export* 和 *Import* 操作支持将实体导出到 JSON 或从 JSON 导入实体。
+
+[NOTE]
+====
+. 所有简单字段（`DATATYPE`、`ENUM`）都会被导出。
+. 所有引用字段（`ASSOCIATION`、`COMPOSITION`、`EMBEDDED`）都会被导出，使用 `_local` xref:data-access:fetching.adoc#built-in-fetch-plans[fetch plan]。
+
+对相关实体使用 `_local` fetch plan 可确保一对多和多对多关联被包含在导出内容，但仅限于其 local 属性（非引用的直接属性）这一层级，而不会深入到更深的实体引用中。
+====

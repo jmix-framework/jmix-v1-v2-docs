@@ -49,12 +49,38 @@
 
 默认值：`create-or-recreate`
 
+[[jmix.search.maxPrefixLength]]
+== jmix.search.max-prefix-length
+
+定义 xref:search:index-definitions.adoc#extended-search["starts with"] 搜索策略的生成前缀的最大长度。
+
+Edge N-gram 分析器为每个索引单词创建从 <<jmix.search.minPrefixLength,min-prefix-length>> 到此最大值的所有前缀。最大值设置的越大会：
+
+* 提高较长前缀的搜索准确性。
+* 由于存储更多前缀而增加索引大小。
+* 降低通配符回退查询的性能。
+
+默认值：`8`
+
 [[jmix.search.maxSearchPageCount]]
 == jmix.search.max-search-page-count
 
-设置结果页面的最大数量。
+设置结果页面显示的最大数量。
 
 默认值：`100`
+
+[[jmix.search.minPrefixLength]]
+== jmix.search.min-prefix-length
+
+定义 xref:search:index-definitions.adoc#extended-search["starts with"] 搜索策略的生成前缀的最小长度。
+
+Edge N-gram 分析器仅从此长度开始创建前缀。最小值设置的越小会：
+
+* 支持匹配非常短的搜索词。
+* 显著增加索引大小（生成更多前缀）。
+* 可能因大量小前缀而影响性能。
+
+默认值：`3`
 
 [[jmix.search.processQueueBatchSize]]
 == jmix.search.process-queue-batch-size
@@ -172,3 +198,14 @@ _这个模式必须在小心验证之后使用，因为有可能会引起性能�
 定义 key store 的类型。
 
 默认值：`pkcs12`
+
+[[jmix.search.wildcardPrefixQueryEnabled]]
+== jmix.search.wildcard-prefix-query-enabled
+
+当搜索词长度超过 <<jmix.search.maxPrefixLength,jmix.search.max-prefix-length>> 时，回退至通配符查询。
+
+为 `true` 时，对大于最大前缀长度的词项执行通配符查询；当为 `false` 时，对此类词项不返回任何结果。
+
+NOTE: 无论此设置如何，短于 <<jmix.search.minPrefixLength,jmix.search.min-prefix-length>> 的词项始终返回空结果。
+
+默认值：`true`

@@ -3,7 +3,7 @@
 [[add_template]]
 == 添加模板
 
-可以在报表详情视图添加报表模板。在报表列表视图新建或编辑报表时，切换至 *Templates（模板）* 标签页：
+可以在报表详情视图添加报表模板。在报表列表视图新建或编辑报表时，切换至运行时报表编辑器的 *Templates（模板）* 标签页：
 
 image::template-list.png[align="center",width="769"]
 
@@ -51,17 +51,19 @@ image::report-template-detail-view.png[align="center",width="642"]
 [[template_types]]
 == 模板类型
 
+TIP: 多种模板类型示例请参考 xref:reports-guide:index.adoc[] 指南。
+
 [[template_xls]]
 === XLS(X) 模板
 
 可以使用 *Microsoft Office* 或 *LibreOffice* 创建 XLS(X) 模板。
 
 [[template_xls_regions]]
-每个 xref:creation/bands.adoc[报表带区] 必须在模板中具有相应的区域，该区域名称与带区相同。例如，报表有两个区 - `Header` 和 `Data`。这表示模板也应具有 `Header` 和 `Data` 命名区域。如需创建命名区域，选择相应的单元格区域，然后在应用程序左上角的字段中输入名称。要编辑已有的命名区域，请在 Microsoft Office 中使用 *Formulas* -> *Name Manager* 菜单命令，在 LibreOffice 中使用 *Insert* -> *Names* -> *Manage* 命令。反之亦然，Excel 表格中想展示在报表中的每个区域也需要有报表结构中对应的带区（至少是要有一个空带区）。
+每个 xref:creation/bands.adoc[报表带区] 必须在模板中具有相应的区域，该区域名称与带区相同。例如，报表有两个区 - `Header` 和 `Data`。这表示模板也应具有 `Header` 和 `Data` 命名区域。如需创建命名区域，选择相应的单元格区域，然后在应用程序左上角的字段中输入名称。要编辑已有的命名区域，请在 Microsoft Office 中使用 *Formulas* -> *Name Manager* 菜单命令，在 LibreOffice 中使用 *Insert* -> *Names* -> *Manage* 命令。同时，Excel 表格中想展示在报表中的每个区域也需要有报表结构中对应的带区（至少是要有一个空带区）。
 
 报表带区以 xref:creation/bands.adoc[带区] 中指定的顺序输出。
 
-报表带区可以是水平或垂直的。如果报表区是水平的，相应的命名区域将向下扩展；如果是垂直的，将向右扩展。水平报表带区可以用树状结构组织并包含子报表带区（嵌套或子报表带区）。因此，对于子报表带区，需要直接在与父报带表区对应的区域下创建命名区域。
+报表带区可以是水平或垂直的。如果报表区是水平的，命名区域将向下扩展；如果是垂直的，将向右扩展。水平报表带区可以用树状结构组织并包含子报表带区（嵌套或子报表带区）。因此，对于子报表带区，需要直接在与父报带表区对应的区域下创建命名区域。
 
 XLSX 格式化器使用以下算法渲染子报表带区：
 
@@ -81,18 +83,30 @@ image::report_template_xls.png[align="center"]
 
 如需将数据作为 Excel 图表处理，在报表结构中创建一个空报表区，并在模板中创建一个具有相同名称的命名区域。然后在此命名区域内创建一个图表，并使用图表右键菜单中的 *Select data（选择数据）* 按钮引用关联的报表数据区域。如果图表数据位于连续的单元格范围内，请选择该范围内的任意单元格。图表将包含该范围内的所有数据。如果数据不在连续范围内，请选择不相邻的单元格或范围。
 
-将 XLSX 转换为 PDF 和 CSV::
-+
---
+[TIP]
+====
+*在 XLSX 模板中启用自动行高*
+
+如需在手动创建的 XLSX 模板中启用自动行高计算，需要定义一个以 `hint_rowAutoHeight` 开头的命名区域，并指定需要启用自动行高的目标单元格范围。
+
+对于通过 xref:getting-started.adoc#creating-report-at-runtime[报表向导] 生成的 XLSX 报表，在配置的每个报表区域内都会自动添加该命名区域。
+
+执行报表时，内容超出单行可用空间的单元格将自动变为多行，行高也会相应调整以显示全部内容。
+====
+
+[NOTE]
+====
+*XLSX 转为 PDF 和 CSV*
+
 XLSX 报表可以自动转换为 CSV 和 PDF 格式。转换成 PDF 需要安装 xref:configuration.adoc#libre_office[LibreOffice]。
---
+====
 
 [[template_csv]]
 === CSV 模板
 
 可以使用 *Microsoft Office* 或 *LibreOffice* 创建 CSV 模板。
 
-CSV 模板中的报表带区只能是水平方向的，相应的命名区域将向下延展。此外，报表带区应属于第一级数据，即 `Root` 区的第一级子区。其他方面，应使用与 <<template_xls,XLS(X) 模板>> 相同的规则。
+CSV 模板中的报表带区只能是水平方向的，命名区域将向下延展。此外，报表带区应属于第一级数据，即 `Root` 区的第一级子区。其他方面，应使用与 <<template_xls,XLS(X) 模板>> 相同的规则。
 
 image::csv_template.png[align="center"]
 
@@ -127,7 +141,6 @@ image::report_template_doc.png[align="center"]
 [CAUTION]
 ====
 DOC(X) 模板不支持单元格数据格式化。要避免由于用户的语言环境而导致的数字或日期格式问题，例如不必要的数字分隔符，请尝试将数据转换为字符串。
-
 例如，
 
 将
@@ -140,6 +153,15 @@ select e.year as "year"
 ----
 select cast(e.year as varchar(4)) as "year"
 ----
+====
+
+[TIP]
+====
+*在 DOCX 模板中处理多行字符串*
+
+默认情况下，生成报表时会忽略参数值中的换行符。如需在最终 DOCX 输出中保留换行符（例如 `\n` 或 `\r\n`），必须启用 xref:configuration.adoc#jmix.reports.multilineStringsProcessingEnabled[jmix.reports.multilineStringsProcessingEnabled] 应用程序属性。
+
+*该功能仅用于 DOCX 报表输出格式，对 XLSX 或 PDF 等其他格式无效。*
 ====
 
 [[template_html]]
@@ -311,12 +333,40 @@ include::example$/library/src/main/resources/com/company/library/reports/templat
 
 * 通过 Bitmap
 +
-图片在 `src` 属性中以字节数组形式添加。此方法可以使用实体的 `byte[]` 属性变量。甚至可以将字节数组直接添加到模板中，虽然不建议使用此方法：
+图片在 `src` 属性中以字节数组形式添加。此方法可以使用实体的 `FileRef` 属性变量。甚至可以将字节数组直接添加到模板中，虽然不建议使用此方法：
 +
 [source, html, indent=0]
 ----
 <img alt="SomePicture.png"
      src="data:image/png;base64,iVBORw0K ..... AcEP9PwxD0hNKK1FCAAAAAElFTkSuQmCC"/>
+----
++
+还可以将数据库中字节数组（`byte[]`）类型的图片插入到 HTML 报表中。需要在值格式设置中使用 Groovy 脚本将 `byte[]` 转换为 `Base64 Data URL` 字符串。
+
+. 在报表结构中，选择所需的带区，例如 `User`。
+. 在此带区内，创建或确保存在一个名为 `picture` 的参数。该参数将从数据库（来自实体的 `picture` 字段）接收 `byte[]` 数据。
+. 在报表结构中，导航到 *Value Formats* 选项卡。
+. 创建一个新格式：
+
+** *Name*: `picture` - 必须与第二步里面的参数名一致。
+** 勾选 *Groovy script*。
+** *Groovy 脚本*：
++
+[source, groovy, indent=0]
+----
+import java.util.Base64
+
+if (value) {
+    return "data:image/png;base64," + Base64.getEncoder().encodeToString(value)
+} else {
+    return "";
+}
+----
+. 在报表的 HTML 模板中，按以下示例引用生成的值：
++
+[source, html, indent=0]
+----
+<img src="${User[0].fields('picture')}" alt="picture"/>
 ----
 
 * 通过自定义的前缀：
@@ -330,17 +380,18 @@ include::example$/library/src/main/resources/com/company/library/reports/templat
     border="0"
     align="right"/>
 ----
-// TODO, check this
-** `fs://` 前缀支持使用 `FileRef`。示例：
+** `fs://` 前缀支持使用 `FileRef` 格式。示例：
 +
 [source, html,indent=0]
 ----
-<img src="fs://fede432a-4f5d-3bab-71a0-b98133759b0f"
+<img src="fs://2025/07/08/78c65527-9cb7-ee77-940f-86e31b214f49.jpeg?name=filename.jpeg"
     height="68"
     width="199"
     border="0"
     align="right"/>
 ----
++
+NOTE: 查询参数 `?name=\{original_filename}.\{ext}` 是必须提供的。系统依赖该参数来正确解析字符串并重构 `FileRef` 对象。
 --
 
 [[html_to_pdf]]
@@ -520,3 +571,75 @@ image::show-report-table.png[align="center"]
 
 ^2^ - 根据 xref:configuration.adoc#jmix.reports.use-office-for-document-conversion[jmix.reports.use-office-for-document-conversion] 应用程序属性的配置，输出可以选择是否使用 LibreOffice。如果不使用 LibreOffice，则需要自己提供所需的字体，参阅 <<html_to_pdf,HTML 转换 PDF>>。
 
+[[template-def]]
+== @TemplateDef 注解
+
+在设计时，使用 `@TemplateDef` 注解定义模板。如果报表类包含多个模板，可以多次使用该注解。如需实现额外的逻辑，需要声明一个带有 <<template-delegate,@TemplateDelegate>> 注解的方法。
+
+`@TemplateDef` 注解有以下属性：
+
+* `code` - 模板的唯一代码。在以编程方式引用模板时使用此代码。
+* `isDefault` - 是否默认模板。除非用户明确指定其他模板，否则自动使用此模板生成文档。默认值：`false`。
+* `outputType` - 报表引擎生成的输出内容类型。输出类型应与 <<output_format_compliance,输出格式兼容性>> 中描述的模板文件类型一致。
+* `alterableOutput` - 用户是否可以在运行时选择报表输出类型。默认值：`false`。
+* `custom` - 自定义输出文档渲染的附加参数。参见 <<custom-template-parameters,@CustomTemplateParameters>>。
+* `outputNamePattern` - 可选的文件名格式，用于生成所产生报表的文件名。可以是常量字符串，也可以包含报表参数作为变量（例如，`${header.authorName}.xlsx`）。
+* `filePath` - 类路径中包含模板文件的路径。模板文件通常放置在同一模块的 `resources` 源根目录下。
+* `table` - `ReportOutputType.TABLE` 输出类型的表格模板定义。参见 <<template-table-def,@TemplateTableDef>>。
+* `templateEngine` - 处理文本模板内容的模板引擎。处理带各种输出类型的 HTML 模板文件。默认值：`TemplateMarkupEngine.FREEMARKER`。
+
+[[custom-template-parameters]]
+== @CustomTemplateParameters 注解
+
+`@CustomTemplateParameters` 注解用在 <<template-def,@TemplateDef>> 中，为自定义报表模板定义参数。自定义模板可以基于 xref:creation/bands.adoc#band-def[带区数据] 和 xref:creation/value-formats.adoc#value-format-def[值格式] 提供生成输出文档的自定义实现。
+
+`@CustomTemplateParameters` 注解有以下属性：
+
+* `enabled` - 是否使用自定义模板实现。默认值：`false`。
+* `definedBy` - 如何调用自定义模板。默认值：`CustomTemplateDefinedBy.DELEGATE`。
++
+NOTE: 这里不支持 `SCRIPT` 和 `CLASS`；请改用 `DELEGATE`。
+* `urlScript` - 一个脚本，接受参数 map并一个可调用的 URL。调用该 URL 生成输出。
+
+[[template-table-def]]
+== @TemplateTableDef 注解
+
+`@TemplateTableDef` 注解定义输出类型为 `io.jmix.reports.entity.ReportOutputType.TABLE` 的模板结构。
+
+`band` 属性 - 包含在输出中的一个或多个带区。每个带区由一个单独的表格组件显示。参见 <<table-band-def,@TableBandDef>>。
+
+[[table-band-def]]
+== @TableBandDef 注解
+
+是表格模板定义的一部分，`@TableBandDef` 注解表示一个报表带区，其数据显示在结果表格中。
+
+`@TableBandDef` 注解有以下属性：
+
+* `bandName` - 当前报表定义中声明的报表带区名称。
+* `columns` - 显示带区字段的列。参见 <<table-column-def,@TableColumnDef>>。
+
+[[table-column-def]]
+== @TableColumnDef 注解
+
+是表格模板定义的一部分，`@TableColumnDef` 注解表示结果表格中的一列，该列通过键值从带区数据中获取值。
+
+`@TableColumnDef` 注解有以下属性：
+
+* `key` - 数据集属性名称，用于从带区数据中获取值。
+* `caption` - 列标题。使用 `msg://` 格式进行 xref:localization:message-bundles.adoc[本地化]。默认消息组从声明类的包中推断。
+
+[[template-delegate]]
+== @TemplateDelegate 注解
+
+`@TemplateDelegate` 注解标记一个代理方法，该方法实现与模板定义相关的逻辑。
+
+*要求*：
+
+* 方法必须没有参数。
+* 方法必须返回一个支持的函数式接口。
+
+支持的接口：
+
+* `CustomReport` - 报表输出文档的自定义生成代理。
+
+`@TemplateDelegate` 注解有 `code` 属性，该属性是当前报表定义中声明的模板代码。

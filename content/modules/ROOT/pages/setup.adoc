@@ -78,6 +78,17 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
 
 CAUTION: 如果通过代理服务器连接至网络，必须给运行开发工具和 Gradle 的 JVM 传递一些 Java 系统参数。可以用 Jmix Studio xref:studio:install.adoc#working-behind-proxy[配置] 这些参数。
 
+[[agentic-coding]]
+== 使用 AI Agents 编程
+
+可以通过使用 AI 编码智能体来加速 Jmix 应用程序的开发。
+
+为了使 AI 代理能够有效地处理 Jmix 范式、架构和最佳实践，我们建议使用 https://github.com/jmix-framework/jmix-agent-guidelines[Jmix AI Agent 指南^]。指南提供：
+
+* 架构概述：深入理解 Jmix 特定的模式。
+* Agent Skills：用于开发实体、UI 视图、数据访问等的专业知识。
+* 开发工作流：为 AI 代理优化了遵循 Jmix 特定强制性规则的指令。
+
 [[Troubleshooting]]
 == 问题排查
 

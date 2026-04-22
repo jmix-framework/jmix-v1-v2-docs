@@ -1,17 +1,17 @@
-= Observability
+= 可观测性
 
-Observability is the ability to understand application behavior through three types of signals: logs, metrics, and traces. Together, they help you investigate failures, analyze performance, and understand how requests move through the system.
+可观测性是指，通过三种信号理解应用程序行为的能力：日志（logs）、指标（metrics）和追踪（traces）。这些信号共同协助故障分析、性能分析以及理解请求如何在系统中流转。
 
-Jmix does not introduce a separate observability model. Instead, it builds on the standard Spring Boot ecosystem, primarily Spring Boot Actuator, Micrometer, and Micrometer Observation / Tracing.
+Jmix 没有引入独立的可观测性模型，而是构建在标准的 Spring Boot 生态系统之上，主要是 Spring Boot Actuator、Micrometer 和 Micrometer Observation / Tracing。
 
-Observability is different from xref:audit:index.adoc[Audit]. Audit is used to track who changed business data and when. Observability is used to analyze runtime behavior, performance, failures, and request flow.
+可观测性与 xref:audit:index.adoc[审计] 不同。审计用于追踪谁在何时更改了业务数据。可观测性用于分析运行时行为、性能、故障和请求流程。
 
 [[logging]]
-== Logging
+== 日志
 
-Logs are the simplest way to observe a running application. They are useful for troubleshooting, diagnostics, and investigating production errors.
+日志是观察运行中的应用程序的最简单方式。有助于故障排查、诊断和生产错误调查。
 
-In Jmix applications, logging is configured in the same way as in Spring Boot. Log levels are usually set in `application.properties`, globally or for individual packages and classes. For example:
+在 Jmix 应用程序中，日志的配置方式与 Spring Boot 相同。日志级别通常在 `application.properties` 中设置，可以全局设置，也可以为单个包或类设置。例如：
 
 [source,properties]
 .application.properties
@@ -21,54 +21,54 @@ logging.level.io.jmix=debug
 logging.level.org.springframework=info
 ----
 
-These settings can help focus on a particular part of the system. For example, `eclipselink.logging.sql` shows generated SQL, while `io.jmix` enables debug output for Jmix framework code.
+通过这些设置可以关注系统的特定部分。例如，`eclipselink.logging.sql` 显示生成的 SQL 语句，而 `io.jmix` 则启用 Jmix 框架代码的调试输出。
 
-Use `DEBUG` logging carefully in production. It is often useful for short troubleshooting sessions, but keeping it enabled permanently can produce excessive output and affect performance.
+在生产环境中需要小心使用 `DEBUG` 级别的日志。这可用于短期的故障排查，但若长久保持启用状态，可能会产生过多的输出并影响性能。
 
-For detailed logging configuration and centralized log collection, see the following guides:
+有关详细的日志配置和集中式日志收集，请参考以下指南：
 
 * xref:application-logging-guide:index.adoc[]
 * xref:observability-logging-guide:index.adoc[]
 
 [[metrics-and-monitoring]]
-== Metrics and Monitoring
+== 指标与监控
 
-Metrics are numeric measurements collected over time. They are used to observe throughput, latency, error rate, resource consumption, and internal framework and application activity. Monitoring is the process of collecting, storing, visualizing, and alerting on these metrics.
+指标是随时间收集的数值型测量数据。用于观察吞吐量、延迟、错误率、资源消耗以及内部框架和应用程序的活动。监控则是收集、存储、可视化这些指标并发出告警的过程。
 
-A typical Spring Boot application exposes metrics through Actuator and Micrometer. These metrics usually include JVM memory and garbage collection, CPU and process data, thread pools, HTTP server requests, datasource pools.
+一个典型的 Spring Boot 应用程序通过 Actuator 和 Micrometer 开放指标。这些指标通常包括 JVM 内存和垃圾回收、CPU 和进程数据、线程池、HTTP 服务器请求、数据源连接池。
 
-Jmix adds timer metrics for selected framework operations. These metrics are recorded through Micrometer `MeterRegistry`.
+Jmix 选择了一些框架内的操作，并添加了计时器指标。这些指标通过 Micrometer 的 `MeterRegistry` 进行记录。
 
-Jmix provides a default `MeterRegistry` bean, and exporting metrics depends on the Spring Boot Actuator and Micrometer registry configuration.
+Jmix 提供了一个默认的 `MeterRegistry` bean，依据 Spring Boot Actuator 和 Miceter 注册表的配置导出指标。
 
-.Metric names and tags
+.Metric 名称和标签
 [cols="1,2,3"]
 |===
-|Name | Tags |Description
+|名称 | 标签 |描述
 
 |`jmix.ui.views`
 |`view`, `lifeCycle`
-|Duration of UI view lifecycle stages (for example create/show/close) per view.
+|每个视图的 UI 视图生命周期阶段（例如 create/show/close）的耗时。
 
 |`jmix.ui.data`
 |`dataLoader`, `view`, `lifeCycle`
-|Duration of UI data loader lifecycle stages inside a specific view.
+|特定视图内 UI 数据加载器生命周期阶段的耗时。
 
 |`jmix.EmailSender.send`
-|No custom tags
-|Time spent sending an email message through the framework email sender.
+|无自定义标签
+|通过框架内的邮件发送器发送一封电子邮件所花费的时间。
 
 |`jmix.JavaClassLoader.loadClass`
-|No custom tags
-|Time spent resolving/loading a Java class by the dynamic class loader.
+|无自定义标签
+|动态类加载器解析/加载 Java 类所花费的时间。
 |===
 
-UI lifecycle values include:
+UI 生命周期值包括：
 
-* View lifecycle: `create`, `load`, `inject`, `init`, `beforeShow`, `ready`, `beforeClose`, `afterClose`
-* Data loader lifecycle: `preLoad`, `load`, `postLoad`
+* 视图生命周期：`create`、`load`、`inject`、`init`、`beforeShow`、`ready`、`beforeClose`、`afterClose`
+* 数据加载器生命周期：`preLoad`、`load`、`postLoad`
 
-For a typical monitoring setup, add Spring Boot Actuator and a Micrometer registry for the monitoring backend used in your infrastructure. For example, to expose Prometheus-compatible metrics, add the following dependencies:
+对于典型的监控设置，需要添加 Spring Boot Actuator 以及用于基础设施中监控后端的 Micrometer 注册表。例如，要开放与 Prometheus 兼容的指标，请添加以下依赖：
 
 [source,groovy]
 .build.gradle
@@ -77,7 +77,7 @@ implementation 'org.springframework.boot:spring-boot-starter-actuator'
 implementation 'io.micrometer:micrometer-registry-prometheus'
 ----
 
-Then expose the Prometheus endpoint in the application:
+然后在应用程序中开放 Prometheus 端点：
 
 [source,properties]
 .application.properties
@@ -86,31 +86,31 @@ management.endpoints.web.exposure.include=*
 management.endpoints.prometheus.enabled=true
 ----
 
-Prometheus can then scrape the `/actuator/prometheus` endpoint. Keep the list of exposed management endpoints as small as possible in production.
+之后，Prometheus 可以抓取 `/actuator/prometheus` 端点。在生产环境中，请开放尽量少的管理端点。
 
-For additional information, see:
+更多信息请参阅：
 
 * {spring-boot-doc}/reference/actuator/metrics.html[Spring Boot Actuator Metrics^]
 * {spring-boot-doc}/reference/actuator/observability.html[Spring Boot Observability^]
 * https://docs.micrometer.io/micrometer/reference/concepts/meters.html[Micrometer Meters^]
 
 [[tracing]]
-== Tracing
+== 追踪
 
-Tracing shows how a request or operation moves through an application. It helps identify latency, failures, and dependencies between components. Tracing becomes especially useful when several services or infrastructure layers participate in request processing.
+追踪显示请求或操作在应用程序中的流转过程。用于识别延迟、故障以及组件之间的依赖关系。当多个服务或基础设施层参与请求处理时，追踪尤其有用。
 
-In a typical tracing setup, the application creates spans for important operations, propagates trace context across service boundaries, and sends trace data to a backend for storage and analysis. Trace identifiers can also be added to logs to correlate log records with traces.
+在典型的追踪设置中，应用程序会为重要操作创建跨度（span），跨服务边界传播跟踪上下文，并将跟踪数据发送到后端进行存储和分析。跟踪标识符也可以添加到日志中，以便关联日志记录和跟踪信息。
 
-Jmix uses Micrometer Observation API to create spans for framework operations. Built-in tracing covers the following areas:
+Jmix 使用 Micrometer Observation API 为框架内的操作创建跨度。内置的追踪涵盖以下领域：
 
-* Data access operations such as load, count, and save
-* UI view lifecycle events
-* UI fragment lifecycle events
-* UI action execution
+* 数据访问操作，如加载、计数和保存
+* UI 视图生命周期事件
+* UI fragment 生命周期事件
+* UI 操作执行
 
-Jmix can also enrich observations with the current user and tenant context.
+Jmix 还可以用当前用户和租户上下文来丰富观测数据。
 
-To enable Jmix tracing, set the following properties:
+要启用 Jmix 追踪功能，请设置以下属性：
 
 [source,properties]
 ----
@@ -118,47 +118,64 @@ jmix.core.data-observation-enabled=true
 jmix.ui.ui-observation-enabled=true
 ----
 
-To include current user information in observation attributes, use:
+如需在观测属性中添加当前用户的信息，请使用：
 
 [source,properties]
 ----
 jmix.core.use-user-info-for-observation=true
 ----
 
-The `jmix.core.use-user-info-for-observation` property is enabled by default. Disable it if user or tenant data must not be added to observations.
+`jmix.core.use-user-info-for-observation` 属性默认启用。如果用户或租户数据不允许加入观察，可以禁用。
 
-.Span names and attributes
+== 链路追踪
+
+链路追踪显示请求或操作在应用程序中的流转过程。它有助于识别延迟、故障以及组件之间的依赖关系。当多个服务或基础设施层参与请求处理时，链路追踪尤其有用。
+
+在典型的链路追踪设置中，应用程序会为重要操作创建跨度（span），跨服务边界传播跟踪上下文，并将跟踪数据发送到后端进行存储和分析。跟踪标识符也可以添加到日志中，以便将日志记录与跟踪关联起来。
+
+Jmix 使用 Micrometer 观测 API 为框架操作创建跨度。内置的链路追踪涵盖以下领域：
+
+* 数据访问操作，如加载、计数和保存
+* UI 视图生命周期事件
+* UI fragment 生命周期事件
+* UI 动作执行
+
+Jmix 还可以用当前用户和租户上下文来丰富观测数据。
+
+要启用 Jmix 链路追踪，请设置以下属性：
+
+.跨度名称和属性
 [cols="1,2,3"]
 |===
-|Name |Key attributes |Description
+|名称 |关键属性 |描述
 
 |`jmix.data.load`
-|`method`, `entity.name`; may include `jpql.query`, `jpql.parameters`, `properties`
-|Data read operations performed by the framework (entity/value load and count flows).
+|`method`, `entity.name`；可能包含 `jpql.query`、`jpql.parameters`、`properties`
+|框架执行的数据读取操作（实体/值加载和计数流程）。
 
 |`jmix.data.save`
-|`method`, `dataStore`; may include `entitiesToSave.count`, `entitiesToRemove.count`
-|Data write operations performed by the framework when saving/removing entities.
+|`method`, `dataStore`；可能包含 `entitiesToSave.count`、`entitiesToRemove.count`
+|框架在保存/删除实体时执行的数据写入操作。
 
 |`jmix.ui.views`
 |`lifecycle.name`, `view.id`, `view.class`
-|UI view lifecycle events represented as tracing/observation spans.
+|UI 视图生命周期事件，表示为追踪/观测跨度。
 
 |`jmix.ui.fragments`
-|`lifecycle.name`, `fragment.class`, optional `fragment.id`
-|UI fragment creation/ready lifecycle events represented as spans.
+|`lifecycle.name`, `fragment.class`，可选 `fragment.id`
+|UI fragment 创建/就绪生命周期事件，表示为跨度。
 
 |`jmix.ui.actions`
-|`action.id`, optional `target.id`
-|Execution of UI actions (for example button/menu actions) represented as spans.
+|`action.id`，可选 `target.id`
+|UI 操作（例如按钮/菜单动作）的执行，表示为跨度。
 |===
 
-When context enrichment is enabled, observations may also include:
+当启用丰富的上下文时，观测数据还可能包括：
 
 * `jmix.user.username`
-* `jmix.user.tenantId` in xref:multitenancy:index.adoc[multitenancy] setups
+* 在 xref:multitenancy:index.adoc[多租户] 设置中的 `jmix.user.tenantId`
 
-For distributed tracing across service boundaries, add the Micrometer tracing bridge and an exporter to the application. Spring Boot Actuator then configures an `ObservationRegistry` bean and connects it to tracing. A typical setup for a Jmix application is:
+对于跨服务边界的分布式追踪，请将 Micrometer 追踪桥接器和导出器添加到应用程序中。然后 Spring Boot Actuator 会配置一个 `ObservationRegistry` bean 并将其与追踪进行关联。Jmix 应用程序的设置是：
 
 [source,groovy]
 .build.gradle
@@ -176,9 +193,9 @@ management.otlp.tracing.export.enabled=true
 management.otlp.tracing.endpoint=http://localhost:4318/v1/traces
 ----
 
-When the application makes outbound HTTP calls, build clients from the auto-configured `RestTemplateBuilder` or `RestClient.Builder` so that trace headers are added to requests automatically.
+当应用程序进行出站 HTTP 调用时，请使用自动配置的 `RestTemplateBuilder` 或 `RestClient.Builder` 构建客户端，以便自动将追踪头添加到请求中。
 
-For additional information, see:
+更多信息，请参阅：
 
 * {spring-boot-doc}/reference/actuator/tracing.html[Spring Boot Tracing^]
 * {spring-boot-doc}/reference/actuator/observability.html[Spring Boot Observability^]

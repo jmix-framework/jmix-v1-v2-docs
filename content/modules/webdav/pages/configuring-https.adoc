@@ -1,56 +1,52 @@
-= 3. 配置使用桌面应用程序
+= 3. 使用桌面应用程序
 
 若要对桌面应用程序进行身份验证，服务器必须启用 HTTPS。以下是在开发环境中配置 HTTPS 的简单说明。
 
-[IMPORTANT]
-====
-使用自签名的证书仅适合测试。生产环境的应用程序必须使用由信任机构颁发的 SSL 证书。
-====
+[[using-libreoffice]]
+== 使用 LibreOffice
+
+安装 LibreOffice 并配置 xref:webdav-properties.adoc#jmix.webdav.applications[jmix.webdav.applications] 属性，使用 LibreOffice 打开所有文件：
+
+[source,properties]
+----
+jmix.webdav.applications = {"vnd.libreoffice.command":\
+  {"name":"LibreOffice","protocols":\
+  {"writable":"vnd.libreoffice.command:ofe|u|",\
+  "read_only":"vnd.libreoffice.command:ofv|u|"},\
+  "extensions":["odt", "ods", "odp", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]}}
+----
 
 [[keystore-file]]
 == 创建 Keystore 文件
 
-. 使用 JDK 提供的 https://docs.oracle.com/en/java/javase/11/tools/keytool.html[keytool 工具^] 生成 Keystore 文件：
+. 按照仓库中的说明安装 `mkcert`：https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^]。
+
+. 生成并安装根证书：
 +
-[source,text]
+[source]
 ----
-keytool -genkey -keyalg RSA -alias localhost -keystore localhost.jks -validity 365 -keysize 2048
+mkcert -install
+----
+
+. 为 localhost 创建一个证书：
++
+[source]
+----
+mkcert -pkcs12 localhost 127.0.0.1 ::1
 ----
 +
-会要求你设置 keystore 的密码和名称。记录输入的密码和名称。
+当前目录会生成 `localhost+2.p12` 文件。
 
-. 从 keystore 导出证书：
+. 使用证书为项目创建一个 keystore 文件：
 +
-[source,text]
+[source]
 ----
-keytool -export -keystore localhost.jks -storepass <password> -alias localhost -file localhost.cer
+keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
 ----
 +
-使用第一步输入的密码替换 `<password>`。
-
-. 在操作系统注册并信任证书。
+输入 `changeit` 作为 keystore 的密码。
 +
-* Windows 操作系统：
-+
-1. 按下 `Win + R` 打开 *Run* 对话框，输入 `"certmgr.msc"` 并回车，打开 *Certificate Manager*。
-
-2. 在 *Certificate Manager* 左侧的面板中，展开 *受信任的根证书颁发机构* 文件夹。
-
-3. 右键点击文件夹并选择 *所有任务 > 导入...*，打开 *证书导入向导*。
-
-4. 在 *证书导入向导* 中，点击 *下一步*，然后选择证书文件点击 *下一步*。
-
-5. 选择导入至 *受信任的根证书颁发机构* 点击 *下一步*。
-
-6. 检查信息正确并点击 *完成*。
-
-7. 此时会显示一个导入成功的提示，关闭导入向导。
-+
-完成这些步骤后，证书会注册成功并收系统信任。
-* macOS：
-1. 在 Finder（访达）中双击 `localhost.cer` 文件。会自动打开 *Keychain Access（钥匙串访问）* 应用程序。
-2. 在 *Certficates（证书）* 标签页找到第一步输入名称下的证书。
-3. 双击证书，并选择 *Trust（信任） -> When using this certificate: Always Trust（使用此证书时：始终信任）*。
+当前目录会生成 `localhost.jks` 文件。
 
 [[configuring-server]]
 == 服务配置
@@ -90,12 +86,12 @@ server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 [source,java,indent=0]
 ----
 @EventListener
-    public void printApplicationUrl(final ApplicationStartedEvent event) {
-        LoggerFactory.getLogger(DemoApplication.class).info("Application started at "
-                + "https://localhost:"
-                + environment.getProperty("local.server.port")
-                + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
-    }
+public void printApplicationUrl(final ApplicationStartedEvent event) {
+    LoggerFactory.getLogger(DemoApplication.class).info("Application started at "
+            + "https://localhost:"
+            + environment.getProperty("local.server.port")
+            + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
+}
 ----
 
 [[running-application]]
@@ -107,13 +103,7 @@ server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 
 image::open-webdav-doc1.png[align="center", width="1432"]
 
-浏览器将显示一个对话框，提示用户在桌面 office 应用中打开 WebDAV 文件。
-
-image::open-webdav-doc2.png[align="center", width="1432"]
-
-同意打开文件并确保 WebDAV 文档在桌面 office 应用程序中打开。
-
-image::open-office.png[align="center", width="1080"]
+浏览器会先显示一个对话框要求用户在 LibreOffice 打开 WebDAV 文件。同意打开。
 
 编辑并保存 WebDAV 文档后，将创建该文档的一个新版本，也是最新的版本。
 

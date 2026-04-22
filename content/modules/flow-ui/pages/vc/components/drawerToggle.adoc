@@ -74,4 +74,5 @@ include::../handler-generation-tip.adoc[]
 
 == XML 内部元素
 
-xref:vc/components/tooltip.adoc[tooltip]
+xref:vc/components/tooltip.adoc[tooltip] -
+xref:icons/custom-icons.adoc[icon]

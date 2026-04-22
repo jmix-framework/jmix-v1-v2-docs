@@ -1,20 +1,20 @@
-= Data Model
+= 数据模型
 
-The *Data model* view (*Data tools -> Data model*) displays entities and their attributes in the running application.
+*Data model* 视图（*Data tools -> Data model*）显示运行中应用程序的实体及其属性。
 
 image:data-model-view.png[width=776]
 
-The *Entities* grid shows each entity's name and its corresponding database table name. Selecting an entity updates the *Attributes* grid to list that entity's attributes, including attribute name, Java type, database column name, database type, and the "is mandatory" flag.
+*Entities* 表格显示每个实体的名称及其对应的数据库表名。选择一个实体后，*Attributes* 表格会更新，列出该实体的所有属性，包括属性名、Java 类型、数据库列名、数据库类型以及“是否必填”标志。
 
 [[filtering-entities]]
-== Searching Entities
+== 搜索实体
 
-Use the *Show system* checkbox to include both project entities and internal Jmix entities from add-ons. To search for specific entities, enter their names separated by commas, such as `Customer, Order, User`, or use a regular expression. The *Entities* grid updates to display matching results.
+使用 *Show system* 复选框可以同时包含项目实体和来自扩展组件的内部 Jmix 实体。如需搜索特定实体，请输入以逗号分隔的实体名称，例如 `Customer, Order, User`，或者使用正则表达式。*Entities* 表格会更新以显示匹配的结果。
 
 [[data-model-diagram]]
-== PlantUML Diagram
+== PlantUML 图
 
-Click *Diagram* to open a new browser tab with a PlantUML diagram that includes entities currently filtered in the view. By default, the diagram is rendered using a public PlantUML server at https://www.plantuml.com. You can switch to a self-hosted server by setting the application property:
+点击 *Diagram* 会在新的浏览器标签页中打开一个 PlantUML 图，该图包含视图中当前筛选出的实体。默认情况下，使用 https://www.plantuml.com 的公共 PlantUML 服务对 UML 图进行渲染。通过设置应用程序属性可以切换到自托管的服务器：
 
 .application.properties
 ----

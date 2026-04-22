@@ -101,3 +101,17 @@ second.liquibase.change-log=com/company/demo/liquibase/second-changelog.xml
 ----
 main.datasource.studio.liquibase.exclude-prefixes = abc_,foo,bar
 ----
+
+[[ignoring-foreign-key-constraint]]
+=== 忽略外键约束
+
+Jmix Studio 在生成变更日志时，会遵循 JPA 的约束模式。如果需要一个没有数据库外键的引用列（例如，在使用已有的数据库结构时），可以在 owning-side 的 `@JoinColumn` 中设置 `ConstraintMode.NO_CONSTRAINT`：
+
+[source,java]
+----
+@JoinColumn(name = "AUTHOR_ID",
+        foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+private Author author;
+----
+
+使用 `ConstraintMode.NO_CONSTRAINT` 时，生成的 changelog 仍然包含该列及其索引，但是不会添加外键约束。

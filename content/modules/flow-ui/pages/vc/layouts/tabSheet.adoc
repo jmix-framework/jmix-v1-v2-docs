@@ -157,7 +157,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/ta
 [[theme-variants]]
 == 样式版本
 
-通过 xref:vc/common-attributes.adoc#themeNames[themeNames] 属性调整组件的外观，支持 6 个不同的选项：
+通过 xref:vc/common-attributes.adoc#themeNames[themeNames] 属性调整组件的外观，支持 7 个不同的选项：
 
 .`centered`
 [%collapsible]
@@ -206,6 +206,14 @@ image:visual-components/components/tabs-equal-width.png[align="center", width=53
 为标签页和内容添加边框。
 
 image:visual-components/layouts/tabsheet-bordered.png[align="center", width=400]
+====
+
+.`no-padding`
+[%collapsible]
+====
+删除内容区域的默认内边距。
+
+image:visual-components/layouts/tabsheet-no-padding.png[align="center", width=360]
 ====
 
 == 参考

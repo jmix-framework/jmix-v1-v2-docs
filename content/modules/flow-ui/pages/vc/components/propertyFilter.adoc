@@ -15,6 +15,7 @@
 
 * Java 类：`PropertyFilter`
 
+[[basics]]
 == 基本用法
 
 最简单的情况下，`propertyFilter` 有一个输入控件，前面显示要过滤的属性名称和运算符。
@@ -29,6 +30,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 该组件可以对加载到数据容器的数据进行过滤。通常与绑定到同一数据容器的 xref:vc/components/dataGrid.adoc[] 或 xref:vc/components/treeDataGrid.adoc[] 结合使用。可以精确控制表格中显示的内容。
 
+[[filtering-operations]]
 == 过滤运算符
 
 组件支持多种过滤 <<operation, 运算符>>。可以限制仅使用某个运算符，也可以通过 <<operationEditable,operationEditable>> 属性让用户在运行时选择运算符。
@@ -42,12 +44,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 组件根据属性类型决定可用的运算符。
 
+[[data-binding]]
 == 数据绑定
 
 数据绑定是指将组件与数据容器进行关联。可视化组件或相应数据容器中的更改可以触发彼此的更新。有关详细信息，请参阅 xref:data/data-examples.adoc[]。
 
 属性过滤器可以过滤 xref:data/collection-container.adoc[集合容器] 或 xref:data/key-value-containers.adoc[键值对容器] 容器中的数据。
 
+[[collection-container]]
 === 集合容器
 
 下面的示例展示配置 `propertyFilter` 对集合容器进行过滤：
@@ -57,6 +61,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=data;usersDc;layout;binding-collection]
 ----
 
+[[key-value-collection-container]]
 === 键值对集合容器
 
 下面的示例展示配置 `propertyFilter` 对键值对集合容器进行过滤：
@@ -66,6 +71,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=data;statusesDc;layout;binding-key-value]
 ----
 
+[[multi-filtering]]
 == 多重过滤
 
 将多个 `propertyFilter` 组件绑定到单一数据容器可以同时使用多个过滤条件。例如，使用两个组件支持按部门和姓氏进行过滤：
@@ -77,6 +83,32 @@ image::flow-ui:visual-components/components/property-filter-multifiltering.png[a
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=multiple-filters]
 ----
 
+[[filtering-dates]]
+== 过滤日期
+
+[[date-equals]]
+=== 忽略时间
+
+使用 `=` 进行精确匹配可能并不总是适用于日期/时间属性。许多情况下只需要按日期过滤，忽略时间。在这种情况下，可以使用 `date equals` 代替：
+
+image::flow-ui:visual-components/components/property-filter-date-equals.png[align="center", width="992"]
+
+[[date-interval]]
+=== 日期区间
+
+组件提供了多个按日期区间过滤的选项。选择 `in interval` 运算符，并在对话框中输入区间值。
+
+image::flow-ui:visual-components/components/property-filter-date-interval.png[align="center", width=""]
+
+可选选项包括：
+
+* *Last（之前）*：例如“过去 3 个月”或“过去 12 周”。
+* *Next（之后）*：例如“未来 3 年”或“未来 48 小时”。
+* *Predefined（预定义）*：快速选择，包括“今天”、“明天”、“本月”或“今年”。
+* *Relative date and time（相对时间）*：用于类似“到当天结束时”、“在小时开始时”、“不是一年的最后一天”等条件。
+* *Custom（自定义）*：任意开始日期和结束日期。开始日期包含在范围内，结束日期不包含。
+
+[[customization]]
 == 自定义
 
 还可以显式设置作为输入控件的组件，并设置其属性。这样就可以更改 `propertyFilter` 的默认外观，并使用其他组件提供的额外功能。例如：
@@ -88,6 +120,7 @@ image::flow-ui:visual-components/components/property-filter-custom-input-field.p
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/propertyfilter/property-filter-view.xml[tags=custom-input-field]
 ----
 
+[[dynamic-attributes]]
 == 动态属性
 
 该组件也支持通过 xref:dyn-attr:index.adoc[动态属性] 进行过滤。此时，视图中不需要包含 xref:dyn-attr:dynattr-view.adoc#using-dynamicattributes-facet[dynamicAttributes] facet。
@@ -186,22 +219,66 @@ NOTE: 如果设置了 `label` 属性。运算符标签或选择器将会隐藏�
 [[operation]]
 === operation
 
-`operation` 是必需属性，设置过滤运算符。有下列类型：
+指定过滤运算符。
 
-* `EQUAL` 适合字符串、数字、布尔、日期/时间、引用、枚举属性。结果中的实体实例要满足：其属性列与过滤器中的条件值匹配。
-* `NOT_EQUAL` 适合字符串、数字、布尔、日期/时间、引用、枚举属性。结果中的实体实例要满足：其属性列与过滤器中的条件值不匹配。
-* `GREATER` 适合数字和日期属性。结果中的实体实例要满足：其属性列大于过滤器中的条件值。
-* `GREATER_OR_EQUAL` 适合数字和日期属性。结果中的实体实例要满足：其属性列大于等于过滤器中的条件值。
-* `LESS` 适合数字和日期/时间属性。结果中的实体实例要满足：其属性列小于过滤器中的条件值。
-* `LESS_OR_EQUAL` 适合数字和日期/时间属性。结果中的实体实例要满足：其属性列小于等于过滤器中的条件值。
-* `CONTAINS` 适合字符串属性。结果中的实体实例要满足：其属性列包含过滤器中的条件值。
-* `NOT_CONTAINS` 适合字符串属性。结果中的实体实例要满足：其属性列不包含过滤器中的条件值。
-* `STARTS_WITH` 适合字符串属性。结果中的实体实例要满足：其属性列以过滤器中的条件值开头。
-* `ENDS_WITH` 适合字符串属性。结果中的实体实例要满足：其属性列以过滤器中的条件值结尾。
-* `IS_SET` 适合字符串、数字、布尔、日期/时间、引用、枚举属性。该运算符仅检测属性列的数据不是 null。为该运算符生成的 `comboBox` 仅包含两个值：`Yes` 和 `No`。如果用户选择 `Yes`，结果包含实体实例满足：该列有数据。否则，结果包含该列没有数据的实体实例。
-* `IS_COLLECTION_EMPTY` 适合集合属性（`@OneToMany`、`@ManyToMany`）。用于检查实体的集合属性是否为空。
-* `MEMBER_OF_COLLECTION` 适合集合属性（`@OneToMany`、`@ManyToMany`）。用于过滤实体，检查该实体是否存在于某个集合中。
-* `NOT_MEMBER_OF_COLLECTION` 适合集合属性（`@OneToMany`、`@ManyToMany`）。
+[cols="1,4,5"]
+|===
+| **运算符** | **描述** | **属性类型**
+| EQUAL
+| 等于。对于日期/时间属性，请使用 DATE_EQUALS。
+| 数值、布尔值、字符串、日期/时间、时间、UUID、URI、实体、枚举
+| NOT_EQUAL
+| 不等于。
+| 数值、布尔值、字符串、日期/时间、时间、UUID、URI、实体、枚举
+| IS_SET
+| 为空或不为空。
+| 数值、布尔值、字符串、日期/时间、时间、UUID、URI、实体、枚举
+| IN_LIST
+| 检查值是否在列表中。
+| 数值、字符串、日期/时间、时间、UUID、URI、实体、枚举
+| NOT_IN_LIST
+| 检查值是否不在列表中。
+| 数值、字符串、日期/时间、时间、UUID、URI、实体、枚举
+| IS_COLLECTION_EMPTY
+| 检查集合是否为空。
+| 实体（`@OneToMany`、`@ManyToMany`）
+| MEMBER_OF_COLLECTION
+| 属于集合。
+| 实体（`@OneToMany`、`@ManyToMany`）
+| NOT_MEMBER_OF_COLLECTION
+| 不属于集合。
+| 实体（`@OneToMany`、`@ManyToMany`）
+| CONTAINS
+| 包含子字符串。
+| 字符串
+| NOT_CONTAINS
+| 不包含子字符串。
+| 字符串
+| STARTS_WITH
+| 以...开头。
+| 字符串
+| ENDS_WITH
+| 以...结尾。
+| 字符串
+| GREATER
+| 大于。
+| 数值、日期/时间、时间
+| GREATER_OR_EQUAL
+| 大于或等于。
+| 数值、日期/时间、时间
+| LESS
+| 小于。
+| 数值、日期/时间、时间
+| LESS_OR_EQUAL
+| 小于或等于。
+| 数值、日期/时间、时间
+| IN_INTERVAL
+| 属于用户通过 <<date-interval,日期区间>> 对话框指定的区间。
+| 日期/时间、时间
+| DATE_EQUALS
+| 等于日期。仅比较日期，忽略时间。参见 <<date-equals,示例>>。
+| 日期/时间
+|===
 
 [[operationEditable]]
 === operationEditable
@@ -253,6 +330,7 @@ include::../handler-generation-tip.adoc[]
 include::example$/onboarding/src/main/java/com/company/onboarding/view/component/propertyfilter/PropertyFilterView.java[tags=validator]
 ----
 
+[[elements]]
 == XML 内部元素
 
 xref:vc/components/tooltip.adoc[tooltip] -

@@ -260,6 +260,8 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <1> 组件的 `pageSize` 选项设置每个请求加载选项的最大数量，默认为 50。
 <2> 可以看到，`comboBox` 内的 `itemsQuery` 不需要定义 `class` 和 `fetchPlan` 属性，因为查询语句需要返回标量值的一个列表（注意这里使用了 `e.name`）。如需处理实体，请使用 xref:vc/components/entityComboBox.adoc[entityComboBox] 组件。
 
+include::flow-ui:vc/items-fetch-callback-note.adoc[]
+
 [[itemsFetchCallback-handler]]
 === 编程式配置
 
@@ -398,7 +400,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是 `comboBox` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
@@ -425,7 +427,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 下面是 `comboBox` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]

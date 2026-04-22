@@ -1,6 +1,6 @@
 = 实体日志
 
-实体日志是一种监控系统内 JPA 实体变更的机制。它记录实体属性的改动并提供用户视图用于查找和展示变更的信息：
+实体日志是一种监控系统内 JPA 实体变更的机制。用于记录实体属性的改动并提供用户视图用于查找和展示变更的详细信息：
 
 * 修改了什么实体实例。
 * 属性变更前后的旧值和新值。
@@ -10,9 +10,11 @@
 [[register-changes]]
 == 变更注册
 
-如果 JPA 实体是通过 xref:data-access:data-manager.adoc[DataManager] 或 xref:data-access:entity-manager.adoc[EntityManager] 保存，实体日志会自动监控实体的变更。但使用原生 SQL 时，实体日志不会起作用。
+如果 JPA 实体是通过 xref:data-access:data-manager.adoc[DataManager] 或 xref:data-access:entity-manager.adoc[EntityManager] 保存，实体日志会在事务提交时自动记录 JPA 实体的变更。但对原生 SQL 无效。
 
-另一中方法是使用 `EntityLog` bean 在应用程序代码中注册变更的实体，此时，需要调用 `registerCreate()`、`registerModify()` 和 `registerDelete()` 方法并设置 `auto` 参数为 `false`。当框架自动调用实体日志时，该参数设置为 true。
+另外，如果实体是通过 `EntityManager` 加载，可以在应用程序代码中直接使用 `EntityLog` bean 记录实体的变更：调用 `registerCreate()`、`registerModify()` 和 `registerDelete()` 方法，并设置 `auto` 参数为 `false`。当框架自动调用实体日志记录时，这个参数是 `true`。
+
+NOTE: 只有在处理 _managed_ 实体的事务中才能使用 `EntityLog` 记录变更。也就是说，只有在使用 `EntityManager` 加载数据时，才需要从应用代码调用 `EntityLog`。通过 `DataManager` 加载的实体始终是 _detached_ 的，其更改无法通过手动调用 `EntityLog` 来记录。
 
 [[setup]]
 == 配置实体日志
@@ -25,25 +27,25 @@ image::entity-log-set.png[align="center",width="1300"]
 
 点击 *Create* 按钮开始配置实体日志。
 
-从 *Name* 下拉框中选择实体，并选择需要审计的属性。
+* 从 *Name* 下拉框中选择实体，并选择需要审计的属性。
 
-*Auto* 复选框配置当使用 `auto` = `true` 参数调用 `EntityLog` 时（即，由实体监听器调用时），系统是否需要记录变更。
+* *Auto* 复选框配置当 JPA 子系统调用 `EntityLog` 提交事务时（`auto = true`），系统是否需要记录变更。
 
-*Manual* 复选框配置当使用 `auto` = `false` 参数调用 `EntityLog` 时，系统是否需要记录变更。
+* *Manual* 复选框配置当应用程序代码调用 `EntityLog` 时（`auto = false`），系统是否需要记录变更。
 
-*Export* 和 *Import* 操作支持导入或导出 JSON、ZIP 格式的配置。
+* *Export* 和 *Import* 操作支持导入或导出 JSON、ZIP 格式的配置。
 
 另外，如果需要在数据库初始化脚本中配置实体日志，则可以用插入数据库记录的方式进行配置。
 
 实体日志的配置通过 `LoggedEntity` 和 `LoggedAttribute` 实体完成，对应数据库的 `AUDIT_LOGGED_ENTITY` 和 `AUDIT_LOGGED_ATTR` 表。
 
-`LoggedEntity` 定义需要记录日志的实体类型。
+* `LoggedEntity` 定义需要记录日志的实体类型。
 
-`LoggedAttribute` 定义需要记录的实体属性，带有属性名，并包含至 `LoggedEntity` 的引用。
+* `LoggedAttribute` 定义需要记录的实体属性，带有属性名，并包含至 `LoggedEntity` 的引用。
 
 如需为特定实体配置日志，需要在 `AUDIT_LOGGED_ENTITY` 和 `AUDIT_LOGGED_ATTR` 表添加相应的记录。
 
-例如，下面的示例中，在数据库初始化时，完成了对 `Customer` 实体 `phone` 属性的变更记录的配置：
+在下面的示例中，在数据库初始化时，完成了对 `Customer` 实体 `phone` 属性的变更记录的配置：
 
 [source,xml,indent=0]
 ----
@@ -61,9 +63,7 @@ image::entity-log-view.png[align="center",width="1417"]
 
 日志记录保存在 `AUDIT_ENTITY_LOG` 表，对应 `EntityLogItem` 实体。修改的属性值保存在 `CHANGES` 列，Java 中转换成 `EntityLogAttr` 实体实例。
 
-在下面的示例中，`Order` 实体的详情视图展示实体日志内容的列表。
-
-这是视图 XML 的部分内容：
+在下面的示例中，`Order` 实体的详情视图展示实体日志内容的列表。这是视图 XML 的部分内容：
 
 [source,xml,indent=0]
 ----

@@ -1,20 +1,20 @@
-= gridLayout
+= gridLayout 表格布局
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-simple" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-simple" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-The `gridLayout` component arranges child components in a responsive, two-dimensional grid system based on the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout[Grid Layout].
+`gridLayout` 组件将内部的子组件布局在一个响应式、二维的表格系统中，基于 CSS 的 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout[Grid 布局]。
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML 元素
 |`gridLayout`
-|Java Class
+|Java 类
 |`GridLayout`
-|Attributes
+|XML 属性
 |xref:vc/common-attributes.adoc#id[id] -
 <<alignSelf,alignSelf>> -
 xref:vc/common-attributes.adoc#classNames[classNames] -
@@ -32,16 +32,16 @@ xref:vc/common-attributes.adoc#minHeight[minHeight] -
 xref:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:vc/common-attributes.adoc#visible[visible] -
 xref:vc/common-attributes.adoc#width[width]
-|Handlers
+|事件和处理器
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 <<itemLabelGenerator,itemLabelGenerator>> -
 <<renderer,renderer>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
-|Elements
+|XML 内部元素
 |<<fragment-renderer,fragmentRenderer>>
 |===
 
-== Basics
+== 基本用法
 
 // `gridLayout` displays data in a grid-based format. Provides integration with data sources to support data binding, items enumeration, and other features.
 //
@@ -50,16 +50,16 @@ xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 // To customize the gap between elements and the minimum column width, you can use the `gap` and
 // `minColumnWidth` properties. Properties accept CSS values and variables, such as `150px`, `2em` or `var(--lumo-space-m)`.
 
-You can populate `gridLayout` with components either declaratively in the XML descriptor or programmatically in a controller using the `gridLayout.add()` method.
+支持声明式在 XML 中将组件添加至 `gridLayout`，也支持是编程式通过调用 `gridLayout.add()` 在控制器添加组件。
 
-Example of declarative addition:
+声明式添加的示例：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=basics]
 ----
 
-Example of adding in a view controller:
+在视图控制器添加组件的示例：
 
 [source,java,indent=0]
 ----
@@ -69,33 +69,33 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gr
 image::visual-components/layouts/grid-layout-basic.png[align="center", width="803"]
 
 [[data-binding]]
-== Data Binding
+== 数据绑定
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-dataaware" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-dataaware" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container].
+数据绑定是指将组件与 xref:data/data-containers.adoc[数据容器] 进行关联。
 
-In the `gridLayout` component, this is achieved by setting the `itemsContainer` attribute to reference a data container.
+在 `gridLayout` 组件中，将 `itemsContainer` 属性设置为数据容器实现数据绑定。
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=data;layout;itemsContainer]
 ----
-<1> Data container to hold a collection of all existing `User` instances.
-<2> Data load coordinator to automatically supply the component with instances to display from.
-<3> Specifying the container that holds the list of items to be displayed.
+<1> 保存 `User` 实例集合的数据容器。
+<2> 数据加载协调器，自动为组件提供要显示的实例。
+<3> 指定包含要显示的条目列表的容器。
 
-By default, the component displays the xref:data-model:entities.adoc#instance-name[instance name] of the entity.
+默认情况下，组件显示实体的 xref:data-model:entities.adoc#instance-name[实例名称]。
 
 image::visual-components/layouts/grid-layout-items.png[align="center", width="514"]
 
-TIP: You can override the default display by configuring a <<rendering-items,custom renderer>>.
+TIP: 可以通过配置 <<rendering-items,自定义渲染器>> 来修改显示内容。
 
-The component also supports displaying enumeration values using the `itemsEnum` property.
+该组件还支持使用 `itemsEnum` 属性显示枚举值。
 
 [source,xml,indent=0]
 ----
@@ -103,27 +103,27 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/layo
 ----
 
 [[rendering-items]]
-== Rendering Items
+== 条目渲染
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-renderer" class="live-demo-btn" target="_blank">LIVE DEMO</a>
+    <a href="https://demo.jmix.io/ui-samples/sample/grid-layout-renderer" class="live-demo-btn" target="_blank">在线示例</a>
 </div>
 ++++
 
-It is possible to customize the render of items. The renderer is applied to each item to create a component which represents the item.
+可以自定义条目的渲染方式。渲染器对每个条目有效，创建一个表示该条目的组件。
 
-This customization can be achieved using two distinct methods.
+可以通过两种不同的方法实现自定义渲染。
 
 [[programmatically]]
-=== Programmatic Approach
+=== 编程方式
 
-In the view controller, use either:
+在视图控制器中，可以使用以下任一方式：
 
-* The `setRenderer()` method;
-* The `@Supply` annotation.
+* `setRenderer()` 方法；
+* `@Supply` 注解。
 
-Building on the <<data-binding,previous example>>, we can generate a `renderer` to display each user as a custom xref:flow-ui:vc/layouts/card.adoc[Card] component.
+基于 <<data-binding,前面的示例>>，我们可以生成一个 `renderer`，将每个用户显示为一个自定义的 xref:flow-ui:vc/layouts/card.adoc[Card] 组件。
 
 .Show code
 [%collapsible]
@@ -132,29 +132,29 @@ Building on the <<data-binding,previous example>>, we can generate a `renderer` 
 ----
 include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gridlayout/GridLayoutView.java[tags=renderer]
 ----
-<1> Supplies a custom renderer to display each `User` as a `Card`.
-<2> Creates a base `Card` component with common styling.
-<3> Initializes card content with user-specific data. Called for each card instance with the corresponding `User` entity.
-<4> Creates an avatar xref:flow-ui:vc/html-components/image.adoc[image] component from the user's picture.
+<1> 自定义渲染器，将每个 `User` 显示为 `Card`。
+<2> 创建一个带有通用样式的基本 `Card` 组件。
+<3> 使用用户特定数据初始化卡片内容。为每个卡片实例调用，并传入对应的 `User` 实体。
+<4> 从用户的图片创建一个头像 xref:flow-ui:vc/html-components/image.adoc[图片] 组件。
 ====
 
 image::visual-components/layouts/grid-layout-renderer.png[align="center", width="658"]
 
 [[fragment-renderer]]
-=== Declarative Approach
+=== 声明式方式
 
-Alternatively, you can render items using a nested xref:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] element.
+或者，可以使用嵌套的 xref:vc/miscellaneous/renderers.adoc#fragment-renderer[fragmentRenderer] 元素来渲染项目。
 
-. Create `FragmentRenderer` XML-descriptor:
+. 创建 `FragmentRenderer` XML：
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/card-fragment.xml[]
 ----
 
-. Create `FragmentRenderer` Java Controller
+. 创建 `FragmentRenderer` Java 控制器
 +
-The fragment renderer class should extend the `FragmentRenderer` base class with type parameters indicating the root component and rendered entity, for example:
+fragment 渲染器类应继承 `FragmentRenderer` 基类，并使用类型参数设置根组件的类型和渲染的实体，例如：
 +
 .Show code
 [%collapsible]
@@ -165,57 +165,56 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/gr
 ----
 ====
 
-. Use `fragmentRenderer` for a `gridLayout` component:
+. `gridLayout` 组件使用 `fragmentRenderer`：
 +
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/layout/gridlayout/grid-layout-view.xml[tags=fragmentRenderer]
 ----
 
-== Attributes
+== XML 属性
 
-xref:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
-The following attributes are specific to `gridLayout`:
+下面是 `gridLayout` 的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
-|*Default*
+|*名称*
+|*描述*
+|*默认值*
 |[[alignSelf]]alignSelf
-|Controls the vertical alignment of a component within its grid cell along the block (column) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/align-self[align-self^] property. See also xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf].
+|控制组件在其网格单元格内沿块轴（列轴）的垂直对齐方式。对应于 CSS 的 https://developer.mozilla.org/en-US/docs/Web/CSS/align-self[align-self^] 属性。另请参考 xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf]。
 
-Available for projects with version 2.7.2+.
+适用于版本 2.7.2+ 的项目。
 |`AUTO`
 |[[columnMinWidth]]columnMinWidth
-|Sets the minimum width for the grid columns in `gridLayout`. This ensures columns don't become too narrow when the container resizes.
-This value represented as a CSS length value (for example, `"50px"`, `"10rem"`)
+|设置 `gridLayout` 中网格列的最小宽度。可以防止在容器调整大小时列变得过窄。该值为 CSS 长度值（例如 `"50px"`、`"10rem"`）。
 |`19rem`
 |[[gap]]gap
-|Controls the spacing between grid cells (both row and column gaps). This creates visual separation between components. The value represented as a CSS length value (for example, `"10px"`, `"1rem"`)
+|控制网格单元格之间的间距（行间距和列间距）。该值为 CSS 长度值（例如 `"10px"`、`"1rem"`）。
 |`var(--lumo-space-s)`
 |[[justifySelf]]justifySelf
-|Controls the horizontal alignment of a component within its grid cell along the inline (row) axis. This corresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] property.
+|控制组件在其网格单元格内沿内轴（行轴）的水平对齐方式。对应于 CSS 的 https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-self[justify-self^] 属性。
 
-Available for projects with version 2.7.2+.
+适用于版本 2.7.2+ 的项目。
 |`AUTO`
 |===
 
-== Handlers
+== 事件和处理器
 
-xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 
-The following handlers are specific to `gridLayout`.
+下面是 `gridLayout` 的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]
 
 [cols="1h,6", grid=rows, frame=none]
 |===
-|*Name*
-|*Description*
+|*名称*
+|*描述*
 |[[itemLabelGenerator]]itemLabelGenerator
-|Allows you to customize the labels displayed for each item. See xref:vc/components/select.adoc#customizing-item-labels[Customizing Item Labels].
+|支持对每个条目的显示标签进行自定义。参阅 xref:vc/components/select.adoc#customizing-item-labels[自定义条目标签].
 |[[renderer]]renderer
-|Sets the item renderer for `gridLayout`. The renderer is applied to each item to create a component which represents the item option. See <<rendering-items,Rendering Items>>.
+|设置内部条目的渲染器。渲染器对每个条目创建一个可视化组件。参考 <<rendering-items>>。
 |===

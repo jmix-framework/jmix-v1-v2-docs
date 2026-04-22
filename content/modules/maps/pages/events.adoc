@@ -87,7 +87,7 @@ include::example$/maps-ex2/src/main/java/com/company/mapssample/view/events/Even
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;featureSelectEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;featureSelectEvent]
 ----
 
 [[SourceFeatureDragStartEvent]]
@@ -97,7 +97,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Selec
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragStartEvent]
 ----
 
 [[SourceFeatureDragEndEvent]]
@@ -107,7 +107,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;featureDragEndEvent]
 ----
 
 [[SourceFeatureModifyStartEvent]]
@@ -117,7 +117,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyStartEvent]
 ----
 
 [[SourceFeatureModifyEndEvent]]
@@ -127,7 +127,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureModifyEndEvent]
 ----
 
 [[SourceFeatureDeleteEvent]]
@@ -137,7 +137,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureDeleteEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;featureDeleteEvent]
 ----
 
 [[GeoObjectClickEvent]]
@@ -167,7 +167,7 @@ include::example$/maps-ex1/src/main/java/com/company/onboarding/view/location/Lo
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;selectEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/SelectModeView.java[tags=notifications;selectEvent]
 ----
 
 [[GeoObjectDragStartEvent]]
@@ -177,7 +177,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Selec
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragStartEvent]
 ----
 
 [[GeoObjectDragEndEvent]]
@@ -187,7 +187,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/DragModeView.java[tags=notifications;dragEndEvent]
 ----
 
 [[GeoObjectModifyStartEvent]]
@@ -197,7 +197,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/DragM
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyStartEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyStartEvent]
 ----
 
 [[GeoObjectModifyEndEvent]]
@@ -207,7 +207,7 @@ include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/Modif
 
 [source,java,indent=0]
 ----
-include::example$maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyEndEvent]
+include::example$/maps-ex2/src/main/java/com/company/mapssample/view/layers/ModifyModeView.java[tags=notifications;modifyEndEvent]
 ----
 
 == 要素事件

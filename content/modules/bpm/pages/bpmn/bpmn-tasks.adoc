@@ -39,6 +39,7 @@ xref:bpm:bpmn/jmix-email-task.adoc[发送电子邮件任务]:: 在业务流程�
 任务的 _Id_ 是自动生成的，一般没有特殊含义，可以将其改为有意义的内容。
 这样可以更容易理解系统日志的内容。
 
+
 [[naming-tasks]]
 .*任务命名*
 任务通常使用动词 + 对象的语法命名，例如“批准订单”或“发送发票”。
@@ -59,7 +60,7 @@ xref:bpm:bpmn/jmix-email-task.adoc[发送电子邮件任务]:: 在业务流程�
 
 还可以为任务创建扩展属性：
 
-image::bpmn-service-task/extension-properties.png[,400]
+image::bpmn-service-task/extension-properties.png[,460]
 
 在 XML 中，扩展属性使用 `jmix:property` 定义：
 
@@ -70,16 +71,13 @@ image::bpmn-service-task/extension-properties.png[,400]
 <extensionElements>
 <!--   . . .    -->
     <jmix:properties>
-      <jmix:property name="color" value="red" /> <1>
+      <jmix:property name="color" value="red" />
     </jmix:properties>
   </extensionElements>
 </serviceTask>
 ----
-<1> -- 创建一个扩展属性。
 
 [[execution-listeners]]
 == 执行监听器
 
-可以为任务定义执行监听器：
-
-image::bpmn-service-task/create-execution-listner.png[,400]
+可以为任务定义执行监听器。参阅 xref:listeners.adoc#execution-listeners[执行监听器]。

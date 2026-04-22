@@ -56,10 +56,9 @@ image::bpmn-sequence-flows/incoming-outgoing-flows.png[,300]
 * Id
 * Name
 
-以及 _Condition_ 属性。（请参阅排他网关中 _condition_ 属性的详细信息）。
+此外，顺序流还有一个 *Condition（条件）* 属性。请参阅排他网关的 xref:bpmn/bpmn-gateways.adoc#gateways-conditions[条件] 部分。
 
-image::bpmn-sequence-flows/flow-properties.png[,300]
-
+image::bpmn-sequence-flows/flow-properties.png[,463]
 
 [[conditional-flow]]
 == 条件顺序流

@@ -49,13 +49,7 @@ image::bpmn-gateways/gateway-types.png[,400]
 [[gateway-properties]]
 === 网关属性
 
-所有网关只有通用属性：
-
-* Id
-* Name
-
-image::bpmn-gateways/gateway-properties.png[,400]
-
+所有网关只有通用属性：ID 和 name。
 
 [[exclusive-gateway]]
 == 排他网关
@@ -87,7 +81,7 @@ image::bpmn-gateways/gateway-properties.png[,400]
 条件用于定义何时可以选取该路径。在 *Jmix BPM* 中，条件可以有以下来源：
 
 * 表达式（Expression）
-* 用户任务输出（User task outcomes）
+* 用户任务结果（User task outcomes）
 * 业务规则任务结果（Business rule task result）
 
 image::bpmn-gateways/condition-source.png[,400]
@@ -116,13 +110,13 @@ image::bpmn-gateways/condition-source.png[,400]
 最后一个情况中，方法需要返回 _boolean_ 值。
 
 [[user-task-outcomes]]
-==== 用户任务输出
+==== 用户任务结果
 
-如果流程中有一个带输出的用户任务，可以选择其中一个输出用于激活给定的流。
+如果流程中有一个带结果的用户任务，可以选择其中一个结果用于激活给定的流。
 
 image::bpmn-gateways/exclisive-gateway-task-outcome.png[]
 
-设置基于输出的条件，首先选择一个用户任务，然后选择输出。
+设置结果的条件，首先选择一个用户任务，然后选择结果。
 
 当选择用户任务作为条件时，请确保用户任务在条件计算 *之前* 执行。
 否则，会引起运行时错误。
@@ -144,7 +138,7 @@ image::bpmn-gateways/outcome-based-condition-types.png[,300]
 * 无人完成（No one completed with the outcome）
 
 使用这个参数可以实现某种形式的投票。
-例如，可以只要一个用户完成任务并产生 'yes' 的输出即可选择该路径。
+例如，可以只要一个用户完成任务并产生 'yes' 的结果即可选择该路径。
 
 image::bpmn-gateways/outcome-based-condition.png[,600]
 
@@ -181,7 +175,7 @@ image::bpmn-gateways/default-flow-example.png[,300]
 [[separate-forks-and-joins]]
 ==== 独立的分支和合并
 
-从形式上讲，BPMN 规范允许同一个网关扮演传入和传出两个角色，但是这种用法是强烈不推荐的。
+从形式上讲，BPMN 规范允许同一个网关扮演传入和传出两个角色，但是这种用法是不推荐的。
 
 因此，请避免使用如下图所示的排他网关，该网关既是分支又是合并：
 

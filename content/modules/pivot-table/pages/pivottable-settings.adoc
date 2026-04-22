@@ -1,6 +1,6 @@
 = PivotTable settings
 
-The `PivotTable` supports `Settings` facet. Just add following code to the view descriptor to enable PivotTable state saving.
+The `PivotTable` supports the `Settings` facet. Add the following code to the view descriptor to enable PivotTable state saving.
 [source,xml,indent=0]
 ----
 include::../examples/pivottable-ex1/src/main/resources/com/company/ex1/view/pivottablesettings/pivottable-settings-view.xml[tags=settings-facet]

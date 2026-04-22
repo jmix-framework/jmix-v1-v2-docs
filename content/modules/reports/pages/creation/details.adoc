@@ -1,14 +1,37 @@
 = 详情
 
-当新建或编辑报表时，会默认展示 *Report details（报表详情）* 标签页：
+[[report-details-tab]]
+== 报表详情页
+
+当在运行时创建或编辑报表时，默认显示 *Report details* tab：
 
 image::report-details.png[align="center",width="882"]
 
 这个标签页包含报表通用配置的字段：
 
-* *Name* - 报表名称。可以通过 *Name localization* 字段本地化。
-* *Group* - 报表分组，用于在标准报表列表视图中展示列表分组。
-// * *Default template（默认模板）* - 报表输出 xref:creation/templates.adoc[模板]。
-* *System code（系统编码）* - 可选编号，在应用程序代码中可以通过该编号标识报表。
-* *System* - 表示这个报表仅在系统内部使用。可以通过编程式 xref:run-report.adoc#run_actions[操作] 或 xref:run-report.adoc#run_common[运行报表视图] 执行。
-* *Available through REST API（REST API 可用）* - 勾选这个复选框，支持在 xref:reports:rest-api.adoc[REST API] 使用该报表。
+* *Name* -- 报表名称。名称可以在 *Name localization* 字段中本地化。
+* *Group* -- 报表分组，用来在标准报表列表视图中分组。
+* *System code* -- 必填代码，在应用程序代码中用于标识报表。
+* *System* -- 表示报表供内部系统使用。系统报表只能通过 xref:run-report.adoc#reports-api[API] 执行。在 xref:run-report.adoc#run-actions[报表操作] 和 xref:run-report.adoc#run-from-list[运行报表] 的视图中隐藏。
+* *Available through REST API* -- 勾选表示该报表可通过 xref:reports:rest-api.adoc[REST API] 使用。
+* *Description* -- 报表描述。
+* *Name localization* -- 用该字段设置报表名称的本地化，用户运行时会显示该名称。字段内分行输入 `locale_name=report_name`。例如：
++
+[source]
+----
+en=Client Profile
+zh_CN=客户资料
+----
+
+[[report-def]]
+== @ReportDef 注解
+
+在设计时，使用 `@ReportDef` 注解支持创建报表详细信息。该注解有以下属性：
+
+* `name` -- 报表名称。可以使用 `msg://` 前缀来引用 xref:localization:message-bundles.adoc[本地化消息]。
+* `group` -- 报表分组，由带有 `@ReportGroupDef` 注解的类定义。
+* `code` -- 报表代码。
+* `description` -- 报表描述。
+* `uuid` -- 可选的报表唯一 ID。设置该属性可获取稳定的运行时对象标识符，例如通过 ID 查找和运行报表。
+* `restAccessible` -- 报表是否可以通过 REST API 执行。
+* `system` -- 设置报表的系统标志。系统报表只能通过 xref:run-report.adoc#reports-api[API] 执行。在 xref:run-report.adoc#run-actions[报表操作] 和 xref:run-report.adoc#run-from-list[运行报表] 的视图中隐藏。

@@ -39,6 +39,8 @@ select e from Region e where e.locale = :current_locale
 
 参数值从当前用户的会话中获取，会话通过 xref:security:authentication.adoc#current[CurrentAuthentication] 获取。
 
+IMPORTANT: User 实体的属性（`current_user_*`）是在用户登录的时候获取，并保存在内存中。因此，如果属性值在数据库层面做了更新，并不能马上在应用程序代码中读取到。
+
 [[case-insensitive-substring-search]]
 == 不区分大小写的子串搜索
 

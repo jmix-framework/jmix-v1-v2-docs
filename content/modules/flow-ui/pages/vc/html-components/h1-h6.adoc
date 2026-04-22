@@ -54,7 +54,7 @@ image::visual-components/html-components/h1h6-basic.png[align="center", width="1
 [[attributes]]
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:vc/common-attributes.adoc[通用属性]。
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 下面是标题组件的特殊属性：
 
 [cols="1h,5,1", grid=rows, frame=none]
@@ -72,7 +72,7 @@ image::visual-components/html-components/h1h6-basic.png[align="center", width="1
 [[handlers]]
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 下面是标题组件的特殊事件和处理器：
 
 include::../handler-generation-tip.adoc[]

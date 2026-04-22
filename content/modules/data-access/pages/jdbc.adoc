@@ -1,26 +1,26 @@
-= Using JDBC
+= 使用 JDBC
 
-While Jmix primarily uses JPA for data access, there are several scenarios where direct JDBC access might be necessary, such as executing complex SQL queries, performing batch operations, or invoking stored procedures.
+尽管 Jmix 主要使用 JPA 进行数据访问，但在某些场景下可能仍需直接使用 JDBC，例如执行复杂的 SQL 查询、执行批量操作或调用存储过程。
 
-TIP: We recommend using xref:data-manager.adoc[DataManager] and fall back to JDBC only when required.
+TIP: 我们建议优先使用 xref:data-manager.adoc[DataManager]，仅在必要时才使用到 JDBC。
 
-You can use `JdbcTemplate` or `JdbcClient` classes provided by Spring to execute operations at the JDBC level.
+可以使用 Spring 提供的 `JdbcTemplate` 或 `JdbcClient` 类在 JDBC 级别执行操作。
 
-Both `JdbcTemplate` and `JdbcClient` automatically participate in Spring-managed xref:transactions.adoc[transactions], so you can use them alongside JPA operations within the same transaction.
+`JdbcTemplate` 和 `JdbcClient` 都会自动加入 Spring 管理的 xref:transactions.adoc[事务]，因此可以在同一事务中与 JPA 操作一起使用。
 
 [[jdbc-template]]
-== Using JdbcTemplate
+== 使用 JdbcTemplate
 
-`JdbcTemplate` is a classic Spring Framework class that simplifies JDBC operations by handling resource management and exception translation.
+`JdbcTemplate` 是 Spring 框架的一个经典类，通过资源管理和异常事务简化了 JDBC 操作。
 
-To use `JdbcTemplate` for accessing the xref:data-model:data-stores.adoc#main[main data store], simply inject it into your bean:
+如需使用 `JdbcTemplate` 访问 xref:data-model:data-stores.adoc#main[主数据存储]，只需在 bean 中注入：
 
 [source,java,indent=0]
 ----
 include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=jdbc-template]
 ----
 
-If you need to access an xref:data-model:data-stores.adoc#additional[additional data store], inject the corresponding `javax.sql.DataSource` and create a new instance of `JdbcTemplate`. In the following example, `JdbcTemplate` is created for the `db1` data store:
+如果需要访问 xref:data-model:data-stores.adoc#additional[附加数据存储]，首先注入存储对应的 `javax.sql.DataSource`，然后创建一个 `JdbcTemplate` 的新实例。在下面的示例中，创建了 `db1` 数据存储的 `JdbcTemplate`：
 
 [source,java,indent=0]
 ----
@@ -28,18 +28,18 @@ include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcServ
 ----
 
 [[jdbc-client]]
-== Using JdbcClient
+== 使用 JdbcClient
 
-`JdbcClient`, introduced in Spring Framework 6.1, provides a more modern and fluent API for JDBC operations.
+`JdbcClient` 是在 Spring 6.1 引入的，为 JDBC 提供了更现代的流式操作 API。
 
-To use `JdbcClient` for accessing the xref:data-model:data-stores.adoc#main[main data store], simply inject it into your bean:
+如需使用 `JdbcClient` 访问 xref:data-model:data-stores.adoc#main[主数据存储]，只需在 bean 中注入：
 
 [source,java,indent=0]
 ----
 include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=jdbc-client]
 ----
 
-If you need to access an xref:data-model:data-stores.adoc#additional[additional data store], inject the corresponding `javax.sql.DataSource` and create a new instance of `JdbcClient`. In the following example, `JdbcClient` is created for the `db1` data store:
+如果需要访问 xref:data-model:data-stores.adoc#additional[附加数据存储]，首先注入存储对应的 `javax.sql.DataSource`，然后创建一个 `JdbcClient` 的新实例。在下面的示例中，创建了 `db1` 数据存储的 `JdbcClient`：
 
 [source,java,indent=0]
 ----
@@ -47,11 +47,11 @@ include::example$data-access-ex1/src/main/java/com/company/demo/bean/FooJdbcServ
 ----
 
 [[stored-procedures]]
-== Calling Stored Procedures
+== 调用存储过程
 
-You can use Spring's `SimpleJdbcCall` class to execute stored procedures. It provides better parameter handling and database metadata support than `JdbcTemplate`.
+可以使用 Spring 的 `SimpleJdbcCall` 类执行存储过程。相对于 `JdbcTemplate`，该类提供了更好的参数处理和数据库元数据支持。
 
-The following example shows how to call a PostgreSQL stored procedure located in the main data store.
+下面的示例演示如何在主数据存储调用 PostgreSQL 的存储过程。
 
 [source,sql]
 ----
@@ -80,4 +80,4 @@ $$;
 include::example$data-access-ex1/src/main/java/com/company/demo/bean/CustomerJdbcService.java[tags=stored-procedure]
 ----
 
-If you need to call a procedure from an additional data store, create the `JdbcTemplate` instance for the corresponding `javax.sql.DataSource` as described <<jdbc-template,above>>.
+如果需要调用附加数据存储中的存储过程，首先按 <<jdbc-template,上面>> 的说明创建对应 `javax.sql.DataSource` 的 `JdbcTemplate`。

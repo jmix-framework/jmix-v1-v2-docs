@@ -14,7 +14,7 @@
 
 == 基本用法
 
-基本的 `loginForm` 包含用户名和密码字段以及一个登录按钮。表单也可以包含一些可选元素：例如，地区语言下拉框、“记住我”复选框以及“忘记密码”按钮。
+基本的 `loginForm` 包含用户名和密码字段以及一个登录按钮。表单也可以包含一些可选元素：例如，地区语言下拉框、*记住我* 复选框以及 *忘记密码* 按钮。
 
 image::visual-components/components/login-form.png[align="center", width="320"]
 
@@ -34,12 +34,23 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 === 可远元素
 
-可以通过属性配置是否显示可选的一些元素，例如语言选择框、“记住我”复选框、或 “忘记密码”按钮：
+可以通过属性配置是否显示可选的一些元素，例如语言选择框、*记住我* 复选框或 *忘记密码* 按钮：
 
 [source,xml,indent=0]
 ----
 include::example$/onboarding/src/main/resources/com/company/onboarding/view/component/loginform/login-form-view.xml[tags=basic]
 ----
+
+[[remember-me]]
+=== “记住我”功能
+
+*Remember me（记住我）* 复选框支持用户长时间保持登录状态，甚至比 HTTP 会话的生命周期还长。即使服务器重启，此状态仍然保持。
+
+当用户在登录时选中 *Remember me* 复选框，系统会在浏览器 cookie 中存储一个持久化 token。在后续访问中，用户无需再次输入凭证即可自动进行身份验证。
+
+如需在登录逻辑中处理 `Remember me` 状态，使用 <<RememberMeChangedEvent,RememberMeChangedEvent>>。
+
+更多信息请参考 https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html[Spring Security Remember-Me 文档^]。
 
 [[authentication]]
 == 认证
@@ -106,7 +117,7 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[forgotPasswordButtonVisible]]
 === forgotPasswordButtonVisible
 
-设置是否显示 **Forgot password（忘记密码）** 按钮。
+设置是否显示 *Forgot password（忘记密码）* 按钮。
 
 [[localesVisible]]
 === localesVisible
@@ -116,7 +127,9 @@ xref:vc/common-attributes.adoc#visible[visible]
 [[rememberMeVisible]]
 === rememberMeVisible
 
-设置是否显示 **Remember me（记住我）** 复选框。
+设置是否显示 *Remember me（记住我）* 复选框。设置为 `true` 时，用户可以在浏览器会话级别保持登录状态。
+
+默认值为 `false`
 
 == 事件和处理器
 
@@ -133,7 +146,7 @@ include::../handler-generation-tip.adoc[]
 [[ForgotPasswordEvent]]
 === ForgotPasswordEvent
 
-当用户点击 **Forgot password（忘记密码）** 时，发送 `ForgotPasswordEvent` 事件。为该事件添加处理器可以为用户提供找回密码的功能。
+当用户点击 *Forgot password（忘记密码）* 时，发送 `ForgotPasswordEvent` 事件。为该事件添加处理器可以为用户提供找回密码的功能。
 
 [[LocaleChangedEvent]]
 === LocaleChangedEvent
@@ -148,7 +161,7 @@ include::../handler-generation-tip.adoc[]
 [[RememberMeChangedEvent]]
 === RememberMeChangedEvent
 
-当 **Remember me（记住我）** 复选框的选择状态发生变化时发送 `RememberMeChangedEvent` 事件。
+当 *Remember me（记住我）* 复选框的选择状态发生变化时发送 `RememberMeChangedEvent` 事件。
 
 [[localeItemLabelGenerator]]
 === localeItemLabelGenerator

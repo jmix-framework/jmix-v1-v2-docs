@@ -333,7 +333,7 @@ include::../examples/pivottable-ex1/src/main/resources/com/company/ex1/view/with
 
 == XML 属性
 
-在 Jmix 中，所有组件都有一些作用一致的 xref:flow-ui:vc/common-attributes.adoc[通用属性]。
+xref:flow-ui:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
 下面是 `pivotTable` 的特殊属性：
 
@@ -376,7 +376,7 @@ include::../examples/pivottable-ex1/src/main/resources/com/company/ex1/view/with
 
 == 事件和处理器
 
-在 Jmix 中，所有组件都有一些 xref:flow-ui:vc/common-handlers.adoc[通用事件和处理器]，可以按相同的方法设置。
+xref:flow-ui:vc/common-handlers.adoc[通用事件和处理器] 对所有组件都是一样的配置。
 
 下面是 `pivotTable` 的特殊事件和处理器：
 

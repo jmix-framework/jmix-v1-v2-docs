@@ -1,80 +1,80 @@
-= Custom Form
+= 自定义表单
 
-When an element needs a form that cannot be shown as a simple xref:bpm:input-dialog.adoc[] and cannot use the usual xref:bpm:bpmn/jmix-view-forms.adoc[] annotation-driven approach, you can supply a custom form. This form may still be a Jmix view, or it can be built with an alternative UI technology (e.g., React).
+当某个元素需要的表单无法以简单的 xref:bpm:input-dialog.adoc[] 显示，也无法使用常规的带注解的 xref:bpm:bpmn/jmix-view-forms.adoc[] 方式时，可以提供一个自定义表单。该表单仍然可以是 Jmix 视图，也可以使用其他 UI 技术（例如 React）构建。
 
-In the modeler, you will need to provide an id for this form. The custom form must read the supplied input parameters and return the outcomes.
+在建模器中，需要为此表单提供一个 id。自定义表单必须读取提供的输入参数并返回结果。
 
 image::custom-forms/custom-form.png[align="center", width="861"]
 
-== Custom Jmix Form
+== 自定义 Jmix 表单
 
-To render custom forms in the *Start process* or *My tasks* views, implement the `ProcessFormViewCreator` interface and register it for the `custom` form type.
+如需在 *启动流程* 或 *我的任务* 视图中渲染自定义表单，请实现 `ProcessFormViewCreator` 接口，并将其注册到 `custom` 表单类型。
 
-Let's look at the example of `MyCustomProcessFormViewCreator` that implements `ProcessFormViewCreator`:
+我们来看一个实现 `ProcessFormViewCreator` 的 `MyCustomProcessFormViewCreator` 示例：
 
 [source,java,indent=0]
 ----
 include::example$bpm-ex1/src/main/java/com/company/bpmex1/app/MyCustomProcessFormViewCreator.java[tags=custom]
 ----
 
-<1> The `@Order` annotation makes this implementation the first one the framework will consider.
-<2> Overrides the method for creating a start process form.
-<3> Checks if the view implements `AcceptsProcessDefinition`. In this case, it is necessary to set `ProcessDefiniton` to the view.
-<4> Overrides the method for creating a task process form.
-<5> Checks if the view implements `AcceptsTask`. In this case, it is necessary to set `Task` to the view.
+<1> `@Order` 注解使该实现成为框架的首选。
+<2> 重写用于创建启动流程表单的方法。
+<3> 检查视图是否实现了 `AcceptsProcessDefinition`。此时，需要为视图设置 `ProcessDefiniton`。
+<4> 重写用于创建任务流程表单的方法。
+<5> 检查视图是否实现了 `AcceptsTask`。此时，需要为视图设置 `Task`。
 
-The code above uses two supporting interfaces. An example of `AcceptsProcessDefinition` interface:
+上面的代码使用了两个辅助接口。辅助接口 `AcceptsProcessDefinition` 的示例：
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/AcceptsProcessDefinition.java[tags=custom]
 ----
-An example of `AcceptsTask` interface:
+辅助接口 `AcceptsTask`：
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/AcceptsTask.java[tags=custom]
 ----
 
-These interfaces must be implemented by the custom start and task forms.
+这些接口必须由自定义的启动和任务表单实现。
 
-=== Custom Start Form
+=== 自定义启动表单
 
-XML descriptor for a custom start form that has only a *Start process* button:
+示例中的自定义启动表单仅带有一个 *Start process* 按钮：
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custom-start-form.xml[tags=custom]
 ----
 
-View controller for the custom start form:
+自定义启动表单的视图控制器：
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomStartForm.java[tags=custom]
 ----
 
-=== Custom Task From
+=== 自定义任务表单
 
-XML descriptor for a custom task form that has only *Task complete* button:
+示例中的自定义任务表单仅带有一个 *Task complete* 按钮：
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/resources/com/company/bpmex1/view/forms/custom-task-form.xml[tags=custom]
 ----
 
-View controller of the custom task form:
+自定义任务表单的视图控制器：
 
 [source,java,indent=0]
 ----
 include::example$/bpm-ex1/src/main/java/com/company/bpmex1/view/forms/CustomTaskForm.java[tags=custom]
 ----
 
-== Using Alternative UI Technology
+== 使用其他的 UI 技术
 
-It is possible to create forms with an alternative UI technology (e.g., React) that talk to Jmix BPM via REST. You can obtain form information directly from the engine using Flowable’s `FormService`, that provides the following methods:
+可以使用其他 UI 技术（例如 React）创建表单，通过 REST 与 Jmix BPM 通信。使用 Flowable 的 `FormService` 可以从引擎获取表单信息，该服务提供以下方法：
 
 * `StartFormData getStartFormData (String processDefinitionId)`
 * `TaskFormData getTaskFormData (String taskId)`
 
-Or, expose form metadata using `ProcessFormDataExtractor` in Jmix. See the xref:process-form-data-extractor.adoc[] section for example.
+或者，使用 Jmix 中的 `ProcessFormDataExtractor` 暴露表单元数据。示例请参见 xref:process-form-data-extractor.adoc[] 部分。

@@ -102,9 +102,8 @@ image::token-simulation-1.gif[]
 
 [[business-key]]
 == 业务键值
-业务键值（business key）是一种根据业务特定标准对流程实例进行标识的方法，
-而不是仅依赖系统生成的流程实例 ID。
-业务键值支持将流程实例与特定业务实体或上下文相关联。
+
+业务键值（business key）是流程实例的业务特定标识符。该标识符将实例与相关的业务实体或上下文进行关联，提供了比系统生成的流程实例 ID 更具描述性的替代方案。
 
 例如，一个业务键值可以是：
 
@@ -114,15 +113,11 @@ image::token-simulation-1.gif[]
 * 地址
 * 或其他信息。
 
-当使用业务键值定义流程实例时，用户可以更容易理解业务上下文。
+添加业务键值有助于用户识别流程所属的上下文。可以通过三种方式添加：
 
-可以在流程启动事件的 *input dialog form* 中定义业务键值，
-详情请参阅 xref:bpm:input-dialog.adoc#business-key[这里]。
-在 *Jmix view form* 中，可以使用 `ProcessFormContext` 定义业务键值，
-参阅 xref:bpm:bpmn/jmix-view-forms.adoc#business-key[这里]。
-
-此外，通过编程式的方式也可以设置或更改业务键值，
-请参考：xref:bpm:jmix-bpm-api.adoc#business-key[示例]。
+. 启动事件的 *Input dialog form（输入对话框表单）*。参阅 xref:bpm:input-dialog.adoc#business-key[示例]。
+. 在 *Jmix view form（Jmix 视图表单）* 中使用 `ProcessFormContext`。参阅 xref:bpm:bpmn/jmix-view-forms.adoc#business-key[示例]。
+. 通过 API 编程式添加。参阅 xref:bpm:jmix-bpm-api.adoc#business-key[示例]。
 
 [[process-context]]
 == 流程上下文

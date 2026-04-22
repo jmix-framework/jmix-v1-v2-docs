@@ -3,62 +3,41 @@
 这个视图可以查看当前认证用户的已激活任务。
 以树状结构显示任务，其中任务按流程进行分组。
 
-任务树具有两个根节点：*已分配任务（Assigned Tasks）* 和 *组任务（Group Tasks）* 。
-*已分配任务* 节点该用户作为执行人的任务。
-而 *组任务* 节点包括用户是候选人的任务。
-
-用户选择特定的流程后可以打开该流程中的任务。
-如何完成任务，请参阅 xref:bpm:process-forms.adoc[流程表单]。
-
 image::my-tasks/my-tasks-view.png[,800]
 
-*Due Date* 字段显示任务的预期完成时间。
-但是，这个时间仅供参考。
-如需监控任务的逾期情况并基于该信息执行操作，则需要以编程方式实现。
+* *Assigned Tasks（分配任务）* 节点包含为用户分配的任务，而 *Group Tasks（组任务）* 节点则包含用户作为候选人的任务。
 
-在设计流程时，请使用 xref:bpm:bpm-concepts.adoc#business-key[业务键值]。
-有了业务键值之后，任务列表能提供更多信息，使用户能够了解业务对象与流程的关系。
-
-例如，没有业务键值的组任务显示如下：
-
-image::my-tasks/my-group-task.png[,800]
-
-[TIP]
-====
-多数情况下，_实体实例名_ 可作为有效的业务键值使用。
-====
+* *Process instance business key（流程实例业务键值）* 列显示 xref:bpm:bpm-concepts.adoc#business-key[业务键值]。有助于用户理解流程关联的对象。
++
+TIP: 设计流程时，最好为其指定一个业务键值。建议使用 xref:data-model:entities.adoc#instance-name[实体实例名称] 作为业务键值。
++
+* *Due Date（截止日期）* 显示任务预计完成的时间。此字段仅供参考。如果想跟踪逾期未完成的任务并基于这些信息做某些操作，应该通过编程的方式完成。
 
 [[advanced-task-list-view]]
 == 高级任务列表视图
 
-框架还提供了另外一个 BPM 任务视图，带有高级的任务管理功能，包括：过滤、分页和排序。这个视图可以根据项目的特定需求进行自定义。
-
-为了简化创建该任务视图的过程，Jmix Studio 在 xref:studio:view-wizard.adoc[视图创建向导] 中提供了 *BPM: Advanced Task List View* 模板：
-
-image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
-
-创建高级任务视图的步骤与创建标准空白视图的步骤类似。
-
-完成所有步骤之后，Studio 会生成页面的 XML 和 Java 代码。虽然这些代码量有点大，但是其中包含了丰富的注释，使得代码更易于理解并进行定制化。
-
-生成的视图不会对 BPM 扩展组件提供的 *My Tasks* 视图进行扩展或覆盖，并可以根据需要进行自定义。
-
-下面是生成的视图样式：
+框架允许创建或自定义另一个页面用于查看任务。该页面是独立的，不能取代标准的 *My Tasks* 页面。也可以根据项目需求进行轻松定制。
 
 image::my-tasks/advanced-my-tasks-view.png[align="center",width="982"]
 
-视图左侧包含一个自定义的过滤器组件，提供了根据任务名称、流程和分配类型进行过滤的功能。
+* 页面左侧是一个过滤器组件，支持按任务名称、流程名称、分配人进行过滤。
+* 右侧显示用户任务的列表。
 
-视图的右侧是一个表格，显示根据条件从数据库获取的可排序任务列表。
+=== 创建高级任务视图
+
+在 Jmix 中创建任务页面的过程与创建其他页面类似。Jmix Studio 中的 xref:studio:view-wizard.adoc[] 提供了 *BPM: Advanced Task List View* 模板。
+
+
+image::my-tasks/advanced-my-tasks-view-template.png[align="center",width="776"]
+
+完成向导中的步骤后，Studio 会生成页面的 XML 描述和控制器文件。这些文件中具有详细的注释，帮助理解和编辑视图。
 
 [[advanced-task-list-security]]
-=== 安全
+=== 访问视图
 
-由于该视图是在项目级别的自定义视图，因此需要手动分配视图及其相关实体的权限。
+与项目中的其他视图一样，用户需要有权限才能访问这个新视图及其关联实体。因此，需要给用户相应的 xref:security:resource-roles.adoc[]。
 
-创建新的 `BpmProcessTaskPerformerRole` xref:security:resource-roles.adoc[资源角色]。
-
-该角色支持用户在生成的 *Advanced Task List* 视图中查看用户任务并处理流程表单。
+下面的代码定义了一个 `BpmProcessTaskPerformerRole` 角色，包含了所需的全部权限。
 
 [source, java, indent=0]
 ----

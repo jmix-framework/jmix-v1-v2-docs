@@ -1,14 +1,14 @@
-= SearchField Component
+= SearchField 组件
 
-The `SearchField` component presents a text input field with an accompanying button for executing searches. It also provides runtime configuration options accessible via a settings button.
+`SearchField` 组件由一个文本输入字段和执行搜索的按钮组成。也提供运行时配置选项，通过配置按钮访问。
 
 [cols="2h,8", grid=none]
 |===
-|XML Element
+|XML 元素
 |`searchField`
-|Java Class
+|Java 类
 |`io.jmix.searchflowui.component.SearchField`
-|Attributes
+|XML 属性
 |xref:flow-ui:vc/common-attributes.adoc#id[id] -
 xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:flow-ui:vc/common-attributes.adoc#ariaLabel[ariaLabel] -
@@ -42,7 +42,7 @@ xref:flow-ui:vc/common-attributes.adoc#valueChangeMode[valueChangeMode] -
 xref:flow-ui:vc/common-attributes.adoc#valueChangeTimeout[valueChangeTimeout] -
 xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
 xref:flow-ui:vc/common-attributes.adoc#width[width]
-|Handlers
+|事件和处理器
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:flow-ui:vc/common-handlers.adoc#BlurEvent[BlurEvent] -
 xref:flow-ui:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentValueChangeEvent] -
@@ -56,15 +56,15 @@ xref:flow-ui:vc/common-handlers.adoc#KeyUpEvent[KeyUpEvent] -
 |===
 
 [[basic]]
-== Basics
+== 基本用法
 
-To add the component on the view, use Jmix Studio.
+使用 Studio 添加组件至视图。
 
-Click *Add Component* in the actions panel, then find the `SearchField` item and double-click it.
+点击操作面板的 *Add Component*，找到 `SearchField` 然后双击。
 
 image::create-search-field-component.png[align="center", width="692"]
 
-The new `searchField` element will be added both in the *Jmix UI* structure panel and in the XML descriptor. You can configure standard attributes (xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc.) just like any other xref:flow-ui:vc/components.adoc[UI component].
+会在 *Jmix UI* 结构面板和 XML 中添加 `searchField`。与其他 xref:flow-ui:vc/components.adoc[UI 组件] 一样，可以配置标准属性（xref:flow-ui:vc/common-attributes.adoc#id[id]、xref:flow-ui:vc/common-attributes.adoc#height[height]、xref:flow-ui:vc/common-attributes.adoc#width[width] 等）。
 
 [source,xml,indent=0]
 ----
@@ -73,7 +73,7 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 
 image::search-field.png[align="center", width="211"]
 
-If you don't use the view designer, declare the `search` namespace in your view's XML descriptor manually:
+如果不使用视图设计器，可以手动在视图 XML 中声明 `search` 命名空间：
 
 [source,xml,indent=0]
 ----
@@ -81,35 +81,35 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/sea
 ----
 
 [[settings-button]]
-== Runtime Configuration
+== 运行时配置
 
-The `searchField` includes a *settings button* (vertical ellipsis `⋮`) that opens a configuration dialog, allowing users to dynamically adjust search parameters without modifying the XML.
+`searchField` 包含一个 *设置按钮*（垂直省略号 `⋮`），点击该按钮会打开一个配置对话框，用户可以在不修改 XML 的情况下动态调整搜索参数。
 
 image::search-settings-dialog.png[align="center", width="483"]
 
-Users can configure the following options at runtime:
+用户可以在运行时配置以下选项：
 
 [cols="2,2,4", options="header"]
 |===
-| Configuration | Corresponding Attribute | Description
+| 配置 | 对应属性 | 描述
 
-| Search Strategy
+| Search Strategy（搜索策略）
 | <<searchStrategy,searchStrategy>>
-| Determines how the search term is processed
+| 确定搜索词的处理方式
 
-| Size
+| Size（数量）
 | <<searchSize,searchSize>>
-| Limits the number of search results
+| 限制搜索结果的数量
 
-| Entities
+| Entities（实体）
 | <<entities,entities>>
-| Specifies which entities to search (multiple entities can be selected)
+| 指定要搜索的实体（可以选择多个实体）
 |===
 
 [[settings-button-visible]]
-=== Hiding the Settings Button
+=== 隐藏配置按钮
 
-You can hide the settings button using the `settingsButtonVisible` attribute:
+可以使用 `settingsButtonVisible` 属性隐藏配置按钮。
 
 [source,xml,indent=0]
 ----
@@ -117,14 +117,14 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 ----
 
 [[search-results-view]]
-== Search Results View
+== 搜索结果视图
 
-By default, the `searchField` opens the built-in `SearchResultsView`. This view handles the search engine querying process and displays results either in the current navigation view or in a dialog, depending on the <<openMode,openMode>> attribute.
+默认情况下，`searchField` 会打开内置的 `SearchResultsView`。该视图处理搜索引擎的查询过程，并根据 <<openMode,openMode>> 属性，在当前导航视图或对话框中显示结果。
 
 [[searchCompletedHandler]]
-To modify this behavior, configure a `SearchCompletedHandler`. This can be done either declaratively using the `@Install` annotation or programmatically using `setSearchCompletedHandler()`.
+如需修改此行为，需要配置一个 `SearchCompletedHandler`。可以通过 `@Install` 注解以声明方式，或使用 `setSearchCompletedHandler()` 以编程方式配置。
 
-Example with `@Install`:
+使用 `@Install` 的示例：
 
 [source,java,indent=0]
 ----
@@ -132,17 +132,17 @@ include::example$/search-ex1/src/main/java/com/company/demo/view/search/SearchVi
 ----
 
 [[attributes]]
-== Attributes
+== XML 属性
 
-xref:flow-ui:vc/common-attributes.adoc[Common attributes] serve the same purpose for all components.
-The following attributes are specific to `searchField`:
+xref:flow-ui:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
+下面是 `searchField` 的特殊属性：
 
 [cols="1h,7a,1",grid=rows,frame=none]
 |===
-|*Name*|*Description*|*Default*
+|*名称*|*描述*|*默认值*
 
 |[[entities]]entities
-| Specifies which entities to search. Multiple entities can be listed as a comma-separated sequence.
+| 指定要搜索的实体。多个实体可以用逗号分隔。
 
 [source,xml,indent=0]
 ----
@@ -151,23 +151,23 @@ include::example$/search-ex1/src/main/resources/com/company/demo/view/search/my-
 |-
 
 |[[openMode]]openMode
-| Specifies how the <<search-results-view,search results view>> is opened when a search is executed. `NAVIGATION` replaces the main content area; `DIALOG` opens a modal window.
+| 指定 <<search-results-view,搜索结果视图>> 的打开模式。`NAVIGATION` 在主窗口打开；`DIALOG` 在模态窗打开。
 |`NAVIGATION`
 
 |[[searchButtonVisible]]searchButtonVisible
-|Shows or hides the search button.
+|设置是否显示搜索按钮。
 |`true`
 
 |[[searchSize]]searchSize
-|Limits the number of search results displayed on a single page of search results.
-|Inherited from the application property xref:search:search-properties.adoc#jmix.search.searchResultPageSize[jmix.search.search-result-page-size].
+|设置搜索结果中一页显示的结果数量。
+|默认使用 xref:search:search-properties.adoc#jmix.search.searchResultPageSize[jmix.search.search-result-page-size] 的配置。
 
 |[[searchStrategy]]searchStrategy
-|Determines the search strategy applied. See xref:search:search-in-ui.adoc#search-strategies[Search Strategies].
+|设置搜索策略。参阅 xref:search:search-in-ui.adoc#search-strategies[搜索策略]。
 |`anyTermAnyField`
 
 |[[settingsButtonVisible]]settingsButtonVisible
-|Shows or hides the settings button (`⋮`). See <<settings-button,Runtime Configuration>>.
+|设置是否显示设置按钮（`⋮`）。参阅 <<settings-button,运行时配置>>。
 |`true`
 
 |===

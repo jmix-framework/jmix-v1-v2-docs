@@ -12,9 +12,21 @@
 
 Spring Security 使用特殊的 {spring-security-doc}/servlet/architecture.html#servlet-securityfilterchain[SecurityFilterChain^] bean 来确定需要保护哪些 URL。每个 `SecurityFilterChain` bean 都由 {spring-security-doc}/servlet/configuration/java.html#jc-httpsecurity[HttpSecurity^] builder 配置。一个应用程序可以声明多个 `SecurityFilterChain` bean。此时，多个 bean 之间的顺序非常重要。请参阅 Spring Security 文档的 {spring-security-doc}/servlet/configuration/java.html#_multiple_httpsecurity_instances[多 HttpSecurity 实例^] 部分，了解如何配置多个 `HttpSecurity` 对象。
 
-默认情况下，每个 Jmix 应用程序都包含一个安全配置，该配置扩展了 {vaadin-docs}/security/enabling-security#security-configuration-class[VaadinWebSecurity^] 类。该配置设置对 Vaadin 内部端点的访问，并将所有请求的授权委托给 Jmix 和 Vaadin 机制实现（使用视图控制器注解或分析用户的资源角色授予对视图的访问权限）。该配置创建的 `SecurityFilterChain` 具有最低优先级，并且永远在最后调用。下面的 <<custom-endpoints-security>> 部分介绍如何定义自己的 `SecurityFilterChain` 来保护自定义的端点。
+默认情况下，每个 Jmix 应用程序都包含一个安全配置，该配置扩展了 {vaadin-docs}/security/enabling-security#security-configuration-class[VaadinWebSecurity^] 类。该配置设置对 Vaadin 内部端点的访问，并将所有请求的授权委托给 Jmix 和 Vaadin 机制实现（使用视图控制器注解或分析用户的资源角色授予对视图的访问权限）。该配置创建的 `SecurityFilterChain` 具有最低优先级，并且永远在最后调用。下面的 <<custom-endpoints-security>> 部分介绍如何定义自己的 `SecurityFilterChain` 来保护自定义的端点。<<static-public-resources>> 部分说明了如何配置让某些 URL 完全绕过 Spring Security。
 
 像 xref:oidc:index.adoc[OpenID 连接] 或 xref:authorization-server:index.adoc[授权服务] 这样的扩展组件中，也包含了组件自有的 `SecurityFilterChain` bean，用于保护授权或资源服务的端点。这些 bean 的顺序要先于 UI 模块中的 bean。参阅下面的 <<token-based-authentication>> 部分，了解在使用这些扩展组件时如何保护 API 端点。
+
+[[static-public-resources]]
+== 静态公共资源
+
+对静态公共资源的访问如果需要完全绕过 Spring Security 的规则，需要创建一个扩展 `FlowuiVaadinWebSecurity` 的配置类，并使用 `WebSecurity` 的 `ignoring()` 方法注册公共 URL 范式：
+
+[source,java,indent=0]
+----
+include::example$/security-ex1/src/main/java/com/company/demo/security/DemoSecurityConfiguration.java[]
+----
+
+上面的示例配置允许公开访问项目 `src/main/resources/public/images` 目录内的所有文件（有关如何提供静态内容，请参阅 https://docs.spring.io/spring-boot/docs/current/reference/html/web.html#web.servlet.spring-mvc.static-content[Spring Boot 文档^]）。
 
 [[custom-endpoints-security]]
 == 自定义端点安全性
@@ -30,7 +42,7 @@ Jmix 使用的顺序值常量在 `JmixSecurityFilterChainOrder` 接口中定义�
 include::example$/security-ex1/src/main/java/com/company/demo/security/api/SimplePublicSecurityConfiguration.java[tags=public-filter-chain]
 ----
 
-上面的配置授予对 `/public/**` 匹配端点的访问权限。
+上面的配置授予对 `/public-api/**` 匹配端点的访问权限。
 
 [[public-endpoints-example]]
 === 公共端点

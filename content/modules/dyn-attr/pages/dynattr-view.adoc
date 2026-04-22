@@ -9,14 +9,48 @@
 
 `dynamicAttributes` facet 支持在 `DataGrid` 或 `FormLayout` 组件中展示动态属性，这两种组件需要绑定包含动态属性实体的数据容器。
 
-在界面 XML 中的 `facets` 部分添加 `dynamicAttributes` facet：
+=== 视图 XML 中使用
+
+需要在视图中使用动态属性，可以在界面 XML 的 `facets` 部分添加 `dynamicAttributes` facet：
 
 [source,xml,indent=0]
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=dynamicAttributes]
 ----
 
-然后，需要在 *Category attribute detail（分类属性编辑）* 视图的 xref:dyn-attr:dynattr-managing.adoc#visibility[可见性] 标签页选择此界面。
+添加 facet 后，可以在 xref:dyn-attr:dynattr-managing.adoc#visibility[Visibility] 标签页的 *Category attribute details* 对话框中选择此视图。
+
+[[dynamicAttributes]]
+=== 在 Fragment 中使用
+
+`dynamicAttributes` facet 也可以用于 xref:flow-ui:fragments/fragments.adoc[fragments]。
+
+将 facet 添加到 fragment 的 XML 中：
+
+[source,xml,indent=0]
+.dynamic-attributes-fragment.xml
+----
+include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/dynamicattributesfragment/dynamic-attributes-fragment.xml[]
+----
+
+Fragment 控制器示例：
+
+.DynamicAttributesFragment.java
+[source,java,indent=0]
+----
+include::example$/dyn-attr-ex1/src/main/java/com/company/demo/view/dynamicattributesfragment/DynamicAttributesFragment.java[tags=fragment-java]
+----
+
+然后创建一个使用该 fragment 的视图。
+
+[CAUTION]
+====
+使用 `dynamicAttributes` facet 的 fragment *必须具有* ID。可以在 xref:flow-ui:fragments/facets-in-fragment.adoc#facets-with-required-id[XML 或以编程方式] 设置。
+
+在配置动态属性的 xref:dyn-attr:dynattr-managing.adoc#visibility[可见性] 时，使用 fragment 的视图的标识符遵循这个范式：`<view_ID>.<fragment_ID>`。例如，如果 ID 为 `DynAttrFacetView` 的视图包含 ID 为 `xmlFragment` 的 fragment，则完整标识符为 `DynAttrFacetView.xmlFragment`。
+
+image::dyn-attr-facet.png[align=centre]
+====
 
 [[dynamic-attributes-panel]]
 == 使用 DynamicAttributesPanel
@@ -38,12 +72,17 @@ include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-
 ----
 include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-detail-view.xml[tags=dynamicAttributesPanel]
 ----
-+
+//+
 // 可以使用 `cols` 参数设置展示动态属性的列数。或者也可以使用 `rows` 来指定行数（但是这种情况下，列数会自动计算）。默认情况下，所有属性会显示在一列内。
 // +
 // image::dynamic-attribute-panel.gif[align=centre]
 // +
 // NOTE: 在分类编辑器的 xref:dyn-attr:dynattr-managing.adoc#attributes-location[Attributes Location（属性位置）] 标签页，可以更灵活的自定义动态属性的位置。此时，会忽略 `cols` 和 `rows` 参数值。
+
+[[adding-to-business-process-forms]]
+== 添加至业务流表单
+
+如果项目使用了 xref:bpm:index.adoc[] 扩展组件，则可以在流程表单中加载并显示动态属性。详情和示例，请参阅 xref:bpm:bpmn/jmix-view-forms.adoc#loading-dynamic-attributes[加载动态属性]。
 
 // TODO commented out until https://github.com/jmix-framework/jmix/issues/965 is fixed
 // == 显式添加特定属性
@@ -72,4 +111,3 @@ include::example$/dyn-attr-ex1/src/main/resources/com/company/demo/view/car/car-
 //         <!--...-->
 //     </layout>
 // ----
-

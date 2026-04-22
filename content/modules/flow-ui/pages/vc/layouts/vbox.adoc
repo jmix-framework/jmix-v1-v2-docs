@@ -8,9 +8,25 @@
 
 `vbox` 所有内部组件在一列垂直排列。
 
-* XML 元素：`vbox`
-
-* Java 类：`VerticalLayout`
+[cols="1h,6", grid=none]
+|===
+|XML 元素
+|`vbox`
+|Java 类
+|`VerticalLayout`
+|XML 属性
+|*通用：* xref:flow-ui:vc/common-attributes.adoc#id[id] - xref:flow-ui:vc/common-attributes.adoc#enabled[enabled] - xref:flow-ui:vc/common-attributes.adoc#visible[visible]
+|
+|*尺寸：* <<boxSizing,boxSizing>> - xref:flow-ui:vc/common-attributes.adoc#height[height] - xref:flow-ui:vc/common-attributes.adoc#maxHeight[maxHeight] - xref:flow-ui:vc/common-attributes.adoc#maxWidth[maxWidth] - xref:flow-ui:vc/common-attributes.adoc#minHeight[minHeight] - xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] - xref:flow-ui:vc/common-attributes.adoc#width[width]
+|
+|*位置：* xref:flow-ui:vc/common-attributes.adoc#alignItems[alignItems] - xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] - xref:flow-ui:vc/common-attributes.adoc#colspan[colspan] - <<expand,expand>> - <<justifyContent,justifyContent>> - <<spacing,spacing>>
+|
+|*外观：* xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] - xref:flow-ui:vc/common-attributes.adoc#css[css] - <<margin,margin>> - <<padding,padding>> - xref:flow-ui:vc/common-attributes.adoc#themeNames[themeNames] - <<wrap,wrap>>
+|
+|*其他：* xref:flow-ui:vc/common-attributes.adoc#clickShortcut[clickShortcut]
+|事件和处理器
+|xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] - <<ClickEvent,ClickEvent>> - xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent]
+|===
 
 == 基本用法
 
@@ -26,101 +42,37 @@ image::visual-components/layouts/vbox-basic.png[align="center", width="210"]
 [[attributes]]
 == XML 属性
 
-xref:vc/common-attributes.adoc#id[id] -
-xref:vc/common-attributes.adoc#alignItems[alignItems] -
-xref:vc/common-attributes.adoc#alignSelf[alignSelf] -
-<<boxSizing, boxSizing>> -
-xref:vc/common-attributes.adoc#classNames[classNames] -
-xref:vc/common-attributes.adoc#colspan[colspan] -
-xref:vc/common-attributes.adoc#css[css] -
-xref:vc/common-attributes.adoc#enabled[enabled] -
-<<expand, expand>> -
-xref:vc/common-attributes.adoc#height[height] -
-<<justifyContent, justifyContent>> -
-<<margin, margin>> -
-xref:vc/common-attributes.adoc#maxHeight[maxHeight] -
-xref:vc/common-attributes.adoc#maxWidth[maxWidth] -
-xref:vc/common-attributes.adoc#minHeight[minHeight] -
-xref:vc/common-attributes.adoc#minWidth[minWidth] -
-<<padding, padding>> -
-<<spacing, spacing>> -
-xref:vc/common-attributes.adoc#visible[visible] -
-xref:vc/common-attributes.adoc#width[width]
+xref:vc/common-attributes.adoc[通用属性] 对所有组件都是一样的配置。
 
-[[boxSizing]]
-=== boxSizing
+下面是 `vbox` 的特殊属性：
 
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-设置元素的总宽度和高度如何计算。支持：
-
-* `UNDEFINED`
-
-* `CONTENT_BOX`
-
-* `BORDER_BOX`
-
-[[expand]]
-=== expand
-
-设置布局中的某个组件需要延展以使用所有的可用空间。在 vbox 中，该属性设置组件的高度为 100%。
-
-//For a container with vertical placement, this attribute sets 100% height to a component; for the containers with horizontal placement - 100% width. Additionally, resizing a container will resize the expanded component.
-
-[[justifyContent]]
-=== justifyContent
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-定义浏览器如何分配内部组件之间的空隙。支持：
-
-* `START`
-
-* `END`
-
-* `CENTER`
-
-* `BETWEEN`
-
-* `AROUND`
-
-* `EVENLY`
-
-
-[[margin]]
-=== margin
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-定义 margin，即外部边界到容器内容之间的空隙。可以是 `true` 或 `false`。默认值为 `false`。
-
-[[padding]]
-=== padding
-
-++++
-<div class="jmix-ui-live-demo-container">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" class="mdn-docs-btn" target="_blank">MDN</a>
-</div>
-++++
-
-定义组件的所有四边 padding。可以是 `true` 或 `false`。默认值为 `false`。
-
-[[spacing]]
-=== spacing
-
-定义布局内组件之间的空隙。可以是 `true` 或 `false`。默认值为 `false`。
+[cols="1h,5,1", grid=rows, frame=none]
+|===
+|*名称*
+|*描述*
+|*默认值*
+|[[boxSizing]]boxSizing
+|设置如何计算元素的总宽度和总高度。可选值为：`UNDEFINED`、`CONTENT_BOX`、`BORDER_BOX`。参阅： https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing[MDN 关于 box-sizing^]。
+|-
+|[[expand]]expand
+|设置在布局中需要延展以使用剩余空间的组件。对于 `hbox`，此属性将组件的宽度设置为 100%。
+|-
+|[[justifyContent]]justifyContent
+|定义浏览器如何在内容条目之间和周围分配空间。有关 xref:vc/layout-rules.adoc#justify-content-mode[使用示例]，请参阅布局规则部分。
+|`START`
+|[[margin]]margin
+|定义外边框与容器内容之间的缩进。可选值：`true`、`false`。参阅： https://developer.mozilla.org/en-US/docs/Web/CSS/margin[MDN 关于 margin^]。
+|`false`
+|[[padding]]padding
+|同时设置元素四个边的内边距区域。可选值：`true`、`false`。参阅： https://developer.mozilla.org/en-US/docs/Web/CSS/padding[MDN 关于 padding^]。
+|`false`
+|[[spacing]]spacing
+|设置布局内组件之间的间距。可选值：`true`、`false`。
+|`false`
+|[[wrap]]wrap
+|如果为 `true`，则在空间不足时允许组件换行到新行。参见 Vaadin 文档中的 https://vaadin.com/docs/latest/components/vertical-layout#wrapping[Wrapping]。
+|`false`
+|===
 
 [[handlers]]
 == 事件和处理器
