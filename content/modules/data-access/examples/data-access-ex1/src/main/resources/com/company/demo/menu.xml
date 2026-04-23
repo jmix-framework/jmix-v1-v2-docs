@@ -5,6 +5,7 @@
         <item view="User.list" title="msg://com.company.demo.view.user/UserListView.title"/>
         <item view="sample_Order.list" title="msg://com.company.demo.view.order/orderListView.title"/>
         <item view="sample_Order.list1" title="msg://com.company.demo.view.order/orderListView1.title"/>
+        <item view="sample_Order.list2" title="msg://com.company.demo.view.order/orderListView2.title"/>
     </menu>
 
 </menu-config>

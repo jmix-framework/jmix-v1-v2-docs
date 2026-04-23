@@ -151,6 +151,8 @@
               title="msg://com.company.onboarding.view.customcomponent.singleelementcomponent/singleElementComponentView.title"/>
         <item view="GenericComponentView"
               title="msg://com.company.onboarding.view.customcomponent.genericcomponent/genericComponentView.title"/>
+        <item view="ComponentReplacementView"
+              title="msg://com.company.onboarding.view.componentreplacement/componentReplacementView.title"/>
     </menu>
 
     <menu id="dialogsAndNotifications" title = "msg://com.company.onboarding/menu_config.dialogsAndNotifications.title">

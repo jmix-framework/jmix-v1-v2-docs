@@ -27,6 +27,8 @@ image::dynattr-diagram.svg[align="center"]
 * `LoadContext` 的 `setHint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` 方法。
 * 流式 API 的 `hint(DynAttrQueryHints.LOAD_DYN_ATTR, true)` 方法。
 
+TIP: 如果使用 xref:data-access:data-repositories.adoc[data repositories]，也可以在 repository 的方法上使用 `@QueryHints` 和 `@QueryHint` 注解设置同样的 hint。示例请参阅 xref:data-access:data-repositories.adoc#jmix-specific-parameters[Jmix 的特定参数]。
+
 默认情况下，不加载动态属性。但是，`DataManager` 会保存 `save()` 方法中收到实体包含的动态属性。
 
 动态属性值可以通过 `EntityValues` 的 `getValue()` / `setValue()` 方法进行读写。动态属性编码需要使用 `+` 前缀，示例：

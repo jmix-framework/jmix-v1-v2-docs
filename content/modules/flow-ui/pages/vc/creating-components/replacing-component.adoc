@@ -1,0 +1,21 @@
+= 替换标准组件
+
+可以注册新组件并使用 `replaceComponent()` 替换标准 Flow UI 组件。
+
+例如，以下是一个完整的配置，将应用程序中所有 `TypedDatePicker` 替换为带预定义属性的版本。该配置保留了标准的 `datePicker` XML 元素和加载器。
+
+新的 `datePicker` 组件：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/component/ExtendedDatePicker.java[tags=extended-date-picker]
+----
+
+注册配置：
+
+[source,java,indent=0]
+----
+include::example$/onboarding/src/main/java/com/company/onboarding/ComponentRegistrationConfiguration.java[tags=component-registration-configuration;!theme-toggle-registration;!slider-registration]
+----
+
+通过这个方式可以设置全局的自定义行为，而同时保留对已有的视图和 XML 的兼容性。

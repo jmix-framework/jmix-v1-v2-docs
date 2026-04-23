@@ -4,13 +4,13 @@ Jmix 支持热部署技术，该技术支持将项目更改立即应用于正在
 
 热部署支持下列类和资源：
 
-* 视图 XML 描述和控制器；
-* 视图控制器用来初始化或通过静态方法访问的类；
-* 本地化消息；
-* 菜单；
-* Fetch plans；
-* 资源角色；
-* 行级角色。
+* 视图 XML 描述和控制器
+* 视图控制器用来初始化或通过静态方法访问的类。示例请参考 <<examples,后续内容>>。
+* 本地化消息
+* 菜单
+* Fetch plans
+* 资源角色
+* 行级角色
 
 实体类和 Spring bean 不支持热部署。
 
@@ -38,6 +38,39 @@ jmix {
 Studio 还会向应用程序发送信号，要求清除相应的缓存，以便加载更改后的资源。包括消息缓存、fetch plan 配置、注册的视图以及菜单项。信号是作为一个触发器文件放在 `.jmix/temp/triggers` 目录中（目录可通过 xref:ROOT:app-properties.adoc#jmix.core.temp-dir[jmix.core.temp-dir] 配置修改）。
 
 NOTE: 应用程序可能需要 2-3 秒重新加载 Studio 保存后的类和资源文件。如果在打开的视图看不到期望的改动，可以尝试刷新网页。
+
+[[examples]]
+== 支持热部署的类示例
+
+以下是一些实际的例子：视图控制器使用的能支持热部署的类。
+
+=== 自定义 UI 组件
+
+在视同中使用的 xref:flow-ui:vc/creating-components/creating-components.adoc[自定义 UI 组件]，对该组件的更改将无需重启应用程序即可生效。
+
+创建此类组件的示例可以参阅 xref:flow-ui:vc/creating-components/using-element-api.adoc[使用 Element API]。
+
+=== 包含静态方法的工具类
+
+当从视图控制器调用时，包含静态方法的工具类支持热部署。
+
+[source,java]
+----
+include::flow-ui:example$/onboarding/src/main/java/com/company/onboarding/util/DateUtils.java[tag=DateUtils]
+----
+
+在视图控制器中：
+
+[source,java,indent=0]
+----
+include::flow-ui:example$/onboarding/src/main/java/com/company/onboarding/view/component/textfield/TextFieldView.java[tag=use-utils]
+----
+
+=== 图表的值描述类
+
+例如，为图表准备数据或转换数据类支持热部署。
+
+这种类型的一个示例是 `ValueDescription`，参考 https://demo.jmix.io/ui-samples/sample/simple-data-item?tab=SimpleDataItemSample.java[UI 示例^]。
 
 [[indicator]]
 == 热部署指示器
@@ -71,3 +104,17 @@ image::hot-deploy-ind-4.png[align="center",width="333"]
 . *热部署失败*：指示器变红，表示热部署由于编译错误或其他原因失败。
 +
 image::hot-deploy-ind-5.png[align="center",width="760"]
+
+[[troubleshooting]]
+== 故障排查
+
+在某些情况下，例如对于非标准的多模块项目配置，Jmix Studio 可能无法确定模块编译器的输出路径。从而影响热部署，因为 Studio 无法正确解析热部署编译过程所需的 classpath。
+
+如果遇到此问题，可以在 `build.gradle` 脚本中使用特定属性手动指定模块编译器输出路径：
+
+[source,gradle,indent=0]
+----
+ext.jmixCompilerOutputPath = "build/classes/java/main"
+----
+
+该路径需设置为相对于构建脚本的目录。Jmix Studio 将在 Gradle 同步期间解析该配置，并用于热部署编译过程的 classpath 中。

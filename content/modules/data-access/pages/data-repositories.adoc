@@ -50,7 +50,18 @@ include::example$/data-access-ex1/src/test/java/com/company/demo/repository/Cust
 
 从 `JmixDataRepository` 继承的 repository 的加载方法支持附加的 `JmixDataRepositoryContext` 类型参数。可以通过这个参数将从 UI 组件搜集的过滤、分页和排序参数传递给 `LoadContext` 对象。这样一来，xref:flow-ui:vc/components/genericFilter.adoc[]、xref:flow-ui:vc/components/simplePagination.adoc[] 和 xref:flow-ui:vc/components/dataGrid.adoc[] 组件的所有功能都可以与 Data Repositories 无缝集成。
 
+在构建使用 repository 数据加载器的视图时，Studio 会生成一个 xref:flow-ui:data/data-loaders.adoc#load-from-repository-delegate[loadFromRepositoryDelegate] 处理方法，使用 `Pageable` 和 `JmixDataRepositoryContext` 参数。
+
+==== 将 `LoadContext` 转换为 `JmixDataRepositoryContext`
+
 使用 `JmixDataRepositoryUtils.buildRepositoryContext()` 静态方法可将 `LoadContext` 转换为 `JmixDataRepositoryContext`。
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/view/order/OrderListView2.java[tags=load-context-to-repository-context]
+----
+
+TIP: 在转换过程中，由于保留了上下文的设置，因此可以修改 `LoadContext` 然后转换为 `JmixDataRepositoryContext`。
 
 [[ApplyConstraints]]
 === 安全限制
@@ -82,7 +93,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Prod
 
 * `@io.jmix.core.repository.Query` 定义 JPQL 查询语句，与 Spring Data JPA 的 `@Query` 注解类似。
 * `@io.jmix.core.repository.FetchPlan` 定义加载数据时使用的 fetch plan。
-* `@io.jmix.core.repository.QueryHints` 和 `@jakarta.persistence.QueryHint` 可以配置 xref:data-model:soft-deletion.adoc#turn-soft-deletion-off[关闭软删除] 和 xref:cache.adoc#query-cache[使用查询缓存]。
+* `@io.jmix.core.repository.QueryHints` 和 `@jakarta.persistence.QueryHint` 可以配置 xref:data-model:soft-deletion.adoc#turn-soft-deletion-off[关闭软删除] 和 xref:cache.adoc#query-cache[使用查询缓存] 以及 xref:dyn-attr:dynattr-api.adoc#loading-and-saving[加载动态属性]。
 
 [NOTE]
 ====
@@ -176,3 +187,12 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/repository/Cust
 ----
 include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository3.java[tags=cacheable]
 ----
+
+还可以在 repository 方法中使用 `@io.jmix.core.repository.QueryHints` 和 `@jakarta.persistence.QueryHint` 加载实体的 xref:dyn-attr:index.adoc[动态属性]：
+
+[source,java,indent=0]
+----
+include::example$/data-access-ex1/src/main/java/com/company/demo/repository/CustomerRepository4.java[tags=dynamic-attribute-query-hint]
+----
+
+在需要返回带有动态属性的实体时，可以使用这个方法。

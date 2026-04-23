@@ -5,14 +5,14 @@
 [[administration-ui]]
 == 管理界面
 
-在应用程序安装此扩展组件之后，主菜单会包含 *Notifications（通知消息）* 项。*Notifications browser（通知消息）* 浏览界面展示创建的通知列表以及管理通知的按钮。
+在应用程序安装此扩展组件之后，主菜单会包含 *Notifications（通知消息）* 项。*Notifications browser（通知消息）* 视图展示创建的通知列表以及管理通知的按钮。
 
-image::ntf-list.png[align="center" width="1270"]
+image::ntf-list.png[align="center" width="1362"]
 
 [[ntf-editor]]
-点击 *Create new notification（新建通知）* 按钮后会展示通知编辑界面。
+点击 *Create notification（新建通知）* 按钮后会展示通知编辑界面。
 
-image::ntf-editor.png[align="center" width="480"]
+image::ntf-editor.png[align="center", width="482"]
 
 有下列字段：
 

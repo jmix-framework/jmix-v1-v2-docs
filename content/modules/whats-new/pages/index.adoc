@@ -350,6 +350,7 @@ Jmix 子系统提供的所有视图的路由均已更改为 kebab-case。例如�
 
 * Jmix 框架解决的问题：
 
+** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.8.1[2.8.1^]
 ** https://github.com/jmix-framework/jmix/issues?q=is%3Aclosed+milestone%3A2.8.0[2.8.0^]
 
 * Jmix Studio 解决的问题：

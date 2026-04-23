@@ -572,22 +572,34 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#propagate-values-eagerly-in-text-fields" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
-为组件设置一个新的值修改模式（Value change mode）。
+为组件设置值更改模式。该模式定义了值更改的发送频率：
+
+* `EAGER` – 每次用户修改时（例如每个键盘输入）。
+* `LAZY` – 用户停止输入超过超时时间后。
+* `TIMEOUT` – 在输入过程中，每个超时间隔就发送一次。
+* `ON_BLUR` – 当组件失去焦点时。
+* `ON_CHANGE` – 当值通过更改操作提交时。
+
+对于文本输入，默认情况下通常不会在每个键盘输入时发送更新。
+使用 `EAGER` 支持即时验证、实时搜索等类似的响应式行为。
+使用 <<valueChangeTimeout>> 配置 `LAZY` 和 `TIMEOUT`。
 
 [[valueChangeTimeout]]
 == valueChangeTimeout
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#propagate-values-eagerly-in-text-fields" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder/#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
-设置给定 <<valueChangeMode>> 的超时时限。
+设置 <<valueChangeMode>> 的超时时限。单位为毫秒。
+
+该属性仅影响延迟模式（`LAZY`、`TIMEOUT`），在即时模式或基于操作的提交模式（`EAGER`、`ON_BLUR`、`ON_CHANGE`）中，会忽略该设置。
 
 [[visible]]
 == visible
