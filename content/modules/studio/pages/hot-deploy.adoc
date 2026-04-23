@@ -42,7 +42,7 @@ NOTE: The application may require 2-3 seconds to reload classes and resources af
 [[examples]]
 == Examples of Hot-Deployed Classes
 
-Here are some practical examples of classes that are hot-deployed when used by view controllers.
+Here are some practical examples of classes that are hot-deployed when used by view controllers. Note that these are only a few common cases; other classes that meet the criteria (instantiated in the view controller or called via static methods) will also be hot-deployed.
 
 === Custom UI Components
 
