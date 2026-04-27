@@ -7,6 +7,9 @@ image::plugin-open.png[align="center",width="290"]
 On the *Jmix* page, you can configure the following settings:
 
 * In the *Additional templates artifact* field, you can specify the xref:studio:custom-project-templates.adoc[custom] templates artifact group and name separated by a colon, for example, `com.custom.templates.studio:custom-studio-templates`.
+* *Show product tours* – when enabled, Studio displays interactive guides that highlight UI elements and provide step-by-step instructions for common tasks. This feature helps new users get familiar with the development environment.
++
+By default, this setting is enabled for new users and disabled for existing users (who had an earlier version of Studio). As an existing user, you can enable it manually if you want to explore the tours.
 * Use the *Send anonymous usage statistics and automated crash reports* option to choose whether you want to send anonymous statistics or not.
 +
 Collecting statistics helps the developers better understand how Studio is used and get more information to improve the product. No personal data is collected.
