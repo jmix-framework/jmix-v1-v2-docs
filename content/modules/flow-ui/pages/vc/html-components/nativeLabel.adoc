@@ -32,7 +32,6 @@ xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
 |Handlers
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
@@ -154,29 +153,6 @@ The following attributes are specific to `nativeLabel`:
 |[[setFor]]setFor
 |Associates the label with a specific element by its id, enabling assistive technologies like screen readers to interpret it correctly.
 |-
-|===
-
-
-[[handlers]]
-== Handlers
-
-xref:vc/common-handlers.adoc[Common handlers] are configured in the same way for all components.
-The following handlers are specific to `nativeLabel`:
-
-include::../handler-generation-tip.adoc[]
-
-[cols="1h,6", grid=rows, frame=none]
-|===
-|*Name*
-|*Description*
-|[[ClickEvent]]ClickEvent
-|The `com.vaadin.flow.component.ClickEvent` is fired when the component is clicked. This handler must specify one of the three subjects to detect the number of clicks:
-
-*click* – fires the event whenever the component is clicked.
-
-*singleClick* – fires the event after a timeout to ensure it is not a double click.
-
-*doubleClick* – fires the event when the component is double-clicked.
 |===
 
 == See Also
