@@ -32,7 +32,6 @@ xref:vc/common-attributes.adoc#whiteSpace[whiteSpace] -
 xref:vc/common-attributes.adoc#width[width]
 |Обработчики
 |xref:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
-<<ClickEvent, ClickEvent>> -
 xref:vc/common-handlers.adoc#DetachEvent[DetachEvent]
 |===
 
@@ -155,29 +154,6 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 |[[setFor]]setFor
 |Связывает надпись с конкретным элементом по его идентификатору, позволяя вспомогательным технологиям, таким как программы чтения с экрана, правильно ее интерпретировать.
 |-
-|===
-
-[[handlers]]
-== Обработчики
-
-В Jmix существует множество xref:vc/common-handlers.adoc[общих обработчиков], которые настраиваются одинаково для всех компонентов.
-
-Следующие обработчики специфичны для `nativeLabel`:
-
-include::../handler-generation-tip.adoc[]
-
-[cols="1h,6", grid=rows, frame=none]
-|===
-|*Название*
-|*Описание*
-|[[ClickEvent]]ClickEvent
-|`com.vaadin.flow.component.ClickEvent` возникает при клике на компонент. Этот обработчик должен указывать один из трех субъектов для определения количества кликов:
-
-*click* – событие возникает при любом клике на компонент.
-
-*singleClick* – событие возникает после таймаута, чтобы убедиться, что это не двойной клик.
-
-*doubleClick* – событие возникает при двойном клике на компонент.
 |===
 
 == Смотрите также
