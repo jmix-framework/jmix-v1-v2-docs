@@ -451,12 +451,13 @@ In the following example, we will add a column displaying the user's picture:
 +
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=usersDtGr;fileStorage;onInit;addComponentColumn]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=import-user;import-data-grid;import-file-storage-locator;import-grid;import-file-ref;import-image;import-ui-components;import-input-stream-download-handler;import-download-handler;import-input-stream;import-download-response;import-span;some-code;uiComponents;usersDtGr;fileStorage;onInit;addComponentColumn]
 ----
 <1> Adds a new column that shows the `image` component.
 <2> The `Image` component instance is created using the `UiComponents` factory.
-<3> `image` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
-<4> The `addComponentColumn()` method returns the visual component to be shown in the column cells.
+<3> Creates a `DownloadHandler` that opens an input stream for the file referenced by the `picture` attribute of the `User` entity.
+<4> Sets the `DownloadHandler` as the source of the `Image` component.
+<5> The `addComponentColumn()` method returns the visual component to be shown in the column cells.
 
 [[local-date-renderer]]
 === Local Date Renderer

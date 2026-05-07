@@ -12,7 +12,9 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.server.streams.InputStreamDownloadHandler;
 import io.jmix.core.FileRef;
 import io.jmix.core.FileStorage;
 import io.jmix.flowui.Notifications;
@@ -95,10 +97,15 @@ public class CheckboxgroupView extends StandardView {
                 image.setWidth("30px");
                 image.setHeight("30px");
                 image.setClassName("user-picture");
-                StreamResource streamResource = new StreamResource(
-                        fileRef.getFileName(),
-                        () -> fileStorage.openStream(fileRef));
-                image.setSrc(streamResource);
+                InputStreamDownloadHandler handler =
+                        DownloadHandler.fromInputStream(event ->
+                                new DownloadResponse(
+                                        fileStorage.openStream(fileRef),
+                                        fileRef.getFileName(),
+                                        fileRef.getContentType(),
+                                        -1
+                                ));
+                image.setSrc(handler);
                 row.add(image);
             }
             row.add(new Span(user.getFirstName() + ", " + user.getLastName()));

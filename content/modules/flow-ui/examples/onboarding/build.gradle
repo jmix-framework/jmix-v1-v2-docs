@@ -68,7 +68,7 @@ dependencies {
     }
 
     // tag::vaadin-addon-dependency[]
-    implementation 'org.vaadin.addons.componentfactory:vcf-pdf-viewer:3.0.0'
+    implementation 'org.vaadin.addons.componentfactory:vcf-pdf-viewer:5.0.0'
     // end::vaadin-addon-dependency[]
 // tag::dependencies-end[]
 }

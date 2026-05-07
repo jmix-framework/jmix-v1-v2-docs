@@ -75,12 +75,14 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/component/
 ----
 
 [[stream-image]]
-=== Stream Image
+=== Image Provided by a DownloadHandler
 
-An image can be provided by an `InputStream`.
+An image can be provided by a `DownloadHandler`.
 
-* In Java: `StreamResource` interface.
-+
+Use the `com.vaadin.flow.server.streams.DownloadHandler` factory methods to create a handler for the image source.
+
+For example, `DownloadHandler.forClassResource()` creates a handler for an image located in the application classpath.
+
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/avatar/AvatarView.java[tags=stream-image]

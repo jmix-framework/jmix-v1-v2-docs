@@ -134,25 +134,58 @@ Select the `picture` column, switch to the *Handlers* tab of the component inspe
 
 [source,java]
 ----
-@Supply(to = "usersDataGrid.picture", subject = "renderer")
-private Renderer<User> usersDataGridPictureRenderer() {
-    return new ComponentRenderer<>(user -> { // <1>
-        FileRef fileRef = user.getPicture();
-        if (fileRef != null) {
-            Image image = uiComponents.create(Image.class);  // <2>
-            image.setWidth("30px");
-            image.setHeight("30px");
-            StreamResource streamResource = new StreamResource(
-                    fileRef.getFileName(),
-                    () -> fileStorage.openStream(fileRef));
-            image.setSrc(streamResource); // <3>
-            image.setClassName("user-picture");
+import com.company.onboarding.entity.User;
+import com.company.onboarding.view.main.MainView;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.server.streams.InputStreamDownloadHandler;
+import io.jmix.core.FileRef;
+import io.jmix.core.FileStorageLocator;
+import io.jmix.flowui.UiComponents;
+import org.springframework.beans.factory.annotation.Autowired;
 
-            return image; // <4>
-        } else {
-            return null;
-        }
-    });
+import java.io.InputStream;
+
+@Route(value = "users", layout = MainView.class)
+@ViewController(id = "User.list")
+@ViewDescriptor(path = "user-list-view.xml")
+@LookupComponent("usersDataGrid")
+@DialogMode(width = "50em", height = "37.5em")
+public class UserListView extends StandardListView<User> {
+
+    @Autowired
+    private UiComponents uiComponents;
+
+    @Autowired
+    private FileStorageLocator fileStorageLocator;
+
+    @Supply(to = "usersDataGrid.picture", subject = "renderer")
+    private Renderer<User> usersDataGridPictureRenderer() {
+        return new ComponentRenderer<>(user -> { // <1>
+            FileRef fileRef = user.getPicture();
+            if (fileRef != null) {
+                Image image = uiComponents.create(Image.class);  // <2>
+                image.setWidth("30px");
+                image.setHeight("30px");
+                InputStreamDownloadHandler handler =
+                        DownloadHandler.fromInputStream(event -> {
+                            InputStream inputStream = fileStorageLocator.getByName(
+                                    fileRef.getStorageName()).openStream(fileRef);
+                            return new DownloadResponse(
+                                    inputStream, fileRef.getFileName(), fileRef.getContentType(), -1);
+                        });
+                image.setSrc(handler); // <3>
+                image.setClassName("user-picture");
+                return image; // <4>
+            } else {
+                return null;
+            }
+        });
+    }
 }
 ----
 <1> The method returns a `Renderer` object that creates a UI component to be rendered in the column. The renderer receives an entity instance for the current row.

@@ -1,28 +1,52 @@
 package com.company.onboarding.view.component.datagrid;
 
 
+// tag::import-user[]
 import com.company.onboarding.entity.User;
+// end::import-user[]
 import com.company.onboarding.entity.UserStep;
 import com.company.onboarding.view.main.MainView;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Focusable;
+// tag::import-grid[]
 import com.vaadin.flow.component.grid.Grid;
+// end::import-grid[]
 import com.vaadin.flow.component.grid.contextmenu.GridMenuItem;
+// tag::import-image[]
 import com.vaadin.flow.component.html.Image;
+// end::import-image[]
+// tag::import-span[]
 import com.vaadin.flow.component.html.Span;
+// end::import-span[]
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+// tag::import-download-handler[]
+import com.vaadin.flow.server.streams.DownloadHandler;
+// end::import-download-handler[]
+// tag::import-download-response[]
+import com.vaadin.flow.server.streams.DownloadResponse;
+// end::import-download-response[]
+// tag::import-input-stream-download-handler[]
+import com.vaadin.flow.server.streams.InputStreamDownloadHandler;
+// end::import-input-stream-download-handler[]
+// tag::import-file-ref[]
 import io.jmix.core.FileRef;
-import io.jmix.core.FileStorage;
+// end::import-file-ref[]
+// tag::import-file-storage-locator[]
+import io.jmix.core.FileStorageLocator;
+// end::import-file-storage-locator[]
+// tag::import-ui-components[]
 import io.jmix.flowui.UiComponents;
+// end::import-ui-components[]
 import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.combobox.JmixComboBox;
+// tag::import-data-grid[]
 import io.jmix.flowui.component.grid.DataGrid;
+// end::import-data-grid[]
 
 import io.jmix.flowui.component.grid.editor.DataGridEditor;
 import io.jmix.flowui.data.grid.ContainerDataGridItems;
@@ -30,13 +54,19 @@ import io.jmix.flowui.data.grid.ContainerDataGridItems;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
+// tag::import-input-stream[]
+import java.io.InputStream;
+// end::import-input-stream[]
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.function.Consumer;
+// tag::some-code[]
 
+// class declaration and annotations omitted
+
+// end::some-code[]
 @Route(value = "DataGridView", layout = MainView.class)
 @ViewController("DataGridView")
 @ViewDescriptor("data-grid-view.xml")
@@ -64,7 +94,7 @@ public class DataGridView extends StandardView {
     // end::uiComponents[]
     // tag::fileStorage[]
     @Autowired
-    private FileStorage fileStorage;
+    private FileStorageLocator fileStorageLocator;
 
     // end::fileStorage[]
     // tag::editableUserTable[]
@@ -105,13 +135,16 @@ public class DataGridView extends StandardView {
                 image.setWidth("30px");
                 image.setHeight("30px");
                 image.setClassName("user-picture");
+                InputStreamDownloadHandler handler = // <3>
+                        DownloadHandler.fromInputStream(e -> {
+                            InputStream inputStream = fileStorageLocator.getByName(
+                                    fileRef.getStorageName()).openStream(fileRef);
+                            return new DownloadResponse(
+                                    inputStream, fileRef.getFileName(), fileRef.getContentType(), -1);
+                        });
+                image.setSrc(handler); // <4>
 
-                StreamResource streamResource = new StreamResource(
-                        fileRef.getFileName(),
-                        () -> fileStorage.openStream(fileRef));
-                image.setSrc(streamResource); // <3>
-
-                return image; // <4>
+                return image; // <5>
             } else {
                 return new Span();
             }
@@ -159,10 +192,14 @@ public class DataGridView extends StandardView {
                 Image image = uiComponents.create(Image.class);
                 image.setWidth("30px");
                 image.setHeight("30px");
-                StreamResource streamResource = new StreamResource(
-                        fileRef.getFileName(),
-                        () -> fileStorage.openStream(fileRef));
-                image.setSrc(streamResource);
+                InputStreamDownloadHandler handler =
+                        DownloadHandler.fromInputStream(event -> {
+                            InputStream inputStream = fileStorageLocator.getByName(
+                                    fileRef.getStorageName()).openStream(fileRef);
+                            return new DownloadResponse(
+                                    inputStream, fileRef.getFileName(), fileRef.getContentType(), -1);
+                        });
+                image.setSrc(handler);
                 image.setClassName("user-picture");
 
                 return image;
