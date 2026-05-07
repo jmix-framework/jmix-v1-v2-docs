@@ -6,7 +6,9 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.server.streams.InputStreamDownloadHandler;
 import io.jmix.core.FileRef;
 import io.jmix.core.FileStorage;
 import io.jmix.flowui.UiComponents;
@@ -34,10 +36,14 @@ public class UserListView extends StandardListView<User> {
                 Image image = uiComponents.create(Image.class);
                 image.setWidth("30px");
                 image.setHeight("30px");
-                StreamResource streamResource = new StreamResource(
-                        fileRef.getFileName(),
-                        () -> fileStorage.openStream(fileRef));
-                image.setSrc(streamResource);
+                InputStreamDownloadHandler handler = DownloadHandler.fromInputStream(event ->
+                        new DownloadResponse(
+                                fileStorage.openStream(fileRef),
+                                fileRef.getFileName(),
+                                fileRef.getContentType(),
+                                -1
+                        ));
+                image.setSrc(handler);
                 image.getStyle().set("object-fit", "contain");
 
                 return image;

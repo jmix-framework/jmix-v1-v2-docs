@@ -195,26 +195,30 @@ image::visual-components/components/user-menu-button-renderer.png[align="center"
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=user-menu-renderer-injects;user-menu-button-renderer;user-menu-renderer-helpers]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=import-ui-components;import-file-storage;import-component;import-autowired;import-user-details;import-user;import-avatar;import-avatar-variant;import-span;import-div;import-file-ref;import-download-handler;import-download-response;some-code;user-menu-renderer-injects;user-menu-button-renderer;user-menu-renderer-helpers]
 ----
 <1> Default `HorizontalLayout` padding is too big, we add padding using styles.
-<2> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
-<3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
+<2> The `Avatar` component instance is created using the `UiComponents` factory.
+<3> The full user name is passed to `Avatar` to generate fallback initials when no image is available.
+<4> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
+<5> `DownloadHandler` streams the avatar image from file storage by the reference stored in the `picture` attribute of the `User` entity.
 
 [[header-renderer]]
 === Header Renderer
 
-Header renderer defines the content displayed at the top of the menu. You can set a header renderer using either the `setButtonRenderer()` method or the `@Install` annotation.
+Header renderer defines the content displayed at the top of the menu. You can set a header renderer using either the `setHeaderRenderer()` method or the `@Install` annotation.
 
 image::visual-components/components/user-menu-header-renderer.png[align="center",width="234"]
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=user-menu-renderer-injects;user-menu-header-renderer;user-menu-renderer-helpers]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/usermenu/UserMenuView.java[tags=import-ui-components;import-file-storage;import-component;import-autowired;import-user-details;import-user;import-avatar;import-avatar-variant;import-span;import-div;import-file-ref;import-download-handler;import-download-response;some-code;user-menu-renderer-injects;user-menu-header-renderer;user-menu-renderer-helpers]
 ----
 <1> Component positions are defined using styles.
-<2> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
-<3> `avatar` gets its content from the given `StreamResource` by the reference stored in the `picture` attribute of the `User` entity.
+<2> The `Avatar` component instance is created using the `UiComponents` factory.
+<3> The full user name is passed to `Avatar` to generate fallback initials when no image is available.
+<4> `avatar` is focusable by default, but it doesn't provide a Java API to disable focus. Remove the tab index, so only the `userMenu` component can receive focus.
+<5> `DownloadHandler` streams the avatar image from file storage by the reference stored in the `picture` attribute of the `User` entity.
 
 [source,css,indent=0]
 ----

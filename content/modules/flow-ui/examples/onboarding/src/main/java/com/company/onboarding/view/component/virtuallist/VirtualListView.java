@@ -14,7 +14,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.server.streams.InputStreamDownloadHandler;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import io.jmix.core.FileRef;
 import io.jmix.core.FileStorage;
@@ -63,10 +65,15 @@ public class VirtualListView extends StandardView {
         if (fileRef != null) {
             image.setWidth("50px");
             image.setHeight("50px");
-            StreamResource streamResource = new StreamResource(
-                    fileRef.getFileName(),
-                    () -> fileStorage.openStream(fileRef));
-            image.setSrc(streamResource);
+            InputStreamDownloadHandler handler =
+                    DownloadHandler.fromInputStream(event ->
+                    new DownloadResponse(
+                            fileStorage.openStream(fileRef),
+                            fileRef.getFileName(),
+                            fileRef.getContentType(),
+                            -1
+                    ));
+            image.setSrc(handler);
         }
 
         VerticalLayout infoLayout = new VerticalLayout();

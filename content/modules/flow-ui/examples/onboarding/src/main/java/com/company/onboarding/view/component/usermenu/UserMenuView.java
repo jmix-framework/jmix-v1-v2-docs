@@ -1,32 +1,64 @@
 package com.company.onboarding.view.component.usermenu;
 
-
+// tag::import-user[]
 import com.company.onboarding.entity.User;
+// end::import-user[]
 import com.company.onboarding.view.main.MainView;
 import com.google.common.base.Strings;
+// tag::import-component[]
 import com.vaadin.flow.component.Component;
+// end::import-component[]
+// tag::import-avatar[]
 import com.vaadin.flow.component.avatar.Avatar;
+// end::import-avatar[]
+// tag::import-avatar-variant[]
 import com.vaadin.flow.component.avatar.AvatarVariant;
+// end::import-avatar-variant[]
+// tag::import-div[]
 import com.vaadin.flow.component.html.Div;
+// end::import-div[]
+// tag::import-span[]
 import com.vaadin.flow.component.html.Span;
+// end::import-span[]
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+// tag::import-download-handler[]
+import com.vaadin.flow.server.streams.DownloadHandler;
+// end::import-download-handler[]
+// tag::import-download-response[]
+import com.vaadin.flow.server.streams.DownloadResponse;
+// end::import-download-response[]
 import com.vaadin.flow.theme.lumo.LumoUtility;
+// tag::import-file-ref[]
 import io.jmix.core.FileRef;
+// end::import-file-ref[]
+// tag::import-file-storage[]
 import io.jmix.core.FileStorage;
+// end::import-file-storage[]
 import io.jmix.flowui.Notifications;
+// tag::import-ui-components[]
 import io.jmix.flowui.UiComponents;
+// end::import-ui-components[]
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.kit.component.usermenu.ComponentUserMenuItem;
 import io.jmix.flowui.kit.component.usermenu.TextUserMenuItem;
 import io.jmix.flowui.kit.component.usermenu.UserMenuItem;
 import io.jmix.flowui.view.*;
+// tag::import-autowired[]
 import org.springframework.beans.factory.annotation.Autowired;
+// end::import-autowired[]
 import org.springframework.lang.Nullable;
+// tag::import-user-details[]
 import org.springframework.security.core.userdetails.UserDetails;
+// end::import-user-details[]
+
+// tag::some-code[]
+
+// class declaration and annotations omitted
+
+// end::some-code[]
 
 @Route(value = "user-menu", layout = MainView.class)
 @ViewController(id = "UserMenuView")
@@ -140,15 +172,21 @@ public class UserMenuView extends StandardView {
     }
 
     private Avatar createAvatar(String fullName, @Nullable FileRef fileRef) {
-        Avatar avatar = uiComponents.create(Avatar.class);
-        avatar.setName(fullName);
-        avatar.getElement().setAttribute("tabindex", "-1"); // <2>
+        Avatar avatar = uiComponents.create(Avatar.class); // <2>
+        avatar.setName(fullName); // <3>
+        avatar.getElement().setAttribute("tabindex", "-1"); // <4>
 
         if (fileRef != null) {
-            StreamResource streamResource = new StreamResource(
-                    fileRef.getFileName(),
-                    () -> fileStorage.openStream(fileRef));
-            avatar.setImageResource(streamResource); // <3>
+            avatar.setImageHandler( // <5>
+                    DownloadHandler.fromInputStream(event ->
+                            new DownloadResponse(
+                                    fileStorage.openStream(fileRef),
+                                    fileRef.getFileName(),
+                                    fileRef.getContentType(),
+                                    -1
+                            )
+                    )
+            );
         }
 
         return avatar;

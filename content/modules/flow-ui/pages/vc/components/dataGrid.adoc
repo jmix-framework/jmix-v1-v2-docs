@@ -456,12 +456,13 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 +
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=usersDtGr;fileStorage;onInit;addComponentColumn]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/component/datagrid/DataGridView.java[tags=import-user;import-data-grid;import-file-storage-locator;import-grid;import-file-ref;import-image;import-ui-components;import-input-stream-download-handler;import-download-handler;import-input-stream;import-download-response;import-span;some-code;uiComponents;usersDtGr;fileStorage;onInit;addComponentColumn]
 ----
-<1> Добавляет новый столбец, в котором отображается компонент `image`.
-<2> Экземпляр компонента `image` создаётся с помощью фабрики `UiComponents`.
-<3> Изображение получает содержимое из переданного `StreamResource`, ссылка на который хранится в атрибуте `picture` сущности `User`.
-<4> Метод `addComponentColumn()` возвращает визуальный компонент, который будет отображаться в ячейках столбца.
+<1> Добавляет новый столбец, который отображает компонент `image`.
+<2> Экземпляр компонента `Image` создается с помощью фабрики `UiComponents`.
+<3> Создает `DownloadHandler`, который открывает входной поток (input stream) для файла, на который ссылается атрибут `picture` сущности `User`.
+<4> Устанавливает `DownloadHandler` в качестве источника (source) компонента `Image`.
+<5> Метод `addComponentColumn()` возвращает визуальный компонент, который будет отображаться в ячейках столбца.
 
 [[local-date-renderer]]
 === Рендерер LocalDate

@@ -74,12 +74,14 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/component/
 ----
 
 [[stream-image]]
-=== Потоковое изображение
+=== Изображение, предоставляемое DownloadHandler
 
-Изображение может быть предоставлено через `InputStream`.
+Изображение может быть предоставлено через `DownloadHandler`.
 
-* В Java: интерфейс `StreamResource`.
-+
+Используйте фабричные методы `com.vaadin.flow.server.streams.DownloadHandler` для создания обработчика источника изображения.
+
+Например, `DownloadHandler.forClassResource()` создает обработчик для изображения, расположенного в classpath приложения.
+
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/component/avatar/AvatarView.java[tags=stream-image]

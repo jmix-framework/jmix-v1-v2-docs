@@ -5,7 +5,7 @@ import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 
@@ -33,9 +33,10 @@ public class AvatarView extends StandardView {
     @Subscribe("streamBtn")
     public void onStreamBtnClick(final ClickEvent<JmixButton> event) {
         //tag::stream-image[]
-        StreamResource streamResource = new StreamResource("icon",
-                ()-> getClass().getResourceAsStream("/META-INF/resources/icons/mary.png"));
-        avatar.setImageResource(streamResource);
+        avatar.setImageHandler(
+                DownloadHandler.forClassResource(
+                        getClass(), "/META-INF/resources/icons/mary.png")
+        );
         //end::stream-image[]
     }
 

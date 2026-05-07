@@ -65,6 +65,12 @@ include::example$onboarding/src/main/resources/com/company/onboarding/view/htmlc
 [[resources]]
 == Ресурсы
 
+++++
+<div class="jmix-ui-live-demo-container">
+    <a href="https://demo.jmix.ru/ui-samples/sample/image-resources" class="live-demo-btn" target="_blank">ДЕМО</a>
+</div>
+++++
+
 Кроме того, компонент `image` может отображать изображения из различных ресурсов. Вы можете задать тип ресурса декларативно с помощью вложенных XML-элементов, описанных ниже, или программно с помощью метода `setSrc()`.
 
 [[static-resource]]
@@ -117,12 +123,14 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcompon
 // === FileStorageResource
 
 [[stream-resource]]
-=== Потоковый ресурс
+=== Программный ресурс
 
-Изображение может быть получено из потока `InputStream`.
+Изображение может быть предоставлено через `DownloadHandler`.
 
-* В Java: интерфейс `StreamResource`.
-+
+Используйте фабричные методы `com.vaadin.flow.server.streams.DownloadHandler` для создания обработчика источника изображения.
+
+Например, `DownloadHandler.forClassResource()` создает обработчик для изображения, расположенного в classpath приложения.
+
 [source,java,indent=0]
 ----
 include::example$onboarding/src/main/java/com/company/onboarding/view/htmlcomponent/image/ImageResourcesView.java[tags=image-stream]

@@ -5,7 +5,7 @@ import com.company.onboarding.view.main.MainView;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.streams.DownloadHandler;
 import io.jmix.flowui.component.image.JmixImage;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
@@ -36,9 +36,7 @@ public class ImageResourcesView extends StandardView {
     @Subscribe("streamBtn")
     public void onStreamBtnClick(final ClickEvent<JmixButton> event) {
         //tag::image-stream[]
-        StreamResource streamResource = new StreamResource("icon",
-                ()-> getClass().getResourceAsStream("/META-INF/resources/icons/icon.png"));
-        image.setSrc(streamResource);
+        image.setSrc(DownloadHandler.forClassResource(getClass(), "/META-INF/resources/icons/icon.png"));
         //end::image-stream[]
     }
 
