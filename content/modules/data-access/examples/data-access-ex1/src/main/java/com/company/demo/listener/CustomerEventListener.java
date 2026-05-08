@@ -1,26 +1,58 @@
 package com.company.demo.listener;
 
+// tag::import-encryption-service[]
 import com.company.demo.bean.EncryptionService;
+// end::import-encryption-service[]
+// tag::import-customer[]
 import com.company.demo.entity.Customer;
+// end::import-customer[]
+// tag::import-customer-grade[]
 import com.company.demo.entity.CustomerGrade;
+// end::import-customer-grade[]
+// tag::import-customer-grade-change[]
 import com.company.demo.entity.CustomerGradeChange;
+// end::import-customer-grade-change[]
 import com.company.demo.entity.SentEmail;
+// tag::import-data-manager[]
 import io.jmix.core.DataManager;
+// end::import-data-manager[]
+// tag::import-id[]
 import io.jmix.core.Id;
-import io.jmix.core.SaveContext;
+// end::import-id[]
+// tag::import-entity-changed-event[]
 import io.jmix.core.event.EntityChangedEvent;
+// end::import-entity-changed-event[]
+// tag::import-entity-loading-event[]
 import io.jmix.core.event.EntityLoadingEvent;
+// end::import-entity-loading-event[]
+// tag::import-entity-saving-event[]
 import io.jmix.core.event.EntitySavingEvent;
+// end::import-entity-saving-event[]
+// tag::import-logger[]
 import org.slf4j.Logger;
+// end::import-logger[]
+// tag::import-logger-factory[]
 import org.slf4j.LoggerFactory;
+// end::import-logger-factory[]
+// tag::import-autowired[]
 import org.springframework.beans.factory.annotation.Autowired;
+// end::import-autowired[]
+// tag::import-event-listener[]
 import org.springframework.context.event.EventListener;
+// end::import-event-listener[]
+// tag::import-component[]
 import org.springframework.stereotype.Component;
+// end::import-component[]
 import org.springframework.transaction.annotation.Propagation;
+// tag::import-transactional[]
 import org.springframework.transaction.annotation.Transactional;
+// end::import-transactional[]
+// tag::import-transactional-event-listener[]
 import org.springframework.transaction.event.TransactionalEventListener;
+// end::import-transactional-event-listener[]
 
 // tag::listener-bean[]
+
 @Component
 public class CustomerEventListener {
 

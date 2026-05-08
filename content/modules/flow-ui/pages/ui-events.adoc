@@ -1,6 +1,6 @@
 = UI Events
 
-You can use the Spring's `ApplcationEvent` to respond to events occurred in  different parts of the application.
+You can use the Spring's `ApplicationEvent` to respond to events occurred in  different parts of the application.
 
 To send application events to UI components including opened xref:views/views.adoc[views] you need to use the `UiEventPublisher` bean provided by the framework.
 
@@ -39,7 +39,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/event/Onboardi
 +
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/main/MainView.java[tags=init-event;!init-initialLayout;!get-menu-item;!new-menu-item;ui-event-listener]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/main/MainView.java[tags=import-subscribe;import-event-listener;import-onboarding-status-changed-event;import-span;import-list-menu;class-declaration;init-event;!init-initialLayout;!get-menu-item;!new-menu-item;ui-event-listener]
 ----
 <1> Update onboarding status the first time a user opens the main view.
 <2> Annotate a method with the `@EventListener` annotation to enable handling of application events in the view.
@@ -50,7 +50,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/main/Main
 +
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/listener/UserStepEventListener.java[tags=ui-event-publisher-1;ui-event-publisher-2]
+include::example$/onboarding/src/main/java/com/company/onboarding/listener/UserStepEventListener.java[tags=import-component;import-data-manager;import-ui-event-publisher;import-event-listener;import-entity-changed-event;import-user;import-user-step;import-id;ui-event-publisher-1;ui-event-publisher-2]
 ----
 <1> Publish the event to all UIs for all sessions of the user specified in the `UserStep` entity that has been changed.
 

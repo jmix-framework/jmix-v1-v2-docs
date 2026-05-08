@@ -12,13 +12,13 @@ When you save and load entities using `DataManager`, the Jmix data access subsys
 [[before-commit]]
 === Handling Changes Before Commit
 
-To handle `EntityChangedEvent` in the current transaction, create a bean method annotated with `@EventListener`. The method will be called by the framework right after saving the entity to the database but before the transaction commit. In the listener method, you can make any changes to data and they will be committed together with the initial changes. If an exception occurs, everything will be rolled back.
+To handle `EntityChangedEvent` in the current transaction, create a bean method annotated with `@EventListener`. The method will be called by the framework right after saving the entity to the database but before the transaction commit. In the listener method, you can make any changes to data, and they will be committed together with the initial changes. If an exception occurs, everything will be rolled back.
 
 In the example below, we create a linked entity to register the change of an attribute. Both the changed `Customer` and the created `CustomerGradeChange` instances will be committed in the same transaction:
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;data-manager;before-commit]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=import-customer;import-customer-grade;import-customer-grade-change;import-data-manager;import-id;import-entity-changed-event;import-autowired;import-event-listener;import-component;listener-bean;data-manager;before-commit]
 ----
 <1> Determining the change type.
 <2> Checking if an attribute was actually changed.
@@ -30,7 +30,7 @@ Let's look at another example. Here the `amount` attribute of the `Order` entity
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderLineEventListener.java[tags=entity-changed]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderLineEventListener.java[tags=import-order;import-order-line;import-data-manager;import-id;import-entity-changed-event;import-autowired;import-event-listener;import-component;entity-changed]
 ----
 <1> When the entity is deleted, we cannot load its instance anymore, so we use old values to get the reference to the enclosing `Order`.
 <2> Use `getOldReference()` and `getOldCollection()` instead of `getOldValue()` for to-one and to-many reference attributes.
@@ -48,7 +48,7 @@ The example below demonstrates exception handling and loading an entity with `Da
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;logger;data-manager;after-commit]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=import-customer;import-customer-grade;import-data-manager;import-entity-changed-event;import-logger;import-logger-factory;import-autowired;import-component;import-transactional;import-transactional-event-listener;listener-bean;logger;data-manager;after-commit]
 ----
 <1> `Propagation.REQUIRES_NEW` is necessary here for starting the new transaction.
 
@@ -63,7 +63,7 @@ An `EntitySavingEvent` listener can be used to initialize entity attributes befo
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderEventListener.java[tags=saving-event]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderEventListener.java[tags=import-order;import-entity-saving-event;import-event-listener;import-component;saving-event]
 ----
 
 `EntityLoadingEvent` is sent by the framework when an entity instance is loaded from the database. You can use it for initializing non-persistent attributes from the persistent state.
@@ -86,5 +86,5 @@ When the entity is saved, the sensitive content is encrypted and stored in the d
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;encryption]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=import-encryption-service;import-customer;import-entity-loading-event;import-entity-saving-event;import-autowired;import-event-listener;import-component;listener-bean;encryption]
 ----

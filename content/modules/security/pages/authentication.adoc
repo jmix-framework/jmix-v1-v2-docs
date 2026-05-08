@@ -175,7 +175,7 @@ Below is an example of handling authentication events.
 
 [source,java,indent=0]
 ----
-include::example$/security-ex1/src/main/java/com/company/demo/security/AuthenticationEventListener.java[tags=class]
+include::example$/security-ex1/src/main/java/com/company/demo/security/AuthenticationEventListener.java[tags=import-user;import-logger;import-logger-factory;import-event-listener;import-auth-failure-event;import-auth-success-event;import-interactive-auth-success-event;import-logout-success-event;import-component;class]
 ----
 
 <1> `InteractiveAuthenticationSuccessEvent` is sent when a user logs in to the system through UI or REST API.

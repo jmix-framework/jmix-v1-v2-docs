@@ -1,19 +1,35 @@
 package com.company.onboarding.listener;
 
 import com.company.onboarding.entity.OnboardingStatus;
+// tag::import-user[]
 import com.company.onboarding.entity.User;
+// end::import-user[]
+// tag::import-user-step[]
 import com.company.onboarding.entity.UserStep;
+// end::import-user-step[]
 import com.company.onboarding.event.OnboardingStatusChangedEvent;
+// tag::import-data-manager[]
 import io.jmix.core.DataManager;
+// end::import-data-manager[]
+// tag::import-id[]
 import io.jmix.core.Id;
+// end::import-id[]
+// tag::import-entity-changed-event[]
 import io.jmix.core.event.EntityChangedEvent;
+// end::import-entity-changed-event[]
+// tag::import-ui-event-publisher[]
 import io.jmix.flowui.UiEventPublisher;
+// end::import-ui-event-publisher[]
+// tag::import-event-listener[]
 import org.springframework.context.event.EventListener;
+// end::import-event-listener[]
+// tag::import-component[]
 import org.springframework.stereotype.Component;
-
+// end::import-component[]
 import java.util.Collections;
 
 // tag::ui-event-publisher-1[]
+
 @Component
 public class UserStepEventListener {
 

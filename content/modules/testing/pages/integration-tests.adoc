@@ -8,7 +8,7 @@ The following example will check the `OrderAmountCalculation` class again. But t
 
 [source,java,indent=0,title='OrderLineEventListener.java']
 ----
-include::example$/testing-ex1/src/main/java/com/company/demo/app/OrderLineEventListener.java[tags=recalculate-order-amount]
+include::example$/testing-ex1/src/main/java/com/company/demo/app/OrderLineEventListener.java[tags=import-order;import-order-line;import-data-manager;import-id;import-entity-changed-event;import-autowired;import-event-listener;import-component;class;recalculate-order-amount]
 ----
 
 In the integration test, the `OrderLineEventListener` and the `OrderAmountCalculation` can be tested together. The test will create an order and an order line and store them in the database via the xref:data-access:data-manager.adoc[DataManager] API. This will trigger the event listener, and the order amount will be calculated.

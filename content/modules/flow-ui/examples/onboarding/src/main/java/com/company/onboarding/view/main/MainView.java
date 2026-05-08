@@ -1,8 +1,11 @@
 package com.company.onboarding.view.main;
-
+// tag::import-onboarding-status-changed-event[]
 import com.company.onboarding.event.OnboardingStatusChangedEvent;
+// end::import-onboarding-status-changed-event[]
 import com.vaadin.flow.component.ClickEvent;
+// tag::import-span[]
 import com.vaadin.flow.component.html.Span;
+// end::import-span[]
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
@@ -11,17 +14,26 @@ import io.jmix.flowui.app.main.StandardMainView;
 import io.jmix.flowui.component.image.JmixImage;
 import io.jmix.flowui.component.main.JmixListMenu;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
+// tag::import-list-menu[]
 import io.jmix.flowui.kit.component.main.ListMenu;
+// end::import-list-menu[]
 import io.jmix.flowui.kit.theme.ThemeUtils;
+// tag::import-subscribe[]
 import io.jmix.flowui.view.Subscribe;
+// end::import-subscribe[]
 import io.jmix.flowui.view.ViewComponent;
 import io.jmix.flowui.view.ViewController;
 import io.jmix.flowui.view.ViewDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
+// tag::import-event-listener[]
 import org.springframework.context.event.EventListener;
-
+// end::import-event-listener[]
 import java.util.random.RandomGenerator;
+// tag::class-declaration[]
 
+// class declaration and annotations omitted
+
+// end::class-declaration[]
 // tag::main-view[]
 @Route("")
 @ViewController("MainView")
