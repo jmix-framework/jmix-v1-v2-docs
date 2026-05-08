@@ -1,17 +1,34 @@
 package com.company.demo.listener;
 
+// tag::import-order[]
 import com.company.demo.entity.Order;
+// end::import-order[]
+// tag::import-order-line[]
 import com.company.demo.entity.OrderLine;
+// end::import-order-line[]
+// tag::import-data-manager[]
 import io.jmix.core.DataManager;
+// end::import-data-manager[]
+// tag::import-id[]
 import io.jmix.core.Id;
+// end::import-id[]
+// tag::import-entity-changed-event[]
 import io.jmix.core.event.EntityChangedEvent;
+// end::import-entity-changed-event[]
+// tag::import-autowired[]
 import org.springframework.beans.factory.annotation.Autowired;
+// end::import-autowired[]
+// tag::import-event-listener[]
 import org.springframework.context.event.EventListener;
+// end::import-event-listener[]
+// tag::import-component[]
 import org.springframework.stereotype.Component;
+// end::import-component[]
 
 import java.math.BigDecimal;
 
 // tag::entity-changed[]
+
 @Component
 public class OrderLineEventListener {
 

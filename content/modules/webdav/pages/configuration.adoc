@@ -76,6 +76,11 @@ server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 +
 [source,java,indent=0]
 ----
+import com.google.common.base.Strings;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.event.EventListener;
+
 @EventListener
     public void printApplicationUrl(final ApplicationStartedEvent event) {
         LoggerFactory.getLogger(DemoApplication.class).info("Application started at "

@@ -39,7 +39,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/event/Onboardi
 +
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/main/MainView.java[tags=init-event;!init-initialLayout;!get-menu-item;!new-menu-item;ui-event-listener]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/main/MainView.java[tags=import-subscribe;import-event-listener;import-onboarding-status-changed-event;import-span;import-list-menu;class-declaration;init-event;!init-initialLayout;!get-menu-item;!new-menu-item;ui-event-listener]
 ----
 <1> Обновление статуса онбординга в первый раз, когда пользователь открывает главный экран.
 <2> Аннотация `@EventListener` на методе включает обработку событий приложения.
@@ -50,7 +50,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/main/Main
 +
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/listener/UserStepEventListener.java[tags=ui-event-publisher-1;ui-event-publisher-2]
+include::example$/onboarding/src/main/java/com/company/onboarding/listener/UserStepEventListener.java[tags=import-component;import-data-manager;import-ui-event-publisher;import-event-listener;import-entity-changed-event;import-user;import-user-step;import-id;ui-event-publisher-1;ui-event-publisher-2]
 ----
 <1> Публикация события для всех UI всех сессий пользователя, указанного в измененной сущности `UserStep`.
 

@@ -1,13 +1,22 @@
 package com.company.demo.listener;
 
+// tag::import-order[]
 import com.company.demo.entity.Order;
+// end::import-order[]
+// tag::import-entity-saving-event[]
 import io.jmix.core.event.EntitySavingEvent;
+// end::import-entity-saving-event[]
+// tag::import-event-listener[]
 import org.springframework.context.event.EventListener;
+// end::import-event-listener[]
+// tag::import-component[]
 import org.springframework.stereotype.Component;
+// end::import-component[]
 
 import java.util.concurrent.atomic.AtomicLong;
 
 // tag::saving-event[]
+
 @Component
 public class OrderEventListener {
 

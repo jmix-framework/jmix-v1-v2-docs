@@ -8,7 +8,7 @@ TIP: Используйте действие *New → Advanced → Integration T
 
 [source,java,indent=0,title='OrderLineEventListener.java']
 ----
-include::example$/testing-ex1/src/main/java/com/company/demo/app/OrderLineEventListener.java[tags=recalculate-order-amount]
+include::example$/testing-ex1/src/main/java/com/company/demo/app/OrderLineEventListener.java[tags=import-order;import-order-line;import-data-manager;import-id;import-entity-changed-event;import-autowired;import-event-listener;import-component;class;recalculate-order-amount]
 ----
 
 В интеграционном тесте `OrderLineEventListener` и `OrderAmountCalculation` могут быть протестированы вместе. Тест создаст заказ и строку заказа и сохранит их в базу данных с использованием API xref:data-access:data-manager.adoc[DataManager]. Это вызовет срабатывание слушателя событий, и сумма заказа будет рассчитана.

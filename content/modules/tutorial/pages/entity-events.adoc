@@ -29,6 +29,11 @@ Studio создаст Spring бин с помощью метода, анноти
 
 [source,java]
 ----
+import com.company.onboarding.entity.UserStep;
+import io.jmix.core.event.EntityChangedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
+
 @Component
 public class UserStepEventListener {
 
@@ -107,5 +112,4 @@ NOTE: Вы можете полагаться на слушателей собы�
 [[summary]]
 == Резюме
 
-Слушатели xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] могут использоваться для поддержания согласованности данных и выполнения бизнес-логики в текущей xref:data-access:transactions.adoc[транзакции] или после ее завершения.
 Слушатели xref:data-access:entity-events.adoc#entity-changed-event[EntityChangedEvent] могут использоваться для поддержания согласованности данных и выполнения бизнес-логики в текущей xref:data-access:transactions.adoc[транзакции] или после ее завершения.

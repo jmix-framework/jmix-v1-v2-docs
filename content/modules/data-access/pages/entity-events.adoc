@@ -18,7 +18,7 @@
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;data-manager;before-commit]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=import-customer;import-customer-grade;import-customer-grade-change;import-data-manager;import-id;import-entity-changed-event;import-autowired;import-event-listener;import-component;listener-bean;data-manager;before-commit]
 ----
 <1> Определение типа изменения.
 <2> Проверка, действительно ли атрибут был изменен.
@@ -30,7 +30,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/Custom
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderLineEventListener.java[tags=entity-changed]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderLineEventListener.java[tags=import-order;import-order-line;import-data-manager;import-id;import-entity-changed-event;import-autowired;import-event-listener;import-component;entity-changed]
 ----
 <1> После удаления сущности больше нельзя загрузить ее экземпляр, поэтому используются старые значения, чтобы получить ссылку на соответствующий `Order`.
 <2> Используйте `getOldReference()` и `getOldCollection()` вместо `getOldValue()` для ссылочных атрибутов to-one и to-many.
@@ -48,7 +48,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderL
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;logger;data-manager;after-commit]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=import-customer;import-customer-grade;import-data-manager;import-entity-changed-event;import-logger;import-logger-factory;import-autowired;import-component;import-transactional;import-transactional-event-listener;listener-bean;logger;data-manager;after-commit]
 ----
 <1> `Propagation.REQUIRES_NEW` здесь необходим для запуска новой транзакции.
 
@@ -63,7 +63,7 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/listener/Custom
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderEventListener.java[tags=saving-event]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/OrderEventListener.java[tags=import-order;import-entity-saving-event;import-event-listener;import-component;saving-event]
 ----
 
 `EntityLoadingEvent` отправляется фреймворком при загрузке экземпляра сущности из базы данных. Вы можете использовать его для инициализации неперсистентных атрибутов из персистентного состояния.
@@ -86,5 +86,5 @@ include::example$/data-access-ex1/src/main/java/com/company/demo/entity/Customer
 
 [source,java,indent=0]
 ----
-include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=listener-bean;encryption]
+include::example$/data-access-ex1/src/main/java/com/company/demo/listener/CustomerEventListener.java[tags=import-encryption-service;import-customer;import-entity-loading-event;import-entity-saving-event;import-autowired;import-event-listener;import-component;listener-bean;encryption]
 ----
