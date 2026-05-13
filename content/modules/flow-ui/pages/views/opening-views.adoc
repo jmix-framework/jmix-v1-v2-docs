@@ -234,45 +234,45 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 Входные параметры для экрана списка и экрана деталей можно предоставить так же, как описано для простого экрана в начале этого раздела: вызовите терминальный метод `build()`, установите параметры экрана, затем откройте диалоговое окно.
 
 [[detail-window-builder-options]]
-=== Additional Builder Methods
+=== Дополнительные методы
 
-`DetailWindowBuilder` and `DetailWindowClassBuilder` provide additional methods for integrating the opened detail view with the calling view:
+`DetailWindowBuilder` и `DetailWindowClassBuilder` предоставляют дополнительные методы для интеграции открываемого экрана деталей с вызывающим экраном:
 
 [cols="1,3",options="header"]
 |===
-|Method
-|Description
+|Метод
+|Описание
 
 |`withInitializer()`
-|Initializes a new entity instance before the detail view is opened. The initializer is invoked only in create mode, that is after `newEntity()` or `newEntity(entity)`.
+|Инициализирует новый экземпляр сущности перед открытием экрана деталей. Инициализатор вызывается только в режиме создания, то есть после `newEntity()` или `newEntity(entity)`.
 
 |`withContainer()`
-|Specifies the `CollectionContainer` to update after the detail view is closed with `SAVE`. If the container is nested as described in xref:data/property-containers.adoc[property containers], the framework also initializes the reference to the parent entity for a new child entity and configures parent-child `DataContext` relationship for composition editing.
+|Задает `CollectionContainer`, который нужно обновить после закрытия экрана деталей с результатом `SAVE`. Если контейнер является вложенным, как описано в xref:data/property-containers.adoc[Контейнеры свойств], фреймворк также инициализирует ссылку на родительскую сущность для новой дочерней сущности и настраивает связь parent-child между `DataContext` для редактирования композиции.
 
 |`withListDataComponent()`
-|Specifies a `ListDataComponent`, for example `DataGrid`, from which the framework obtains the bound collection container if it is not provided explicitly by `withContainer()`. The component is also focused after the dialog is closed.
+|Задает `ListDataComponent`, например `DataGrid`, из которого фреймворк получает связанный контейнер коллекции, если он не был явно указан через `withContainer()`. После закрытия диалога фокус также возвращается на этот компонент.
 
 |`withParentDataContext()`
-|Sets a parent `DataContext` for the opened detail view. In this case, the detail view saves changes to the parent data context instead of saving directly to the data store. Use this method when the child entity must be saved together with the master entity. For background information, see xref:data/data-context.adoc#parent-data-context[Parent DataContext].
+|Устанавливает родительский `DataContext` для открываемого экрана деталей. В этом случае экран деталей сохраняет изменения в родительский data context вместо прямого сохранения в data store. Используйте этот метод, когда дочернюю сущность нужно сохранить вместе с мастер-сущностью. Дополнительную информацию смотрите в разделе xref:data/data-context.adoc#parent-data-context[Родительский DataContext].
 
 |`withTransformation()`
-|Transforms the saved entity before writing it back to a field, container, or list data component.
+|Преобразует сохраненную сущность перед записью обратно в поле, контейнер или list data component.
 
 |`withField()`
-|Sets a field that will receive the saved entity after the detail view is closed with `SAVE`.
+|Задает поле, которое получит сохраненную сущность после закрытия экрана деталей с результатом `SAVE`.
 
 |`withAddFirst()`
-|Defines whether a new entity should be added to the beginning of a standalone collection container. For nested containers, new items are always added to the end.
+|Определяет, нужно ли добавлять новую сущность в начало standalone-контейнера коллекции. Для вложенных контейнеров новые элементы всегда добавляются в конец.
 
 |`withViewConfigurer()`
-|Allows you to configure the opened view instance before the dialog is shown.
+|Позволяет настроить экземпляр открываемого экрана до показа диалога.
 |===
 
-These builder methods are commonly used when opening detail dialogs for child entities.
+Эти методы билдера часто используются при открытии диалогов деталей для дочерних сущностей.
 
-Use `withListDataComponent()` or `withContainer()` to connect the dialog to a collection shown in the current view, and use `withParentDataContext()` to merge the edited child entity into the parent view data context.
+Используйте `withListDataComponent()` или `withContainer()`, чтобы связать диалог с коллекцией, показанной на текущем экране, и `withParentDataContext()`, чтобы влить изменения дочерней сущности в data context родительского экрана.
 
-The exact setup depends on the view data model and entity relationship configuration. For complete examples, see xref:data-modeling-composition-guide:index.adoc[Composition Guide]. For more information about parent-child data contexts, see xref:data/data-context.adoc#parent-data-context[Parent DataContext]. Additional examples are available in https://demo.jmix.io/ui-samples[UI Samples^].
+Точная настройка зависит от модели данных экрана и конфигурации связей между сущностями. Полные примеры смотрите в xref:data-modeling-composition-guide:index.adoc[Composition Guide]. Дополнительную информацию о parent-child data contexts смотрите в разделе xref:data/data-context.adoc#parent-data-context[Родительский DataContext]. Дополнительные примеры доступны в https://demo.jmix.io/ui-samples[UI Samples^].
 
 [[view-inference-conventions]]
 == Соглашения о выводе имен экранов
