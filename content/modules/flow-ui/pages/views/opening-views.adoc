@@ -234,6 +234,47 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/sample/Sa
 
 You can provide input parameters to list and detail views in the same way as described for the simple view in the beginning of this section: invoke the `build()` terminal method, set parameters to the view, then open the window.
 
+[[detail-window-builder-options]]
+=== Additional Builder Methods
+
+`DetailWindowBuilder` and `DetailWindowClassBuilder` provide additional methods for integrating the opened detail view with the calling view:
+
+[cols="1,3",options="header"]
+|===
+|Method
+|Description
+
+|`withInitializer()`
+|Initializes a new entity instance before the detail view is opened. The initializer is invoked only in create mode, that is after `newEntity()` or `newEntity(entity)`.
+
+|`withContainer()`
+|Specifies the `CollectionContainer` to update after the detail view is closed with `SAVE`. If the container is nested as described in xref:data/property-containers.adoc[property containers], the framework also initializes the reference to the parent entity for a new child entity and configures parent-child `DataContext` relationship for composition editing.
+
+|`withListDataComponent()`
+|Specifies a `ListDataComponent`, for example `DataGrid`, from which the framework obtains the bound collection container if it is not provided explicitly by `withContainer()`. The component is also focused after the dialog is closed.
+
+|`withParentDataContext()`
+|Sets a parent `DataContext` for the opened detail view. In this case, the detail view saves changes to the parent data context instead of saving directly to the data store. Use this method when the child entity must be saved together with the master entity. For background information, see xref:data/data-context.adoc#parent-data-context[Parent DataContext].
+
+|`withTransformation()`
+|Transforms the saved entity before writing it back to a field, container, or list data component.
+
+|`withField()`
+|Sets a field that will receive the saved entity after the detail view is closed with `SAVE`.
+
+|`withAddFirst()`
+|Defines whether a new entity should be added to the beginning of a standalone collection container. For nested containers, new items are always added to the end.
+
+|`withViewConfigurer()`
+|Allows you to configure the opened view instance before the dialog is shown.
+|===
+
+These builder methods are commonly used when opening detail dialogs for child entities.
+
+Use `withListDataComponent()` or `withContainer()` to connect the dialog to a collection shown in the current view, and use `withParentDataContext()` to merge the edited child entity into the parent view data context.
+
+The exact setup depends on the view data model and entity relationship configuration. For complete examples, see xref:data-modeling-composition-guide:index.adoc[Composition Guide]. For more information about parent-child data contexts, see xref:data/data-context.adoc#parent-data-context[Parent DataContext]. Additional examples are available in https://demo.jmix.io/ui-samples[UI Samples^].
+
 [[view-inference-conventions]]
 == View Inference Conventions
 
