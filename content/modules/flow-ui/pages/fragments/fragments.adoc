@@ -21,6 +21,8 @@ TIP: Фрагменты могут использоваться для отри�
 [[fragment-content]]
 == Содержимое фрагмента
 
+Чтобы создать фрагмент, создайте класс, который расширяет `io.jmix.flowui.fragment.Fragment`. Обобщенный тип фрагмента определяет тип корневого компонента содержимого фрагмента. Этот же компонент должен быть указан в XML-дескрипторе как корневой компонент внутри элемента `content`.
+
 Аннотация `@FragmentDescriptor` определяет строковое значение, которое представляет собой путь к файлу XML, используемому для инициализации фрагмента. Если значение содержит только имя файла (и не начинается с `/`), то предполагается, что файл находится в пакете класса фрагмента.
 
 Элементы, доступные в XML-дескрипторе:
@@ -48,7 +50,13 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/cust
 
 * `getParentController()` - возвращает родительский объект `FragmentOwner`. Это может быть `View` или `Fragment`.
 
-* `findInnerComponent()` / `getInnerComponent()` - возвращают внутренний компонент с указанным идентификатором. Эти методы ищут только среди компонентов, добавленных через XML-дескриптор.
+* `findInnerComponent()` / `getInnerComponent()` - возвращают внутренний компонент с указанным `id`. Эти методы ищут только среди компонентов, добавленных через XML-дескриптор.
+
+Внутренние компоненты фрагмента имеют скрытые идентификаторы, специфичные для фрагмента, вместо фактических идентификаторов компонентов Vaadin. Jmix хранит эти идентификаторы отдельно, чтобы избежать конфликтов с компонентами, определенными в экранах-хостах или в нескольких экземплярах одного и того же фрагмента.
+
+Поэтому для получения идентификатора компонента внутри фрагмента используйте `FragmentUtils.getComponentId()`. Не используйте для этой цели методы, которые опираются на фактические идентификаторы компонентов, например `UiComponentUtils`.
+
+Используйте `findInnerComponent()` / `getInnerComponent()`, чтобы обращаться к компонентам фрагмента по ID из контроллера фрагмента. Если вам нужно работать напрямую с экземпляром компонента, `FragmentUtils.getComponentId()` возвращает его скрытый идентификатор, специфичный для фрагмента.
 
 [[fragment-events]]
 == События фрагментов
@@ -58,10 +66,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/cust
 .CustomerListFragment.java
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment.java[tags=fragment-java]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment.java[tags=imports;fragment-java]
 ----
 <1> Вызывает метод `load()` всех загрузчиков фрагмента, включая xref:fragments/using-fragments.adoc#provided-data-components[предоставленные].
-
 
 [[fragment-autowiring]]
 == Автоматическое связывание
@@ -70,7 +77,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment2.java[tags=autowire]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment2.java[tags=imports;class-declaration;autowire]
 ----
 <1> Инжектирует UI-компонент.
 <2> Инжектирует контейнер данных.
