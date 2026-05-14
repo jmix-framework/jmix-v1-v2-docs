@@ -21,6 +21,8 @@ TIP: Fragments can be used to render items within certain UI components, such as
 [[fragment-content]]
 == Fragment Content
 
+To create a fragment, create a class that extends `io.jmix.flowui.fragment.Fragment`. The fragment generic type defines the root component type of the fragment content. The same component must be specified in the XML descriptor as the root component inside the `content` element.
+
 The `@FragmentDescriptor` annotation specifies a string value that is a path to an XML file which is used for the fragment initialization. If the value contains a file name only (and doesn't start with `/`), it is assumed that the file is located in the package of the fragment class.
 
 Elements available in the XML descriptor:
@@ -50,6 +52,11 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/cust
 
 * `findInnerComponent()` / `getInnerComponent()` - return the inner component with the given id. These methods search among components added via an XML descriptor only.
 
+Fragment inner components have fragment-specific hidden IDs instead of actual Vaadin component IDs. Jmix stores these IDs separately to avoid conflicts with components defined in host views or in multiple instances of the same fragment.
+
+Because of this, use `FragmentUtils.getComponentId()` to obtain a component ID inside a fragment. Do not use methods that rely on actual component IDs, such as `UiComponentUtils`, for this purpose.
+
+Use `findInnerComponent()` / `getInnerComponent()` to access fragment components by ID from the fragment controller. If you need to work with a component instance directly, `FragmentUtils.getComponentId()` returns its fragment-specific hidden ID.
 
 [[fragment-events]]
 == Fragment Events
@@ -59,10 +66,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/cust
 .CustomerListFragment.java
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment.java[tags=fragment-java]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment.java[tags=imports;fragment-java]
 ----
 <1> Triggers `load()` method of all loaders registered in the fragment, including the xref:fragments/using-fragments.adoc#provided-data-components[provided] ones.
-
 
 [[fragment-autowiring]]
 == Autowiring
@@ -71,7 +77,7 @@ Similar to views, fragments support injection of components defined in XML and i
 
 [source,java,indent=0]
 ----
-include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment2.java[tags=autowire]
+include::example$/onboarding/src/main/java/com/company/onboarding/view/customer/CustomerListFragment2.java[tags=imports;class-declaration;autowire]
 ----
 <1> Injects a UI component.
 <2> Inject a data container.

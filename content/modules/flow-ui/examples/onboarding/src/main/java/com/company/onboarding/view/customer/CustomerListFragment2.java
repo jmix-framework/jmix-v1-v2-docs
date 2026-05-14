@@ -1,18 +1,28 @@
 package com.company.onboarding.view.customer;
 
+// tag::imports[]
 import com.company.onboarding.entity.Customer;
 import com.vaadin.flow.component.ClickEvent;
+// end::imports[]
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+// tag::imports[]
 import com.vaadin.flow.data.renderer.Renderer;
 import io.jmix.core.LoadContext;
+// end::imports[]
 import io.jmix.flowui.fragment.Fragment;
-import io.jmix.flowui.fragment.FragmentDescriptor;
+// tag::imports[]
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionContainer;
+// end::imports[]
+// tag::imports[]
 import io.jmix.flowui.view.*;
-
 import java.util.List;
+// end::imports[]
+// tag::class-declaration[]
 
+// class declaration and annotations omitted
+
+// end::class-declaration[]
 public class CustomerListFragment2 extends Fragment<VerticalLayout> {
 
     // tag::autowire[]
