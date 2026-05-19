@@ -70,6 +70,8 @@ This trait does not require an additional attribute if you choose the `UUID` typ
 
 Adding the Has UUID trait is highly recommended if you use an identifier attribute whose value is not assigned when the entity instance is created in memory. This is the case for `Long` or `Integer` identifiers mapped to an identity column, and for identifiers of any type assigned by users. If such an entity has no `@JmixGeneratedValue` attribute, its `hashCode()` method always returns a constant value, which affects the performance of collections based on hash tables.
 
+WARNING: Never modify the value of a `@JmixGeneratedValue` UUID attribute after the entity instance has been created. The `hashCode()` method reads this field on every call. Changing the value while the entity is stored in a hash-based collection corrupts the collection silently: the entity occupies two buckets, which leads to duplicate database rows on save.
+
 [[versioned-trait]]
 === Versioned Trait
 
@@ -535,6 +537,8 @@ For `Long` and `Integer` attributes, the value is obtained using the xref:featur
 See xref:data-access:data-properties.adoc#jmix.data.number-id-cache-size[jmix.data.number-id-cache-size] for more information on caching sequences.
 
 CAUTION: Note that the `@JmixGeneratedValue` annotation doesn't take any effect if you create an entity instance using the `new` operator. See <<instantiation,instantiating entities>> for proper methods of creating new instances.
+
+WARNING: Never change the value of a `@JmixGeneratedValue` attribute in the application code. The attribute value is used in `hashCode()`, so modifying it after the entity instance has been added to a hash-based collection corrupts that collection.
 
 [[jmix-id]]
 === @JmixId
