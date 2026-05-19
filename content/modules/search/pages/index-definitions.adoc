@@ -161,6 +161,18 @@ public interface OrderIndexDefinition {
 
 Это атрибуты типа `FileRef`, ссылающиеся на файлы в xref:files:file-storage.adoc[Файловом хранилище]. По умолчанию и имя файла, и его содержимое используются как индексируемые значения. Если вы хотите индексировать только имя файла, вы должны изменить параметр `indexFileContent` в `@AutoMappedField` на `false`:
 
+File content indexing is supported for the following file types:
+
+* PDF
+* DOC
+* XLS
+* DOCX
+* XLSX
+* ODT
+* ODS
+* RTF
+* TXT
+
 [source,java,indent=0]
 ----
 include::example$/search-ex1/src/main/java/com/company/demo/service/EventIndexDefinition.java[tags=file]
