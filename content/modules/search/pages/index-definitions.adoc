@@ -161,7 +161,7 @@ public interface OrderIndexDefinition {
 
 Это атрибуты типа `FileRef`, ссылающиеся на файлы в xref:files:file-storage.adoc[Файловом хранилище]. По умолчанию и имя файла, и его содержимое используются как индексируемые значения. Если вы хотите индексировать только имя файла, вы должны изменить параметр `indexFileContent` в `@AutoMappedField` на `false`:
 
-File content indexing is supported for the following file types:
+Индексация содержимого файлов поддерживается для следующих типов файлов:
 
 * PDF
 * DOC
