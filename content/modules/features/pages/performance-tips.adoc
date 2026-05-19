@@ -1,0 +1,650 @@
+= Performance Tips
+
+This section collects patterns that compile cleanly and work fine on small test datasets but cause severe performance degradation under real data volumes. Most of these issues produce no errors or warnings at development time — the only signal is increasing response time or a production incident.
+
+The list is organized by the area where the problem originates. Within each section, the most common and damaging pitfalls come first.
+
+== Data Model
+
+[[entity-identifier-hashcode]]
+=== Entity Identifier and hashCode
+
+For entities with a UUID primary key annotated with `@JmixGeneratedValue`, Jmix generates the identifier at `metadata.create()` time, so `hashCode()` is unique and stable from the moment the instance exists in memory.
+
+For entities with a numeric (`Long`, `Integer`) or user-assigned identifier without a `@JmixGeneratedValue` UUID attribute, the situation is different. The primary key is `null` at creation time, and Jmix has nothing stable to base the hash on. As a result, `hashCode()` returns a constant for every instance of such an entity. All instances land in the same `HashSet`/`HashMap` bucket, and lookups degrade from O(1) to O(n).
+
+The fix is to add a UUID attribute annotated with `@JmixGeneratedValue` as a separate field:
+
+[source,java,indent=0]
+----
+@JmixGeneratedValue
+@Column(name = "UUID", nullable = false, updatable = false)
+private UUID uuid;
+----
+
+This attribute is detected by the Jmix bytecode enhancer and used as the source of `hashCode()`. See xref:data-model:entities.adoc#has-uuid-trait[Has UUID Trait] for the conceptual description.
+
+WARNING: Never modify the value of a `@JmixGeneratedValue` attribute after the entity has been created. `hashCode()` reads the field on every call. Changing the value while the entity is stored in a hash-based collection — including `DataContext`'s internal collections — corrupts the collection silently: the entity occupies two buckets at once, and on the next `save()` it is submitted twice, producing a duplicate row in the database.
+
+[[uuid-version]]
+=== UUID Version
+
+UUID v4 values are fully random. New rows insert at arbitrary positions in the B-tree index, causing constant page splits. Under load the index fragments and INSERT/UPDATE performance degrades significantly compared to a monotonically increasing key.
+
+UUID v7 is time-ordered: each new value is larger than all previous values, so inserts always append to the rightmost leaf. Index behavior becomes equivalent to `BIGINT IDENTITY`.
+
+Since Jmix 2.5.0, the default `EntityUuidGenerator` produces UUID v7. You can recognize a v7 value by the character `'7'` at position 14 of its string representation.
+
+CAUTION: Setting `jmix.core.legacy-entity-uuid=true` reverts UUID generation to random v4. This was the default in earlier versions and is provided only for backward compatibility on existing systems. Do not enable it in new applications.
+
+Upgrading from v4 to v7 affects only newly created entities; existing rows keep their v4 UUIDs. Fragmentation improves gradually as new rows are written.
+
+Database storage matters too. PostgreSQL, H2, and SQL Server have native 16-byte UUID column types. MySQL, MariaDB, and Oracle store UUIDs as 32-character strings — indexes are larger and slower, and the impact of v4 fragmentation is more pronounced because of lexicographic ordering of random strings.
+
+[[identity-strategy]]
+=== IDENTITY Strategy on Numeric Primary Keys
+
+Using JPA's standard `@GeneratedValue(strategy = GenerationType.IDENTITY)` on a numeric primary key without `@JmixGeneratedValue` has two hidden consequences:
+
+. *JDBC batch writes are not possible.* With IDENTITY, the database generates the ID during INSERT. The JDBC driver must retrieve that key after each INSERT individually — it cannot group multiple INSERTs into a single batch. With `SaveContext` and N entities this means N separate database round-trips instead of one batch.
+
+. *Entity ID is `null` until saved.* `metadata.create()` returns an entity with `id == null`. The ID appears only after `dataManager.save()`. This destabilizes `hashCode()` (see <<entity-identifier-hashcode>>) and breaks any code that uses the new entity as a reference before it is saved.
+
+`@JmixGeneratedValue` on a numeric attribute uses Jmix's own xref:features:sequences.adoc[sequence mechanism] with an in-memory cache (default 100 values, configured via `jmix.data.numberIdCacheSize`). The ID is assigned at `metadata.create()` time, before any database access — and only one database call is needed per 100 entities to refill the cache.
+
+[source,java,indent=0]
+----
+// CORRECT — Jmix sequence: ID available immediately, batch-friendly
+@JmixEntity
+@Entity
+public class Order {
+    @Id
+    @JmixGeneratedValue
+    @Column(name = "ID")
+    private Long id;
+}
+----
+
+CAUTION: `@GeneratedValue(strategy = TABLE)` is incompatible with any meaningful load. The TABLE strategy stores a counter in a separate table and acquires a row-level lock for every INSERT — all concurrent inserts serialize on that lock. Do not use it anywhere.
+
+== Data Loading
+
+[[n-plus-one]]
+=== Reference Attribute Not in Fetch Plan (N+1)
+
+This is the most common cause of production performance issues in Jmix applications.
+
+EclipseLink performs a separate `SELECT` for each access to a reference attribute (`@ManyToOne`, `@OneToOne`, `@OneToMany`, `@ManyToMany`) that was not included in the fetch plan. Accessing such an attribute on N loaded entities triggers N additional queries. On a local database with 10 records this is imperceptible; on production with thousands of records under concurrent load it brings the server down.
+
+EclipseLink does not throw an exception — it silently issues the extra query. The problem is only visible as performance degradation.
+
+A typical case in view XML:
+
+[source,xml,indent=0]
+----
+<!-- WRONG: customer is referenced in a column but not in the fetch plan -->
+<collection id="ordersDc" class="com.company.app.entity.Order">
+    <fetchPlan extends="_local"/>
+</collection>
+
+<dataGrid dataContainer="ordersDc">
+    <columns>
+        <column property="customer.name"/>  <!-- triggers N SELECT queries -->
+    </columns>
+</dataGrid>
+----
+
+[source,xml,indent=0]
+----
+<!-- CORRECT: customer explicitly included -->
+<collection id="ordersDc" class="com.company.app.entity.Order">
+    <fetchPlan extends="_local">
+        <property name="customer" fetchPlan="_instance_name"/>
+    </fetchPlan>
+</collection>
+----
+
+The same applies to `DataManager` calls:
+
+[source,java,indent=0]
+----
+// WRONG: customer not in fetch plan, accessed in a loop
+List<Order> orders = dataManager.load(Order.class)
+        .all()
+        .fetchPlan(FetchPlan.LOCAL)
+        .list();
+orders.forEach(o -> log.info(o.getCustomer().getName())); // N SELECT queries
+
+// CORRECT: customer loaded with a JOIN
+List<Order> orders = dataManager.load(Order.class)
+        .all()
+        .fetchPlan(fpb -> fpb
+                .addFetchPlan(FetchPlan.LOCAL)
+                .add("customer", FetchPlan.INSTANCE_NAME))
+        .list();
+----
+
+TIP: To make the problem visible in development, set `jmix.eclipselink.disable-lazy-loading=true` in `application-local.properties`. Accessing an unfetched reference then throws `IllegalStateException` immediately instead of silently issuing a query. The property is marked `@Experimental` and defaults to `false`.
+
+Recommended fetch modes:
+
+[cols="1,1,2"]
+|===
+| Relationship | Recommended fetch mode | Result
+
+| `@ManyToOne`, `@OneToOne`
+| `JOIN` (default `AUTO`)
+| Single SQL JOIN
+
+| `@OneToMany`, `@ManyToMany`
+| `BATCH`
+| Single `IN (...)` query
+
+| any
+| `UNDEFINED`
+| Separate SELECT per instance — never use
+|===
+
+[[over-fetching-with-base]]
+=== Over-fetching with `_base` in List Views
+
+`_base` loads *all* local attributes of an entity, all `@InstanceName` attributes, and all embedded objects. In a list view where a DataGrid shows only a few columns, this transfers far more data from the database than needed. The overhead grows with the number of entity attributes and the number of rows.
+
+For list views, define an explicit fetch plan containing only the attributes actually displayed in DataGrid columns, used in filters, or required for sorting. Do not use `_base` as a default for collection containers in list views.
+
+[source,xml,indent=0]
+----
+<!-- WRONG — loads all 35 attributes of Order for a 4-column grid -->
+<collection id="ordersDc" class="com.company.app.entity.Order">
+    <fetchPlan extends="_base"/>
+</collection>
+
+<!-- CORRECT — only what the view actually uses -->
+<collection id="ordersDc" class="com.company.app.entity.Order">
+    <fetchPlan>
+        <property name="number"/>
+        <property name="date"/>
+        <property name="amount"/>
+        <property name="status"/>
+        <property name="customer" fetchPlan="_instance_name"/>
+    </fetchPlan>
+</collection>
+----
+
+`_base` remains appropriate for detail views, where most attributes are displayed and edited.
+
+[[lob-fields]]
+=== `@Lob` Fields: Three Hidden Problems
+
+==== `@Basic(fetch = FetchType.LAZY)` is silently overridden
+
+Jmix forces all basic (scalar) fields to EAGER at the EclipseLink mapping level. `@Basic(fetch = FetchType.LAZY)` on a `@Lob` field is ignored — a `WARN` is logged but the field is still loaded eagerly.
+
+[source,java,indent=0]
+----
+// WRONG — annotation is overridden, field always loads eagerly
+@Lob
+@Basic(fetch = FetchType.LAZY)
+@Column(name = "CONTENT")
+private byte[] content;
+----
+
+The only way to avoid loading a `@Lob` field is to exclude it from the fetch plan.
+
+==== `_base` always loads all `@Lob` fields
+
+Since `_base` includes all local attributes and `@Lob` fields cannot be made lazy, using `_base` in a list view loads all `@Lob` data for every row. Define an explicit fetch plan that excludes `@Lob` fields not needed for display — same approach as <<over-fetching-with-base>>.
+
+==== `DISTINCT` + CLOB fails on Oracle
+
+Oracle does not support `DISTINCT` on CLOB columns. If a JPQL query uses `DISTINCT` (explicitly or generated by Jmix for JOIN deduplication) and the entity has a `@Lob String` field, the query fails on Oracle with a database error.
+
+[source,sql,indent=0]
+----
+-- WRONG: fails on Oracle if Document has @Lob String body
+select distinct d from Document d join d.tags t where t.name = :tag
+
+-- CORRECT: use EXISTS to avoid DISTINCT
+select d from Document d where exists (select 1 from d.tags t where t.name = :tag)
+----
+
+[[fetch-mode]]
+=== FetchMode: Silent Overrides and Non-Obvious Behavior
+
+FetchMode controls how EclipseLink executes queries for relationship attributes in a fetch plan. Incorrect choices lead to silent query explosions, Cartesian-product-sized result sets, or attributes silently not loaded.
+
+[cols="1,3"]
+|===
+| Mode | Effect
+
+| `AUTO`
+| Jmix chooses: JOIN for `@ManyToOne`/`@OneToOne`, BATCH for `@OneToMany`/`@ManyToMany`
+
+| `JOIN`
+| SQL `LEFT OUTER JOIN` — loads in one query
+
+| `BATCH`
+| Single `IN (...)` query per collection — safe for large sets
+
+| `UNDEFINED`
+| Falls through to JPA default (EclipseLink lazy loading) — *not* a hard exclusion
+|===
+
+==== UNDEFINED does not exclude the attribute
+
+`FetchMode.UNDEFINED` is often assumed to mean "don't load this". It does not. EclipseLink issues a separate `SELECT` on first access — the same N+1 behavior as <<n-plus-one>>. Child attributes nested under an UNDEFINED parent are also silently skipped from the fetch group.
+
+[source,xml,indent=0]
+----
+<!-- WRONG — UNDEFINED triggers lazy SELECT on access, child attributes skipped -->
+<property name="department" fetchMode="UNDEFINED">
+    <property name="location"/>  <!-- silently excluded from fetch group -->
+</property>
+----
+
+==== Multiple JOINs on collections are silently converted to BATCH
+
+EclipseLink cannot join multiple collections without a Cartesian product. Jmix detects this and silently replaces all collection JOINs with BATCH. An explicit `fetchMode="JOIN"` on a `@OneToMany`/`@ManyToMany` attribute is silently ignored when more than one such attribute is joined.
+
+==== JOIN on `@OneToMany` is removed for single-entity loads
+
+When loading a single entity by ID, Jmix strips JOIN hints from `@OneToMany` attributes and falls back to a separate query. This is intentional (avoids inflating the result set for one entity) but means explicit `fetchMode="JOIN"` on a collection has no effect in detail views.
+
+==== AUTO inheritance propagates to nested attributes
+
+A parent attribute with `BATCH` causes all its child AUTO attributes to also use BATCH. A parent attribute with `UNDEFINED` causes all nested child attributes to be skipped entirely. `IS NULL`/`IS NOT NULL` conditions on a relationship remove it from the JOIN.
+
+==== BATCH on to-one is suboptimal
+
+For `@ManyToOne`/`@OneToOne` relationships, BATCH issues one `IN (...)` per collection of parent IDs instead of a single JOIN. Rely on `AUTO`.
+
+*Summary:*
+
+* Rely on `AUTO` for most cases — it picks JOIN for to-one, BATCH for to-many.
+* Override to explicit BATCH only when a specific to-one has many distinct values and JOIN produces too wide a result set.
+* Never use `UNDEFINED` on attributes you intend to load.
+* Do not force JOIN on `@OneToMany`/`@ManyToMany` — it is ignored when multiple collections are present, and removed on single-entity loads.
+
+== Data Containers and UI
+
+[[duplicate-loading-coordinator]]
+=== Duplicate Loading via DataLoadCoordinator
+
+`DataLoadCoordinator` manages a dependency tree of loaders: when its trigger fires, it loads the root loader and cascades to all dependent loaders. Explicitly loading any loader in this tree from the view controller causes the entire affected branch to load twice.
+
+Three trigger points to be aware of:
+
+* explicit `loadAll()` or root loader call in `BeforeShowEvent`;
+* child loader call in `ItemChangeEvent` of the master container;
+* any load call in `InitEvent` (fires before `BeforeShowEvent`, so the coordinator reloads afterward).
+
+Calling the root loader explicitly triggers the full cascade. In a three-level chain `customersDl → ordersDl → orderLinesDl`, a redundant call to `customersDl.load()` doubles all three queries, not just one.
+
+Let the coordinator handle all loading. To set loader parameters before loading, use `setParameter()` in `BeforeShowEvent` without calling `.load()` — the coordinator calls it with the parameters already set.
+
+[[duplicate-loading-filter]]
+=== Duplicate Loading with GenericFilter
+
+`GenericFilter.apply()` sets conditions on the bound loader and calls `load()` internally. `DataLoadCoordinator` with `configureFlexibleFilter` intercepts the *Apply* action and does the same automatically. Combining these with explicit load calls causes a duplicate query on every filter interaction.
+
+Three patterns cause this:
+
+* `configureFlexibleFilter` in the coordinator plus an explicit `loader.load()` in `FilterApplyEvent`.
+* `filter.apply()` immediately followed by `loader.load()` — `apply()` already calls `load()` internally.
+* `filter.apply()` in `BeforeShowEvent` when a coordinator is also configured — the coordinator fires on `BeforeShowEvent` too.
+
+Let the coordinator manage loading entirely. To set default filter conditions before the first load, set them on the condition objects directly without calling `apply()` or `load()` — the coordinator picks them up when it fires.
+
+[[load-in-renderer]]
+=== `DataManager.load()` Inside a DataGrid Column Renderer
+
+Column renderers are called by the framework for every row in the DataGrid — on screen open, page change, sort, and refresh. A `DataManager.load()` call inside a renderer issues N separate database queries per grid render. Unlike <<n-plus-one>>, the developer explicitly writes the load call and may not realize it executes in a per-row loop.
+
+The pattern applies to any form of renderer — lambda in `addColumn()`, `@Install(subject = "renderer")`, and `addComponentColumn()`:
+
+[source,java,indent=0]
+----
+// WRONG: DataManager.load() called for every row on every grid render
+ordersDataGrid.addColumn(order -> {
+    return dataManager.load(Customer.class)
+            .id(order.getCustomer().getId())
+            .one()
+            .getFullName();
+});
+----
+
+Include the required data in the collection container's fetch plan so it is already available when the renderer runs:
+
+[source,xml,indent=0]
+----
+<collection id="ordersDc" class="com.company.app.entity.Order">
+    <fetchPlan extends="_local">
+        <property name="customer" fetchPlan="_instance_name"/>
+        <property name="status" fetchPlan="_instance_name"/>
+    </fetchPlan>
+</collection>
+----
+
+[source,java,indent=0]
+----
+// No database call — data already loaded
+ordersDataGrid.addColumn(order -> order.getCustomer().getFullName());
+----
+
+[[missing-readonly]]
+=== Missing `readOnly` on DataContext in List Views
+
+`DataContext.merge()` performs a full recursive deep copy of the entity graph: it creates a new instance via reflection, copies all properties, recursively traverses and copies all reference attributes and collections, and registers a `PropertyChangeListener` for change tracking. The cost scales with graph size.
+
+In a list view, DataContext is never used for editing — the user only browses. If `readOnly="true"` is absent from the `<data>` element, Jmix creates a full `DataContextImpl` and calls `merge()` for every loaded entity. With a 50-row grid and a few reference attributes, that's dozens of recursive graph traversals on every refresh. Invisible on small datasets; measurable CPU overhead in production under load.
+
+`readOnly="true"` on `<data>` replaces `DataContextImpl` with a no-op implementation whose `merge()` simply returns the entity unchanged. Loaders receive `dataContext = null` and store results directly in containers without any copying.
+
+Jmix Studio generates `<data readOnly="true">` by default for list views. The problem occurs when a developer removes this attribute — the fix is simply restoring it.
+
+To exclude a single auxiliary loader (e.g., a reference list) from DataContext in a detail view without making the entire context read-only, set `readOnly="true"` on the individual `<loader>` element, or call `loader.setDataContext(null)` programmatically.
+
+[[component-renderer-columns]]
+=== Excessive ComponentRenderer Columns in DataGrid
+
+`ComponentRenderer` creates a full server-side Vaadin component for every cell in every visible row. With 50 rows and 3 `ComponentRenderer` columns there are 150 server-side objects instantiated on every grid render — page open, page change, refresh — each with its own state and event listeners.
+
+This increases server memory consumption (proportional to rows × columns), grid render time, and client-server synchronization payload. The effect is invisible on 10 development rows; under real pagination and concurrent sessions in production the page can load noticeably slowly.
+
+For inline editing, use `InlineEditor` instead. It creates edit components only for the row currently being edited; the rest render as plain text with no server-side components.
+
+For display-only formatting, use a text or HTML renderer instead of ComponentRenderer — no server object, no state.
+
+[source,xml,indent=0]
+----
+<!-- WRONG: 50 rows × 3 columns = 150 server components per render -->
+<column property="name"><componentRenderer/></column>
+<column property="attr1"><componentRenderer/></column>
+<column property="attr2"><componentRenderer/></column>
+
+<!-- CORRECT for editable grid: InlineEditor -->
+<columns>
+    <column property="name"/>
+    <column property="attr1"/>
+    <column property="attr2"/>
+</columns>
+
+<!-- CORRECT for display-only: text/HTML renderer, no server component -->
+<column property="grade"><renderer/></column>
+----
+
+One or two ComponentRenderer columns (e.g., an action button column) is acceptable. Three or more is a warning sign; every column using ComponentRenderer is a clear performance problem.
+
+[[generic-filter-restrictions]]
+=== GenericFilter Without Property Restrictions
+
+`GenericFilter` lets users build arbitrary filter conditions including nested relationship attributes (e.g., `Properties → City → First name`). Each combination translates to a unique JPQL query with JOINs and WHERE clauses that the developer cannot predict or optimize for in advance.
+
+Three compounding problems:
+
+. *Heavy queries on demand.* Users can accidentally construct conditions that scan non-indexed columns on large tables, chain multiple JOINs, or use leading-wildcard LIKE — all generating full table scans.
+. *Combinatorial explosion.* With N filterable attributes, the number of possible condition combinations grows as 2^N^. Covering even a fraction with indexes is impractical. Nested relationship attributes multiply this further.
+. *Unpredictability.* The problematic query only appears when a specific user enters a specific combination on production data. It does not reproduce in development or in load tests.
+
+The root question is at the business analysis level: do users actually need this level of filter variability? If they realistically need only 3–5 filter patterns, replace `GenericFilter` with explicit `PropertyFilter` components — the set of database queries becomes finite and known.
+
+When GenericFilter is genuinely required:
+
+* Explicitly configure a property whitelist to limit available filter attributes.
+* Restrict nesting depth to prevent multi-join conditions on related entities.
+
+[source,xml,indent=0]
+----
+<!-- RISKY: arbitrary queries including nested joins -->
+<genericFilter id="filter" dataLoaderId="customersDl"/>
+
+<!-- SAFER: explicit property whitelist -->
+<genericFilter id="filter" dataLoaderId="customersDl">
+    <properties include="name, email, status"/>
+</genericFilter>
+
+<!-- BEST when combinations are known: explicit PropertyFilter components -->
+<propertyFilter property="status" operation="EQUAL" parameterName="status"/>
+<propertyFilter property="name" operation="CONTAINS" parameterName="name"/>
+----
+
+== Saving Data
+
+[[collection-field-initialization]]
+=== Collection Field Initialization
+
+EclipseLink implements lazy loading for `@OneToMany`/`@ManyToMany` collections using its own `IndirectList` proxy. To set this proxy, EclipseLink expects the field to be `null`. If the field is already initialized with `new ArrayList<>()`, EclipseLink either forces an immediate load for every entity instance created (N entities = N extra queries inside the ORM layer), or leaves the field as a plain empty list — silent data loss.
+
+Initialization in a `@PostConstruct` method is worse: it may execute *after* EclipseLink has already set its proxy, replacing it with a plain `ArrayList`.
+
+[source,java,indent=0]
+----
+// WRONG — field initializer
+@OneToMany(mappedBy = "order")
+private List<OrderLine> lines = new ArrayList<>(); // breaks EclipseLink proxy
+
+// WRONG — @PostConstruct
+@PostConstruct
+private void init() {
+    lines = new ArrayList<>(); // may replace EclipseLink proxy after it was set
+}
+
+// CORRECT — Java: no initializer
+@OneToMany(mappedBy = "order")
+private List<OrderLine> lines;
+----
+
+For Kotlin, use `NotInstantiatedList` as a marker so EclipseLink can still replace it with its proxy:
+
+[source,kotlin,indent=0]
+----
+// CORRECT — Kotlin
+@OneToMany(mappedBy = "order")
+private var lines: List<OrderLine> = NotInstantiatedList()
+----
+
+[[bulk-save]]
+=== Bulk Save: Post-Save Reload
+
+`DataManager.save()` reloads every saved entity after the transaction commits — one `SELECT` per entity. For N entities that's N additional queries on top of the actual INSERT/UPDATE. Invisible with 10 records; linear degradation on bulk operations.
+
+Two anti-patterns:
+
+*Pattern A — `dataManager.save(entity)` in a loop:*
+
+[source,java,indent=0]
+----
+// WRONG: N transactions + N reload queries
+for (Order order : orders) {
+    dataManager.save(order);
+}
+
+// CORRECT: single transaction, no reload (Jmix 2.6+)
+dataManager.saveWithoutReload(orders.toArray());
+
+// CORRECT: single transaction, no reload (all versions)
+SaveContext ctx = new SaveContext().setDiscardSaved(true);
+orders.forEach(ctx::saving);
+dataManager.save(ctx);
+----
+
+*Pattern B — `SaveContext` without `setDiscardSaved(true)` when the result is unused:*
+
+[source,java,indent=0]
+----
+// WRONG: N reload queries execute even though EntitySet is never used
+SaveContext ctx = new SaveContext();
+orders.forEach(ctx::saving);
+dataManager.save(ctx);
+
+// CORRECT
+SaveContext ctx = new SaveContext().setDiscardSaved(true);
+orders.forEach(ctx::saving);
+dataManager.save(ctx);
+----
+
+When you do need the reloaded result, use `saving(entity, fetchPlan)` to specify a minimal fetch plan per entity instead of its full fetch plan:
+
+[source,java,indent=0]
+----
+SaveContext ctx = new SaveContext()
+        .saving(order, fetchPlans.of(Order.class, "_instance_name"));
+EntitySet saved = dataManager.save(ctx);
+----
+
+In background system jobs that don't need access control, `dataManager.unconstrained().save(ctx)` skips Row-Level Security and attribute access constraint checks, reducing overhead on large batches.
+
+NOTE: Beyond approximately 1000 entities, `SaveContext` uses JPA `em.persist`/`em.merge` per entity without JDBC batch write. For truly bulk inserts, use `JdbcTemplate.batchUpdate` directly — Jmix does not configure JDBC batching at the JPA level.
+
+== Security
+
+[[predicate-row-level-security]]
+=== Predicate Row-Level Security Disables Database Pagination
+
+Jmix supports two types of row-level security policies:
+
+* xref:security:row-level-roles.adoc[JPQL policy] — adds a WHERE/JOIN clause to the JPQL query. Filtering happens in the database; pagination works normally.
+* *Predicate policy* — a Java lambda evaluated per entity in memory.
+
+When at least one predicate policy is active for an entity, Jmix does the following:
+
+. Detects the predicate and switches counting from `count(*)` to counting after-filter items.
+. *Removes pagination* — loads all rows from the database.
+. Applies the predicate to each loaded entity in memory.
+. Slices the result to the requested page.
+
+A request for page 1 of 50 rows actually reads the entire table. Invisible on 1 000 rows; full table scan on every user interaction at 100 000 rows.
+
+[source,java,indent=0]
+----
+// WRONG: predicate policy — pagination is disabled for the entire Order table
+@PredicateRowLevelPolicy(entityClass = Order.class, actions = {READ})
+default RowLevelPredicate<Order> onlyMyOrders() {
+    return order -> Objects.equals(order.getManager().getId(), currentUser().getId());
+}
+
+// CORRECT: JPQL policy — database-level filter, pagination works
+@JpqlRowLevelPolicy(
+    entityClass = Order.class,
+    where = "{E}.manager.id = :current_user_id"
+)
+----
+
+WARNING: Calling `DataManager.load()` inside a predicate body issues a separate SELECT for each evaluated entity — N+1 inside the security layer, on top of the full table scan. Rewrite as a JPQL policy or cache the lookup outside the predicate.
+
+Predicate policies are justified only when the condition cannot be expressed in JPQL (complex business logic, external system call), or the table is permanently small (reference data with tens of rows). If JPQL cannot express the condition directly, consider denormalization: add an attribute that captures the filtering criterion on the entity (e.g., `managerId`) so a simple JPQL `WHERE` clause becomes possible.
+
+== Concurrency
+
+[[locking-strategies]]
+=== Locking Strategy Pitfalls
+
+Jmix provides two concurrency control mechanisms:
+
+* *Optimistic locking (`@Version`):* standard JPA. A `version` column is incremented on each UPDATE. If another user saved first, EclipseLink throws `OptimisticLockException`; FlowUI catches it and shows a notification. No blocking — concurrent reads and writes proceed freely until commit.
+* *Pessimistic locking (`@PessimisticLock`):* the xref:pessimistic-lock:index.adoc[jmix-pessimisticlock] add-on. When a user opens a detail view, `StandardDetailView` acquires a lock. If the entity is already locked, the view opens read-only with a notification. Lock is released on view close. A Quartz job cleans up expired locks.
+
+IMPORTANT: `@PessimisticLock` is application-level only — no `SELECT FOR UPDATE`, no database row locks. Locks are stored in a Spring Cache named `jmix-locks-cache`, which by default is in-memory.
+
+The in-memory cache exists independently on each JVM. User A on node 1 acquires a lock — it is only visible in node 1's cache. User B whose request reaches node 2 sees an empty cache and acquires the same lock. *In a clustered deployment without a distributed cache, `@PessimisticLock` silently provides no protection.* See <<cluster-configuration>>.
+
+For entities without `@Version` and without `@PessimisticLock`, there is no concurrency protection at all. Concurrent edits silently overwrite each other (lost update). Always add `@Version` as the minimum level of concurrency control on editable entities.
+
+== Infrastructure
+
+[[cluster-configuration]]
+=== Cluster Configuration
+
+In a multi-node Jmix deployment, all built-in framework caches must use a shared distributed backend. All caches are registered in a single Spring `CacheManager` — configuring one JCache provider makes all of them cluster-aware simultaneously.
+
+Caches that require cluster-awareness:
+
+[cols="1,2"]
+|===
+| Cache name | Purpose
+
+| `jmix-locks-cache` | Pessimistic lock state
+| `jmix-eclipselink-query-cache` | EclipseLink query result cache
+| `resource-roles-cache` | Security resource role definitions
+| `row-level-roles-cache` | Row-level security role definitions
+| `jmix-dyn-attr-cache` | Dynamic attribute metadata
+|===
+
+When a `HazelcastInstance` is on the classpath, Jmix auto-configures it for distributed caching, cluster event channels, and EclipseLink cache invalidation. This is the recommended solution. Without a distributed provider, each JVM maintains its own independent in-memory caches: pessimistic locks are invisible across nodes, security role changes on one node do not propagate to others, and the EclipseLink L2 cache becomes stale after another node writes to the database.
+
+See xref:features:cluster-communication.adoc[] for the full picture.
+
+NOTE: Jmix has no native Redis integration at the framework level. Redis can be used as a JCache provider manually, but Hazelcast is the primary supported solution with built-in auto-configuration.
+
+[[async-data-loading]]
+=== Async Data Loading
+
+When a view is heavy — many rows, complex queries, slow joins — loading everything synchronously blocks the UI thread and delays the page open. The user stares at a blank screen.
+
+The pattern: open the view immediately (empty, instant), load data off the UI thread in the background, populate the containers when done. The screen opens at maximum speed with no data; data arrives shortly after.
+
+Jmix provides two APIs:
+
+[cols="1,2,2"]
+|===
+| | `UiAsyncTasks` | `BackgroundTask`
+
+| Available since | Jmix 2.4.0 | All versions
+| API style | `CompletableFuture`, functional | Abstract class with overrides
+| Progress dialog | No (manual if needed) | Yes — built-in
+| Progress reporting | No | Yes
+| Security context | Yes | Yes
+| HTTP session attributes | No | Yes
+| Boilerplate | Minimal | Moderate
+| Use for | Simple data load, timers, cleanup | Batch with progress, operations needing full session
+|===
+
+Use `UiAsyncTasks` when you don't need to handle asynchronous task progress or display a modal dialog with a progress indicator. Otherwise, consider `BackgroundTask`.
+
+For both APIs: use `DataManager` (thread-safe) inside the background method, never `DataLoader` (UI-bound). Do not access `DataContext` from the background thread — update containers in the result handler / `done()`, which run on the UI thread.
+
+[[hikaricp]]
+=== HikariCP Connection Pool
+
+Spring Boot — and therefore Jmix — uses HikariCP as the default connection pool. Misconfiguration is a common source of production incidents that appear only under real load.
+
+The counterintuitive rule: more connections is not always better. Too many connections cause context switching overhead on the database server and can degrade throughput. Too few cause connection starvation — requests queue up waiting for a free connection.
+
+Sizing formula from HikariCP documentation:
+
+----
+pool_size = T_n × (C_m − 1) + 1
+----
+
+Where `T_n` is the number of concurrent threads making DB requests and `C_m` is the maximum number of simultaneous connections each thread holds at once (usually 1 for simple request/response flows, 2 if a transaction opens a nested transaction). For most Jmix applications with 10–20 concurrent users, `maximumPoolSize` in the range 10–20 is a reasonable starting point.
+
+Key properties:
+
+[cols="1,1,3"]
+|===
+| Property | Default | Notes
+
+| `maximumPoolSize` | 10 | Upper bound on DB connections. Raising to 100+ without analysis usually makes things worse.
+| `minimumIdle` | = `maximumPoolSize` | Connections kept warm at idle. Set equal to `maximumPoolSize` to avoid cold-start spikes.
+| `idleTimeout` | 600 000 ms | How long an idle connection above `minimumIdle` is kept before eviction.
+| `connectionTimeout` | 30 000 ms | How long a request waits for a pool connection before throwing an exception.
+|===
+
+Vaadin server-push and long-running transactions hold a connection for the entire transaction duration. Slow queries (e.g., from an unconstrained `GenericFilter`, see <<generic-filter-restrictions>>) hold connections longer, reducing effective pool capacity for other requests. Pool starvation can be a symptom of query performance problems elsewhere.
+
+Key monitoring metrics:
+
+* *Pending connection queue size* (`hikaricp.pending` in Micrometer) — the most important signal. Any sustained queue greater than 0 means the pool is undersized or queries are too slow.
+* *Active connection time* — average time a connection is held; spikes indicate slow queries or long transactions.
+
+pgBouncer is worth considering when multiple Jmix application instances connect to one PostgreSQL server and the sum of `maximumPoolSize` across all instances approaches PostgreSQL's `max_connections`. pgBouncer multiplexes many application-side connections through a smaller number of actual server connections in transaction-pooling mode.
+
+A baseline configuration for a moderately loaded Jmix application:
+
+[source,properties,indent=0]
+----
+spring.datasource.hikari.maximum-pool-size=20
+spring.datasource.hikari.minimum-idle=20
+spring.datasource.hikari.idle-timeout=300000
+spring.datasource.hikari.connection-timeout=10000
+----

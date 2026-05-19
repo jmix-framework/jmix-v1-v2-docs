@@ -68,9 +68,9 @@ TIP: When creating an entity in Studio, the Has UUID trait is selected automatic
 
 This trait does not require an additional attribute if you choose the `UUID` type for the entity identifier.
 
-Adding the Has UUID trait is highly recommended if you use an identifier attribute whose value is not assigned when the entity instance is created in memory. This is the case for `Long` or `Integer` identifiers mapped to an identity column, and for identifiers of any type assigned by users. If such an entity has no `@JmixGeneratedValue` attribute, its `hashCode()` method always returns a constant value, which affects the performance of collections based on hash tables.
+Adding the Has UUID trait is highly recommended if you use an identifier attribute whose value is not assigned when the entity instance is created in memory. This is the case for `Long` or `Integer` identifiers mapped to an identity column, and for identifiers of any type assigned by users. If such an entity has no `@JmixGeneratedValue` attribute, its `hashCode()` method always returns a constant value, which affects the performance of collections based on hash tables. See xref:features:performance-tips.adoc#entity-identifier-hashcode[Entity Identifier and hashCode] for details.
 
-WARNING: Never modify the value of a `@JmixGeneratedValue` UUID attribute after the entity instance has been created. The `hashCode()` method reads this field on every call. Changing the value while the entity is stored in a hash-based collection corrupts the collection silently: the entity occupies two buckets, which leads to duplicate database rows on save.
+WARNING: Never modify the value of a `@JmixGeneratedValue` UUID attribute after the entity instance has been created — it corrupts hash-based collections silently and leads to duplicate database rows on save. See xref:features:performance-tips.adoc#entity-identifier-hashcode[Entity Identifier and hashCode].
 
 [[versioned-trait]]
 === Versioned Trait
@@ -538,7 +538,7 @@ See xref:data-access:data-properties.adoc#jmix.data.number-id-cache-size[jmix.da
 
 CAUTION: Note that the `@JmixGeneratedValue` annotation doesn't take any effect if you create an entity instance using the `new` operator. See <<instantiation,instantiating entities>> for proper methods of creating new instances.
 
-WARNING: Never change the value of a `@JmixGeneratedValue` attribute in the application code. The attribute value is used in `hashCode()`, so modifying it after the entity instance has been added to a hash-based collection corrupts that collection.
+WARNING: Never change the value of a `@JmixGeneratedValue` attribute in the application code. The attribute value is used in `hashCode()`. See xref:features:performance-tips.adoc#entity-identifier-hashcode[Entity Identifier and hashCode].
 
 [[jmix-id]]
 === @JmixId
