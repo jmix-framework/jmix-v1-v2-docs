@@ -265,6 +265,39 @@ For `@ManyToOne`/`@OneToOne` relationships, BATCH issues one `IN (...)` per coll
 * Never use `UNDEFINED` on attributes you intend to load.
 * Do not force JOIN on `@OneToMany`/`@ManyToMany` — it is ignored when multiple collections are present, and removed on single-entity loads.
 
+[[collection-field-initialization]]
+=== Collection Field Initialization
+
+EclipseLink implements lazy loading for `@OneToMany`/`@ManyToMany` collections using its own `IndirectList` proxy. To set this proxy, EclipseLink expects the field to be `null`. If the field is already initialized with `new ArrayList<>()`, EclipseLink either forces an immediate load for every entity instance created (N entities = N extra queries inside the ORM layer), or leaves the field as a plain empty list — silent data loss.
+
+Initialization in a `@PostConstruct` method is worse: it may execute *after* EclipseLink has already set its proxy, replacing it with a plain `ArrayList`.
+
+[source,java,indent=0]
+----
+// WRONG — field initializer
+@OneToMany(mappedBy = "order")
+private List<OrderLine> lines = new ArrayList<>(); // breaks EclipseLink proxy
+
+// WRONG — @PostConstruct
+@PostConstruct
+private void init() {
+    lines = new ArrayList<>(); // may replace EclipseLink proxy after it was set
+}
+
+// CORRECT — Java: no initializer
+@OneToMany(mappedBy = "order")
+private List<OrderLine> lines;
+----
+
+For Kotlin, use `NotInstantiatedList` as a marker so EclipseLink can still replace it with its proxy:
+
+[source,kotlin,indent=0]
+----
+// CORRECT — Kotlin
+@OneToMany(mappedBy = "order")
+private var lines: List<OrderLine> = NotInstantiatedList()
+----
+
 == Data Containers and UI
 
 [[duplicate-loading-coordinator]]
@@ -409,39 +442,6 @@ When GenericFilter is genuinely required:
 ----
 
 == Saving Data
-
-[[collection-field-initialization]]
-=== Collection Field Initialization
-
-EclipseLink implements lazy loading for `@OneToMany`/`@ManyToMany` collections using its own `IndirectList` proxy. To set this proxy, EclipseLink expects the field to be `null`. If the field is already initialized with `new ArrayList<>()`, EclipseLink either forces an immediate load for every entity instance created (N entities = N extra queries inside the ORM layer), or leaves the field as a plain empty list — silent data loss.
-
-Initialization in a `@PostConstruct` method is worse: it may execute *after* EclipseLink has already set its proxy, replacing it with a plain `ArrayList`.
-
-[source,java,indent=0]
-----
-// WRONG — field initializer
-@OneToMany(mappedBy = "order")
-private List<OrderLine> lines = new ArrayList<>(); // breaks EclipseLink proxy
-
-// WRONG — @PostConstruct
-@PostConstruct
-private void init() {
-    lines = new ArrayList<>(); // may replace EclipseLink proxy after it was set
-}
-
-// CORRECT — Java: no initializer
-@OneToMany(mappedBy = "order")
-private List<OrderLine> lines;
-----
-
-For Kotlin, use `NotInstantiatedList` as a marker so EclipseLink can still replace it with its proxy:
-
-[source,kotlin,indent=0]
-----
-// CORRECT — Kotlin
-@OneToMany(mappedBy = "order")
-private var lines: List<OrderLine> = NotInstantiatedList()
-----
 
 [[bulk-save]]
 === Bulk Save: Post-Save Reload
