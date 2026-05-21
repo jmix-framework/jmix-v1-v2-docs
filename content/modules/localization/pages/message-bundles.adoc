@@ -154,16 +154,16 @@ include::example$/localization_ex1/src/test/java/com/company/demo/MessagesTest.j
 [[message-tools]]
 ==== MessageTools
 
-The `MessageTools` bean provides utility methods for obtaining localized names of data model elements in Java code. It is useful when you need the same entity and attribute captions that Jmix displays in UI components.
+Бин `MessageTools` предоставляет служебные методы для получения локализованных имен элементов модели данных в Java-коде. Это полезно, когда вам нужны те же надписи сущностей и атрибутов, которые Jmix отображает в UI-компонентах.
 
-The `getEntityCaption()` method returns the localized name of an entity. The `getPropertyCaption()` method returns the localized name of an entity attribute:
+Метод `getEntityCaption()` возвращает локализованное имя сущности. Метод `getPropertyCaption()` возвращает локализованное имя атрибута сущности:
 
 [source,java,indent=0]
 ----
 include::example$/localization_ex1/src/test/java/com/company/demo/MessagesTest.java[tags=import-meta-class;import-metadata;import-message-tools;class-declaration;autowired-metadata;autowired-message-tools;message-tools]
 ----
 
-These methods use the data model localization keys described in the <<localizing-data-model,Localizing Data Model>> section. In the example above, `getEntityCaption()` reads the `com.company.demo.entity/User` key, and `getPropertyCaption()` reads the `com.company.demo.entity/User.username` key.
+Эти методы используют ключи локализации модели данных, описанные в разделе <<localizing-data-model,Локализация модели данных>>. В приведенном выше примере `getEntityCaption()` читает ключ `com.company.demo.entity/User`, а `getPropertyCaption()` читает ключ `com.company.demo.entity/User.username`.
 
 [[message-bundle-interface]]
 ==== Интерфейс MessageBundle
