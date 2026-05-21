@@ -578,9 +578,9 @@ image::visual-components/components/data-grid-items-details.png[align="center", 
 
 [NOTE]
 ====
-xref:data-model:enumerations.adoc[Enumeration] attributes are sorted by their `id` values, not by localized captions displayed in the UI.
+Атрибуты-xref:data-model:enumerations.adoc[перечисления] сортируются по значениям `id`, а не по локализованным надписям, отображаемым в UI.
 
-As a result, the sorting order can differ from the visible order of enum values in a `dataGrid`, especially when enum values are localized.
+В результате порядок сортировки может отличаться от видимого порядка значений перечисления в `dataGrid`, особенно если значения перечисления локализованы.
 ====
 
 [[multiple-sorting]]
