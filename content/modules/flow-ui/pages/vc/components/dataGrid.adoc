@@ -568,6 +568,13 @@ The <<detailsVisibleOnClick, detailsVisibleOnClick>> attribute allows you to con
 
 Any column can be used for sorting the data displayed. Clicking on the column header activates a special control in the grid that shows which column is currently being sorted and the sorting direction (ascending or descending). Each subsequent click on the same header will toggle the sorting direction.
 
+[NOTE]
+====
+xref:data-model:enumerations.adoc[Enumeration] attributes are sorted by their `id` values, not by localized captions displayed in the UI.
+
+As a result, the sorting order can differ from the visible order of enum values in a `dataGrid`, especially when enum values are localized.
+====
+
 [[multiple-sorting]]
 === Sorting by Multiple Columns
 
