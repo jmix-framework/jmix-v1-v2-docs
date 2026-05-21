@@ -24,6 +24,8 @@ Fill in the fields:
 ** *MappedSuperclass* - a base superclass that is not associated with any particular database table. A such entity class is annotated by xref:data-model:entities.adoc#mapped-superclass[@MappedSuperclass].
 ** *Embeddable* - an embeddable persistent entity. Such an entity class is annotated with `@Embeddable`.
 * *Parent* - the class that your new class inherits from.
+
+[[entity-id-type]]
 * *Id type* - select the type of the entity primary key:
 ** `UUID` - the identifier of the `UUID` type.
 ** `Long` - the identifier of the `Long` type. It’s highly recommended to add the *UUID* xref:data-model:entities.adoc#has-uuid-trait[trait], as it enables some optimizations and allows you to identify your instances uniquely in a distributed environment.

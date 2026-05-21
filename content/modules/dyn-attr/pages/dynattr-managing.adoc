@@ -13,6 +13,13 @@ Additionally, the *Dynamic attributes* view provides functionalities for exporti
 
 Prior to including a dynamic attribute for an entity, establish a category for it. Specify a name and choose the entity that the category is linked to.
 
+[NOTE]
+====
+Dynamic attributes are not supported for entities with xref:studio:entity-designer.adoc#entity-id-type[composite primary keys].
+
+Such entities are not displayed in the entity type selector when creating a dynamic attribute category.
+====
+
 image::create-category.png[align="center",width="722"]
 
 The *Is default* checkbox signifies that this category will be automatically chosen for a new instance if the entity implements the `Categorized` interface.
