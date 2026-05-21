@@ -576,6 +576,13 @@ image::visual-components/components/data-grid-items-details.png[align="center", 
 
 Последующие нажатия на тот же заголовок будут переключать направление сортировки на противоположное.
 
+[NOTE]
+====
+xref:data-model:enumerations.adoc[Enumeration] attributes are sorted by their `id` values, not by localized captions displayed in the UI.
+
+As a result, the sorting order can differ from the visible order of enum values in a `dataGrid`, especially when enum values are localized.
+====
+
 [[multiple-sorting]]
 === Сортировка по нескольким столбцам
 
