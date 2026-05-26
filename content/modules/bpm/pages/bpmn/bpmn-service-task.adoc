@@ -25,7 +25,7 @@ image::bpmn-service-task/service-task-properties.png[,460]
 Setting the task properties:
 
 * First, you have to set xref:bpmn/bpmn-tasks.adoc#common-task-properties[general task properties].
-* Then, define a _Task type_ and set the required parameters depending on the selected xref:task-types[type].
+* Then, define a _Task type_ and set the required parameters depending on the selected xref:task-type[type].
 * Set up xref:fail-retry[fail retry] or leave it default (blank).
 * Create _Execution listeners_ if they are necessary. See the xref:bpm:listeners.adoc[Listeners] section.
 * Decide whether you need xref:bpmn/bpmn-tasks.adoc#extension-properties[extension properties].
@@ -51,8 +51,7 @@ In some cases, it can affect performance.
 
 * *Delegate Expression*: Evaluate an expression that resolves to a delegation object.
 
-// External worker:: The External Worker Task allows you to create jobs that should be acquired and executed by External Workers.
-//todo -- test this
+* *External Worker*: Create a job that is acquired and executed by an external worker.
 
 
 [[spring-bean-service-task]]
@@ -268,11 +267,25 @@ For example:
 
 Result variable `greeting` will be equal `"Hello, World!".`
 
+[[external-worker-service-task]]
+=== External Worker
 
-// [[external-service-task]]
-// === External Service Task
-//todo -- later
+An *External worker* task creates a Flowable external worker job and then pauses the process until some worker acquires and completes that job.
+An external worker acquires jobs over Java API or REST API, performs the work, and reports the result back to Flowable.
 
+The external worker task is a xref:bpm:bpmn/transactions.adoc#waiting-states[waiting state].
+Once the worker completes the job and notifies Flowable of the completion, the process will continue.
+
+.*XML Representation*
+
+In BPMN XML, an external worker task is represented as a service task with `flowable:type="external-worker"` and a topic:
+
+[source,xml]
+----
+<serviceTask id="externalWorkerOrder"
+    flowable:type="external-worker"
+    flowable:topic="orderService" />
+----
 
 [[fail-retry]]
 === Fail Retry
