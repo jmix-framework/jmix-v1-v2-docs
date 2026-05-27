@@ -1,8 +1,10 @@
 = Hot Deploy
 
-Jmix supports Hot Deploy technology that helps to apply project changes to the running application immediately without restarting the application server.
+Jmix supports Hot Deploy technology that makes it possible to apply project changes to the running application immediately, without restarting the application server.
 
-The following classes and resources are hot deployed:
+== Supported Classes and Resources
+
+The following classes and resources can be hot deployed:
 
 * View descriptors and controllers
 * Classes used by view controllers by instantiating them or via static methods. Examples of such classes are described in the subsection <<examples,below>>.
@@ -14,19 +16,24 @@ The following classes and resources are hot deployed:
 
 Entity classes and Spring beans are not hot deployed.
 
-The hot deploy works as follows:
+== How Hot Deploy Works
 
-* Studio detects changed source files and
-** if it's a resource file, Studio copies it to the `.jmix/conf` directory;
-** if it's a Java or Kotlin file, Studio compiles it and copies to the `build/classes` project directory.
+Hot Deploy works as follows:
+
+* Studio detects changed source files and:
+** if the changed file is a resource file, Studio copies it to the `.jmix/conf` directory;
+** if the changed file is a Java or Kotlin file, Studio compiles it and copies to the `build/classes` project directory.
 * When the application opens a view, it loads new classes and resources from the above directories.
 
-The location of the directory for hot deploying resources is determined by the xref:ROOT:app-properties.adoc#jmix.core.conf-dir[jmix.core.conf-dir] application property. This directory is cleaned on the application start by the *Before launch* task configured in xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug Configuration Settings].
+=== Cleanup of the Hot Deploy Directory
 
-Additionally, to ensure that the cleanup is more reliable and not dependent on Studio, there is a Gradle task called `cleanConf`. This task runs every time before launching the application using the `bootRun` task.
+The location of the directory for hot deploying resources is determined by the xref:ROOT:app-properties.adoc#jmix.core.conf-dir[jmix.core.conf-dir] application property. This directory may be cleared automatically before application startup:
 
-If you encounter any issues with this feature, you can disable the `cleanConf` task in your project by adding the following property to your `build.gradle` file:
+* When the application is run from Jmix Studio, the run configuration can include the `Clean Hot Deploy Conf Directory` **Before launch** step configured in xref:studio:project.adoc#run-debug-configuration-settings[Run/Debug Configuration Settings]. When enabled, this step deletes the directory before startup.
 
+* For Gradle-based startup, `bootRun` depends on the `cleanConf` task, so running the application with `bootRun` also deletes the directory before startup. This behavior can be disabled in `build.gradle`:
++
+.build.gradle
 [source,gradle]
 ----
 jmix {
@@ -35,9 +42,7 @@ jmix {
 }
 ----
 
-Studio also sends signals to the application to clear appropriate caches to make it load the changed resources. These are messages cache and the configurations of fetch plans, registered views and menu. Signals are implemented as trigger files created in the `.jmix/temp/triggers` directory (its location can be changed by the xref:ROOT:app-properties.adoc#jmix.core.temp-dir[jmix.core.temp-dir] property).
-
-NOTE: The application may require 2-3 seconds to reload classes and resources after saving them in Studio. If you don't see expected changes after opening a view, try to refresh the web page again.
+Studio also sends signals to the application to clear the appropriate caches to make it load the changed resources. These include the messages cache and the configurations of fetch plans, registered views and the menu. Signals are implemented as trigger files created in the `.jmix/temp/triggers` directory. The location of this directory can be changed using the xref:ROOT:app-properties.adoc#jmix.core.temp-dir[jmix.core.temp-dir] property.
 
 [[examples]]
 == Examples of Hot-Deployed Classes
@@ -100,7 +105,9 @@ image::hot-deploy-ind-3.png[align="center",width="760"]
 After hot deployment is initiated, the indicator remains solid green, and the pop-up message displays the time of the last hot deployment:
 +
 image::hot-deploy-ind-4.png[align="center",width="333"]
-
++
+NOTE: The application may require 2-3 seconds to reload classes and resources. If you don't see expected changes in the application, try to refresh the web page again.
++
 . *Hot deployment failed*: The indicator turns red, indicating that hot deployment was unsuccessful due to a compilation error or other issue.
 +
 image::hot-deploy-ind-5.png[align="center",width="760"]

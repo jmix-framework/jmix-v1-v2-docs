@@ -26,11 +26,15 @@ jmix.core.available-locales = en,de
 [[jmix.core.conf-dir]]
 === jmix.core.conf-dir
 
-Indicates the directory for configuration files that can be changed at runtime. Used by the default implementation of the `Resources` interface to load resource files from the directory before searching in the classpath.
+Indicates the directory for configuration files that can be changed at runtime. It is used by the default implementation of the `Resources` interface to load resource files from the directory before searching in the classpath.
 
-Default value: `${user.dir}/.jmix/conf`
+Default value: `${user.dir}/.jmix/conf`, where`${user.dir}` is the user working directory, that is, the directory where the JVM was started.
 
-TIP: `${user.dir}` is the user working directory (where JVM was started).
+[IMPORTANT]
+====
+This directory is used by Hot Deploy and may be cleaned before startup by Jmix Studio or Gradle.
+For details, see xref:studio:hot-deploy.adoc[Hot Deploy].
+====
 
 [[jmix.core.cross-data-store-reference-loading-batch-size]]
 === jmix.core.cross-data-store-reference-loading-batch-size
