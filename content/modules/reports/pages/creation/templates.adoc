@@ -1,52 +1,75 @@
 = Templates
 
-[[add_template]]
-== Adding Template
+A report template defines the structure and appearance of a generated report. Its format also determines which output formats are available.
 
-You can add report templates in the report detail view. Create or edit an existing report in the reports list view and switch to the *Templates* tab of the runtime report editor:
+[[output_format_compliance]]
+== Output Format Compliance Matrix
+
+The matrix below shows the supported template and output format combinations.
+
+[options="header"]
+|===============
+|Template / Output|XLSX|XLS|CSV|DOCX|DOC|PDF  |HTML
+|XLSX             |+   |   |+  |    |   |+ ^1^|+ ^1^
+|XLS              |    |+  |   |    |   |+ ^1^|
+|CSV              |    |   |+  |    |   |     |
+|DOCX             |    |   |   |+   |   |+ ^2^|+ ^2^
+|DOC              |    |   |   |    |  +|+ ^1^|
+|HTML             |    |   |   |    |   |+    |+
+|JRXML            |+   |+  |+  |+   |+  |+    |+
+|===============
+
+^1^ - LibreOffice must be xref:configuration.adoc#libre_office[installed] for output.
+
+^2^ - Depending on the xref:configuration.adoc#jmix.reports.use-office-for-document-conversion[jmix.reports.use-office-for-document-conversion] application property, the output can be generated with or without LibreOffice. If LibreOffice is not used, you need to provide the required fonts, as described in <<html_to_pdf,HTML to PDF>>.
+
+[[add_template]]
+== Adding a Template
+
+To add a report template, open the report detail view and switch to the *Templates* tab:
 
 image::template-list.png[align="center",width="769"]
 
-One report can have multiple templates but one of the templates must be selected as default.
+A report can have multiple templates, but one template must be selected as the default.
 
-Below is the form to add a template:
+The dialog for adding a template is shown below:
 
 image::report-template-detail-view.png[align="center",width="642"]
 
-* *Template code* - identification code for a template.
+* *Template code* - unique template code.
 
-* *Template file* - loaded from the file system and saved to the database along with the report structure description.
+* *Template file* - uploaded from the file system and stored in the database together with the report structure description.
 
-* *Output type* - report output type. It should be consistent with the template file type according to the rules described in <<output_format_compliance,output format compliance>>.
+* *Output type* - report output type. It must be consistent with the template file type according to the rules described in <<output_format_compliance,Output Format Compliance Matrix>>.
 
-* *Output name pattern* - optional file name pattern, which will be used to generate the file name for the produced report. It can either be a constant string or contain a report parameter as a variable, for example, `${header.authorName}.xlsx`. More sophisticated patterns with several parameters and string concatenation can also be created as a script in any band of report structure, for example, `${Root.title}.xlsx`, where `title` is a result of the script:
+* *Output name pattern* - optional file name pattern used to generate the output file name. It can be a constant string or contain a report parameter as a variable, for example, `${header.authorName}.xlsx`. More complex patterns with multiple parameters and string concatenation can be created as a script in any band of the report structure, for example, `${Root.title}.xlsx`, where `title` is produced by the following script:
 +
 [source, groovy,indent=0]
 ----
 [['title' : ('Report for '+params['author'].firstName+' '+params['author'].lastName)]]
 ----
 
-* *Is custom* - the flag to use custom formatting logic not covered by any provided formatter. When it is checked, you need to define two additional fields:
+* *Is custom* - enables custom formatting logic not covered by the built-in formatters. When this option is selected, two additional fields become available:
 
-** *Defined by* - the way the custom template is defined: by <<template_custom,class>>, script or <<exec_external_report,URL>>.
+** *Defined by* - how the custom template is defined: by <<template_custom,class>>, script, or <<exec_external_report,URL>>.
 
-** *Custom definition* - the fully qualified name of the Java class, Groovy script content, or the URL used to create the template. If you select *Script*, then in the Groovy script, the parameters below can be used:
+** *Custom definition* - fully qualified Java class name, Groovy script content, or URL used to create the template. If you select *Script*, the following parameters are available in the Groovy script:
 +
 --
-* `params` - parameters map is available by alias `params`.
+* `params` - map of report parameters, available as `params`.
 
-* `rootBand` - an object of the `BandData` type that provides access to band datasets.
+* `rootBand` - `BandData` object that provides access to band datasets.
 
-* `applicationContext` - an object of the `ApplicationContext` type that provides access to managed beans.
+* `applicationContext` - `ApplicationContext` object that provides access to managed beans.
 --
 
-* *Is alterable output* - the flag to let the user choose the output type of report at runtime in a dialog window.
+* *Is alterable output* - lets the user choose the report output type at runtime in a dialog window.
 +
 --
-If the flag is on, a dialog with output type selection will be shown when running a report. If the report has more than one template, the template selection dropdown will be shown as well.
+If enabled, a dialog for selecting the output type is shown when the report is run. If the report has more than one template, a template selection field is shown as well.
 --
 
-* *Is default* - when you mark a template as "default" for a specific report, that template is automatically used as the basis for generating the report unless a user explicitly chooses a different template.
+* *Is default* - marks the template as the default for the report. The default template is used unless the user explicitly selects another one.
 
 [[template_types]]
 == Template Types
@@ -56,32 +79,32 @@ TIP: You can find examples of various template types in the xref:reports-guide:i
 [[template_xls]]
 === XLS(X) Templates
 
-You can create XLS(X) templates using *Microsoft Office* or *LibreOffice*.
+You can create XLS(X) templates in *Microsoft Office* or *LibreOffice*.
 
 [[template_xls_regions]]
-Each xref:creation/bands.adoc[report band] must have a corresponding region in the template, which is named the same as the band. For instance, a report has two bands - `Header` and `Data`. This means that the template should also have `Header` and `Data` named ranges. To create named regions, select the desired cell ranges and enter the name in the field in the application's top-left corner. To edit existing named regions, use the *Formulas* -> *Name Manager* menu command in Microsoft Office, and the *Insert* -> *Names* -> *Manage* command in LibreOffice. At the same time, each part of the sheet you want to show should have a band in a report (at least an empty band).
+Each xref:creation/bands.adoc[report band] must have a corresponding named region in the template. The region name must match the band name. For example, if a report has `Header` and `Data` bands, the template must also contain `Header` and `Data` named ranges. To create named regions, select the required cell ranges and enter the name in the field in the upper-left corner of the application window. To edit existing named regions, use *Formulas -> Name Manager* in Microsoft Office, or *Insert -> Names -> Manage* in LibreOffice. Every visible part of the sheet should correspond to a report band, at least an empty one.
 
 The bands are output in the order specified in the xref:creation/bands.adoc[band hierarchy].
 
-Bands can be horizontally and vertically oriented. If the band is horizontal, the named region will grow downward; if it is vertical, it will grow rightward. Horizontal bands may be organized in a tree-like structure and contain sub-bands (nested or child bands). Therefore, for sub-bands, you need to create named regions directly under the regions that correspond to the parent bands.
+Bands can be horizontal or vertical. Horizontal bands expand downward; vertical bands expand to the right. Horizontal bands can be organized in a tree structure and contain child bands. For child bands, create named regions directly below the regions that correspond to the parent bands.
 
-XLSX formatter will render children bands using the following algorithm:
+The XLSX formatter renders child bands using the following algorithm:
 
 * Write the first row of parent band ->
 * Write all first row's children rows ->
 * Write the next row of parent band.
 
-The band dataset fields are placed in the template using strings in `++${field_name}++` format, where `++field_name++` is the corresponding band field name. For example:
+Place band dataset fields in the template using the `++${field_name}++` syntax, where `++field_name++` is the corresponding band field name. For example:
 
 image::report_template_xls.png[align="center"]
 
-You can add variables to the reporting template. Variables should be inserted into sheet names or the header/footer of XLSX template having `++${<BandName>.<variableName>}++` format.
+You can also add variables to the template. Use the `++${<BandName>.<variableName>}++` syntax in sheet names or in XLSX headers and footers.
 
-Cells may contain formatting as well as multiple fields inside. To output images or formulas, you need to place them entirely into the corresponding named region linked with the band.
+Cells may contain formatting and multiple fields. To output images or formulas, place them entirely inside the corresponding named region linked to the band.
 
-Formulas can reference the cells of the same band or another band. To be processed by the formatter, the formulas should use either range of cells in the band, or direct cells coordinates, for example, `(A1*B1)` or `($B:$B)`.
+Formulas can reference cells in the same band or in another band. To be processed by the formatter, a formula should use either a cell range within the band or direct cell coordinates, for example, `(A1*B1)` or `($B:$B)`.
 
-To process the data as an Excel chart, create an empty band in the report structure and a named region with the same name in the template. Then create a chart inside this named region and refer to related bands using the *Select data* button in the chart context menu. If your chart data is in a continuous range of cells, select any cell in that range. Your chart will include all the data in the range. If your data isn't in a continuous range, select nonadjacent cells or ranges.
+To process data as an Excel chart, create an empty band in the report structure and a named region with the same name in the template. Then create a chart inside this named region and refer to related bands using the *Select data* button in the chart context menu. If chart data is in a continuous cell range, select any cell in that range. If it is not continuous, select nonadjacent cells or ranges.
 
 [TIP]
 ====
@@ -98,34 +121,34 @@ When a report is executed, a cell whose content exceeds the available space for 
 ====
 *Converting XLSX to PDF and CSV*
 
-XLSX reports can be automatically converted to CSV and PDF format. xref:configuration.adoc#libre_office[LibreOffice] should be installed for PDF conversion.
+XLSX reports can be automatically converted to CSV and PDF. xref:configuration.adoc#libre_office[LibreOffice] must be installed for PDF conversion.
 ====
 
 [[template_csv]]
 === CSV Templates
 
-You can create CSV templates using *Microsoft Office* or *LibreOffice*.
+You can create CSV templates in *Microsoft Office* or *LibreOffice*.
 
-Bands in the CSV template should only be horizontally oriented, so the named region will grow downward. Also, bands should belong to the first level of data, that is, be the children of the `Root` band. In all other respects, the same principles as for <<template_xls,XLS(X) templates>> should be used.
+Bands in a CSV template must be horizontal, so the named region expands downward. They must also belong to the first level of data, that is, be children of the `Root` band. In all other respects, the same principles apply as for <<template_xls,XLS(X) templates>>.
 
 image::csv_template.png[align="center"]
 
 *Inline editor*
 
-CSV templates support inline editing. You can edit the template directly in the *Report template* dialog and see the changes without having to re-upload the template file.
+CSV templates support inline editing. You can edit the template directly in the *Report template* dialog and see the changes without re-uploading the file.
 
 image::csv-report-editor.png[align="center",width="642"]
 
 [[template_doc]]
 === DOC(X) Templates
 
-You can create DOC(X) templates using *Microsoft Office* or *LibreOffice*.
+You can create DOC(X) templates in *Microsoft Office* or *LibreOffice*.
 
-A DOC(X) template can include document text and optionally one or more tables. The document text outputs data from the first rows of arbitrary bands. In a table, you can output an arbitrary number of band rows.
+A DOC(X) template can include document text and, optionally, one or more tables. Document text outputs data from the first rows of arbitrary bands. Tables can output any number of band rows.
 
 To place a field in the document text, use a string in the `++${band_name.field_name}++` format, where `++band_name++` is the band name and `++field_name++` is the name of a band field.
 
-To output data into a table, you should link it to a band. This is done by specifying `++##band=band_name++` in the table's first cell, where `++band_name++` is the band name. The table fields are placed using `++${field_name}++` format, where `++field_name++` is the field name of the band associated with the table. You can use the band name prefix to access fields of other bands, same as in the document text fields. You can output several fields in a single table cell.
+To output data into a table, link the table to a band by specifying `++##band=band_name++` in the first cell, where `++band_name++` is the band name. Use the `++${field_name}++` syntax for table fields, where `++field_name++` is the field name of the band associated with the table. As in document text fields, you can use the band name prefix to access fields of other bands. A single table cell can contain multiple fields.
 
 Horizontal bands in DOC(X) cannot contain sub-bands. If you need sub-bands, use XLS(X) format.
 
@@ -134,16 +157,14 @@ Horizontal bands in DOC(X) cannot contain sub-bands. If you need sub-bands, use 
 The table must contain either one or two rows. If the table has two rows, then the corresponding band fields must be in the second row. The first row should contain the marker with the corresponding band name and, if necessary, a static text or other band fields.
 ====
 
-Below is an example of a template which outputs a report consisting of two bands, `Book` and `Authors`. The first band outputs a book name and genre, and the second outputs a list of authors of this book.
+The following example shows a template for a report with two bands, `Book` and `Authors`. The first band outputs the book name and genre, and the second outputs the list of authors.
 
 image::report_template_doc.png[align="center"]
 
 [CAUTION]
 ====
-Cells data format is not supported in DOC(X) templates. To avoid numbers or dates formatting problems due to the user's locale, such as unnecessary numeric separators, try to cast your data to string.
-For example, 
+Cell data formats are not supported in DOC(X) templates. To avoid locale-related formatting issues for numbers or dates, such as unwanted numeric separators, cast the values to strings. For example:
 
-wrap
 [source, sql,indent=0]
 ----
 select e.year as "year"
@@ -167,31 +188,31 @@ By default, line breaks in parameter values are ignored when generating a report
 [[template_html]]
 === HTML Template
 
-An HTML template is defined in an `.html` file (`UTF-8` encoding without `BOM`). You can use HTML/CSS features of https://github.com/flyingsaucerproject/flyingsaucer[Flying Saucer^] library. Its main guide is available at http://flyingsaucerproject.github.io/flyingsaucer/r8/guide/users-guide-R8.html[GitHub page^].
+An HTML template is stored in an `.html` file encoded in UTF-8 without a BOM. You can use HTML and CSS features supported by the https://github.com/flyingsaucerproject/flyingsaucer[Flying Saucer^] library. Its main guide is available on the http://flyingsaucerproject.github.io/flyingsaucer/r8/guide/users-guide-R8.html[project page^].
 
 To control page size, page headers and footers, use special CSS rules and properties.
 //TODO:
 // You can find an example of a report with repeatable header and footer blocks in the xref:sample-reports.adoc#example_html[HTML Sample Reports] section.
 
-There are two ways to place data in a template:
+There are two ways to place data in an HTML template:
 
 * Using FreeMarker tags.
 * Using Groovy templating engine.
 
 By default, the Report wizard generates an HTML template with FreeMarker tags.
 
-Use the *Template type* radio button in the report template dialog to switch between the methods.
+Use the *Template type* radio button in the report template dialog to switch between these methods.
 
-HTML templates support inline editing. You can edit the template directly in the *Report template* dialog and see the changes without having to re-upload the template file.
+HTML templates support inline editing. You can edit the template directly in the *Report template* dialog and see the changes without re-uploading the file.
 
 image::html-template-editor.png[align="center",width="642"]
 
 Groovy templating engine::
 +
 --
-You can preprocess the HTML report template as a Groovy template. It will be processed by http://docs.groovy-lang.org/latest/html/api/groovy/text/GStringTemplateEngine.html[GStringTemplateEngine^].
+You can preprocess the HTML template as a Groovy template. It is processed by http://docs.groovy-lang.org/latest/html/api/groovy/text/GStringTemplateEngine.html[GStringTemplateEngine^].
 
-The template engine uses JSP style `<% %>` script and `<%= %>` expression syntax or `GString` style expressions. The variable `out` is bound to the writer that the template is being written to. Thus, the template can use any code on Groovy if it is properly defined. `GStringTemplateEngine` has access to:
+The template engine uses JSP-style `<% %>` script and `<%= %>` expression syntax, as well as `GString`-style expressions. The `out` variable is bound to the writer used to produce the template output. `GStringTemplateEngine` has access to:
 
 * external parameters: `BandName.fields.ParamName`;
 * bands: `BandName.bands.ChildBandName`;
@@ -212,7 +233,6 @@ Below is an example of a template that outputs a report for a single user.
 include::example$/library/src/main/resources/com/company/library/reports/templates/examples_grooveEngine1.html[]
 ----
 
-You can find an example of a report with Groovy templating in the xref:sample-reports.adoc#example_html_groovy_template[Groovy Sample Reports] section.
 --
 
 FreeMarker::
@@ -247,7 +267,7 @@ You may use variables for convenience, for example:
 
 You can also use `getMessage()` to get localized values:
 
-`getMessage()` accept one or two arguments. If only one argument provided, it returns the value from the xref:localization:message-bundles.adoc[message bundle]. If two arguments provided, it will get localized messages from message bundle by using the arguments as message xref:localization:message-bundles.adoc#group-and-key[group and key].
+`getMessage()` accepts one or two arguments. If one argument is provided, it returns a value from the xref:localization:message-bundles.adoc[message bundle]. If two arguments are provided, it returns a localized message from the bundle using the arguments as the xref:localization:message-bundles.adoc#group-and-key[group and key].
 
 [source, groovy,indent=0]
 ----
@@ -316,9 +336,9 @@ include::example$/library/src/main/resources/com/company/library/reports/templat
 Embedded pictures::
 +
 --
-At the moment, Jmix Reports add-on does not provide means of inserting images into HTML reports similarly to DOCX/XLSX reports. Images still can be embedded with the `img` tag and the link to the picture in the `src` attribute. You can add images to the HTML report in one of the following ways.
+At the moment, the Jmix Reports add-on does not provide the same image insertion mechanisms for HTML reports as for DOCX or XLSX reports. However, you can still embed images using the `img` tag and the image location in the `src` attribute. Images can be added to an HTML report in the following ways.
 
-* by URL
+* By URL
 +
 An image can be served statically by the application. For example, the image hosted in the `build\resources\static\images\` folder can be inserted like:
 +
@@ -331,7 +351,7 @@ An image can be served statically by the application. For example, the image hos
      align="right"/>
 ----
 
-* by Bitmap
+* By bitmap
 +
 An image is added as a byte array within the `src` attribute. This approach allows you to use variables for the `FileRef` attributes of the entities. The byte array can even be added directly to the template, even though this approach is not recommended:
 +
@@ -369,8 +389,8 @@ if (value) {
 <img src="${User[0].fields('picture')}" alt="picture"/>
 ----
 
-* by custom prefixes:
-** You can use the `resource://` prefixes to refer image files from the `conf` directory or classpath. This only works for HTML templates to output the PDF format. For example, the image `abc.jpg` hosted in the `resource\com\company\app\images` folder can be inserted like:
+* By custom prefixes:
+** You can use the `resource://` prefix to refer to image files in the `conf` directory or on the classpath. This works only for HTML templates rendered to PDF. For example, the image `abc.jpg` stored in the `resource\com\company\app\images` folder can be inserted as follows:
 +
 [source, html, indent=0]
 ----
@@ -380,7 +400,7 @@ if (value) {
     border="0"
     align="right"/>
 ----
-** `fs://` prefix allows inserting an image by specifying `FileRef` format. For example:
+** The `fs://` prefix allows you to insert an image by specifying a `FileRef`. For example:
 +
 [source, html,indent=0]
 ----
@@ -397,7 +417,7 @@ NOTE: The query parameter `?name=\{original_filename}.\{ext}` is mandatory. The 
 [[html_to_pdf]]
 Converting HTML to PDF::
 
-Reports which have a template in HTML format and the PDF output format do not always properly display fonts. To resolve this, add `jmix/fonts` subdirectory with required `.ttf` fonts to the Jmix configuration directory(`${user.dir}/.jmix/conf/` by default). Additionally, you can use existing operating system fonts by specifying their path in the xref:configuration.adoc#jmix.reports.pdf-fonts-directory[jmix.reports.pdf-fonts-directory] application property.
+Reports that use an HTML template and PDF output do not always display fonts correctly. To resolve this, add a `jmix/fonts` subdirectory containing the required `.ttf` fonts to the Jmix configuration directory (`${user.dir}/.jmix/conf/` by default). You can also use operating system fonts by specifying their path in the xref:configuration.adoc#jmix.reports.pdf-fonts-directory[jmix.reports.pdf-fonts-directory] application property.
 
 In order to resolve the fonts issue on an Ubuntu server, you should do the following:
 
@@ -426,7 +446,7 @@ jmix.reports.pdf-fonts-directory = /usr/share/fonts/truetype/msttcorefonts
     </style>
 ----
 
-Another thing to mention is parsing of special characters. To avoid errors when converting HTML to PDF, it is recommended to wrap your fields in `<![CDATA[ ]]>` construction in your HTML template file:
+To avoid errors when converting HTML to PDF, wrap field values in `<![CDATA[ ]]>` in the HTML template:
 [source, html,indent=0]
 ----
 <tr>
@@ -438,11 +458,11 @@ Another thing to mention is parsing of special characters. To avoid errors when 
 [[template_jasper]]
 === JasperReports Template
 
-JasperReports formatter allows you to use JasperReports templates to output the information extracted by Jmix reporting. The template will be processed by the report engine, providing an output of the defined type, see <<output_format_compliance>>.
+The JasperReports formatter allows you to use JasperReports templates to output data extracted by Jmix reporting. The template is processed by the report engine and generates output of the configured type. See <<output_format_compliance>>.
 
 You can create JRXML templates using JasperReports tools (for example, Jaspersoft Studio) or in a simple text editor. Each xref:creation/bands.adoc[report band] defined in the report structure must have a corresponding `band` element in the template which is, in turn, placed within one of the standard JasperReports report sections (which are also named as the bands in JasperReports terms): `title`, `pageHeader`, `columnHeader`, `detail`, etc.
 
-The report engine puts all report band data in one datasource: `JRBandDataDataSource`, which contains data as a tree with the `Root` band as the root, and passes the `CubaJRFunction` instance to the template as the main data source that can be addressed using the `REPORTING` parameter. Declaring this parameter in the report template is not mandatory, it will be added automatically if omitted, but if you want to compile the template in JasperReports IDE, you need to declare this parameter explicitly.
+The report engine puts all band data into a single datasource, `JRBandDataDataSource`, which contains data as a tree with the `Root` band as the root. It also passes the `CubaJRFunction` instance to the template as the main data source, accessible through the `REPORTING` parameter. Declaring this parameter in the report template is optional because it is added automatically if omitted. However, if you want to compile the template in a JasperReports IDE, declare it explicitly.
 
 The `REPORTING` parameter supports two functions:
 
@@ -501,7 +521,7 @@ You can find an example of a report with JasperReports template in the xref:samp
 [[template_custom]]
 === Class-Defined Template
 
-Class-defined templates are used when it is too difficult or impossible to select data using SQL, JPQL, or Groovy. They are used, for example, when the report is a result of combining several other reports.
+Class-defined templates are useful when SQL, JPQL, or Groovy is not sufficient for preparing report data. A typical use case is a report that combines the output of several other reports.
 
 Create a class and implement the `io.jmix.reports.yarg.formatters.CustomReport` interface. Define the `createReport()` method, which returns an array of bytes and takes the following input parameters:
 
@@ -523,64 +543,43 @@ image::class-defined-template.png[align="center",width="642"]
 [[table_output]]
 === Table Formatter
 
-When you select table output in the wizard, the system automatically creates a template. When running the report, data will be displayed on a special view of the application.
+When you select table output in the wizard, the system creates a template automatically. When the report runs, the data is displayed in a dedicated application view.
 
-You can also create a template manually for an existing report. To do this, select *Table* as the output type in the report template detail view.
+You can also create a table template manually for an existing report. To do this, select *Table* as the output type in the report template detail view.
 
 image::report-template-table.png[align="center",width="642"]
 
-In the *Band* column, add the names of the bands that you want to display in the resulting table. For each band, set a key-value map, where the key is the name of a dataset property, and the value is its localized caption.
+In the *Band* column, add the names of the bands to display in the resulting table. For each band, define a key-value map where the key is the dataset property name and the value is its localized caption.
 
-The Reports add-on will get the band data and draw a sortable table for each band from the first level of the hierarchy.
+The Reports add-on retrieves band data and renders a sortable table for each band from the first level of the hierarchy.
 
 The table displays columns for all properties for SQL and JPQL datasets. If the Entity/List of Entities dataset is used, the table will display only the columns for selected attributes.
 
-The resulting table is displayed in the *Reports -> Show tables* view of your web application. The *Excel* button enables you to download the displayed table as an Excel file.
+The resulting table is displayed in the *Reports -> Show tables* view of your application. Use the *Excel* button to download the displayed table as an Excel file.
 
 image::show-report-table.png[align="center"]
 
 [[exec_external_report]]
 == Executing External Reports
 
-The Reports add-on allows you to run a report of an external service, such as Microsoft Reporting Services, and download its output. To define an external report, follow these steps:
+The Reports add-on allows you to run a report provided by an external service, such as Microsoft Reporting Services, and download its output. To define an external report, follow these steps:
 
-* In the report template dialog check the *Is custom* checkbox.
+* In the report template dialog, select the *Is custom* checkbox.
 * Select *URL* in the *Defined by* field.
-* In the *Custom definition* field, specify the URL of the external report. Report parameters can be passed to the URL as `${param Alias}`.
+* In the *Custom definition* field, specify the URL of the external report. Report parameters can be passed in the URL as `${param Alias}` placeholders.
 +
 * Configure the xref:configuration.adoc#jmix.reports.curl-path[jmix.reports.curl-path] application property and set it to the path to the command line `curl` tool.
-
-[[output_format_compliance]]
-== Output Format Compliance Matrix
-
-The table below shows the relationship between input template format and output format, for example, an input XLSX template can output XLSX, CSV, PDF, and HTML formats.
-
-[options="header"]
-|===============
-|Template / Output|XLSX|XLS|CSV|DOCX|DOC|PDF  |HTML
-|XLSX             |+   |   |+  |    |   |+ ^1^|+ ^1^
-|XLS              |    |+  |   |    |   |+ ^1^|
-|CSV              |    |   |+  |    |   |     |
-|DOCX             |    |   |   |+   |   |+ ^2^|+ ^2^
-|DOC              |    |   |   |    |  +|+ ^1^|
-|HTML             |    |   |   |    |   |+    |+
-|JRXML            |+   |+  |+  |+   |+  |+    |+
-|===============
-
-^1^ - LibreOffice must be xref:configuration.adoc#libre_office[installed] for output.
-
-^2^ - depending on the xref:configuration.adoc#jmix.reports.use-office-for-document-conversion[jmix.reports.use-office-for-document-conversion] application property, the output can be performed with or without LibreOffice. In the latter case, you need to provide required fonts, as described in <<html_to_pdf,HTML to PDF>>.
 
 [[template-def]]
 == @TemplateDef Annotation
 
-The `@TemplateDef` annotation defines a template, which is an element of the report structure when creating a report at design time. You can apply this annotation multiple times on a report class if it contains several templates. To implement additional logic, declare a method annotated with <<template-delegate,@TemplateDelegate>>.
+The `@TemplateDef` annotation defines a template as part of the report structure for design-time reports. You can apply this annotation multiple times on a report class if it contains several templates. To implement additional logic, declare a method annotated with <<template-delegate,@TemplateDelegate>>.
 
 The `@TemplateDef` annotation has the following attributes:
 
 * `code` - unique template code. Use this code when referring to the template programmatically.
 * `isDefault` - indicates whether this template should be used automatically for document generation unless the user explicitly specifies another one. Default: `false`.
-* `outputType` - determines the type of output content generated by the reporting engine. The output type should be consistent with the template file type described in <<output_format_compliance,output format compliance>>.
+* `outputType` - determines the type of output content generated by the reporting engine. The output type must be consistent with the template file type described in <<output_format_compliance,Output Format Compliance Matrix>>.
 * `alterableOutput` - specifies whether users can choose the report output type at runtime in the UI. Default: `false`.
 * `custom` - additional parameters for custom output document rendering. See <<custom-template-parameters,@CustomTemplateParameters>>.
 * `outputNamePattern` - optional file name pattern used to generate the file name for the produced report. This can be a constant string or include a report parameter as a variable (for example, `${header.authorName}.xlsx`).
@@ -606,7 +605,7 @@ NOTE: `SCRIPT` and `CLASS` are not supported here; use `DELEGATE` instead.
 
 The `@TemplateTableDef` annotation defines the structure of a template with `io.jmix.reports.entity.ReportOutputType.TABLE` output.
 
-Has the `band` attribute - one or more bands to include in the output. A separate table component displays each band. See <<table-band-def,@TableBandDef>>.
+It has the `band` attribute, which specifies one or more bands to include in the output. Each band is displayed in a separate table component. See <<table-band-def,@TableBandDef>>.
 
 [[table-band-def]]
 == @TableBandDef Annotation
@@ -621,7 +620,7 @@ The `@TableBandDef` annotation has the following attributes:
 [[table-column-def]]
 == @TableColumnDef Annotation
 
-Part of the table template definition, the `@TableColumnDef` annotation represents a column in the resulting table that retrieves its values from band data by key.
+Part of the table template definition, the `@TableColumnDef` annotation represents a column in the resulting table and retrieves its values from band data by key.
 
 The `@TableColumnDef` annotation has the following attributes:
 
@@ -642,4 +641,4 @@ Supported interfaces:
 
 * `CustomReport` - delegates custom generation of the report output document.
 
-The `@TemplateDelegate` annotation has the `code` attribute, which is a code of the template declared in the current report definition.
+The `@TemplateDelegate` annotation has the `code` attribute, which is the code of the template declared in the current report definition.

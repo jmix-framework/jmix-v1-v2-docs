@@ -4,13 +4,11 @@ The Reports add-on allows developers and end users to design and generate variou
 
 The add-on provides the following features:
 
-* Designing reports using annotated Java classes or at runtime using a comprehensive admin UI and a step-by-step wizard.
-* Generating reports in DOCX, XLSX, HTML, CSV, and text formats, and converting report output to PDF.
-* Creating XLSX reports with a complex structure, including multi-level organization, data aggregation, and cross-tab features.
+* Creating reports at design time using annotated Java classes or at runtime using the admin UI, or a step-by-step wizard.
+* Generating reports in DOCX, XLSX, HTML, CSV, PDF, arbitrary text format, or display as table within the application.
+* Creating advanced XLSX reports with grouping, data aggregation, and cross-tabs.
 * Using diagrams and formulas in XLSX reports.
-* Report access rights, REST API, and execution history.
-
-This chapter provides reference information about creating and running reports.
+* Managing report access, REST API usage, and execution history.
 
 Refer to the xref:reports-guide:index.adoc[] guide for practical examples that demonstrate report design.
 
