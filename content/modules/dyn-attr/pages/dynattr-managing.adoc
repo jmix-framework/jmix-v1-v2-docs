@@ -45,6 +45,13 @@ image::localization-category.png[align="center",width="729"]
 
 On the *General* tab of the *Category attribute details* dialog, you can specify a name, system code, description, value type, default attribute value, and validation script.
 
+[NOTE]
+====
+The *Code* field can contain only Latin letters, digits, and the `_` symbol. The first character must be a lowercase Latin letter.
+
+The code is a technical identifier of the dynamic attribute. Use the *Name* field and the *Localization* tab for user-visible and localized attribute names.
+====
+
 image::create-attribute.png[align="center",width="962"]
 
 For all value types excluding `Boolean`, you can configure the width of the `formLayout` element in pixels or as a percentage. If the *Width* field is left blank, it is considered to be `100%` by default.

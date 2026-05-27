@@ -11,7 +11,7 @@ image::dynattr-diagram.svg[align="center"]
 +
 For instance, consider an entity classified as `Car`. In this scenario, we can create two categories: `Truck` and `Passenger`. The `Truck` category may encompass attributes like `Load capacity` and `Body type`, while the `Passenger` could include attributes such as `Number of seats` and `Child seat`.
 +
-* `CategoryAttribute` represents a dynamic attribute associated with a specific category. Each attribute defines a single field with a specific data type. The required `code` field holds the system identifier of the attribute, while the `name` field contains the human-readable attribute name.
+* `CategoryAttribute` represents a dynamic attribute associated with a specific category. Each attribute defines a single field with a specific data type. The required `code` field holds the system identifier of the attribute, while the `name` field contains the human-readable attribute name. The `code` field is a technical identifier and can contain only Latin letters, digits, and the `_` symbol. The first character must be a lowercase Latin letter.
 
 * `CategoryAttributeValue` signifies the value of a dynamic attribute for a specific entity instance. These values are stored in the dedicated `SYS_ATTR_VALUE` table. Each record in the table is linked to a particular entity through the `ENTITY_ID` column.
 
