@@ -28,9 +28,13 @@ jmix.core.available-locales = en,ru
 
 Указывает каталог для файлов конфигурации, которые можно изменять во время выполнения приложения. Используется реализацией по умолчанию интерфейса `Resources` для загрузки файлов ресурсов из каталога перед поиском в classpath.
 
-Значение по умолчанию: `${user.dir}/.jmix/conf`
+Значение по умолчанию: `${user.dir}/.jmix/conf`, где `${user.dir}` - это рабочий каталог пользователя, то есть каталог, из которого была запущена JVM.
 
-TIP: `${user.dir}` - это рабочий каталог пользователя (где была запущена JVM).
+[IMPORTANT]
+====
+Этот каталог используется для hot deploy и может автоматически очищаться Jmix Studio или Gradle перед запуском приложения.
+Подробнее см. xref:studio:hot-deploy.adoc[Hot Deploy].
+====
 
 [[jmix.core.cross-data-store-reference-loading-batch-size]]
 === jmix.core.cross-data-store-reference-loading-batch-size
