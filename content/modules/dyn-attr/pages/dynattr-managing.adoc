@@ -85,7 +85,11 @@ In the case of the `Entity` data type, the configuration involves setting up *Wh
 [[calculated-values-and-options]]
 === Calculated Values and Options
 
-Within the *Calculated values and options* tab, you can specify which attributes the current attribute depends on. Whenever one of these attributes is modified, either the script for computing the attribute value or the script for determining the <<options-type-list,list of valid values>> will be re-evaluated.
+Within the *Calculated values and options* tab, you can use the *Attribute depends on* field to specify dynamic attributes that the current attribute depends on.
+
+Only other dynamic attributes of the same entity can be selected in this field. Regular entity attributes cannot be selected.
+
+Whenever one of the selected dynamic attributes is changed, either the script for computing the current attribute value or the script for determining the <<options-type-list,list of valid values>> is re-evaluated.
 
 The Groovy script should provide a new parameter value. The script receives the following variables:
 
@@ -103,8 +107,6 @@ An example of a recalculation script using the `dynamicAttributes` map:
 if (dynamicAttributes['passengerNumberOfSeats'] > 9)
 return 'Bus' else return 'Passenger'
 ----
-
-Whenever a value within the list of dependent attributes is altered, the script will be triggered for execution.
 
 If the script is specified, the attribute input field will become non-editable.
 
