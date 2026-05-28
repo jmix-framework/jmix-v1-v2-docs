@@ -7,15 +7,15 @@
         <!-- tag::userDc[] -->
         <instance class="com.company.onboarding.entity.User" id="userDc"> <!--1-->
             <fetchPlan extends="_base"> <!--2-->
-                <property name="hobbies" fetchPlan="_base"/>
+                <property name="userHobbies" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="userDl"/>
         </instance>
         <!-- end::userDc[] -->
         <!-- tag::hobbiesDc[] -->
-        <collection class="com.company.onboarding.entity.Hobby" id="hobbiesDc"> <!--3-->
+        <collection class="com.company.onboarding.entity.Hobby" id="userHobbiesDc"> <!--3-->
             <fetchPlan extends="_base"/>
-            <loader id="hobbiesDl">
+            <loader id="userHobbiesDl">
                 <query>
                     <![CDATA[select e from Hobby e]]>
                 </query>
@@ -37,20 +37,20 @@
         <!-- end::basics[] -->
         <!-- tag::metaClass[] -->
         <multiSelectComboBox metaClass="Hobby"
-                             itemsContainer="hobbiesDc"/>
+                             itemsContainer="userHobbiesDc"/>
         <!-- end::metaClass[] -->
         <multiSelectComboBox metaClass="Hobby"
-                             itemsContainer="hobbiesDc"/>
+                             itemsContainer="userHobbiesDc"/>
         <!-- tag::itemsContainer[] -->
         <multiSelectComboBox dataContainer="userDc"
-                             property="hobbies"
+                             property="userHobbies"
                              label="Hobbies"
-                             itemsContainer="hobbiesDc"/> <!--4-->
+                             itemsContainer="userHobbiesDc"/> <!--4-->
         <!-- end::itemsContainer[] -->
         <multiSelectComboBox dataContainer="userDc"
-                             property="hobbies"
+                             property="userHobbies"
                              label="Hobbies"
-                             itemsContainer="hobbiesDc"
+                             itemsContainer="userHobbiesDc"
                              title="title" helperText="helperText"
                              id="multiSelectComboBox"/>
         <!-- tag::itemsQuery[] -->

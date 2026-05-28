@@ -96,7 +96,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Привязка данных - это процесс связывания визуального компонента с xref:data/data-containers.adoc[контейнером данных]. Изменения в визуальном компоненте или в соответствующем контейнере данных могут вызывать обновления друг в друге. Подробности смотрите в разделе xref:data/data-examples.adoc[].
 
-Чтобы создать `multiSelectComboBoxPicker`, связанный с данными, используйте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property]. Атрибут xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] используется для создания списка элементов. Следующий пример создает `multiSelectComboBoxPicker`, поддерживающий работу с данными.
+Как и `multiSelectComboBox`, компонент `multiSelectComboBoxPicker` предназначен для свойств, хранящих несколько значений, например `List` или `Set`. Обычные структуры данных и сценарии использования смотрите в разделе xref:vc/components/multiSelectComboBox.adoc#data-binding[Привязка данных].
+
+Чтобы создать `multiSelectComboBoxPicker`, подключенный к данным, используйте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property]. Атрибут xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] используется для предоставления списка доступных элементов. Следующий пример создает компонент `multiSelectComboBoxPicker`, работающий с данными.
 
 [source,xml,indent=0]
 ----
@@ -111,7 +113,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <6> Добавление предопределенного действия для очистки выбора.
 <7> Добавление предопределенного действия для открытия экрана поиска.
 
-Значение компонента возвращает список выбранных элементов.
+Значение компонента содержит выбранные элементы. Когда компонент привязан к свойству-коллекции, Jmix преобразует выбранные элементы к типу коллекции свойства, например, `List` или `Set`.
 
 [[meta-class]]
 == Использование MetaClass

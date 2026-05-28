@@ -98,7 +98,42 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Привязка данных означает связывание визуального компонента с xref:data/data-containers.adoc[контейнером данных]. Изменения в визуальном компоненте или соответствующем контейнере данных могут вызывать обновления друг друга. Смотрите xref:flow-ui:data/data-examples.adoc[Использование компонентов данных] для получения дополнительной информации.
 
-Чтобы создать `multiSelectComboBox`, связанный с данными, используйте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property]. Атрибут xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] используется для создания списка элементов. В следующем примере показан `multiSelectComboBox`, связанный с данными.
+`multiSelectComboBox` предназначен для свойств, которые хранят несколько значений. Когда компонент привязан к атрибуту сущности, тип атрибута должен быть коллекцией, например `List` или `Set`.
+
+Наиболее распространенный сценарий использования — выбор связанных сущностей для ассоциации many-to-many:
+
+.Hobby.java
+[source,java,indent=0]
+----
+@JmixEntity
+@Table(name = "HOBBY")
+@Entity
+public class Hobby {
+    /* attributes */
+}
+----
+
+.User.java
+[source,java,indent=0]
+----
+@JmixEntity
+@Entity
+@Table(name = "USER_")
+public class User {
+
+    /* other attributes */
+
+    @JoinTable(name = "USER_HOBBY_LINK",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "HOBBY_ID"))
+    @ManyToMany
+    private List<Hobby> userHobbies;
+}
+----
+
+В этом случае `multiSelectComboBox` позволяет пользователю выбрать несколько экземпляров `Hobby`, а связь сохраняется в таблице связей (join table).
+
+Чтобы создать `multiSelectComboBox`, работающий с данными, используйте атрибуты xref:vc/common-attributes.adoc#dataContainer[dataContainer] и xref:vc/common-attributes.adoc#property[property], чтобы привязать компонент к свойству-коллекции. Используйте атрибут xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer], чтобы задать список доступных элементов. Следующий пример создает `multiSelectComboBox`, работающий с данными.
 
 [source,xml,indent=0]
 ----
@@ -106,11 +141,16 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 ----
 
 <1> `InstanceContainer` для сущности `User`.
-<2> Встроенный план выборки экземпляра сущности, находящегося в контейнере.
+<2> Встроенный фетч-план экземпляра сущности, находящегося в контейнере.
 <3> `CollectionContainer` для сущности `Hobby`.
-<4> `multiSelectComboBox` получает `hobbiesDc` в качестве контейнера элементов, чтобы в выпадающем списке отображался список хобби.
+<4> `multiSelectComboBox` получает `userHobbiesDc` в качестве контейнера элементов, чтобы показывать раскрывающийся список увлечений.
 
-Значение компонента возвращает список выбранных элементов.
+[NOTE]
+====
+`itemsContainer` определяет доступные варианты в выпадающем списке. Выбранные значения хранятся в свойстве-коллекции, указанном атрибутами `dataContainer` и `property`.
+====
+
+Значение компонента содержит выбранные элементы. Когда компонент привязан к свойству-коллекции, Jmix преобразует выбранные элементы к типу коллекции свойства, например `List` или `Set`.
 
 [[meta-class]]
 == MultiSelectComboBox c MetaClass

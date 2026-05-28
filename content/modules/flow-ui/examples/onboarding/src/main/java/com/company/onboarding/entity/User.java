@@ -38,6 +38,14 @@ public class User implements JmixUserDetails, HasTimeZone {
     @JmixGeneratedValue
     private UUID id;
 
+    // tag::user-hobby-link[]
+    @JoinTable(name = "USER_HOBBY_LINK",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "HOBBY_ID"))
+    @ManyToMany
+    private List<Hobby> userHobbies;
+// end::user-hobby-link[]
+
     @OneToMany(mappedBy = "user")
     private List<Hobby> hobbies;
 
@@ -99,6 +107,14 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public List<Hobby> getUserHobbies() {
+        return userHobbies;
+    }
+
+    public void setUserHobbies(List<Hobby> userHobbies) {
+        this.userHobbies = userHobbies;
+    }
 
     public List<Hobby> getHobbies() {
         return hobbies;
