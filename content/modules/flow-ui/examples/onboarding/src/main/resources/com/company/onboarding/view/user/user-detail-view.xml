@@ -11,7 +11,7 @@
                 <property name="steps" fetchPlan="_base">
                     <property name="step" fetchPlan="_base"/>
                 </property>
-                <property name="hobbies" fetchPlan="_base"/>
+                <property name="userHobbies" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
             <collection id="stepsDc" property="steps"/> <!--2-->
@@ -26,9 +26,9 @@
                 </query>
             </loader>
         </collection>
-        <collection class="com.company.onboarding.entity.Hobby" id="hobbiesDc">
+        <collection class="com.company.onboarding.entity.Hobby" id="userHobbiesDc">
             <fetchPlan extends="_base"/>
-            <loader id="hobbiesDl">
+            <loader id="userHobbiesDl">
                 <query>
                     <![CDATA[select e from Hobby e]]>
                 </query>
@@ -61,7 +61,7 @@
             <entityComboBox id="departmentField" property="department" itemsContainer="departmentsDc"/>
             <datePicker id="joiningDateField" property="joiningDate"/>
             <comboBox id="onboardingStatusField" property="onboardingStatus"/>
-            <checkboxGroup property="hobbies" itemsContainer="hobbiesDc"/>
+            <multiSelectComboBox property="userHobbies" itemsContainer="userHobbiesDc"/>
         </formLayout>
         <hbox>
             <button id="generateStepsButton" text="Generate"/>

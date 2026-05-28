@@ -96,7 +96,9 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container]. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
 
-To create `multiSelectComboBoxPicker` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] attribute is used to create a list of items. The following example produces a data-aware `multiSelectComboBoxPicker`.
+Like `multiSelectComboBox`, `multiSelectComboBoxPicker` is designed for properties that store multiple values, for example `List` or `Set`. See xref:vc/components/multiSelectComboBox.adoc#data-binding[Data Binding] for common data structures and use cases.
+
+To create `multiSelectComboBoxPicker` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] attribute is used to provide the list of available items. The following example produces a data-aware `multiSelectComboBoxPicker`.
 
 [source,xml,indent=0]
 ----
@@ -111,7 +113,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <6> Adding a predefined action to clear the selection.
 <7> Adding a predefined action to open the lookup view.
 
-The component’s value returns the list of selected items.
+The component value contains the selected items. When the component is bound to a collection property, Jmix converts the selected items to the property collection type, for example `List` or `Set`.
 
 [[meta-class]]
 == Using MetaClass

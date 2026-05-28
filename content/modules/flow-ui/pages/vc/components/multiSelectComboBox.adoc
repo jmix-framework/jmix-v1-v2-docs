@@ -97,7 +97,42 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 Data binding refers to linking a visual component to a xref:data/data-containers.adoc[data container]. Changes in the visual component or corresponding data container can trigger updates to one another. See xref:data/data-examples.adoc[] for more details.
 
-To create `multiSelectComboBox` connected to data, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes. The xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] attribute is used to create a list of items. The following example produces a data-aware `multiSelectComboBox`.
+`multiSelectComboBox` is designed for properties that store multiple values. When the component is bound to an entity attribute, the attribute type should be a collection, for example `List` or `Set`.
+
+The most common use case is selecting related entities for a many-to-many association:
+
+.Hobby.java
+[source,java,indent=0]
+----
+@JmixEntity
+@Table(name = "HOBBY")
+@Entity
+public class Hobby {
+    /* attributes */
+}
+----
+
+.User.java
+[source,java,indent=0]
+----
+@JmixEntity
+@Entity
+@Table(name = "USER_")
+public class User {
+
+    /* other attributes */
+
+    @JoinTable(name = "USER_HOBBY_LINK",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "HOBBY_ID"))
+    @ManyToMany
+    private List<Hobby> userHobbies;
+}
+----
+
+In this case, `multiSelectComboBox` allows the user to select several `Hobby` instances, and the relationship is stored in the join table.
+
+To create a data-aware `multiSelectComboBox`, use the xref:vc/common-attributes.adoc#dataContainer[dataContainer] and xref:vc/common-attributes.adoc#property[property] attributes to bind the component to a collection property. Use the xref:vc/components/entityComboBox.adoc#itemsContainer[itemsContainer] attribute to provide the list of available items. The following example produces a data-aware `multiSelectComboBox`.
 
 [source,xml,indent=0]
 ----
@@ -107,9 +142,14 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <1> `InstanceContainer` for the `User` entity.
 <2> Inline fetch plan of the entity instance located in the container.
 <3> `CollectionContainer` for the `Hobby` entity.
-<4> `multiSelectComboBox` gets `hobbiesDc` as an items container so that the list of hobbies drop-downs.
+<4> `multiSelectComboBox` gets `userHobbiesDc` as an items container to show a drop-down list of hobbies.
 
-The component’s value returns the list of selected items.
+[NOTE]
+====
+`itemsContainer` defines the available options in the drop-down list. The selected values are stored in the collection property specified by `dataContainer` and `property`.
+====
+
+The component value contains the selected items. When the component is bound to a collection property, Jmix converts the selected items to the property collection type, for example `List` or `Set`.
 
 [[meta-class]]
 == MultiSelectComboBox with MetaClass
