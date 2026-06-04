@@ -73,25 +73,25 @@ include::example$/quartz-ex1/src/main/java/com/company/demo/quartz/SampleJob.jav
 Вы также можете выполнить любую зарегистрированную задачу немедленно, нажав *Execute now*, даже если у задачи нет триггеров. Это полезно для тестирования.
 
 [[configure-jobs-programmatically]]
-=== Configuring Jobs and Triggers Programmatically
+=== Программная настройка задач и триггеров
 
-Instead of creating Quartz jobs and triggers in the *Quartz jobs* view, you can register them as Spring beans. This approach is useful when the schedule must be defined together with the application code.
+Вместо создания задач и триггеров Quartz на экране *Quartz jobs* их можно зарегистрировать как Spring-бины. Такой подход полезен, когда расписание должно быть определено вместе с кодом приложения.
 
-Declare these beans in a Spring configuration class located in a package scanned by the application.
+Объявите эти бины в классе конфигурации Spring, расположенном в пакете, который сканируется приложением.
 
 [source,java,indent=0]
 ----
 include::example$/quartz-ex1/src/main/java/com/company/demo/config/QuartzConfiguration.java[tags=quartz-configuration]
 ----
-<1> Job implementation class.
-<2> Job identifier.
-<3> Associates the trigger with the job.
-<4> Trigger identifier. Specify it explicitly to avoid creating duplicate triggers after redeployment.
-<5> Cron schedule.
+<1> Класс реализации задачи.
+<2> Идентификатор задачи.
+<3> Связывает триггер с задачей.
+<4> Идентификатор триггера. Указывайте его явно, чтобы избежать создания дублирующих триггеров после повторного развертывания.
+<5> Cron-расписание.
 
-`withIdentity()` defines the Quartz identifier of the job or trigger. Always specify an identifier for every trigger created in code.
+`withIdentity()` задает идентификатор Quartz для задачи или триггера. Всегда указывайте идентификатор для каждого триггера, созданного в коде.
 
-If a trigger does not have an explicit identifier, Quartz generates a random one. When the application uses persistent Quartz tables, this can create a new trigger on each redeployment and result in multiple triggers executing the same job according to the same schedule.
+Если у триггера нет явного идентификатора, Quartz генерирует случайный идентификатор. Когда приложение использует постоянные таблицы Quartz, это может приводить к созданию нового триггера при каждом повторном развертывании. В результате несколько триггеров будут выполнять одну и ту же задачу по одному и тому же расписанию.
 
 [[authentication]]
 === Аутентификация в задачах
