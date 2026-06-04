@@ -355,5 +355,6 @@ See https://github.com/jmix-framework/jmix/issues/4838[#4838^] for more informat
 
 * Resolved issues in Jmix Studio:
 
+** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.8.2[2.8.2^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.8.1[2.8.1^]
 ** https://youtrack.jmix.io/issues/JST?q=Fixed%20in%20builds:%202.8.0,-2.7.*%20Affected%20versions:%20-SNAPSHOT[2.8.0^]
