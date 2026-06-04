@@ -72,6 +72,27 @@ To edit the job settings, first pause it by selecting and clicking *Pause*. Afte
 +
 You can also execute any registered job immediately by clicking *Execute now*, even if the job has no triggers. This is useful for testing.
 
+[[configure-jobs-programmatically]]
+=== Configuring Jobs and Triggers Programmatically
+
+Instead of creating Quartz jobs and triggers in the *Quartz jobs* view, you can register them as Spring beans. This approach is useful when the schedule must be defined together with the application code.
+
+Declare these beans in a Spring configuration class located in a package scanned by the application.
+
+[source,java,indent=0]
+----
+include::example$/quartz-ex1/src/main/java/com/company/demo/config/QuartzConfiguration.java[tags=quartz-configuration]
+----
+<1> Job implementation class.
+<2> Job identifier.
+<3> Associates the trigger with the job.
+<4> Trigger identifier. Specify it explicitly to avoid creating duplicate triggers after redeployment.
+<5> Cron schedule.
+
+`withIdentity()` defines the Quartz identifier of the job or trigger. Always specify an identifier for every trigger created in code.
+
+If a trigger does not have an explicit identifier, Quartz generates a random one. When the application uses persistent Quartz tables, this can create a new trigger on each redeployment and result in multiple triggers executing the same job according to the same schedule.
+
 [[authentication]]
 === Authentication in Jobs
 

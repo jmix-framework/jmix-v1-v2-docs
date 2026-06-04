@@ -69,6 +69,7 @@ public class DemoApplication implements AppShellConfigurator {
     Trigger myCustomIndexingQueueProcessingTrigger() {
         return TriggerBuilder.newTrigger()
                 .forJob(myCustomIndexingQueueProcessingJob())
+                .withIdentity("MyCustomIndexingQueueProcessingTrigger")
                 .startNow()
                 .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
                 .build();
