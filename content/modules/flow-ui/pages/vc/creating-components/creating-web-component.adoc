@@ -6,7 +6,7 @@
 </div>
 ++++
 
-https://vaadin.com/docs/latest/flow/create-ui/web-components/introduction-to-webcomponents[Web Components^] можно создавать с нуля на основе библиотек https://polymer-library.polymer-project.org/[Polymer 3^] или https://lit.dev/[Lit^]. После реализации веб-компонента на JavaScript, для него можно создать Java API.
+https://vaadin.com/docs/v24/flow/create-ui/web-components/introduction-to-webcomponents[Web Components^] можно создавать с нуля на основе библиотек https://polymer-library.polymer-project.org/[Polymer 3^] или https://lit.dev/[Lit^]. После реализации веб-компонента на JavaScript, для него можно создать Java API.
 
 Пример ниже показывает, как построить переключатель светлой/темной темы на основе https://lit.dev/[Lit^].
 
@@ -40,12 +40,12 @@ include::example$/onboarding/src/main/java/com/company/onboarding/component/Them
 ----
 <1> Определяет корневой элемент, который автоматически создается классом `Component` и к которому можно обращаться с помощью метода `getElement()`. Должен совпадать с экспортом веб-компонента.
 <2> Аннотация `@JsModule` определяет импорт JavaScript-модуля.
-<3> Использование https://vaadin.com/docs/latest/flow/create-ui/creating-components/mixins[Vaadin Mixin Interfaces^] для предоставления общих API и поведения по умолчанию для наборов функциональности, встречающихся в большинстве веб-компонентов.
+<3> Использование https://vaadin.com/docs/v24/flow/create-ui/creating-components/mixins[Vaadin Mixin Interfaces^] для предоставления общих API и поведения по умолчанию для наборов функциональности, встречающихся в большинстве веб-компонентов.
 <4> Использование аннотации `@DomEvent` для подключения компонента ThemeToggle к событию DOM `theme-changed`.
 <5> Использование аннотации `@EventData` для определения дополнительных данных события, в данном случае значения темы.
 
 
-TIP: Более подробную информацию о создании пользовательских компонентов можно найти в документации Vaadin: https://vaadin.com/docs/latest/flow/create-ui/creating-components[Creating Components^], https://vaadin.com/docs/latest/flow/create-ui/creating-components/mixins[Using Vaadin Mixin Interfaces^], https://vaadin.com/docs/latest/flow/create-ui/creating-components/events[Using Events with Components&].
+TIP: Более подробную информацию о создании пользовательских компонентов можно найти в документации Vaadin: https://vaadin.com/docs/v24/flow/create-ui/creating-components[Creating Components^], https://vaadin.com/docs/v24/flow/create-ui/creating-components/mixins[Using Vaadin Mixin Interfaces^], https://vaadin.com/docs/v24/flow/create-ui/creating-components/events[Using Events with Components&].
 
 [[usage-example]]
 == Пример использования

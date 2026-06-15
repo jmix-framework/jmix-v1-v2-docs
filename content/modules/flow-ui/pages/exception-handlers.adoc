@@ -28,7 +28,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 
 Ваш обработчик исключений будет автоматически добавлен в список обработчиков фреймворка. Позицию вашего обработчика в списке можно настроить, добавив аннотацию `@Order` к бину. Например, если установить порядок как `@Order(JmixOrder.HIGHEST_PRECEDENCE - 10)`, ваш обработчик получит приоритет перед обработчиком фреймворка для того же исключения.
 
-Если необходимо больше контроля над тем, какие исключения должны обрабатываться вашим обработчиком, либо переопределите метод `canHandle()` базового класса `AbstractUiExceptionHandler`, либо вовсе не используйте `AbstractUiExceptionHandler` и реализуйте интерфейс `UiExceptionHandler` напрямую. См. также https://vaadin.com/docs/latest/advanced/custom-error-handler[документацию Vaadin^] по обработке исключений UI на более низком уровне.
+Если необходимо больше контроля над тем, какие исключения должны обрабатываться вашим обработчиком, либо переопределите метод `canHandle()` базового класса `AbstractUiExceptionHandler`, либо вовсе не используйте `AbstractUiExceptionHandler` и реализуйте интерфейс `UiExceptionHandler` напрямую. См. также https://vaadin.com/docs/v24/advanced/custom-error-handler[документацию Vaadin^] по обработке исключений UI на более низком уровне.
 
 [[unique-constraint-violation-handler]]
 == Обработчик нарушений уникальности

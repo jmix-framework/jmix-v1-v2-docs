@@ -70,7 +70,7 @@ image::visual-components/layouts/vbox-basic.png[align="center", width="210"]
 |Устанавливает промежутки между компонентами внутри контейнера. Возможные значения: `true`, `false`.
 |`false`
 |[[wrap]]wrap
-|Если true, компоненты будут переноситься на следующую строку при нехватке места. См. https://vaadin.com/docs/latest/components/vertical-layout#wrapping[Wrapping] в документации Vaadin.
+|Если true, компоненты будут переноситься на следующую строку при нехватке места. См. https://vaadin.com/docs/v24/components/vertical-layout#wrapping[Wrapping] в документации Vaadin.
 |`false`
 |===
 

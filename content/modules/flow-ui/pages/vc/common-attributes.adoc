@@ -6,7 +6,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -123,7 +123,7 @@ NOTE: Данный атрибут поддерживается только в S
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hasstyle-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hasstyle-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -142,7 +142,7 @@ Jmix Studio предоставляет расширенные возможнос
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#clear-button" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#clear-button" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -218,7 +218,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#date-format" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#date-format" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -229,7 +229,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/enabled-state" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/enabled-state" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -261,7 +261,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -276,7 +276,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -311,7 +311,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -330,7 +330,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -349,7 +349,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -366,7 +366,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -392,7 +392,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -411,7 +411,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -428,7 +428,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -452,7 +452,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#pattern" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#pattern" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -463,7 +463,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#placeholder" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#placeholder" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -481,7 +481,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#read-only-disabled" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#read-only-disabled" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -492,7 +492,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -505,7 +505,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -571,7 +571,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -592,7 +592,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -605,7 +605,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/basic-features/#visibility" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/basic-features/#visibility" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -615,7 +615,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 == weekNumbersVisible
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#week-numbers" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#week-numbers" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -639,7 +639,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

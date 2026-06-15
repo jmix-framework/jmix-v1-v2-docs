@@ -239,7 +239,7 @@ NOTE: Атрибут `acceptedFileTypes` фильтрует файлы, отоб
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/upload/#drag-drop" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/upload/#drag-drop" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -287,7 +287,7 @@ CAUTION: Событие xref:vc/common-handlers.adoc#ComponentValueChangeEvent[C
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/upload/#file-size" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/upload/#file-size" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

@@ -58,7 +58,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/component/Slid
 <1> Использование аннотации `@DomEvent` для подключения компонента Slider к DOM-событию `custom-slide-changed`.
 <2> Использование аннотации `@EventData` для определения дополнительных данных события, в данном случае значения слайдера.
 
-TIP: Более подробную информацию о создании пользовательских компонентов можно найти в документации Vaadin: https://vaadin.com/docs/latest/flow/advanced/loading-resources#using-annotations[Импорт JavaScript и CSS^], https://vaadin.com/docs/latest/flow/create-ui/web-components[Интеграция веб-компонентов^], https://vaadin.com/docs/latest/flow/create-ui/element-api[API элементов^].
+TIP: Более подробную информацию о создании пользовательских компонентов можно найти в документации Vaadin: https://vaadin.com/docs/v24/flow/advanced/loading-resources#using-annotations[Импорт JavaScript и CSS^], https://vaadin.com/docs/v24/flow/create-ui/web-components[Интеграция веб-компонентов^], https://vaadin.com/docs/v24/flow/create-ui/element-api[API элементов^].
 
 [[usage-example]]
 == Пример использования

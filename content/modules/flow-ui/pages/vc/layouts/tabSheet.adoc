@@ -217,4 +217,4 @@ image:visual-components/layouts/tabsheet-no-padding.png[align="center", width=36
 
 == Смотрите также
 
-Дополнительную информацию смотрите в https://vaadin.com/docs/latest/components/tabs[документации Vaadin^].
+Дополнительную информацию смотрите в https://vaadin.com/docs/v24/components/tabs[документации Vaadin^].

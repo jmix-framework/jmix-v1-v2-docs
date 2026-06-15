@@ -198,7 +198,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -209,7 +209,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

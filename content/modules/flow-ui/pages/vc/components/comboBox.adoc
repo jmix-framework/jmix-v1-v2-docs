@@ -441,4 +441,4 @@ include::../handler-generation-tip.adoc[]
 
 == Смотрите также
 
-Смотрите https://vaadin.com/docs/latest/components/combo-box[документацию Vaadin^] для получения дополнительной информации.
+Смотрите https://vaadin.com/docs/v24/components/combo-box[документацию Vaadin^] для получения дополнительной информации.

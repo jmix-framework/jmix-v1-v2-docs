@@ -183,7 +183,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 <4> Кнопка для подтверждения изменений.
 <5> Кнопка для отмены изменений.
 ====
-// TIP: Inline editing can be configured programmatically as described in the https://vaadin.com/docs/latest/components/grid#inline-editing-java-only[Vaadin documentation^]
+// TIP: Inline editing can be configured programmatically as described in the https://vaadin.com/docs/v24/components/grid#inline-editing-java-only[Vaadin documentation^]
 
 [[double-click-editing]]
 === Редактирование по двойному клику
@@ -392,7 +392,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/component
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/grid/flow/#using-renderers-in-columns" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/grid/flow/#using-renderers-in-columns" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

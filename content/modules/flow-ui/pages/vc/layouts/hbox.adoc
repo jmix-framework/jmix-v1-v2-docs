@@ -141,7 +141,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/view/layout/hb
 |Устанавливает промежутки между компонентами внутри контейнера. Возможные значения: `true`, `false`.
 |`false`
 |[[wrap]]wrap
-|Если true, компоненты будут переноситься на следующую строку при нехватке места. См. https://vaadin.com/docs/latest/components/horizontal-layout#wrapping[Wrapping] в документации Vaadin.
+|Если true, компоненты будут переноситься на следующую строку при нехватке места. См. https://vaadin.com/docs/v24/components/horizontal-layout#wrapping[Wrapping] в документации Vaadin.
 |`false`
 |===
 

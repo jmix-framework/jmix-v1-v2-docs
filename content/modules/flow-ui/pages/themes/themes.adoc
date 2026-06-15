@@ -5,7 +5,7 @@
 
 Тема состоит из файлов CSS и других ресурсов, таких как изображения и шрифты.
 
-Jmix предоставляет тему *jmix-lumo*, построенную на основе темы https://vaadin.com/docs/latest/styling/lumo[Lumo^] Vaadin.
+Jmix предоставляет тему *jmix-lumo*, построенную на основе темы https://vaadin.com/docs/v24/styling/lumo[Lumo^] Vaadin.
 
 [[applying-theme]]
 == Применение темы
@@ -30,7 +30,7 @@ public class MyProjectApplication implements AppShellConfigurator {
 }
 ----
 
-NOTE: Темы не могут быть переключены во время выполнения. Хотя проект может иметь несколько тем, для UI приложения может быть применена только одна. Однако существуют способы https://vaadin.com/docs/latest/styling/advanced/runtime-theme-switching[переключения между вариантами^] одной и той же темы и https://vaadin.com/docs/latest/styling/advanced/loading-styles-dynamically[динамической загрузки дополнительных стилей^] поверх темы.
+NOTE: Темы не могут быть переключены во время выполнения. Хотя проект может иметь несколько тем, для UI приложения может быть применена только одна. Однако существуют способы https://vaadin.com/docs/v24/styling/advanced/runtime-theme-switching[переключения между вариантами^] одной и той же темы и https://vaadin.com/docs/v24/styling/advanced/loading-styles-dynamically[динамической загрузки дополнительных стилей^] поверх темы.
 
 [[application-theme]]
 == Тема приложения
@@ -86,7 +86,7 @@ src
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/styling/advanced/multi-app-themes" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/styling/advanced/multi-app-themes" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

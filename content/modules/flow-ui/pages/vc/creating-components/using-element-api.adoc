@@ -1,6 +1,6 @@
 = Использование Element API
 
-В этом разделе демонстрируется, как создать компонент, используя https://vaadin.com/docs/latest/flow/create-ui/element-api[Element API^] и единственный DOM-элемент.
+В этом разделе демонстрируется, как создать компонент, используя https://vaadin.com/docs/v24/flow/create-ui/element-api[Element API^] и единственный DOM-элемент.
 
 [source,java,indent=0]
 ----

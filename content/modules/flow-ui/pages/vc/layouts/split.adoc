@@ -46,7 +46,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/v23/components/split-layout/#orientation" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/split-layout/#orientation" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -60,7 +60,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/v23/components/split-layout/#splitter-position" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/split-layout/#splitter-position" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -71,7 +71,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/v23/components/split-layout/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/split-layout/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -83,4 +83,4 @@ xref:vc/common-attributes.adoc#width[width]
 
 == Смотрите также
 
-Дополнительную информацию смотрите в https://vaadin.com/docs/v23/components/split-layout[документации Vaadin^].
+Дополнительную информацию смотрите в https://vaadin.com/docs/v24/components/split-layout[документации Vaadin^].

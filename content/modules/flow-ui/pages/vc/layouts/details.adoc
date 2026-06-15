@@ -54,7 +54,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/v23/components/details/#summary" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/details/#summary" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -65,7 +65,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/v23/components/details/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/details/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

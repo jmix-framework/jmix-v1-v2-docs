@@ -125,4 +125,4 @@ image::visual-components/components/big-decimal-field-data-binding.png[align="ce
 
 == Смотрите также
 
-Смотрите https://vaadin.com/docs/latest/components/number-field[документацию Vaadin^] для получения дополнительной информации.
+Смотрите https://vaadin.com/docs/v24/components/number-field[документацию Vaadin^] для получения дополнительной информации.
