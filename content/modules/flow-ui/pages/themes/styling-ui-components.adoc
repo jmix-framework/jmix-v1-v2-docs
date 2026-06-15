@@ -140,7 +140,7 @@ public void onInit(final InitEvent event) {
 
 A drawback with this approach is that it’s not possible to apply styles to parts of components, or based on their states.
 
-Another option is to use CSS properties – either the built-in https://vaadin.com/docs/latest/styling/lumo/lumo-style-properties[Lumo properties^] or custom ones – that are statically applied using CSS, but whose values are set through application logic:
+Another option is to use CSS properties – either the built-in https://vaadin.com/docs/v24/styling/lumo/lumo-style-properties[Lumo properties^] or custom ones – that are statically applied using CSS, but whose values are set through application logic:
 
 [source,css,indent=0]
 ----

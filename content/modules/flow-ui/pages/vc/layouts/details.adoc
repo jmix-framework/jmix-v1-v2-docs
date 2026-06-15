@@ -54,7 +54,7 @@ Specifies whether the panel is opened.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/details/#summary" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/details/#summary" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -65,7 +65,7 @@ Specifies the text that provides a summary of what is hidden in the component.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/details/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/details/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -98,4 +98,4 @@ xref:vc/components/tooltip.adoc[tooltip]
 
 == See Also
 
-See the https://vaadin.com/docs/latest/components/details[Vaadin Docs^] for more information.
+See the https://vaadin.com/docs/v24/components/details[Vaadin Docs^] for more information.

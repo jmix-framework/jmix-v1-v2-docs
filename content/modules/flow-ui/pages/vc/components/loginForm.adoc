@@ -179,4 +179,4 @@ include::example$onboarding/src/main/java/com/company/onboarding/view/component/
 
 == See Also
 
-See https://vaadin.com/docs/latest/components/login[Vaadin Docs^] for more information.
+See https://vaadin.com/docs/v24/components/login[Vaadin Docs^] for more information.

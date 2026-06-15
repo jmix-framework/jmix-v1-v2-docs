@@ -448,4 +448,4 @@ include::../handler-generation-tip.adoc[]
 
 == See Also
 
-See the https://vaadin.com/docs/latest/components/combo-box[Vaadin Docs^] for more information.
+See the https://vaadin.com/docs/v24/components/combo-box[Vaadin Docs^] for more information.

@@ -58,7 +58,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/component/Slid
 <1> Using the `@DomEvent` annotation to connect a Slider component to the `custom-slide-changed` DOM event.
 <2> Using the `@EventData` annotation to define additional event data, the slider's value in this case.
 
-TIP: More information about creating custom components can be found in Vaadin documentation: https://vaadin.com/docs/latest/flow/advanced/loading-resources#using-annotations[Importing JavaScript & CSS^], https://vaadin.com/docs/latest/flow/create-ui/web-components[Integrating Web Components^], https://vaadin.com/docs/latest/flow/create-ui/element-api[Element API^].
+TIP: More information about creating custom components can be found in Vaadin documentation: https://vaadin.com/docs/v24/flow/advanced/loading-resources#using-annotations[Importing JavaScript & CSS^], https://vaadin.com/docs/v24/flow/create-ui/web-components[Integrating Web Components^], https://vaadin.com/docs/v24/flow/create-ui/element-api[Element API^].
 
 [[usage-example]]
 == Usage Example

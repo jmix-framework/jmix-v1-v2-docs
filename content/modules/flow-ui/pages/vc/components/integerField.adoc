@@ -118,7 +118,7 @@ include::example$/onboarding/src/main/resources/com/company/onboarding/view/comp
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/number-field#step" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/number-field#step" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -176,4 +176,4 @@ The following attributes are specific to `integerField`:
 
 == See Also
 
-See the https://vaadin.com/docs/latest/components/number-field[Vaadin Docs^] for more information.
+See the https://vaadin.com/docs/v24/components/number-field[Vaadin Docs^] for more information.

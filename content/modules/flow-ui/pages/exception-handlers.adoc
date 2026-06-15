@@ -28,7 +28,7 @@ include::example$/onboarding/src/main/java/com/company/onboarding/exception/MyEx
 
 Your exception handler will be automatically added to the list of handlers by the framework. You can adjust the position of your handler in the list by adding the `@Order` annotation to your bean. For example, if you set the order as `@Order(JmixOrder.HIGHEST_PRECEDENCE - 10)`, your handler will have a priority over a framework's handler for the same exception.
 
-If you need more control over determining what exceptions should be processed by your handler, either override the `canHandle()` method of the `AbstractUiExceptionHandler` base class, or don't use `AbstractUiExceptionHandler` at all and implement the `UiExceptionHandler` interface directly. See also https://vaadin.com/docs/latest/advanced/custom-error-handler[Vaadin documentation^] for how to handle UI exceptions on the lower level.
+If you need more control over determining what exceptions should be processed by your handler, either override the `canHandle()` method of the `AbstractUiExceptionHandler` base class, or don't use `AbstractUiExceptionHandler` at all and implement the `UiExceptionHandler` interface directly. See also https://vaadin.com/docs/v24/advanced/custom-error-handler[Vaadin documentation^] for how to handle UI exceptions on the lower level.
 
 [[unique-constraint-violation-handler]]
 == Unique Constraint Violation Handler

@@ -35,7 +35,7 @@ image::visual-components/creating-components/composite-component.png[align="cent
 [[custom-field]]
 == Using CustomField
 
-https://vaadin.com/docs/latest/components/custom-field[CustomField^] is a base class for wrapping multiple components into a single field. It provides standard input field features such as label, helper, and validation. Use it to create custom input components.
+https://vaadin.com/docs/v24/components/custom-field[CustomField^] is a base class for wrapping multiple components into a single field. It provides standard input field features such as label, helper, and validation. Use it to create custom input components.
 
 The previous example can be rewritten as `CustomField`:
 

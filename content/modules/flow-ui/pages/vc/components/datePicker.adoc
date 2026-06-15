@@ -196,7 +196,7 @@ Defines whether an overlay calendar opens when the user starts typing a date.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -207,7 +207,7 @@ Specifies the latest date that can be selected. Accepted format is `yyyy-MM-dd`.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#min-max-value" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -272,4 +272,4 @@ xref:vc/components/tooltip.adoc[tooltip] -
 
 == See Also
 
-See https://vaadin.com/docs/latest/components/date-picker[Vaadin Docs^] for more information.
+See https://vaadin.com/docs/v24/components/date-picker[Vaadin Docs^] for more information.

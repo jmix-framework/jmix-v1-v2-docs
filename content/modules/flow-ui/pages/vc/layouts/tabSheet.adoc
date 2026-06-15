@@ -218,4 +218,4 @@ image:visual-components/layouts/tabsheet-no-padding.png[align="center", width=36
 
 == See Also
 
-See https://vaadin.com/docs/latest/components/tabs[Vaadin Docs^] for more information.
+See https://vaadin.com/docs/v24/components/tabs[Vaadin Docs^] for more information.

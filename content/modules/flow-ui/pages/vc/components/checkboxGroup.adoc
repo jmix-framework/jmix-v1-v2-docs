@@ -178,4 +178,4 @@ Alternatively, you can render items using a nested `fragmentRenderer` element. R
 
 == See Also
 
-See the https://vaadin.com/docs/latest/components/checkbox[Vaadin Docs^] for more information.
+See the https://vaadin.com/docs/v24/components/checkbox[Vaadin Docs^] for more information.

@@ -149,4 +149,4 @@ include::../handler-generation-tip.adoc[]
 
 == See Also
 
-See the https://vaadin.com/docs/latest/components/avatar[Vaadin Docs^] for more information.
+See the https://vaadin.com/docs/v24/components/avatar[Vaadin Docs^] for more information.

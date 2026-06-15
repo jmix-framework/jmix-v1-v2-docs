@@ -1,6 +1,6 @@
 = Using the Element API
 
-This section demonstrates how to create a component using the https://vaadin.com/docs/latest/flow/create-ui/element-api[Element API^] and a single DOM element.
+This section demonstrates how to create a component using the https://vaadin.com/docs/v24/flow/create-ui/element-api[Element API^] and a single DOM element.
 
 [source,java,indent=0]
 ----

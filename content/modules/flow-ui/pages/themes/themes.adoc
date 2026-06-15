@@ -5,7 +5,7 @@ Themes are used to manage the visual presentation of the application.
 
 A theme consists of CSS files and other resources like images and fonts.
 
-Jmix provides *jmix-lumo* theme built on top of Vaadin's https://vaadin.com/docs/latest/styling/lumo[Lumo^] theme.
+Jmix provides *jmix-lumo* theme built on top of Vaadin's https://vaadin.com/docs/v24/styling/lumo[Lumo^] theme.
 
 [[applying-theme]]
 == Applying a Theme
@@ -30,7 +30,7 @@ public class MyProjectApplication implements AppShellConfigurator {
 }
 ----
 
-NOTE: Themes cannot be switched at runtime. Although a project may have multiple themes, only one can be applied for the UI. However, there are ways to https://vaadin.com/docs/latest/styling/advanced/runtime-theme-switching[switch between variants^] of the same theme and https://vaadin.com/docs/latest/styling/advanced/loading-styles-dynamically[load dynamically additional styles^] on top of a theme.
+NOTE: Themes cannot be switched at runtime. Although a project may have multiple themes, only one can be applied for the UI. However, there are ways to https://vaadin.com/docs/v24/styling/advanced/runtime-theme-switching[switch between variants^] of the same theme and https://vaadin.com/docs/v24/styling/advanced/loading-styles-dynamically[load dynamically additional styles^] on top of a theme.
 
 [[application-theme]]
 == Application Theme
@@ -86,7 +86,7 @@ To select the desired appearance of UI-components, use the controls in the right
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/styling/advanced/multi-app-themes" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/styling/advanced/multi-app-themes" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

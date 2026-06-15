@@ -167,7 +167,7 @@ If the `disableOnClick` attribute is set to `true`, the button will be automatic
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/icons" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/icons" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -226,7 +226,7 @@ image::visual-components/components/button-icon-svg.png[align="center", width="1
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/button/#buttons-with-icons" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/button/#buttons-with-icons" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

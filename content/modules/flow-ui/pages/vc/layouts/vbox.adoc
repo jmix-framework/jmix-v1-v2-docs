@@ -71,7 +71,7 @@ For xref:vc/layout-rules.adoc#justify-content-mode[usage examples] visit the Lay
 |Sets spacing between components within a layout. Possible values: `true`, `false`.
 |`false`
 |[[wrap]]wrap
-|If `true` enables components to flow onto a new line when space runs out. See https://vaadin.com/docs/latest/components/vertical-layout#wrapping[Wrapping] in the Vaadin documentation.
+|If `true` enables components to flow onto a new line when space runs out. See https://vaadin.com/docs/v24/components/vertical-layout#wrapping[Wrapping] in the Vaadin documentation.
 |`false`
 |===
 

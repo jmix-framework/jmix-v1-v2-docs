@@ -46,7 +46,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/scroller/#scroll-direction" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/scroller/#scroll-direction" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -67,4 +67,4 @@ include::../handler-generation-tip.adoc[]
 
 == See Also
 
-See https://vaadin.com/docs/latest/components/scroller[Vaadin Docs^] for more information.
+See https://vaadin.com/docs/v24/components/scroller[Vaadin Docs^] for more information.

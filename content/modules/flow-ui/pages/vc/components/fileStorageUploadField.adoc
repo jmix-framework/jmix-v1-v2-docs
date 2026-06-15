@@ -239,7 +239,7 @@ The default value is `false`.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/upload/#drag-drop" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/upload/#drag-drop" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -287,7 +287,7 @@ CAUTION: The xref:vc/common-handlers.adoc#ComponentValueChangeEvent[ComponentVal
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/upload/#file-size" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/upload/#file-size" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

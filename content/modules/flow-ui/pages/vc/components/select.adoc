@@ -343,13 +343,13 @@ The following attributes are specific to `select`:
 |Defines the enumeration class for creating a list of items. See <<items-enum,Items Enum>>.
 |
 |[[noVerticalOverlap]]noVerticalOverlap
-|When `false`, the overlay is shown on top of the input field. When `true`, the overlay does not cover the input field. See this in https://vaadin.com/docs/latest/components/select#overlay-position[Vaadin documentation^].
+|When `false`, the overlay is shown on top of the input field. When `true`, the overlay does not cover the input field. See this in https://vaadin.com/docs/v24/components/select#overlay-position[Vaadin documentation^].
 |`false`
 |[[overlayClass]]overlayClass
 |Defines a space-delimited list of CSS class names to set on the overlay element. See <<overlay, Overlay>>.
 |
 |[[overlayWidth]]overlayWidth
-|Specifies the overlay’s width. If omitted (default), the overlay automatically adjusts its width to match the widest option or at least the input field’s width. See this in https://vaadin.com/docs/latest/components/select#overlay-width[Vaadin documentation^].
+|Specifies the overlay’s width. If omitted (default), the overlay automatically adjusts its width to match the widest option or at least the input field’s width. See this in https://vaadin.com/docs/v24/components/select#overlay-width[Vaadin documentation^].
 |
 |===
 

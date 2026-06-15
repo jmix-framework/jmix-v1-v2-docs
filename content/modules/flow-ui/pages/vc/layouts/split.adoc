@@ -46,7 +46,7 @@ xref:vc/common-attributes.adoc#width[width]
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/split-layout/#orientation" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/split-layout/#orientation" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -60,7 +60,7 @@ Defines split orientation. Possible values:
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/split-layout/#splitter-position" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/split-layout/#splitter-position" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -71,7 +71,7 @@ Explicitly sets the initial splitter position as a percentage value.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/split-layout/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/split-layout/#theme-variants" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -83,4 +83,4 @@ Sets a different theme to change component’s appearance. The possible values a
 
 == See Also
 
-See https://vaadin.com/docs/latest/components/split-layout[Vaadin Docs^] for more information.
+See https://vaadin.com/docs/v24/components/split-layout[Vaadin Docs^] for more information.

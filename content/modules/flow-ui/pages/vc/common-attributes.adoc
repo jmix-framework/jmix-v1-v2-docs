@@ -6,7 +6,7 @@
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -123,7 +123,7 @@ Possible values are `true`, `false`. By default, all components are not focused.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hasstyle-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hasstyle-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -142,7 +142,7 @@ Jmix Studio provides enhanced support for entering `classNames` in UI component 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#clear-button" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#clear-button" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -218,7 +218,7 @@ Set this attribute if the component is not linked to an entity attribute. Otherw
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#date-format" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#date-format" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -229,7 +229,7 @@ Sets a preferred format for date values in the component. By default, the curren
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/enabled-state" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/enabled-state" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -261,7 +261,7 @@ Defines the xref:keyboard-shortcuts.adoc[keyboard shortcut] that is used to plac
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -276,7 +276,7 @@ For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout R
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -311,7 +311,7 @@ Available for projects with version 2.7.2+.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#basic-features" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -330,7 +330,7 @@ The attribute value can either be the text itself or a key in the xref:localizat
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -349,7 +349,7 @@ For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout R
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -366,7 +366,7 @@ Sets the maximum number of characters a field accepts.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -392,7 +392,7 @@ Set this attribute if the component is not linked to a xref:data/data-containers
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -412,7 +412,7 @@ For xref:vc/layout-rules.adoc#component-sizes[usage examples] visit the Layout R
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -429,7 +429,7 @@ Sets the minimum number of characters a field accepts.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -453,7 +453,7 @@ Specifies a list of CSS class names to set on the overlay element.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#pattern" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#pattern" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -464,7 +464,7 @@ Sets a regular expression for the value to check to the client-side. The pattern
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field/#placeholder" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field/#placeholder" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -482,7 +482,7 @@ Sets the name of an xref:data-model:entities.adoc[entity] attribute, which value
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#read-only-disabled" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#read-only-disabled" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -493,7 +493,7 @@ Specifies whether the component is in read-only mode.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -506,7 +506,7 @@ Use the xref:flow-ui:ui-properties.adoc#jmix.ui.component.immediate-required-val
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/text-field#constraints" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -572,7 +572,7 @@ Sets the value of the component. If the new value is not equal to `getValue()`, 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -593,7 +593,7 @@ Use <<valueChangeTimeout>> to configure `LAZY` and `TIMEOUT`.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/tools/collaboration/components/collaboration-binder#eagerly-propagate-values" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -606,7 +606,7 @@ This attribute only affects delayed modes (`LAZY`, `TIMEOUT`) and is ignored by 
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/basic-features/#visibility" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/basic-features/#visibility" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -616,7 +616,7 @@ Sets visibility of the component.
 == weekNumbersVisible
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/components/date-picker#week-numbers" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/components/date-picker#week-numbers" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 
@@ -640,7 +640,7 @@ Default value is `NORMAL`.
 
 ++++
 <div class="jmix-ui-live-demo-container">
-    <a href="https://vaadin.com/docs/latest/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
+    <a href="https://vaadin.com/docs/v24/create-ui/creating-components/mixins/#hassize-interface" class="vaadin-docs-btn" target="_blank">Vaadin</a>
 </div>
 ++++
 

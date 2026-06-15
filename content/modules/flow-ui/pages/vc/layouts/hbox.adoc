@@ -141,7 +141,7 @@ The following attributes are specific to `hbox`:
 |Sets spacing between components within a layout. Possible values: `true`, `false`.
 |`false`
 |[[wrap]]wrap
-|If `true` enables components to flow onto a new line when space runs out. See https://vaadin.com/docs/latest/components/horizontal-layout#wrapping[Wrapping] in the Vaadin documentation.
+|If `true` enables components to flow onto a new line when space runs out. See https://vaadin.com/docs/v24/components/horizontal-layout#wrapping[Wrapping] in the Vaadin documentation.
 |`false`
 |===
 
