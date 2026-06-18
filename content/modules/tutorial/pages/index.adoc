@@ -21,7 +21,7 @@ Check system requirements and install Jmix Studio and Java Development Kit (JDK)
 
 You will build an application that automates the employee onboarding process. Each company department has an HR manager who is responsible for registering new employees and assigning them a set of onboarding tasks. The new hire can then view and mark these tasks as completed.
 
-The complete application source code is available in the https://github.com/jmix-framework/jmix-onboarding-2[jmix-framework/jmix-onboarding-2^] GitHub repository. We recommend following instructions of this tutorial to create the application step by step, but if you want to just investigate the completed example, clone the repository and open it in Jmix Studio as described in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section.
+The complete application source code is available in the https://github.com/jmix-framework/jmix-onboarding[jmix-framework/jmix-onboarding^] GitHub repository. We recommend following instructions of this tutorial to create the application step by step, but if you want to just investigate the completed example, clone the repository and open it in Jmix Studio as described in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section.
 
 Below we will take a closer look at the data model, user roles and get familiar with the user interface that we are going to build.
 
