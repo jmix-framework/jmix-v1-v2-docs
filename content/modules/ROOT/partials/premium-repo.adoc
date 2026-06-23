@@ -5,7 +5,7 @@
 repositories {
     // ...
     maven {
-        url = 'https://global.repo.jmix.io/repository/premium'
+        url = 'https://nexus.jmix.io/repository/premium'
         credentials {
             username = rootProject['premiumRepoUser']
             password = rootProject['premiumRepoPass']
