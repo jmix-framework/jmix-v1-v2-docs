@@ -4,7 +4,7 @@ site:
   url: https://docs.jmix.io/1.x/
 content:
   sources: 
-  - url: https://github.com/jmix-framework/jmix-docs.git
+  - url: https://github.com/jmix-framework/jmix-v1-v2-docs.git
     branches:
     - release_1_7
     - release_1_6
