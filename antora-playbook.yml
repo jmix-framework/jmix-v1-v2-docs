@@ -1,7 +1,7 @@
 site:
   title: Jmix Documentation
   start_page: jmix:ROOT:intro.adoc
-  url: https://docs.jmix.io/
+  url: https://docs.jmix.io/2.x
 content:
   sources: 
   - url: ./
