@@ -10,7 +10,8 @@
     <li class="component{{#if (eq this @root.page.component)}} is-current{{/if}}">
       <a class="title" href="{{{relativize ./url}}}">{{{./title}}}</a>
       <ul class="versions">
-        <li class="version"><a href="https://docs.jmix.io/">2.x</a></li>
+        <li class="version"><a href="https://docs.jmix.io/">v3</a></li>
+        <li class="version"><a href="https://docs.jmix.io/2.x/">v2</a></li>
         {{#each ./versions}}
         <li class="version
           {{~#if (and (eq .. @root.page.component) (eq this @root.page.componentVersion))}} is-current{{/if~}}
