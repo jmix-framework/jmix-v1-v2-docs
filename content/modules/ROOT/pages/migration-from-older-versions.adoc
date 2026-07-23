@@ -12,12 +12,13 @@ For these older applications, we recommend creating a new Jmix {page-component-v
 * https://github.com/jmix-framework/jmix-migration-from-cuba-platform[jmix-framework/jmix-migration-from-cuba-platform^] is for migration from CUBA Platform 7.2
 * https://github.com/jmix-framework/jmix-migration-from-v1[jmix-framework/jmix-migration-from-v1^] if for migration from Jmix 1.x
 
+[[recommended-migration-approach]]
 == Recommended Migration Approach
 
 The recommended workflow is as follows:
 
 . Create a new target project in Jmix Studio using the current Jmix version. Use the same base package as in the source application.
-. Install the latest Jmix agent guidelines in the target project from the https://github.com/jmix-framework/jmix-agent-guidelines[jmix-framework/jmix-agent-guidelines^] repository: copy the `AGENTS.md` file to the target project and make the `skills/` directory available to your AI agent.
+. Install the latest Jmix agent skills, instructions and tools from the https://github.com/jmix-framework/jmix-agent-toolkit/tree/v2[jmix-framework/jmix-agent-toolkit^] repository.
 . Keep the source project and the new target project side by side in one workspace.
 . Open both projects in IntelliJ IDEA and enable the IntelliJ IDEA MCP Server so the AI agent can inspect code, project structure, and IDE analysis results.
 . Ask the agent to migrate the application in small, controlled steps instead of trying to convert everything at once.

@@ -83,11 +83,12 @@ CAUTION: If you connect to the internet via a proxy server, some Java system pro
 
 You can speed up the development of Jmix applications by using AI coding agents.
 
-To enable an AI agent to work effectively with Jmix patterns, architecture, and best practices, we recommend using the https://github.com/jmix-framework/jmix-agent-guidelines[Jmix AI Agent Guidelines^]. These guidelines provide:
+To enable an AI agent to work effectively with Jmix patterns, architecture, and best practices, we recommend using the https://github.com/jmix-framework/jmix-agent-toolkit/tree/v2[Jmix Agent Toolkit^]. This toolkit provides:
 
 * Architecture Overview: Deep understanding of Jmix-specific patterns.
 * Agent Skills: Specialized knowledge for developing entities, UI views, data access, and more.
 * Development Workflow: Optimized instructions for AI agents to follow Jmix-specific mandatory rules.
+* Configuration of recommended MCP servers and CLI tools.
 
 [[Troubleshooting]]
 == Troubleshooting
