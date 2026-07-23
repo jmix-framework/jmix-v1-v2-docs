@@ -12,12 +12,13 @@
 * https://github.com/jmix-framework/jmix-migration-from-cuba-platform[jmix-framework/jmix-migration-from-cuba-platform^] – для миграции с CUBA 7.2
 * https://github.com/jmix-framework/jmix-migration-from-v1[jmix-framework/jmix-migration-from-v1^] – для миграции с Jmix 1.x
 
+[[recommended-migration-approach]]
 == Рекомендуемый подход к миграции
 
 Рекомендуемый порядок действий следующий:
 
 . Создайте новый целевой проект в Jmix Studio, используя текущую версию Jmix. Используйте тот же базовый пакет, что и в исходном приложении.
-. Установите в целевой проект последние рекомендации для агентов из репозитория https://github.com/jmix-framework/jmix-agent-guidelines[jmix-framework/jmix-agent-guidelines^]: скопируйте файл `AGENTS.md` в целевой проект и сделайте каталог `skills/` доступным для вашего ИИ-агента.
+. Установите свежие навыки, инструкции и инструменты для агентов из репозитория https://github.com/jmix-framework/jmix-agent-toolkit/tree/v2[jmix-framework/jmix-agent-toolkit^].
 . Держите исходный проект и новый целевой проект рядом в одном рабочем пространстве.
 . Откройте оба проекта в IntelliJ IDEA и включите MCP-сервер IntelliJ IDEA, чтобы ИИ-агент мог анализировать код, структуру проекта и результаты анализа IDE.
 . Попросите агента выполнять миграцию приложения небольшими контролируемыми шагами, а не пытаться преобразовать всё сразу.
