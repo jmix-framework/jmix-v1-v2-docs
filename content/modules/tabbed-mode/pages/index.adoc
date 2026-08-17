@@ -1,32 +1,32 @@
 = Tabbed Application Mode
 
-This add-on allows you to open views in separate tabs within the main view, allowing users to simultaneously access multiple views in a single browser tab and switch between them easily. It also supports opening multiple views within the same main view tab, creating a view stack represented by breadcrumbs.
+Дополнение позволяет открывать экраны в отдельных вкладках внутри главного экрана. Благодаря этому пользователи могут одновременно работать с несколькими экранами в одной вкладке браузера и быстро переключаться между ними. Экраны можно открывать последовательно в одной вкладке. В этом случае они образуют стек с навигацией в виде хлебных крошек.
 
 image::tabbed-mode-overview.png[align="center",width="1214"]
 
 
 [[installation]]
-== Installation
+== Установка
 
 [NOTE]
 ====
-This add-on requires the Enterprise https://www.jmix.io/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get a trial version.
+Для этого дополнения требуется  https://www.jmix.ru/subscription-plans-and-prices/[Enterprise подписка^]. Если у вас нет подписки, ознакомьтесь с разделом xref:ROOT:account-management.adoc#enterprise-trial[Пробная Enterprise+BPM подписка], чтобы получить пробную версию.
 ====
 
-For new projects, use a dedicated project template:
+Для новых проектов используйте специальный шаблон проекта:
 
 image::project-template.png[align="center",width="912"]
 
-To transition an existing project to tabbed mode, follow these steps:
+Чтобы перевести существующий проект в режим вкладок, выполните следующие шаги.
 
-. Make sure the premium repository is defined in `build.gradle`:
+. Убедитесь, что премиум-репозиторий определен в `build.gradle`:
 +
 [source,groovy]
 ----
 repositories {
     // ...
     maven {
-        url = 'https://global.repo.jmix.io/repository/premium'
+        url = 'https://nexus.jmix.io/repository/premium'
         credentials {
             username = rootProject['premiumRepoUser']
             password = rootProject['premiumRepoPass']
@@ -34,28 +34,28 @@ repositories {
     }
 ----
 
-. Add the following dependency to your `build.gradle`:
+. Добавьте следующую зависимость в ваш `build.gradle`:
 +
 [source,groovy,indent=0]
 ----
 implementation 'io.jmix.tabbedmode:jmix-tabbedmode-flowui-starter'
 ----
 
-. Change base class of the `MainView.java` from `StandardMainView` to `StandardTabbedModeMainView`.
+. Измените базовый класс `MainView.java` с `StandardMainView` на `StandardTabbedModeMainView`.
 +
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=baseClass;!notifications;!tabsCollectionChangeEvent;!selectedChangeEvent]
 ----
 
-. In the `main-view.xml`, change the `xmlns` attribute value of the `mainView` element to use the XSD schema from the add-on:
+. В файле `main-view.xml` измените значение атрибута `xmlns` элемента `mainView`, чтобы использовать XSD-схему дополнения:
 +
 [source,xml,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/main-view.xml[tags=mainView]
 ----
 +
-Then replace `initialLayout` with the following `workArea` definition:
+Затем замените `initialLayout` следующим определением `workArea`:
 +
 [source,xml,indent=0]
 ----

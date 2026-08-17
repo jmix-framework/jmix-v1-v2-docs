@@ -1,37 +1,37 @@
-= Tabbed App Mode Properties
+= Свойства Tabbed Application Mode
 
 [[jmix.tabmod.max-tab-count]]
 == jmix.tabmod.max-tab-count
 
-Defines the maximum number of tabs that can be opened in the main application view. The value of `0` disables this limitation.
+Определяет максимальное количество вкладок, которые можно открыть в главном экране приложения. Значение `0` отключает это ограничение.
 
-Default value: `20`
+Значение по умолчанию: `20`
 
 [[jmix.tabmod.show-breadcrumbs]]
 == jmix.tabmod.show-breadcrumbs
 
-Defines whether the breadcrumbs, which normally appear at the top of the main view's working area, are visible.
+Определяет, отображаются ли хлебные крошки, которые обычно показываются в верхней части рабочей области главного экрана.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.tabmod.multiple-open]]
 == jmix.tabmod.multiple-open
 
-Defines whether a view should be opened multiple times from the main menu if the `@MultipleOpen` annotation is not present on the view.
+Определяет, должен ли экран открываться несколько раз из главного меню, если у него отсутствует аннотация `@MultipleOpen`.
 
-Default value: `false`
+Значение по умолчанию: `false`
 
 [[jmix.tabmod.default-view-closeable]]
 == jmix.tabmod.default-view-closeable
 
-Defines whether a view defined in xref:flow-ui:ui-properties.adoc#jmix.ui.default-view-id[jmix.ui.default-view-id] can be closed by standard operations like a tab's close button and close tab actions.
+Определяет, можно ли закрыть экран, заданный в xref:flow-ui:ui-properties.adoc#jmix.ui.default-view-id[jmix.ui.default-view-id], стандартными операциями, такими как кнопка закрытия вкладки и действия закрытия вкладок.
 
-Default value: `true`
+Значение по умолчанию: `true`
 
 [[jmix.tabmod.open-next-tab-shortcut]]
 == jmix.tabmod.open-next-tab-shortcut
 
-Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to navigate to the next tab. For example:
+Определяет xref:flow-ui:keyboard-shortcuts.adoc[комбинацию клавиш], используемую для перехода к следующей вкладке. Например:
 
 [source,properties]
 ----
@@ -41,7 +41,7 @@ jmix.tabmod.open-next-tab-shortcut=CONTROL-SHIFT-ARROW_RIGHT
 [[jmix.tabmod.open-previous-tab-shortcut]]
 == jmix.tabmod.open-previous-tab-shortcut
 
-Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to navigate to the previous tab. For example:
+Определяет xref:flow-ui:keyboard-shortcuts.adoc[комбинацию клавиш], используемую для перехода к предыдущей вкладке. Например:
 
 [source,properties]
 ----
@@ -51,14 +51,14 @@ jmix.tabmod.open-previous-tab-shortcut=CONTROL-SHIFT-ARROW_LEFT
 [[jmix.tabmod.close-this-tab-shortcut]]
 == jmix.tabmod.close-this-tab-shortcut
 
-Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:main-tab-sheet.adoc#tabmod_closeThisTab[tabmod_closeThisTab] action.
+Определяет xref:flow-ui:keyboard-shortcuts.adoc[комбинацию клавиш], используемую для выполнения действия xref:main-tab-sheet.adoc#tabmod_closeThisTab[tabmod_closeThisTab].
 
 [[jmix.tabmod.close-other-tabs-shortcut]]
 == jmix.tabmod.close-other-tabs-shortcut
 
-Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:main-tab-sheet.adoc#tabmod_closeOtherTabs[tabmod_closeOtherTabs] action.
+Определяет xref:flow-ui:keyboard-shortcuts.adoc[комбинацию клавиш], используемую для выполнения действия xref:main-tab-sheet.adoc#tabmod_closeOtherTabs[tabmod_closeOtherTabs].
 
 [[jmix.tabmod.close-all-tabs-shortcut]]
 == jmix.tabmod.close-all-tabs-shortcut
 
-Defines the xref:flow-ui:keyboard-shortcuts.adoc[keyboard shortcut] that is used to execute xref:main-tab-sheet.adoc#tabmod_closeAllTabs[tabmod_closeAllTabs] action.
+Определяет xref:flow-ui:keyboard-shortcuts.adoc[комбинацию клавиш], используемую для выполнения действия xref:main-tab-sheet.adoc#tabmod_closeAllTabs[tabmod_closeAllTabs].

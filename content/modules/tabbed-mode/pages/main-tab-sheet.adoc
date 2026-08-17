@@ -1,14 +1,14 @@
 = MainTabSheet Component
 
-A container that is intended to display open views in tabs. Only the content of the selected tab is visible at a time.
+Контейнер, предназначенный для отображения открытых экранов на вкладках. Одновременно видно только содержимое выбранной вкладки.
 
 [cols="1h,6", grid=none]
 |===
-|XML Element
+|XML-элемент
 |`mainTabSheet`
-|Java Class
+|Java-класс
 |`MainTabSheet`
-|Attributes
+|Атрибуты
 |xref:flow-ui:vc/common-attributes.adoc#id[id] -
 xref:flow-ui:vc/common-attributes.adoc#alignSelf[alignSelf] -
 xref:flow-ui:vc/common-attributes.adoc#classNames[classNames] -
@@ -23,21 +23,21 @@ xref:flow-ui:vc/common-attributes.adoc#minWidth[minWidth] -
 xref:flow-ui:vc/common-attributes.adoc#visible[visible] -
 <<theme-variants, themeNames>> -
 <<drag-and-drop, tabsDraggable>>
-|Handlers
+|Обработчики
 |xref:flow-ui:vc/common-handlers.adoc#AttachEvent[AttachEvent] -
 xref:flow-ui:vc/common-handlers.adoc#DetachEvent[DetachEvent] -
 <<selected-change-event, SelectedChangeEvent>> -
 <<tabs-collection-change-event, TabsCollectionChangeEvent>>
-|Elements
+|Элементы
 |<<actions,actions>>
 |===
 
 [[Basics]]
-== Basics
+== Основы
 
-To create the component, use the `mainTabSheet` XML element inside the `workArea` element. Both `workArea` and `mainTabSheet` are available only in the main view descriptor.
+Для создания компонента используйте XML-элемент `mainTabSheet` внутри элемента `workArea`. И `workArea`, и `mainTabSheet` доступны только в дескрипторе главного экрана.
 
-The following example demonstrates how a basic `mainTabSheet` is created:
+Следующий пример демонстрирует создание базового `mainTabSheet`:
 
 [source,xml,indent=0]
 ----
@@ -45,82 +45,82 @@ include::example$/tabbedmode-ex1/src/main/resources/com/company/demo/view/main/m
 ----
 
 [[actions]]
-== Actions
+== Действия
 
-The `mainTabSheet` component implements the `HasActions` interface and can contain both standard and custom actions. Actions are invoked from the context menu that appears on the right click on the tabs area.
+Компонент `mainTabSheet` реализует интерфейс `HasActions` и может содержать как стандартные, так и пользовательские действия. Действия вызываются из контекстного меню, которое появляется по щелчку правой кнопкой мыши на области вкладок.
 
 image::main-tab-sheet/tabsheet-context-menu.png[align="center", width="500"]
 
-The standard actions are the following:
+Стандартными действиями являются следующие:
 
 [[tabmod_closeThisTab]]
 === tabmod_closeThisTab
 
-Action class: `CloseThisTabAction`
+Класс действия: `CloseThisTabAction`
 
-Closes the selected tab.
+Закрывает выбранную вкладку.
 
 [[tabmod_closeOtherTabs]]
 === tabmod_closeOtherTabs
 
-Action class: `CloseOtherTabsAction`
+Класс действия: `CloseOtherTabsAction`
 
-Closes all currently open tabs in the `mainTabSheet` except the selected tab.
+Закрывает все открытые вкладки в `mainTabSheet`, кроме выбранной.
 
 [[tabmod_closeAllTabs]]
 === tabmod_closeAllTabs
 
-Action class: `CloseAllTabsAction`
+Класс действия: `CloseAllTabsAction`
 
-Closes all currently open tabs in the `mainTabSheet`.
+Закрывает все открытые вкладки в `mainTabSheet`.
 
 [[drag-and-drop]]
-== Drag and Drop
+== Drag and drop
 
-`mainTabSheet` supports dragging and dropping tabs. This feature can be used, for example, to rearrange tabs.
+`mainTabSheet` поддерживает перетаскивание вкладок. Эта возможность может использоваться, например, для изменения порядка вкладок.
 
-By changing the `tabsDraggable` attribute value, you can set whether the tabs are draggable by the user. Default value is `false`.
+Изменяя значение атрибута `tabsDraggable`, вы можете разрешить или запретить пользователю перетаскивать вкладки. Значение по умолчанию — `false`.
 
 image::main-tab-sheet/tabs-reordering.gif[align="center"]
 
 [[handlers]]
-== Events and Handlers
+== События и обработчики
 
 [[selected-change-event]]
 === SelectedChangeEvent
 
-Whenever the user switches between tabs, the `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.SelectedChangeEvent` is fired. Create an event handler to execute custom code in response to the tab switch.
+При каждом переключении пользователем между вкладками генерируется событие `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.SelectedChangeEvent`. Создайте обработчик события для выполнения пользовательского кода в ответ на переключение вкладки.
 
-The following code will send a notification on every tab switch:
+Следующий код будет отправлять уведомление при каждом переключении вкладки:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=notifications;selectedChangeEvent]
 ----
 
-TIP: To generate handler method stubs in the Studio, use the *Generate Handler* button in the top panel of the screen controller code. Or you can select the component in the screen descriptor layout and use the *Handlers* tab of the *Component Inspector* panel.
+TIP: Чтобы сгенерировать заготовки методов-обработчиков в Studio, используйте кнопку *Generate Handler* на верхней панели контроллера экрана. Либо выберите компонент в дескрипторе экрана и используйте вкладку *Handlers* панели *Component Inspector*.
 
 [[tabs-collection-change-event]]
 === TabsCollectionChangeEvent
 
-Whenever the user opens or closes views, which leads to the creation of a new tab or the removal of an existing one, the `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.TabsCollectionChangeEvent` is fired. Create an event handler to execute custom code in response to the tabs collection change.
+При открытии или закрытии пользователем экранов, что приводит к созданию новой вкладки или удалению существующей, генерируется событие `io.jmix.tabbedmode.component.workarea.TabbedViewsContainer.TabsCollectionChangeEvent`. Создайте обработчик события для выполнения пользовательского кода в ответ на изменение набора вкладок.
 
-The following code will send a notification on every tabs collection change:
+Следующий код будет отправлять уведомление при каждом изменении набора вкладок:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/main/MainView.java[tags=notifications;tabsCollectionChangeEvent]
 ----
 
-TIP: To generate handler method stubs in the Studio, use the *Generate Handler* button in the top panel of the screen controller code. Or you can select the component in the screen descriptor layout and use the *Handlers* tab of the *Component Inspector* panel.
+TIP: Чтобы сгенерировать заготовки методов-обработчиков в Studio, используйте кнопку *Generate Handler* на верхней панели контроллера экрана. Либо выберите компонент в дескрипторе экрана и используйте вкладку *Handlers* панели *Component Inspector*.
 
 [[theme-variants]]
-== Theme Variants
+== Варианты темы
 
 .`centered`
 [%collapsible]
 ====
-Positions the tabs at the center of the main view, instead of their default left-aligned position:
+Располагает вкладки по центру главного экрана вместо стандартного положения по левому краю:
 
 image::main-tab-sheet/tabs-centered.png[align="center", width=700]
 ====
@@ -128,7 +128,7 @@ image::main-tab-sheet/tabs-centered.png[align="center", width=700]
 .`small`
 [%collapsible]
 ====
-Makes the tabs smaller:
+Уменьшает размер вкладок:
 
 image:main-tab-sheet/tabs-small.png[align="center", width=500]
 ====
@@ -136,7 +136,7 @@ image:main-tab-sheet/tabs-small.png[align="center", width=500]
 .`minimal`
 [%collapsible]
 ====
-Reduces visual style to only show tab labels without any additional visual elements:
+Упрощает визуальный стиль, оставляя только надписи вкладок без дополнительных визуальных элементов:
 
 image:main-tab-sheet/tabs-minimal.png[align="center", width=500]
 ====
@@ -144,7 +144,7 @@ image:main-tab-sheet/tabs-minimal.png[align="center", width=500]
 .`hide-scroll-buttons`
 [%collapsible]
 ====
-Hides the scroll buttons that assist in navigating overflown tabs:
+Скрывает кнопки прокрутки, которые помогают перемещаться между не помещающимися вкладками:
 
 image:main-tab-sheet/tabs-hide-scroll-buttons.png[align="center", width=376]
 
@@ -153,14 +153,14 @@ image:main-tab-sheet/tabs-hide-scroll-buttons.png[align="center", width=376]
 .`bordered`
 [%collapsible]
 ====
-Adds a border around the tabs themselves, as well as the content area.
+Добавляет границу вокруг самих вкладок, а также вокруг области содержимого.
 
 image:main-tab-sheet/tabsheet-bordered.png[align="center", width=832]
 ====
 
-== Tab Text Max Width
+== Максимальная ширина текста вкладки
 
-You can limit the width of the main tab text by setting the value of the CSS variable in the application theme:
+Вы можете ограничить ширину текста вкладок в `mainTabSheet`, задав значение CSS-переменной в теме приложения:
 
 [source,css,indent=0]
 ----

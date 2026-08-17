@@ -1,23 +1,23 @@
-= Migration to Tabbed Mode
+= Миграция на Tabbed Application Mode
 
-When the Tabbed Application Mode add-on is added, Vaadin's navigation functionality is disabled. As a result, navigation events like `BeforeEnterEvent` and `AfterNavigationEvent` are no longer sent to views. Consequently, you may need to refactor views that rely on these events.
+При добавлении дополнения Tabbed Application Mode встроенная навигация Vaadin отключается. В результате события навигации, такие как `BeforeEnterEvent` и `AfterNavigationEvent`, больше не отправляются экранам. Соответственно, вам может потребоваться переработать экраны, которые полагаются на эти события.
 
-To simplify refactoring, the base `View` class provides the `processBeforeEnterInternal()` method, which accepts a `BeforeEnterEvent` as an argument.
+Чтобы упростить переработку, базовый класс `View` предоставляет метод `processBeforeEnterInternal()`, принимающий `BeforeEnterEvent` в качестве аргумента.
 
 [[regular-views]]
-== Regular Views
+== Обычные экраны
 
-For example, consider a view that has a mandatory route parameter used to find the data required for further operations:
+Например, рассмотрим экран с обязательным параметром маршрута, который используется для поиска данных, необходимых для дальнейшей работы:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/roleassignment/RoleAssignmentView.java[tags=roleAssignmentViewBegin;findUser;roleAssignmentViewEnd]
 ----
-<1> View route includes a mandatory parameter.
-<2> Obtains route parameters and uses them to find a user instance.
-<3> Gets a particular route parameter and loads a user instance.
+<1> Маршрутизация к этому экрану выполняется по обязательному параметру.
+<2> Получает параметры маршрута и использует их для поиска экземпляра пользователя.
+<3> Получает конкретный параметр маршрута и загружает экземпляр пользователя.
 
-To make this view work within a tab, override the `processBeforeEnterInternal()` method and call the `findUser` method inside it:
+Чтобы этот экран работал внутри вкладки, переопределите метод `processBeforeEnterInternal()` и вызовите в нем метод `findUser`:
 
 [source,java,indent=0]
 ----
@@ -25,15 +25,15 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/roleassignm
 ----
 
 [[detail-views]]
-== Detail Views
+== Экраны деталей
 
-A detail view provides two methods for initializing the edited entity:
+Экран деталей предоставляет два метода для инициализации редактируемой сущности:
 
-* `setupEntityToEdit(String)` - invoked when a detail view is opened via navigation, and the edited entity is loaded using its `ID`, passed as a route parameter.
+* `setupEntityToEdit(String)` - вызывается при открытии экрана деталей через навигацию, когда редактируемая сущность загружается по ее `ID`, переданному в качестве параметра маршрута.
 
-* `setupEntityToEdit(Entity)` - invoked when a detail view is opened in a dialog window, and the edited entity is passed directly.
+* `setupEntityToEdit(Entity)` - вызывается при открытии экрана деталей в диалоговом окне, когда редактируемая сущность передается напрямую.
 
-Consider an example where your detail view has custom code that initializes the edited entity based on the route parameter:
+Рассмотрим пример, в котором экран деталей содержит пользовательский код, инициализирующий редактируемую сущность на основе параметра маршрута:
 
 [source,java,indent=0]
 ----
@@ -53,7 +53,7 @@ protected void initExistingEntity(String serializedEntityCode) {
 }
 ----
 
-In the example above, the actual edited entity instance is obtained by converting the data stored in the database, which is loaded using the `id` passed as a route parameter. Because this view is not intended to be opened in a dialog, it lacks corresponding code for handling a directly passed entity instance. To enable this view to function within a tab, override the `setupEntityToEdit()` method and provide an empty implementation:
+В приведенном выше примере фактический экземпляр редактируемой сущности получается путем преобразования данных, хранящихся в базе данных, которые загружаются по `id`, переданному в качестве параметра маршрута. Поскольку этот экран не предназначен для открытия в диалоговом окне, в нем отсутствует соответствующий код для обработки напрямую переданного экземпляра сущности. Чтобы этот экран мог работать внутри вкладки, переопределите метод `setupEntityToEdit()` и предоставьте пустую реализацию:
 
 [source,java,indent=0]
 ----

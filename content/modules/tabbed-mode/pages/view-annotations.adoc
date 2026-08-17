@@ -1,17 +1,19 @@
-= View Annotations
+= Аннотации экранов
 
-This section describes annotations that can be added to a view controller to provide additional settings.
+В этом разделе описываются аннотации, которые можно добавить к контроллеру экрана для задания дополнительных настроек.
 
 [[tabbed-mode-view-properties]]
 == TabbedModeViewProperties
 
-The `@TabbedModeViewProperties` annotation defines parameters of a view specific for the Tabbed Application Mode. It provides the following properties:
+Аннотация `@TabbedModeViewProperties` определяет параметры экрана, специфичные для Tabbed Application Mode. Она предоставляет следующие свойства:
 
-* `closeable` - whether a view can be closed by standard operations like a tab close button, xref:main-tab-sheet.adoc[close tab actions], `io.jmix.tabbedmode.Views.OpenedViews` and `io.jmix.tabbedmode.Views.ViewStack` methods. This means that a view can only be closed by invoking the xref:flow-ui:views/view-methods.adoc#methods-of-all-views[close()] method of the view.
+* `closeable` - определяет, можно ли закрыть экран стандартными способами, такими как кнопка закрытия вкладки, xref:main-tab-sheet.adoc[действия закрытия вкладок], методы `io.jmix.tabbedmode.Views.OpenedViews` и `io.jmix.tabbedmode.Views.ViewStack`. Это означает, что закрыть такой экран можно только вызвав метод xref:flow-ui:views/view-methods.adoc#methods-of-all-views[close()] этого экрана.
 
-* `forceDialog` - if set to `true`, the view is always opened in a dialog window, regardless of the initial setting of `ViewOpenMode`.
+* `forceDialog` - если установлено значение `true`, экран всегда открывается в диалоговом окне, независимо от начальной настройки `ViewOpenMode`.
 
 [[multiple-open]]
 == MultipleOpen
 
-The `@MultipleOpen` annotation indicates that the view can be opened from the main menu multiple times. By default, when a user clicks a main menu item, the framework checks if the view of the same class and id is already opened on top of the work area tab. If such view is found, it is closed and the new instance of the view is opened in a new tab. When the `@MultipleOpen` annotation is present, no checks are performed and a new instance of the screen is simply opened in a new tab.
+Аннотация `@MultipleOpen` позволяет открывать один и тот же экран из главного меню несколько раз. По умолчанию при выборе пункта меню фреймворк проверяет, открыт ли уже экран того же класса и с тем же идентификатором. Если такой экран найден, он закрывается, а новый экземпляр открывается в новой вкладке.
+
+При наличии `@MultipleOpen` эта проверка не выполняется: каждый раз в новой вкладке открывается новый экземпляр экрана.

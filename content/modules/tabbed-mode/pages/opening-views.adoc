@@ -1,15 +1,15 @@
-= Opening Views
+= Открытие экранов
 
-You can open views from the main view through xref:flow-ui:actions/standard-actions.adoc[standard actions] when working with list and detail entity views, or programmatically from another view.
+Экраны открываются из главного экрана через xref:flow-ui:actions/standard-actions.adoc[стандартные действия] либо программно из других экранов.
 
-The following section describes how to open views programmatically in your application code.
+В этом разделе описывается, как открывать экраны программно в коде приложения.
 
 [[using-viewbuilders-bean]]
-== Using ViewBuilders Bean
+== Использование бина ViewBuilders
 
-The `ViewBuilders` bean provides a fluent interface for opening views. Its terminal methods give access to the opened view instance. It allows you to pass input parameters directly to the view instance and add listeners for getting results back from the opened view after it is closed.
+Бин `ViewBuilders` предоставляет fluent-интерфейс для открытия экранов. Его терминальные методы предоставляют доступ к экземпляру открытого экрана. Он позволяет передавать входные параметры непосредственно в экземпляр экрана и добавлять слушатели для получения результатов из открываемого экрана после его закрытия.
 
-To open a view, inject the `ViewBuilders` bean and invoke the `view()` method, passing the current view and either the opened view's class or ID to it. Then, invoke the `open()` terminal method:
+Чтобы открыть экран, инжектируйте бин `ViewBuilders` и вызовите метод `view()`, передав ему текущий экран и класс или идентификатор открываемого экрана. Затем вызовите терминальный метод `open()`:
 
 [source,java,indent=0]
 ----
@@ -17,48 +17,48 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 ----
 
 [[opening-detail-views]]
-=== Opening Detail Views
+=== Открытие экранов деталей
 
-In most cases, you can open detail views using standard actions such as xref:flow-ui:actions/list-actions.adoc#list_create[list_create]. Let’s look at the examples when you can use the `ViewBuilders` API directly to open a detail view from an xref:flow-ui:actions.adoc[action] or xref:flow-ui:vc/components/button.adoc#ClickEvent[button] handler.
+В большинстве случаев вы можете открывать экраны деталей с помощью стандартных действий, таких как xref:flow-ui:actions/list-actions.adoc#list_create[list_create]. Рассмотрим примеры, когда можно использовать API `ViewBuilders` напрямую, чтобы открыть экран деталей из xref:flow-ui:actions.adoc[действия] или обработчика xref:flow-ui:vc/components/button.adoc#ClickEvent[кнопки].
 
-To create a new entity instance in a detail view, invoke the `newEntity()` method. For example:
+Чтобы создать новый экземпляр сущности в экране деталей, вызовите метод `newEntity()`. Например:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToCreate]
 ----
 
-To edit an existing entity in a detail view, use the `editEntity()` method, providing the entity instance to edit:
+Чтобы отредактировать существующую сущность в экране деталей, используйте метод `editEntity()`, передав редактируемый экземпляр сущности:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openDetailViewToEdit]
 ----
 
-In the examples above, the detail view will create or update the entity, but the caller view will not receive the updated instance.
+В приведенных выше примерах экран деталей создаст или обновит сущность, но вызывающий экран не получит обновленный экземпляр.
 
-If you need to edit an entity displayed by a list data view component (for example, a xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]), use the following invocation method. It's more concise and automatically updates the `dataGrid`:
+Если вам нужно отредактировать сущность, отображаемую компонентом списка данных (например, xref:flow-ui:vc/components/dataGrid.adoc[dataGrid]), используйте следующий способ вызова. Он более лаконичен и автоматически обновляет `dataGrid`:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToEdit]
 ----
 
-To create a new entity instance and open its detail view, just call the `newEntity()` method on the builder:
+Чтобы создать новый экземпляр сущности и открыть его экран деталей, просто вызовите метод `newEntity()`:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openDetailViewDataGridToCreate]
 ----
 
-Use the same concise form if you want to create or edit an entity set to a field:
+Используйте ту же лаконичную форму, если хотите создать или отредактировать сущность, установленную в поле:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openDetailViewFieldToEdit]
 ----
 
-`ViewBuilders` offers many methods for setting optional parameters of the opened view. For example, the following code creates a new entity, initializes it, and then edits it in a detail view that's opened as a dialog:
+`ViewBuilders` предоставляет множество методов для задания необязательных параметров открываемого экрана. Например, следующий код создает новый экземпляр сущности, инициализирует его, а затем редактирует в экране деталей, открытом в виде диалогового окна:
 
 [source,java,indent=0]
 ----
@@ -66,32 +66,32 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 ----
 
 [[opening-lookup-views]]
-=== Opening Lookup Views
+=== Открытие экранов выбора
 
-Let’s look at some examples of working with lookup views. As with detail views, you typically open them using standard actions like xref:flow-ui:actions/entity-picker-actions.adoc#entity_lookup[entity_lookup]. The examples below demonstrate using the ViewBuilders API, which can be helpful if you don't use standard actions.
+Рассмотрим несколько примеров работы с экранами выбора. Как и экраны деталей, их обычно открывают с помощью стандартных действий, таких как xref:flow-ui:actions/entity-picker-actions.adoc#entity_lookup[entity_lookup]. Приведенные ниже примеры демонстрируют использование API ViewBuilders, которое может быть полезно, если вы не используете стандартные действия.
 
-To select entities from a list view, open the view using the `lookup()` method:
+Чтобы выбрать сущности из экрана списка, откройте экран с помощью метода `lookup()`:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;openLookupView]
 ----
 
-If you need to set the looked up entity to a field, use the more concise form:
+Если вам нужно установить выбранную сущность в поле, используйте более лаконичную форму:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=userPicker;viewBuilders;openLookupViewSelect]
 ----
 
-Use the same concise form if you want to add the looked-up entity to a list data component, such as a `dataGrid`, for example:
+Используйте ту же лаконичную форму, если хотите добавить выбранную сущность в компонент списка данных, например `dataGrid`:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=usersDataGrid;viewBuilders;openLookupViewDataGrid]
 ----
 
-Similar to detail views, use builder methods to set optional parameters for the opened view. For example, the following code demonstrates how to look up a `User` entity using a particular lookup view opened as a dialog:
+Аналогично экранам деталей, используйте методы билдера для задания необязательных параметров открываемого экрана. Например, следующий код демонстрирует выбор сущности `User` с помощью определенного экрана выбора, открытого в виде диалогового окна:
 
 [source,java,indent=0]
 ----
@@ -99,18 +99,18 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 ----
 
 [[passing-parameters-to-views]]
-== Passing Parameters to Views
+== Передача параметров в экраны
 
-If you need to pass parameters to the opened view, add a view configurer handler using the `withViewConfigurer` method.
+Если вам нужно передать параметры в открываемый экран, добавьте обработчик конфигурации экрана с помощью метода `withViewConfigurer`.
 
-Consider the following view:
+Рассмотрим следующий экран:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/fancymessage/FancyMessageView.java[tags=fancyMessageViewFull]
 ----
 
-In the `ViewConfigurer` handler, you can invoke public setters of the opened view:
+В обработчике `ViewConfigurer` вы можете вызывать публичные сеттеры открываемого экрана:
 
 [source,java,indent=0]
 ----
@@ -118,33 +118,33 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 ----
 
 [[executing-code-after-close]]
-== Executing Code after Close and Returning Values
+== Выполнение кода после закрытия и возврат значений
 
-Each view sends xref:flow-ui:views/view-events.adoc#after-close-event[AfterCloseEvent] upon closing. When using `ViewBuilders`, you can provide a listener using the `withAfterCloseListener()` method:
+Каждый экран отправляет xref:flow-ui:views/view-events.adoc#after-close-event[AfterCloseEvent] при закрытии. При использовании `ViewBuilders` вы можете предоставить слушатель с помощью метода `withAfterCloseListener()`:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithCloseListener]
 ----
 
-The event object provides information about how the view was closed. This information can be accessed in two ways:
+Объект события предоставляет информацию о том, как был закрыт экран. Эту информацию можно получить двумя способами:
 
-* By testing whether the view was closed with one of the standard outcomes defined by the `StandardOutcome` enum.
+* Проверив, был ли экран закрыт с одним из стандартных результатов, определенных перечислением `StandardOutcome`.
 
-* By retrieving the `CloseAction` object.
+* Получив объект `CloseAction`.
 
-The former approach is simpler, while the latter offers greater flexibility.
+Первый подход проще, второй предоставляет большую гибкость.
 
-Let's examine the first approach: closing a view with a standard outcome and testing it in the calling code. Here is the view we will invoke:
+Рассмотрим первый подход: закрытие экрана со стандартным результатом и его проверку в вызывающем коде. Вот экран, который мы будем открывать:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!closeAction]
 ----
-<1> Clicking the *Save* button sets a result state and closes the view with the `StandardOutcome.SAVE` enum value.
-<2> Clicking the *Close* button closes the view with `StandardOutcome.CLOSE`.
+<1> Нажатие кнопки *Save* устанавливает состояние результата и закрывает экран со значением перечисления `StandardOutcome.SAVE`.
+<2> Нажатие кнопки *Close* закрывает экран со значением `StandardOutcome.CLOSE`.
 
-In the `AfterCloseEvent` listener, you can use the `closedWith()` method of the event to check how the view was closed. If needed, you can also read the result value:
+В слушателе `AfterCloseEvent` вы можете использовать метод `closedWith()` события, чтобы проверить, как был закрыт экран. При необходимости вы также можете прочитать значение результата:
 
 [source,java,indent=0]
 ----
@@ -152,46 +152,46 @@ include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopening
 ----
 
 [[using-custom-close-action]]
-=== Using Custom CloseAction
+=== Использование пользовательского CloseAction
 
-Another way to return values from views is by using custom `CloseAction` implementations. Let’s rewrite the previous example to use the following action class:
+Другой способ возвращать значения из экранов — использование пользовательских реализаций `CloseAction`. Перепишем предыдущий пример с использованием следующего класса действия:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/action/MyCloseAction.java[tags=myCloseAction]
 ----
 
-We can then use this action when closing the view:
+Затем мы можем использовать это действие при закрытии экрана:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/other/OtherView.java[tags=otherViewFull;!resultField]
 ----
-<1> Clicking the *Ok* button creates a custom close action and sets the result value within it.
-<2> Clicking the *Close* button closes the view with a default action provided by the framework.
+<1> Нажатие кнопки *Ok* создает пользовательское действие закрытия и устанавливает в нем значение результата.
+<2> Нажатие кнопки *Close* закрывает экран со стандартным действием, предоставляемым фреймворком.
 
-In the `AfterCloseEvent` listener, you can retrieve the `CloseAction` from the event and read the result value:
+В слушателе `AfterCloseEvent` вы можете получить `CloseAction` из события и прочитать значение результата:
 
 [source,java,indent=0]
 ----
 include::example$/tabbedmode-ex1/src/main/java/com/company/demo/view/viewopeningsandbox/ViewOpeningSandboxView.java[tags=viewBuilders;notifications;openViewWithCloseAction]
 ----
 
-As you can see, when values are returned through a custom `CloseAction`, the caller doesn’t have to know the opened view class because it doesn’t invoke methods of the specific view controller. So the view can be created by its string id.
+Как видите, когда значения возвращаются через пользовательский `CloseAction`, вызывающему коду не нужно знать класс открытого экрана, поскольку он не вызывает методы конкретного контроллера экрана. Поэтому экран может быть создан по своему строковому идентификатору.
 
 [[view-inference-conventions]]
-== View Inference Conventions
+== Соглашения о выводе экранов
 
-A lookup view or a detail view can be inferred from the entity class.
+Экран выбора или экран деталей можно открыть, указав класс сущности.
 
-When opening a list view for lookup using `viewBuilders.lookup(this, SomeEntity.class)`, the framework selects a view according the following order:
+При вызове `viewBuilders.lookup(this, SomeEntity.class)` фреймворк определяет экран выбора в следующем порядке порядке:
 
-. A view annotated with `@PrimaryLookupView(SomeEntity.class)`.
-. A view with the `SomeEntity.lookup` id.
-. A view annotated with `@PrimaryListView(SomeEntity.class)`.
-. A view with the `SomeEntity.list` id.
+. Экран, помеченный аннотацией `@PrimaryLookupView(SomeEntity.class)`.
+. Экран с идентификатором `SomeEntity.lookup`.
+. Экран, помеченный аннотацией `@PrimaryListView(SomeEntity.class)`.
+. Экран с идентификатором `SomeEntity.list`.
 
-When opening a detail view using `viewBuilders.detail(this, SomeEntity.class)`, the framework selects a view according the following order:
+При вызове `viewBuilders.detail(this, SomeEntity.class)` фреймворк определяет экран деталей в следующем порядке:
 
-. A view annotated with `@PrimaryDetailView(SomeEntity.class)`.
-. A view with the `SomeEntity.detail` id.
+. Экран, помеченный аннотацией `@PrimaryDetailView(SomeEntity.class)`.
+. Экран с идентификатором `SomeEntity.detail`.
