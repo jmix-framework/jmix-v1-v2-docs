@@ -5,10 +5,22 @@ import com.company.clientapp.entity.Customer;
 import io.jmix.restds.annotation.RemoteService;
 
 import java.util.List;
+// end::service[]
+
+import java.util.UUID;
+
+// tag::service[]
 
 @RemoteService(store = "serviceapp", remoteName = "customers")
 public interface CustomerService {
 
     List<Customer> getCustomersByName(String name);
+// end::service[]
+
+    // tag::update-service[]
+    void updateCustomerName(UUID customerId, String name);
+    // end::update-service[]
+
+// tag::service[]
 }
 // end::service[]
