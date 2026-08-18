@@ -175,7 +175,7 @@ TIP: Studio может помочь вам создать слушателей �
 include::example$/security-ex1/src/main/java/com/company/demo/security/AuthenticationEventListener.java[tags=import-user;import-logger;import-logger-factory;import-event-listener;import-auth-failure-event;import-auth-success-event;import-interactive-auth-success-event;import-logout-success-event;import-component;class]
 ----
 
-<1> `InteractiveAuthenticationSuccessEvent` посылается, когда пользователь входит в систему через UI или REST API.
+<1> `InteractiveAuthenticationSuccessEvent` посылается, когда пользователь входит в систему через UI.
 <2> `InteractiveAuthenticationSuccessEvent` содержит сущность пользователя.
 <3> `AuthenticationSuccessEvent` отправляется при любой успешной аутентификации, включая <<system,системную>>.
 +
