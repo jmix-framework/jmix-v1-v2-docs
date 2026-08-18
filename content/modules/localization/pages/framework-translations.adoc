@@ -13,6 +13,8 @@
 ----
 implementation 'io.jmix.translations:jmix-translations-ar'      // Arabic
 implementation 'io.jmix.translations:jmix-translations-ckb'     // Central Kurdish
+implementation 'io.jmix.translations:jmix-translations-cs'      // Czech
+implementation 'io.jmix.translations:jmix-translations-da'      // Danish
 implementation 'io.jmix.translations:jmix-translations-de'      // German
 implementation 'io.jmix.translations:jmix-translations-el'      // Greek
 implementation 'io.jmix.translations:jmix-translations-es'      // Spanish
@@ -24,6 +26,7 @@ implementation 'io.jmix.translations:jmix-translations-ro'      // Romanian
 implementation 'io.jmix.translations:jmix-translations-ru'      // Russian
 implementation 'io.jmix.translations:jmix-translations-tr'      // Turkish
 implementation 'io.jmix.translations:jmix-translations-zh-cn'   // Simplified Chinese
+implementation 'io.jmix.translations:jmix-translations-zh-tw'   // Traditional Chinese
 ----
 
 [[translating-framework]]
