@@ -195,6 +195,10 @@ When updating an entity, the REST data store only saves loaded attributes. If an
 
 The `EntityStates.isLoaded(entity, property)` method correctly returns information about whether a particular attribute of a REST entity is loaded.
 
+The rules above apply to saving entities through `DataManager`. The REST data store sends all loaded attributes, including those with null values, and the service application updates only the received attributes of the existing entity. The attributes that were not sent keep their values in the database.
+
+Passing an entity to a `@RemoteService` method works differently: attributes with null values are not sent at all, and the service receives a detached instance in the new state. See the <<passing-entities-to-services>> section for details.
+
 [[filtering-loaded-data]]
 == Filtering Loaded Data
 
@@ -326,11 +330,57 @@ See another example of invoking a business service method in the xref:integrated
 Methods of `@RemoteService` interfaces can have parameters and results of the following types:
 
 * Simple type: primitive (`int`, `double`, etc.), wrapper (`Integer`, `Double`, etc.), `String`.
-* xref:data-model:entities.adoc[Entity]
+* xref:data-model:entities.adoc[Entity] - see <<passing-entities-to-services,below>> for important restrictions.
 * xref:data-model:enumerations.adoc[Enumeration]
 * A type that has a corresponding xref:data-model:datatype.adoc[Datatype]. These include types supported in xref:data-model:entities.adoc#attributes[entity attributes], as well as custom data types.
 * Arbitrary POJO or Java record with fields of all above types.
 * `java.util.List` parameterized with all above types.
+====
+
+[[passing-entities-to-services]]
+=== Passing Entities to Services
+
+An entity received by a service method is not the same as an entity loaded from the database. When the client application invokes a remote service with an entity parameter, the following happens:
+
+* The client sends only non-null attributes that are <<loaded-state,loaded>> in the client entity. Attributes that are absent in the client entity or were not loaded by the fetch plan are not sent. So the service cannot distinguish between an attribute that was not loaded and an attribute that the user has cleared.
+
+* The service application creates a new entity instance and fills it with the received attributes. `EntityStates.isNew()` returns `true` for this instance even if an entity with the same identifier exists in the database. `EntityStates.isLoaded()` returns `true` for all attributes of such an instance, so it cannot be used to find out which attributes were actually sent.
+
+Therefore, a service method should use an entity parameter only for reading, for example to obtain its identifier or to perform a calculation. Do not save such an entity.
+
+For example, the following method looks natural but doesn't work as expected:
+
+[source,java]
+----
+@RestMethod
+public void updateCustomer(Customer customer) {
+    // Wrong: DataManager will try to insert a new record
+    // instead of updating the existing one
+    dataManager.save(customer);
+}
+----
+
+Instead, define the method so that it accepts the identifier of the entity and the values that should be changed:
+
+[source,java,indent=0]
+.CustomerService.java in the service application
+----
+include::example$rest-ds-service/src/main/java/com/company/serviceapp/service/CustomerService.java[tags=update-service]
+----
+
+The corresponding method of the client interface:
+
+[source,java,indent=0]
+.CustomerService.java in the client application
+----
+include::example$rest-ds-client/src/main/java/com/company/clientapp/service/CustomerService.java[tags=update-service]
+----
+
+If a method needs many values, use a Java record or a POJO as a parameter type instead of an entity.
+
+[TIP]
+====
+To save changes made by users in the client application UI, use `DataManager`. It sends all loaded attributes including their null values, and the service application updates only the received attributes of the existing entity. See the <<loaded-state>> section for details.
 ====
 
 [[using-rest-client]]
