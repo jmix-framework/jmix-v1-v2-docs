@@ -1,32 +1,32 @@
-= WebDAV Documents
+= Документы WebDAV
 
-After the add-on is added to your application, the main menu contains the *WebDAV* item.
+После того как дополнение добавлено в ваше приложение, в главном меню появляется пункт *WebDAV*.
 
-The *WebDAV Documents* view allows users to view, edit, and manage documents stored on a WebDAV server.
+Экран *WebDAV Documents* позволяет пользователям просматривать, редактировать и управлять документами, хранящимися на сервере WebDAV.
 
 image::document-browser.png[align="center", width="1462"]
 
-This view displays a list of documents and supports the following operations:
+Этот экран отображает список документов и поддерживает следующие операции:
 
-* *Upload*: The *Upload* button allows you to select and upload files to the system.
-* *Download*: The *Download* button enables you to download the most recent or previous versions of a document.
-* *Manage Versions*: The *Manage Versions* button opens the xref:version-control.adoc#webdav-document-versions[WebDAV document versions] view.
-* *Enable/Disable Versioning*: The *Enable Versioning* and *Disable Versioning* buttons control versioning for a specific document.
+* *Upload*: кнопка *Upload* позволяет выбрать и загрузить файлы в систему.
+* *Download*: кнопка *Download* позволяет скачать последнюю или предыдущие версии документа.
+* *Manage Versions*: кнопка *Manage Versions* открывает экран xref:version-control.adoc#webdav-document-versions[версий документов WebDAV].
+* *Enable/Disable Versioning*: кнопки *Enable Versioning* и *Disable Versioning* управляют версионированием для конкретного документа.
 +
 [[lock-unlock]]
-* *Lock*: To remove a document, you must first lock it by clicking the *Lock* button.
+* *Lock*: чтобы удалить документ, необходимо сначала заблокировать его, нажав кнопку *Lock*.
 +
-If other users attempt to save changes to this document, they will receive a warning indicating that the document is currently locked.
+Если другие пользователи попытаются сохранить изменения в этом документе, они получат предупреждение о том, что документ заблокирован.
 +
-The duration for which the document remains locked can be adjusted by configuring the xref:webdav-properties.adoc#jmix.webdav.lock-timeout[jmix.webdav.lock-timeout] property.
+Продолжительность блокировки документа можно настроить с помощью свойства xref:webdav-properties.adoc#jmix.webdav.lock-timeout[jmix.webdav.lock-timeout].
 
 [[collections]]
-== Collections
+== Коллекции
 
-You can create a `WebdavDocument` collection by using the *Create Collection* button on the *WebDAV Documents* view.
+Вы можете создать коллекцию `WebdavDocument`, используя кнопку *Create Collection* на экране *WebDAV Documents*.
 
-A `WebdavDocument` collection serves as a special type of `WebdavDocument` that functions as a container for other documents. The parent collection of a `WebdavDocument` is specified by the `parent` attribute. If this attribute is not defined for a document, the document is considered to belong to the root (top-level) collection.
+Коллекция `WebdavDocument` представляет собой особый тип `WebdavDocument`, который выступает в роли контейнера для других документов. Родительская коллекция документа `WebdavDocument` указывается атрибутом `parent`. Если этот атрибут не задан для документа, документ считается принадлежащим корневой (верхнего уровня) коллекции.
 
-By default, users are allowed to upload documents with the same names into the same collection (for example, the root collection may have two distinct documents both named `Contract1.docx`). If you wish to enforce uniqueness in document URIs, mimicking a real file system, you can set the xref:webdav-properties.adoc#jmix.webdav.auto-generate-unique-resource-uri[jmix.webdav.auto-generate-unique-resource-uri] property to `false`. In such cases, attempting to upload a document with a URI that already exists will result in a unique constraint violation.
+По умолчанию пользователям разрешено загружать документы с одинаковыми именами в одну и ту же коллекцию (например, в корневой коллекции могут быть два разных документа с именем `Contract1.docx`). Если вы хотите обеспечить уникальность URI документов, имитируя настоящую файловую систему, вы можете установить свойство xref:webdav-properties.adoc#jmix.webdav.auto-generate-unique-resource-uri[jmix.webdav.auto-generate-unique-resource-uri] в значение `false`. В этом случае попытка загрузить документ с уже существующим URI приведет к нарушению ограничения уникальности.
 
-You have the option to rename and delete collections using the *Rename* and *Remove* buttons.
+Вы можете переименовывать и удалять коллекции с помощью кнопок *Rename* и *Remove*.

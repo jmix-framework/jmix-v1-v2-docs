@@ -1,11 +1,11 @@
-= 3. Working with Desktop Applications
+= 3. Работа с настольными приложениями
 
-To authenticate desktop applications, the server must have HTTPS enabled. Here are simple instructions for configuring HTTPS in your development environment.
+Для авторизации настольных приложений на сервере должен быть включен HTTPS. Ниже приведены простые инструкции по настройке HTTPS в вашей среде разработки.
 
 [[using-libreoffice]]
-== Using LibreOffice
+== Использование LibreOffice
 
-Install LibreOffice and configure the xref:webdav-properties.adoc#jmix.webdav.applications[jmix.webdav.applications] property to open all files in it:
+Установите LibreOffice и настройте свойство xref:webdav-properties.adoc#jmix.webdav.applications[jmix.webdav.applications], чтобы открывать в нем все файлы:
 
 [source,properties]
 ----
@@ -17,45 +17,45 @@ jmix.webdav.applications = {"vnd.libreoffice.command":\
 ----
 
 [[keystore-file]]
-== Creating a Keystore File
+== Создание файла хранилища ключей
 
-. Install `mkcert` utility by following the instructions provided in its repository: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
+. Установите утилиту `mkcert`, следуя инструкциям в ее репозитории: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
 
-. Generate and install the root certificate:
+. Сгенерируйте и установите корневой сертификат:
 +
 [source]
 ----
 mkcert -install
 ----
 
-. Create a certificate for localhost:
+. Создайте сертификат для localhost:
 +
 [source]
 ----
 mkcert -pkcs12 localhost 127.0.0.1 ::1
 ----
 +
-You will see the `localhost+2.p12` file in the current folder.
+В текущей папке появится файл `localhost+2.p12`.
 
-. Create a keystore file with the certificate for your project:
+. Создайте файл хранилища ключей с сертификатом для вашего проекта:
 +
 [source]
 ----
 keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
 ----
 +
-Enter `changeit` as the source keystore password.
+В качестве пароля исходного хранилища ключей введите `changeit`.
 +
-You will see the `localhost.jks` file in the current folder.
+В текущей папке появится файл `localhost.jks`.
 
 [[configuring-server]]
-== Configuring Server
+== Настройка сервера
 
-This section explains how to use the certificate generated in the previous section in your application when it runs from the IDE or as an executable JAR.
+В этом разделе описано, как использовать сертификат, сгенерированный в предыдущем разделе, в вашем приложении, когда оно запускается из IDE или как исполняемый JAR.
 
-. Create `src/main/resources/<base-package>/keystore` directory and copy `localhost.jks` into it.
+. Создайте директорию `src/main/resources/<base-package>/keystore` и скопируйте в нее `localhost.jks`.
 
-. Set the following properties in the `application.properties` file replacing `<base-package>` and `<password>` with actual values:
+. Задайте следующие свойства в файле `application.properties`, заменив `<base-package>` и `<password>` на реальные значения:
 +
 [source,properties,indent=0]
 ----
@@ -76,12 +76,12 @@ server.port = 8443
 +
 [NOTE]
 ====
-The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be presented as a slash-separated path:
+Значение `<base-package>` в пути к хранилищу ключей (свойство `server.ssl.key-store`) должно быть указано как путь с разделителями в виде слэшей:
 ----
 server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 ----
 ====
-. Open the main application class and change the `printApplicationUrl()` method. The URL should be changed to `https://` after configuring HTTPS:
+. Откройте главный класс приложения и измените метод `printApplicationUrl()`. После настройки HTTPS URL должен быть изменен на `https://`:
 +
 [source,java,indent=0]
 ----
@@ -95,24 +95,24 @@ public void printApplicationUrl(final ApplicationStartedEvent event) {
 ----
 
 [[running-application]]
-== Running the Application
+== Запуск приложения
 
-After following the instructions outlined above, launch the application at `++https://localhost:8443++`.
+После выполнения описанных выше инструкций запустите приложение по адресу `++https://localhost:8443++`.
 
-Choose the *Knowledge base* item from the *Application* menu. Click on the WebDAV document link.
+Выберите пункт *Knowledge base* в меню *Application*. Нажмите на ссылку документа WebDAV.
 
 image::open-webdav-doc1.png[align="center", width="1432"]
 
-The browser will display a dialog prompting the user to open the WebDAV file in LibreOffice. Agree to open the file.
+Браузер отобразит диалоговое окно с предложением открыть файл WebDAV в LibreOffice. Согласитесь открыть файл.
 
-Once the WebDAV document is edited and saved, a new version of the document will be created, which will be the latest version.
+После того как документ WebDAV будет отредактирован и сохранен, будет создана новая версия документа, которая станет последней версией.
 
 image::open-webdav-doc3.png[align="center", width="1169"]
 
 [[summary]]
-== Summary
+== Итоги
 
-You have learned that:
+Вы узнали, что:
 
-* To enable opening and editing of WebDAV documents using desktop office applications, it is necessary to set up HTTPS for your web application. This is essential for ensuring secure communication between desktop office applications and the WebDAV server, particularly when handling sensitive document editing and saving operations.
-* HTTPS encryption provides a secure channel for transmitting data, preventing unauthorized access and guaranteeing the integrity of the document editing process.
+* Для того чтобы включить открытие и редактирование документов WebDAV в настольных офисных приложениях, необходимо настроить HTTPS для вашего веб-приложения. Это необходимо для обеспечения безопасного соединения между настольными офисными приложениями и сервером WebDAV, особенно при работе с конфиденциальными операциями редактирования и сохранения документов.
+* Шифрование HTTPS обеспечивает безопасный канал передачи данных, предотвращая несанкционированный доступ и гарантируя целостность процесса редактирования документов.

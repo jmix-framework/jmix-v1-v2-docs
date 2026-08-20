@@ -1,36 +1,36 @@
 = WebDAV
 
-The main purpose of the WebDAV add-on is to facilitate access to files stored in the xref:files:file-storage.adoc[file storage] via the https://en.wikipedia.org/wiki/WebDAV[WebDAV protocol^]. This feature enables users to conveniently open and edit files using desktop applications (such as Word, Excel, LibreOffice, etc.) without the necessity of repeatedly downloading and uploading files to the web application.
+Основная цель дополнения WebDAV — обеспечить доступ к файлам, хранящимся в xref:files:file-storage.adoc[хранилище файлов], по протоколу https://en.wikipedia.org/wiki/WebDAV[WebDAV^]. Эта функциональность позволяет пользователям удобно открывать и редактировать файлы с помощью настольных приложений (таких как Word, Excel, LibreOffice и т. д.) без необходимости постоянно скачивать и загружать файлы в веб-приложение.
 
-Additionally, the add-on offers the following supplementary functionalities:
+Кроме того, дополнение предлагает следующие дополнительные возможности:
 
-* Document version control. Enabling versioning for a document ensures that a new version is generated on the server each time the document is modified.
+* Контроль версий документов. Если для документа включено версионирование, то при каждом изменении документа на сервере создается новая версия.
 
-* Customizable conflict resolution policies to support collaborative document editing.
+* Настраиваемые политики разрешения конфликтов для поддержки совместного редактирования документов.
 
-* Ability to manage document access permissions.
+* Возможность управления правами доступа к документам.
 
-* UI components for managing files and document versions.
+* UI-компоненты для управления файлами и версиями документов.
 
-* Integration with external systems through static links for seamless file access.
+* Интеграция с внешними системами с помощью статических ссылок для беспрепятственного доступа к файлам.
 
 [[installation]]
-== Installation
+== Установка
 
 [NOTE]
 ====
-This add-on requires the Enterprise https://www.jmix.ru/subscription-plans-and-prices/[subscription^]. If you don't have the subscription, see the xref:ROOT:account-management.adoc#enterprise-trial[Enterprise Trial] section for how to get the trial version.
+Для этого дополнения требуется Enterprise https://www.jmix.ru/subscription-plans-and-prices/[подписка^]. Если у вас нет подписки, ознакомьтесь с разделом xref:ROOT:account-management.adoc#enterprise-trial[Пробная Enterprise-подписка], чтобы получить пробную версию.
 ====
 
-For automatic installation through Jmix Marketplace, follow instructions in the xref:ROOT:add-ons.adoc#installation[Add-ons] section.
+Для автоматической установки через Jmix Marketplace следуйте инструкциям в разделе xref:ROOT:add-ons.adoc#installation[Дополнения].
 
-For manual installation, follow the steps below.
+Для ручной установки выполните следующие шаги.
 
-. Configure access to the premium repository.
+. Настройте доступ к премиум-репозиторию.
 +
 include::ROOT:partial$premium-repo.adoc[]
 
-. Add dependencies to your `build.gradle`:
+. Добавьте зависимости в ваш `build.gradle`:
 +
 [source,groovy,indent=0]
 ----
@@ -46,15 +46,15 @@ implementation 'io.jmix.webdav:jmix-webdav-flowui-starter'
 include::ROOT:single-menu-note.adoc[]
 
 [[https]]
-== HTTPS
+== HTTPS и базовая авторизация
 
-Desktop applications use basic authentication for server connections via WebDAV, so you have to set up HTTPS for your web application. Refer to the xref:configuration.adoc#https[Configuring HTTPS] section for guidance on configuring HTTPS on localhost for development purposes.
+Настольные приложения используют базовую авторизацию для подключения к серверу по WebDAV, поэтому для вашего веб-приложения необходимо настроить HTTPS. См. раздел xref:configuration.adoc#https[Настройка HTTPS] для получения инструкций по настройке HTTPS на localhost в целях разработки.
 
 [[requirements]]
-== Requirements
+== Требования к офисным приложениям
 
-IMPORTANT: Due to recently disabled Basic authentication in Microsoft 365 applications (see https://learn.microsoft.com/en-us/microsoft-365-apps/security/basic-authentication-prompts-blocked[^]), the WebDAV add-on cannot work with the latest versions of Microsoft Office.
+IMPORTANT: Из-за недавнего отключения базовой авторизации в приложениях Microsoft 365 (см. https://learn.microsoft.com/en-us/microsoft-365-apps/security/basic-authentication-prompts-blocked[^]) дополнение WebDAV не может работать с последними версиями Microsoft Office.
 
-The minimum version of Microsoft Office needed to access documents via the WebDAV protocol is MS Office 2010 SP2. For LibreOffice, the minimum required version is 6.3.
+Минимальная версия Microsoft Office, необходимая для доступа к документам по протоколу WebDAV, — MS Office 2010 SP2. Для LibreOffice минимальная требуемая версия — 6.3.
 
-To verify the installed versions of Microsoft Office and Service Pack (SP) on your computer, open MS Word and navigate to the *Product Information* section via *File → Help*. Service Pack 2 for MS Office 2010 (and subsequent versions) should display the following number: 14.0.7015.1000 (or higher). To update your Service Pack, click on this https://www.microsoft.com/en-US/download/details.aspx?id=39667[link^].
+Чтобы проверить установленные версии Microsoft Office и Service Pack (SP) на вашем компьютере, откройте MS Word и перейдите в раздел *Product Information* через *File → Help*. Для Service Pack 2 MS Office 2010 (и последующих версий) должен отображаться следующий номер: 14.0.7015.1000 (или выше). Чтобы обновить Service Pack, перейдите по этой https://www.microsoft.com/en-US/download/details.aspx?id=39667[ссылке^].

@@ -1,27 +1,27 @@
-= 2. Working with WebDav Components
+= 2. Работа с компонентами WebDav
 
-At this stage of development, the application features a knowledge base management system represented by the `Knowledge base` view.
+На данном этапе разработки в приложении реализована система управления базой знаний, представленная экраном `Knowledge base`.
 
-In this chapter, you will:
+В этой главе вы:
 
-* Enhance the webDav document wrapper data grid to display a link to the WebDAV document instead of the document identifier.
-* Utilize the xref:webdav:ui-components.adoc#webdav-document-upload-field[webdavDocumentUpload] component on the webDav document wrapper detail view to upload the WebDAV document into the system.
+* Улучшите таблицу оболочек документов webDav, чтобы отображать ссылку на документ WebDAV вместо идентификатора документа.
+* Воспользуетесь компонентом xref:webdav:ui-components.adoc#webdav-document-upload-field[webdavDocumentUpload] на экране деталей оболочки документа webDav, чтобы загружать документ WebDAV в систему.
 
 [[add-webdavDocumentUploadField]]
-== Adding WebdavDocumentUploadField on View
+== Добавление WebdavDocumentUploadField на экран
 
-Locate `webdav-document-wrapper-detail-view.xml` in the *Jmix* tool window and double-click it. The view designer will appear:
+Найдите `webdav-document-wrapper-detail-view.xml` в окне инструмента *Jmix* и дважды щелкните на нем. Откроется дизайнер экрана:
 
 image::wdw-detail-view.png[align="center",width="1425"]
 
-You’ll notice that the `entityPicker` component is being used to show the `webdavDocument` attribute.
-If you want to display the special component designed to work with documents, you should include the xref:webdav:ui-components.adoc#webdav-document-upload-field[WebdavDocumentUploadField] UI component in the XML descriptor.
+Обратите внимание, что для отображения атрибута `webdavDocument` используется компонент `entityPicker`.
+Если вы хотите отобразить специальный компонент, предназначенный для работы с документами, добавьте UI-компонент xref:webdav:ui-components.adoc#webdav-document-upload-field[WebdavDocumentUploadField] в XML-дескриптор.
 
-Remove the `entityPicker` component description from the XML descriptor and place the cursor after the `departmentField`. Next, click *Add Component* in the actions panel, then find the `WebdavDocumentUploadField` item and double-click it.
+Удалите описание компонента `entityPicker` из XML-дескриптора и поместите курсор после `departmentField`. Затем нажмите *Add Component* на панели действий, найдите элемент `WebdavDocumentUploadField` и дважды щелкните на нем.
 
 image::add-wd-upload-field.png[align="center",width="926"]
 
-The new `webdavDocumentUpload` element will be added beneath the `formLayout` element in both the *Jmix UI* structure panel and in the XML. Configure the `id`, `colspan`, and `property` attributes as shown below.
+Новый элемент `webdavDocumentUpload` будет добавлен под элементом `formLayout` как на панели структуры *Jmix UI*, так и в XML. Настройте атрибуты `id`, `colspan` и `property`, как показано ниже.
 
 [source,xml,indent=0]
 ----
@@ -42,13 +42,13 @@ The new `webdavDocumentUpload` element will be added beneath the `formLayout` el
 ----
 
 [[displaying-webdav-document-link]]
-== Displaying WebdavDocumentLink in Data Grid
+== Отображение WebdavDocumentLink в таблице данных
 
-Let's display a link to the document in the data grid instead of its identifier.
+Отобразим в таблице данных ссылку на документ вместо его идентификатора.
 
-Open `webdav-document-wrapper-list-view.xml` and find `webdavDocumentWrappersDataGrid`.
+Откройте `webdav-document-wrapper-list-view.xml` и найдите `webdavDocumentWrappersDataGrid`.
 
-Select the `webdavDocument` column, switch to the *Handlers* tab of the component inspector and create the `renderer` handler method:
+Выберите колонку `webdavDocument`, перейдите на вкладку *Handlers* инспектора компонента и создайте метод-обработчик `renderer`:
 
 [source,java,indent=0]
 ----
@@ -58,7 +58,7 @@ Select the `webdavDocument` column, switch to the *Handlers* tab of the componen
     }
 ----
 
-Inject `UiComponents` object into controller class:
+Инжектируйте объект `UiComponents` в класс контроллера:
 
 [source,java,indent=0]
 ----
@@ -66,53 +66,53 @@ Inject `UiComponents` object into controller class:
     private UiComponents uiComponents;
 ----
 
-TIP: You can use the *Inject* button in the top actions panel of the editor to inject dependencies into view controllers and Spring beans.
+TIP: Вы можете использовать кнопку *Inject* на верхней панели действий редактора, чтобы инжектировать зависимости в контроллеры экранов и Spring-бины.
 
-Implement the `webdavDocumentWrappersDataGridWebdavDocumentRenderer` method:
+Реализуйте метод `webdavDocumentWrappersDataGridWebdavDocumentRenderer`:
 
 [source,java,indent=0]
 ----
 include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdocumentwrapper/WebdavDocumentWrapperListView.java[tags=webdavDocument-renderer]
 ----
-<1> The method returns a `Renderer` object that creates a UI component to be rendered in the column.
-<2> The xref:webdav:ui-components.adoc#webdav-document-link[WebdavDocumentLink] component instance is created using the `UiComponents` factory.
+<1> Метод возвращает объект `Renderer`, создающий UI-компонент для отображения в колонке.
+<2> Экземпляр компонента xref:webdav:ui-components.adoc#webdav-document-link[WebdavDocumentLink] создается с помощью фабрики `UiComponents`.
 
 [[running-application]]
-== Running the Application
+== Запуск приложения
 
-Let’s run the application to observe the new feature in action.
+Запустим приложение, чтобы увидеть новую функциональность в действии.
 
-Navigate to `++http://localhost:8080++` using your web browser and sign in to the application with the credentials `admin/admin`.
+Перейдите по адресу `++http://localhost:8080++` в веб-браузере и войдите в приложение с учетными данными `admin/admin`.
 
-Choose the `Knowledge base` item from the `Application` menu. You will see the `Webdav document wrappers.list` view.
+Выберите пункт `Knowledge base` в меню `Application`. Откроется экран `Webdav document wrappers.list`.
 
 image::wd-wrapper-list.png[align="center", width="1271"]
 
-The *Webdav document* column contains a link to the WebDav document and a button allowing you to open the standard *WebDAV document versions* view.
+Колонка *Webdav document* содержит ссылку на документ WebDav и кнопку, позволяющую открыть стандартный экран *WebDAV document versions*.
 
-Click *Create*. The `Webdav document wrappers.detail` view will open. Besides the text field used for a file description, and the picker for a department, you may notice the built-in WebDAV add-on component for file upload. Try uploading a file using this component:
+Нажмите *Create*. Откроется экран `Webdav document wrappers.detail`. Помимо текстового поля, используемого для описания файла, и пикера для отдела, вы увидите встроенный компонент дополнения WebDAV для загрузки файлов. Попробуйте загрузить файл с помощью этого компонента:
 
 image::wd-wrapper-detail.png[align="center", width="1271"]
 
-After clicking the *OK* button, you will be redirected to the list view.
+После нажатия кнопки *OK* вы будете перенаправлены на экран списка.
 
-Hover your mouse over the WebDAV document name. In the bottom left corner, you will see the link where the document is located on the WebDAV server.
+Наведите курсор мыши на имя документа WebDAV. В левом нижнем углу вы увидите ссылку на место расположения документа на сервере WebDAV.
 
 image::wd-wrapper-list-try-open-doc.png[align="center", width="1271"]
 
-However, when attempting to open the document, the browser will display a message indicating that it failed to establish a connection to the site.
+Однако при попытке открыть документ браузер отобразит сообщение о том, что не удалось установить соединение с сайтом.
 
-This situation occurs because the necessary configurations have not been made yet. We will discuss this in the next section.
+Это происходит из-за того, что необходимые настройки еще не выполнены. Мы рассмотрим это в следующем разделе.
 
 [[summary]]
-== Summary
+== Итоги
 
-In this section, you have learned how to utilize components provided by the WebDAV add-on.
+В этом разделе вы узнали, как использовать компоненты, предоставляемые дополнением WebDAV.
 
-You have learned that:
+Вы узнали, что:
 
-* The xref:ui-components.adoc#webdav-document-upload-field[WebDAVDocumentUploadField] component includes convenient built-in tools for viewing and uploading WebDAV documents.
-* You can use the xref:ui-components.adoc#webdav-document-link[WebDavDocumentLink] component in a data grid by providing a xref:flow-ui:vc/components/dataGrid.adoc#component-renderer[ComponentRenderer] for a column.
+* Компонент xref:ui-components.adoc#webdav-document-upload-field[WebDAVDocumentUploadField] включает удобные встроенные инструменты для просмотра и загрузки документов WebDAV.
+* Вы можете использовать компонент xref:ui-components.adoc#webdav-document-link[WebDavDocumentLink] в таблице данных, указав xref:flow-ui:vc/components/dataGrid.adoc#component-renderer[ComponentRenderer] для колонки.
 
 // [[improving-webdav-document-wrapper-data-grid]]
 // == Improving WebdavDocumentWrapper Data Grid

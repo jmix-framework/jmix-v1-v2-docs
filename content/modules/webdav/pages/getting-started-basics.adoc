@@ -1,74 +1,74 @@
-= Part 1. Beginner
+= Часть 1. Начальный уровень
 
-In this chapter, you will create:
+В этой главе вы создадите:
 
-* The `WebdavDocumentWrapper` entity with the `WebdavDocument` attribute type.
-* CRUD views including UI component for uploading the WebDAV document.
+* Сущность `WebdavDocumentWrapper` с атрибутом типа `WebdavDocument`.
+* CRUD-экраны, включая UI-компонент для загрузки документа WebDAV.
 
-You will make the necessary adjustments to enable the opening and editing of uploaded WebDAV files in desktop office applications (Word, Excel, LibreOffice, etc.).
+Вы внесете необходимые изменения, чтобы обеспечить открытие и редактирование загруженных файлов WebDAV в настольных офисных приложениях (Word, Excel, LibreOffice и т. д.).
 
 [[create-webdavdocumentwrapper-entity]]
-== Creating WebdavDocumentWrapper Entity
+== Создание сущности WebdavDocumentWrapper
 
-Let's create the `WebdavDocumentWrapper` entity.
+Создадим сущность `WebdavDocumentWrapper`.
 
-TIP: You can find detailed instructions for creating entities in the xref:tutorial:simple-crud.adoc[Simple CRUD] section of the Tutorial.
+TIP: Подробные инструкции по созданию сущностей можно найти в разделе xref:tutorial:simple-crud.adoc[Простой CRUD] самоучителя.
 
-In the *Jmix* tool window, click *New* (image:add.svg[]) -> *JPA Entity*. Enter `WebdavDocumentWrapper` into the *Class* field.
+В окне инструмента *Jmix* нажмите *New* (image:add.svg[]) -> *JPA Entity*. Введите `WebdavDocumentWrapper` в поле *Class*.
 
-The `WebdavDocumentWrapper` entity has the following attributes:
+Сущность `WebdavDocumentWrapper` имеет следующие атрибуты:
 
-* `description` with `String` type.
-* `lastModifiedBy` with `String` type.
-* `lastModifiedDate` with `OffsetDateTime` type.
-* `webdavDocument` with `WebdavDocument` type:
+* `description` типа `String`.
+* `lastModifiedBy` типа `String`.
+* `lastModifiedDate` типа `OffsetDateTime`.
+* `webdavDocument` типа `WebdavDocument`:
 +
 image::webdav-document-attr.png[align="center"]
 
 [[create-webdavdocumentwrapper-crud]]
-== Create CRUD Views
+== Создание CRUD-экранов
 
-Let’s generate CRUD views for the `WebdavDocumentWrapper` entity.
+Сгенерируем CRUD-экраны для сущности `WebdavDocumentWrapper`.
 
-Click *Views → Create view* in the actions panel at the top of the entity designer.
+Нажмите *Views → Create view* на панели действий в верхней части дизайнера сущностей.
 
-On the first step of the view creation wizard, select the `Entity list and detail views` template. Click *Next*.
+На первом шаге мастера создания экранов выберите шаблон `Entity list and detail views`. Нажмите *Next*.
 
-Accept the suggested values on the first two steps of the wizard.
+Примите предложенные значения на первых двух шагах мастера.
 
-On the *Entity list view fetch plan* step, add the `webdavDocument` attribute to the selection:
+На шаге *Entity list view fetch plan* добавьте атрибут `webdavDocument` к выборке:
 
 image::create-doc-wrapper-list-fetch.png[align="center",width="997"]
 
-Now you can be sure that the referenced `WebdavDocument` entity will be loaded together with the root `WebdavDocumentWrapper` entity and displayed in the list view.
+Теперь вы можете быть уверены, что сущность `WebdavDocument`, на которую есть ссылка, будет загружена вместе с корневой сущностью `WebdavDocumentWrapper` и отображена в экране списка.
 
-CAUTION: If an attribute is not present in the fetch plan, Studio doesn't create a visual component for it in the generated views.
+CAUTION: Если атрибут отсутствует в фетч-плане, Studio не создает для него визуальный компонент в сгенерированных экранах.
 
-Click *Next*.
+Нажмите *Next*.
 
-On the *Entity detail view fetch plan* step, delete the `lastModifiedBy` and `lastModifiedDate` attributes from the selection. These attributes will be filled in automatically, so displaying them on the detail view would be redundant.
+На шаге *Entity detail view fetch plan* удалите из выборки атрибуты `lastModifiedBy` и `lastModifiedDate`. Эти атрибуты будут заполняться автоматически, поэтому отображать их на экране деталей было бы избыточно.
 
 //image::create-doc-wrapper-detail-fetch.png[align="center",width="997"]
 
-Click *Next*.
+Нажмите *Next*.
 
-Studio will automatically generate two views: `WebdavDocumentWrapper.list` and `WebdavDocumentWrapper.detail`, and open their corresponding source code.
+Studio автоматически сгенерирует два экрана: `WebdavDocumentWrapper.list` и `WebdavDocumentWrapper.detail`, и откроет их исходный код.
 
 [[add-webdavDocumentUploadField]]
-== Add WebdavDocumentUploadField on View
+== Добавление WebdavDocumentUploadField на экран
 
-Locate `webdav-document-wrapper-detail-view.xml` in the *Jmix* tool window and double-click it. The view designer will appear:
+Найдите `webdav-document-wrapper-detail-view.xml` в окне инструмента *Jmix* и дважды щелкните на нем. Откроется дизайнер экрана:
 
 image::wdw-detail-view.png[align="center",width="1552"]
 
-You’ll notice that the `entityPicker` component is being used to show the `webdavDocument` attribute.
-If you want to display the special component designed to work with documents, you should include the xref:webdav:ui-components.adoc#webdav-document-upload-field[webdavDocumentUploadField] UI component in the XML descriptor.
+Обратите внимание, что для отображения атрибута `webdavDocument` используется компонент `entityPicker`.
+Если вы хотите отобразить специальный компонент, предназначенный для работы с документами, добавьте UI-компонент xref:webdav:ui-components.adoc#webdav-document-upload-field[webdavDocumentUploadField] в XML-дескриптор.
 
-Remove the `entityPicker` component description from the XML descriptor and place the cursor after the `textField` component. Next, click *Add Component* in the actions panel, then find the `WebdavDocumentUploadField` item and double-click it.
+Удалите описание компонента `entityPicker` из XML-дескриптора и поместите курсор после компонента `textField`. Затем нажмите *Add Component* на панели действий, найдите элемент `WebdavDocumentUploadField` и дважды щелкните на нем.
 
 image::add-wd-upload-field.png[align="center",width="719"]
 
-The new `webdavDocumentUpload` element will be added beneath the `formLayout` element in both the *Jmix UI* structure panel and in the XML. Configure the `id`, `colspan`, and `property` attributes as shown below.
+Новый элемент `webdavDocumentUpload` будет добавлен под элементом `formLayout` как на панели структуры *Jmix UI*, так и в XML. Настройте атрибуты `id`, `colspan` и `property`, как показано ниже.
 
 [source,xml,indent=0]
 ----
@@ -81,40 +81,40 @@ The new `webdavDocumentUpload` element will be added beneath the `formLayout` el
 ----
 
 [[running-application]]
-== Running the Application
+== Запуск приложения
 
-After creating the entity and CRUD views for it, you can run the application to see the new feature in action.
-Click the *Debug* button (image:start-debugger.svg[]) in the main toolbar.
+После создания сущности и CRUD-экранов для нее вы можете запустить приложение, чтобы увидеть новую функциональность в действии.
+Нажмите кнопку *Debug* (image:start-debugger.svg[]) на главной панели инструментов.
 
-Prior to launching the application, Studio compares the project data model with the database schema. When you’ve created a new entity, Studio automatically generates a Liquibase changelog to reflect the relevant database modifications (such as creating the `WEBDAV_DOCUMENT_WRAPPER` table):
+Перед запуском приложения Studio сравнивает модель данных проекта со схемой базы данных. Поскольку вы создали новую сущность, Studio автоматически генерирует Liquibase changelog, отражающий соответствующие изменения базы данных (например, создание таблицы `WEBDAV_DOCUMENT_WRAPPER`):
 
 image::db-wd-wrapper.png[align="center",width="1157"]
 
-Click *Save and run*.
+Нажмите *Save and run*.
 
-Studio will carry out the changelog on your database, followed by building and running the application:
+Studio выполнит changelog в вашей базе данных, а затем соберет и запустит приложение:
 
-Once the application is up and running, navigate to `++http://localhost:8080++` using your web browser and sign in to the application with the credentials `admin/admin`.
+После запуска приложения перейдите по адресу `++http://localhost:8080++` в веб-браузере и войдите в приложение с учетными данными `admin/admin`.
 
-Choose the `Webdav document wrappers` item from the `Application` menu. You will see the `Webdav document wrapper.list` view. Click *Create*. The `Webdav document wrappers.detail` view will open. Besides the text field used for file description, you may notice the built-in WebDAV add-on component for file upload. Try uploading a file using this component:
+Выберите пункт `Webdav document wrappers` в меню `Application`. Откроется экран `Webdav document wrapper.list`. Нажмите *Create*. Откроется экран `Webdav document wrappers.detail`. Помимо текстового поля, используемого для описания файла, вы увидите встроенный компонент дополнения WebDAV для загрузки файлов. Попробуйте загрузить файл с помощью этого компонента:
 
 image::wd-wrapper-detail.png[align="center", width="1100"]
 
-After clicking the *OK* button, you will be redirected to the list view. As you can see, the *Webdav document* column displays the file identifier. In the next section, we will demonstrate how to display a link to the document in the data grid instead of its identifier.
+После нажатия кнопки *OK* вы будете перенаправлены на экран списка. Как видите, колонка *Webdav document* отображает идентификатор файла. В следующем разделе мы покажем, как отобразить в таблице данных ссылку на документ вместо его идентификатора.
 
 [[ui-customizations]]
-== UI Customizations
+== Настройка UI
 
-Let’s make some customizations in the application UI.
+Внесем некоторые изменения в UI приложения.
 
 [[improving-webdav-document-wrapper-data-grid]]
-=== Improving WebdavDocumentWrapper Data Grid
+=== Улучшение таблицы данных WebdavDocumentWrapper
 
-* Let's display a link to the document in the data grid instead of its identifier.
+* Отобразим в таблице данных ссылку на документ вместо его идентификатора.
 +
-Open `webdav-document-wrapper-list-view.xml` and find `webdavDocumentWrappersDataGrid`.
+Откройте `webdav-document-wrapper-list-view.xml` и найдите `webdavDocumentWrappersDataGrid`.
 +
-Select the `webdavDocument` column, switch to the *Handlers* tab of the component inspector and create the `renderer` handler method:
+Выберите колонку `webdavDocument`, перейдите на вкладку *Handlers* инспектора компонента и создайте метод-обработчик `renderer`:
 +
 [source,java,indent=0]
 ----
@@ -124,7 +124,7 @@ Select the `webdavDocument` column, switch to the *Handlers* tab of the componen
     }
 ----
 +
-Inject `UiComponents` object into controller class:
+Инжектируйте объект `UiComponents` в класс контроллера:
 +
 [source,java,indent=0]
 ----
@@ -132,20 +132,20 @@ Inject `UiComponents` object into controller class:
     private UiComponents uiComponents;
 ----
 +
-TIP: You can use the *Inject* button in the top actions panel of the editor to inject dependencies into view controllers and Spring beans.
+TIP: Вы можете использовать кнопку *Inject* на верхней панели действий редактора, чтобы инжектировать зависимости в контроллеры экранов и Spring-бины.
 +
-Implement the `webdavDocumentWrappersDataGridWebdavDocumentRenderer` method:
+Реализуйте метод `webdavDocumentWrappersDataGridWebdavDocumentRenderer`:
 +
 [source,java,indent=0]
 ----
 include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdocumentwrapper/WebdavDocumentWrapperListView.java[tags=webdavDocument-renderer]
 ----
-<1> The method returns a `Renderer` object that creates a UI component to be rendered in the column.
-<2> The xref:webdav:ui-components.adoc#webdav-document-link[WebdavDocumentLink] component instance is created using the `UiComponents` factory.
+<1> Метод возвращает объект `Renderer`, создающий UI-компонент для отображения в колонке.
+<2> Экземпляр компонента xref:webdav:ui-components.adoc#webdav-document-link[WebdavDocumentLink] создается с помощью фабрики `UiComponents`.
 
-* In the `lastModifiedBy` column, let's configure the display of the author of the latest changes to the WebDAV file.
+* В колонке `lastModifiedBy` настроим отображение автора последних изменений файла WebDAV.
 +
-Select the `lastModifiedBy` column, switch to the *Handlers* tab of the component inspector and create the `renderer` handler method:
+Выберите колонку `lastModifiedBy`, перейдите на вкладку *Handlers* инспектора компонента и создайте метод-обработчик `renderer`:
 +
 [source,java,indent=0]
 ----
@@ -155,17 +155,17 @@ Select the `lastModifiedBy` column, switch to the *Handlers* tab of the componen
     }
 ----
 +
-Implement the `webdavDocumentWrappersDataGridLastModifiedByRenderer` method:
+Реализуйте метод `webdavDocumentWrappersDataGridLastModifiedByRenderer`:
 +
 [source,java,indent=0]
 ----
 include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdocumentwrapper/WebdavDocumentWrapperListView.java[tags=lastModifiedBy-renderer]
 ----
-<1> The method returns a `TextRenderer` object.
-<2> The renderer returns the name of the user who made changes to the latest version of the WebDAV document.
-* In the `lastModifiedDate` column, let's configure the display of the date of the latest changes to the WebDAV file.
+<1> Метод возвращает объект `TextRenderer`.
+<2> Рендерер возвращает имя пользователя, внесшего изменения в последнюю версию документа WebDAV.
+* В колонке `lastModifiedDate` настроим отображение даты последних изменений файла WebDAV.
 +
-Select the `lastModifiedDate` column, switch to the *Handlers* tab of the component inspector and create the `renderer` handler method:
+Выберите колонку `lastModifiedDate`, перейдите на вкладку *Handlers* инспектора компонента и создайте метод-обработчик `renderer`:
 +
 [source,java,indent=0]
 ----
@@ -173,89 +173,89 @@ include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdoc
 ----
 
 [[set-up-view-opening]]
-=== Set Up View Opening
+=== Настройка открытия экрана
 
-Let's configure the `WebdavDocumentWrapper` detail view so that it opens as a dialog.
+Настроим экран деталей `WebdavDocumentWrapper` так, чтобы он открывался в виде диалогового окна.
 
-Open `webdav-document-wrapper-list-view.xml` and find `webdavDocumentWrappersDataGrid`. Select the `create` action and set the *DIALOG* `openMode` property in the *Jmix UI Inspector* panel.
+Откройте `webdav-document-wrapper-list-view.xml` и найдите `webdavDocumentWrappersDataGrid`. Выберите действие `create` и установите свойство `openMode` в значение *DIALOG* на панели *Jmix UI Inspector*.
 
 image::wd-wrapper-open-dialog.png[align="center", width="1080"]
 
-Follow the same steps for the `edit` action.
+Выполните те же шаги для действия `edit`.
 
-Let’s run the application to observe the new feature in action.
+Запустим приложение, чтобы увидеть новую функциональность в действии.
 
-Navigate to `++http://localhost:8080++` using your web browser and sign in to the application with the credentials `admin/admin`.
+Перейдите по адресу `++http://localhost:8080++` в веб-браузере и войдите в приложение с учетными данными `admin/admin`.
 
-Choose the `Webdav document wrappers` item from the `Application` menu. You will see the `Webdav document wrappers.list` view.
+Выберите пункт `Webdav document wrappers` в меню `Application`. Откроется экран `Webdav document wrappers.list`.
 
 image::wd-wrapper-list.png[align="center", width="1330"]
 
-The *Webdav document* column contains a link to the WebDav document and a button allowing you to open the standard *WebDAV document versions* view. The *Last modified by* column displays the author of the latest modifications to the WebDav file, while the *Last modified date* column shows the date of the last modifications to the WebDav file.
+Колонка *Webdav document* содержит ссылку на документ WebDav и кнопку, позволяющую открыть стандартный экран *WebDAV document versions*. Колонка *Last modified by* отображает автора последних изменений файла WebDav, а колонка *Last modified date* показывает дату последних изменений файла WebDav.
 
 [[configuration]]
-== Configuration
+== Конфигурация
 
-To authenticate desktop applications, the server must have HTTPS enabled. Here are simple instructions for configuring HTTPS in your development environment.
+Для авторизации настольных приложений на сервере должен быть включен HTTPS. Ниже приведены простые инструкции по настройке HTTPS в вашей среде разработки.
 
 [IMPORTANT]
 ====
-Self-signed certificates are suitable solely for testing purposes. When running production applications, it's essential to utilize SSL certificates issued by a trusted authority.
+Самоподписанные сертификаты подходят только для тестовых целей. При работе с production-приложениями необходимо использовать SSL-сертификаты, выпущенные доверенным центром сертификации.
 ====
 
 [[keystore-file]]
-=== Creating a Keystore File
+=== Создание файла хранилища ключей
 
-. Generate a keystore using the https://docs.oracle.com/en/java/javase/11/tools/keytool.html[keytool utility^] provided by JDK:
+. Сгенерируйте хранилище ключей с помощью https://docs.oracle.com/en/java/javase/11/tools/keytool.html[утилиты keytool^], входящей в состав JDK:
 +
 [source,text]
 ----
 keytool -genkey -keyalg RSA -alias localhost -keystore localhost.jks -validity 365 -keysize 2048
 ----
 +
-You will be asked for the keystore password and then for some names. Remember the password and the names.
+У вас запросят пароль хранилища ключей, а затем некоторые имена. Запомните пароль и имена.
 
-. Export certificate from the keystore:
+. Экспортируйте сертификат из хранилища ключей:
 +
 [source,text]
 ----
 keytool -export -keystore localhost.jks -storepass <password> -alias localhost -file localhost.cer
 ----
 +
-Use the password entered on the first step instead of `<password>`.
+Используйте пароль, введенный на первом шаге, вместо `<password>`.
 
-. Register the certificate as trusted in your operating system.
+. Зарегистрируйте сертификат как доверенный в вашей операционной системе.
 +
-* On Windows operating system:
+* В операционной системе Windows:
 +
-1. Press the `Windows` key + `R` to open the *Run* dialog, then type `"certmgr.msc"` and press *Enter*. This will open the *Certificate Manager*.
+1. Нажмите клавишу `Windows` + `R`, чтобы открыть диалоговое окно *Run*, затем введите `"certmgr.msc"` и нажмите *Enter*. Откроется *Certificate Manager*.
 
-2. In the left pane of the *Certificate Manager*, expand the *Trusted Root Certification Authorities* folder.
+2. В левой панели *Certificate Manager* разверните папку *Trusted Root Certification Authorities*.
 
-3. Right-click on the folder and select *All Tasks > Import...* from the context menu. This will open the *Certificate Import Wizard*.
+3. Щелкните правой кнопкой мыши на папке и выберите *All Tasks > Import...* в контекстном меню. Откроется *Certificate Import Wizard*.
 
-4. In the *Certificate Import Wizard*, click *Next* and then browse to the location where your certificate file is stored. Select the certificate file and click *Next*.
+4. В *Certificate Import Wizard* нажмите *Next*, затем перейдите к месту хранения файла сертификата. Выберите файл сертификата и нажмите *Next*.
 
-5. Choose the option to place the certificate in the *Trusted Root Certification Authorities* store and click *Next*.
+5. Выберите опцию поместить сертификат в хранилище *Trusted Root Certification Authorities* и нажмите *Next*.
 
-6. Review the information and click *Finish* to complete the import process.
+6. Проверьте информацию и нажмите *Finish*, чтобы завершить процесс импорта.
 
-7. You should see a message indicating that the import was successful. Click *OK* to close the wizard.
+7. Вы должны увидеть сообщение об успешном завершении импорта. Нажмите *OK*, чтобы закрыть мастер.
 +
-Once these steps are completed, the certificate should be registered as trusted in the Windows operating system.
-* On macOS:
-1. Double-click on `localhost.cer` file in Finder. The *Keychain Access* application will open.
-2. Find your certificate under the name entered on the first step as "your first and last name" on the *Certificates* tab.
-3. Double-click the certificate and select *Trust -> When using this certificate: Always Trust*.
+После выполнения этих шагов сертификат будет зарегистрирован как доверенный в операционной системе Windows.
+* В macOS:
+1. Дважды щелкните на файле `localhost.cer` в Finder. Откроется приложение *Keychain Access*.
+2. Найдите свой сертификат по имени, введенному на первом шаге как "имя и фамилия", на вкладке *Certificates*.
+3. Дважды щелкните на сертификате и выберите *Trust -> When using this certificate: Always Trust*.
 
 [[configuring-server]]
-=== Configuring Server
+=== Настройка сервера
 
-This section explains how to use the certificate generated in the previous section in your application when it runs from the IDE or as an executable JAR.
+В этом разделе описано, как использовать сертификат, сгенерированный в предыдущем разделе, в вашем приложении, когда оно запускается из IDE или как исполняемый JAR.
 
-. Create `src/main/resources/<base-package>/keystore` directory and copy `localhost.jks` into it.
+. Создайте директорию `src/main/resources/<base-package>/keystore` и скопируйте в нее `localhost.jks`.
 
-. Set the following properties in the `application.properties` file replacing `<base-package>` and `<password>` with actual values:
+. Задайте следующие свойства в файле `application.properties`, заменив `<base-package>` и `<password>` на реальные значения:
 +
 [source,properties,indent=0]
 ----
@@ -276,12 +276,12 @@ server.port = 8443
 +
 [NOTE]
 ====
-The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be presented as a slash-separated path:
+Значение `<base-package>` в пути к хранилищу ключей (свойство `server.ssl.key-store`) должно быть указано как путь с разделителями в виде слэшей:
 ----
 server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 ----
 ====
-. Open the main application class and change the `printApplicationUrl()` method. The URL should be changed to `https://` after configuring HTTPS:
+. Откройте главный класс приложения и измените метод `printApplicationUrl()`. После настройки HTTPS URL должен быть изменен на `https://`:
 +
 [source,java,indent=0]
 ----
@@ -294,14 +294,14 @@ server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
     }
 ----
 
-After following the instructions outlined above, launch the application and ensure that the uploaded documents open in desktop office applications.
+После выполнения описанных выше инструкций запустите приложение и убедитесь, что загруженные документы открываются в настольных офисных приложениях.
 
 [[summary]]
-== Summary
+== Итоги
 
-In this section, you have created the simplest feature of the application: WebDAV document wrappers management.
+В этом разделе вы создали самую простую функциональность приложения: управление оболочками документов WebDAV.
 
-You have learned that:
+Вы узнали, что:
 
-* The xref:webdav:ui-components.adoc#webdav-document-upload-field[WebDAVDocumentUploadField] component includes convenient built-in tools for viewing and uploading WebDAV documents.
-* To enable opening and editing WebDAV documents using desktop office applications, you have to setup <<configuration,HTTPS>> for your web application.
+* Компонент xref:webdav:ui-components.adoc#webdav-document-upload-field[WebDAVDocumentUploadField] включает удобные встроенные инструменты для просмотра и загрузки документов WebDAV.
+* Чтобы включить открытие и редактирование документов WebDAV в настольных офисных приложениях, необходимо настроить <<configuration,HTTPS>> для вашего веб-приложения.

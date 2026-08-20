@@ -1,48 +1,48 @@
-= Getting Started with WebDAV
+= Начало работы с WebDAV
 
-This tutorial provides instructions on getting started with integrating the WebDAV add-on into your application.
+В этом самоучителе приведены инструкции по интеграции дополнения WebDAV в ваше приложение.
 
 [[project-setup]]
-== Project Setup
+== Настройка проекта
 
-We are developing an Onboarding Application - a tool designed to assist newcomers as they navigate through all the necessary steps when starting a new role or position.
+Мы разрабатываем приложение Onboarding — инструмент, который помогает новым сотрудникам пройти все необходимые шаги при начале работы на новой должности.
 
-We will use the Onboarding application as a starting point.
+Мы будем использовать приложение Onboarding в качестве отправной точки.
 
-. If you haven't created this application, you can refer to the xref:tutorial:index.adoc[Tutorial] section, which offers a detailed, step-by-step guide for developing the base application.
+. Если вы еще не создали это приложение, обратитесь к разделу xref:tutorial:index.adoc[Самоучитель], где приведено подробное, пошаговое руководство по разработке базового приложения.
 
 . Otherwise, download the complete application source code from the https://github.com/jmix-framework/jmix-onboarding-2[jmix-framework/jmix-onboarding-2^] GitHub repository. Next, follow the instructions in the xref:studio:project.adoc#opening-existing-project[Opening Existing Project] section to open it in Jmix Studio.
 
-. Add the WebDAV add-on according to the xref:index.adoc#installation[installation] section.
+. Добавьте дополнение WebDAV согласно разделу xref:index.adoc#installation[установка].
 
 [[about-app]]
-== About the Sample Application
+== О демонстрационном приложении
 
-In this tutorial, we'll introduce a new feature to the Onboarding application.
+В этом самоучителе мы добавим в приложение Onboarding новую функциональность.
 
-Onboarding involves training new employees, with an essential component being acquainting them with the company's *knowledge base*.
+Онбординг предполагает обучение новых сотрудников, и важной его частью является знакомство с *базой знаний* компании.
 
-Typically, the knowledge base includes company-wide standards and rules, operational procedures, as well as procedures, instructions, and best practices for each department. To ensure that the knowledge base is up-to-date, it is important to monitor updates and support collaborative documentation.
+Как правило, база знаний включает общекорпоративные стандарты и правила, операционные процедуры, а также процедуры, инструкции и лучшие практики для каждого отдела. Чтобы база знаний оставалась актуальной, важно отслеживать обновления и поддерживать совместную работу над документацией.
 
-* An internal knowledge management system is essential to ensure that employees have access to current information.
-* This system helps to monitor data modifications and establish access controls to safeguard sensitive information.
-* It also fosters collaboration on documents, prevents data errors during simultaneous editing, and maintains an audit trail of document revisions. This allows users to access previous versions of documents if necessary.
+* Внутренняя система управления знаниями необходима для того, чтобы у сотрудников был доступ к актуальной информации.
+* Такая система помогает отслеживать изменения данных и устанавливать контроль доступа для защиты конфиденциальной информации.
+* Она также способствует совместной работе над документами, предотвращает ошибки данных при одновременном редактировании и ведет журнал изменений документов. Это позволяет пользователям обращаться к предыдущим версиям документов при необходимости.
 
 [[data-model]]
-=== Data Model
+=== Модель данных
 
-Let’s look at the model of the sample onboarding application.
+Рассмотрим модель данных демонстрационного приложения onboarding.
 
 image::data-model-diagram.svg[align="center"]
 
-We will add the `WebdavDocumentWrapper` entity:
+Мы добавим сущность `WebdavDocumentWrapper`:
 
 image::data-model.svg[align="center"]
 
 [[user-roles]]
-=== User Roles
+=== Роли пользователей
 
-The sample application supports the following user roles:
+Демонстрационное приложение поддерживает следующие роли пользователей:
 
-* _Employees_ – studies documents within their department, but does not edit them.
-* _HR Managers_ – responsible for the relevance of information in the knowledge base: uploads documents, deletes documents, and edits the content of documents.
+* _Employees_ (сотрудники) — изучают документы в рамках своего отдела, но не редактируют их.
+* _HR Managers_ (HR-менеджеры) — отвечают за актуальность информации в базе знаний: загружают документы, удаляют документы и редактируют содержимое документов.

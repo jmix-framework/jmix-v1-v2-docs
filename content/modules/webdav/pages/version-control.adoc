@@ -1,71 +1,71 @@
-= Version Control
+= Контроль версий
 
 [[webdav-document-versions]]
-== WebDAV Document Versions
+== Версии документов WebDAV
 
-The *WebDAV document versions* view provides you with the ability to manage versions of a document when versioning is enabled for it.
+Экран *WebDAV document versions* позволяет управлять версиями документа, если для него включено версионирование.
 
-There are two main ways to access the *WebDAV document versions* view:
+Есть два основных способа открыть экран *WebDAV document versions*:
 
-. Via the xref:webdav:ui-components.adoc#webdav-document-upload-field[WebdavDocumentUploadField] component by clicking on the link that displays the version number of a document.
+. С помощью компонента xref:webdav:ui-components.adoc#webdav-document-upload-field[WebdavDocumentUploadField], нажав на ссылку, отображающую номер версии документа.
 +
 image::link-for-open-versions.png[align="center", width="631"]
 
-. Via the *Manage versions* button on the xref:webdav:webdav-documents.adoc[WebDAV Documents] view.
+. С помощью кнопки *Manage versions* на экране xref:webdav:webdav-documents.adoc[WebDAV Documents].
 
-Once you have performed either of these actions, the *WebDAV document versions* dialog window will be displayed.
+После выполнения любого из этих действий откроется диалоговое окно *WebDAV document versions*.
 
 image::web-dav-document-versions.png[align="center", width="1026"]
 
-The *WebDAV document versions* dialog supports the following operations:
+Диалоговое окно *WebDAV document versions* поддерживает следующие операции:
 
-. *Creating a new document version*: Clicking *Upload* allows you to select files to upload to the system. The uploaded files will be numbered in accordance with the latest document version number, with the numbers of new versions tagged with the * symbol to indicate that they have been uploaded but not yet linked to a document. The version numbers are updated after saving the changes. If you close the dialog window without saving, all versions tagged with * will be removed after the xref:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] is run.
+. *Создание новой версии документа*: нажатие кнопки *Upload* позволяет выбрать файлы для загрузки в систему. Загруженные файлы будут пронумерованы в соответствии с номером последней версии документа, а номера новых версий будут отмечены символом * — это означает, что они загружены, но еще не связаны с документом. Номера версий обновляются после сохранения изменений. Если вы закроете диалоговое окно без сохранения, все версии, отмеченные символом *, будут удалены после запуска задачи xref:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob].
 
-. *Creating a new document version based on another one*: Select a document version and click the *Copy to head* button to copy it and assign it a number in accordance with the latest document version number. The numbers of new versions are tagged with the * symbol to indicate that they have been uploaded but not yet linked to a document. The version numbers are updated after saving the changes. If you close the dialog window without saving, all versions tagged with * will be removed after the xref:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] is run.
+. *Создание новой версии документа на основе другой версии*: выберите версию документа и нажмите кнопку *Copy to head*, чтобы скопировать ее и присвоить ей номер в соответствии с номером последней версии документа. Номера новых версий отмечаются символом * — это означает, что они загружены, но еще не связаны с документом. Номера версий обновляются после сохранения изменений. Если вы закроете диалоговое окно без сохранения, все версии, отмеченные символом *, будут удалены после запуска задачи xref:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob].
 
-. *Opening a document for editing*: Select a document version and click the *Open* button to open the document for editing. Each time a document is saved in an external application, a new version of the document is sent to the database. Use the *Refresh* button to update the list of document versions displayed in the *WebDAV document versions* dialog.
+. *Открытие документа для редактирования*: выберите версию документа и нажмите кнопку *Open*, чтобы открыть документ для редактирования. Каждый раз при сохранении документа во внешнем приложении новая версия документа отправляется в базу данных. Используйте кнопку *Refresh*, чтобы обновить список версий документа, отображаемый в диалоговом окне *WebDAV document versions*.
 +
-CAUTION: Clicking *Refresh* deletes all unsaved document versions. Therefore, if a document version was copied but not saved, the changes will be discarded.
+CAUTION: Нажатие кнопки *Refresh* удаляет все несохраненные версии документа. Поэтому, если версия документа была скопирована, но не сохранена, изменения будут отменены.
 
-. *Opening a document for reading (read-only)*: To open a document for reading, click on the link with the file name.
+. *Открытие документа для чтения (только для чтения)*: чтобы открыть документ для чтения, нажмите на ссылку с именем файла.
 
-. *Downloading a ZIP archive with one or several document versions*: The *Download* button provides two options for downloading selected documents/versions. The first option allows you to download documents as separate files. The *Download as ZIP* option allows you to send all selected documents to a ZIP archive and download it. For convenience, file names contain `-v` suffixes with the corresponding version numbers, for example, `example-v3.docx`, `document-v1.docx`.
+. *Скачивание ZIP-архива с одной или несколькими версиями документа*: кнопка *Download* предоставляет два варианта скачивания выбранных документов/версий. Первый вариант позволяет скачать документы как отдельные файлы. Опция *Download as ZIP* позволяет поместить все выбранные документы в ZIP-архив и скачать его. Для удобства имена файлов содержат суффиксы `-v` с соответствующими номерами версий, например `example-v3.docx`, `document-v1.docx`.
 
 [[conflict-resolution-policies]]
-== Conflict Resolution Policies
+== Политики разрешения конфликтов
 
-Several policies are available to resolve conflicts that may occur when multiple users edit the same document simultaneously.
+Доступно несколько политик для разрешения конфликтов, которые могут возникать, когда несколько пользователей одновременно редактируют один и тот же документ.
 
-For example, consider a scenario where two users open the same document in *WebDAV document versions* and add several new versions. The first user completes their work on their versions and saves the changes. Subsequently, the second user does the same. As a result, the database contains versions created by both users. However, each user can only see their own versions in *WebDAV document versions*.
+Например, рассмотрим сценарий, когда два пользователя открывают один и тот же документ в *WebDAV document versions* и добавляют несколько новых версий. Первый пользователь завершает работу над своими версиями и сохраняет изменения. Затем второй пользователь делает то же самое. В результате база данных содержит версии, созданные обоими пользователями. Однако каждый пользователь видит в *WebDAV document versions* только свои собственные версии.
 
-This situation can lead to problems with ordering and saving these conflicting document versions. To resolve such conflicts, you can utilize the policies described below.
+Такая ситуация может привести к проблемам с порядком и сохранением этих конфликтующих версий документа. Для разрешения таких конфликтов можно использовать политики, описанные ниже.
 
-By default, the `RejectMergePolicy` is applied.
+По умолчанию применяется `RejectMergePolicy`.
 
 [[rebase-merge-policy]]
 === RebaseMergePolicy
 
-The `RebaseMergePolicy` allows for the insertion of new document versions after those already existing in the database. New versions are numbered in accordance with the latest document version number present in the database.
+`RebaseMergePolicy` позволяет вставлять новые версии документа после уже существующих в базе данных. Новые версии нумеруются в соответствии с номером последней версии документа, присутствующим в базе данных.
 
 [[cancel-my-merge-policy]]
 === CancelMyMergePolicy
 
-If document versions have changed while working in *WebDAV document versions*, all non-persistent versions (marked with *) are deleted.
+Если версии документа изменились во время работы в *WebDAV document versions*, все непостоянные версии (отмеченные символом *) удаляются.
 
 [[cancel-their-merge-policy]]
 === CancelTheirMergePolicy
 
-If document versions have changed while working in *WebDAV document versions*, all versions marked with * are saved instead of those added in *WebDAV document versions*.
+Если версии документа изменились во время работы в *WebDAV document versions*, все версии, отмеченные символом *, сохраняются вместо тех, что были добавлены в *WebDAV document versions*.
 
 [[reject-merge-policy]]
 === RejectMergePolicy
 
-If a conflict occurs, a warning is displayed, and all new versions are discarded.
+При возникновении конфликта отображается предупреждение, и все новые версии отменяются.
 
 [[overriding-conflict-resolution-policy]]
-=== Overriding Default Conflict Resolution Policy
+=== Переопределение политики разрешения конфликтов по умолчанию
 
-To override the default conflict resolution policy, declare a bean of the `DefaultMergePolicy` type in a Spring configuration class. This bean should provide the specific merge policy required. For example:
+Чтобы переопределить политику разрешения конфликтов по умолчанию, объявите бин типа `DefaultMergePolicy` в классе конфигурации Spring. Этот бин должен предоставлять требуемую политику слияния. Например:
 
 [source,java,indent=0]
 ----

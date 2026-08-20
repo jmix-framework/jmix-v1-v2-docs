@@ -1,13 +1,13 @@
-= Features
+= Возможности
 
-The add-on provides the `WebdavDocument` entity that should be used in your data model to reference files exposed via WebDAV.
+Дополнение предоставляет сущность `WebdavDocument`, которую следует использовать в вашей модели данных для ссылки на файлы, доступные через WebDAV.
 
 [[webdav-support-annotation]]
-== WebdavSupport Annotation
+== Аннотация WebdavSupport
 
-The `@WebdavSupport` annotation can be applied to fields of the `WebdavDocument` type. By using this annotation, you have the ability to disable versioning for a specific field, as versioning is enabled by default.
+Аннотацию `@WebdavSupport` можно применять к полям типа `WebdavDocument`. С помощью этой аннотации можно отключить версионирование для конкретного поля, поскольку по умолчанию версионирование включено.
 
-For instance, consider the following example:
+Например, рассмотрим следующий пример:
 
 [source,java,indent=0]
 ----
@@ -28,9 +28,9 @@ public class WebdavDocumentWrapper {
 }
 ----
 
-In this example, `docWithoutVersion` has versioning disabled, while `webdavDocument` will have versioning enabled by default.
+В этом примере у `docWithoutVersion` версионирование отключено, а у `webdavDocument` версионирование по умолчанию включено.
 
 [[links]]
-== Document Links
+== Ссылки на документы
 
-The add-on generates links to documents, which can be posted on a website or shared with third parties. The link has the format: `++https://<host>:<port>/webdav/link/82b62377-7fd1-b75e-47fc-9ef4b8d67360++`. When accessing the link, the user's browser will prompt for credentials to access the document. Upon successful authentication, the document will open in an appropriate desktop application if it is installed on the user's computer.
+Дополнение генерирует ссылки на документы, которые можно опубликовать на веб-сайте или передать третьим лицам. Ссылка имеет следующий формат: `++https://<host>:<port>/webdav/link/82b62377-7fd1-b75e-47fc-9ef4b8d67360++`. При переходе по ссылке браузер пользователя запросит учетные данные для доступа к документу. После успешной авторизации документ откроется в соответствующем настольном приложении, если оно установлено на компьютере пользователя.

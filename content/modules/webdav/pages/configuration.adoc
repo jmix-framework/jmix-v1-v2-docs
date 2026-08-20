@@ -1,52 +1,52 @@
-= Configuration
+= Конфигурация
 
 [[https]]
-== Configuring HTTPS
+== Настройка HTTPS
 
-To authenticate desktop applications, the server must have HTTPS enabled. Here are simple instructions for configuring HTTPS in your development environment.
+Для авторизации настольных приложений на сервере должен быть включен HTTPS. Ниже приведены простые инструкции по настройке HTTPS в вашей среде разработки.
 
 [[trusted-certificate]]
-=== Generating Trusted Certificate
+=== Создание доверенного сертификата
 
-Trusted  certificates can be obtained from SSL certificate providers or generated with `certbot`. But for the development purposes you can issue your own root certificate and sign development server's certificate with it. To simplify this task, we recommend using the `mkcert` tool.
+Доверенные сертификаты можно получить у провайдеров SSL-сертификатов или сгенерировать с помощью `certbot`. Но для целей разработки можно выпустить собственный корневой сертификат и подписать им сертификат сервера разработки. Для упрощения этой задачи мы рекомендуем использовать инструмент `mkcert`.
 
-. Install `mkcert` by following the instructions provided in its repository: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
+. Установите `mkcert`, следуя инструкциям в его репозитории: https://github.com/FiloSottile/mkcert[https://github.com/FiloSottile/mkcert^].
 
-. Generate and install the root certificate:
+. Сгенерируйте и установите корневой сертификат:
 +
 [source]
 ----
 mkcert -install
 ----
 
-. Create a certificate for localhost:
+. Создайте сертификат для localhost:
 +
 [source]
 ----
 mkcert -pkcs12 localhost 127.0.0.1 ::1
 ----
 +
-You will see the `localhost+2.p12` file in the current folder.
+В текущей папке появится файл `localhost+2.p12`.
 
-. Create a keystore file with the certificate for your project:
+. Создайте файл хранилища ключей (keystore) с сертификатом для вашего проекта:
 +
 [source]
 ----
 keytool -importkeystore -srckeystore localhost+2.p12 -srcstoretype pkcs12 -destkeystore localhost.jks
 ----
 +
-Enter `changeit` as the source keystore password.
+В качестве пароля исходного хранилища ключей введите `changeit`.
 +
-You will see the `localhost.jks` file in the current folder.
+В текущей папке появится файл `localhost.jks`.
 
 [[configuring-server]]
-=== Configuring Server
+=== Настройка сервера
 
-This section explains how to use the certificate generated in the previous section in your application when it runs from the IDE or as an executable JAR.
+В этом разделе описано, как использовать сертификат, сгенерированный в предыдущем разделе, в вашем приложении, когда оно запускается из IDE или как исполняемый JAR.
 
-. Create `src/main/resources/<base-package>/keystore` directory and copy `localhost.jks` into it.
+. Создайте директорию `src/main/resources/<base-package>/keystore` и скопируйте в нее `localhost.jks`.
 
-. Set the following properties in the `application.properties` file replacing `<base-package>` and `<password>` with actual values:
+. Задайте следующие свойства в файле `application.properties`, заменив `<base-package>` и `<password>` на реальные значения:
 +
 [source,properties,indent=0]
 ----
@@ -67,12 +67,12 @@ server.port = 8443
 +
 [NOTE]
 ====
-The `<base-package>` in the path to the keystore (`server.ssl.key-store` property) should be presented as a slash-separated path:
+Значение `<base-package>` в пути к хранилищу ключей (свойство `server.ssl.key-store`) должно быть указано как путь с разделителями в виде слэшей:
 ----
 server.ssl.key-store = classpath:com/example/demo/keystore/localhost.jks
 ----
 ====
-. Open the main application class and change the `printApplicationUrl()` method. The URL should be changed to `https://` after configuring HTTPS:
+. Откройте главный класс приложения и измените метод `printApplicationUrl()`. После настройки HTTPS URL должен быть изменен на `https://`:
 +
 [source,java,indent=0]
 ----
@@ -91,36 +91,36 @@ import org.springframework.context.event.EventListener;
 ----
 
 [[maintenance]]
-== Maintenance Tasks
+== Задачи обслуживания
 
-The WebDAV add-on includes several maintenance tasks, as described below. To run these tasks regularly, include the Quartz add-on in your project as outlined in the xref:quartz:index.adoc#installation[Quartz / Installation] section.
+Дополнение WebDAV включает несколько задач обслуживания, описанных ниже. Чтобы запускать эти задачи регулярно, добавьте в проект дополнение Quartz, как описано в разделе xref:quartz:index.adoc#installation[Quartz / Установка].
 
 [[expired-lock-cleaning-job]]
 === ExpiredLockCleaningJob
 
-This job removes expired xref:webdav-documents.adoc#lock-unlock[lock] objects. By default, it runs every two hours.
+Эта задача удаляет просроченные объекты xref:webdav-documents.adoc#lock-unlock[блокировки]. По умолчанию она запускается каждые два часа.
 
-To modify the job schedule, use the xref:webdav:webdav-properties.adoc#jmix.webdav.expired-lock-cleaning-cron[jmix.webdav.expired-lock-cleaning-cron] property.
+Чтобы изменить расписание задачи, используйте свойство xref:webdav:webdav-properties.adoc#jmix.webdav.expired-lock-cleaning-cron[jmix.webdav.expired-lock-cleaning-cron].
 
 [[webdav-document-versions-cleaning-job]]
 === WebdavDocumentVersionsCleaningJob
 
-This job removes `WebdavDocumentVersion` instances that are not associated with any documents. By default, it runs once a month.
+Эта задача удаляет экземпляры `WebdavDocumentVersion`, не связанные ни с одним документом. По умолчанию она запускается один раз в месяц.
 
-To change the job schedule, use the xref:webdav:webdav-properties.adoc#jmix.webdav.document-versions-cleaning-cron[jmix.webdav.document-versions-cleaning-cron] property.
+Чтобы изменить расписание задачи, используйте свойство xref:webdav:webdav-properties.adoc#jmix.webdav.document-versions-cleaning-cron[jmix.webdav.document-versions-cleaning-cron].
 
 [[security]]
-== Configuring Security
+== Настройка безопасности
 
-Access restrictions for documents are set up using xref:security:resource-roles.adoc[resource] and xref:security:row-level-roles.adoc[row-level] roles.
+Ограничения доступа к документам настраиваются с помощью xref:security:resource-roles.adoc[ресурсных] и xref:security:row-level-roles.adoc[ролей уровня строк].
 
 [[predefined-roles]]
-=== Predefined Roles
+=== Предопределенные роли
 
-The Jmix application with the WebDAV add-on includes two default resource roles:
+Приложение Jmix с дополнением WebDAV включает две предопределенные ресурсные роли по умолчанию:
 
-* *WebDAV: minimal access* - a fundamental WebDAV role necessary for all users utilizing WebDAV functionality.
-* *WebDAV: view document browser* - provides permission to access the xref:webdav-documents.adoc[WebDAV documents] view.
+* *WebDAV: minimal access* — базовая роль WebDAV, необходимая всем пользователям, которым требуется функциональность WebDAV.
+* *WebDAV: view document browser* — предоставляет доступ к экрану xref:webdav-documents.adoc[документов WebDAV].
 
 // [[row-level-restrictions]]
 // === Restricting Access to Documents

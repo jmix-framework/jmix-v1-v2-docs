@@ -1,22 +1,22 @@
-= 4. Customizing UI
+= 4. Настройка UI
 
-In this section, you will make some improvements to the appearance of the application:
+В этом разделе вы улучшите внешний вид приложения:
 
-* Add a new column called `lastModifiedBy` to the WebDAV document wrapper data grid. This column will display the author of the latest changes made to the WebDAV file.
-* Add a `lastModifiedDate` column, whose cells will show the date of the latest changes to the WebDAV file.
-* Add a *Download* button above the data grid. Using this button, users with the _Employee_ role will be able to download files from the knowledge base without the ability to modify them on the WebDAV server.
+* Добавите новую колонку `lastModifiedBy` в таблицу оболочек документов WebDAV. Эта колонка будет отображать автора последних изменений файла WebDAV.
+* Добавите колонку `lastModifiedDate`, ячейки которой будут показывать дату последних изменений файла WebDAV.
+* Добавите кнопку *Download* над таблицей. С помощью этой кнопки пользователи с ролью _Employee_ смогут скачивать файлы из базы знаний без возможности изменять их на сервере WebDAV.
 
 [[using-renderers]]
-== Using Renderers in Data Grid
+== Использование рендереров в таблице данных
 
-In the data grid, we will learn how to display columns that are not directly linked to attributes of the associated entity. These columns are often used to show derived information. To create a column of this type, you need to define a column with a `key` attribute in the XML descriptor and then generate a xref:flow-ui:vc/components/dataGrid.adoc#renderers[renderer] for that column.
+В таблице данных мы научимся отображать колонки, не связанные напрямую с атрибутами соответствующей сущности. Такие колонки часто используются для отображения производной информации. Чтобы создать колонку такого типа, необходимо определить колонку с атрибутом `key` в XML-дескрипторе, а затем сгенерировать xref:flow-ui:vc/components/dataGrid.adoc#renderers[рендерер] для этой колонки.
 
 [[add-last-modified-by-column]]
-=== Adding lastModifiedBy Column
+=== Добавление колонки lastModifiedBy
 
-Let's configure the display of the author of the latest changes to the WebDAV file.
+Настроим отображение автора последних изменений файла WebDAV.
 
-Add a new column to `webdavDocumentWrappersDataGrid`:
+Добавьте новую колонку в `webdavDocumentWrappersDataGrid`:
 
 [source,xml,indent=0]
 ----
@@ -28,9 +28,9 @@ Add a new column to `webdavDocumentWrappersDataGrid`:
         </dataGrid>
 ----
 
-This column is not bound to an entity attribute, so it has the `key` attribute instead of `property`.
+Эта колонка не связана с атрибутом сущности, поэтому вместо атрибута `property` у нее есть атрибут `key`.
 
-Select the `lastModifiedBy` column, switch to the *Handlers* tab of the component inspector and create the `renderer` handler method:
+Выберите колонку `lastModifiedBy`, перейдите на вкладку *Handlers* инспектора компонента и создайте метод-обработчик `renderer`:
 
 [source,java,indent=0]
 ----
@@ -40,21 +40,21 @@ Select the `lastModifiedBy` column, switch to the *Handlers* tab of the componen
     }
 ----
 
-Implement the `webdavDocumentWrappersDataGridLastModifiedByRenderer` method:
+Реализуйте метод `webdavDocumentWrappersDataGridLastModifiedByRenderer`:
 
 [source,java,indent=0]
 ----
 include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdocumentwrapper/WebdavDocumentWrapperListView.java[tags=lastModifiedBy-renderer]
 ----
-<1> The method returns a `TextRenderer` object.
-<2> The renderer returns the name of the user who made changes to the latest version of the WebDAV document.
+<1> Метод возвращает объект `TextRenderer`.
+<2> Рендерер возвращает имя пользователя, внесшего изменения в последнюю версию документа WebDAV.
 
 [[add-last-modified-date-column]]
-=== Adding lastModifiedDate Column
+=== Добавление колонки lastModifiedDate
 
-In the `lastModifiedDate` column, let's configure the display of the date of the latest changes to the WebDAV file.
+В колонке `lastModifiedDate` настроим отображение даты последних изменений файла WebDAV.
 
-Add a new column to `webdavDocumentWrappersDataGrid`:
+Добавьте новую колонку в `webdavDocumentWrappersDataGrid`:
 
 [source,xml,indent=0]
 ----
@@ -66,9 +66,9 @@ Add a new column to `webdavDocumentWrappersDataGrid`:
         </dataGrid>
 ----
 
-This column is not bound to an entity attribute, so it has the `key` attribute instead of `property`.
+Эта колонка не связана с атрибутом сущности, поэтому вместо атрибута `property` у нее есть атрибут `key`.
 
-Select the `lastModifiedDate` column, switch to the *Handlers* tab of the component inspector and create the `renderer` handler method:
+Выберите колонку `lastModifiedDate`, перейдите на вкладку *Handlers* инспектора компонента и создайте метод-обработчик `renderer`:
 
 [source,java,indent=0]
 ----
@@ -76,11 +76,11 @@ include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdoc
 ----
 
 [[download-button]]
-== Adding Download Button
+== Добавление кнопки Download
 
-Let's add a *Download* button to the WebDAV documents data grid. Using this button, users with the _Employees_ role would be able to force a download of the selected WebDAV file.
+Добавим кнопку *Download* в таблицу документов WebDAV. С помощью этой кнопки пользователи с ролью _Employees_ смогут принудительно скачать выбранный файл WebDAV.
 
-First add a `download` action to `webdavDocumentWrappersDataGrid`. Then, in the `buttonsPanel` `hbox`, add a button and associate it with the newly created action.
+Сначала добавьте действие `download` в `webdavDocumentWrappersDataGrid`. Затем, в `hbox` с идентификатором `buttonsPanel`, добавьте кнопку и свяжите ее с только что созданным действием.
 
 [source,xml,indent=0]
 ----
@@ -99,36 +99,36 @@ First add a `download` action to `webdavDocumentWrappersDataGrid`. Then, in the 
                 <!--...-->
            </vbox>
 ----
-<1> The `list_itemTracking` action will automatically become active only when a specific item is selected in the associated `dataGrid`.
+<1> Действие `list_itemTracking` автоматически становится активным только тогда, когда в связанном `dataGrid` выбран конкретный элемент.
 
-Generate an `ActionPerformedEvent` handler method for the `download` action. Add the logic to it:
+Сгенерируйте метод-обработчик `ActionPerformedEvent` для действия `download`. Добавьте в него логику:
 
 [source,java,indent=0]
 ----
 include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdocumentwrapper/WebdavDocumentWrapperListView.java[tags=webdavDocumentWrappersDataGrid;downloader;download]
 ----
-<1> Use the xref:files:downloading-files.adoc#downloader[Downloader] bean to download files.
-<2> Get the last of `WebdavDocumentVersion` instance - specific version of a document managed within the WebDAV system.
-<3> The returned `FileRef` object is a reference to the file in the file storage.
-<4> The `download()` method accepts the `FileRef` value and takes the file from the file storage specified in the `FileRef` object. The name and type of the file are also encoded in `FileRef`, so the web browser correctly chooses whether to download or display the file.
+<1> Используйте бин xref:files:downloading-files.adoc#downloader[Downloader] для скачивания файлов.
+<2> Получите последний экземпляр `WebdavDocumentVersion` — конкретную версию документа, управляемую в системе WebDAV.
+<3> Возвращаемый объект `FileRef` является ссылкой на файл в хранилище файлов.
+<4> Метод `download()` принимает значение `FileRef` и берет файл из хранилища файлов, указанного в объекте `FileRef`. Имя и тип файла также закодированы в `FileRef`, поэтому веб-браузер правильно определяет, скачивать файл или отображать его.
 
 [[running-application]]
-== Running the Application
+== Запуск приложения
 
-Navigate to `++https://localhost:8443++` using your web browser and sign in to the application with the credentials `admin/admin`.
+Перейдите по адресу `++https://localhost:8443++` в веб-браузере и войдите в приложение с учетными данными `admin/admin`.
 
-Choose the `Knowledge base` item from the `Application` menu.
+Выберите пункт `Knowledge base` в меню `Application`.
 
 image::knowledge-base-with-renderers.png[align="center", width="1451"]
 
-The *Last modified by* column displays the author of the latest modifications to the WebDav file, while the *Last modified date* column shows the date of the last modifications to the WebDav file.
+Колонка *Last modified by* отображает автора последних изменений файла WebDav, а колонка *Last modified date* показывает дату последних изменений файла WebDav.
 
-The *Download* button allows users to download the selected WebDAV document.
+Кнопка *Download* позволяет пользователям скачать выбранный документ WebDAV.
 
 [[summary]]
-== Summary
+== Итоги
 
-In this section, you have learned that:
+В этом разделе вы узнали, что:
 
-* The data in data grid columns can be presented using xref:flow-ui:vc/components/dataGrid.adoc#renderers[renderers]. Renderers provide a way to customize how the data is displayed in each column of a data grid.
-* The xref:files:downloading-files.adoc#downloader[Downloader] bean is used to download files.
+* Данные в колонках таблицы данных можно отображать с помощью xref:flow-ui:vc/components/dataGrid.adoc#renderers[рендереров]. Рендереры позволяют настраивать способ отображения данных в каждой колонке таблицы данных.
+* Бин xref:files:downloading-files.adoc#downloader[Downloader] используется для скачивания файлов.

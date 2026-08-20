@@ -1,62 +1,62 @@
-= Part 2. Advanced
+= Часть 2. Продвинутый уровень
 
-In this chapter, you will create:
+В этой главе вы создадите:
 
-* The `WebdavFolder` entity.
+* Сущность `WebdavFolder`.
 
-== Creating WebdavFolder Entity
+== Создание сущности WebdavFolder
 
-One of the `WebdavFolder` entity's attributes is `classification`, which contains information on the type of folder. Therefore, let's create a `Classification` enumeration consisting of two values: `Public` and `Restricted`.
+Один из атрибутов сущности `WebdavFolder` — `classification`, который содержит информацию о типе папки. Поэтому создадим перечисление `Classification`, состоящее из двух значений: `Public` и `Restricted`.
 
-The detailed instructions for creating enumerations can be found in the xref:tutorial:enumerations.adoc[Using Enumerations] section of Tutorial.
+Подробные инструкции по созданию перечислений можно найти в разделе xref:tutorial:enumerations.adoc[Использование перечислений] самоучителя.
 
 image::enum-classification.png[align="center", width="427"]
 
-Next, create the `WebdavFolder` entity. You can find detailed instructions for creating entities in the xref:tutorial:simple-crud.adoc[Simple CRUD] section of the Tutorial.
+Далее создайте сущность `WebdavFolder`. Подробные инструкции по созданию сущностей можно найти в разделе xref:tutorial:simple-crud.adoc[Простой CRUD] самоучителя.
 
-The `WebdavFolder` entity has the following attributes:
+Сущность `WebdavFolder` имеет следующие атрибуты:
 
-* `name` with `String` type. Select the *Mandatory* checkbox.
-* `classification` with `Classification` enumeration type.
-* `department` with `Department` type:
+* `name` типа `String`. Установите флажок *Mandatory*.
+* `classification` типа перечисления `Classification`.
+* `department` типа `Department`:
 ** *Attribute type*: `ASSOCIATION`
 ** *Type*: `Department`
 ** *Cardinality*: `Many to One`
 ** *FK constraint action*: `DENY`
-* `parent` with `WebdavFolder` type:
+* `parent` типа `WebdavFolder`:
 ** *Attribute type*: `ASSOCIATION`
 ** *Type*: `WebdavFolder`
 ** *Cardinality*: `Many to One`
 
-== Adding WebdavFolder Attribute to WebdavDocumentWrapper
+== Добавление атрибута WebdavFolder в WebdavDocumentWrapper
 
-Then add the `webdavFolder` attribute to the `WebdavDocumentWrapper` entity:
+Теперь добавьте атрибут `webdavFolder` в сущность `WebdavDocumentWrapper`:
 
-Double-click on the `WebdavDocumentWrapper` entity in *Jmix* tool window and select its last attribute (to add the new attribute to the end):
+Дважды щелкните на сущности `WebdavDocumentWrapper` в окне инструмента *Jmix* и выберите ее последний атрибут (чтобы добавить новый атрибут в конец):
 
 image::add-attr-wbddocwrapper.png[align="center", width="912"]
 
-Click *Add* (image:add.svg[]) in the *Attributes* toolbar. In the *New Attribute* dialog, enter `folder` into the *Name* field, select `ASSOCIATION` in the *Attribute type* dropdown and `WebdavFolder` in the *Type* dropdown. Select CASCADE in the *FK constraint action* dropdown.
+Нажмите *Add* (image:add.svg[]) на панели инструментов *Attributes*. В диалоговом окне *New Attribute* введите `folder` в поле *Name*, выберите `ASSOCIATION` в списке *Attribute type* и `WebdavFolder` в списке *Type*. Выберите CASCADE в списке *FK constraint action*.
 
 image::add-folder-attr.png[align="center", width="862"]
 
-Click *OK*.
+Нажмите *OK*.
 
-== Creating Knowledge Base View
+== Создание экрана базы знаний
 
 Описать экран
 
-Below is a mockup of the *Knowledge base* view:
+Ниже приведен макет экрана *Knowledge base*:
 
 image::knowledge-base-mockup.png[align="center", width="862"]
 
-In this chapter, you will create the *Knowledge base* view from scratch.
+В этой главе вы создадите экран *Knowledge base* с нуля.
 
-If your application is running, stop it using the *Stop* button (image:suspend.svg[]) in the main toolbar.
+Если ваше приложение запущено, остановите его с помощью кнопки *Stop* (image:suspend.svg[]) на главной панели инструментов.
 
-In the *Jmix* tool window, click *New* (image:add.svg[]) -> *View*. In the *Create Jmix View* window, select the `Blank view` template. Click *Next*.
+В окне инструмента *Jmix* нажмите *New* (image:add.svg[]) -> *View*. В окне *Create Jmix View* выберите шаблон `Blank view`. Нажмите *Next*.
 
-On the next step of the wizard, enter:
+На следующем шаге мастера введите:
 
 * *Descriptor name*: `knowledge-base-view`
 * *Controller name*: `KnowledgeBaseView`
@@ -64,43 +64,43 @@ On the next step of the wizard, enter:
 
 image::knowledge-base-create1.png[align="center", width="997"]
 
-Click *Next*.
+Нажмите *Next*.
 
-On the next step of the wizard, change the view title to `Knowledge base`:
+На следующем шаге мастера измените заголовок экрана на `Knowledge base`:
 
 image::knowledge-base-create2.png[align="center", width="997"]
 
-Click *Create*.
+Нажмите *Create*.
 
-Studio will create an empty view and open it in the designer:
+Studio создаст пустой экран и откроет его в дизайнере:
 
 image::knowledge-base-create3.png[align="center", width="1265"]
 
-The new view will also be added to the main menu.
+Новый экран также будет добавлен в главное меню.
 
-Run the application by clicking the *Debug* button (image:start-debugger.svg[]) in the main toolbar.
+Запустите приложение, нажав кнопку *Debug* (image:start-debugger.svg[]) на главной панели инструментов.
 
-Prior to application execution, Studio will draft a Liquibase changelog:
+Перед запуском приложения Studio подготовит Liquibase changelog:
 
 image::changelog.png[align="center", width="1219"]
 
-Click *Save and run*.
+Нажмите *Save and run*.
 
-Studio will execute the changelog, proceed with building and running the application.
+Studio выполнит changelog, затем соберет и запустит приложение.
 
-Open the application in your web browser and log in to the application.
+Откройте приложение в веб-браузере и войдите в систему.
 
-Click on the `Knowledge base` item in the `Application` menu and make sure your empty view is opened.
+Нажмите на пункт `Knowledge base` в меню `Application` и убедитесь, что открылся ваш пустой экран.
 
-=== Defining Data Section
+=== Определение раздела данных
 
-According to the provided design sketch, there will be two data containers on the view, the data from which will be used to display the folder list and the list of webDAV documents related to the folders.
+Согласно предоставленному эскизу дизайна, на экране будет два контейнера данных, данные из которых будут использоваться для отображения списка папок и списка документов WebDAV, относящихся к папкам.
 
-. First, add a data container which will provide a collection of `WevdavFolder` entities for the tree data grid. Click *Add Component* in the actions panel, select the *Data components* section, and double-click the *Collection* item. In the *Collection Properties Editor* window, select `WevdavFolder` in the *Entity* field, uncheck the *Read only* checkbox, and click *OK*:
+. Сначала добавьте контейнер данных, который будет предоставлять коллекцию сущностей `WevdavFolder` для дерево-таблицы. Нажмите *Add Component* на панели действий, выберите раздел *Data components* и дважды щелкните на элементе *Collection*. В окне *Collection Properties Editor* выберите `WevdavFolder` в поле *Entity*, снимите флажок *Read only* и нажмите *OK*:
 +
 image::folder-collection-create.png[align="center", width="729"]
 +
-Studio will create the collection container:
+Studio создаст контейнер коллекции:
 +
 [source,xml]
 ----
@@ -116,16 +116,16 @@ Studio will create the collection container:
     </collection>
 </data>
 ----
-. Then, add a data container which will provide a collection of `WebdavDocumentWrapper` entities for the data grid. Click *Add Component* in the actions panel, select the *Data components* section, and double-click the *Collection* item. In the *Collection Properties Editor* window, select `WebdavDocumentWrapper` in the *Entity* field. Click the *Edit* button (image:edit.svg[]) to the right of the *Fetch plan* field.
+. Затем добавьте контейнер данных, который будет предоставлять коллекцию сущностей `WebdavDocumentWrapper` для таблицы данных. Нажмите *Add Component* на панели действий, выберите раздел *Data components* и дважды щелкните на элементе *Collection*. В окне *Collection Properties Editor* выберите `WebdavDocumentWrapper` в поле *Entity*. Нажмите кнопку *Edit* (image:edit.svg[]) справа от поля *Fetch plan*.
 
 +
 image::wbdoc-wrapper-collection-create.png[align="center", width="729"]
 +
-Select the `wevdavDocument` attribute and then the `lastVersion` attribute for it in the *Edit Fetch Plan* dialog.
+Выберите атрибут `wevdavDocument`, а затем атрибут `lastVersion` для него в диалоговом окне *Edit Fetch Plan*.
 +
 image::wbdoc-wrapper-collection-create2.png[align="center", width="848"]
 +
-Studio will create the collection container:
+Studio создаст контейнер коллекции:
 +
 [source,xml,indent=0]
 ----
@@ -144,12 +144,12 @@ Studio will create the collection container:
         </collection>
 ----
 +
-The default query will load all `WebdavDocumentWrapper` instances, but you need to select only documents of the current webdav folder. Let’s modify the query using *JPQL Query Designer*. Select `webdavDocumentWrappersDl` in the *Jmix UI* structure panel and click the value of the `query` attribute. Then add a `where` clause by the `folder` attribute with the `:folder` parameter.
+Запрос по умолчанию загрузит все экземпляры `WebdavDocumentWrapper`, но вам нужно выбирать только документы текущей папки webdav. Изменим запрос с помощью *JPQL Query Designer*. Выберите `webdavDocumentWrappersDl` на панели структуры *Jmix UI* и щелкните значение атрибута `query`. Затем добавьте условие `where` по атрибуту `folder` с параметром `:folder`.
 +
 
 image::wbdoc-wrapper-query.png[align="center", width="935"]
 +
-The resulting query should be as below:
+В результате запрос должен выглядеть так:
 +
 [source,xml,indent=0]
 ----
@@ -161,11 +161,11 @@ The resulting query should be as below:
             </loader>
 ----
 
-We'll provide passing the `:folder` parameter into the query a bit later, but for now let's create the visual components to display the list of folders and documents.
+Передачу параметра `:folder` в запрос мы реализуем немного позже, а сейчас создадим визуальные компоненты для отображения списка папок и документов.
 
-=== Adding UI Layouts
+=== Добавление UI-компоновки
 
-Since the *Knowledge base* view is divided into two areas, we will use the xref:flow-ui:vc/layouts/split.adoc[split] layout. Add the `split` layout, and then add two vertical boxes (xref:flow-ui:vc/layouts/vbox.adoc[vbox]) to it sequentially. In the first vertical box, there is a horizontal box containing the tree data grid control buttons, and a xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid] containing a folder hierarchy. In the second vertical box, there is a horizontal panel containing the data grid control buttons and a xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] containing webDAV documents. The template for the view looks like this:
+Поскольку экран *Knowledge base* разделен на две области, мы используем компоновку xref:flow-ui:vc/layouts/split.adoc[split]. Добавьте компоновку `split`, а затем последовательно добавьте в нее два вертикальных блока (xref:flow-ui:vc/layouts/vbox.adoc[vbox]). В первом вертикальном блоке находится горизонтальный блок с кнопками управления дерево-таблицей и xref:flow-ui:vc/components/treeDataGrid.adoc[treeDataGrid] с иерархией папок. Во втором вертикальном блоке находится горизонтальная панель с кнопками управления таблицей данных и xref:flow-ui:vc/components/dataGrid.adoc[dataGrid] с документами WebDAV. Шаблон экрана выглядит так:
 
 [source,xml,indent=0]
 ----
@@ -185,13 +185,13 @@ Since the *Knowledge base* view is divided into two areas, we will use the xref:
     </layout>
 ----
 
-=== Creating WebdavFolder TreeDataGrid
+=== Создание TreeDataGrid для WebdavFolder
 
-Add the `treeDataGrid` component into the first vertical box. Select `WebdavFolder` in the *Entity* field and `webdavFoldersDc` data container in the *TreeDataGrid Properties Editor* dialog:
+Добавьте компонент `treeDataGrid` в первый вертикальный блок. Выберите `WebdavFolder` в поле *Entity* и контейнер данных `webdavFoldersDc` в диалоговом окне *TreeDataGrid Properties Editor*:
 
 image::webdav-folder-tree-data-grid.png[align="center", width="762"]
 
-Remove the extra column `classification` and set the `hierarchy` property to `parent`.
+Удалите лишнюю колонку `classification` и установите свойство `hierarchy` в значение `parent`.
 
 [source,xml,indent=0]
 ----

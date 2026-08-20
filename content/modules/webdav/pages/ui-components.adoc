@@ -1,14 +1,14 @@
-= UI Components
+= UI-компоненты
 
-The WebDAV add-on includes UI components that facilitate working with WebDAV documents.
+Дополнение WebDAV включает UI-компоненты, облегчающие работу с документами WebDAV.
 
-To add these components on the view, use Jmix Studio.
+Чтобы добавить эти компоненты на экран, используйте Jmix Studio.
 
-Click *Add Component* in the actions panel, then find type `webdav` in the search field. From the list of results, select the desired component and double-click on it.
+Нажмите *Add Component* на панели действий, затем введите `webdav` в поле поиска. В списке результатов выберите нужный компонент и дважды щелкните на нем.
 
 image::add-webdav-component.png[align="center",width="767"]
 
-The new element will be added in both the *Jmix UI* structure panel and in the XML. You can configure attributes like xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width], etc., in the same way as it is done for other xref:flow-ui:vc/components.adoc[UI components].
+Новый элемент будет добавлен как на панели структуры *Jmix UI*, так и в XML. Вы можете настраивать атрибуты, такие как xref:flow-ui:vc/common-attributes.adoc#id[id], xref:flow-ui:vc/common-attributes.adoc#height[height], xref:flow-ui:vc/common-attributes.adoc#width[width] и т. д., так же, как это делается для других xref:flow-ui:vc/components.adoc[UI-компонентов].
 
 [source,xml,indent=0]
 ----
@@ -17,7 +17,7 @@ The new element will be added in both the *Jmix UI* structure panel and in the X
                              colspan="2"/>
 ----
 
-If you don’t use the view designer, declare the `webdav` namespace in your view’s XML descriptor manually:
+Если вы не используете дизайнер экранов, объявите пространство имен `webdav` в XML-дескрипторе вашего экрана вручную:
 
 [source,xml,indent=0]
 ----
@@ -25,17 +25,17 @@ include::example$/webdav-ex1/src/main/resources/com/company/onboarding/view/webd
 ----
 
 [[how-to-inject]]
-You can inject the UI component into the controller by utilizing the *Inject to Controller* action in the *Jmix UI* structure panel:
+Вы можете инжектировать UI-компонент в контроллер с помощью действия *Inject to Controller* на панели структуры *Jmix UI*:
 
 image::inject-webdav-from-hierarchy.png[align="center", width="477"]
 
-Alternatively, you can employ the *Inject* button available in the actions panel:
+Также вы можете воспользоваться кнопкой *Inject* на панели действий:
 
 image::inject-webdav.png[align="center", width="851"]
 
-NOTE: For the component to be injectable into the controller, it must have the `id` attribute specified.
+NOTE: Чтобы компонент можно было инжектировать в контроллер, у него должен быть указан атрибут `id`.
 
-Now you can interact with the webDAV UI component programmatically by accessing its methods directly:
+Теперь вы можете программно взаимодействовать с UI-компонентом webDAV, обращаясь напрямую к его методам:
 
 [source,java,indent=0]
 ----
@@ -45,16 +45,16 @@ include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdoc
 [[webdav-document-link]]
 == WebdavDocumentLink
 
-`WebdavDocumentLink` is a UI component enabling users to open documents in desktop office applications. Additionally, if document versioning is supported, users can view all versions of the document.
+`WebdavDocumentLink` — UI-компонент, позволяющий пользователям открывать документы в настольных офисных приложениях. Кроме того, если поддерживается версионирование документа, пользователи могут просматривать все его версии.
 
 image::ui-webdav-document-link.png[align="center",width="994"]
 
-The component offers the following features:
+Компонент предоставляет следующие возможности:
 
-* Opening the most recent version of a document for viewing and editing.
-* Opening previous versions of a document in read-only mode (for further information, refer to xref:webdav:version-control.adoc#webdav-document-versions[WebDAV Document Versions]).
+* Открытие последней версии документа для просмотра и редактирования.
+* Открытие предыдущих версий документа в режиме только для чтения (подробнее см. xref:webdav:version-control.adoc#webdav-document-versions[Версии документов WebDAV]).
 
-In the example below, `WebdavDocumentLink` will be xref:flow-ui:vc/components/dataGrid.adoc#renderers[rendered] in the left column of the data grid:
+В примере ниже `WebdavDocumentLink` будет xref:flow-ui:vc/components/dataGrid.adoc#renderers[отрендерен] в левой колонке таблицы данных:
 
 [source,xml,indent=0]
 ----
@@ -72,21 +72,21 @@ In the example below, `WebdavDocumentLink` will be xref:flow-ui:vc/components/da
         </dataGrid>
 ----
 
-The `renderer` handler creates and returns the `WebdavDocumentLink` component:
+Обработчик `renderer` создает и возвращает компонент `WebdavDocumentLink`:
 
 [source,java,indent=0]
 ----
 include::example$/webdav-ex1/src/main/java/com/company/onboarding/view/webdavdocumentwrapper/WebdavDocumentWrapperListView.java[tags=webdavDocument-renderer]
 ----
-<1> The method returns a `Renderer` object that creates a UI component to be rendered in the column.
-<2> The `WebdavDocumentLink` component instance is created using the `UiComponents` factory.
+<1> Метод возвращает объект `Renderer`, создающий UI-компонент для отображения в колонке.
+<2> Экземпляр компонента `WebdavDocumentLink` создается с помощью фабрики `UiComponents`.
 
 [[webdav-document-version-link]]
 == WebdavDocumentVersionLink
 
-`WebdavDocumentVersionLink` allows opening a specific document version in desktop office applications in read-only mode. The component shows the file name of a particular document version.
+`WebdavDocumentVersionLink` позволяет открывать конкретную версию документа в настольных офисных приложениях в режиме только для чтения. Компонент отображает имя файла конкретной версии документа.
 
-To create `WebdavDocumentVersionLink`, use the `UiComponents` factory.
+Чтобы создать `WebdavDocumentVersionLink`, используйте фабрику `UiComponents`.
 
 [source,java,indent=0]
 ----
@@ -98,20 +98,20 @@ webdavDocumentVersionLink.setWebdavDocumentVersion(documentVersion);
 [[webdav-document-upload-field]]
 == WebdavDocumentUploadField
 
-The `WebdavDocumentUploadField` component is specifically designed for working with documents.
+Компонент `WebdavDocumentUploadField` специально предназначен для работы с документами.
 
-The XML component name: `webdavDocumentUpload`.
+Имя XML-компонента: `webdavDocumentUpload`.
 
-The component provides the following functionalities:
+Компонент предоставляет следующие возможности:
 
-* Uploading a file to create a new document or a new version of an existing document.
-* Opening a document for viewing or editing.
-* Downloading the latest or previous versions of a document.
-* Creating new versions of a document based on existing versions.
+* Загрузка файла для создания нового документа или новой версии существующего документа.
+* Открытие документа для просмотра или редактирования.
+* Скачивание последней или предыдущих версий документа.
+* Создание новых версий документа на основе существующих версий.
 
-=== Work Modes
+=== Режимы работы
 
-The component operates in two modes:
+Компонент работает в двух режимах:
 
-* *Versioning Enabled*: When versioning is enabled, the `WebdavDocumentUploadField` component is displayed without any limitations.
-* *Versioning Disabled*: When versioning is disabled, the `WebdavDocumentUploadField` component does not display a link to the most recent version of the document.
+* *Versioning Enabled*: когда версионирование включено, компонент `WebdavDocumentUploadField` отображается без каких-либо ограничений.
+* *Versioning Disabled*: когда версионирование отключено, компонент `WebdavDocumentUploadField` не отображает ссылку на последнюю версию документа.

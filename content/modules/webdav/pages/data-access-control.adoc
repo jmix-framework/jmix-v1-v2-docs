@@ -1,57 +1,57 @@
-= 5. Data Access Control
+= 5. Контроль доступа к данным
 
-In our application, we already have roles _Employees_ and _HR Managers_. In this chapter, we will demonstrate how to modify them by adding new restrictions.
+В нашем приложении уже есть роли _Employees_ и _HR Managers_. В этой главе мы покажем, как изменить их, добавив новые ограничения.
 
 [[employees-resource-role]]
-== Resource Role for Employees
+== Ресурсная роль для сотрудников
 
-An employee needs to read the `WebdavDocumentWrapper` entity instances to view them in UI.
+Сотруднику необходимо читать экземпляры сущности `WebdavDocumentWrapper`, чтобы просматривать их в UI.
 
-Double-click on *Security -> EmployeeRole* xref:security:resource-roles.adoc[resource role] in *Jmix tool* window.
+Дважды щелкните на *Security -> EmployeeRole* xref:security:resource-roles.adoc[ресурсная роль] в окне *Jmix tool*.
 
-Switch to the *User Interface* tab to define permissions to views. Select `WebdavDocumentWrapper.list` and `WebdavDocumentWrapper.detail` in the menu tree and select *Allow* checkboxes on the right:
+Перейдите на вкладку *User Interface*, чтобы определить права доступа к экранам. Выберите `WebdavDocumentWrapper.list` и `WebdavDocumentWrapper.detail` в дереве меню и установите флажки *Allow* справа:
 
 image::employee-role.png[align="center", width="959"]
 
-After that, switch to the *Entities* tab and select the following permissions:
+После этого перейдите на вкладку *Entities* и выберите следующие права доступа:
 
 image::employee-role-2.png[align="center", width="1083"]
 
 [[managers-resource-role]]
-== Resource Role for HR Managers
+== Ресурсная роль для HR-менеджеров
 
-HR managers need to upload documents, delete documents, and edit the content of documents.
+HR-менеджерам необходимо загружать документы, удалять документы и редактировать содержимое документов.
 
-Double-click on *Security -> HRManagerRole* xref:security:resource-roles.adoc[resource role] in *Jmix tool* window.
+Дважды щелкните на *Security -> HRManagerRole* xref:security:resource-roles.adoc[ресурсная роль] в окне *Jmix tool*.
 
-Switch to the *User Interface* tab and allow `WebdavDocumentWrapper.list`, and `WebdavDocumentWrapper.detail`.
+Перейдите на вкладку *User Interface* и разрешите `WebdavDocumentWrapper.list` и `WebdavDocumentWrapper.detail`.
 
 image::hr-manager-role.png[align="center", width="946"]
 
-Switch to the *Entities* tab.
+Перейдите на вкладку *Entities*.
 
-Give all permissions to the `WebdavDocumentWrapper` entity.
+Предоставьте все права доступа для сущности `WebdavDocumentWrapper`.
 
 image::hr-manager-role-2.png[align="center", width="946"]
 
 [[webdav-document-restrictions-role]]
-== Row-level WebDavDocumentsDepartmentRole
+== Роль уровня строк WebDavDocumentsDepartmentRole
 
-In this section, you will introduce a row-level role which restricts access to WebDAV documents for an employee.
+В этом разделе вы создадите роль уровня строк, которая ограничивает доступ к документам WebDAV для сотрудника.
 
-If the employee has the role of _HR Manager_ or _Administrator_, then display all WebDAV documents.
+Если у сотрудника роль _HR Manager_ или _Administrator_, то отображаются все документы WebDAV.
 
-If the employee has the role of _Employee_, display only WebDAV documents related to the employee's department.
+Если у сотрудника роль _Employee_, отображаются только документы WebDAV, относящиеся к отделу сотрудника.
 
-In the *Jmix* tool window, click *New* (image:add.svg[]) -> *Row-level Role*. In the *New Row-level Role* dialog, enter:
+В окне инструмента *Jmix* нажмите *New* (image:add.svg[]) -> *Row-level Role*. В диалоговом окне *New Row-level Role* введите:
 
 * *Role name*: `WebDav documents department`
 * *Role code*: `web-dav-documents-department`
 * *Class*: `com.company.onboarding.security.WebDavDocumentsDepartmentRole`
 
-Click *OK*.
+Нажмите *OK*.
 
-Studio will create and open an annotated interface:
+Studio создаст и откроет аннотированный интерфейс:
 
 [source,java,indent=0]
 ----
@@ -61,74 +61,74 @@ public interface WebDavDocumentsDepartmentRole {
 }
 ----
 
-Click *Add Policy → JPQL Policy* in the top actions panel:
+Нажмите *Add Policy → JPQL Policy* на верхней панели действий:
 
 image::add-jpql-policy.png[align="center", width="833"]
 
-In the *Add JPQL Policy* dialog, enter:
+В диалоговом окне *Add JPQL Policy* введите:
 
 * *Entity*: `WebdavDocumentWrapper`
 * *Where clause*: `\{E}.department = :current_user_department`
 
 image::add-jpql-policy-2.png[align="center", width="636"]
 
-Click *OK*.
+Нажмите *OK*.
 
 [[assigning-roles]]
-== Assigning Roles
+== Назначение ролей
 
-Now let’s assign roles to users.
+Теперь назначим роли пользователям.
 
-Launch the application and open the *Users* list view. Select the user `alice` and click the *Role assignments* button:
+Запустите приложение и откройте список *Users*. Выберите пользователя `alice` и нажмите кнопку *Role assignments*:
 
 image::role-assign-1.png[align="center", width="1451"]
 
-In the *Role assignments* view, click the *Add* button in the *Resource roles* panel.
+На экране *Role assignments* нажмите кнопку *Add* на панели *Resource roles*.
 
-In the *Select resource roles* dialog, select `WebDAV: minimal access` role. Click *Select*.
+В диалоговом окне *Select resource roles* выберите роль `WebDAV: minimal access`. Нажмите *Select*.
 
-TIP: The `WebDAV: minimal access` role is required for all users who require WebDAV functionality. It grants basic access to all WebDAV-related entities within the system.
+TIP: Роль `WebDAV: minimal access` требуется для всех пользователей, которым нужна функциональность WebDAV. Она предоставляет базовый доступ ко всем сущностям, связанным с WebDAV, в системе.
 
-Ensure that the user `alice` has the following resource and row-level roles:
+Убедитесь, что у пользователя `alice` есть следующие ресурсные роли и роли уровня строк:
 
 image::role-assign-2.png[align="center", width="1451"]
 
-Add `WebDAV: minimal access` resource role for the user `bob`.
+Добавьте ресурсную роль `WebDAV: minimal access` для пользователя `bob`.
 
-Click the *Add* button in the *Row-level roles* panel.
+Нажмите кнопку *Add* на панели *Row-level roles*.
 
-In the *Select row-level roles* dialog, select `web-dav-documents-department` role. Click *Select*.
+В диалоговом окне *Select row-level roles* выберите роль `web-dav-documents-department`. Нажмите *Select*.
 
-Ensure that the user `bob` has the following resource and row-level roles:
+Убедитесь, что у пользователя `bob` есть следующие ресурсные роли и роли уровня строк:
 
 image::role-assign-3.png[align="center", width="1451"]
 
-Log in as `alice`.
+Войдите как `alice`.
 
-`alice` is HR Manager. So this user can view all WebDAV documents uploaded to the system, upload new documents, delete documents, and edit the content of documents.
+`alice` — HR-менеджер. Поэтому этот пользователь может просматривать все документы WebDAV, загруженные в систему, загружать новые документы, удалять документы и редактировать содержимое документов.
 
-Ensure this by accessing the *Knowledge base* view.
+Убедитесь в этом, открыв экран *Knowledge base*.
 
 image::view-by-alice.png[align="center", width="1432"]
 
-Log in as `bob`.
+Войдите как `bob`.
 
-`bob` is Employee. So this user can view only WebDAV documents related to the employee's department. Such a user can only download Web DAV documents using the *Download* button, but cannot create or delete them.
+`bob` — сотрудник. Поэтому этот пользователь может просматривать только документы WebDAV, относящиеся к его отделу. Такой пользователь может только скачивать документы WebDAV с помощью кнопки *Download*, но не может создавать или удалять их.
 
-Ensure this by accessing the *Knowledge base* view.
+Убедитесь в этом, открыв экран *Knowledge base*.
 
 image::view-by-bob.png[align="center", width="1432"]
 
-As you can see, the *Create* and *Remove* buttons are unavailable for this user.
+Как видите, кнопки *Create* и *Remove* недоступны для этого пользователя.
 
 [[summary]]
-== Summary
+== Итоги
 
-In this section, you have modified HR Managers and Employees roles to restrict access to the application for different groups of users.
+В этом разделе вы изменили роли HR-менеджеров и сотрудников, чтобы ограничить доступ к приложению для разных групп пользователей.
 
-You have learned that:
+Вы узнали, что:
 
-* A xref:security:resource-roles.adoc[resource role] grants users the ability to access views and interact with specific entities.
-* A xref:security:row-level-roles.adoc[row-level role], in contrast, is used to restrict a user's ability to read specific rows of data.
-* Roles are assigned to users at runtime using the *Role assignment* view available from the `User.detail` view.
-* The `WebDAV: minimal access` role is required for all users who require WebDAV functionality.
+* xref:security:resource-roles.adoc[Ресурсная роль] предоставляет пользователям доступ к экранам и возможность взаимодействовать с определенными сущностями.
+* xref:security:row-level-roles.adoc[Роль уровня строк], в отличие от ресурсной, используется для ограничения возможности пользователя читать определенные строки данных.
+* Роли назначаются пользователям во время выполнения на экране *Role assignment*, доступном из экрана `User.detail`.
+* Роль `WebDAV: minimal access` требуется всем пользователям, которым нужна функциональность WebDAV.

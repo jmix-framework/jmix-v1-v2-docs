@@ -1,11 +1,11 @@
-= WebDAV Application Properties
+= Свойства приложения WebDAV
 
 [[jmix.webdav.applications]]
 == jmix.webdav.applications
 
-Maps document formats to external applications that should open these documents. You can configure a set of file extensions for each application in the "extensions" property.
+Сопоставляет форматы документов с внешними приложениями, которые должны открывать эти документы. Вы можете настроить набор расширений файлов для каждого приложения в свойстве "extensions".
 
-For example, the following mapping makes the system open PPT and PPTX files with Microsoft PowerPoint:
+Например, следующее сопоставление настраивает систему на открытие файлов PPT и PPTX в Microsoft PowerPoint:
 
 [source,properties,indent=0]
 ----
@@ -16,7 +16,7 @@ For example, the following mapping makes the system open PPT and PPTX files with
   }
 ----
 
-Default value:
+Значение по умолчанию:
 
 [source,properties,indent=0]
 ----
@@ -29,7 +29,7 @@ Default value:
   "extensions":["ppt","pptx"]}}
 ----
 
-Example value for LibreOffice:
+Пример значения для LibreOffice:
 
 [source,properties,indent=0]
 ----
@@ -43,75 +43,75 @@ jmix.webdav.applications = {"vnd.libreoffice.command":\
 [[jmix.webdav.authentication-method]]
 == jmix.webdav.authentication-method
 
-Defines the authentication type.
+Определяет тип авторизации.
 
-Default value: `basic`.
+Значение по умолчанию: `basic`.
 
-Although not recommended, you can set a `digest` in this property and avoid setting up HTTPS on the server. In this case, remember to change the <<jmix.webdav.url-prefix>> property to generate links with the correct server protocol and port. Also, note that all users must have hashed passwords stored separately in the database. The add-on updates these passwords when you change a user's password, so you must do this for each user after setting up digest authentication.
+Хотя это не рекомендуется, вы можете установить в этом свойстве значение `digest` и не настраивать HTTPS на сервере. В этом случае не забудьте изменить свойство <<jmix.webdav.url-prefix>>, чтобы генерировать ссылки с правильным протоколом и портом сервера. Также обратите внимание, что у всех пользователей должны быть хешированные пароли, хранящиеся отдельно в базе данных. Дополнение обновляет эти пароли при изменении пароля пользователя, поэтому вам нужно сделать это для каждого пользователя после настройки digest-авторизации.
 
 [[jmix.webdav.auto-generate-unique-resource-uri]]
 == jmix.webdav.auto-generate-unique-resource-uri
 
-If this property is set to `false` and a newly uploaded document has the URI already assigned to another document, a unique constraint violation will occur.
+Если это свойство установлено в значение `false` и у только что загруженного документа URI уже присвоен другому документу, произойдет нарушение ограничения уникальности.
 
-If this property is set to `true` and the URI is already assigned to some document, a new path will be automatically generated with the `\{id}.extension` format.
+Если это свойство установлено в значение `true` и URI уже присвоен какому-либо документу, автоматически будет сгенерирован новый путь в формате `\{id}.extension`.
 
-Default value: `true`.
+Значение по умолчанию: `true`.
 
 [[jmix.webdav.document-versions-cleaning-cron]]
 == jmix.webdav.document-versions-cleaning-cron
 
-This property allows you to change the schedule of xref:webdav:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] as http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^] expression if necessary.
+Это свойство позволяет при необходимости изменить расписание задачи xref:webdav:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] в виде http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^]-выражения.
 
-The default value is `0 0 0 1 * ? *` (once a month).
+Значение по умолчанию — `0 0 0 1 * ? *` (раз в месяц).
 
 [[jmix.webdav.expired-lock-cleaning-cron]]
 == jmix.webdav.expired-lock-cleaning-cron
 
-This property allows you to change the schedule of xref:webdav:configuration.adoc#expired-lock-cleaning-job[ExpiredLockCleaningJob] as http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^] expression if necessary.
+Это свойство позволяет при необходимости изменить расписание задачи xref:webdav:configuration.adoc#expired-lock-cleaning-job[ExpiredLockCleaningJob] в виде http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html[cron^]-выражения.
 
-The default value is `0 0 0/2 ? * *` (every two hours).
+Значение по умолчанию — `0 0 0/2 ? * *` (каждые два часа).
 
 [[jmix.webdav.file-storage]]
 == jmix.webdav.file-storage
 
-Defines a xref:files:file-storage.adoc[file storage] used to store WebDAV files.
+Определяет xref:files:file-storage.adoc[хранилище файлов], используемое для хранения файлов WebDAV.
 
-By default, the file storage returned by `FileStorageLocator.getDefault()` is used.
+По умолчанию используется хранилище файлов, возвращаемое методом `FileStorageLocator.getDefault()`.
 
 [[jmix.webdav.lock-timeout]]
 == jmix.webdav.lock-timeout
 
-Defines the default interval in milliseconds for a document xref:webdav:webdav-documents.adoc#lock-unlock[locking].
+Определяет интервал по умолчанию в миллисекундах для xref:webdav:webdav-documents.adoc#lock-unlock[блокировки] документа.
 
-Default value: `600000`.
+Значение по умолчанию: `600000`.
 
 [[jmix.webdav.use-default-document-versions-cleaner-quartz-configuration]]
 == jmix.webdav.use-default-document-versions-cleaner-quartz-configuration
 
-This property allows you to disable the default configuration that creates and schedules the xref:webdav:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob] job.
+Это свойство позволяет отключить конфигурацию по умолчанию, которая создает и планирует задачу xref:webdav:configuration.adoc#webdav-document-versions-cleaning-job[WebdavDocumentVersionsCleaningJob].
 
-Default value: `true`.
+Значение по умолчанию: `true`.
 
 [[jmix.webdav.use-default-expired-lock-cleaner-quartz-configuration]]
 == jmix.webdav.use-default-expired-lock-cleaner-quartz-configuration
 
-This property allows you to disable the default configuration that creates and schedules the xref:webdav:configuration.adoc#expired-lock-cleaning-job[ExpiredLockCleaningJob] job.
+Это свойство позволяет отключить конфигурацию по умолчанию, которая создает и планирует задачу xref:webdav:configuration.adoc#expired-lock-cleaning-job[ExpiredLockCleaningJob].
 
-Default value: `true`.
+Значение по умолчанию: `true`.
 
 [[jmix.webdav.url-prefix]]
 == jmix.webdav.url-prefix
 
-Defines the prefix for WebDAV document link.
+Определяет префикс для ссылки на документ WebDAV.
 
-Default value: `\https://localhost:8443/webdav`.
+Значение по умолчанию: `\https://localhost:8443/webdav`.
 
-It must match the root URL of the application with the additional `/webdav` path.
+Оно должно соответствовать корневому URL приложения с дополнительным путем `/webdav`.
 
 [[jmix.webdav.versioning-enabled]]
 == jmix.webdav.versioning-enabled
 
-Enables versioning for all attributes of the `WebdavDocument` type without `@WebdavSupport` annotation.
+Включает версионирование для всех атрибутов типа `WebdavDocument` без аннотации `@WebdavSupport`.
 
-Default value: `true`.
+Значение по умолчанию: `true`.

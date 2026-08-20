@@ -1,49 +1,49 @@
-= Services
+= Сервисы
 
 [[webdav-documents-management-service]]
 == WebdavDocumentsManagementService
 
-The service is intended to be used with `WebdavDocument`. Its methods enable you to perform the following actions:
+Этот сервис предназначен для использования с `WebdavDocument`. Его методы позволяют выполнять следующие действия:
 
-* Retrieve a document using a document version ID, document ID, document URI, or document version.
-* Retrieve a list of documents from a specified document or resource path.
-* Create or remove a lock on a document with a defined timeout period.
-* Create, update, or delete a document.
-* Create, update, or delete versions of a specific document.
+* Получать документ по идентификатору версии документа, идентификатору документа, URI документа или версии документа.
+* Получать список документов из указанного документа или пути ресурса.
+* Создавать или удалять блокировку документа с заданным периодом тайм-аута.
+* Создавать, обновлять или удалять документ.
+* Создавать, обновлять или удалять версии конкретного документа.
 
 [[webdav-document-versions-management-service]]
 == WebdavDocumentVersionsManagementService
 
-The service is utilized for managing document versions, providing the following capabilities:
+Этот сервис используется для управления версиями документов и предоставляет следующие возможности:
 
-* Retrieving the initial version of a document.
-* Obtaining the most recent version of a document.
-* Retrieving a specific version of a document
-* Retrieving all available versions of a document
-* Creating, updating, or deleting document versions
+* Получение первой версии документа.
+* Получение последней версии документа.
+* Получение конкретной версии документа
+* Получение всех доступных версий документа
+* Создание, обновление или удаление версий документов
 
 [[webdav-raw-links-management-service]]
 == WebdavRawLinksManagementService
 
-The service is used for managing persistent links. Persistent links are stored in the database as instances of the `WebdavLink` entity, pointing to instances of `WebdavDocument` or `WebdavDocumentVersion` entities. The format of the links is as follows: `\http://localhost:8080/app/webdav/link/\{linkIdentifier}`, where the `linkIdentifier` corresponds to the id of the `WebdavLink` entity.
+Этот сервис используется для управления постоянными ссылками. Постоянные ссылки хранятся в базе данных как экземпляры сущности `WebdavLink`, указывающие на экземпляры сущностей `WebdavDocument` или `WebdavDocumentVersion`. Формат ссылок следующий: `\http://localhost:8080/app/webdav/link/\{linkIdentifier}`, где `linkIdentifier` соответствует идентификатору сущности `WebdavLink`.
 
-For example, `\http://localhost:8080/app/webdav/link/7a53ce0e-1576-ad32-a131-4abcde6b1235`.
+Например, `\http://localhost:8080/app/webdav/link/7a53ce0e-1576-ad32-a131-4abcde6b1235`.
 
-When a link is clicked, a non-persistent link is generated and opened. Each link comes with context, which provides additional information on how to open the file entity that the link references. By default, a link is created with a default (empty) context. This context varies based on the type of entity stored in the link. If the entity type is `WebdavDocument`, the file will be opened with full access mode. If the entity type is `WebdavDocumentVersion`, the file will be opened in read-only access mode. The string value of the link is contained within the `url` field of the `WebdavUrl`.
+При переходе по ссылке генерируется и открывается временная ссылка. Каждая ссылка сопровождается контекстом, который содержит дополнительную информацию о том, как открыть сущность файла, на который указывает ссылка. По умолчанию ссылка создается с контекстом по умолчанию (пустым). Этот контекст зависит от типа сущности, хранящейся в ссылке. Если тип сущности — `WebdavDocument`, файл будет открыт в режиме полного доступа. Если тип сущности — `WebdavDocumentVersion`, файл будет открыт в режиме только для чтения. Строковое значение ссылки содержится в поле `url` класса `WebdavUrl`.
 
-The service methods provide the capability to establish and delete persistent links to a document with a default, read-only, or custom context.
+Методы сервиса предоставляют возможность создавать и удалять постоянные ссылки на документ с контекстом по умолчанию, только для чтения или с пользовательским контекстом.
 
 [[webdav-url-management-service]]
 == WebdavUrlManagementService
 
-The service is used for retrieving non-persistent links. These links contain details about the application for opening, access mode, filename, and document version. The link either launches the application for the file stored in the `WebdavDocument`/`WebdavDocumentVersion` entity or initiates a download. For instance: `ms-word:ofv|u|http://localhost:8080/app/webdav/document/0e68df0e-8395-4d25-a230-3eb89e6b2674/example.docx`.
+Этот сервис используется для получения временных ссылок. Такие ссылки содержат сведения о приложении для открытия, режиме доступа, имени файла и версии документа. Ссылка либо запускает приложение для файла, хранящегося в сущности `WebdavDocument`/`WebdavDocumentVersion`, либо инициирует скачивание. Например: `ms-word:ofv|u|http://localhost:8080/app/webdav/document/0e68df0e-8395-4d25-a230-3eb89e6b2674/example.docx`.
 
-The link's string value is contained within the `url` field of the `WebdavUrl` class. These links are not stored in the database but are dynamically generated.
+Строковое значение ссылки содержится в поле `url` класса `WebdavUrl`. Такие ссылки не хранятся в базе данных, а генерируются динамически.
 
-NOTE: It is recommended to use persistent links from the `WebdavRawLinksManagementService`.
+NOTE: Рекомендуется использовать постоянные ссылки из `WebdavRawLinksManagementService`.
 
-The service offers the following functionalities:
+Сервис предоставляет следующие возможности:
 
-- Obtaining a link to the most recent document version with full access or in read-only mode.
-- Obtaining a link to a specific document version with full access or in read-only mode.
-- Retrieving details about an external application utilized for opening a document version.
+- Получение ссылки на последнюю версию документа с полным доступом или в режиме только для чтения.
+- Получение ссылки на конкретную версию документа с полным доступом или в режиме только для чтения.
+- Получение сведений о внешнем приложении, используемом для открытия версии документа.
