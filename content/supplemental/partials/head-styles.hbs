@@ -4,3 +4,84 @@
 <link rel="stylesheet" href="{{{uiRootPath}}}/css/site.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+<style>
+    .jmix-banner {
+        background-color: #8882FFFF;
+        color: #FFFFFFFF;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2rem 1rem;
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        margin-left: 1rem;
+        min-height: 1.8rem;
+        height: auto;
+        border-radius: 4px;
+        align-self: center;
+        font-size: 0.85rem;
+    }
+
+    .jmix-banner-content {
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .jmix-banner-link {
+        color: #FFFFFFFF !important;
+        text-decoration: underline !important;
+    }
+
+    .jmix-banner-link:visited {
+        color: #FFFFFFFF !important;
+    }
+
+    .jmix-banner-close-button {
+        background: none;
+        border: none;
+        color: #FFFFFFFF;
+        font-size: 1.2rem;
+        cursor: pointer;
+        line-height: 1;
+        margin-left: 1rem;
+    }
+
+    .navbar-item-dropdown {
+        flex-grow: 0 !important;
+    }
+
+    @media screen and (max-width: 1400px) {
+        .jmix-banner {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media screen and (max-width: 1250px) {
+        .jmix-banner {
+            font-size: 0.72rem;
+            margin-left: 1rem;
+            padding: 0.2rem 0.5rem;
+        }
+        .jmix-banner-close-button {
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+    }
+
+    @media screen and (max-width: 1150px) {
+        .jmix-banner {
+            font-size: 0.65rem;
+        }
+    }
+
+    @media screen and (max-width: 1080px) {
+        .jmix-banner {
+            display: none !important;
+        }
+    }
+</style>
