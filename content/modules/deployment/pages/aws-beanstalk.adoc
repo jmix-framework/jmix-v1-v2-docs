@@ -1,7 +1,7 @@
 = AWS
 :page-aliases: deploy-to-aws.adoc
 
-本掌机饿哦我们将介绍如何将 Jmix 应用程序构建为可执行 JAR 并在 link:https://aws.amazon.com/elasticbeanstalk/[AWS Elastic Beanstalk^] 服务中部署。
+本章节中我们将介绍如何将 Jmix 应用程序构建为可执行 JAR 并在 link:https://aws.amazon.com/elasticbeanstalk/[AWS Elastic Beanstalk^] 服务中部署。
 
 开始之前，请先创建 AWS 账号并确保能访问 link:https://console.aws.amazon.com/console/home[AWS 控制台^]。
 
