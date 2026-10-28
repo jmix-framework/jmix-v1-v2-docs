@@ -55,9 +55,30 @@ include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/New
 
 == Настройка параметров SMTP-сервера
 
-Используйте xref:configuration.adoc#spring-boot-mail-properties[свойства Spring Boot для почты], чтобы определить основные параметры отправки писем, такие как протокол, хост, порт и другие, в файле `application.properties`.
+Используйте xref:configuration.adoc#spring-boot-mail-properties[свойства Spring Boot для почты], чтобы определить параметры отправки писем, такие как протокол, хост, порт и другие, в файле `application.properties`. Актуальные значения уточните у вашего системного администратора или поставщика почтовых услуг.
 
-NOTE: Возможно, вам потребуется получить параметры конфигурации SMTP-сервера у вашего системного администратора или поставщика услуг. Смотрите xref:oauth-providers.adoc[], чтобы узнать о шагах по настройке отправки писем с помощью этих провайдеров.
+Если ваш SMTP-сервер принимает подключения без аутентификации на стандартном порту 25 (например, внутренний почтовый релей), достаточно указать хост сервера и адрес отправителя:
+
+[source,properties,indent=0]
+----
+spring.mail.host=smtp.company.com
+jmix.email.from-address=info@company.com
+----
+
+Если ваш почтовый сервер использует базовую аутентификацию по имени пользователя и паролю, укажите также учетные данные и параметры подключения. Например:
+
+[source,properties,indent=0]
+----
+spring.mail.host=smtp.company.com
+spring.mail.port=587
+spring.mail.protocol=smtp
+spring.mail.username=username
+spring.mail.password=password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+----
+
+NOTE: Многие почтовые провайдеры поддерживают только авторизацию на основе токена OAuth 2.0 или отказываются от базовой аутентификации. Если ваш провайдер — Google или Microsoft, следуйте инструкциям в разделе xref:oauth-providers.adoc[].
 
 == Работа с пользовательским интерфейсом
 
