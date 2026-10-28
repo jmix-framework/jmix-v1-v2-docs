@@ -55,9 +55,30 @@ include::example$/email-ex1/src/main/java/com/company/emailex1/view/newsitem/New
 
 == Configuring SMTP Server parameters
 
-Use Spring Boot xref:configuration.adoc#spring-boot-mail-properties[mail properties] to define basic email sending parameters, such as protocol, host, port, and others in the `application.properties` file.
+Use Spring Boot xref:configuration.adoc#spring-boot-mail-properties[mail properties] to define email sending parameters, such as protocol, host, port, and others in the `application.properties` file. Obtain the actual values from your system administrator or email service provider.
 
-NOTE: You may need to obtain SMTP server configuration parameters from your system administrator or service provider. See the xref:oauth-providers.adoc[] for steps to configure email sending with these providers.
+If your SMTP server accepts unauthenticated connections on the default port 25 (for example, an internal mail relay), it is enough to specify the server host and the sender address:
+
+[source,properties,indent=0]
+----
+spring.mail.host=smtp.company.com
+jmix.email.from-address=info@company.com
+----
+
+If your mail server uses basic authentication with a username and password, also specify the credentials and the connection parameters. For example:
+
+[source,properties,indent=0]
+----
+spring.mail.host=smtp.company.com
+spring.mail.port=587
+spring.mail.protocol=smtp
+spring.mail.username=username
+spring.mail.password=password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+----
+
+NOTE: Many email providers support only OAuth 2.0 token-based authorization or are phasing out basic authentication. If your provider is Google or Microsoft, follow the instructions in the xref:oauth-providers.adoc[] section.
 
 == Working with User Interface
 
