@@ -74,10 +74,3 @@ include::example$/notifications-ex1/src/main/java/com/company/notificationsex1/a
 * *Notifications: In-app notifications reader* – пользователь, который получает уведомления, отправленные через встроенный канал, и может читать их в специальном диалоге.
 * *Notifications: sender* – пользователь может создавать и отправлять уведомления.
 * *Notifications: combines sender and reader* – объединяет роли отправителя и читателя.
-
-////
-[[using-in-bpm]]
-== Using in BPM
-
-You can send notifications in Business Processes. For more details, see the xref:bpm:sending-notifications.adoc[corresponding section] in BPM.
-////

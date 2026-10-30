@@ -1,2 +1,0 @@
-Dear ${context.recipientUser.username},
-Service task ${context.taskName} has proceed.

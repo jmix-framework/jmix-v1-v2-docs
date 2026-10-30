@@ -67,6 +67,6 @@ Jmix BPM придерживается широко распространенн�
 
 * xref:jmix:quartz:index.adoc[Quartz] – позволяет планировать запуск процессов по расписанию.
 * xref:jmix:business-calendar:index.adoc[Business calendar] – возможность учитывать рабочие часы участников процесса.
-* xref:jmix:notifications:index.adoc[Notifications] – отправка in-app уведомлений участникам процесса и контролирующим лицам. Подробнее в разделе xref:bpm:sending-notifications.adoc[].
+* xref:jmix:notifications:index.adoc[Notifications] – отправка уведомлений внутри приложения и по электронной почте. Чтобы отправлять их из процесса, xref:jmix:notifications:creating-notifications.adoc#programmatic-creation[создавайте уведомления программно] в Service Task или в слушателе.
 * xref:jmix:email:index.adoc[Email Sending] – отправка электронных писем. Подробнее в разделе xref:bpm:bpmn/jmix-email-task.adoc[].
 * xref:jmix:reports:index.adoc[Reports] – построение отчетов на основе оперативных данных и статистики исполнения процессов.
