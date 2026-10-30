@@ -78,6 +78,30 @@ The command should return the Java version, e.g. `17.0.9`.
 
 CAUTION: If you connect to the internet via a proxy server, some Java system properties must be passed to the JVM running development tools and Gradle. xref:studio:install.adoc#working-behind-proxy[Configure] these properties using Jmix Studio.
 
+[[node]]
+== Install Node.js
+
+This section explains how to use October 2026 Node.js security releases with fixed vulnerabilities (see https://vaadin.com/security/advisory-2026-10-23-2[^]).
+
+Node.js is only used to build the frontend and to run the development server. A deployed application serves a prebuilt bundle and doesn’t run Node.js.
+
+Jmix 2.8 includes Vaadin 24. Free maintenance for Vaadin 24 has ended, and the release with the updated Node.js is only available with Vaadin’s extended support.
+
+How to use updated Node.js:
+
+1. Delete the `~/.vaadin/node` folder (this is Node.js Vaadin downloaded earlier).
+2. Update the global Node.js on development machines and CI servers to a patched version: 22.23.4 (recommended for Vaadin 24) or 24.22.1.
+3. Set the patched version in `build.gradle`, even if Node.js is installed globally. It covers machines and CI servers without Node.js, where Vaadin would otherwise download its own vulnerable default, and has no effect where a suitable Node.js is installed. Remove it when you upgrade to Jmix 3.
+
+[source,groovy]
+----
+vaadin {
+    ...
+    nodeVersion = "v22.23.4"
+    nodeAutoUpdate = true
+}
+----
+
 [[agentic-coding]]
 == Coding with AI Agents
 
