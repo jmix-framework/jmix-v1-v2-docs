@@ -1,4 +1,0 @@
-Dear ${context.recipientUser.username},
-You email ${context.recipientUser.email} is used to reach needed person.
-Your subordinate ${context.taskAssigneeUser.username} has one assigned task with name ${context.taskName} and id ${context.taskId}.
-Please take into account that process ${context.processDefinitionName} is very important for our business practice.

@@ -74,10 +74,3 @@ To work with notifications, users with limited access to the system should have 
 * *Notifications: In-app notifications reader* – a user that receives notifications sent through the in-app channel and can read them in a special dialog.
 * *Notifications: sender* – a user who can create and send notifications.
 * *Notifications: combines sender and reader* – combines sender and reader roles.
-
-////
-[[using-in-bpm]]
-== Using in BPM
-
-You can send notifications in Business Processes. For more details, see the xref:bpm:sending-notifications.adoc[corresponding section] in BPM.
-////

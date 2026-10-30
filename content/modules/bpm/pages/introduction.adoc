@@ -72,6 +72,6 @@ Alongside the BPM features, incorporating other *add-ons* can further enhance yo
 
 * xref:jmix:quartz:index.adoc[Quartz] – enables scheduled tasks execution, configurable at runtime.
 * xref:jmix:business-calendar:index.adoc[Business calendar] – enables accounting for working hours, which is especially useful in business processes.
-* xref:jmix:notifications:index.adoc[Notifications] – enables sending notifications to process participants and supervisory personnel. See xref:bpm:sending-notifications.adoc[] section for details.
+* xref:jmix:notifications:index.adoc[Notifications] – enables sending in-app and email notifications. To send them from a process, xref:jmix:notifications:creating-notifications.adoc#programmatic-creation[create notifications programmatically] in a service task or a listener.
 * xref:jmix:email:index.adoc[Email Sending] -- enables sending email messages, it is required when using xref:bpm:bpmn/jmix-email-task.adoc[Email Sending task].
 * xref:jmix:reports:index.adoc[Reports] – enables building reports based on operational data and process execution statistics.
