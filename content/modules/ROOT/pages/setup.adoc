@@ -90,9 +90,9 @@ Jmix 2.8 includes Vaadin 24. Free maintenance for Vaadin 24 has ended, and the r
 How to use updated Node.js:
 
 1. Delete the `~/.vaadin/node` folder (this is Node.js Vaadin downloaded earlier).
-2. Update the global Node.js on development machines and CI servers to a patched version: 22.23.4 (recommended for Vaadin 24) or 24.22.1.
+2. Update the global Node.js on development machines and CI servers to a patched version: 22.23.4.
 3. Set the patched version in `build.gradle`, even if Node.js is installed globally. It covers machines and CI servers without Node.js, where Vaadin would otherwise download its own vulnerable default, and has no effect where a suitable Node.js is installed. Remove it when you upgrade to Jmix 3.
-
++
 [source,groovy]
 ----
 vaadin {
